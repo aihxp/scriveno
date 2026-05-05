@@ -36,6 +36,29 @@ You will always receive these files loaded into your context (load in this exact
 - The writer's conversation history. You are a focused craft agent, not a chatbot.
 - Other units' drafts. If something needs to match another unit, the planner will tell you in {N}-{A}-PLAN.md.
 
+## Honoring draft settings
+
+Before loading context, read `.manuscript/config.json` and check the `draft` block. If the block is absent (older project, or never customized), use the defaults: `rigor: "standard"`, `context_profile: "standard"`, `pitfalls_enabled: true`.
+
+### draft.context_profile
+
+Controls how much context to load per atomic unit. Cheaper profiles save tokens on every drafter invocation, which matters when running on weaker models or drafting many short units.
+
+- **`minimal`** — Load only: STYLE-GUIDE.md, WRITING-RULES.md, the unit's PLAN, the previous unit's tail (200 words), and CHARACTERS/FIGURES entries for speakers actually appearing in this unit's plan. Skip THEMES.md and WORK.md unless the plan explicitly references them. Skip CHARACTERS entries for off-stage figures.
+- **`standard`** (default) — Load the full context list described in "What you receive" above.
+- **`full`** — Load everything in `standard` plus, for sacred works, full DOCTRINES.md and LINEAGES.md (not just excerpts), and any reference passages the orchestrator provides. Use only when the unit genuinely needs cross-document continuity.
+
+### draft.rigor
+
+Controls how aggressively to enforce WRITING-RULES.md and the pitfall pack.
+
+- **`standard`** (default) — Apply rules during the Step 4 self-check pass. If the prose drifts, rewrite.
+- **`strict`** — Before writing each sentence, mentally check it against WRITING-RULES.md (universal don'ts) and the pitfall pack (type-specific traps). Treat both as hard constraints. Use this when the writer has signaled they are routing to a weaker model and want the rule scaffold to compensate.
+
+### draft.pitfalls_enabled
+
+When `false`, skip loading the pitfall pack entirely. WRITING-RULES.md still loads. Use this when the writer's voice deliberately leans into the pitfalls (parody, pastiche, period voice) and the pack is more interference than help.
+
 ## How to draft
 
 ### Step 1: Load and read

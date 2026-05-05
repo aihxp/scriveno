@@ -19,6 +19,12 @@
     "drift_threshold": 0.3
   },
 
+  "draft": {
+    "rigor": "standard",
+    "context_profile": "standard",
+    "pitfalls_enabled": true
+  },
+
   "export": {
     "default_format": "docx_manuscript",
     "include_front_matter": true,
