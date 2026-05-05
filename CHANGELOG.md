@@ -2,7 +2,7 @@
 
 All notable package-level changes to `scriven-cli` are documented here.
 
-## Unreleased
+## 1.6.0 - 2026-05-05
 
 Draft-quality-aware drafter: layered rule scaffolding to keep weaker models from drifting into generic AI prose.
 

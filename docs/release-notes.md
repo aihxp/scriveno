@@ -2,6 +2,40 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 1.6.0 - 2026-05-05
+
+### What changed
+
+- Added `templates/WRITING-RULES.md`: a one-screen canonical list of universal AI-tell don'ts, loaded by the drafter, voice-checker, and originality-check after `STYLE-GUIDE.md`
+- Added per-work-type pitfall packs under `templates/pitfalls/<work_type>.md` for novel, memoir, screenplay, runbook, research_paper, poetry_collection, comic, and commentary; drop-in extension supported with no library or constraint edits
+- Added a `draft` block to `templates/config.json` with three optional knobs: `rigor` (`standard|strict`), `context_profile` (`minimal|standard|full`), and `pitfalls_enabled` (`true|false`)
+- Exposed the new knobs in `/scr-settings`; replaced the 3-genre hardcode in `/scr-line-edit` with pack-aware lookup
+- Added `lib/architectural-profiles.js#listPitfallPacks` and `getPitfallPackPath`, re-exported from `bin/install.js`
+- Added `docs/drafter-quality.md` documenting the three rule layers, settings, and model-tier recommendations
+- Added 23 new tests covering pack registration, drop-in extensibility, config schema, and drafter contract
+
+### Why it matters
+
+`1.6.0` introduces layered rule scaffolding designed to keep weaker models from drifting into generic AI prose. Conflict resolution is top-down: `STYLE-GUIDE.md` beats `WRITING-RULES.md` beats the pitfall pack. The writer's voice stays sovereign; the new rule layers are scaffolding, not constraints.
+
+### Affected areas
+
+- drafter agent contract
+- voice-checker and originality-check pattern detection
+- line-edit and polish cliche detection
+- new-work and import onboarding (project provisioning)
+- project config schema (`.manuscript/config.json` `draft` block)
+- public docs and CHANGELOG
+
+### Backward compatibility
+
+Every layer is optional. Projects predating `1.6.0` keep working: WRITING-RULES.md absent falls back to inline rules, missing pitfall packs skip silently, and an absent `draft` block uses standard defaults.
+
+### Verification
+
+- `npm test` (1617 tests pass)
+- `npm pack --dry-run` confirms WRITING-RULES.md, all 8 pitfall packs, and `docs/drafter-quality.md` ship in the tarball
+
 ## 1.5.3 - 2026-04-18
 
 ### What changed

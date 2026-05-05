@@ -197,11 +197,11 @@ Scriven currently ships installer targets for these AI tooling environments:
 
 ## Status
 
-**Version:** 1.5.3
+**Version:** 1.6.0
 
- Scriven's core command surface is stable across 108 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, and the published package version is now `1.5.3`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
+ Scriven's core command surface is stable across 108 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, and the published package version is now `1.6.0`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
 
- Version `1.5.3` packages the post-`1.5.2` hardening work that landed in the repo baseline: command-surface truthfulness, workflow-contract integrity, the Claude `/scr-*` surface, the Codex `$scr-*` skill surface, save-history contracts, session boundaries, and help/docs alignment, all without changing the zero-dependency architecture.
+ Version `1.6.0` introduces the draft-quality-aware drafter: a universal `WRITING-RULES.md` rulebook, per-work-type pitfall packs, and a `draft` config block (`rigor`, `context_profile`, `pitfalls_enabled`) for matching the drafter to the model tier you're routing to. Conflict resolution is top-down (STYLE-GUIDE.md beats WRITING-RULES.md beats pitfall pack); existing projects keep working without modification. See [docs/drafter-quality.md](docs/drafter-quality.md) for the full system.
 
 Package history is tracked in [CHANGELOG.md](CHANGELOG.md), and the public-facing summary for this release is in [docs/release-notes.md](docs/release-notes.md).
 
