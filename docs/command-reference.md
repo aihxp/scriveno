@@ -2023,7 +2023,14 @@ Start a dedicated conversation about your magic system that you can return to an
 ```
 /scr:settings
 ```
-Review and adjust your project configuration -- work type, autopilot profile, developer mode, and more.
+Review and adjust your project configuration -- work type, autopilot profile, developer mode, voice drift threshold, and the `draft` block (drafter quality controls).
+
+**Drafter quality knobs (1.6.0+):**
+- `draft.rigor`: `standard` or `strict`. Strict prepends a per-sentence rules check, useful when routing to weaker models.
+- `draft.context_profile`: `minimal`, `standard`, or `full`. Controls how much context the drafter loads per atomic unit. `minimal` saves tokens; `full` loads cross-document references for sacred-work continuity.
+- `draft.pitfalls_enabled`: `true` or `false`. When `false`, skip loading the per-work-type pitfall pack from `templates/pitfalls/<work_type>.md`. WRITING-RULES.md still loads.
+
+See [Drafter Quality](drafter-quality.md) for the full system and model-tier recommendations.
 
 ---
 

@@ -170,10 +170,16 @@ scriven/
     OUTLINE.md             Structural outline template
     CHARACTERS.md          Character profiles template
     STYLE-GUIDE.md         Voice DNA template
+    WRITING-RULES.md       Universal AI-tell rulebook (1.6.0+)
     THEMES.md              Thematic threads template
     STATE.md               Progress tracking template
     BRIEF.md               Project brief template
     WORLD.md               World-building template
+    pitfalls/              Per-work-type pitfall packs (1.6.0+)
+      novel.md, memoir.md, screenplay.md, runbook.md,
+      research_paper.md, poetry_collection.md, comic.md,
+      commentary.md (drop-in extensible: contributors add
+      <work_type>.md and listPitfallPacks() picks it up)
     technical/             Technical-writing template variants
       DOC-BRIEF.md           Replaces BRIEF.md for technical docs
       AUDIENCE.md            Reader and audience contract
@@ -282,14 +288,18 @@ This is the core architectural pattern that makes Scriven work. Every agent invo
 
 ### What the drafter receives
 
-For each atomic unit (scene, subsection, passage, stanza), the drafter agent gets:
+For each atomic unit (scene, subsection, passage, stanza), the drafter agent gets, loaded in this exact order so the prompt cache stays warm across invocations:
 
-1. **STYLE-GUIDE.md** -- Always first. The voice DNA profile with 15+ dimensions: POV, tense, sentence architecture, vocabulary register, figurative density, dialogue style, pacing, and always/never/consider rules.
-2. **{N}-{A}-PLAN.md** -- The specific plan for this unit: what happens, emotional arc, beats to hit, voice notes, continuity anchors.
-3. **CHARACTERS.md excerpt** -- Only characters relevant to this unit, with their voice anchors and speech patterns.
-4. **Previous unit tail** -- The last 200 words of the preceding unit, for rhythm and tone continuity.
-5. **THEMES.md excerpt** -- Only the thematic threads this unit should advance.
-6. **WORK.md excerpt** -- Premise, tone, central question (for orientation, not copying).
+1. **STYLE-GUIDE.md** -- Always first, sovereign. The voice DNA profile with 15+ dimensions: POV, tense, sentence architecture, vocabulary register, figurative density, dialogue style, pacing, and always/never/consider rules.
+2. **WRITING-RULES.md** (optional, 1.6.0+) -- Universal AI-tell rulebook. The canonical list of don'ts (hedging, throat-clearing, balanced-both-sides, generic metaphors, symmetrical rhythm, moralizing closings, AI tics in dialogue, show-don't-tell triggers). Loaded if present; falls back to inline rules in `agents/drafter.md` when absent.
+3. **Pitfall pack** (optional, 1.6.0+) -- Type-specific traps from `templates/pitfalls/<work_type>.md` (or `.manuscript/PITFALLS.md` for project-local overrides). Refines WRITING-RULES.md with traps unique to the work type: filter words for prose, unfilmable description for screenplays, missing-precondition checks for runbooks, anachronism for sacred commentary.
+4. **{N}-{A}-PLAN.md** -- The specific plan for this unit: what happens, emotional arc, beats to hit, voice notes, continuity anchors.
+5. **CHARACTERS.md excerpt** -- Only characters relevant to this unit, with their voice anchors and speech patterns.
+6. **Previous unit tail** -- The last 200 words of the preceding unit, for rhythm and tone continuity.
+7. **THEMES.md excerpt** -- Only the thematic threads this unit should advance.
+8. **WORK.md excerpt** -- Premise, tone, central question (for orientation, not copying).
+
+Conflict resolution is top-down: STYLE-GUIDE.md beats WRITING-RULES.md beats the pitfall pack. The writer's voice stays sovereign; the new rule layers are scaffolding intended to keep weaker models from drifting into generic AI prose. The `draft` block in `.manuscript/config.json` (`rigor`, `context_profile`, `pitfalls_enabled`) tunes the system. See [Drafter Quality](drafter-quality.md) for the full reference.
 
 ### What the drafter does NOT receive
 

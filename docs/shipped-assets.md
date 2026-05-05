@@ -1,6 +1,27 @@
 # Shipped Assets
 
-Scriven's launch surface should point to what is actually bundled in this repo today. This document is the canonical inventory for shipped export templates and other trust-critical launch files.
+Scriven's launch surface should point to what is actually bundled in this repo today. This document is the canonical inventory for shipped export templates, drafter-quality assets, and other trust-critical launch files.
+
+## Drafter Quality Assets Shipped Today
+
+These files ship in `templates/` and provide layered rule scaffolding loaded by the drafter, voice-checker, and originality-check after `STYLE-GUIDE.md`. See [docs/drafter-quality.md](drafter-quality.md) for the full system.
+
+- `templates/WRITING-RULES.md` (universal AI-tell rulebook, 5.5kB; loaded after `STYLE-GUIDE.md`)
+
+Per-work-type pitfall packs in `templates/pitfalls/`:
+
+- `pitfalls/novel.md` (prose: filter words, POV breaches, dialogue traps, genre stock phrases)
+- `pitfalls/memoir.md` (prose: retrospective voice traps, sentimentality, self-presentation)
+- `pitfalls/screenplay.md` (script: unfilmable description, action-line bloat, on-the-nose dialogue)
+- `pitfalls/runbook.md` (technical: imperatives, missing preconditions, verification and rollback)
+- `pitfalls/research_paper.md` (academic: hedge stacks, citation hygiene, methodology traps)
+- `pitfalls/poetry_collection.md` (poetry: image cliches, diction traps, sentimentality, form pitfalls)
+- `pitfalls/comic.md` (visual: script-versus-art boundary, panel rhythm, caption voice)
+- `pitfalls/commentary.md` (sacred: register drift, anachronism, source-handling, doctrinal precision)
+
+Conflict resolution is top-down: `STYLE-GUIDE.md` beats `WRITING-RULES.md` beats the pitfall pack. The writer's voice is sovereign; the new rule layers are scaffolding.
+
+A contributor adding `templates/pitfalls/<work_type>.md` is automatically picked up by `lib/architectural-profiles.js#listPitfallPacks` with no edits to library code or `CONSTRAINTS.json`.
 
 ## Export Templates Shipped Today
 
@@ -47,5 +68,8 @@ These export templates are currently bundled in `data/export-templates/`:
 - `commands/scr/export.md` — source of truth for export command behavior
 - `docs/publishing.md` — user-facing explanation of export formats and publishing packages
 - `docs/contributing.md` — contributor-facing guidance for extending export support
+- `docs/drafter-quality.md`: canonical reference for the drafter's three rule layers and the `draft` config block
+- `templates/WRITING-RULES.md`: canonical universal AI-tell rulebook loaded by drafter, voice-checker, and originality-check
+- `templates/pitfalls/<work_type>.md`: per-work-type pitfall packs that refine `WRITING-RULES.md` for a given work type
 - `AGENTS.md` — project instructions that shape planning and implementation claims
 - `CLAUDE.md` — mirrored project instructions and product-plan context

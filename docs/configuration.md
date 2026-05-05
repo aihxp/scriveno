@@ -97,6 +97,24 @@ Sacred work types add a `sacred` block seeded from `config_defaults`. Depending 
 
 Sacred projects also load the template variants under `templates/sacred/`.
 
+### Drafter quality settings
+
+Starting in `1.6.0`, projects can include an optional `draft` block to tune how the drafter loads context and applies rule scaffolding. The block is optional; absent block falls back to the documented defaults.
+
+```json
+"draft": {
+  "rigor": "standard",
+  "context_profile": "standard",
+  "pitfalls_enabled": true
+}
+```
+
+- `draft.rigor`: `standard` (default) or `strict`. Strict prepends a per-sentence rules check, useful when routing to weaker models that need scaffolding to stay on-voice.
+- `draft.context_profile`: `minimal`, `standard` (default), or `full`. Controls how much context the drafter loads per atomic unit. Minimal trims THEMES, WORK, and off-stage CHARACTERS for short scenes; full loads cross-document references for sacred-work continuity.
+- `draft.pitfalls_enabled`: `true` (default) or `false`. When `false`, skip loading the per-work-type pitfall pack from `templates/pitfalls/<work_type>.md`. WRITING-RULES.md still loads. Use when the writer's voice deliberately leans into a trap (parody, pastiche, period voice).
+
+`/scr:settings` exposes all three knobs in its display and change flow. See [Drafter Quality](drafter-quality.md) for the full system, including model-tier recommendations and the override hierarchy (STYLE-GUIDE.md beats WRITING-RULES.md beats the pitfall pack).
+
 ## Developer mode
 
 Scriven defaults projects to:
@@ -164,5 +182,7 @@ npm pack --dry-run
 - [Getting Started](getting-started.md)
 - [Architecture](architecture.md)
 - [Contributing](contributing.md)
+- [Drafter Quality](drafter-quality.md)
+- [Voice DNA](voice-dna.md)
 - [Runtime Support](runtime-support.md)
 - [Publishing](publishing.md)

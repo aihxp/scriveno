@@ -222,13 +222,32 @@ Scriven uses a **fresh-context-per-unit** architecture. Here's how it works:
 
 1. Each atomic unit (scene, passage, verse, beat) gets its own fresh drafter agent invocation
 2. The drafter loads STYLE-GUIDE.md first -- before anything else
-3. The drafter also receives the last 200 words of the previous unit for continuity
-4. The drafter writes the unit, checking every sentence against your voice profile
-5. After drafting, a voice-check pass flags any drift
+3. The drafter then loads two optional rule layers (see "Three rule layers" below) that scaffold weaker models against AI tells
+4. The drafter also receives the last 200 words of the previous unit for continuity
+5. The drafter writes the unit, checking every sentence against your voice profile
+6. After drafting, a voice-check pass flags any drift
 
 Why fresh context? Because AI agents accumulate context over a conversation, and accumulated context causes voice drift. After 10,000 words of continuous generation, the AI starts sounding like itself instead of like you. By giving each unit a clean slate with STYLE-GUIDE.md loaded fresh, Scriven keeps every unit at peak voice fidelity.
 
 This is the same principle behind recording each instrument separately in a studio -- isolation gives you control.
+
+### Three rule layers
+
+Starting in `1.6.0`, Scriven loads three rule layers in this order on every drafter invocation:
+
+1. **STYLE-GUIDE.md** (sovereign): your Voice DNA. Always loaded; nothing overrides it.
+2. **WRITING-RULES.md** (universal, optional): canonical AI-tell don'ts that apply to all writing. Hedging, throat-clearing, balanced-both-sides constructions, generic metaphors, symmetrical rhythm, moralizing closings, AI tics in dialogue. Loaded if the file is present in `.manuscript/` or the installed templates.
+3. **Pitfall pack** (type-specific, optional): traps unique to your `work_type`. Filter words for prose, unfilmable description for screenplays, missing-precondition checks for runbooks, anachronism for sacred commentary, and so on. Loaded from `.manuscript/PITFALLS.md` if you've authored a project-local override, otherwise from the installed `templates/pitfalls/<work_type>.md`.
+
+Conflict resolution is top-down: STYLE-GUIDE.md beats WRITING-RULES.md beats the pitfall pack. If your voice in STYLE-GUIDE.md says you hedge or moralize deliberately, that voice wins. The new rule layers are scaffolding, not constraints.
+
+Three knobs in `.manuscript/config.json` tune the system:
+
+- `draft.rigor`: `standard` (defaults) or `strict` (per-sentence rules check; useful when routing to a weaker model)
+- `draft.context_profile`: `minimal`, `standard`, or `full` (controls how much context the drafter loads per unit; `minimal` saves tokens on weaker models)
+- `draft.pitfalls_enabled`: `true` (default) or `false` (skip the pitfall pack when the writer's voice deliberately leans into a trap)
+
+See [docs/drafter-quality.md](drafter-quality.md) for the full system, including model-tier recommendations.
 
 ## Troubleshooting
 
@@ -260,11 +279,12 @@ This is the same principle behind recording each instrument separately in a stud
 ### AI-sounding hedging
 
 **Symptom:** Phrases like "perhaps," "it could be argued," "in a sense" appearing in drafted prose.
-**Fix:** Add to your "Never" list: "Never use hedging language (perhaps, it could be argued, in a sense, to some degree)." The drafter respects Never rules absolutely.
+**Fix:** Two complementary remedies. (1) Add to your "Never" list: "Never use hedging language (perhaps, it could be argued, in a sense, to some degree)." The drafter respects Never rules absolutely. (2) Confirm `WRITING-RULES.md` is present in `.manuscript/`; its "Hedging and qualifiers" subsection is loaded by the drafter and voice-checker as the canonical AI-tell list. If voice-check reports keep flagging hedges, set `draft.rigor` to `strict` in `config.json` to enforce per-sentence checks.
 
 ## See Also
 
 - [Proof Artifacts](proof-artifacts.md) -- inspect the Voice DNA before/after bundle first if you want the fastest concrete evidence
 - [Getting Started](getting-started.md) -- Install Scriven and write your first draft
+- [Drafter Quality](drafter-quality.md) -- the three rule layers, the `draft` config block, and model-tier recommendations
 - [Command Reference](command-reference.md) -- Full list of all 108 commands with usage and examples
 - [Work Types Guide](work-types.md) -- How work types adapt Scriven's vocabulary and commands
