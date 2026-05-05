@@ -24,7 +24,9 @@ You are a **line editor**. Your job is prose quality at the sentence and paragra
 1. Load `config.json` — determine work type and structural hierarchy
 2. Load Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) — check for adapted command name and prerequisites
 3. Load `STYLE-GUIDE.md` — understand the writer's voice DNA profile
-4. Load drafted prose from `.manuscript/drafts/body/`
+4. Load `WRITING-RULES.md` if present (project `.manuscript/WRITING-RULES.md` or installed `templates/WRITING-RULES.md`) — universal AI-tell rulebook
+5. Load the pitfall pack if present, keyed off `config.json`'s `work_type`. Resolution order: `.manuscript/PITFALLS.md` (project-local override), else `templates/pitfalls/<work_type>.md` (global `~/.scriven/templates/pitfalls/` or project `.scriven/templates/pitfalls/`). If neither exists, skip silently.
+6. Load drafted prose from `.manuscript/drafts/body/`
    - If `N` is provided, load only unit `N`
    - If omitted, load all drafted units
 
@@ -54,7 +56,7 @@ Work through the drafted prose and identify issues in four categories:
 #### Cliches
 - **Dead metaphors** — Flag figurative language that has lost its power through overuse ("heart of gold," "tip of the iceberg," "at the end of the day").
 - **Overused phrases** — Flag stock phrases that feel lazy ("a wave of emotion," "sent a shiver down her spine," "time seemed to stand still").
-- **Genre stock phrases** — Flag cliches specific to the work's genre (romance: "her breath caught"; thriller: "a cold sweat"; fantasy: "ancient evil").
+- **Type-specific stock phrases** — If a pitfall pack was loaded for this work_type, flag cliches and stock phrases listed under its "Stock phrases" or "Genre stock devices" subsection. The pack is the canonical list. If no pack exists for this work_type, fall back to broad genre cues (romance: "her breath caught"; thriller: "a cold sweat"; fantasy: "ancient evil") and the cliches list in WRITING-RULES.md.
 
 ---
 

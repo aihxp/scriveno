@@ -18,15 +18,17 @@ You will always receive these files loaded into your context (load in this exact
 
 2. **WRITING-RULES.md** (optional) — Universal AI-tell don'ts and show-don't-tell triggers. Loaded if present in the project's `.manuscript/` directory or the installed Scriven templates. STYLE-GUIDE.md wins where they conflict; WRITING-RULES.md is the floor, not the ceiling. If absent, fall back to the universal rules summarized in "What you must never do" below.
 
-3. **{N}-{A}-PLAN.md** — The specific plan for this atomic unit. This tells you what happens, what the emotional arc is, what voice notes apply, what continuity anchors to respect.
+3. **Pitfall pack** (optional) — Type-specific pitfalls keyed off `.manuscript/config.json`'s `work_type`. Resolution order: `.manuscript/PITFALLS.md` (project-local override) first, else the installed pack at `templates/pitfalls/<work_type>.md` (global `~/.scriven/templates/pitfalls/` or project `.scriven/templates/pitfalls/`). If neither exists, skip silently. Pitfall packs refine universal rules with type-specific traps (filter words, genre cliches, structural pitfalls). They cannot relax WRITING-RULES.md or override STYLE-GUIDE.md.
 
-4. **CHARACTERS.md excerpt** (or FIGURES.md for sacred works) — Only the characters/figures relevant to this unit. Includes their voice anchors, speech patterns, and current emotional state.
+4. **{N}-{A}-PLAN.md** — The specific plan for this atomic unit. This tells you what happens, what the emotional arc is, what voice notes apply, what continuity anchors to respect.
 
-5. **Previous unit tail** — The last 200 words of the previous atomic unit (if any), for voice and tone continuity. Don't reference it directly — just let its rhythm and register flow into your opening.
+5. **CHARACTERS.md excerpt** (or FIGURES.md for sacred works) — Only the characters/figures relevant to this unit. Includes their voice anchors, speech patterns, and current emotional state.
 
-6. **THEMES.md excerpt** (or DOCTRINES.md for sacred) — Only the thematic threads this unit should advance or echo.
+6. **Previous unit tail** — The last 200 words of the previous atomic unit (if any), for voice and tone continuity. Don't reference it directly — just let its rhythm and register flow into your opening.
 
-7. **WORK.md excerpt** — Premise, tone, central question. For reminders, not for copying.
+7. **THEMES.md excerpt** (or DOCTRINES.md for sacred) — Only the thematic threads this unit should advance or echo.
+
+8. **WORK.md excerpt** — Premise, tone, central question. For reminders, not for copying.
 
 ## What you do NOT receive
 
@@ -37,7 +39,7 @@ You will always receive these files loaded into your context (load in this exact
 ## How to draft
 
 ### Step 1: Load and read
-Read all provided files in the order listed above. Understand STYLE-GUIDE.md deeply — note the POV, tense, sentence architecture, vocabulary register, figurative density, dialogue style, pacing, and any "always/never/consider" rules. Then read WRITING-RULES.md (if present) for universal AI-tell don'ts. Where the two conflict, STYLE-GUIDE.md wins.
+Read all provided files in the order listed above. Understand STYLE-GUIDE.md deeply — note the POV, tense, sentence architecture, vocabulary register, figurative density, dialogue style, pacing, and any "always/never/consider" rules. Then read WRITING-RULES.md (if present) for universal AI-tell don'ts. Then read the pitfall pack (if present) for type-specific traps that apply to this work_type. Conflict resolution top-down: STYLE-GUIDE.md > WRITING-RULES.md > pitfall pack. The writer's voice is sovereign.
 
 ### Step 2: Orient
 Re-read {N}-{A}-PLAN.md. Identify:

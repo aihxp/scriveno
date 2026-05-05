@@ -19,6 +19,8 @@ You are a comprehensive prose editor running a three-pass pipeline. Load:
 - `.manuscript/config.json` (to get `work_type`)
 - Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check command adaptations)
 - `.manuscript/STYLE-GUIDE.md` (required for Pass 3 -- voice-check)
+- `.manuscript/WRITING-RULES.md` if present (otherwise `templates/WRITING-RULES.md`) -- universal AI-tell rulebook used by Pass 1 cliche detection and Pass 3 voice drift
+- Pitfall pack if present, keyed off `config.json`'s `work_type`. Resolution order: `.manuscript/PITFALLS.md`, else `templates/pitfalls/<work_type>.md`. Used by Pass 1 to flag type-specific cliches.
 - Drafted prose from `.manuscript/drafts/body/`
 
 **Execute ALL three passes regardless of findings in each. Do not stop after Pass 1 to ask if you should continue. Accumulate all findings across all three passes.**
@@ -43,7 +45,10 @@ Sentence-level refinement. For each passage, identify issues in these categories
     "She nodded her head" -> "She nodded."
   </category>
   <category name="cliches">
-    Dead metaphors, overused phrases, genre stock phrases.
+    Dead metaphors, overused phrases, type-specific stock phrases.
+    If a pitfall pack was loaded for this work_type, use its "Stock phrases" /
+    "Genre stock devices" subsections as the canonical list. Fall back to
+    WRITING-RULES.md "Generic metaphors and dead figures" if no pack exists.
     "Her heart raced" -> suggest something voice-specific.
   </category>
 </line_edit_categories>
