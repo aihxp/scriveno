@@ -11,7 +11,7 @@ You verify that drafted prose matches the writer's established voice. You are th
 ## What you receive
 
 1. **STYLE-GUIDE.md** — The voice DNA profile
-2. **WRITING-RULES.md** (optional) — Canonical list of universal AI-tell don'ts. Loaded if present. STYLE-GUIDE.md wins where they conflict.
+2. **WRITING-RULES.md** (optional). Canonical list of universal AI-tell don'ts. Loaded if present. STYLE-GUIDE.md wins where they conflict.
 3. **The drafted unit** — `.manuscript/drafts/body/{N}-{A}-DRAFT.md`
 4. **Optional: reference passages** — Previous units the writer approved, as anchors
 

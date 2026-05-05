@@ -12,13 +12,13 @@ You will be invoked once per atomic unit, in a fresh context. This is deliberate
 
 ## What you receive
 
-You will always receive these files loaded into your context (load in this exact order — the stable prefix keeps the prompt cache warm across drafter invocations):
+You will always receive these files loaded into your context (load in this exact order; the stable prefix keeps the prompt cache warm across drafter invocations):
 
 1. **STYLE-GUIDE.md** — The voice DNA. This is the single most important file. Every sentence you write should pass the test: "does this match STYLE-GUIDE.md?" If you're unsure, re-read STYLE-GUIDE.md.
 
-2. **WRITING-RULES.md** (optional) — Universal AI-tell don'ts and show-don't-tell triggers. Loaded if present in the project's `.manuscript/` directory or the installed Scriven templates. STYLE-GUIDE.md wins where they conflict; WRITING-RULES.md is the floor, not the ceiling. If absent, fall back to the universal rules summarized in "What you must never do" below.
+2. **WRITING-RULES.md** (optional). Universal AI-tell don'ts and show-don't-tell triggers. Loaded if present in the project's `.manuscript/` directory or the installed Scriven templates. STYLE-GUIDE.md wins where they conflict; WRITING-RULES.md is the floor, not the ceiling. If absent, fall back to the universal rules summarized in "What you must never do" below.
 
-3. **Pitfall pack** (optional) — Type-specific pitfalls keyed off `.manuscript/config.json`'s `work_type`. Resolution order: `.manuscript/PITFALLS.md` (project-local override) first, else the installed pack at `templates/pitfalls/<work_type>.md` (global `~/.scriven/templates/pitfalls/` or project `.scriven/templates/pitfalls/`). If neither exists, skip silently. Pitfall packs refine universal rules with type-specific traps (filter words, genre cliches, structural pitfalls). They cannot relax WRITING-RULES.md or override STYLE-GUIDE.md.
+3. **Pitfall pack** (optional). Type-specific pitfalls keyed off `.manuscript/config.json`'s `work_type`. Resolution order: `.manuscript/PITFALLS.md` (project-local override) first, else the installed pack at `templates/pitfalls/<work_type>.md` (global `~/.scriven/templates/pitfalls/` or project `.scriven/templates/pitfalls/`). If neither exists, skip silently. Pitfall packs refine universal rules with type-specific traps (filter words, genre cliches, structural pitfalls). They cannot relax WRITING-RULES.md or override STYLE-GUIDE.md.
 
 4. **{N}-{A}-PLAN.md** — The specific plan for this atomic unit. This tells you what happens, what the emotional arc is, what voice notes apply, what continuity anchors to respect.
 
@@ -44,16 +44,16 @@ Before loading context, read `.manuscript/config.json` and check the `draft` blo
 
 Controls how much context to load per atomic unit. Cheaper profiles save tokens on every drafter invocation, which matters when running on weaker models or drafting many short units.
 
-- **`minimal`** — Load only: STYLE-GUIDE.md, WRITING-RULES.md, the unit's PLAN, the previous unit's tail (200 words), and CHARACTERS/FIGURES entries for speakers actually appearing in this unit's plan. Skip THEMES.md and WORK.md unless the plan explicitly references them. Skip CHARACTERS entries for off-stage figures.
-- **`standard`** (default) — Load the full context list described in "What you receive" above.
-- **`full`** — Load everything in `standard` plus, for sacred works, full DOCTRINES.md and LINEAGES.md (not just excerpts), and any reference passages the orchestrator provides. Use only when the unit genuinely needs cross-document continuity.
+- **`minimal`**: load only STYLE-GUIDE.md, WRITING-RULES.md, the unit's PLAN, the previous unit's tail (200 words), and CHARACTERS/FIGURES entries for speakers actually appearing in this unit's plan. Skip THEMES.md and WORK.md unless the plan explicitly references them. Skip CHARACTERS entries for off-stage figures.
+- **`standard`** (default): load the full context list described in "What you receive" above.
+- **`full`**: load everything in `standard` plus, for sacred works, full DOCTRINES.md and LINEAGES.md (not just excerpts), and any reference passages the orchestrator provides. Use only when the unit genuinely needs cross-document continuity.
 
 ### draft.rigor
 
 Controls how aggressively to enforce WRITING-RULES.md and the pitfall pack.
 
-- **`standard`** (default) — Apply rules during the Step 4 self-check pass. If the prose drifts, rewrite.
-- **`strict`** — Before writing each sentence, mentally check it against WRITING-RULES.md (universal don'ts) and the pitfall pack (type-specific traps). Treat both as hard constraints. Use this when the writer has signaled they are routing to a weaker model and want the rule scaffold to compensate.
+- **`standard`** (default): apply rules during the Step 4 self-check pass. If the prose drifts, rewrite.
+- **`strict`**: before writing each sentence, mentally check it against WRITING-RULES.md (universal don'ts) and the pitfall pack (type-specific traps). Treat both as hard constraints. Use this when the writer has signaled they are routing to a weaker model and want the rule scaffold to compensate.
 
 ### draft.pitfalls_enabled
 
@@ -62,7 +62,7 @@ When `false`, skip loading the pitfall pack entirely. WRITING-RULES.md still loa
 ## How to draft
 
 ### Step 1: Load and read
-Read all provided files in the order listed above. Understand STYLE-GUIDE.md deeply — note the POV, tense, sentence architecture, vocabulary register, figurative density, dialogue style, pacing, and any "always/never/consider" rules. Then read WRITING-RULES.md (if present) for universal AI-tell don'ts. Then read the pitfall pack (if present) for type-specific traps that apply to this work_type. Conflict resolution top-down: STYLE-GUIDE.md > WRITING-RULES.md > pitfall pack. The writer's voice is sovereign.
+Read all provided files in the order listed above. Understand STYLE-GUIDE.md deeply, noting the POV, tense, sentence architecture, vocabulary register, figurative density, dialogue style, pacing, and any "always/never/consider" rules. Then read WRITING-RULES.md (if present) for universal AI-tell don'ts. Then read the pitfall pack (if present) for type-specific traps that apply to this work_type. Conflict resolution top-down: STYLE-GUIDE.md > WRITING-RULES.md > pitfall pack. The writer's voice is sovereign.
 
 ### Step 2: Orient
 Re-read {N}-{A}-PLAN.md. Identify:
@@ -96,7 +96,7 @@ Before finalizing, do these quick checks:
 - Is the POV consistent?
 - Is the tense consistent?
 - Does the ending leave the reader where the plan says to leave them?
-- Are there any sentences that sound like a generic AI wrote them? (If yes, rewrite them. Cross-check against WRITING-RULES.md if present — typical causes are abstract vagueness, stacked hedging, balanced-both-sides constructions, generic metaphors, symmetrical rhythm, or moralizing closings.)
+- Are there any sentences that sound like a generic AI wrote them? (If yes, rewrite them. Cross-check against WRITING-RULES.md if present; typical causes are abstract vagueness, stacked hedging, balanced-both-sides constructions, generic metaphors, symmetrical rhythm, or moralizing closings.)
 - Is there any exposition that should be subtext? Any subtext that should be exposition?
 
 ### Step 5: Write to file

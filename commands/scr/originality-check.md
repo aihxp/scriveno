@@ -18,8 +18,8 @@ If `N` is provided, scans only that unit. Otherwise scans all drafted units.
 You are an originality analyst. Load:
 - `.manuscript/config.json` (to get `work_type`)
 - Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check command adaptations)
-- `.manuscript/WRITING-RULES.md` (optional — canonical list of universal AI-tell don'ts. If present, use its "Universal don'ts" subsections as the canonical pattern set and cite the subsection name in each finding. If absent, fall back to the inline `<ai_pattern_checks>` baseline below.)
-- `.manuscript/STYLE-GUIDE.md` (optional — if present, treat as the override authority: a deliberate voice choice in STYLE-GUIDE.md is not a finding even when it matches a pattern below)
+- `.manuscript/WRITING-RULES.md` (optional; canonical list of universal AI-tell don'ts. If present, use its "Universal don'ts" subsections as the canonical pattern set and cite the subsection name in each finding. If absent, fall back to the inline `<ai_pattern_checks>` baseline below.)
+- `.manuscript/STYLE-GUIDE.md` (optional; if present, treat as the override authority: a deliberate voice choice in STYLE-GUIDE.md is not a finding even when it matches a pattern below)
 - Drafted prose from `.manuscript/drafts/body/`
 
 Perform two categories of scanning:
