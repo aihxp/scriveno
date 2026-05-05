@@ -2,6 +2,23 @@
 
 All notable package-level changes to `scriven-cli` are documented here.
 
+## Unreleased
+
+Draft-quality-aware drafter: layered rule scaffolding to keep weaker models from drifting into generic AI prose.
+
+- added `templates/WRITING-RULES.md`: a one-screen canonical list of universal AI-tell don'ts (hedging, throat-clearing, balanced-both-sides, generic metaphors, symmetrical rhythm, moralizing closings, essay transitions, abstract vagueness, emotional telling, AI tics in dialogue, show-don't-tell triggers). Loaded by drafter, voice-checker, and originality-check after `STYLE-GUIDE.md`.
+- added per-work-type pitfall packs under `templates/pitfalls/<work_type>.md`. Initial coverage: novel, memoir, screenplay, runbook, research_paper, poetry_collection, comic, commentary. Drop-in extension supported via `listPitfallPacks()`.
+- added `draft` block in `templates/config.json` with three knobs: `rigor` (standard|strict), `context_profile` (minimal|standard|full), `pitfalls_enabled` (true|false). All optional; absent block falls back to current behavior.
+- exposed the new knobs in `/scr-settings` display and change flow.
+- replaced the 3-genre hardcode in `commands/scr/line-edit.md` (romance/thriller/fantasy) with pack-aware lookup. Falls back gracefully when no pack exists.
+- added `lib/architectural-profiles.js#listPitfallPacks` and `getPitfallPackPath`, re-exported from `bin/install.js`.
+- added `docs/drafter-quality.md` documenting the three rule layers, settings, and model-tier recommendations.
+- added 23 new tests in `test/drafter-quality-aware.test.js` covering pack registration, drop-in extensibility, config schema, and drafter contract.
+
+Conflict resolution is top-down: `STYLE-GUIDE.md` beats `WRITING-RULES.md` beats the pitfall pack. The writer's voice is sovereign; the rule layers are scaffolding, not constraints.
+
+Backward compatible: existing projects keep working without modification. Every layer is optional and falls back to prior behavior when absent.
+
 ## 1.5.3 - 2026-04-18
 
 This release packages the hardening work that landed after `1.5.2`.

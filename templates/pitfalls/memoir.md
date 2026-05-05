@@ -11,7 +11,7 @@
 
 ## Telling not showing
 
-- Naming the feeling instead of rendering the moment. "I was devastated" — what did the body do, what did the eye land on, what did you fail to do.
+- Naming the feeling instead of rendering the moment. "I was devastated": what did the body do, what did the eye land on, what did you fail to do.
 - Summarizing relationships ("My father was a complicated man"). Show one scene that makes the complication visible.
 - Time-collapsed reflection ("For years afterward, I would..."). Earn it with a specific later moment.
 

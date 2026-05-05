@@ -6,11 +6,11 @@
 
 These verbs interpose the narrator between reader and event. Cut them unless the POV explicitly observes itself.
 
-- "she felt", "he felt the X" — describe the sensation directly
-- "she saw", "he noticed", "she watched" — describe the thing itself
-- "she heard" — describe the sound
-- "she thought", "she wondered", "she realized" — render the thought as direct interiority or action
-- "she seemed", "appeared to" — commit to what is, or commit to her reading of it
+- "she felt", "he felt the X": describe the sensation directly
+- "she saw", "he noticed", "she watched": describe the thing itself
+- "she heard": describe the sound
+- "she thought", "she wondered", "she realized": render the thought as direct interiority or action
+- "she seemed", "appeared to": commit to what is, or commit to her reading of it
 
 ## Telling not showing
 
@@ -29,7 +29,7 @@ These verbs interpose the narrator between reader and event. Cut them unless the
 - Talking-head scenes (dialogue without grounding action, gesture, or setting beat). Insert beats.
 - As-you-know dialogue (characters explaining things to each other for the reader's benefit). Cut, or break the exposition into action.
 - All characters sounding like the narrator. Each speaker needs a distinct lexicon, rhythm, and verbal tic.
-- "She said with a smile" / "he said angrily" — show the smile, show the anger, drop the adverb on "said".
+- "She said with a smile" / "he said angrily": show the smile, show the anger, drop the adverb on "said".
 
 ## Stock phrases (genre overuse)
 

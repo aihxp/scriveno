@@ -19,9 +19,9 @@ A runbook is read by someone tired, paged at 3am, and under pressure. Optimize f
 
 ## Ambiguity traps
 
-- "Run the script" — which script, where, with what flags. Always name the file path and exact command.
-- "Restart the service" — which service, on which host, with which command.
-- "Check the logs" — which log, at what path, looking for what string.
+- "Run the script": which script, where, with what flags. Always name the file path and exact command.
+- "Restart the service": which service, on which host, with which command.
+- "Check the logs": which log, at what path, looking for what string.
 - Pronouns without clear antecedents ("it should now be running"). Replace with the noun.
 - "Simply" and "just". They are lies told to the reader and signal you have not thought through the step.
 

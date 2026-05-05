@@ -1577,4 +1577,7 @@ module.exports = {
   validatePlatform: architecturalProfiles.validatePlatform,
   inferTradition: architecturalProfiles.inferTradition,
   inferPlatform: architecturalProfiles.inferPlatform,
+  // Per-work-type pitfall packs
+  listPitfallPacks: architecturalProfiles.listPitfallPacks,
+  getPitfallPackPath: architecturalProfiles.getPitfallPackPath,
 };
