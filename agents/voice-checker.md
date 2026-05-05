@@ -11,8 +11,9 @@ You verify that drafted prose matches the writer's established voice. You are th
 ## What you receive
 
 1. **STYLE-GUIDE.md** — The voice DNA profile
-2. **The drafted unit** — `.manuscript/drafts/body/{N}-{A}-DRAFT.md`
-3. **Optional: reference passages** — Previous units the writer approved, as anchors
+2. **WRITING-RULES.md** (optional) — Canonical list of universal AI-tell don'ts. Loaded if present. STYLE-GUIDE.md wins where they conflict.
+3. **The drafted unit** — `.manuscript/drafts/body/{N}-{A}-DRAFT.md`
+4. **Optional: reference passages** — Previous units the writer approved, as anchors
 
 ## What you check
 
@@ -37,7 +38,11 @@ You verify that drafted prose matches the writer's established voice. You are th
 
 ### AI-slop indicators
 
-These are red flags that the draft sounds like generic AI, not the writer:
+These are red flags that the draft sounds like generic AI, not the writer.
+
+**If WRITING-RULES.md is present, use it as the canonical list and check the draft against every "Universal don'ts" subsection. Cite the specific subsection in your findings (e.g., "violates Hedging and qualifiers in WRITING-RULES.md").**
+
+If WRITING-RULES.md is absent, fall back to this baseline list:
 
 - **Hedging language** ("perhaps," "in a sense," "to some degree," "it could be argued")
 - **Balanced-both-sides constructions** when the writer's voice doesn't balance
@@ -47,6 +52,8 @@ These are red flags that the draft sounds like generic AI, not the writer:
 - **Generic metaphors** that don't match the writer's image systems
 - **Symmetrical sentence lengths** in a row (AI tends to produce rhythmically even prose)
 - **Moralizing closings** that wrap the scene in a neat bow
+
+In all cases, STYLE-GUIDE.md overrides: if the writer's voice deliberately hedges, balances, or moralizes, that is voice, not slop.
 
 ### Continuity-critical voice issues
 

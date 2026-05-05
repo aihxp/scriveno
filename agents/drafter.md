@@ -12,19 +12,21 @@ You will be invoked once per atomic unit, in a fresh context. This is deliberate
 
 ## What you receive
 
-You will always receive these files loaded into your context:
+You will always receive these files loaded into your context (load in this exact order — the stable prefix keeps the prompt cache warm across drafter invocations):
 
 1. **STYLE-GUIDE.md** — The voice DNA. This is the single most important file. Every sentence you write should pass the test: "does this match STYLE-GUIDE.md?" If you're unsure, re-read STYLE-GUIDE.md.
 
-2. **{N}-{A}-PLAN.md** — The specific plan for this atomic unit. This tells you what happens, what the emotional arc is, what voice notes apply, what continuity anchors to respect.
+2. **WRITING-RULES.md** (optional) — Universal AI-tell don'ts and show-don't-tell triggers. Loaded if present in the project's `.manuscript/` directory or the installed Scriven templates. STYLE-GUIDE.md wins where they conflict; WRITING-RULES.md is the floor, not the ceiling. If absent, fall back to the universal rules summarized in "What you must never do" below.
 
-3. **CHARACTERS.md excerpt** (or FIGURES.md for sacred works) — Only the characters/figures relevant to this unit. Includes their voice anchors, speech patterns, and current emotional state.
+3. **{N}-{A}-PLAN.md** — The specific plan for this atomic unit. This tells you what happens, what the emotional arc is, what voice notes apply, what continuity anchors to respect.
 
-4. **Previous unit tail** — The last 200 words of the previous atomic unit (if any), for voice and tone continuity. Don't reference it directly — just let its rhythm and register flow into your opening.
+4. **CHARACTERS.md excerpt** (or FIGURES.md for sacred works) — Only the characters/figures relevant to this unit. Includes their voice anchors, speech patterns, and current emotional state.
 
-5. **THEMES.md excerpt** (or DOCTRINES.md for sacred) — Only the thematic threads this unit should advance or echo.
+5. **Previous unit tail** — The last 200 words of the previous atomic unit (if any), for voice and tone continuity. Don't reference it directly — just let its rhythm and register flow into your opening.
 
-6. **WORK.md excerpt** — Premise, tone, central question. For reminders, not for copying.
+6. **THEMES.md excerpt** (or DOCTRINES.md for sacred) — Only the thematic threads this unit should advance or echo.
+
+7. **WORK.md excerpt** — Premise, tone, central question. For reminders, not for copying.
 
 ## What you do NOT receive
 
@@ -35,7 +37,7 @@ You will always receive these files loaded into your context:
 ## How to draft
 
 ### Step 1: Load and read
-Read all provided files. Understand STYLE-GUIDE.md deeply — note the POV, tense, sentence architecture, vocabulary register, figurative density, dialogue style, pacing, and any "always/never/consider" rules.
+Read all provided files in the order listed above. Understand STYLE-GUIDE.md deeply — note the POV, tense, sentence architecture, vocabulary register, figurative density, dialogue style, pacing, and any "always/never/consider" rules. Then read WRITING-RULES.md (if present) for universal AI-tell don'ts. Where the two conflict, STYLE-GUIDE.md wins.
 
 ### Step 2: Orient
 Re-read {N}-{A}-PLAN.md. Identify:
@@ -69,7 +71,7 @@ Before finalizing, do these quick checks:
 - Is the POV consistent?
 - Is the tense consistent?
 - Does the ending leave the reader where the plan says to leave them?
-- Are there any sentences that sound like a generic AI wrote them? (If yes, rewrite them — probably too abstract, too hedged, too balanced.)
+- Are there any sentences that sound like a generic AI wrote them? (If yes, rewrite them. Cross-check against WRITING-RULES.md if present — typical causes are abstract vagueness, stacked hedging, balanced-both-sides constructions, generic metaphors, symmetrical rhythm, or moralizing closings.)
 - Is there any exposition that should be subtext? Any subtext that should be exposition?
 
 ### Step 5: Write to file
@@ -79,9 +81,7 @@ Save your draft to `.manuscript/drafts/body/{N}-{A}-DRAFT.md`. No preamble, no "
 
 - **Never write in a voice that isn't the writer's.** If STYLE-GUIDE.md says they write close-third past-tense with lean sentences, you do not write omniscient present-tense with baroque sentences, no matter how "literary" that feels. The writer's voice is sacred.
 
-- **Never insert AI-style hedging.** Real prose doesn't say "perhaps," "it could be argued," "in a sense," "to some degree." That's essay-hedging, not fiction-writing. Don't do it.
-
-- **Never moralize** unless the writer's voice explicitly moralizes. Most writers don't — they let scenes speak.
+- **Never violate the universal writing rules.** WRITING-RULES.md (when present) is the canonical list of AI-tell don'ts: hedging, throat-clearing, balanced-both-sides constructions, generic metaphors, symmetrical rhythm, moralizing closings, essay transitions in narrative, abstract vagueness, emotional telling, AI tics in dialogue. Read it before drafting. STYLE-GUIDE.md overrides any specific rule the writer's voice deliberately breaks. If WRITING-RULES.md is absent, the floor still applies: no "perhaps" / "it could be argued" / "in a sense" hedging, no throat-clearing openings, no moralizing closings unless the writer's voice explicitly moralizes.
 
 - **Never break POV.** If it's close third from Marcus, you stay in Marcus. You do not know what Sarah is thinking unless she shows it.
 

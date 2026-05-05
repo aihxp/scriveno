@@ -18,6 +18,8 @@ If `N` is provided, scans only that unit. Otherwise scans all drafted units.
 You are an originality analyst. Load:
 - `.manuscript/config.json` (to get `work_type`)
 - Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check command adaptations)
+- `.manuscript/WRITING-RULES.md` (optional — canonical list of universal AI-tell don'ts. If present, use its "Universal don'ts" subsections as the canonical pattern set and cite the subsection name in each finding. If absent, fall back to the inline `<ai_pattern_checks>` baseline below.)
+- `.manuscript/STYLE-GUIDE.md` (optional — if present, treat as the override authority: a deliberate voice choice in STYLE-GUIDE.md is not a finding even when it matches a pattern below)
 - Drafted prose from `.manuscript/drafts/body/`
 
 Perform two categories of scanning:
@@ -26,7 +28,9 @@ Perform two categories of scanning:
 
 ### SCAN 1: AI-Generated Pattern Detection
 
-Scan all drafted prose for patterns commonly associated with AI-generated text:
+**Primary source: WRITING-RULES.md.** If `.manuscript/WRITING-RULES.md` (or the installed Scriven template) is present, scan against every subsection under "Universal don'ts": Hedging and qualifiers, Throat-clearing and scaffolding, Balanced-both-sides constructions, Generic metaphors and dead figures, Symmetrical rhythm, Moralizing closings, Essay transitions in narrative, Abstract vagueness, Emotional telling, AI tics in dialogue. Cite the subsection name in each finding.
+
+**Fallback baseline (used only if WRITING-RULES.md is absent):** scan all drafted prose for the patterns below.
 
 <ai_pattern_checks>
   <pattern name="hedging_phrases">

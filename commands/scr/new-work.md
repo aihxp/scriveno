@@ -41,6 +41,7 @@ Create the following structure. Use the `file_adaptations` section of CONSTRAINT
 ├── OUTLINE.md           (always)
 ├── STATE.md             (always — tracks workflow position)
 ├── STYLE-GUIDE.md       (always)
+├── WRITING-RULES.md     (always — copy verbatim from templates/WRITING-RULES.md; universal AI-tell rules loaded by drafter, voice-checker, originality-check)
 ├── CHARACTERS.md        (→ CONCEPTS.md for academic, → AUDIENCE.md for technical, → FIGURES.md for sacred; skipped for poetry/speech)
 ├── RELATIONSHIPS.md     (→ DEPENDENCIES.md for technical, → LINEAGES.md for sacred; skipped for academic/poetry/speech)
 ├── WORLD.md             (→ CONTEXT.md for academic, → SYSTEM.md for technical, → COSMOLOGY.md for sacred; skipped for poetry/speech)

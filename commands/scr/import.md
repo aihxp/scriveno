@@ -28,7 +28,7 @@ You are importing an existing manuscript into Scriven. The writer has content â€
 
 6. **Detect characters.** Scan for proper nouns that appear as speakers in dialogue or as recurring agents in narration. Build a draft CHARACTERS.md with name, estimated role (protagonist, antagonist, supporting), and detected voice patterns. Flag for writer review.
 
-7. **Generate the .manuscript/ directory.** Create all context files (WORK.md, BRIEF.md, OUTLINE.md, STYLE-GUIDE.md, CHARACTERS.md, etc.) populated from the import. Save the actual drafted text as `.manuscript/drafts/body/{N}-{A}-DRAFT.md` files, one per atomic unit.
+7. **Generate the .manuscript/ directory.** Create all context files (WORK.md, BRIEF.md, OUTLINE.md, STYLE-GUIDE.md, CHARACTERS.md, etc.) populated from the import. Also copy `WRITING-RULES.md` verbatim from the installed Scriven templates (`templates/WRITING-RULES.md`) into `.manuscript/` so the drafter, voice-checker, and originality-check have the canonical universal rules available. Save the actual drafted text as `.manuscript/drafts/body/{N}-{A}-DRAFT.md` files, one per atomic unit.
 
 8. **Set STATE.md** to reflect that all imported units are drafted but not yet reviewed. This lets the writer pick up with `/scr:editor-review` or `/scr:next`.
 
