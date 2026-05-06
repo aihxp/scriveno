@@ -10,7 +10,7 @@ Conflict resolution is top-down. STYLE-GUIDE.md beats WRITING-RULES.md beats the
 
 ## WRITING-RULES.md
 
-Ships as `templates/WRITING-RULES.md` and lands in every new project's `.manuscript/` via `/scr-new-work` and `/scr-import`. One screen of universal AI-tell rules covering:
+Ships as `templates/WRITING-RULES.md` and lands in every new project's `.manuscript/` via `/scr:new-work` and `/scr:import`. One screen of universal AI-tell rules covering:
 
 - Hedging and qualifiers
 - Throat-clearing and scaffolding
@@ -89,7 +89,7 @@ Rough guidance for matching settings to model class. The writer's experience wit
 | Mid-tier (Sonnet 4.x, GPT-4 mini, Haiku 4.x) | Day-to-day drafting, most novels and screenplays | `standard` | `standard` |
 | Budget (Haiku, GPT-3.5, local 7-13B) | Bulk drafting of short scenes, repetitive structural work | `strict` | `minimal` |
 
-If voice fidelity drops below the writer's `voice.drift_threshold`, the first lever is `rigor: strict`. The second is to step up a model tier. The third is to recalibrate STYLE-GUIDE.md via `/scr-voice-test`.
+If voice fidelity drops below the writer's `voice.drift_threshold`, the first lever is `rigor: strict`. The second is to step up a model tier. The third is to recalibrate STYLE-GUIDE.md via `/scr:voice-test`.
 
 ## Token economy
 

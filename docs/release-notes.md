@@ -9,7 +9,7 @@ This document is the public-facing summary of what changed between package relea
 - Added `templates/WRITING-RULES.md`: a one-screen canonical list of universal AI-tell don'ts, loaded by the drafter, voice-checker, and originality-check after `STYLE-GUIDE.md`
 - Added per-work-type pitfall packs under `templates/pitfalls/<work_type>.md` for novel, memoir, screenplay, runbook, research_paper, poetry_collection, comic, and commentary; drop-in extension supported with no library or constraint edits
 - Added a `draft` block to `templates/config.json` with three optional knobs: `rigor` (`standard|strict`), `context_profile` (`minimal|standard|full`), and `pitfalls_enabled` (`true|false`)
-- Exposed the new knobs in `/scr-settings`; replaced the 3-genre hardcode in `/scr-line-edit` with pack-aware lookup
+- Exposed the new knobs in `/scr:settings`; replaced the 3-genre hardcode in `/scr:line-edit` with pack-aware lookup
 - Added `lib/architectural-profiles.js#listPitfallPacks` and `getPitfallPackPath`, re-exported from `bin/install.js`
 - Added `docs/drafter-quality.md` documenting the three rule layers, settings, and model-tier recommendations
 - Added 23 new tests covering pack registration, drop-in extensibility, config schema, and drafter contract
