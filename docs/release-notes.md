@@ -2,6 +2,28 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 1.6.1 - 2026-05-07
+
+### What changed
+
+- Brought the post-`1.6.0` documentation deck refresh into the published tarball: `docs/shipped-assets.md`, `docs/voice-dna.md`, `docs/configuration.md`, `docs/command-reference.md`, and `docs/architecture.md` all updated to document `WRITING-RULES.md`, the per-work-type pitfall packs, the `draft` config block, and the override hierarchy
+- Aligned the reference documentation on canonical `/scr:` command notation; onboarding (`docs/getting-started.md`), README cross-runtime examples, and historical 1.5.1 release-notes prose still use Claude flat `/scr-*` and Codex `$scr-*` where contextually appropriate
+- No code, agent, command, or template changes; runtime behavior is identical to `1.6.0`
+
+### Why it matters
+
+`1.6.0` shipped before the documentation deck refresh landed. Writers running `npx scriven-cli@1.6.0` got the new agents, templates, and settings but a thinner `~/.scriven/docs/` tree. `1.6.1` closes that gap so the docs writers see in their installed tree match what is on GitHub.
+
+### Affected areas
+
+- public docs only (no source, agent, command, or template behavior change)
+- npm tarball contents (the `docs/` directory)
+
+### Verification
+
+- `npm test` (1617 tests pass; same suite as 1.6.0)
+- `npm pack --dry-run` confirms the refreshed docs ship in the tarball
+
 ## 1.6.0 - 2026-05-05
 
 ### What changed
