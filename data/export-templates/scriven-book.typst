@@ -48,19 +48,34 @@
     top: margin-top,
     bottom: margin-bottom,
   ),
-  // Running headers: flip alignment for RTL (inside margin becomes right margin)
+  // Running headers: book title on verso, current chapter title on recto.
+  // Suppress on page 1 and on chapter-opener pages (the chapter title is
+  // already displayed prominently by the level-1 heading show rule).
+  // Flip alignment for RTL (inside margin becomes the right margin).
   header: context {
     let page-num = counter(page).get().first()
-    if page-num > 1 {
-      if calc.odd(page-num) {
-        // Recto page: for RTL, align left (outside); for LTR, align right (outside)
-        let recto-align = if is-rtl { left } else { right }
-        align(recto-align, emph(text(size: 9pt, fill: rgb("#555555"))[]))
-      } else {
-        // Verso page: for RTL, align right (outside); for LTR, align left (outside)
-        let verso-align = if is-rtl { right } else { left }
-        align(verso-align, emph(text(size: 9pt, fill: rgb("#555555"), book-title)))
-      }
+    if page-num <= 1 { return }
+
+    // Suppress the running head on any page that contains a level-1 heading
+    // (the chapter-opener page). Without this the chapter title appears both
+    // in the big centered heading and the running head on the same page.
+    let openers-on-this-page = query(heading.where(level: 1)).filter(
+      h => h.location().page() == here().page()
+    )
+    if openers-on-this-page.len() > 0 { return }
+
+    if calc.odd(page-num) {
+      // Recto page: current chapter title.
+      // Look up the most recent level-1 heading at or before this point.
+      let prior-chapters = query(heading.where(level: 1).before(here()))
+      if prior-chapters.len() == 0 { return }
+      let chapter-title = prior-chapters.last().body
+      let recto-align = if is-rtl { left } else { right }
+      align(recto-align, emph(text(size: 9pt, fill: rgb("#555555"), chapter-title)))
+    } else {
+      // Verso page: book title.
+      let verso-align = if is-rtl { right } else { left }
+      align(verso-align, emph(text(size: 9pt, fill: rgb("#555555"), book-title)))
     }
   },
   // Page numbering: centered bottom
