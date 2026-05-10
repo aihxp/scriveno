@@ -13,7 +13,7 @@ You are running the full publishing pipeline autonomously. Your job is to run qu
 /scr:autopilot-publish --preset <preset>
 ```
 
-The `--preset` argument is **required**. There is no interactive mode in autopilot -- the writer must specify their destination upfront. Valid presets: `kdp-paperback`, `kdp-ebook`, `query-submission`, `ebook-wide`, `ingram-paperback`, `academic-submission`, `thesis-defense`, `screenplay-query`.
+The `--preset` argument is **required**. There is no interactive mode in autopilot -- the writer must specify their destination upfront. Valid presets: `kdp-paperback`, `kdp-ebook`, `query-submission`, `ebook-wide`, `ingram-paperback`, `academic-submission`, `thesis-defense`, `screenplay-query`, `share-pdf`, `share-docx`, `share-epub`, `share-bundle`, `all-formats`, `submission-package`.
 
 ---
 
@@ -88,6 +88,12 @@ Auto-generate any missing prerequisites required by the chosen preset. Do not as
 | academic-submission | (none) |
 | thesis-defense | front-matter, back-matter |
 | screenplay-query | blurb, synopsis, query-letter |
+| share-pdf | (none) |
+| share-docx | (none) |
+| share-epub | (none) |
+| share-bundle | (none) |
+| all-formats | (none) |
+| submission-package | synopsis, query-letter, back-matter |
 
 For each prerequisite the preset needs:
 

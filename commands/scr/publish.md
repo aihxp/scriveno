@@ -168,23 +168,57 @@ Missing 3 prerequisites. Generate them now? (yes/no)
 
 #### 3b. Choose Destination
 
-After prerequisites are resolved, ask:
+After prerequisites are resolved, ask the destination question as a two-level decision tree. Show the top-level prompt first, then drill into the chosen branch. Filter every option against the current work type group (skip a row entirely when the underlying preset is unavailable for the group).
 
-> Where are you publishing?
+> What are you doing?
 >
-> 1. **kdp-paperback** -- Amazon KDP print (6x9 interior PDF + package)
+> 1. **Share** -- hand someone a single file (beta reader, friend, agent who asked for "the manuscript")
+> 2. **Publish** -- ship to a retail or distribution platform (KDP, IngramSpark, ebook stores)
+> 3. **Submit** -- query letter / submission package for an agent or editor
+> 4. **Academic** -- journal article, thesis, or other academic build
+> 5. **Screenplay** -- script-format deliverables for a manager or production
+> 6. **Everything** -- generate every format I can (archival)
+> 7. **Custom** -- pick specific formats by hand
+
+Then, based on the top-level answer:
+
+**Share branch** -- ask:
+> Which file?
+>
+> 1. **share-pdf** -- manuscript PDF (single file, no print formatting)
+> 2. **share-docx** -- manuscript DOCX (single file, opens in Word/Pages/Docs)
+> 3. **share-epub** -- standalone EPUB (single file, no store packaging)
+> 4. **share-bundle** -- PDF + DOCX + EPUB together
+
+**Publish branch** -- ask:
+> Where?
+>
+> 1. **ebook-wide** -- All major ebook stores (EPUB + manuscript PDF)
 > 2. **kdp-ebook** -- Amazon Kindle (EPUB)
-> 3. **ebook-wide** -- All ebook stores (EPUB + PDF)
-> 4. **query-submission** -- Agent/publisher query (blurb + synopsis + query letter)
-> 5. **ingram-paperback** -- IngramSpark bookstore distribution
-> 6. **academic-submission** -- Journal/academic source build via supported academic platform
-> 7. **thesis-defense** -- Thesis/dissertation source build with front/back matter and supported academic platform
-> 8. **screenplay-query** -- Screenplay agent query (Fountain + FDX + package)
-> 9. **custom** -- Choose specific export formats
+> 3. **kdp-paperback** -- Amazon KDP print-on-demand (interior PDF + KDP package)
+> 4. **ingram-paperback** -- IngramSpark bookstore distribution (CMYK PDF/X-1a + package)
 
-Map the answer to a preset and proceed to STEP 4.
+**Submit branch** -- ask:
+> Which submission?
+>
+> 1. **query-submission** -- agent query (blurb + synopsis + query letter + sample)
+> 2. **submission-package** -- full manuscript submission (DOCX + synopsis + cover letter + bio)
 
-If "custom," ask the writer which formats they want and build a custom pipeline.
+**Academic branch** -- map directly to:
+- **academic-submission** -- journal article wrapper for the writer's chosen academic platform (`ieee`, `acm`, `lncs`, `elsevier`, `apa7`)
+- **thesis-defense** -- thesis/dissertation build with front/back matter and academic platform wrapper
+
+If only one academic preset is appropriate, run it; otherwise ask which.
+
+**Screenplay branch** -- map directly to:
+- **screenplay-query** -- Fountain + FDX + query package
+
+**Everything branch** -- map directly to:
+- **all-formats** -- generate markdown, DOCX, PDF, and EPUB in one pass (no store/package wrappers)
+
+**Custom branch** -- ask which `/scr:export --format <format>` calls to chain, then run them in sequence.
+
+Map the final answer to a preset and proceed to STEP 4.
 
 ---
 
@@ -269,6 +303,42 @@ Step 4/4: Building KDP package...
 | 5 | `/scr:export --format fdx` | Always |
 | 6 | `/scr:export --format query-package` | Always |
 
+#### Destination-neutral Presets
+
+These presets produce single deliverables without retailer-specific packaging. They are appropriate for sharing manuscripts with beta readers, collaborators, or agents who asked for "the manuscript" rather than a store package.
+
+**share-pdf** -- single-file PDF, no print formatting
+| Step | Command | Condition |
+|------|---------|-----------|
+| 1 | `/scr:export --format pdf` | Always |
+
+**share-docx** -- single-file DOCX
+| Step | Command | Condition |
+|------|---------|-----------|
+| 1 | `/scr:export --format docx` | Always |
+
+**share-epub** -- single-file standalone EPUB (no store packaging)
+| Step | Command | Condition |
+|------|---------|-----------|
+| 1 | `/scr:export --format epub` | Always |
+
+**share-bundle** -- PDF + DOCX + EPUB together for handing someone "everything readable"
+| Step | Command | Condition |
+|------|---------|-----------|
+| 1 | `/scr:export --format pdf` | Always |
+| 2 | `/scr:export --format docx` | Always |
+| 3 | `/scr:export --format epub` | Always |
+
+**all-formats** -- archival pass: every base format Scriven can produce (no store/package wrappers)
+| Step | Command | Condition |
+|------|---------|-----------|
+| 1 | `/scr:export --format markdown` | Always |
+| 2 | `/scr:export --format docx` | Always |
+| 3 | `/scr:export --format pdf` | Always |
+| 4 | `/scr:export --format epub` | Always |
+
+If a base format is not available for the current work type group (per `CONSTRAINTS.json` `exports`), skip that step silently and continue. Report skipped formats in STEP 5.
+
 ---
 
 ### STEP 5: REPORT
@@ -303,6 +373,9 @@ Adapt the "Next Steps" section to the preset:
 - **query-submission/screenplay-query:** How to send query packages to agents
 - **academic-submission/thesis-defense:** Academic wrapper and TeX compilation submission steps
 - **ebook-wide:** Upload to each platform (KDP, Apple Books, Kobo, B&N, Google Play)
+- **share-pdf/share-docx/share-epub:** Path to the single output file and a one-line "send this to your reader" note. No upload steps.
+- **share-bundle:** Paths to the three output files and a note that they are interchangeable -- send whichever the recipient prefers.
+- **all-formats:** Paths to every generated file plus a note listing any formats that were skipped because they are not available for this work type.
 
 ---
 

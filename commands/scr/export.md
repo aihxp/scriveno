@@ -1,6 +1,6 @@
 ---
 description: Compile and export manuscript to publication-ready formats.
-argument-hint: "--format <format> [--formatted] [--print-ready] [--skip-validate]"
+argument-hint: "[--format <format>] [--formatted] [--print-ready] [--skip-validate]"
 ---
 
 # /scr:export -- Manuscript Export
@@ -10,8 +10,48 @@ Assemble the manuscript from OUTLINE.md and export to the specified format. Hand
 ## Usage
 
 ```
+/scr:export                                  # interactive picker
 /scr:export --format <format> [--formatted] [--print-ready] [--skip-validate]
 ```
+
+If `--format` is omitted, run the interactive picker (see STEP 0). Otherwise jump straight to STEP 1 with the requested format.
+
+---
+
+### STEP 0: INTERACTIVE PICKER (only when --format is omitted)
+
+Load `.manuscript/config.json` and the installed `CONSTRAINTS.json` (same paths as STEP 1) so you know the work type group. For every option below, check it against the `exports` section of `CONSTRAINTS.json` and skip any row that is not available for the current work type group.
+
+Show the writer this prompt and wait for an answer:
+
+> What do you want to export?
+>
+> **Single file**
+> 1. **markdown** -- one `.md` file (no external tools required)
+> 2. **docx** -- manuscript Word document (requires Pandoc)
+> 3. **pdf** -- manuscript PDF (requires Pandoc + Typst)
+> 4. **epub** -- standalone EPUB (requires Pandoc)
+> 5. **latex** -- LaTeX source (academic / sacred only)
+> 6. **fountain** -- screenplay text (script work types only)
+> 7. **fdx** -- Final Draft XML (script work types only, requires Screenplain)
+>
+> **Print / store packaging**
+> 8. **pdf --print-ready** -- print interior PDF with trim size and margins
+> 9. **docx --formatted** -- designed DOCX for review copies
+> 10. **kdp-package** -- Amazon KDP print upload bundle
+> 11. **ingram-package** -- IngramSpark CMYK PDF/X-1a bundle
+>
+> **Submission packages**
+> 12. **query-package** -- agent query bundle (query letter + synopsis + sample)
+> 13. **submission-package** -- full submission bundle (DOCX + synopsis + cover letter + bio)
+>
+> Pick a number, or type the format name. Type `publish` if you want a guided multi-format pipeline instead -- that lives in `/scr:publish`.
+
+Map the answer to the corresponding `--format` value (and `--formatted` / `--print-ready` modifiers where applicable), then proceed to STEP 1 as if the writer had passed it on the command line.
+
+If the writer answers `publish`, do not run the export; tell them to run `/scr:publish` and stop.
+
+---
 
 **Primary Formats:**
 

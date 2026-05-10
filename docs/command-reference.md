@@ -1261,9 +1261,14 @@ Generate 10-15 book club questions that spark real conversation about your theme
 **Prerequisites:** None (wraps export commands)
 
 **Flags:**
-- `--preset <preset>` -- Use a preset such as `kdp-paperback`, `kdp-ebook`, `ebook-wide`, `ingram-paperback`, `query-submission`, or `screenplay-query`
+- `--preset <preset>` -- Run a named preset without questions. Presets group into four families:
+  - **Share (single deliverable, no retailer packaging):** `share-pdf`, `share-docx`, `share-epub`, `share-bundle`
+  - **Publish (retail / distribution):** `ebook-wide`, `kdp-ebook`, `kdp-paperback`, `ingram-paperback`
+  - **Submit (agent / editor):** `query-submission`, `submission-package`, `screenplay-query`
+  - **Academic / archival:** `academic-submission`, `thesis-defense`, `all-formats`
 - `--all` -- Run all applicable presets
 - `--skip-validate` -- Skip the scaffold-marker validation gate (not recommended)
+- No flags -- Run the interactive wizard, which asks the writer-facing question "What are you doing?" (Share / Publish / Submit / Academic / Screenplay / Everything / Custom) and drills into the matching branch.
 
 **Available for:** All work types
 
@@ -1279,23 +1284,24 @@ Run the full KDP paperback publishing pipeline: prepare the interior package, ge
 
 **Description:** Compile and export manuscript to publication-ready formats.
 
-**Usage:** `/scr:export --format <format> [--formatted] [--print-ready] [--skip-validate]`
+**Usage:** `/scr:export [--format <format>] [--formatted] [--print-ready] [--skip-validate]`
 
 **Prerequisites:** Complete draft must exist
 
 **Flags:**
-- `--format` -- Target format: markdown, docx, pdf, epub, fountain, fdx, latex, kdp-package, ingram-package, submission-package, query-package
+- `--format` -- Target format: markdown, docx, pdf, epub, fountain, fdx, latex, kdp-package, ingram-package, submission-package, query-package. If omitted, the command shows an interactive picker grouped into Single file / Print and store packaging / Submission packages and respects per-work-type availability.
 - `--formatted` -- Use designed/formatted template (vs. manuscript format)
 - `--print-ready` -- Generate the interior print PDF surface used by print-package flows
-
 - `--skip-validate` -- Skip the scaffold-marker validation gate (not recommended)
+
 **Available for:** All work types (format availability varies by work type)
 
 **Example:**
 ```
 /scr:export --format epub
+/scr:export                       # interactive picker, then runs the chosen format
 ```
-Export your manuscript as a publication-ready EPUB with proper metadata, table of contents, and styling.
+Export your manuscript as a publication-ready EPUB with proper metadata, table of contents, and styling. With no flags, the command asks which format to produce instead of failing on the missing argument.
 
 ---
 
