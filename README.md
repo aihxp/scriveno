@@ -23,7 +23,7 @@ npx scriven-cli@latest
 
 Scriven is a command system that turns your AI coding agent into a voice-preserving writing studio. It supports 50 work types -- novels, screenplays, research papers, technical guides, runbooks, scripture commentaries, comics, memoirs -- each with its own adaptive vocabulary and toolset.
 
-The wedge comes first: Scriven profiles the writer, loads that voice into every drafting step, and keeps each unit on fresh context so the prose stays specific to the project. From there, it expands into 108 writing commands covering the rest of the pipeline:
+The wedge comes first: Scriven profiles the writer, loads that voice into every drafting step, and keeps each unit on fresh context so the prose stays specific to the project. From there, it expands into 109 writing commands covering the rest of the pipeline:
 
 - **Create** -- Set up a project with tailored context files. Progressive onboarding, never overwhelming.
 - **Write** -- Discuss, plan, draft, and revise one unit at a time. The drafter agent loads your Voice DNA and writes in *your* voice, not generic AI prose.
@@ -156,7 +156,7 @@ Scriven is built on five principles:
 
 - [Proof Artifacts](docs/proof-artifacts.md) -- Canonical proof hub for the watchmaker sample flow and Voice DNA before/after bundle
 - [Getting Started](docs/getting-started.md) -- Install to first draft in 10 minutes
-- [Command Reference](docs/command-reference.md) -- All 108 commands with usage, flags, and examples
+- [Command Reference](docs/command-reference.md) -- All 109 commands with usage, flags, and examples
 - [Work Types Guide](docs/work-types.md) -- How 50 work types adapt Scriven's vocabulary
 - [Voice DNA Guide](docs/voice-dna.md) -- The 15+ dimension voice profiling system
 - [Publishing Guide](docs/publishing.md) -- 13 export formats, KDP, IngramSpark, submission packages
@@ -199,7 +199,7 @@ Scriven currently ships installer targets for these AI tooling environments:
 
 **Version:** 1.6.1
 
- Scriven's core command surface is stable across 108 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, and the published package version is now `1.6.1`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
+ Scriven's core command surface is stable across 109 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, and the published package version is now `1.6.1`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
 
  Version `1.6.1` is a docs-only patch that brings the `1.6.0` documentation deck (drafter-quality reference, voice-dna three-rule-layers section, configuration draft-block reference, command-reference settings knobs, architecture drafter-receives expansion, shipped-assets inventory) into the published tarball, plus aligns the reference docs on canonical `/scr:` command notation. See [CHANGELOG](CHANGELOG.md) for the full list. Version `1.6.0` introduced the draft-quality-aware drafter: a universal `WRITING-RULES.md` rulebook, per-work-type pitfall packs, and a `draft` config block (`rigor`, `context_profile`, `pitfalls_enabled`) for matching the drafter to the model tier you're routing to. Conflict resolution is top-down (STYLE-GUIDE.md beats WRITING-RULES.md beats pitfall pack); existing projects keep working without modification. See [docs/drafter-quality.md](docs/drafter-quality.md) for the full system.
 

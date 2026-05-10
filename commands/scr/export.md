@@ -897,3 +897,15 @@ After export completes, report:
 > **Next steps:**
 > - Add missing chapters and re-export
 > - Validate EPUB: `java -jar epubcheck.jar .manuscript/output/manuscript.epub`
+
+---
+
+### STEP 6: HISTORY LOG
+
+After the export completes (success or failure), append one line to `.manuscript/HISTORY.log` per `docs/history-protocol.md`:
+
+```
+{ISO timestamp} | scr:export | format={resolved format} | files={output filename or package dir} | outcome={ok|failed:<short-reason>}
+```
+
+For multi-file packages (kdp-package, ingram-package, query-package, submission-package), record the package directory in `files=` rather than enumerating individual files. Create HISTORY.log if it does not exist.

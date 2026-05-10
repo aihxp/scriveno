@@ -1,6 +1,6 @@
 ---
 description: "Run full publishing pipeline unattended with quality gate (voice-check + continuity-check)."
-argument-hint: "--preset <preset>"
+argument-hint: "--preset <preset> [--front-level <minimum|balanced|maximum|skip>] [--back-level <minimum|balanced|maximum|skip>]"
 ---
 
 # /scr:autopilot-publish -- Unattended Publishing Pipeline
@@ -14,6 +14,8 @@ You are running the full publishing pipeline autonomously. Your job is to run qu
 ```
 
 The `--preset` argument is **required**. There is no interactive mode in autopilot -- the writer must specify their destination upfront. Valid presets: `kdp-paperback`, `kdp-ebook`, `query-submission`, `ebook-wide`, `ingram-paperback`, `academic-submission`, `thesis-defense`, `screenplay-query`, `share-pdf`, `share-docx`, `share-epub`, `share-bundle`, `all-formats`, `submission-package`.
+
+`--front-level` and `--back-level` control how much front/back matter is generated when the preset includes those steps. Both default to **balanced** for retail and academic presets, **minimum** for share-* and all-formats, and **skip** for query-submission, screenplay-query, and submission-package (the package itself does not need book front/back matter). Pass `skip` to suppress the corresponding generation step entirely. The default is applied silently per the table below; the writer only needs to pass these flags to override.
 
 ---
 
@@ -99,8 +101,8 @@ For each prerequisite the preset needs:
 
 | Prerequisite | Check | Generate Command |
 |-------------|-------|-----------------|
-| front-matter | `.manuscript/front-matter/` has files | `/scr:front-matter` |
-| back-matter | `.manuscript/back-matter/` has files | `/scr:back-matter` |
+| front-matter | `.manuscript/front-matter/` has files | `/scr:front-matter --level <resolved-front-level>` (resolve by `--front-level` or the per-preset default; if `skip`, do not run) |
+| back-matter | `.manuscript/back-matter/` has files | `/scr:back-matter --level <resolved-back-level>` (resolve by `--back-level` or the per-preset default; if `skip`, do not run) |
 | blurb | `.manuscript/output/blurb.md` exists | `/scr:blurb` |
 | synopsis | Any `.manuscript/marketing/SYNOPSIS-*.md` file exists | `/scr:synopsis` |
 | query-letter | `.manuscript/marketing/QUERY-LETTER.md` exists | `/scr:query-letter` |

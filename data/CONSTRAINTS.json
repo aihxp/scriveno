@@ -1184,6 +1184,11 @@
       "available": ["all"],
       "description": "Diagnose and repair common project state issues"
     },
+    "scan": {
+      "category": "utility",
+      "available": ["all"],
+      "description": "Detect drift between recorded state (STATE.md, OUTLINE.md, config.json) and what is on disk"
+    },
     "cleanup": {
       "category": "utility",
       "available": ["all"],

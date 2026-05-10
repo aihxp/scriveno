@@ -218,7 +218,35 @@ If only one academic preset is appropriate, run it; otherwise ask which.
 
 **Custom branch** -- ask which `/scr:export --format <format>` calls to chain, then run them in sequence.
 
-Map the final answer to a preset and proceed to STEP 4.
+Map the final answer to a preset and proceed to STEP 3c.
+
+#### 3c. Choose Front + Back Matter Level
+
+If the chosen preset includes front-matter or back-matter generation steps (any preset whose pipeline calls `/scr:front-matter` or `/scr:back-matter` -- see STEP 4), and the corresponding directories are empty, ask the writer once **per matter type that the preset will generate**:
+
+> Front matter: how much should I generate?
+>
+> 1. **skip** -- I do not want any front matter
+> 2. **minimum** -- title page, copyright, TOC (legal floor)
+> 3. **balanced** -- minimum + half-title, dedication, epigraph, acknowledgments (recommended for retail)
+> 4. **maximum** -- every applicable element
+
+> Back matter: how much should I generate?
+>
+> 1. **skip** -- I do not want any back matter
+> 2. **minimum** -- about-the-author (legal floor)
+> 3. **balanced** -- minimum + colophon, permissions when applicable
+> 4. **maximum** -- every applicable element
+
+**Defaults to suggest if the writer just hits enter:**
+- Share-* and all-formats presets: **minimum** for both (these are not retail builds)
+- kdp-ebook, kdp-paperback, ebook-wide, ingram-paperback: **balanced** for both
+- academic-submission, thesis-defense: **balanced** front, **balanced** back (academic adaptation will pull bibliography in automatically)
+- query-submission, screenplay-query, submission-package: skip both (the package itself does not need book front/back matter)
+
+If the writer answers **skip** for either, the preset will skip that step entirely (do not run the corresponding `/scr:front-matter` / `/scr:back-matter` call). If `.manuscript/front-matter/` or `.manuscript/back-matter/` already has files, do not ask -- treat them as already chosen and skip the prompt.
+
+Pass the chosen level to the underlying calls in STEP 4 as `--level <value>`.
 
 ---
 
@@ -241,16 +269,16 @@ Step 4/4: Building KDP package...
 **kdp-paperback** -- Amazon KDP print-on-demand
 | Step | Command | Condition |
 |------|---------|-----------|
-| 1 | `/scr:front-matter` | If `.manuscript/front-matter/` is empty |
-| 2 | `/scr:back-matter` | If `.manuscript/back-matter/` is empty |
+| 1 | `/scr:front-matter --level {front-level}` | If `.manuscript/front-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
+| 2 | `/scr:back-matter --level {back-level}` | If `.manuscript/back-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
 | 3 | `/scr:export --format pdf --print-ready` | Always (produces interior PDF) |
 | 4 | `/scr:export --format kdp-package` | Always (produces KDP upload package) |
 
 **kdp-ebook** -- Amazon Kindle ebook
 | Step | Command | Condition |
 |------|---------|-----------|
-| 1 | `/scr:front-matter` | If `.manuscript/front-matter/` is empty |
-| 2 | `/scr:back-matter` | If `.manuscript/back-matter/` is empty |
+| 1 | `/scr:front-matter --level {front-level}` | If `.manuscript/front-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
+| 2 | `/scr:back-matter --level {back-level}` | If `.manuscript/back-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
 | 3 | `/scr:export --format epub` | Always |
 
 **query-submission** -- Traditional publishing query
@@ -264,8 +292,8 @@ Step 4/4: Building KDP package...
 **ebook-wide** -- All major ebook stores
 | Step | Command | Condition |
 |------|---------|-----------|
-| 1 | `/scr:front-matter` | If `.manuscript/front-matter/` is empty |
-| 2 | `/scr:back-matter` | If `.manuscript/back-matter/` is empty |
+| 1 | `/scr:front-matter --level {front-level}` | If `.manuscript/front-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
+| 2 | `/scr:back-matter --level {back-level}` | If `.manuscript/back-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
 | 3 | `/scr:export --format epub` | Always |
 | 4 | `/scr:export --format pdf` | Always (manuscript PDF for stores that accept it) |
 
@@ -274,8 +302,8 @@ Step 4/4: Building KDP package...
 **ingram-paperback** -- IngramSpark bookstore distribution
 | Step | Command | Condition |
 |------|---------|-----------|
-| 1 | `/scr:front-matter` | If `.manuscript/front-matter/` is empty |
-| 2 | `/scr:back-matter` | If `.manuscript/back-matter/` is empty |
+| 1 | `/scr:front-matter --level {front-level}` | If `.manuscript/front-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
+| 2 | `/scr:back-matter --level {back-level}` | If `.manuscript/back-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
 | 3 | `/scr:export --format pdf --print-ready` | Always |
 | 4 | `/scr:export --format ingram-package` | Always |
 
@@ -288,8 +316,8 @@ Step 4/4: Building KDP package...
 **thesis-defense** -- Thesis or dissertation
 | Step | Command | Condition |
 |------|---------|-----------|
-| 1 | `/scr:front-matter` | If `.manuscript/front-matter/` is empty |
-| 2 | `/scr:back-matter` | If `.manuscript/back-matter/` is empty |
+| 1 | `/scr:front-matter --level {front-level}` | If `.manuscript/front-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
+| 2 | `/scr:back-matter --level {back-level}` | If `.manuscript/back-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
 | 3 | Ask the writer which supported academic platform best matches the institution requirement: `ieee`, `acm`, `lncs`, `elsevier`, or `apa7` | If not already specified |
 | 4 | `/scr:build-print --platform <selected academic platform>` | Always |
 
@@ -376,6 +404,18 @@ Adapt the "Next Steps" section to the preset:
 - **share-pdf/share-docx/share-epub:** Path to the single output file and a one-line "send this to your reader" note. No upload steps.
 - **share-bundle:** Paths to the three output files and a note that they are interchangeable -- send whichever the recipient prefers.
 - **all-formats:** Paths to every generated file plus a note listing any formats that were skipped because they are not available for this work type.
+
+---
+
+### STEP 6: HISTORY LOG
+
+After the preset pipeline completes, append one line to `.manuscript/HISTORY.log` per `docs/history-protocol.md`:
+
+```
+{ISO timestamp} | scr:publish | preset={resolved preset} | front-level={resolved or "skip" or "-"} | back-level={resolved or "skip" or "-"} | outcome={ok|partial:<count-failed>|failed:<short-reason>}
+```
+
+Use `front-level=-` and `back-level=-` for presets that do not run front-matter / back-matter generation (share-*, all-formats, query-submission, screenplay-query, submission-package). The chained `/scr:export`, `/scr:front-matter`, `/scr:back-matter` calls log their own lines per their command specs -- this `scr:publish` line records the wrapper invocation so the log shows both the high-level intent and the granular steps. Create HISTORY.log if it does not exist.
 
 ---
 

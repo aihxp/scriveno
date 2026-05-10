@@ -1,16 +1,38 @@
 ---
 description: Generate publication-ready back matter elements.
+argument-hint: "[--level <minimum|balanced|maximum>] [--element <name>]"
 ---
 
 # /scr:back-matter -- Back Matter Generation
 
-Generate all 12+ back matter elements for a publication-ready manuscript. Elements are classified as generatable, scaffoldable, or template-based depending on whether AI can produce complete content, a draft for writer revision, or a structural template.
+Generate publication-ready back matter elements. Elements are classified as generatable, scaffoldable, or template-based depending on whether AI can produce complete content, a draft for writer revision, or a structural template.
 
 ## Usage
 
 ```
-/scr:back-matter [--element <name>]
+/scr:back-matter                                      # interactive: skip / minimum / balanced / maximum
+/scr:back-matter --level <minimum|balanced|maximum>   # non-interactive
+/scr:back-matter --element <name>                     # generate one specific element
 ```
+
+**Levels:**
+
+| Level | What it generates | When to use |
+|-------|-------------------|-------------|
+| `minimum` | About the author. (Plus bibliography for academic / sacred work types where it is structurally required.) | Beta-reader handoff, draft sharing. |
+| `balanced` | `minimum` + colophon, permissions/credits when applicable. | Default for retail publishing. |
+| `maximum` | Every applicable element (the legacy "all 12" behavior, including epilogue, afterword, glossary, suggested reading, index, discussion questions). | Critical editions, scholarly works, anyone who wants the full back-matter menu. |
+
+If neither `--level` nor `--element` is provided, the command prompts the writer first:
+
+> Generate back matter?
+>
+> 1. **skip** -- I do not want any back matter generated
+> 2. **minimum** -- about-the-author (legal floor)
+> 3. **balanced** -- minimum + colophon, permissions when applicable
+> 4. **maximum** -- every applicable element
+
+If the writer answers **skip**, exit with no files written and no error.
 
 **Elements:**
 
@@ -55,6 +77,33 @@ Check for adapted behavior:
 
 ---
 
+### STEP 1.5: RESOLVE LEVEL
+
+Resolve the level filter that controls which elements are eligible to be generated.
+
+**Routing:**
+- If `--element <name>` is given, ignore `--level` entirely and generate only that one element. Skip the rest of this step.
+- If `--level <value>` is given, use that value (`minimum`, `balanced`, or `maximum`).
+- If neither flag is given, run the interactive prompt from the Usage section. If the writer chooses **skip**, write a one-line summary ("Back matter generation skipped at writer's request -- no files written.") and exit without doing anything else.
+
+**Level membership** (the eligible set per level, before work-type filtering):
+
+| Level | Elements eligible |
+|-------|-------------------|
+| `minimum` | 9 (about-the-author). Plus 6 (bibliography) when work type group is `academic` or `sacred` (structurally required there). |
+| `balanced` | minimum + 10 (colophon), 12 (permissions/credits when there is anything to credit) |
+| `maximum` | All 12 standard elements + every applicable adaptation element (academic, sacred-tradition specific) |
+
+**Adaptation interaction:**
+- The Academic and Sacred adaptations modify or add elements. They run regardless of level. Their additions are eligible only at `maximum`, except where the level explicitly includes them (for example bibliography is in `minimum` for academic and sacred work types).
+- Sacred-specific extras (concordance, scripture index, sacred maps, chronological tables) are eligible only at `maximum`.
+
+**Work-type filtering applies on top of the level filter.** An element that is in the level's eligible set but is hidden for the current work type group (per `CONSTRAINTS.json`) is still skipped.
+
+Use the resolved eligible set for STEP 3. Track the resolved level so STEP 4 can report it.
+
+---
+
 ### STEP 2: VOICE DNA LOADING (CONDITIONAL)
 
 **Load `.manuscript/STYLE-GUIDE.md` ONLY for narrative/voice-dependent elements:**
@@ -79,7 +128,7 @@ This separation preserves voice fidelity for elements the reader experiences as 
 
 ### STEP 3: GENERATE ELEMENTS
 
-Process each element in order. If `--element` was specified, skip to that element only.
+Process each element in order, but only if it is in the eligible set resolved in STEP 1.5. If `--element` was specified, skip the level filter and generate only that element. Skip any element not in the eligible set silently (it goes into the STEP 4 skipped-elements report instead).
 
 #### Element 1: Epilogue -- SCAFFOLD
 
@@ -510,17 +559,35 @@ When `--all` is used for sacred works, include these sacred-specific elements al
 
 ### STEP 4: SKIPPED ELEMENTS REPORT
 
-When running without `--element`, after generating all applicable elements, list any elements that were skipped:
+When running without `--element`, after generating all eligible elements, list any elements that were skipped along with the resolved level:
 
 ```markdown
+## Back Matter Summary
+
+Level: [minimum | balanced | maximum]
+
 ## Skipped Elements
 
 The following back matter elements were not generated for this work:
 
-- **[Element name]**: [Reason -- e.g., "No footnotes found in manuscript", "Not applicable to fiction", "Academic adaptation: epilogue not standard"]
+- **[Element name]**: [Reason -- e.g., "Not in level: balanced", "No footnotes found in manuscript", "Not applicable to fiction", "Academic adaptation: epilogue not standard"]
 ```
 
+When the reason is the level filter, use the form **"Not in level: \<resolved-level\>"** so the writer can see what re-running with `--level maximum` would add.
+
 Append this report to the final output displayed to the writer.
+
+---
+
+### STEP 5: HISTORY LOG
+
+Append one line to `.manuscript/HISTORY.log` per `docs/history-protocol.md`:
+
+```
+{ISO timestamp} | scr:back-matter | level={resolved level or "skip" or "single-element"} | elements={count generated} | outcome=ok
+```
+
+If the writer chose `skip` in the interactive prompt, log `level=skip | elements=0 | outcome=skipped` -- the skip is itself a state event worth recording. If `--element <name>` was used, log `level=single-element | elements=1 | element={name} | outcome=ok`. Create HISTORY.log if it does not exist.
 
 ---
 

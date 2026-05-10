@@ -34,6 +34,16 @@ Require `{N}-*-PLAN.md` files to exist. If not, offer `/scr:plan N` first. If th
 
 6. **Tell the writer:** "Drafted {unit} {N}: X words across Y {atomic_units}. Voice consistency: Z%. Ready for editor review? Run `/scr:editor-review N` or `/scr:next`."
 
+## History log
+
+After all atomic units in this invocation are drafted, append one line to `.manuscript/HISTORY.log` per `docs/history-protocol.md`:
+
+```
+{ISO timestamp} | scr:draft | unit={N} | files={comma-separated draft filenames written this run} | outcome=ok
+```
+
+If the run failed (drafter agent returned an error, voice-check blocked, etc.), use `outcome=failed:<short-reason>` instead. Create HISTORY.log if it does not exist. Do not log per atomic unit -- one line per `/scr:draft` invocation keeps the log scannable.
+
 ## Autopilot behavior
 
 If config has `autopilot.enabled: true`, proceed to `/scr:editor-review` automatically after drafting. In supervised profile, pause here for the writer to read. In full-auto, keep going.

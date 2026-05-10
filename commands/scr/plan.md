@@ -35,6 +35,12 @@ Require `{N}-CONTEXT.md` to exist (from discuss phase). If it doesn't, offer to 
 
 7. **Update STATE.md** and suggest: "Ready to draft? Run `/scr:draft N`." (Suppress the draft suggestion if any plan came back NEEDS REVISION; suggest addressing the flagged items first.)
 
+8. **Append one line to `.manuscript/HISTORY.log`** per `docs/history-protocol.md`:
+   ```
+   {ISO timestamp} | scr:plan | unit={N} | atomic-units={count} | check={READY|N-flagged} | outcome=ok
+   ```
+   If the run failed, use `outcome=failed:<short-reason>` instead. Create HISTORY.log if it does not exist.
+
 ## Tone
 
 Focused. This is craft work. Don't pad with commentary — the writer wants to see a concrete plan fast.

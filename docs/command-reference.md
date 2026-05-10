@@ -1,6 +1,6 @@
 # Command Reference
 
-Scriven has **108 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
+Scriven has **109 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
 
 Commands marked with **adaptive terminology** change how Scriven talks about your work type's `command_unit` in `.manuscript/config.json`, while keeping the runnable command id stable. Commands marked with **group adaptation** have different labels for specific work type groups (academic, sacred, etc.).
 
@@ -1122,9 +1122,13 @@ Commands for preparing your manuscript for publication -- front/back matter, mar
 
 **Description:** Generate publication-ready front matter elements in Chicago Manual of Style order.
 
-**Usage:** `/scr:front-matter`
+**Usage:** `/scr:front-matter [--level <minimum|balanced|maximum>] [--element <name>]`
 
 **Prerequisites:** Complete draft must exist
+
+**Flags:**
+- `--level <value>` -- How much to generate. `minimum` = title page, copyright, TOC. `balanced` = minimum + half-title, dedication, epigraph, acknowledgments. `maximum` = every applicable element (legacy "all 19" behavior). If omitted (and `--element` is also omitted), the command prompts: skip / minimum / balanced / maximum.
+- `--element <name>` -- Generate only the named element. Bypasses the level filter.
 
 **Available for:** Prose, script, academic, visual, sacred
 
@@ -1134,9 +1138,11 @@ Commands for preparing your manuscript for publication -- front/back matter, mar
 
 **Example:**
 ```
-/scr:front-matter
+/scr:front-matter                          # interactive prompt
+/scr:front-matter --level balanced         # non-interactive, retail default
+/scr:front-matter --element copyright      # one element, ignores level
 ```
-Generate title page, copyright page, dedication, epigraph, table of contents, and more.
+Generate title page, copyright page, dedication, epigraph, table of contents, and more (level controls how much).
 
 ---
 
@@ -1144,9 +1150,13 @@ Generate title page, copyright page, dedication, epigraph, table of contents, an
 
 **Description:** Generate publication-ready back matter elements.
 
-**Usage:** `/scr:back-matter`
+**Usage:** `/scr:back-matter [--level <minimum|balanced|maximum>] [--element <name>]`
 
 **Prerequisites:** Complete draft must exist
+
+**Flags:**
+- `--level <value>` -- How much to generate. `minimum` = about-the-author (plus bibliography for academic and sacred). `balanced` = minimum + colophon, permissions when applicable. `maximum` = every applicable element (legacy "all 12" behavior). If omitted (and `--element` is also omitted), the command prompts: skip / minimum / balanced / maximum.
+- `--element <name>` -- Generate only the named element. Bypasses the level filter.
 
 **Available for:** Prose, script, academic, visual, sacred
 
@@ -1156,9 +1166,11 @@ Generate title page, copyright page, dedication, epigraph, table of contents, an
 
 **Example:**
 ```
-/scr:back-matter
+/scr:back-matter                           # interactive prompt
+/scr:back-matter --level balanced          # non-interactive, retail default
+/scr:back-matter --element about-author    # one element, ignores level
 ```
-Generate acknowledgments, about the author, reading group guide, also by, and more.
+Generate acknowledgments, about the author, reading group guide, also by, and more (level controls how much).
 
 ---
 
@@ -1862,6 +1874,29 @@ See all your writing projects with status, word count, and last activity.
 /scr:health --repair
 ```
 Check for missing files, broken references, and state inconsistencies, then fix what can be fixed.
+
+---
+
+### `/scr:scan`
+
+**Description:** Detect drift between recorded state (STATE.md, OUTLINE.md, config.json) and what is actually on disk.
+
+**Usage:** `/scr:scan [--fix] [--quiet]`
+
+**Prerequisites:** None
+
+**Flags:**
+- `--fix` -- After reporting, offer to apply auto-fixable corrections (e.g. update STATE.md unit counts to match disk, regenerate stale CONTEXT.md)
+- `--quiet` -- Suppress the all-clear summary; only emit output when drift is found. Useful in scripts and pre-export gates.
+
+**Available for:** All work types
+
+**Example:**
+```
+/scr:scan          # report-only context-integrity scan
+/scr:scan --fix    # report + offer to fix the auto-fixable mismatches
+```
+Complements `/scr:health` (structural fixer) by interrogating whether the *recorded* project state still matches reality. Run at session start, before publish, and after manually editing files outside Scriven.
 
 ---
 

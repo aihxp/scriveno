@@ -9,6 +9,8 @@ You are welcoming the writer back and orienting them. Your job is to read the se
 
 ## What to do
 
+0. **Read `.manuscript/CONTEXT.md` first if it exists.** This is the auto-regenerated one-page bootstrap. Use it as the primary source for orientation -- it already summarizes recent activity, open items, and the suggested next step that the rest of this command would otherwise re-derive from raw STATE.md fields. If CONTEXT.md is present and its `Updated` timestamp is newer than STATE.md, skip steps 1 through 3 (you already have the synthesis) and go to step 4. If CONTEXT.md is missing, stale, or contradicts STATE.md, treat STATE.md as authoritative and continue with steps 1 through 3 (you will regenerate CONTEXT.md in step 6).
+
 1. **Read STATE.md "Session handoff" section** for:
    - Last session end time
    - Resume context (automated context + writer's notes)
@@ -43,6 +45,14 @@ You are welcoming the writer back and orienting them. Your job is to read the se
 
    Example:
    > Last time you drafted chapter 3 (1,247 words across 4 scenes, voice check passed). You were working on chapter 4 -- you noted you wanted it shorter and more tense, with Marcus discovering the letter. I'd suggest starting with /scr:discuss 4 to shape the plan.
+
+6. **Regenerate `.manuscript/CONTEXT.md`** using the `templates/CONTEXT.md` scaffold and the same field set described in `/scr:save` step 7, with `{{LAST_COMMAND}}` set to `/scr:resume-work`. This refreshes the bootstrap file so the next session opens to a current view -- the act of resuming is itself a state event worth recording.
+
+7. **Append one line to `.manuscript/HISTORY.log`** per `docs/history-protocol.md`:
+   ```
+   {ISO timestamp} | scr:resume-work | unit={current unit or --} | outcome=resumed
+   ```
+   Create HISTORY.log if it does not exist.
 
 ## Output format
 
