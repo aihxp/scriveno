@@ -29,9 +29,11 @@ Require `{N}-CONTEXT.md` to exist (from discuss phase). If it doesn't, offer to 
 
 4. **Save as `.manuscript/{N}-{A}-PLAN.md`** where {A} is the atomic unit (scene, subsection, passage, stanza). One plan file per atomic unit. The drafter will read each one in a fresh context to stay focused.
 
-5. **Write a short summary** for the writer: "Planned {unit} {N}: X {atomic_units}, main arc goes from Y to Z, voice notes applied from STYLE-GUIDE.md."
+5. **Run the plan check.** For each `{N}-{A}-PLAN.md` you just wrote, invoke the installed `plan-checker.md` agent for the writer's active Scriven runtime (for example the runtime's global or project-scoped `agents/plan-checker.md`) in a fresh context. Pass the plan file plus WORK.md, OUTLINE.md, the relevant arc file (PLOT-GRAPH.md or THEOLOGICAL-ARC.md), CHARACTERS.md (or FIGURES.md), STYLE-GUIDE.md, and any previously drafted units. The agent returns a PLAN CHECK report with status READY or NEEDS REVISION plus specific completeness, alignment, character, voice, and pacing findings. Surface its recommendations to the writer before suggesting the draft step. If the agent flags NEEDS REVISION on any plan, hold the draft suggestion and offer to fix the flagged items first.
 
-6. **Update STATE.md** and suggest: "Ready to draft? Run `/scr:draft N`."
+6. **Write a short summary** for the writer: "Planned {unit} {N}: X {atomic_units}, main arc goes from Y to Z, voice notes applied from STYLE-GUIDE.md. Plan check: {READY | N items flagged}."
+
+7. **Update STATE.md** and suggest: "Ready to draft? Run `/scr:draft N`." (Suppress the draft suggestion if any plan came back NEEDS REVISION; suggest addressing the flagged items first.)
 
 ## Tone
 

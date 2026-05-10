@@ -17,7 +17,16 @@ If `N` is provided, checks only Act N against previous acts. Otherwise checks en
 
 Load `.manuscript/config.json` to get `work_type`. Load Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) to check command adaptations. For sacred work types, this command is called 'doctrinal-check' and should additionally verify doctrinal consistency and canonical alignment. For academic work types, this command is called 'citation-check' and should additionally verify citation consistency and reference accuracy. For technical work types, this command is called 'consistency-check' and should additionally verify terminology consistency, prerequisite order, command syntax, version references, and recovery steps. Use adapted terminology throughout all output.
 
-Spawn a continuity analysis agent that reads all drafted scenes and checks:
+Invoke the installed `continuity-checker.md` agent for the writer's active Scriven runtime (for example the runtime's global or project-scoped `agents/continuity-checker.md`) in a fresh context. Pass it:
+
+- The full set of drafted units (`.manuscript/drafts/body/{N}-{A}-DRAFT.md` files in scope — all units, or only Act `N` and prior acts when scoped)
+- CHARACTERS.md (or FIGURES.md for sacred works)
+- WORLD.md (or COSMOLOGY.md for sacred works)
+- PLOT-GRAPH.md (or THEOLOGICAL-ARC.md for sacred works)
+- DOCTRINES.md, LINEAGES.md, and CHRONOLOGY.md when present (sacred only)
+- The previous continuity report if one exists, so the agent can verify resolved issues stayed resolved instead of re-flagging them
+
+The agent reads all drafted scenes and checks:
 
 <continuity_checks>
   <check name="character_consistency">

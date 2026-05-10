@@ -359,10 +359,7 @@ function commandRefToCodexSkillName(commandRef) {
 }
 
 function commandRefToConstraintKey(commandRef) {
-  return commandRef
-    .replace(/^\/scr:/, '')
-    .split(':')
-    .pop();
+  return commandRef.replace(/^\/scr:/, '');
 }
 
 function commandRefToClaudeInvocation(commandRef) {
