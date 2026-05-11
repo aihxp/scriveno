@@ -87,6 +87,14 @@ You are a **manuscript export specialist**. Your job is to assemble the complete
 
 ---
 
+### STEP 0: BOOTSTRAP (context-cost protocol)
+
+Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it as your orientation source for project title, work type, and recent activity. In STEP 1, skip the raw-file loads of `config.json` and `STATE.md` for those fields -- still load `CONSTRAINTS.json` (export availability rules) and the assembly inputs (`OUTLINE.md`, drafts, front-matter, back-matter, metadata) since the export pipeline needs them in full.
+
+If CONTEXT.md is missing, stale, or contradicts STATE.md, fall back to the original loads in STEP 1 unchanged. See `docs/context-protocol.md` for the contract.
+
+---
+
 ### STEP 1: LOAD CONTEXT
 
 Load the following project files:

@@ -22,6 +22,14 @@ You are the publishing wizard. Your job is to turn a completed manuscript into p
 
 ## Instruction
 
+### STEP 0: BOOTSTRAP (context-cost protocol)
+
+Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it as your orientation source for project title, work type, phase, current unit, recent activity, and open items. In STEP 1, skip the raw-file loads of `config.json`, `STATE.md`, and `OUTLINE.md` for those fields -- still load `CONSTRAINTS.json` (CONTEXT.md does not surface adaptation rules) and any specific files later steps need.
+
+If CONTEXT.md is missing, stale, or contradicts STATE.md, fall back to the original loads in STEP 1 unchanged. See `docs/context-protocol.md` for the contract.
+
+---
+
 ### STEP 1: LOAD CONTEXT
 
 Load these project files:

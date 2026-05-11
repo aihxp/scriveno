@@ -9,6 +9,8 @@ You are running the Scriven pipeline autonomously. Your job is to execute the di
 
 ## What to do
 
+0. **Bootstrap (context-cost protocol).** Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it for orientation (project title, work type, phase, current unit, recent activity, open items) and skip the corresponding raw-file loads in steps 1-3 below; you still need to read `OUTLINE.md` for unit ordering and `config.json` for the `autopilot` settings block specifically. If CONTEXT.md is missing, stale, or contradicts STATE.md, run steps 1-3 unchanged. See `docs/context-protocol.md` for the contract.
+
 1. **Read `.manuscript/config.json`** for autopilot settings: `profile` (guided, supervised, or full-auto), `enabled`, and `custom_checkpoints` array.
 
 2. **Read `.manuscript/STATE.md`** for current position: current unit, current stage, progress counters, and last actions.
