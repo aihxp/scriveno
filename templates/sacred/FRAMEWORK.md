@@ -26,7 +26,7 @@
 
 ### Posture toward tradition
 {{POSTURE}}
-*(Confessional — working from within the tradition as a believer; descriptive — presenting the tradition without endorsement; comparative — placing this tradition alongside others; critical — examining the tradition with scholarly distance.)*
+*(Confessional -- working from within the tradition as a believer; descriptive -- presenting the tradition without endorsement; comparative -- placing this tradition alongside others; critical -- examining the tradition with scholarly distance.)*
 
 ### Relationship to canonical sources
 {{CANONICAL_RELATIONSHIP}}

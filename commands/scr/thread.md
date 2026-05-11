@@ -25,7 +25,7 @@ You are managing focused conversation threads. These are deep-dive discussions a
 
    ---
 
-   ## {ISO date} — Opening
+   ## {ISO date} -- Opening
 
    [Begin the conversation. Ask the writer what they want to explore about this topic.]
    ```
@@ -37,7 +37,7 @@ You are managing focused conversation threads. These are deep-dive discussions a
 2. Show a brief summary of where the conversation left off
 3. Append a new dated entry:
    ```markdown
-   ## {ISO date} — Continued
+   ## {ISO date} -- Continued
 
    [Continue from where the last entry left off]
    ```

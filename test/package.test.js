@@ -41,7 +41,9 @@ describe('package.json fields', () => {
   });
 
   it('has prepublishOnly script', () => {
-    assert.equal(pkg.scripts.prepublishOnly, 'npm test');
+    assert.equal(pkg.scripts.prepublishOnly, 'npm run release:check');
+    assert.equal(pkg.scripts['release:check'], 'npm test && npm run pack:check');
+    assert.equal(pkg.scripts['pack:check'], 'npm pack --dry-run');
   });
 });
 

@@ -1,4 +1,4 @@
-// Scriven Chapbook Template — 5.5x8.5 saddle-stitch
+// Scriven Chapbook Template -- 5.5x8.5 saddle-stitch
 //
 // SADDLE-STITCH CONSTRAINT: Page count must be a multiple of 4.
 // If your poem count produces a non-multiple-of-4 page total,
@@ -18,7 +18,7 @@
 // Text direction
 #let text-dir = $if(text-direction)$$text-direction$$else$ltr$endif$
 
-// Font configuration — chapbooks default to a clean readable serif
+// Font configuration -- chapbooks default to a clean readable serif
 #let body-font = $if(mainfont)$"$mainfont$"$else$"Libertinus Serif"$endif$
 #let body-font-size = $if(fontsize)$$fontsize$$else$11pt$endif$
 
@@ -31,7 +31,7 @@
   author: book-author,
 )
 
-// Page setup — no running header (chapbooks typically use only page numbers)
+// Page setup -- no running header (chapbooks typically use only page numbers)
 #set page(
   width: page-width,
   height: page-height,
@@ -50,7 +50,7 @@
 )
 
 // Text settings: 11pt serif, 1.4 leading
-// No first-line indent for poetry — poems use stanza breaks (blank lines)
+// No first-line indent for poetry -- poems use stanza breaks (blank lines)
 #set text(font: body-font, size: body-font-size, dir: text-dir)
 #set par(leading: 1.4 * 0.65em, first-line-indent: 0em, justify: false)
 

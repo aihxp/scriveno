@@ -17,13 +17,13 @@ Sacred work types only. Requires at least one drafted unit and `DOCTRINES.md`.
 
 Load all drafted units. Load DOCTRINES.md and FRAMEWORK.md. For each doctrine tracked in DOCTRINES.md, scan the drafts for:
 
-1. **Affirmations** — Passages that affirm this doctrine. Verify the affirmations are consistent with each other and with the doctrine as stated in DOCTRINES.md.
+1. **Affirmations** -- Passages that affirm this doctrine. Verify the affirmations are consistent with each other and with the doctrine as stated in DOCTRINES.md.
 
-2. **Challenges** — Passages that present counter-positions. Verify they're handled according to FRAMEWORK.md's stance (confessional vs. descriptive vs. critical).
+2. **Challenges** -- Passages that present counter-positions. Verify they're handled according to FRAMEWORK.md's stance (confessional vs. descriptive vs. critical).
 
-3. **Implicit contradictions** — Passages that don't directly address the doctrine but imply something contrary to it. Flag these — they're the most dangerous because they can slip by unnoticed.
+3. **Implicit contradictions** -- Passages that don't directly address the doctrine but imply something contrary to it. Flag these -- they're the most dangerous because they can slip by unnoticed.
 
-4. **Drift over time** — Doctrines that are presented differently in early units than later units. Is the drift intentional (e.g., showing doctrinal development) or accidental?
+4. **Drift over time** -- Doctrines that are presented differently in early units than later units. Is the drift intentional (e.g., showing doctrinal development) or accidental?
 
 ### With a unit number
 
@@ -47,7 +47,7 @@ The writer has chosen to present these without resolution. Verify:
 
 ### Developing doctrines
 
-If DOCTRINES.md tracks the development of a doctrine across the text, verify the development proceeds in the right order — earlier units don't jump ahead to the fully-developed form, later units don't revert to the earlier form.
+If DOCTRINES.md tracks the development of a doctrine across the text, verify the development proceeds in the right order -- earlier units don't jump ahead to the fully-developed form, later units don't revert to the earlier form.
 
 ### Counter-positions in the text
 
@@ -70,7 +70,7 @@ AFFIRMED DOCTRINES
 
 CONTESTED DOCTRINES
 - [doctrine name]: maintains even-handedness across 6 passages
-- [doctrine name]: WARNING — unit 3 appears to resolve this contest toward position X, contrary to FRAMEWORK.md
+- [doctrine name]: WARNING -- unit 3 appears to resolve this contest toward position X, contrary to FRAMEWORK.md
 
 IMPLICIT CONTRADICTIONS
 - [unit:line]: Statement implies X, which contradicts affirmed doctrine Y
@@ -87,9 +87,9 @@ RECOMMENDATIONS
 
 Each finding is assigned a severity level:
 
-- **contradiction** — Directly opposes an affirmed doctrine in DOCTRINES.md. Highest priority. The writer almost certainly wants to fix this (or update DOCTRINES.md).
-- **tension** — May conflict with a doctrine, but the relationship is ambiguous. Could be intentional nuance, developing theology, or an oversight. Flag for review.
-- **novel** — Asserts something not addressed in DOCTRINES.md at all. Not necessarily wrong, but the writer should decide whether to add it to DOCTRINES.md or revise the passage. Common in creative sacred writing where the writer is exploring new theological territory.
+- **contradiction** -- Directly opposes an affirmed doctrine in DOCTRINES.md. Highest priority. The writer almost certainly wants to fix this (or update DOCTRINES.md).
+- **tension** -- May conflict with a doctrine, but the relationship is ambiguous. Could be intentional nuance, developing theology, or an oversight. Flag for review.
+- **novel** -- Asserts something not addressed in DOCTRINES.md at all. Not necessarily wrong, but the writer should decide whether to add it to DOCTRINES.md or revise the passage. Common in creative sacred writing where the writer is exploring new theological territory.
 
 The report groups findings by severity, with contradictions first, tensions second, novel assertions third. This lets the writer triage efficiently.
 
@@ -101,6 +101,6 @@ When the writer's stance is genuinely evolving (they realize DOCTRINES.md needs 
 
 ## Tone
 
-Precise and humble. Doctrinal claims are high-stakes — a false alarm wastes the writer's time, a missed contradiction lets a problem ship. Be specific about what you see and what you're uncertain about.
+Precise and humble. Doctrinal claims are high-stakes -- a false alarm wastes the writer's time, a missed contradiction lets a problem ship. Be specific about what you see and what you're uncertain about.
 
 Don't moralize. Don't take sides in inter-tradition disputes. Your job is internal consistency, not ecumenical judgment.

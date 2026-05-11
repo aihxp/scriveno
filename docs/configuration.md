@@ -15,7 +15,7 @@ There is no compiled app config, no environment-variable matrix for the core wor
 
 ## Installer baseline
 
-The supported installer floor is:
+The installer compatibility floor is:
 
 ```json
 "engines": {
@@ -23,11 +23,13 @@ The supported installer floor is:
 }
 ```
 
-That same Node 20+ baseline is enforced in:
+That same `>=20.0.0` floor is enforced in:
 
 - `package.json`
 - `bin/install.js`
 - `docs/runtime-support.md`
+
+For new installs, use a currently supported LTS release such as Node.js 24. Node.js 20 reached end of life on 2026-04-30, so it remains a compatibility floor, not the recommended fresh-install target.
 
 For runtime support details, use [Runtime Support](runtime-support.md). That document is the canonical compatibility matrix.
 
@@ -55,7 +57,7 @@ When a writer runs `/scr:new-work`, Scriven creates `.manuscript/config.json`. T
 
 ```json
 {
-  "scriven_version": "1.6.1",
+  "scriven_version": "1.6.2",
   "work_type": "<chosen>",
   "group": "<group>",
   "command_unit": "<unit>",
@@ -87,7 +89,7 @@ Technical projects also swap in the specialized templates under `templates/techn
 
 ### Sacred and historical projects
 
-Sacred work types add a `sacred` block seeded from `config_defaults`. Depending on the type, that can include:
+Sacred work types add top-level sacred profile keys seeded from `config_defaults` and `architectural_profiles.defaults_by_work_type.tradition`. Depending on the type, that can include:
 
 - tradition
 - verse numbering system
@@ -95,7 +97,7 @@ Sacred work types add a `sacred` block seeded from `config_defaults`. Depending 
 - translation philosophy
 - canonical alignment
 
-Sacred projects also load the template variants under `templates/sacred/`.
+Sacred projects also load the template variants under `templates/sacred/`. Older projects with a nested `sacred` object are accepted as legacy input by commands that read these keys, but new projects should use the top-level shape.
 
 ### Drafter quality settings
 
@@ -174,7 +176,7 @@ npm test
 And for release-facing changes, also run:
 
 ```bash
-npm pack --dry-run
+npm run release:check
 ```
 
 ## Related docs

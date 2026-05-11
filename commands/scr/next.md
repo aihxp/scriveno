@@ -4,7 +4,7 @@ description: Auto-detect what to do next in your workflow and run it. The one co
 
 # Next
 
-You are routing the writer to the right next step in their workflow. This command is the universal interface — a writer who only ever types `/scr:next` should be able to complete an entire novel.
+You are routing the writer to the right next step in their workflow. This command is the universal interface -- a writer who only ever types `/scr:next` should be able to complete an entire novel.
 
 ## What to do
 
@@ -15,32 +15,32 @@ You are routing the writer to the right next step in their workflow. This comman
 3. **Read `.manuscript/config.json`** to get the work type and command_unit (chapter, act, section, surah, etc.).
 
 4. **Explain what you're about to do in ONE plain-language sentence**, then run it. Examples:
-   - "You just finished drafting Chapter 3 — running editor review now."
-   - "Chapter 4 has a plan but no draft yet — drafting it."
-   - "You haven't discussed the next chapter — shaping Chapter 5."
+   - "You just finished drafting Chapter 3 -- running editor review now."
+   - "Chapter 4 has a plan but no draft yet -- drafting it."
+   - "You haven't discussed the next chapter -- shaping Chapter 5."
 
 ## Routing logic
 
 Walk the core chain in order and run the first incomplete step:
 
-1. **No OUTLINE.md** → `/scr:discuss` (high-level discussion about the whole project)
-2. **No CHARACTERS.md / FIGURES.md and work type supports them** → `/scr:new-character` loop
-3. **No STYLE-GUIDE.md calibration done** → `/scr:voice-test`
-4. **No {unit} discussed** → `/scr:discuss N` (next pending unit)
-5. **No {unit} planned** → `/scr:plan N`
-6. **No {unit} drafted** → `/scr:draft N`
-7. **No editor review** → `/scr:editor-review N`
-8. **Not submitted** → `/scr:submit N`
-9. **All units submitted** → `/scr:complete-draft` or start next unit
-10. **Draft complete, no revisions** → suggest revision, beta reader, or publishing path
-11. **Revisions pending** → run the next revision step
-12. **Everything done** → suggest publishing: "Your draft is complete. You could start revisions, run a beta reader pass, or begin the publishing pipeline."
+1. **No OUTLINE.md** -> `/scr:discuss` (high-level discussion about the whole project)
+2. **No CHARACTERS.md / FIGURES.md and work type supports them** -> `/scr:new-character` loop
+3. **No STYLE-GUIDE.md calibration done** -> `/scr:voice-test`
+4. **No {unit} discussed** -> `/scr:discuss N` (next pending unit)
+5. **No {unit} planned** -> `/scr:plan N`
+6. **No {unit} drafted** -> `/scr:draft N`
+7. **No editor review** -> `/scr:editor-review N`
+8. **Not submitted** -> `/scr:submit N`
+9. **All units submitted** -> `/scr:complete-draft` or start next unit
+10. **Draft complete, no revisions** -> suggest revision, beta reader, or publishing path
+11. **Revisions pending** -> run the next revision step
+12. **Everything done** -> suggest publishing: "Your draft is complete. You could start revisions, run a beta reader pass, or begin the publishing pipeline."
 
 ## Edge cases
 
-- **Multiple valid next steps** — Present choices: "Chapter 3 is ready to draft, but you also have editor notes on Chapter 2. Which first?"
-- **Stuck state** — If a command failed recently (logged in STATE.md), offer `/scr:troubleshoot` instead of retrying blindly.
-- **Autopilot mode** — If config has `autopilot.enabled: true`, run multiple steps in sequence without asking, pausing only per the profile's rules (guided, supervised, full-auto).
+- **Multiple valid next steps** -- Present choices: "Chapter 3 is ready to draft, but you also have editor notes on Chapter 2. Which first?"
+- **Stuck state** -- If a command failed recently (logged in STATE.md), offer `/scr:troubleshoot` instead of retrying blindly.
+- **Autopilot mode** -- If config has `autopilot.enabled: true`, run multiple steps in sequence without asking, pausing only per the profile's rules (guided, supervised, full-auto).
 
 ## Adaptive naming
 
@@ -48,4 +48,4 @@ Use canonical runnable commands, and adapt the terminology in prompts/output for
 
 ## Tone
 
-Brief. Decisive. Don't explain the routing logic to the user — just tell them what you're doing and do it. They're trusting you to know.
+Brief. Decisive. Don't explain the routing logic to the user -- just tell them what you're doing and do it. They're trusting you to know.

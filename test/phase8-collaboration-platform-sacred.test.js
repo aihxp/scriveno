@@ -481,6 +481,15 @@ describe('SACRED-09: Sacred Config Schema', () => {
     );
   });
 
+  it('tradition field values match shipped tradition profile slugs', () => {
+    const constraints = JSON.parse(fs.readFileSync(constraintsPath, 'utf8'));
+    assert.deepEqual(
+      constraints.sacred_config_schema.tradition.values,
+      constraints.architectural_profiles.traditions._seeded,
+      'tradition values should use concrete shipped tradition profile slugs'
+    );
+  });
+
   it('translation_philosophy field has valid values', () => {
     const constraints = JSON.parse(fs.readFileSync(constraintsPath, 'utf8'));
     const values = constraints.sacred_config_schema.translation_philosophy.values;

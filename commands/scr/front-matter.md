@@ -480,7 +480,7 @@ Save the abstract to `.manuscript/front-matter/05-abstract.md`
 
 ### SACRED ADAPTATION (behavior: sacred_front_matter)
 
-When the work type group is `sacred`, apply these modifications to the standard 19 elements AND add the following tradition-specific elements. Read the top-level `tradition:` key from `.manuscript/config.json` to determine which elements to include.
+When the work type group is `sacred`, apply these modifications to the standard 19 elements AND add the following tradition-specific elements. Read the top-level `tradition` key from `.manuscript/config.json` to determine which elements to include. For older projects only, if top-level `tradition` is absent and `sacred.tradition` exists, use `sacred.tradition` as a legacy fallback.
 
 **Standard sacred modifications:**
 
@@ -514,12 +514,12 @@ When the work type group is `sacred`, the `--element` flag accepts these additio
 
 | Tradition | Elements Included |
 |-----------|-------------------|
-| `christian` | imprimatur, nihil-obstat, scriptural-dedication, theological-preface |
+| `catholic` | imprimatur, nihil-obstat, scriptural-dedication, theological-preface |
+| `orthodox`, `tewahedo`, `protestant` | scriptural-dedication, theological-preface |
 | `jewish` | haskamah, scriptural-dedication, theological-preface |
-| `islamic` | bismillah, ijazah, scriptural-dedication, theological-preface |
-| `buddhist` | scriptural-dedication, theological-preface |
-| `hindu` | scriptural-dedication, theological-preface |
-| `interfaith` | scriptural-dedication, theological-preface |
+| `islamic-hafs`, `islamic-warsh` | bismillah, ijazah, scriptural-dedication, theological-preface |
+| `pali`, `tibetan` | scriptural-dedication, theological-preface |
+| `sanskrit` | scriptural-dedication, theological-preface |
 | All others | scriptural-dedication, theological-preface |
 
 When `--all` is used for sacred works, include these tradition-specific elements in addition to the standard 19 front matter elements. Save each to `.manuscript/front-matter/20-{element-name}.md` (numbering continues from the standard elements).
@@ -528,11 +528,11 @@ When `--all` is used for sacred works, include these tradition-specific elements
 
 ### STEP 3.5: TRADITION APPROVAL BLOCK (CONDITIONAL)
 
-After completing all front-matter elements, check if `tradition:` is set in `.manuscript/config.json`.
+After completing all front-matter elements, check if top-level `tradition` is set in `.manuscript/config.json`. For older projects only, if top-level `tradition` is absent and `sacred.tradition` exists, use `sacred.tradition` as a legacy fallback.
 
-If `tradition:` is absent or null: skip this step silently.
+If `tradition` is absent or null: skip this step silently.
 
-If `tradition:` is set, load `templates/sacred/{tradition}/manifest.yaml` and read `approval_block.required`.
+If `tradition` is set, load `templates/sacred/{tradition}/manifest.yaml` and read `approval_block.required`.
 
 If `approval_block.required` is `false`: skip this step silently.
 
@@ -557,7 +557,7 @@ tradition: {tradition}
 
 ## For the Authorizing Authority
 
-This work requires a {approval_block.label} — a formal declaration that the content
+This work requires a {approval_block.label} -- a formal declaration that the content
 is doctrinally sound according to the {tradition} tradition.
 
 **Work:** [Title from WORK.md]

@@ -120,7 +120,7 @@ describe('validateSettings', () => {
 });
 
 describe('migrateSettings', () => {
-  it('Test 6: migrates runtime → runtimes when runtimes missing', () => {
+  it('Test 6: migrates runtime -> runtimes when runtimes missing', () => {
     const raw = {
       version: '1.0.0',
       runtime: 'claude-code',
@@ -235,7 +235,7 @@ describe('readSettings', () => {
     }
   });
 
-  it('Test 12: migration precedes validation — old-format file succeeds', () => {
+  it('Test 12: migration precedes validation -- old-format file succeeds', () => {
     const tmpDir = mkTmp('oldfmt');
     try {
       // Old-format settings: no runtimes array, no scope, no install_mode

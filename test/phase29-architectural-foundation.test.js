@@ -28,7 +28,7 @@ function scaffoldTempProfile(dir, slug) {
 
 describe('Phase 29: ARCH-01 drop-in tradition', () => {
   it('a contributor-dropped templates/sacred/<new>/manifest.yaml is recognized by listTraditions() without code edits', () => {
-    // Slug must match SLUG_PATTERN (^[a-z][a-z0-9-]*$) — see lib/architectural-profiles.js.
+    // Slug must match SLUG_PATTERN (^[a-z][a-z0-9-]*$) -- see lib/architectural-profiles.js.
     // Prefix `zzz-test-` keeps it sorted last for easy visual spotting if cleanup ever leaks,
     // and avoids collision with any plausible real tradition slug.
     const slug = 'zzz-test-zoroastrian';
@@ -52,7 +52,7 @@ describe('Phase 29: ARCH-01 drop-in tradition', () => {
 
 describe('Phase 29: ARCH-02 drop-in platform', () => {
   it('a contributor-dropped templates/platforms/<new>/manifest.yaml is recognized by listPlatforms() without code edits', () => {
-    // Slug must match SLUG_PATTERN (^[a-z][a-z0-9-]*$) — see lib/architectural-profiles.js.
+    // Slug must match SLUG_PATTERN (^[a-z][a-z0-9-]*$) -- see lib/architectural-profiles.js.
     // Prefix `zzz-test-` keeps it sorted last for easy visual spotting if cleanup ever leaks,
     // and avoids collision with any plausible real platform slug.
     const slug = 'zzz-test-lulu';
@@ -163,9 +163,9 @@ describe('Phase 29: ARCH-05 book work types infer kdp platform default', () => {
     }
   }
   it('non-book work types get no platform default', () => {
-    assert.equal(profiles.inferPlatform('screenplay'), null, 'screenplay is script group — no platform');
-    assert.equal(profiles.inferPlatform('research_paper'), null, 'research_paper is academic — no platform');
-    assert.equal(profiles.inferPlatform('technical_guide'), null, 'technical_guide is technical — no platform');
+    assert.equal(profiles.inferPlatform('screenplay'), null, 'screenplay is script group -- no platform');
+    assert.equal(profiles.inferPlatform('research_paper'), null, 'research_paper is academic -- no platform');
+    assert.equal(profiles.inferPlatform('technical_guide'), null, 'technical_guide is technical -- no platform');
   });
 });
 
@@ -176,7 +176,7 @@ describe('Phase 29: bin/install.js re-exports architectural-profiles', () => {
     });
   }
   it('bin/install.js preserves pre-existing exports', () => {
-    assert.equal(typeof install.validateSettings, 'function', 'validateSettings regression — re-export clobbered it');
-    assert.equal(typeof install.readSettings, 'function', 'readSettings regression — re-export clobbered it');
+    assert.equal(typeof install.validateSettings, 'function', 'validateSettings regression -- re-export clobbered it');
+    assert.equal(typeof install.readSettings, 'function', 'readSettings regression -- re-export clobbered it');
   });
 });

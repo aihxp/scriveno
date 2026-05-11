@@ -26,7 +26,7 @@ function readFile(filePath) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 describe('Phase 31: FM-01 GENERATE elements (01, 03, 04, 07) have no [Fill in] placeholders', () => {
-  it('GENERATE element sections (01, 03, 04, 07) must not contain [Fill in] placeholders — FM-01', () => {
+  it('GENERATE element sections (01, 03, 04, 07) must not contain [Fill in] placeholders -- FM-01', () => {
     const content = readFile(FRONT_MATTER_PATH);
     assert.ok(
       content !== null,
@@ -44,7 +44,7 @@ describe('Phase 31: FM-01 GENERATE elements (01, 03, 04, 07) have no [Fill in] p
 
     assert.ok(
       generateSections.length > 0,
-      'front-matter.md must contain GENERATE element sections (01, 03, 04, 07) — FM-01'
+      'front-matter.md must contain GENERATE element sections (01, 03, 04, 07) -- FM-01'
     );
 
     for (const section of generateSections) {
@@ -53,7 +53,7 @@ describe('Phase 31: FM-01 GENERATE elements (01, 03, 04, 07) have no [Fill in] p
       const sectionContent = saveToIndex !== -1 ? section.slice(0, saveToIndex) : section;
       assert.ok(
         !sectionContent.includes('[Fill in'),
-        `GENERATE element sections (01, 03, 04, 07) must not contain [Fill in] placeholders — FM-01. Found in section starting with: ${section.slice(0, 60)}`
+        `GENERATE element sections (01, 03, 04, 07) must not contain [Fill in] placeholders -- FM-01. Found in section starting with: ${section.slice(0, 60)}`
       );
     }
   });
@@ -69,7 +69,7 @@ describe('Phase 31: FM-02 front-matter.md adds scaffold: true YAML to 5 scaffold
     assert.ok(content !== null, 'commands/scr/front-matter.md could not be read');
     assert.ok(
       content.includes('scaffold: true'),
-      'FM-02: front-matter.md must contain scaffold: true — the 5 personalization elements need scaffold YAML frontmatter'
+      'FM-02: front-matter.md must contain scaffold: true -- the 5 personalization elements need scaffold YAML frontmatter'
     );
   });
 
@@ -78,7 +78,7 @@ describe('Phase 31: FM-02 front-matter.md adds scaffold: true YAML to 5 scaffold
     assert.ok(content !== null, 'commands/scr/front-matter.md could not be read');
     assert.ok(
       content.includes('element: dedication'),
-      'FM-02: front-matter.md must contain "element: dedication" in the dedication element output YAML — the agent writes scaffold: true + element name to 05-dedication.md'
+      'FM-02: front-matter.md must contain "element: dedication" in the dedication element output YAML -- the agent writes scaffold: true + element name to 05-dedication.md'
     );
   });
 
@@ -87,7 +87,7 @@ describe('Phase 31: FM-02 front-matter.md adds scaffold: true YAML to 5 scaffold
     assert.ok(content !== null, 'commands/scr/front-matter.md could not be read');
     assert.ok(
       content.includes('element: epigraph'),
-      'FM-02: front-matter.md must contain "element: epigraph" in the epigraph element output YAML — the agent writes scaffold: true + element name to 06-epigraph.md'
+      'FM-02: front-matter.md must contain "element: epigraph" in the epigraph element output YAML -- the agent writes scaffold: true + element name to 06-epigraph.md'
     );
   });
 
@@ -96,7 +96,7 @@ describe('Phase 31: FM-02 front-matter.md adds scaffold: true YAML to 5 scaffold
     assert.ok(content !== null, 'commands/scr/front-matter.md could not be read');
     assert.ok(
       content.includes('element: foreword'),
-      'FM-02: front-matter.md must contain "element: foreword" in the foreword element output YAML — the agent writes scaffold: true + element name to 11-foreword.md'
+      'FM-02: front-matter.md must contain "element: foreword" in the foreword element output YAML -- the agent writes scaffold: true + element name to 11-foreword.md'
     );
   });
 
@@ -105,7 +105,7 @@ describe('Phase 31: FM-02 front-matter.md adds scaffold: true YAML to 5 scaffold
     assert.ok(content !== null, 'commands/scr/front-matter.md could not be read');
     assert.ok(
       content.includes('element: preface'),
-      'FM-02: front-matter.md must contain "element: preface" in the preface element output YAML — the agent writes scaffold: true + element name to 12-preface.md'
+      'FM-02: front-matter.md must contain "element: preface" in the preface element output YAML -- the agent writes scaffold: true + element name to 12-preface.md'
     );
   });
 
@@ -114,7 +114,7 @@ describe('Phase 31: FM-02 front-matter.md adds scaffold: true YAML to 5 scaffold
     assert.ok(content !== null, 'commands/scr/front-matter.md could not be read');
     assert.ok(
       content.includes('element: acknowledgments'),
-      'FM-02: front-matter.md must contain "element: acknowledgments" in the acknowledgments element output YAML — the agent writes scaffold: true + element name to 13-acknowledgments.md'
+      'FM-02: front-matter.md must contain "element: acknowledgments" in the acknowledgments element output YAML -- the agent writes scaffold: true + element name to 13-acknowledgments.md'
     );
   });
 });
@@ -130,7 +130,7 @@ describe('Phase 31: FM-03 export.md and publish.md have STEP 1.6 scaffold exclus
     assert.ok(content !== null, 'commands/scr/export.md could not be read');
     assert.ok(
       content.includes('STEP 1.6'),
-      'FM-03: export.md must contain STEP 1.6 — the front-matter scaffold exclusion gate'
+      'FM-03: export.md must contain STEP 1.6 -- the front-matter scaffold exclusion gate'
     );
   });
 
@@ -139,11 +139,11 @@ describe('Phase 31: FM-03 export.md and publish.md have STEP 1.6 scaffold exclus
     assert.ok(content !== null, 'commands/scr/export.md could not be read');
     const step15Pos = content.indexOf('STEP 1.5');
     const step16Pos = content.indexOf('STEP 1.6');
-    assert.ok(step15Pos !== -1, 'export.md must contain STEP 1.5 (validate gate) — FM-03 ordering check requires it');
-    assert.ok(step16Pos !== -1, 'export.md must contain STEP 1.6 — FM-03 scaffold gate');
+    assert.ok(step15Pos !== -1, 'export.md must contain STEP 1.5 (validate gate) -- FM-03 ordering check requires it');
+    assert.ok(step16Pos !== -1, 'export.md must contain STEP 1.6 -- FM-03 scaffold gate');
     assert.ok(
       step15Pos < step16Pos,
-      'FM-03: STEP 1.6 must appear after STEP 1.5 in export.md — scaffold gate follows validate gate'
+      'FM-03: STEP 1.6 must appear after STEP 1.5 in export.md -- scaffold gate follows validate gate'
     );
   });
 
@@ -153,11 +153,11 @@ describe('Phase 31: FM-03 export.md and publish.md have STEP 1.6 scaffold exclus
     const step16Pos = content.indexOf('STEP 1.6');
     // Use the section heading to avoid matching inline "Proceed to STEP 2." references in STEP 1.5
     const step2Pos = content.indexOf('### STEP 2:');
-    assert.ok(step16Pos !== -1, 'export.md must contain STEP 1.6 — FM-03 scaffold gate');
-    assert.ok(step2Pos !== -1, 'export.md must contain ### STEP 2: (CHECK PREREQUISITES) — FM-03 ordering check requires it');
+    assert.ok(step16Pos !== -1, 'export.md must contain STEP 1.6 -- FM-03 scaffold gate');
+    assert.ok(step2Pos !== -1, 'export.md must contain ### STEP 2: (CHECK PREREQUISITES) -- FM-03 ordering check requires it');
     assert.ok(
       step16Pos < step2Pos,
-      'FM-03: STEP 1.6 must appear before STEP 2 in export.md — front-matter gate must run before prerequisite checks'
+      'FM-03: STEP 1.6 must appear before STEP 2 in export.md -- front-matter gate must run before prerequisite checks'
     );
   });
 
@@ -166,7 +166,7 @@ describe('Phase 31: FM-03 export.md and publish.md have STEP 1.6 scaffold exclus
     assert.ok(content !== null, 'commands/scr/publish.md could not be read');
     assert.ok(
       content.includes('STEP 1.6'),
-      'FM-03: publish.md must contain STEP 1.6 — the front-matter scaffold exclusion gate'
+      'FM-03: publish.md must contain STEP 1.6 -- the front-matter scaffold exclusion gate'
     );
   });
 
@@ -175,11 +175,11 @@ describe('Phase 31: FM-03 export.md and publish.md have STEP 1.6 scaffold exclus
     assert.ok(content !== null, 'commands/scr/publish.md could not be read');
     const step15Pos = content.indexOf('STEP 1.5');
     const step16Pos = content.indexOf('STEP 1.6');
-    assert.ok(step15Pos !== -1, 'publish.md must contain STEP 1.5 (validate gate) — FM-03 ordering check requires it');
-    assert.ok(step16Pos !== -1, 'publish.md must contain STEP 1.6 — FM-03 scaffold gate');
+    assert.ok(step15Pos !== -1, 'publish.md must contain STEP 1.5 (validate gate) -- FM-03 ordering check requires it');
+    assert.ok(step16Pos !== -1, 'publish.md must contain STEP 1.6 -- FM-03 scaffold gate');
     assert.ok(
       step15Pos < step16Pos,
-      'FM-03: STEP 1.6 must appear after STEP 1.5 in publish.md — scaffold gate follows validate gate'
+      'FM-03: STEP 1.6 must appear after STEP 1.5 in publish.md -- scaffold gate follows validate gate'
     );
   });
 
@@ -189,11 +189,11 @@ describe('Phase 31: FM-03 export.md and publish.md have STEP 1.6 scaffold exclus
     const step16Pos = content.indexOf('STEP 1.6');
     // Use the section heading to avoid matching inline "Proceed to STEP 2." references in STEP 1.5
     const step2Pos = content.indexOf('### STEP 2:');
-    assert.ok(step16Pos !== -1, 'publish.md must contain STEP 1.6 — FM-03 scaffold gate');
-    assert.ok(step2Pos !== -1, 'publish.md must contain ### STEP 2: (ROUTE) — FM-03 ordering check requires it');
+    assert.ok(step16Pos !== -1, 'publish.md must contain STEP 1.6 -- FM-03 scaffold gate');
+    assert.ok(step2Pos !== -1, 'publish.md must contain ### STEP 2: (ROUTE) -- FM-03 ordering check requires it');
     assert.ok(
       step16Pos < step2Pos,
-      'FM-03: STEP 1.6 must appear before STEP 2 in publish.md — front-matter gate must run before preset routing'
+      'FM-03: STEP 1.6 must appear before STEP 2 in publish.md -- front-matter gate must run before preset routing'
     );
   });
 
@@ -205,7 +205,7 @@ describe('Phase 31: FM-03 export.md and publish.md have STEP 1.6 scaffold exclus
     const step3bIndex = content.indexOf('3b.');
     assert.ok(
       step3bIndex !== -1,
-      'export.md must contain a 3b. assembly step — FM-03 exclusion list application check'
+      'export.md must contain a 3b. assembly step -- FM-03 exclusion list application check'
     );
 
     // Get the text from 3b onwards (up to 3c or next step)
@@ -216,7 +216,7 @@ describe('Phase 31: FM-03 export.md and publish.md have STEP 1.6 scaffold exclus
       step3bSection.includes('1.6');
     assert.ok(
       referencesExclusion,
-      'FM-03: export.md STEP 3b must reference the STEP 1.6 scaffold exclusion list — scaffold files must be skipped during assembly (Pitfall 1). STEP 3b must say "scaffold exclusion", "exclusion list", or reference "1.6"'
+      'FM-03: export.md STEP 3b must reference the STEP 1.6 scaffold exclusion list -- scaffold files must be skipped during assembly (Pitfall 1). STEP 3b must say "scaffold exclusion", "exclusion list", or reference "1.6"'
     );
   });
 });
@@ -242,7 +242,7 @@ describe('Phase 31: FM-04 export.md STEP 1.6 contains GENERATE auto-refresh logi
 
     assert.ok(
       step16Section.includes('WORK.md'),
-      'FM-04: STEP 1.6 section in export.md must reference "WORK.md" — auto-refresh compares WORK.md modification timestamp against GENERATE front-matter files'
+      'FM-04: STEP 1.6 section in export.md must reference "WORK.md" -- auto-refresh compares WORK.md modification timestamp against GENERATE front-matter files'
     );
   });
 
@@ -251,23 +251,23 @@ describe('Phase 31: FM-04 export.md STEP 1.6 contains GENERATE auto-refresh logi
     assert.ok(content !== null, 'commands/scr/export.md could not be read');
     assert.ok(
       content.includes('01-half-title.md'),
-      'FM-04: export.md must explicitly name "01-half-title.md" as an auto-refresh target — FM-04'
+      'FM-04: export.md must explicitly name "01-half-title.md" as an auto-refresh target -- FM-04'
     );
     assert.ok(
       content.includes('03-title-page.md'),
-      'FM-04: export.md must explicitly name "03-title-page.md" as an auto-refresh target — FM-04'
+      'FM-04: export.md must explicitly name "03-title-page.md" as an auto-refresh target -- FM-04'
     );
     assert.ok(
       content.includes('04-copyright.md'),
-      'FM-04: export.md must explicitly name "04-copyright.md" as an auto-refresh target — FM-04'
+      'FM-04: export.md must explicitly name "04-copyright.md" as an auto-refresh target -- FM-04'
     );
     assert.ok(
       content.includes('07-toc.md'),
-      'FM-04: export.md must explicitly name "07-toc.md" as an auto-refresh target — FM-04'
+      'FM-04: export.md must explicitly name "07-toc.md" as an auto-refresh target -- FM-04'
     );
   });
 
-  it('FM-04: auto-refresh must not overwrite scaffold elements — regeneration scoped to GENERATE elements only (Pitfall 3)', () => {
+  it('FM-04: auto-refresh must not overwrite scaffold elements -- regeneration scoped to GENERATE elements only (Pitfall 3)', () => {
     const content = readFile(EXPORT_PATH);
     assert.ok(content !== null, 'commands/scr/export.md could not be read');
     const scopedToGenerateOnly =

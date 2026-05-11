@@ -1,6 +1,6 @@
-# Publishing platform profile — Kobo Writing Life.
+# Publishing platform profile -- Kobo Writing Life.
 # Populated in Phase 32 (Build Pipelines & Platform Awareness).
-# DO NOT remove this file — Phase 29's validator reads the directory listing
+# DO NOT remove this file -- Phase 29's validator reads the directory listing
 # to populate the allowed platform values.
 platform: kobo
 label: "Kobo Writing Life"

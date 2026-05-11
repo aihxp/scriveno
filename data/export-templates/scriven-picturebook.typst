@@ -1,8 +1,8 @@
-// Scriven Picture Book Template — 8.5x8.5 with 0.125in bleed
+// Scriven Picture Book Template -- 8.5x8.5 with 0.125in bleed
 // Usage: pandoc ... --pdf-engine=typst --template=data/export-templates/scriven-picturebook.typst
 //
 // Picture book: 8.5×8.5 trim + 0.125in bleed on all sides = 8.75×8.75 total document size.
-// Safe zone: 0.25in from trim edge (0.375in from bleed edge) — keep all text and key visuals inside.
+// Safe zone: 0.25in from trim edge (0.375in from bleed edge) -- keep all text and key visuals inside.
 // Spread-aware pagination: spread = two facing pages treated as one layout unit.
 // For preview, open PDF in two-page spread view. Pandoc --split-level=0 keeps spreads together.
 
@@ -39,7 +39,7 @@
     right:  margin-all,
   ),
   // No running headers: picture books use full-bleed images; page numbers are usually suppressed
-  // or placed outside the safe zone — omit from template
+  // or placed outside the safe zone -- omit from template
 )
 
 // Text settings: large, readable sans-serif for picture books
@@ -59,7 +59,7 @@
 // Default text alignment: centered (picture book convention)
 #set align(center)
 
-// H1: spread/scene titles — bold, large, centered
+// H1: spread/scene titles -- bold, large, centered
 // In two-page spread view, H1 anchors the start of a visual spread
 #show heading.where(level: 1): it => {
   pagebreak(weak: true)

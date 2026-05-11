@@ -2,6 +2,36 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 1.6.2 - 2026-05-11
+
+### What changed
+
+- Fixed a generated install-name collision between the top-level sacred verse-numbering compatibility command and the nested sacred verse-numbering command
+- Standardized sacred project configuration on top-level profile keys, with legacy nested `sacred` fallbacks kept for existing projects
+- Matched sacred tradition validation to the shipped profile slugs: `catholic`, `orthodox`, `tewahedo`, `protestant`, `jewish`, `islamic-hafs`, `islamic-warsh`, `pali`, `tibetan`, and `sanskrit`
+- Made ebook platform selection operational by validating `--platform`, loading platform manifests, checking EPUB support, and writing selected platform metadata
+- Corrected workflow dependency metadata so plan, draft, review, and submit paths point at the canonical `.manuscript/` trees
+- Refreshed the documentation deck, release notes, package metadata, shipped-profile READMEs, and regression coverage for the new audit guarantees
+
+### Why it matters
+
+`1.6.2` closes audit findings that could make installed command surfaces ambiguous, sacred projects drift between two config shapes, and ebook platform flags look supported without actually loading platform rules. Writers get a cleaner release baseline, and contributors get tests that lock the command, workflow, platform, package, and writing-policy contracts in place.
+
+### Affected areas
+
+- installer command generation
+- sacred project config and tradition profiles
+- ebook platform build guidance
+- workflow dependency metadata
+- documentation deck and release-facing package metadata
+- regression tests and npm release checks
+
+### Verification
+
+- `npm test` (1628 tests pass)
+- `npm run pack:check`
+- `git diff --check`
+
 ## 1.6.1 - 2026-05-07
 
 ### What changed

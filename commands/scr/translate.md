@@ -148,20 +148,20 @@ For each unit in OUTLINE.md (or from `--from` position):
 
 **5b. Sacred mode detection:**
 
-If `.manuscript/config.json` has a `work_type` whose group is `sacred` (check against `CONSTRAINTS.json` work_types), read the `sacred` section from config.json and construct a `sacred_mode` object to pass to the translator agent:
+If `.manuscript/config.json` has a `work_type` whose group is `sacred` (check against `CONSTRAINTS.json` work_types), read the top-level sacred profile keys from config.json and construct a `sacred_mode` object to pass to the translator agent. For older projects only, if a value is absent at top level and present under a nested `sacred` object, use the nested value as a legacy fallback:
 
 ```json
 {
   "sacred_mode": true,
-  "translation_philosophy": "[from config.json sacred.translation_philosophy]",
-  "canonical_alignment": "[from config.json sacred.canonical_alignment]",
-  "preserve_source_terms": "[from config.json sacred.preserve_source_terms]",
-  "transliteration_style": "[from config.json sacred.transliteration_style]",
-  "liturgical_preservation": "[from config.json sacred.liturgical_preservation]"
+  "translation_philosophy": "[from top-level config.json translation_philosophy]",
+  "canonical_alignment": "[from top-level config.json canonical_alignment]",
+  "preserve_source_terms": "[from top-level config.json preserve_source_terms]",
+  "transliteration_style": "[from top-level config.json transliteration_style]",
+  "liturgical_preservation": "[from top-level config.json liturgical_preservation]"
 }
 ```
 
-For sacred works, the translation philosophy from config.json determines how the translator approaches each passage. Use `/scr:settings` to change `sacred.translation_philosophy`.
+For sacred works, the translation philosophy from config.json determines how the translator approaches each passage. Use `/scr:settings` to change `translation_philosophy`.
 
 If the work type group is not `sacred`, skip this step -- the translator operates in standard mode.
 

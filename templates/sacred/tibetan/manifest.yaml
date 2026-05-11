@@ -1,6 +1,6 @@
-# Sacred tradition profile — Tibetan Buddhist.
+# Sacred tradition profile -- Tibetan Buddhist.
 # Populated in Phase 33 (Sacred Tradition Profiles).
-# DO NOT remove this file — Phase 29's validator (Plan 03) reads the
+# DO NOT remove this file -- Phase 29's validator (Plan 03) reads the
 # directory listing to populate the allowed tradition values.
 tradition: tibetan
 label: "Tibetan Buddhist"

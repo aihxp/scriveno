@@ -7,7 +7,7 @@ Want evidence first? Start with [Proof Artifacts](proof-artifacts.md). The watch
 ## Prerequisites
 
 - **An AI coding agent** -- Claude Code, Cursor, Gemini CLI, or another current Scriven installer target
-- **Node.js 20+** -- needed for the installer only
+- **Node.js >=20.0.0** -- needed for the installer only. For new installs, use a currently supported LTS such as Node.js 24.
 - That's it. No other dependencies for the core writing workflow.
 
 Before choosing a runtime, check [Runtime Support](runtime-support.md) for the current installer targets, install types, support levels, and verification status.

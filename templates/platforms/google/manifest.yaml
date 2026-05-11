@@ -1,6 +1,6 @@
-# Publishing platform profile — Google Play Books.
+# Publishing platform profile -- Google Play Books.
 # Populated in Phase 32 (Build Pipelines & Platform Awareness).
-# DO NOT remove this file — Phase 29's validator reads the directory listing
+# DO NOT remove this file -- Phase 29's validator reads the directory listing
 # to populate the allowed platform values.
 platform: google
 label: "Google Play Books"

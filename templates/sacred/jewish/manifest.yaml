@@ -1,6 +1,6 @@
-# Sacred tradition profile — Jewish (Tanakh).
+# Sacred tradition profile -- Jewish (Tanakh).
 # Populated in Phase 33 (Sacred Tradition Profiles).
-# DO NOT remove this file — Phase 29's validator (Plan 03) reads the
+# DO NOT remove this file -- Phase 29's validator (Plan 03) reads the
 # directory listing to populate the allowed tradition values.
 tradition: jewish
 label: "Jewish (Tanakh)"

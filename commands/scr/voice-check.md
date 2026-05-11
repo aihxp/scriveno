@@ -2,7 +2,7 @@
 description: Compare drafted prose against STYLE-GUIDE.md to detect voice drift.
 ---
 
-# /scr:voice-check — Voice Fidelity Check
+# /scr:voice-check -- Voice Fidelity Check
 
 Compare drafted prose against STYLE-GUIDE.md to detect voice drift, AI-slop patterns, and stylistic inconsistency. Wraps the voice-checker agent.
 
@@ -11,7 +11,7 @@ Compare drafted prose against STYLE-GUIDE.md to detect voice drift, AI-slop patt
 /scr:voice-check [N]
 ```
 
-- `N` — Scope to a specific unit (act, chapter, surah, etc. per work type). Omit for full manuscript.
+- `N` -- Scope to a specific unit (act, chapter, surah, etc. per work type). Omit for full manuscript.
 
 ## Instruction
 
@@ -21,8 +21,8 @@ You are orchestrating a **voice fidelity check**. Your job is to feed the right 
 
 ### STEP 1: LOAD CONTEXT AND VALIDATE
 
-1. Load `config.json` — determine work type and structural hierarchy
-2. Load Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) — check for adapted command name:
+1. Load `config.json` -- determine work type and structural hierarchy
+2. Load Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- check for adapted command name:
    - Sacred work types use **register-check** instead of voice-check (per CONSTRAINTS.json `adapted.sacred.rename`)
    - Adapt the report title and terminology accordingly (e.g., "Register Check Report" instead of "Voice Check Report")
 3. Check for `STYLE-GUIDE.md`:
@@ -45,10 +45,10 @@ Spawn the voice-checker agent (`agents/voice-checker.md`) with:
 
 The voice-checker agent performs deep analysis across four dimensions:
 
-1. **Structural voice** — POV consistency, tense consistency, sentence architecture, paragraph rhythm
-2. **Lexical voice** — Register match, word origin preference, jargon handling, figurative density
-3. **Character voice** — Dialogue differentiation, narrator voice stability
-4. **AI-slop indicators** — Hedging language, over-explaining, adverbial clusters, generic metaphors, symmetrical sentence lengths, moralizing closings
+1. **Structural voice** -- POV consistency, tense consistency, sentence architecture, paragraph rhythm
+2. **Lexical voice** -- Register match, word origin preference, jargon handling, figurative density
+3. **Character voice** -- Dialogue differentiation, narrator voice stability
+4. **AI-slop indicators** -- Hedging language, over-explaining, adverbial clusters, generic metaphors, symmetrical sentence lengths, moralizing closings
 
 ---
 
@@ -56,9 +56,9 @@ The voice-checker agent performs deep analysis across four dimensions:
 
 Based on the agent's analysis, generate an overall voice fidelity score:
 
-- **80-100 — PASS**: Voice is consistent with STYLE-GUIDE.md. Minor issues noted but not actionable.
-- **60-79 — WARNING**: Noticeable voice drift detected. Issues flagged for writer review. Draft is usable but should be revised.
-- **Below 60 — FAIL**: Significant voice drift. The draft does not sound like the writer. Recommend re-drafting problem sections or recalibrating with `/scr:voice-test`.
+- **80-100 -- PASS**: Voice is consistent with STYLE-GUIDE.md. Minor issues noted but not actionable.
+- **60-79 -- WARNING**: Noticeable voice drift detected. Issues flagged for writer review. Draft is usable but should be revised.
+- **Below 60 -- FAIL**: Significant voice drift. The draft does not sound like the writer. Recommend re-drafting problem sections or recalibrating with `/scr:voice-test`.
 
 ---
 
@@ -70,7 +70,7 @@ For each issue the agent identifies, present:
 **Passage:** "The ramifications of his decision were, in many ways, quite significant and far-reaching."
 **Expected (per STYLE-GUIDE.md):** Short, punchy sentences. Anglo-Saxon vocabulary preference. No hedging.
 **Found:** Latinate vocabulary ("ramifications," "significant"), hedging ("in many ways," "quite"), run-on construction.
-**Severity:** HIGH — AI-slop pattern (hedging + Latinate stack)
+**Severity:** HIGH -- AI-slop pattern (hedging + Latinate stack)
 ```
 
 Group issues by the agent's check categories:
@@ -86,7 +86,7 @@ Group issues by the agent's check categories:
 Based on the score:
 
 - **PASS (80+):** Congratulate the writer. Note any low-severity items as optional polish. Suggest proceeding to `/scr:copy-edit` or `/scr:submit`.
-- **WARNING (60-79):** List the top issues by severity. Suggest targeted revisions — specific passages to rework, not wholesale re-drafts. Offer to re-run voice-check after revisions.
+- **WARNING (60-79):** List the top issues by severity. Suggest targeted revisions -- specific passages to rework, not wholesale re-drafts. Offer to re-run voice-check after revisions.
 - **FAIL (below 60):** Recommend re-drafting the worst sections. If the problem is systemic (wrong register throughout), suggest running `/scr:voice-test` to recalibrate the voice profile. If STYLE-GUIDE.md may be outdated, suggest re-running `/scr:profile-writer`.
 
 ---

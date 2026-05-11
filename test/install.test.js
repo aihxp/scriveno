@@ -83,7 +83,7 @@ describe('atomicWriteFileSync', () => {
       // EISDIR/EPERM from Windows / network filesystems.
       atomicWriteFileSync(target, 'durable');
       assert.equal(fs.readFileSync(target, 'utf8'), 'durable');
-      // No tmp siblings left — rename succeeded and directory fsync is a no-op
+      // No tmp siblings left -- rename succeeded and directory fsync is a no-op
       // on the directory contents.
       assert.deepEqual(fs.readdirSync(path.join(tmpDir, 'nested')), ['out.txt']);
     } finally {
@@ -94,7 +94,7 @@ describe('atomicWriteFileSync', () => {
   it('cleans up the temp file and rethrows when write fails', () => {
     const tmpDir = mkTmp('failwrite');
     try {
-      // parent is a file, not a directory — writeFileSync will fail on the tmp path
+      // parent is a file, not a directory -- writeFileSync will fail on the tmp path
       const parentAsFile = path.join(tmpDir, 'actually-a-file');
       fs.writeFileSync(parentAsFile, 'blocking');
       const target = path.join(parentAsFile, 'child.txt');
@@ -216,7 +216,7 @@ describe('cleanOrphanedTempFiles', () => {
     const tmpDir = mkTmp('dirmatch');
     try {
       const uuid = '87654321-4321-4321-4321-cba987654321';
-      // A directory whose name matches the pattern — must NOT be removed
+      // A directory whose name matches the pattern -- must NOT be removed
       fs.mkdirSync(path.join(tmpDir, `fakedir.tmp.${uuid}`));
       const removed = cleanOrphanedTempFiles(tmpDir);
       assert.equal(removed, 0);
@@ -289,7 +289,7 @@ describe('Installer leaves no *.tmp. files behind', () => {
       };
       // Run in project scope against tmpDir
       const noop = () => {};
-      // Access via module — need to invoke via the exported-from-module path.
+      // Access via module -- need to invoke via the exported-from-module path.
       // The runtime installers are not directly exported, so simulate the core loop:
       const entries = install.collectCommandEntries(path.join(PKG_ROOT, 'commands', 'scr'));
       const commandsDir = runtime.commands_dir_project;
@@ -780,7 +780,7 @@ describe('H-02 / M-01: copyDirWithPreservation atomic + lstat gate', () => {
       const orphan = `a.txt.tmp.00000000-0000-0000-0000-000000000000`;
       fs.writeFileSync(path.join(dest, orphan), 'partial-garbage');
 
-      // Run preservation copy — the atomic write should succeed and leave no tmp siblings.
+      // Run preservation copy -- the atomic write should succeed and leave no tmp siblings.
       install.copyDirWithPreservation(src, dest);
 
       // cleanOrphanedTempFiles would be called at install startup; verify it cleans the leftover.
@@ -810,7 +810,7 @@ describe('H-02 / M-01: copyDirWithPreservation atomic + lstat gate', () => {
         fs.symlinkSync(path.join(secretDir, 'target.txt'), path.join(dest, 'a.txt'));
       } catch (err) {
         // Some environments (e.g. Windows without privilege) cannot create symlinks.
-        // Skip gracefully — the contract is enforced on platforms that support them.
+        // Skip gracefully -- the contract is enforced on platforms that support them.
         if (err.code === 'EPERM' || err.code === 'ENOSYS') return;
         throw err;
       }
@@ -846,7 +846,7 @@ describe('M-04: writeSharedAssets migrate+validate existing settings', () => {
       const dataDir = path.join(tmpDir, '.scriven');
       fs.mkdirSync(dataDir, { recursive: true });
 
-      // Write a schema-invalid settings.json — valid JSON but bad types.
+      // Write a schema-invalid settings.json -- valid JSON but bad types.
       // Garbage user-owned fields should be dropped on the re-merge path.
       const badSettings = {
         version: 42, // wrong type (number not string)
@@ -889,7 +889,7 @@ describe('M-04: writeSharedAssets migrate+validate existing settings', () => {
       install.writeSharedAssets(dataDir, ['codex'], false, true, 'interactive', () => {});
       const settingsPath = path.join(dataDir, 'settings.json');
       const existing = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
-      // Simulate user-owned addition that is not in the schema — mergeSettings
+      // Simulate user-owned addition that is not in the schema -- mergeSettings
       // retains user-owned fields; migrate+validate should treat unknown keys
       // as warnings only.
       existing.user_pref = 'keep-me';

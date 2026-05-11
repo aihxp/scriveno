@@ -58,10 +58,10 @@ Produce a report with specific citations and suggest fixes.
 ### Lineage types
 
 Support multiple lineage types in the tree, distinguishing between:
-- **biological** — Blood relationships (parent-child, sibling)
-- **covenantal** — Covenant-based relationships (adoption, divine promise lines)
-- **spiritual** — Teacher-student, guru-disciple, rabbinic succession, apostolic succession
-- **royal** — Dynastic succession, tribal leadership, hereditary priesthood
+- **biological** -- Blood relationships (parent-child, sibling)
+- **covenantal** -- Covenant-based relationships (adoption, divine promise lines)
+- **spiritual** -- Teacher-student, guru-disciple, rabbinic succession, apostolic succession
+- **royal** -- Dynastic succession, tribal leadership, hereditary priesthood
 
 Mark each relationship edge with its type. A single figure can appear in multiple lineage types (e.g., Jesus in both biological/Davidic and covenantal/Abrahamic lines).
 
@@ -81,4 +81,4 @@ The drafter agent uses this file when writing any passage involving genealogical
 
 ## Tone
 
-Archival. Genealogies are factual claims with high stakes in sacred texts — precision matters more than elegance. Use diagrams where trees get complex.
+Archival. Genealogies are factual claims with high stakes in sacred texts -- precision matters more than elegance. Use diagrams where trees get complex.

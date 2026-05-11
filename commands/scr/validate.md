@@ -90,7 +90,7 @@ Then **stop** -- the manuscript is not ready for export.
 Output the pass confirmation:
 
 ```
-✓ Manuscript clean -- no scaffold markers found (N files checked)
+OK Manuscript clean -- no scaffold markers found (N files checked)
 ```
 
 Where N is the total number of `.md` files scanned in `.manuscript/drafts/`.

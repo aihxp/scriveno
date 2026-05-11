@@ -9,14 +9,18 @@ The root `package.json` defines:
 ```json
 "scripts": {
   "test": "node --test test/*.test.js",
-  "prepublishOnly": "npm test"
+  "pack:check": "npm pack --dry-run",
+  "release:check": "npm test && npm run pack:check",
+  "prepublishOnly": "npm run release:check"
 }
 ```
 
 That means:
 
 - `npm test` runs the whole test suite
-- publishing is guarded by the same suite through `prepublishOnly`
+- `npm run pack:check` verifies the package contents that would ship
+- `npm run release:check` runs both test and package checks
+- publishing is guarded by `release:check` through `prepublishOnly`
 
 ## Run the suite
 
@@ -66,7 +70,7 @@ Representative files:
 Use these when changing package metadata, release docs, or shipped-file expectations:
 
 - `test/package.test.js`
-- `npm pack --dry-run`
+- `npm run release:check`
 
 These catch drift around Node baseline, packed files, and release-facing package claims.
 
@@ -125,6 +129,12 @@ npm pack --dry-run
 npm publish --dry-run
 ```
 
+For the standard release gate, prefer:
+
+```bash
+npm run release:check
+```
+
 Use those for release prep so you can inspect what would ship without mutating the registry.
 
 ## Practical workflow
@@ -135,7 +145,7 @@ For most changes:
 2. make the fix
 3. rerun the targeted files
 4. run `npm test`
-5. if packaging or release docs changed, run `npm pack --dry-run`
+5. if packaging or release docs changed, run `npm run release:check`
 
 ## Related docs
 

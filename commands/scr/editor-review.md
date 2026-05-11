@@ -77,7 +77,7 @@ For any issues flagged, spawn a diagnostic agent:
 
 ### STEP 4: GENERATE EDITOR NOTES
 
-Write `{N}-EDITOR-NOTES.md`:
+Write the standard review report to `.manuscript/reviews/{N}-REVIEW.md`. If an older project already has root-level `{N}-EDITOR-NOTES.md`, read it as legacy review context, but write the new canonical report under `.manuscript/reviews/`:
 
 <editor_notes>
   <section name="overall_assessment">
@@ -371,8 +371,8 @@ This command uses writer-friendly terminology throughout:
 ## OUTPUT
 
 **Standard review mode:**
-- `{N}-EDITOR-NOTES.md`
-- Revision plans (if needed): `{N}-{A}-REVISION-PLAN.md`
+- `.manuscript/reviews/{N}-REVIEW.md`
+- Revision plans (if needed): `.manuscript/plans/{N}-{A}-REVISION-PLAN.md`
 - Updated `STATE.md`
 
 **Collaboration mode:**

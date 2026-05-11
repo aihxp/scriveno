@@ -162,7 +162,7 @@ pandoc .manuscript/output/assembled-poetry.md \
 - 12pt Times New Roman body text (Normal style)
 - 1-inch margins all sides
 - Single-spaced within poems; blank line between stanzas
-- Auto-generated TOC field (poem titles become TOC entries via Heading 2 style) — only emitted for collections of 5+ poems
+- Auto-generated TOC field (poem titles become TOC entries via Heading 2 style) -- only emitted for collections of 5+ poems
 
 ---
 
@@ -170,7 +170,7 @@ pandoc .manuscript/output/assembled-poetry.md \
 
 Show:
 ```
-✓ Poetry submission DOCX built → .manuscript/output/poetry-submission.docx ({file_size})
+OK Poetry submission DOCX built -> .manuscript/output/poetry-submission.docx ({file_size})
 ```
 
 Get file size with:

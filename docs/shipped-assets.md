@@ -27,23 +27,23 @@ A contributor adding `templates/pitfalls/<work_type>.md` is automatically picked
 
 These export templates are currently bundled in `data/export-templates/`:
 
-- `scriven-book.typst` — default book interior and print-ready PDF template
-- `scriven-stageplay.typst` — stage play interior template
-- `scriven-picturebook.typst` — picture-book interior template
-- `scriven-chapbook.typst` — chapbook and poetry-collection interior template
-- `scriven-epub.css` — standard EPUB styling and KDP-compatible ebook CSS
-- `scriven-fixed-layout-epub.css` — fixed-layout EPUB stylesheet
-- `scriven-fixed-layout.opf` — fixed-layout EPUB OPF stub
-- `scriven-academic.latex` — generic academic/thesis LaTeX template
-- `scriven-ieee.latex` — IEEE wrapper template
-- `scriven-acm.latex` — ACM wrapper template
-- `scriven-lncs.latex` — LNCS wrapper template
-- `scriven-elsevier.latex` — Elsevier wrapper template
-- `scriven-apa7.latex` — APA7 wrapper template
-- `scriven-smashwords.docx` — Smashwords reference DOCX
-- `scriven-smashwords-styles.md` — Smashwords style guide companion
-- `scriven-poetry-submission.docx` — poetry-submission reference DOCX
-- `scriven-poetry-submission-styles.md` — poetry-submission style guide companion
+- `scriven-book.typst` -- default book interior and print-ready PDF template
+- `scriven-stageplay.typst` -- stage play interior template
+- `scriven-picturebook.typst` -- picture-book interior template
+- `scriven-chapbook.typst` -- chapbook and poetry-collection interior template
+- `scriven-epub.css` -- standard EPUB styling and KDP-compatible ebook CSS
+- `scriven-fixed-layout-epub.css` -- fixed-layout EPUB stylesheet
+- `scriven-fixed-layout.opf` -- fixed-layout EPUB OPF stub
+- `scriven-academic.latex` -- generic academic/thesis LaTeX template
+- `scriven-ieee.latex` -- IEEE wrapper template
+- `scriven-acm.latex` -- ACM wrapper template
+- `scriven-lncs.latex` -- LNCS wrapper template
+- `scriven-elsevier.latex` -- Elsevier wrapper template
+- `scriven-apa7.latex` -- APA7 wrapper template
+- `scriven-smashwords.docx` -- Smashwords reference DOCX
+- `scriven-smashwords-styles.md` -- Smashwords style guide companion
+- `scriven-poetry-submission.docx` -- poetry-submission reference DOCX
+- `scriven-poetry-submission-styles.md` -- poetry-submission style guide companion
 
 ## Export Template Behaviors
 
@@ -61,15 +61,15 @@ These export templates are currently bundled in `data/export-templates/`:
 
 ## Trust-Critical Launch Files
 
-- `README.md` — primary launch narrative and status claims
-- `docs/proof-artifacts.md` — canonical proof hub for sample-flow and voice-preservation evidence
-- `docs/runtime-support.md` — canonical runtime matrix, Node baseline, and support-confidence framing
-- `data/proof/watchmaker-flow/README.md` — canonical sample-flow proof bundle rooted in shipped demo files
-- `commands/scr/export.md` — source of truth for export command behavior
-- `docs/publishing.md` — user-facing explanation of export formats and publishing packages
-- `docs/contributing.md` — contributor-facing guidance for extending export support
+- `README.md` -- primary launch narrative and status claims
+- `docs/proof-artifacts.md` -- canonical proof hub for sample-flow and voice-preservation evidence
+- `docs/runtime-support.md` -- canonical runtime matrix, Node baseline, and support-confidence framing
+- `data/proof/watchmaker-flow/README.md` -- canonical sample-flow proof bundle rooted in shipped demo files
+- `commands/scr/export.md` -- source of truth for export command behavior
+- `docs/publishing.md` -- user-facing explanation of export formats and publishing packages
+- `docs/contributing.md` -- contributor-facing guidance for extending export support
 - `docs/drafter-quality.md`: canonical reference for the drafter's three rule layers and the `draft` config block
 - `templates/WRITING-RULES.md`: canonical universal AI-tell rulebook loaded by drafter, voice-checker, and originality-check
 - `templates/pitfalls/<work_type>.md`: per-work-type pitfall packs that refine `WRITING-RULES.md` for a given work type
-- `AGENTS.md` — project instructions that shape planning and implementation claims
-- `CLAUDE.md` — mirrored project instructions and product-plan context
+- `AGENTS.md` -- project instructions that shape planning and implementation claims
+- `CLAUDE.md` -- mirrored project instructions and product-plan context

@@ -2,7 +2,7 @@
 description: Build a complete character profile through guided interactive interview.
 ---
 
-# /scr:new-character — Interactive Character Creation
+# /scr:new-character -- Interactive Character Creation
 
 Build a complete character profile through guided interview.
 
@@ -15,7 +15,7 @@ Build a complete character profile through guided interview.
 
 You are creating a new character for the creative work. Load:
 - `WORK.md` (genre, tone, setting context)
-- `CHARACTERS.md` (existing characters — to ensure distinctiveness)
+- `CHARACTERS.md` (existing characters -- to ensure distinctiveness)
 - `RELATIONSHIPS.md` (existing relationship dynamics)
 - `THEMES.md` (thematic threads this character might serve)
 
@@ -30,16 +30,16 @@ Ask these questions adaptively. Skip what doesn't apply to the genre/form. Go de
     <q>Full name and any nicknames/aliases?</q>
     <q>Age and life stage?</q>
     <q>Role in the story? (Protagonist, antagonist, mentor, love interest, foil, comic relief, etc.)</q>
-    <q>First impression — what do people notice first about them?</q>
+    <q>First impression -- what do people notice first about them?</q>
   </section>
 
   <section name="psychology">
-    <q>What do they WANT? (Conscious desire — what they're pursuing)</q>
-    <q>What do they NEED? (Unconscious need — what would actually fulfill them)</q>
+    <q>What do they WANT? (Conscious desire -- what they're pursuing)</q>
+    <q>What do they NEED? (Unconscious need -- what would actually fulfill them)</q>
     <q>What is their core wound or defining experience?</q>
     <q>What is their greatest fear?</q>
-    <q>What is their lie — the false belief they carry?</q>
-    <q>What is their ghost — the backstory event that shaped them?</q>
+    <q>What is their lie -- the false belief they carry?</q>
+    <q>What is their ghost -- the backstory event that shaped them?</q>
   </section>
 
   <section name="arc">

@@ -48,6 +48,6 @@
 
 ### Doctrinal position
 {{DOCTRINAL_POSITION}}
-*(Where this figure sits within DOCTRINES.md — what they embody, reject, model, or warn against.)*
+*(Where this figure sits within DOCTRINES.md -- what they embody, reject, model, or warn against.)*
 
 ---

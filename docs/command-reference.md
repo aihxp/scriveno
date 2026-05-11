@@ -89,7 +89,7 @@ Research and plan Chapter 5, producing plan files for each scene the drafter age
 
 **Usage:** `/scr:draft [unit number]`
 
-**Prerequisites:** Plan files must exist (`{N}-*-PLAN.md`)
+**Prerequisites:** Plan files must exist in `.manuscript/plans/` (`{N}-*-PLAN.md`). Legacy root-level plan files are still accepted for older projects.
 
 **Adaptive terminology:** `/scr:draft` stays stable while Scriven frames the work as drafting a chapter, act, surah, section, and so on
 
@@ -132,7 +132,7 @@ Review the draft of unit 3 with your editor hat on. Scriven highlights issues, s
 
 **Usage:** `/scr:submit [unit number]`
 
-**Prerequisites:** Editor notes must exist (`{N}-EDITOR-NOTES.md`)
+**Prerequisites:** Review report must exist in `.manuscript/reviews/` (`{N}-REVIEW.md`). Legacy root-level `{N}-EDITOR-NOTES.md` is still accepted for older projects.
 
 **Adaptive terminology:** `/scr:submit` stays stable while Scriven describes the current chapter, act, surah, or other unit being finalized
 
@@ -356,8 +356,8 @@ Analyze a manuscript you imported. Scriven reads the whole thing and extracts vo
 - `--detail` -- Show per-unit breakdown
 
 **Output includes:**
-- Total words and pages vs. work type target range (e.g., 14,200 / 70,000–100,000 words)
-- Units drafted vs. expected count (e.g., 4 / 20–35 chapters)
+- Total words and pages vs. work type target range (e.g., 14,200 / 70,000-100,000 words)
+- Units drafted vs. expected count (e.g., 4 / 20-35 chapters)
 - Per-unit pacing check against unit word/page range
 - Estimated reading time
 

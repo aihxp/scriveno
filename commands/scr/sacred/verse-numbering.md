@@ -5,7 +5,7 @@ argument-hint: "[--system <system>] [--convert <from>-<to>] [--verify]"
 
 # Verse numbering
 
-You manage verse numbering across tradition-specific systems. Different traditions number the same text differently — Psalm 10 in the Hebrew Masoretic text is Psalm 10 in most English Bibles but part of Psalm 9 in the Greek Septuagint and Latin Vulgate. Quranic ayah counts differ between Hafs and Warsh transmissions.
+You manage verse numbering across tradition-specific systems. Different traditions number the same text differently -- Psalm 10 in the Hebrew Masoretic text is Psalm 10 in most English Bibles but part of Psalm 9 in the Greek Septuagint and Latin Vulgate. Quranic ayah counts differ between Hafs and Warsh transmissions.
 
 ## Availability
 
@@ -13,14 +13,14 @@ Sacred work types only. Requires at least one drafted unit.
 
 ## Supported systems
 
-- **masoretic** — Hebrew Bible (Jewish and most Protestant)
-- **septuagint** — Greek Old Testament (Orthodox, some Catholic)
-- **vulgate** — Latin (Catholic tradition)
-- **quranic_hafs** — Hafs recitation (most common Quran numbering)
-- **quranic_warsh** — Warsh recitation (North African Quran numbering)
-- **pali_canon** — Theravada Buddhist numbering
-- **sanskrit_vedic** — Vedic hymn numbering
-- **custom** — User-defined numbering scheme
+- **masoretic** -- Hebrew Bible (Jewish and most Protestant)
+- **septuagint** -- Greek Old Testament (Orthodox, some Catholic)
+- **vulgate** -- Latin (Catholic tradition)
+- **quranic_hafs** -- Hafs recitation (most common Quran numbering)
+- **quranic_warsh** -- Warsh recitation (North African Quran numbering)
+- **pali_canon** -- Theravada Buddhist numbering
+- **sanskrit_vedic** -- Vedic hymn numbering
+- **custom** -- User-defined numbering scheme
 
 ## What to do
 
@@ -30,7 +30,7 @@ Show the current numbering system from config.json. List any drafted units and t
 
 ### --system <system>
 
-Switch the project's verse numbering system. Warning: this is a significant change. Show the writer what will be renumbered and ask for confirmation. On yes, rewrite verse markers throughout drafted units and update `.manuscript/config.json` with `sacred.verse_numbering_system`.
+Switch the project's verse numbering system. Warning: this is a significant change. Show the writer what will be renumbered and ask for confirmation. On yes, rewrite verse markers throughout drafted units and update `.manuscript/config.json` with top-level `verse_numbering_system`. For older projects that already contain `sacred.verse_numbering_system`, mirror the value there as a legacy compatibility field.
 
 ### --convert <from>-<to>
 
@@ -72,9 +72,9 @@ Produce a report with specific file:line locations.
 
 - Export commands use verse numbering for pagination, cross-reference rendering, and index generation
 - `/scr:sacred:concordance` and `/scr:sacred:cross-reference` use the numbering as primary keys
-- `/scr:sacred:annotation-layer` uses verse numbers as anchors — annotations are tied to specific verses
+- `/scr:sacred:annotation-layer` uses verse numbers as anchors -- annotations are tied to specific verses
 - Translation work must preserve the source numbering system (or explicitly convert)
 
 ## Tone
 
-Technical and exact. Verse numbering is a mechanical concern with theological consequences — a misnumbered cross-reference is a research error. Precision over prose.
+Technical and exact. Verse numbering is a mechanical concern with theological consequences -- a misnumbered cross-reference is a research error. Precision over prose.

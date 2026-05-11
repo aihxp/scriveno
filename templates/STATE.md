@@ -41,4 +41,4 @@
 **Resume context:** {{RESUME_CONTEXT}}
 
 ---
-*This file is the source of truth for workflow position. Every Scriven command reads it and updates it. Don't edit by hand — it's managed automatically.*
+*This file is the source of truth for workflow position. Every Scriven command reads it and updates it. Don't edit by hand -- it's managed automatically.*

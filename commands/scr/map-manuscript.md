@@ -2,7 +2,7 @@
 description: Spawn parallel analysis agents to understand an existing manuscript's voice, structure, characters, and themes.
 ---
 
-# /scr:map-manuscript — Analyze Existing Manuscript
+# /scr:map-manuscript -- Analyze Existing Manuscript
 
 Spawn parallel analysis agents to understand an existing draft's voice, structure, characters, and themes.
 
@@ -11,7 +11,7 @@ Spawn parallel analysis agents to understand an existing draft's voice, structur
 /scr:map-manuscript [area]
 ```
 
-**Areas (optional):** `voice`, `structure`, `characters`, `themes`, `world`, `pacing` — analyze specific area only. Omit to analyze all.
+**Areas (optional):** `voice`, `structure`, `characters`, `themes`, `world`, `pacing` -- analyze specific area only. Omit to analyze all.
 
 ## Instruction
 
@@ -32,7 +32,7 @@ Spawn 6 parallel analysis agents:
       - Paragraph length patterns
       - Chapter/section opening and closing patterns
     </task>
-    <output>VOICE-ANALYSIS.md — style guide derived from existing prose</output>
+    <output>VOICE-ANALYSIS.md -- style guide derived from existing prose</output>
   </agent>
 
   <agent name="structure-analyst">
@@ -45,7 +45,7 @@ Spawn 6 parallel analysis agents:
       - Timeline mapping (chronological vs. narrative order)
       - Subplot tracking
     </task>
-    <output>STRUCTURE-ANALYSIS.md — architectural map</output>
+    <output>STRUCTURE-ANALYSIS.md -- architectural map</output>
   </agent>
 
   <agent name="character-analyst">
@@ -57,7 +57,7 @@ Spawn 6 parallel analysis agents:
       - Character arc trajectory (where each character starts, where they are now)
       - POV distribution (who narrates what)
     </task>
-    <output>CHARACTER-ANALYSIS.md — character profiles derived from text</output>
+    <output>CHARACTER-ANALYSIS.md -- character profiles derived from text</output>
   </agent>
 
   <agent name="theme-analyst">
@@ -69,7 +69,7 @@ Spawn 6 parallel analysis agents:
       - Emotional through-lines
       - Imagery clusters
     </task>
-    <output>THEME-ANALYSIS.md — thematic map</output>
+    <output>THEME-ANALYSIS.md -- thematic map</output>
   </agent>
 
   <agent name="world-analyst">
@@ -81,7 +81,7 @@ Spawn 6 parallel analysis agents:
       - Historical references
       - Geography and spatial relationships
     </task>
-    <output>WORLD-ANALYSIS.md — world-building bible from existing text</output>
+    <output>WORLD-ANALYSIS.md -- world-building bible from existing text</output>
   </agent>
 
   <agent name="pacing-analyst">
@@ -94,7 +94,7 @@ Spawn 6 parallel analysis agents:
       - Dead spots (low tension + low character development)
       - Cliffhanger frequency
     </task>
-    <output>PACING-ANALYSIS.md — rhythm analysis with recommendations</output>
+    <output>PACING-ANALYSIS.md -- rhythm analysis with recommendations</output>
   </agent>
 </analysis_agents>
 

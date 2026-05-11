@@ -2,7 +2,7 @@
 description: Write a scene, passage, or chapter outside the full planning workflow.
 ---
 
-# /scr:quick-write — Ad-Hoc Writing Without Full Planning
+# /scr:quick-write -- Ad-Hoc Writing Without Full Planning
 
 Write a scene, passage, or chapter outside the full planning workflow.
 
@@ -12,9 +12,9 @@ Write a scene, passage, or chapter outside the full planning workflow.
 ```
 
 **Flags:**
-- `--discuss` — Brief discussion to capture creative direction first
-- `--research` — Research craft techniques before drafting
-- `--full` — Discussion + research + consistency check
+- `--discuss` -- Brief discussion to capture creative direction first
+- `--research` -- Research craft techniques before drafting
+- `--full` -- Discussion + research + consistency check
 
 ## Instruction
 

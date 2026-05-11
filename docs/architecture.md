@@ -293,7 +293,7 @@ For each atomic unit (scene, subsection, passage, stanza), the drafter agent get
 1. **STYLE-GUIDE.md** -- Always first, sovereign. The voice DNA profile with 15+ dimensions: POV, tense, sentence architecture, vocabulary register, figurative density, dialogue style, pacing, and always/never/consider rules.
 2. **WRITING-RULES.md** (optional, 1.6.0+) -- Universal AI-tell rulebook. The canonical list of don'ts (hedging, throat-clearing, balanced-both-sides, generic metaphors, symmetrical rhythm, moralizing closings, AI tics in dialogue, show-don't-tell triggers). Loaded if present; falls back to inline rules in `agents/drafter.md` when absent.
 3. **Pitfall pack** (optional, 1.6.0+) -- Type-specific traps from `templates/pitfalls/<work_type>.md` (or `.manuscript/PITFALLS.md` for project-local overrides). Refines WRITING-RULES.md with traps unique to the work type: filter words for prose, unfilmable description for screenplays, missing-precondition checks for runbooks, anachronism for sacred commentary.
-4. **{N}-{A}-PLAN.md** -- The specific plan for this unit: what happens, emotional arc, beats to hit, voice notes, continuity anchors.
+4. **.manuscript/plans/{N}-{A}-PLAN.md** -- The specific plan for this unit: what happens, emotional arc, beats to hit, voice notes, continuity anchors. Legacy root-level plans are accepted only as older project input.
 5. **CHARACTERS.md excerpt** -- Only characters relevant to this unit, with their voice anchors and speech patterns.
 6. **Previous unit tail** -- The last 200 words of the preceding unit, for rhythm and tone continuity.
 7. **THEMES.md excerpt** -- Only the thematic threads this unit should advance.
@@ -353,7 +353,7 @@ The user chooses during installation. Guided local-MCP targets still write their
 
 ### Runtime credibility
 
-Scriven's supported installer baseline is `Node.js 20+` (`>=20.0.0`). That baseline applies to `npx scriven-cli@latest`, `bin/install.js`, and the repo's JavaScript test suite, not to the markdown command system once files are installed.
+Scriven's installer compatibility floor is `Node.js 20+` (`>=20.0.0`). For new installs, prefer a currently supported LTS such as Node.js 24. The compatibility floor applies to `npx scriven-cli@latest`, `bin/install.js`, and the repo's JavaScript test suite, not to the markdown command system once files are installed.
 
 This architecture doc is intentionally about mechanics: detection rules, install path shapes, `commands` versus `skills` versus `guided-mcp`, and global versus project scope. For the authoritative runtime matrix, support levels, and verification status, see [`docs/runtime-support.md`](runtime-support.md).
 

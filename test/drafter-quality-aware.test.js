@@ -39,8 +39,8 @@ describe('WRITING-RULES.md ships in templates/', () => {
 
   it('honors the no-em-dash project rule', () => {
     const content = fs.readFileSync(WRITING_RULES_PATH, 'utf8');
-    assert.ok(!content.includes('—'), 'WRITING-RULES.md must not contain em dashes');
-    assert.ok(!content.includes('–'), 'WRITING-RULES.md must not contain en dashes');
+    assert.ok(!/\u2014/.test(content), 'WRITING-RULES.md must not contain em dashes');
+    assert.ok(!/\u2013/.test(content), 'WRITING-RULES.md must not contain en dashes');
   });
 });
 
@@ -92,11 +92,11 @@ describe('listPitfallPacks() registers shipped packs', () => {
       const file = path.join(PITFALLS_DIR, `${slug}.md`);
       const content = fs.readFileSync(file, 'utf8');
       assert.ok(
-        !content.includes('—'),
+        !/\u2014/.test(content),
         `pitfall pack ${slug} must not contain em dashes`
       );
       assert.ok(
-        !content.includes('–'),
+        !/\u2013/.test(content),
         `pitfall pack ${slug} must not contain en dashes`
       );
     }

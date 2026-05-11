@@ -334,7 +334,7 @@ Sacred texts receive special translation handling with additional controls for t
 - **Preserved source terms** -- Terms like YHWH, hesed, dharma, or taqwa are never translated -- they appear in the source language with transliteration and footnotes
 - **Liturgical preservation** -- Maintains rhythmic and musical qualities for passages meant to be read aloud or chanted
 
-Configure sacred translation settings in `.manuscript/config.json` under the `sacred` section. For full details on sacred text work types, voice registers, and exclusive commands, see the Sacred Text Guide.
+Configure sacred translation settings as top-level keys in `.manuscript/config.json`. For full details on sacred text work types, voice registers, and exclusive commands, see the Sacred Text Guide.
 
 ## See Also
 

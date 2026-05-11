@@ -7,7 +7,7 @@
 
 \documentclass[$if(classoption)$$for(classoption)$$classoption$$sep$,$endfor$$endif$]{llncs}
 
-% Encoding — safe with llncs when using pdflatex
+% Encoding -- safe with llncs when using pdflatex
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 
@@ -69,7 +69,7 @@ $endif$
 
 $body$
 
-% Bibliography: use splncs04 bib style (not llncs — that style is deprecated)
+% Bibliography: use splncs04 bib style (not llncs -- that style is deprecated)
 % \bibliographystyle{splncs04}
 % \bibliography{references}
 % Note: llncs.cls may also be obtained from Springer's author resources page

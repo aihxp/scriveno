@@ -2,6 +2,17 @@
 
 All notable package-level changes to `scriven-cli` are documented here.
 
+## 1.6.2 - 2026-05-11
+
+This release packages the audit-hardening pass after `1.6.1`.
+
+- fixed the generated command-name collision between `/scr:sacred-verse-numbering` and `/scr:sacred:verse-numbering` by giving the legacy top-level command a distinct installed name
+- aligned sacred project config on top-level profile keys while preserving legacy nested `sacred` fallbacks in commands that read existing projects
+- tightened sacred tradition validation to the 10 shipped tradition profile slugs and updated tradition-aware commands and docs to match
+- made `/scr:build-ebook --platform` real by validating platform slugs, loading `templates/platforms/{platform}/manifest.yaml`, checking EPUB support, and carrying platform metadata into build output
+- corrected the core workflow dependency chain to point at canonical `.manuscript/plans/`, `.manuscript/drafts/body/`, and `.manuscript/reviews/` paths
+- updated the documentation deck, shipped-profile READMEs, package scripts, and regression tests so release checks cover npm packaging and repository writing policy
+
 ## 1.6.1 - 2026-05-07
 
 This release is a docs-only patch follow-up to `1.6.0`.
@@ -87,16 +98,16 @@ This release rolls up the hardening work that landed after `1.3.3`.
 - restored public npm publishing for `scriven-cli`
 - shipped the `v1.3 Trust & Proof` product surface before the post-release hardening pass
 
-## [0.3.0] — 2026-04-06
+## [0.3.0] -- 2026-04-06
 
 ### Added
 - 13 sacred/historical work types (Biblical, Quranic, Torah, Vedic, Buddhist scripture; commentary, devotional, liturgical, historical chronicle, mythological collection, religious epic, sermon, homiletic collection)
 - 8 sacred-exclusive commands (concordance, cross-reference, genealogy, chronology, annotation-layer, verse-numbering, source-tracking, doctrinal-check)
 - 10 sacred voice registers (prophetic, wisdom, legal, liturgical, narrative-historical, apocalyptic, epistolary, psalmic, parabolic, didactic)
 - Sacred file adaptations: FIGURES.md, LINEAGES.md, COSMOLOGY.md, THEOLOGICAL-ARC.md, DOCTRINES.md, FRAMEWORK.md
-- `/scr:next` universal interface — one command that always knows what to do next
-- `/scr:do` natural language router — free-text to command mapping
-- `/scr:demo` sandbox mode — explore a pre-built sample project
+- `/scr:next` universal interface -- one command that always knows what to do next
+- `/scr:do` natural language router -- free-text to command mapping
+- `/scr:demo` sandbox mode -- explore a pre-built sample project
 - `/scr:voice-test` voice calibration gate before first draft
 - `/scr:import` existing manuscript ingestion
 - `/scr:publish` interactive wizard with presets (kdp-paperback, query-submission, ebook-wide)
@@ -104,7 +115,7 @@ This release rolls up the hardening work that landed after `1.3.3`.
 - Progressive disclosure onboarding (3 questions max)
 - Drop-off risk mitigations for onboarding, first draft, non-technical friction, and publishing overwhelm
 - 6 user personas including sacred/historical writer
-- `CONSTRAINTS.json` — runtime constraint system governing command availability, work-type adaptation, and dependency gating
+- `CONSTRAINTS.json` -- runtime constraint system governing command availability, work-type adaptation, and dependency gating
 
 ### Changed
 - Command list expanded to ~170 commands across 15 categories
@@ -122,7 +133,7 @@ This release rolls up the hardening work that landed after `1.3.3`.
 - Sermon/Homily duplication resolved (moved to sacred group)
 - `/scr:publish` vs `/scr:export` relationship clarified
 
-## [0.1.0] — Initial
+## [0.1.0] -- Initial
 
 - Initial project structure
 - Spec-driven command system

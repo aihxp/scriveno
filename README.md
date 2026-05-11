@@ -102,7 +102,7 @@ For sacred and historical texts, Voice DNA is supplemented by 10 sacred voice re
 
 **Sacred & historical:** scripture (Biblical, Quranic, Torah, Vedic, Buddhist, generic), commentary/exegesis, devotional, liturgical text, historical chronicle, historical account, mythological collection, religious epic, sermon, homiletic collection
 
-Each work type has its own structural hierarchy and **industry-standard word count and page range guidance** -- a novel targets 70,000–100,000 words across 20–35 chapters, a screenplay targets 90–120 pages across 3–5 acts. These ranges guide outlining, progress tracking, and drafter pacing. The runnable command ids stay stable, while Scriven adapts the wording around them -- a Torah commentary still runs `/scr:plan 3`, but frames that work as planning Parashah 3.
+Each work type has its own structural hierarchy and **industry-standard word count and page range guidance** -- a novel targets 70,000-100,000 words across 20-35 chapters, a screenplay targets 90-120 pages across 3-5 acts. These ranges guide outlining, progress tracking, and drafter pacing. The runnable command ids stay stable, while Scriven adapts the wording around them -- a Torah commentary still runs `/scr:plan 3`, but frames that work as planning Parashah 3.
 
 ---
 
@@ -189,7 +189,7 @@ Scriven currently ships installer targets for these AI tooling environments:
 - **Perplexity Desktop** (guided local-MCP setup)
 - **Generic (SKILL.md)** fallback
 
-**Installer baseline:** `Node.js 20+` for `npx scriven-cli@latest` and `bin/install.js`.
+**Installer baseline:** `Node.js >=20.0.0` for `npx scriven-cli@latest` and `bin/install.js`. For new installs, use a currently supported LTS such as Node.js 24; Node.js 20 is now a compatibility floor, not the recommended fresh-install target.
 
 **Support note:** Claude Code is the primary reference runtime and now installs a flat `/scr-*` command surface. The environments listed above are installer targets, not a claim that every host runtime has verified parity today. Codex currently installs a skill-native `$scr-*` surface, while Perplexity Desktop is a guided local-MCP target rather than a writable command runtime. See the [runtime compatibility matrix](docs/runtime-support.md) for install type, support level, and verification status.
 
@@ -197,11 +197,11 @@ Scriven currently ships installer targets for these AI tooling environments:
 
 ## Status
 
-**Version:** 1.6.1
+**Version:** 1.6.2
 
- Scriven's core command surface is stable across 108 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, and the published package version is now `1.6.1`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
+ Scriven's core command surface is stable across 108 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, and the package version is now `1.6.2`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
 
- Version `1.6.1` is a docs-only patch that brings the `1.6.0` documentation deck (drafter-quality reference, voice-dna three-rule-layers section, configuration draft-block reference, command-reference settings knobs, architecture drafter-receives expansion, shipped-assets inventory) into the published tarball, plus aligns the reference docs on canonical `/scr:` command notation. See [CHANGELOG](CHANGELOG.md) for the full list. Version `1.6.0` introduced the draft-quality-aware drafter: a universal `WRITING-RULES.md` rulebook, per-work-type pitfall packs, and a `draft` config block (`rigor`, `context_profile`, `pitfalls_enabled`) for matching the drafter to the model tier you're routing to. Conflict resolution is top-down (STYLE-GUIDE.md beats WRITING-RULES.md beats pitfall pack); existing projects keep working without modification. See [docs/drafter-quality.md](docs/drafter-quality.md) for the full system.
+ Version `1.6.2` packages the audit-hardening pass: unique installed command names for sacred verse-numbering surfaces, top-level sacred profile keys with legacy fallback, shipped-slug tradition validation, real ebook platform manifest loading, canonical workflow dependency paths, refreshed release docs, and stronger package/repository-policy checks. Version `1.6.1` brought the `1.6.0` documentation deck into the published tarball, and version `1.6.0` introduced the draft-quality-aware drafter: `WRITING-RULES.md`, per-work-type pitfall packs, and the `draft` config block. See [docs/drafter-quality.md](docs/drafter-quality.md) for the full system.
 
 Package history is tracked in [CHANGELOG.md](CHANGELOG.md), and the public-facing summary for this release is in [docs/release-notes.md](docs/release-notes.md).
 
