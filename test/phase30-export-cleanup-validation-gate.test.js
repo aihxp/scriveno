@@ -30,7 +30,7 @@ describe('Phase 30: CLEAN-01 cleanup.md exists and is structurally valid', () =>
   it('cleanup.md exists at commands/scr/cleanup.md', () => {
     assert.ok(
       fs.existsSync(CLEANUP_PATH),
-      'commands/scr/cleanup.md must exist — CLEAN-01 requires a /scr:cleanup command'
+      'commands/scr/cleanup.md must exist -- CLEAN-01 requires a /scr:cleanup command'
     );
   });
 
@@ -79,7 +79,7 @@ describe('Phase 30: CLEAN-02 cleanup.md includes diff summary language', () => {
     assert.ok(content !== null, 'commands/scr/cleanup.md could not be read');
     assert.ok(
       content.includes('Summary'),
-      'cleanup.md must include "Summary" — CLEAN-02 requires a diff summary showing what was changed'
+      'cleanup.md must include "Summary" -- CLEAN-02 requires a diff summary showing what was changed'
     );
     const hasRemovedLanguage =
       content.includes('bracket markers') ||
@@ -88,7 +88,7 @@ describe('Phase 30: CLEAN-02 cleanup.md includes diff summary language', () => {
       content.includes('Removed');
     assert.ok(
       hasRemovedLanguage,
-      'cleanup.md must mention removed/cleaned marker counts (bracket markers, Alternate block, or removed) — CLEAN-02 diff summary'
+      'cleanup.md must mention removed/cleaned marker counts (bracket markers, Alternate block, or removed) -- CLEAN-02 diff summary'
     );
   });
 });
@@ -101,7 +101,7 @@ describe('Phase 30: VALID-01 validate.md exists and is structurally valid', () =
   it('validate.md exists at commands/scr/validate.md', () => {
     assert.ok(
       fs.existsSync(VALIDATE_PATH),
-      'commands/scr/validate.md must exist — VALID-01 requires a /scr:validate command'
+      'commands/scr/validate.md must exist -- VALID-01 requires a /scr:validate command'
     );
   });
 
@@ -139,11 +139,11 @@ describe('Phase 30: VALID-02 validate.md blocks on marker detection', () => {
       content.includes('Blocked');
     assert.ok(
       hasStopLanguage,
-      'validate.md must include "stop" instruction — VALID-02 requires blocking behavior on marker detection'
+      'validate.md must include "stop" instruction -- VALID-02 requires blocking behavior on marker detection'
     );
     assert.ok(
       hasBlockingLanguage,
-      'validate.md must indicate blocking behavior (non-zero, fail, or blocked) — VALID-02'
+      'validate.md must indicate blocking behavior (non-zero, fail, or blocked) -- VALID-02'
     );
   });
 
@@ -175,7 +175,7 @@ describe('Phase 30: VALID-02 validate.md blocks on marker detection', () => {
       content.includes(':LINE');
     assert.ok(
       hasLineRef,
-      'validate.md must reference file:line output format — VALID-02 requires per-file, per-line marker reporting'
+      'validate.md must reference file:line output format -- VALID-02 requires per-file, per-line marker reporting'
     );
   });
 
@@ -189,7 +189,7 @@ describe('Phase 30: VALID-02 validate.md blocks on marker detection', () => {
       content.includes('No scaffold markers');
     assert.ok(
       hasPassConfirmation,
-      'validate.md must include an explicit clean pass confirmation message ("Manuscript clean" or "no scaffold markers found") — VALID-02 / SC4'
+      'validate.md must include an explicit clean pass confirmation message ("Manuscript clean" or "no scaffold markers found") -- VALID-02 / SC4'
     );
   });
 });
@@ -217,11 +217,11 @@ describe('Phase 30: VALID-03 export.md has validate gate before prerequisites st
     assert.ok(content !== null, 'commands/scr/export.md could not be read');
     const step15Pos = content.indexOf('STEP 1.5');
     const step2Pos = content.indexOf('STEP 2');
-    assert.ok(step15Pos !== -1, 'export.md must contain STEP 1.5 validate gate — VALID-03');
+    assert.ok(step15Pos !== -1, 'export.md must contain STEP 1.5 validate gate -- VALID-03');
     assert.ok(step2Pos !== -1, 'export.md must contain STEP 2 (CHECK PREREQUISITES)');
     assert.ok(
       step15Pos < step2Pos,
-      'STEP 1.5 must appear before STEP 2 in export.md — gate must run before tool detection (Pitfall 1)'
+      'STEP 1.5 must appear before STEP 2 in export.md -- gate must run before tool detection (Pitfall 1)'
     );
   });
 
@@ -230,7 +230,7 @@ describe('Phase 30: VALID-03 export.md has validate gate before prerequisites st
     assert.ok(content !== null, 'commands/scr/export.md could not be read');
     assert.ok(
       content.includes('--skip-validate'),
-      'export.md gate must mention --skip-validate bypass flag — VALID-03 escape hatch'
+      'export.md gate must mention --skip-validate bypass flag -- VALID-03 escape hatch'
     );
   });
 
@@ -239,7 +239,7 @@ describe('Phase 30: VALID-03 export.md has validate gate before prerequisites st
     assert.ok(content !== null, 'commands/scr/export.md could not be read');
     assert.ok(
       content.includes('/scr:cleanup --apply'),
-      'export.md gate must mention "/scr:cleanup --apply" as the actionable resolution — VALID-03 / SC3'
+      'export.md gate must mention "/scr:cleanup --apply" as the actionable resolution -- VALID-03 / SC3'
     );
   });
 });
@@ -250,11 +250,11 @@ describe('Phase 30: VALID-03 publish.md has validate gate before STEP 2 routing'
     assert.ok(content !== null, 'commands/scr/publish.md could not be read');
     const step15Pos = content.indexOf('STEP 1.5');
     const step2Pos = content.indexOf('STEP 2');
-    assert.ok(step15Pos !== -1, 'publish.md must contain STEP 1.5 validate gate — VALID-03');
+    assert.ok(step15Pos !== -1, 'publish.md must contain STEP 1.5 validate gate -- VALID-03');
     assert.ok(step2Pos !== -1, 'publish.md must contain STEP 2 (ROUTE)');
     assert.ok(
       step15Pos < step2Pos,
-      'STEP 1.5 must appear before STEP 2 in publish.md — gate must run before preset routing'
+      'STEP 1.5 must appear before STEP 2 in publish.md -- gate must run before preset routing'
     );
   });
 
@@ -263,7 +263,7 @@ describe('Phase 30: VALID-03 publish.md has validate gate before STEP 2 routing'
     assert.ok(content !== null, 'commands/scr/publish.md could not be read');
     assert.ok(
       content.includes('--skip-validate'),
-      'publish.md gate must mention --skip-validate bypass flag — VALID-03 escape hatch (Pitfall 5)'
+      'publish.md gate must mention --skip-validate bypass flag -- VALID-03 escape hatch (Pitfall 5)'
     );
     const hasWarningLanguage =
       content.includes('Warning') ||
@@ -272,7 +272,7 @@ describe('Phase 30: VALID-03 publish.md has validate gate before STEP 2 routing'
       content.includes('> **Warning');
     assert.ok(
       hasWarningLanguage,
-      'publish.md --skip-validate bypass must include visible warning language — silent bypass is forbidden (Pitfall 5)'
+      'publish.md --skip-validate bypass must include visible warning language -- silent bypass is forbidden (Pitfall 5)'
     );
   });
 });

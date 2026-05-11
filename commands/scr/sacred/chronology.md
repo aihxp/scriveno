@@ -13,15 +13,15 @@ Sacred work types. Works without drafted content (can be populated from OUTLINE.
 
 ## Calendar systems supported
 
-- **gregorian** — Standard CE/BCE
-- **hebrew** — Anno Mundi (AM)
-- **hijri** — Anno Hegirae (AH)
-- **vikram_samvat** — Hindu calendar
-- **buddhist_era** — BE
-- **regnal** — "In the 14th year of King X"
-- **multiple** — Show all systems side by side
+- **gregorian** -- Standard CE/BCE
+- **hebrew** -- Anno Mundi (AM)
+- **hijri** -- Anno Hegirae (AH)
+- **vikram_samvat** -- Hindu calendar
+- **buddhist_era** -- BE
+- **regnal** -- "In the 14th year of King X"
+- **multiple** -- Show all systems side by side
 
-Default is whatever is set in `config.json`'s `sacred.calendar_system`. The `--calendar` flag overrides temporarily.
+Default is whatever is set in config.json's top-level `calendar_system`. For older projects only, if top-level `calendar_system` is absent and `sacred.calendar_system` exists, use that legacy fallback. The `--calendar` flag overrides temporarily.
 
 ## What to do
 
@@ -45,17 +45,17 @@ Save to `.manuscript/CHRONOLOGY.md`:
 ```markdown
 ## Timeline (Anno Hegirae)
 
-**Year 1 AH** — Hijrah to Medina [Surah 9:40 reference]
-**Year 2 AH** — Change of qibla [Surah 2:142-144]
-**Year 2 AH** — Battle of Badr [Surah 3:123, 8:17]
-**Year 3 AH** — Battle of Uhud [Surah 3:121-155]
+**Year 1 AH** -- Hijrah to Medina [Surah 9:40 reference]
+**Year 2 AH** -- Change of qibla [Surah 2:142-144]
+**Year 2 AH** -- Battle of Badr [Surah 3:123, 8:17]
+**Year 3 AH** -- Battle of Uhud [Surah 3:121-155]
 ...
 ```
 
 For traditions with disputed dates, show the range:
 
 ```markdown
-**c. 2000-1800 BCE** — Abraham's migration (range reflects scholarly uncertainty)
+**c. 2000-1800 BCE** -- Abraham's migration (range reflects scholarly uncertainty)
 ```
 
 ### --verify
@@ -87,11 +87,11 @@ Switch to a different calendar system for display. Dates are stored internally i
 Sacred chronologies often have disputes (Egyptian vs. biblical chronology, early vs. late dating of events, regnal year overlap between co-regents). Record the dispute in a note:
 
 ```markdown
-**Year X** — Event
+**Year X** -- Event
 > Note: Disputed. Traditional dating is Year X. Critical scholarship suggests Year Y. This project follows the traditional dating per FRAMEWORK.md stance.
 ```
 
-Don't hide disputes — surface them and let the writer decide which to follow.
+Don't hide disputes -- surface them and let the writer decide which to follow.
 
 ## Tone
 

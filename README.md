@@ -102,7 +102,7 @@ For sacred and historical texts, Voice DNA is supplemented by 10 sacred voice re
 
 **Sacred & historical:** scripture (Biblical, Quranic, Torah, Vedic, Buddhist, generic), commentary/exegesis, devotional, liturgical text, historical chronicle, historical account, mythological collection, religious epic, sermon, homiletic collection
 
-Each work type has its own structural hierarchy and **industry-standard word count and page range guidance** -- a novel targets 70,000–100,000 words across 20–35 chapters, a screenplay targets 90–120 pages across 3–5 acts. These ranges guide outlining, progress tracking, and drafter pacing. The runnable command ids stay stable, while Scriven adapts the wording around them -- a Torah commentary still runs `/scr:plan 3`, but frames that work as planning Parashah 3.
+Each work type has its own structural hierarchy and **industry-standard word count and page range guidance** -- a novel targets 70,000-100,000 words across 20-35 chapters, a screenplay targets 90-120 pages across 3-5 acts. These ranges guide outlining, progress tracking, and drafter pacing. The runnable command ids stay stable, while Scriven adapts the wording around them -- a Torah commentary still runs `/scr:plan 3`, but frames that work as planning Parashah 3.
 
 ---
 
@@ -189,7 +189,7 @@ Scriven currently ships installer targets for these AI tooling environments:
 - **Perplexity Desktop** (guided local-MCP setup)
 - **Generic (SKILL.md)** fallback
 
-**Installer baseline:** `Node.js 20+` for `npx scriven-cli@latest` and `bin/install.js`.
+**Installer baseline:** `Node.js >=20.0.0` for `npx scriven-cli@latest` and `bin/install.js`. For new installs, use a currently supported LTS such as Node.js 24; Node.js 20 is now a compatibility floor, not the recommended fresh-install target.
 
 **Support note:** Claude Code is the primary reference runtime and now installs a flat `/scr-*` command surface. The environments listed above are installer targets, not a claim that every host runtime has verified parity today. Codex currently installs a skill-native `$scr-*` surface, while Perplexity Desktop is a guided local-MCP target rather than a writable command runtime. See the [runtime compatibility matrix](docs/runtime-support.md) for install type, support level, and verification status.
 
@@ -197,11 +197,11 @@ Scriven currently ships installer targets for these AI tooling environments:
 
 ## Status
 
-**Version:** 1.7.0
+**Version:** 1.7.1
 
- Scriven's core command surface is stable across 110 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, and the published package version is now `1.7.0`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
+ Scriven's core command surface is stable across 110 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, and the package version is now `1.7.1`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
 
- Version `1.7.0` is a substantial minor release focused on character continuity and context integrity. The drafter now loads the full `CHARACTERS.md` / `FIGURES.md` by default (a relevance-filter regression was silently dropping characters added late in the project from any unit whose plan did not name them). A new `/scr:character-touch` command keeps the file from freezing at character-creation time, and the drafter emits one-line `CHARACTER STATE NUDGE` suggestions when a unit clearly shifts a character's state. A context-integrity layer ships alongside: `/scr:scan` for drift detection between recorded state and what is on disk, an auto-regenerated `.manuscript/CONTEXT.md` one-page bootstrap (defined in [docs/context-protocol.md](docs/context-protocol.md)), and an append-only `.manuscript/HISTORY.log` audit trail (defined in [docs/history-protocol.md](docs/history-protocol.md)). Export gets destination-neutral presets (`share-pdf`, `share-docx`, `share-epub`, `share-bundle`, `all-formats`) so writers can hand someone a single file without thinking about KDP, and `/scr:export` and `/scr:publish` both gained interactive pickers. Front and back matter generation gained `--level minimum/balanced/maximum` flags plus a skip prompt. The Typst book template's running head now updates per chapter on recto pages instead of repeating the book title across every spread. The installer now refuses to install when two source command files would flatten to the same skill name (a real bug that was silently dropping `commands/scr/sacred-verse-numbering.md` against `commands/scr/sacred/verse-numbering.md`); the flat file is now `commands/scr/sacred-numbering-format.md`. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
+ Version `1.7.1` packages the audit-hardening pass on top of `1.7.0`: unique installed command names for sacred verse-numbering surfaces, top-level sacred profile keys with legacy fallback, shipped-slug tradition validation, real ebook platform manifest loading, canonical workflow dependency paths, refreshed repository documentation, and stronger package/repository-policy checks. Version `1.7.0` introduced character continuity and context integrity: full `CHARACTERS.md` / `FIGURES.md` drafter loading by default, `/scr:character-touch`, `/scr:scan`, `.manuscript/CONTEXT.md`, `.manuscript/HISTORY.log`, destination-neutral export presets, interactive export and publish pickers, front/back matter level controls, and the Typst running-head fix. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
 
 Package history is tracked in [CHANGELOG.md](CHANGELOG.md), and the public-facing summary for this release is in [docs/release-notes.md](docs/release-notes.md).
 

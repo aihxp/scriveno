@@ -1,16 +1,16 @@
-// Phase 28 — v1.6 Hardening Regression: end-to-end integration smoke test.
+// Phase 28 -- v1.6 Hardening Regression: end-to-end integration smoke test.
 //
 // This file covers QA-05. It exercises the full install flow end-to-end in an
 // isolated temp directory and asserts the v1.6 hardening contract:
 //
-//   Test A — Fresh install leaves zero `.tmp.<uuid>` orphans          (SAFE-01/02)
-//   Test B — Reinstall preserves user developer_mode;
+//   Test A -- Fresh install leaves zero `.tmp.<uuid>` orphans          (SAFE-01/02)
+//   Test B -- Reinstall preserves user developer_mode;
 //            installer-owned version + installed_at refresh            (PRES-01, SCHEMA-01/02)
-//   Test C — Modified shipped template is backed up
+//   Test C -- Modified shipped template is backed up
 //            with a `.backup.<timestamp>` sibling                      (PRES-02)
-//   Test D — Unmodified shipped template is replaced silently
+//   Test D -- Unmodified shipped template is replaced silently
 //            (no backup sibling created)                               (PRES-02)
-//   Test E — Installed Codex command uses `$scr-*` in prose
+//   Test E -- Installed Codex command uses `$scr-*` in prose
 //            but preserves `/scr:` byte-for-byte inside code blocks    (REWRITE-01/02)
 //
 // Isolation strategy: every test runs inside its own `os.mkdtempSync()`
@@ -56,7 +56,7 @@ function findAnyFile(dir) {
   return null;
 }
 
-// Project-scope codex runtime pointing at relative paths under cwd — these
+// Project-scope codex runtime pointing at relative paths under cwd -- these
 // get resolved to the tmp dir once `process.chdir(tmp)` is in effect.
 function projectCodexRuntime() {
   return {
@@ -100,7 +100,7 @@ describe('v1.6 hardening integration', () => {
       assert.equal(first.version, PKG_VERSION);
 
       // Simulate user editing settings.json to enable developer mode.
-      // Writing the whole file is fine — mergeSettings is what the installer
+      // Writing the whole file is fine -- mergeSettings is what the installer
       // uses on re-install to re-merge our changes onto the incoming shape.
       const settingsPath = path.join(dataDir, 'settings.json');
       const raw = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
@@ -110,7 +110,7 @@ describe('v1.6 hardening integration', () => {
       // Ensure second install's ISO timestamp differs (ms resolution).
       await new Promise((r) => setTimeout(r, 15));
 
-      // Second install — still passes developerMode=false, but user's true must win
+      // Second install -- still passes developerMode=false, but user's true must win
       writeSharedAssets(dataDir, ['codex'], false, false, 'interactive', () => {});
       const second = readSettings(dataDir);
 
@@ -134,7 +134,7 @@ describe('v1.6 hardening integration', () => {
       process.chdir(tmp);
       const dataDir = path.join(tmp, '.scriven');
 
-      // First install — populates templates/
+      // First install -- populates templates/
       writeSharedAssets(dataDir, ['codex'], false, false, 'interactive', () => {});
 
       const templatesDir = path.join(dataDir, 'templates');

@@ -2,18 +2,18 @@
 
 **Scriven**
 
-Scriven is a spec-driven writing, publishing, and translation pipeline that runs inside AI coding agents (Claude Code, Cursor, Gemini CLI). It covers the full lifecycle from blank page to publication-ready manuscript or technical document set — including voice profiling, adaptive work types, autonomous drafting, illustration, translation, and multi-format export. Supports 50 work types with tradition-native vocabulary (novels use chapters, screenplays use acts, runbooks use procedures, Quran commentaries use surahs).
+Scriven is a spec-driven writing, publishing, and translation pipeline that runs inside AI coding agents (Claude Code, Cursor, Gemini CLI). It covers the full lifecycle from blank page to publication-ready manuscript or technical document set -- including voice profiling, adaptive work types, autonomous drafting, illustration, translation, and multi-format export. Supports 50 work types with tradition-native vocabulary (novels use chapters, screenplays use acts, runbooks use procedures, Quran commentaries use surahs).
 
 **Core Value:** **Drafted prose sounds like the writer, not like AI.** The Voice DNA system profiles the writer across 15+ dimensions and loads that profile into every drafter agent invocation. If voice fidelity breaks, trust breaks, and no other feature matters.
 
 ### Constraints
 
-- **Architecture**: Must remain a pure skill/command system — no compiled code, no runtime dependencies beyond Node.js for the installer
-- **Voice fidelity**: Every feature must preserve the Voice DNA pipeline — fresh context per atomic unit, STYLE-GUIDE.md loaded first
+- **Architecture**: Must remain a pure skill/command system -- no compiled code, no runtime dependencies beyond Node.js for the installer
+- **Voice fidelity**: Every feature must preserve the Voice DNA pipeline -- fresh context per atomic unit, STYLE-GUIDE.md loaded first
 - **Backward compatibility**: Existing 28 commands and templates must continue working as new features are added
-- **Plan authority**: If a command file contradicts the product plan, fix the command — plan is canonical (section 15 for command specs)
+- **Plan authority**: If a command file contradicts the product plan, fix the command -- plan is canonical (section 15 for command specs)
 - **Progressive disclosure**: Onboarding asks 3 questions max; depth is optional and additive
-- **Runtime credibility**: `Node 20+` / `>=20.0.0` is the supported installer baseline. `docs/runtime-support.md` is the canonical runtime matrix, and installer targets are not interchangeable proof of host-runtime parity.
+- **Runtime credibility**: `>=20.0.0` is the installer compatibility floor. For new installs, prefer a currently supported LTS such as Node.js 24. `docs/runtime-support.md` is the canonical runtime matrix, and installer targets are not interchangeable proof of host-runtime parity.
 ## Technology Stack
 
 ## Architecture Constraint
@@ -82,7 +82,7 @@ Scriven is a spec-driven writing, publishing, and translation pipeline that runs
 | **Versioning** | `npm version patch/minor/major` with git tags | Auto-creates git tag, bumps version. Pair with GitHub releases for changelog. | HIGH |
 | **npx support** | Already configured (`"bin": {"scriven": "./bin/install.js"}`) | `npx scriven-cli@latest` will download and run the installer. Current setup is correct. | HIGH |
 | **Lockfile** | Commit `package-lock.json` but since there are zero dependencies, it's effectively empty | Standard practice. Will matter when/if dev dependencies are added for testing. | HIGH |
-| **Node version** | `"engines": {"node": ">=20.0.0"}` | Scriven's supported installer baseline is Node 20+. This keeps package metadata, installer guidance, and runtime docs aligned on one minimum. | HIGH |
+| **Node version** | `"engines": {"node": ">=20.0.0"}` | Scriven's installer compatibility floor is `>=20.0.0`; new installs should use a currently supported LTS such as Node.js 24. This keeps package metadata, installer guidance, and runtime docs aligned on one minimum without presenting Node 20 as the fresh-install target. | HIGH |
 See `docs/runtime-support.md` for the canonical runtime matrix, support levels, and host-runtime parity status.
 ### npm Publish Readiness Checklist
 ## Supporting Tools (Prerequisites for Users)

@@ -1,4 +1,4 @@
-# Poetry Submission Manuscript — Reference DOCX Styles
+# Poetry Submission Manuscript -- Reference DOCX Styles
 
 ## Purpose
 
@@ -34,7 +34,7 @@ Poetry submission manuscripts follow conventions from journals (Poetry, Ploughsh
 | Body Text | `Normal` | Times New Roman 12pt, single-spaced, no indent |
 | Heading 1 | `Heading 1` | Collection/section title, 14pt bold |
 | Heading 2 | `Heading 2` | Poem title, 12pt bold |
-| Page break | `\newpage` in markdown → Word page break | Between each poem |
+| Page break | `\newpage` in markdown -> Word page break | Between each poem |
 
 ## When to Regenerate the DOCX Binary
 

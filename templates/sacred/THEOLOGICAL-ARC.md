@@ -1,6 +1,6 @@
 # Theological arc
 
-*The sacred/historical equivalent of PLOT-GRAPH.md. Tracks the theological, covenantal, or dharmic progression across the text — salvation history, the prophetic timeline, the dharmic cycle, the narrative of redemption.*
+*The sacred/historical equivalent of PLOT-GRAPH.md. Tracks the theological, covenantal, or dharmic progression across the text -- salvation history, the prophetic timeline, the dharmic cycle, the narrative of redemption.*
 
 ## Overall arc
 
@@ -29,7 +29,7 @@
 
 ## Covenantal progression
 
-*(For traditions with a covenant structure — Abrahamic, dispensational, etc.)*
+*(For traditions with a covenant structure -- Abrahamic, dispensational, etc.)*
 
 | Covenant | Book/Unit | Terms | Sign | Fulfillment |
 |----------|-----------|-------|------|-------------|
@@ -37,7 +37,7 @@
 
 ## Prophetic timeline
 
-*(For prophetic texts — what is foretold, when it is foretold, when it is fulfilled.)*
+*(For prophetic texts -- what is foretold, when it is foretold, when it is fulfilled.)*
 
 | Prophecy | Prophet | Book/Unit | Fulfillment book/unit | Type |
 |----------|---------|-----------|-----------------------|------|

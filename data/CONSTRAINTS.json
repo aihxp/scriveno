@@ -1,6 +1,6 @@
 {
   "$schema": "./constraints.schema.json",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Scriven constraint system: work types, command availability, exports, and dependencies. Every command checks this file at runtime.",
 
   "work_type_groups": {
@@ -461,7 +461,7 @@
       "unit_count_range": [39, 66],
       "unit_word_range": [1000, 50000],
       "unit_page_range": [4, 200],
-      "_note": "Varies by scope — full Bible vs single book. No meaningful total range."
+      "_note": "Varies by scope -- full Bible vs single book. No meaningful total range."
     },
     "scripture_quranic": {
       "label": "Scripture (Quranic)",
@@ -474,7 +474,7 @@
       "unit_count_range": [1, 114],
       "unit_word_range": [50, 12000],
       "unit_page_range": [1, 48],
-      "_note": "Varies by scope — full Quran vs single surah. No meaningful total range."
+      "_note": "Varies by scope -- full Quran vs single surah. No meaningful total range."
     },
     "scripture_torah": {
       "label": "Scripture (Torah)",
@@ -487,7 +487,7 @@
       "unit_count_range": [1, 54],
       "unit_word_range": [1000, 8000],
       "unit_page_range": [4, 32],
-      "_note": "Varies by scope — full Torah vs single parashah."
+      "_note": "Varies by scope -- full Torah vs single parashah."
     },
     "scripture_vedic": {
       "label": "Scripture (Vedic)",
@@ -500,7 +500,7 @@
       "unit_count_range": [1, 10],
       "unit_word_range": [2000, 20000],
       "unit_page_range": [8, 80],
-      "_note": "Varies by scope — single Veda vs collection."
+      "_note": "Varies by scope -- single Veda vs collection."
     },
     "scripture_buddhist": {
       "label": "Scripture (Buddhist)",
@@ -513,7 +513,7 @@
       "unit_count_range": [1, 50],
       "unit_word_range": [500, 10000],
       "unit_page_range": [2, 40],
-      "_note": "Varies by scope — single sutta vs full nikaya."
+      "_note": "Varies by scope -- single sutta vs full nikaya."
     },
     "scripture_generic": {
       "label": "Scripture (Generic)",
@@ -1290,9 +1290,9 @@
       { "command": "new-work", "requires": [] },
       { "command": "discuss", "requires": ["OUTLINE.md"] },
       { "command": "plan", "requires": ["{N}-CONTEXT.md"] },
-      { "command": "draft", "requires": ["{N}-*-PLAN.md"] },
-      { "command": "editor-review", "requires": ["{N}-*-DRAFT.md"] },
-      { "command": "submit", "requires": ["{N}-EDITOR-NOTES.md"] },
+      { "command": "draft", "requires": [".manuscript/plans/{N}-*-PLAN.md"] },
+      { "command": "editor-review", "requires": [".manuscript/drafts/body/{N}-*-DRAFT.md"] },
+      { "command": "submit", "requires": [".manuscript/reviews/{N}-REVIEW.md"] },
       { "command": "complete-draft", "requires": ["all_units_submitted"] },
       { "command": "new-revision", "requires": ["archived_draft"] }
     ],
@@ -1434,9 +1434,9 @@
 
   "sacred_config_schema": {
     "tradition": {
-      "values": ["christian", "jewish", "islamic", "buddhist", "hindu", "interfaith", "historical_secular", "custom"],
+      "values": ["catholic", "orthodox", "tewahedo", "protestant", "jewish", "islamic-hafs", "islamic-warsh", "pali", "tibetan", "sanskrit"],
       "required_when": "work_type.group == sacred",
-      "description": "The religious or historical tradition of the work"
+      "description": "The specific sacred tradition profile slug for the work"
     },
     "verse_numbering_system": {
       "values": ["masoretic", "septuagint", "quranic_hafs", "quranic_warsh", "pali_canon", "custom"],
@@ -1484,7 +1484,7 @@
   },
 
   "architectural_profiles": {
-    "_description": "Phase 29 v1.7: valid values + work-type defaults for the project-spec tradition and platform keys. The runtime validator cross-checks these values against the templates/sacred/ and templates/platforms/ directory listings — the intersection is the accepted set, so new contributor-dropped manifests are picked up at load time without editing this file.",
+    "_description": "Phase 29 v1.7: valid values + work-type defaults for the project-spec tradition and platform keys. The runtime validator cross-checks these values against the templates/sacred/ and templates/platforms/ directory listings -- the intersection is the accepted set, so new contributor-dropped manifests are picked up at load time without editing this file.",
     "_render_variants": {
       "_note": "How templates/WORK.md {{PROFILE_BLOCK}} is rendered per work-type group by /scr:new-work. Wiring of new-work substitution lands in a later phase.",
       "sacred": "- **Tradition:** {{TRADITION}}\n- **Platform:** {{PLATFORM}}",

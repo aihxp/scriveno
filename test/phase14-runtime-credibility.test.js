@@ -17,8 +17,8 @@ describe('phase 14 installer baseline', () => {
 
   it('keeps package metadata and installer guidance on the same Node floor', () => {
     assert.equal(pkg.engines.node, '>=20.0.0');
-    assert.match(installJs, /Node\.js 20\+/);
-    assert.match(installJs, /varying support evidence/);
+    assert.match(installJs, /Node\.js >=20\.0\.0/);
+    assert.match(installJs, /current LTS/);
   });
 });
 
@@ -67,13 +67,15 @@ describe('phase 14 runtime credibility wiring', () => {
   });
 
   it('keeps launch and onboarding docs on installer-target language', () => {
-    assert.match(readme, /Node\.js 20\+/);
+    assert.match(readme, /Node\.js >=20\.0\.0/);
+    assert.match(readme, /compatibility floor/);
     assert.match(readme, /\[Runtime Support\]\(docs\/runtime-support\.md\)/);
     assert.match(readme, /installer targets/);
     assert.match(readme, /Perplexity Desktop/);
     assert.doesNotMatch(readme, /\bfull support\b/i);
 
-    assert.match(gettingStarted, /Node\.js 20\+/);
+    assert.match(gettingStarted, /Node\.js >=20\.0\.0/);
+    assert.match(gettingStarted, /currently supported LTS/);
     assert.match(gettingStarted, /\[Runtime Support\]\(runtime-support\.md\)/);
     assert.match(gettingStarted, /installer targets/);
     assert.doesNotMatch(gettingStarted, /\bsupported runtimes\b/i);
@@ -87,10 +89,11 @@ describe('phase 14 runtime credibility wiring', () => {
 
   it('keeps root instruction docs aligned to runtime-credibility policy', () => {
     for (const [name, doc] of [['AGENTS.md', agentsDoc], ['CLAUDE.md', claudeDoc]]) {
-      assert.match(doc, /Node 20\+/, `${name} should state the Node 20+ baseline`);
+      assert.match(doc, />=20\.0\.0/, `${name} should state the installer compatibility floor`);
+      assert.match(doc, /currently supported LTS/, `${name} should recommend current LTS for new installs`);
       assert.match(doc, /docs\/runtime-support\.md/, `${name} should reference the canonical matrix`);
       assert.match(doc, /host-runtime parity/, `${name} should preserve the parity caveat`);
-      assert.doesNotMatch(doc, /consider bumping/i, `${name} should not treat Node 20 as tentative`);
+      assert.doesNotMatch(doc, /consider bumping/i, `${name} should not treat the floor as tentative`);
     }
   });
 });

@@ -3,7 +3,7 @@ description: "Show manuscript word count, chapter count, estimated page count, a
 argument-hint: "[--detail]"
 ---
 
-# /scr:manuscript-stats — Manuscript Statistics
+# /scr:manuscript-stats -- Manuscript Statistics
 
 Show key metrics about the current manuscript: word count, unit count, page estimate, and reading time.
 
@@ -13,7 +13,7 @@ Show key metrics about the current manuscript: word count, unit count, page esti
 ```
 
 **Flags:**
-- `--detail` — Show per-unit breakdown (word count and page estimate per chapter/scene)
+- `--detail` -- Show per-unit breakdown (word count and page estimate per chapter/scene)
 
 ## Instruction
 
@@ -22,9 +22,9 @@ You are computing and displaying manuscript statistics. Read the project's draft
 ### STEP 1: LOAD CONTEXT
 
 1. Read `.manuscript/config.json` to get:
-   - `title` — the manuscript title
-   - `author` — the author name
-   - `work_type` — the work type (novel, memoir, screenplay, etc.)
+   - `title` -- the manuscript title
+   - `author` -- the author name
+   - `work_type` -- the work type (novel, memoir, screenplay, etc.)
 2. Read Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) to get the structural hierarchy names for this work type (e.g., "chapter", "scene").
 3. Read `.manuscript/OUTLINE.md` to get:
    - Total unit count (count all atomic-level units listed in the outline)
@@ -54,7 +54,7 @@ Using the counts from Step 2:
 - **Unit count:** Total atomic units from OUTLINE.md
 - **Drafted unit count:** Number of files that exist in `.manuscript/drafts/body/` (each file = one drafted unit)
 - **Draft completion:** `(drafted_units / total_units) * 100`, rounded to nearest integer, displayed as percentage
-- **Estimated page count:** `ceil(full_word_count / 250)` — standard 250 words per page
+- **Estimated page count:** `ceil(full_word_count / 250)` -- standard 250 words per page
 - **Reading time (average):** `ceil(full_word_count / 250)` minutes at 250 wpm average reading speed. Format as `Xh Ym` if 60+ minutes, otherwise `Xm`.
 - **Reading time (careful):** `ceil(full_word_count / 200)` minutes at 200 wpm careful reading speed. Same formatting.
 - **Front matter elements:** Count of files in `.manuscript/front-matter/`

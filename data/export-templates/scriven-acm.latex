@@ -4,11 +4,11 @@
 %
 % Default class options: [acmconf,review=false] for ACM conference papers.
 % Pass via Pandoc: --metadata classoption=acmconf
-% Note: acmart loads hyperref internally — do not add \usepackage{hyperref}
+% Note: acmart loads hyperref internally -- do not add \usepackage{hyperref}
 
 \documentclass[$if(classoption)$$for(classoption)$$classoption$$sep$,$endfor$$endif$]{acmart}
 
-% Encoding — safe with acmart when using pdflatex
+% Encoding -- safe with acmart when using pdflatex
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 

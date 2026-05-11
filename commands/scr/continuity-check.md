@@ -2,7 +2,7 @@
 description: Automated continuity verification to scan for narrative contradictions across the manuscript.
 ---
 
-# /scr:continuity-check — Scan for Narrative Contradictions
+# /scr:continuity-check -- Scan for Narrative Contradictions
 
 Automated continuity verification across the manuscript.
 
@@ -19,7 +19,7 @@ Load `.manuscript/config.json` to get `work_type`. Load Scriven's installed/shar
 
 Invoke the installed `continuity-checker.md` agent for the writer's active Scriven runtime (for example the runtime's global or project-scoped `agents/continuity-checker.md`) in a fresh context. Pass it:
 
-- The full set of drafted units (`.manuscript/drafts/body/{N}-{A}-DRAFT.md` files in scope — all units, or only Act `N` and prior acts when scoped)
+- The full set of drafted units (`.manuscript/drafts/body/{N}-{A}-DRAFT.md` files in scope -- all units, or only Act `N` and prior acts when scoped)
 - CHARACTERS.md (or FIGURES.md for sacred works)
 - WORLD.md (or COSMOLOGY.md for sacred works)
 - PLOT-GRAPH.md (or THEOLOGICAL-ARC.md for sacred works)
@@ -50,7 +50,7 @@ The agent reads all drafted scenes and checks:
   <check name="object_tracking">
     - Props and objects are where they should be
     - If a character picks up an item, it's tracked
-    - Vehicles, weapons, keys, phones — all accounted for
+    - Vehicles, weapons, keys, phones -- all accounted for
     - Clothing changes are consistent with context
     - Food/drink orders match what's consumed
   </check>
@@ -90,9 +90,9 @@ For technical work types, reinterpret the checks above through a documentation l
 ### OUTPUT
 
 Generate a continuity report with:
-- ✅ Areas that check out
-- ⚠️ Minor inconsistencies (easy fixes)
-- ❌ Major contradictions (require scene revision)
+- [ok] Areas that check out
+- WARNING Minor inconsistencies (easy fixes)
+- [major] Major contradictions (require scene revision)
 
 For each issue:
 - What the contradiction is

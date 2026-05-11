@@ -2,7 +2,7 @@
 description: Simulate a beta reader's experience of the manuscript with cross-AI peer review.
 ---
 
-# /scr:beta-reader — Cross-AI Peer Review
+# /scr:beta-reader -- Cross-AI Peer Review
 
 Simulate a beta reader's experience of the manuscript.
 
@@ -15,7 +15,7 @@ Simulate a beta reader's experience of the manuscript.
 
 ## Instruction
 
-Spawn a beta reader agent that reads the act/manuscript as a *reader*, not an editor. The goal is experiential feedback — what was it like to read this?
+Spawn a beta reader agent that reads the act/manuscript as a *reader*, not an editor. The goal is experiential feedback -- what was it like to read this?
 
 Load `.manuscript/config.json` to get `work_type`. Load Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) to check adapted names. Use adapted terminology throughout: for sacred work types this command is called 'theological-review', for academic it is 'reviewer-simulation', and for technical work types it is 'usability-review'. Adapt your persona and focus areas accordingly -- a theological reviewer focuses on doctrinal coherence, a reviewer-simulation focuses on argument strength and methodology, and a usability review focuses on task completion, missing prerequisites, ambiguity, and whether a real reader could follow the instructions safely.
 
@@ -71,4 +71,4 @@ Load `.manuscript/config.json` to get `work_type`. Load Scriven's installed/shar
 
 Save to `.manuscript/{act_num}-BETA-READER-NOTES.md`
 
-Present findings conversationally to the writer — this should feel like getting feedback from a trusted reader, not a technical report.
+Present findings conversationally to the writer -- this should feel like getting feedback from a trusted reader, not a technical report.

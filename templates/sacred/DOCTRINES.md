@@ -30,11 +30,11 @@
 
 ### Pastoral application
 {{APPLICATION}}
-*(If this is a devotional, commentary, or sermon — how this doctrine is meant to shape the reader's life or practice.)*
+*(If this is a devotional, commentary, or sermon -- how this doctrine is meant to shape the reader's life or practice.)*
 
 ### Historical-critical notes
 {{HISTORICAL_NOTES}}
-*(For scholarly work — development of this doctrine, disputed interpretations, relationship to adjacent traditions.)*
+*(For scholarly work -- development of this doctrine, disputed interpretations, relationship to adjacent traditions.)*
 
 ### Scholarly disputes
 {{DISPUTES}}

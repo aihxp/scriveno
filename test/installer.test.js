@@ -262,6 +262,8 @@ describe('Codex skill helpers', () => {
     assert.equal(commandRefToClaudeInvocation('/scr:help'), '/scr-help');
     assert.equal(commandRefToClaudeInvocation('/scr:sacred:concordance'), '/scr-sacred-concordance');
     assert.equal(commandRefToCodexSkillName('/scr:sacred:concordance'), 'scr-sacred-concordance');
+    assert.equal(commandRefToCodexSkillName('/scr:sacred-verse-numbering'), 'scr-tradition-verse-numbering');
+    assert.equal(commandRefToClaudeInvocation('/scr:sacred-verse-numbering'), '/scr-tradition-verse-numbering');
     assert.equal(commandRefToCodexInvocation('/scr:new-work'), '$scr-new-work');
   });
 
@@ -296,6 +298,19 @@ describe('Codex skill helpers', () => {
       commandEntryToFlatCommandFileName({ commandRef: '/scr:sacred:concordance' }),
       'scr-sacred-concordance.md'
     );
+    assert.equal(
+      commandEntryToFlatCommandFileName({ commandRef: '/scr:sacred-verse-numbering' }),
+      'scr-tradition-verse-numbering.md'
+    );
+  });
+
+  it('keeps generated Codex skill names and Claude flat file names unique', () => {
+    const entries = collectCommandEntries(path.join(ROOT, 'commands', 'scr'));
+    const skillNames = entries.map((entry) => entry.skillName);
+    const flatFileNames = entries.map((entry) => commandEntryToFlatCommandFileName(entry));
+
+    assert.equal(new Set(skillNames).size, skillNames.length, 'Codex skill names must not collide');
+    assert.equal(new Set(flatFileNames).size, flatFileNames.length, 'Claude flat command filenames must not collide');
   });
 
   it('rewrites Claude-installed command content to /scr-* references and stamps the file', () => {

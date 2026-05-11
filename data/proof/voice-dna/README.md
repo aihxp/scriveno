@@ -12,9 +12,9 @@ Write a short scene set just before Petra arrives in Scene 5. Elias waits in his
 
 ## Artifact Map
 
-- `STYLE-GUIDE-EXCERPT.md` — the exact voice constraints applied to the guided sample
-- `UNGUIDED-SAMPLE.md` — a plausible generic draft for the same brief
-- `GUIDED-SAMPLE.md` — the same brief rewritten to honor the style-guide dimensions
+- `STYLE-GUIDE-EXCERPT.md` -- the exact voice constraints applied to the guided sample
+- `UNGUIDED-SAMPLE.md` -- a plausible generic draft for the same brief
+- `GUIDED-SAMPLE.md` -- the same brief rewritten to honor the style-guide dimensions
 
 ## What Changed
 

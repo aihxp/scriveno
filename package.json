@@ -1,6 +1,6 @@
 {
   "name": "scriven-cli",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Spec-driven creative writing, publishing, and translation pipeline for AI coding agents. From blank page to published book.",
   "bin": {
     "scriven": "bin/install.js"
@@ -8,7 +8,9 @@
   "scripts": {
     "start": "node bin/install.js",
     "test": "node --test test/*.test.js",
-    "prepublishOnly": "npm test"
+    "pack:check": "npm pack --dry-run",
+    "release:check": "npm test && npm run pack:check",
+    "prepublishOnly": "npm run release:check"
   },
   "publishConfig": {
     "access": "public"

@@ -1,10 +1,10 @@
 # Runtime Support
 
-Scriven's runtime claims should be grounded in what the repo can actually prove. This document is the canonical source of truth for Scriven's installer baseline, runtime evidence levels, support levels, and verification status.
+Scriven's runtime claims should be grounded in what the repo can actually prove. This document is the canonical source of truth for Scriven's installer compatibility floor, runtime evidence levels, support levels, and verification status.
 
 ## Node.js Baseline
 
-Scriven's supported installer baseline is `Node.js 20+` (`>=20.0.0`).
+Scriven's installer compatibility floor is `Node.js >=20.0.0`. For new installs, prefer a currently supported LTS release such as Node.js 24. Node.js 20 reached end of life on 2026-04-30, so it remains a compatibility floor, not the recommended fresh-install target.
 
 Node is required for:
 

@@ -21,11 +21,11 @@ At least one drafted unit must exist. If nothing is drafted yet, offer to run `/
 
 Scan all drafted units. For each unit, extract:
 
-1. **Proper nouns** — Names of figures, places, peoples, objects with proper names. Link each to FIGURES.md and COSMOLOGY.md.
-2. **Significant terms** — Theologically loaded words (covenant, righteousness, salvation, dharma, jihad, nirvana, torah, sunnah, etc.). The writer configures which terms are "significant" via interactive selection if this is the first run.
-3. **Divine names** — All names, titles, and epithets for the divine in all forms they appear.
-4. **Recurring phrases** — Phrases that appear 3+ times across the text (likely formulaic or thematically weighted).
-5. **Quoted material** — Passages that quote or allude to other canonical sources.
+1. **Proper nouns** -- Names of figures, places, peoples, objects with proper names. Link each to FIGURES.md and COSMOLOGY.md.
+2. **Significant terms** -- Theologically loaded words (covenant, righteousness, salvation, dharma, jihad, nirvana, torah, sunnah, etc.). The writer configures which terms are "significant" via interactive selection if this is the first run.
+3. **Divine names** -- All names, titles, and epithets for the divine in all forms they appear.
+4. **Recurring phrases** -- Phrases that appear 3+ times across the text (likely formulaic or thematically weighted).
+5. **Quoted material** -- Passages that quote or allude to other canonical sources.
 
 Save the concordance to `.manuscript/CONCORDANCE.md` with entries like:
 
@@ -62,4 +62,4 @@ The concordance feeds `/scr:sacred:cross-reference`. Entries here are used as lo
 
 ## Tone
 
-Librarian-precise. This is reference work — the writer needs accurate counts and accurate references, not commentary on significance.
+Librarian-precise. This is reference work -- the writer needs accurate counts and accurate references, not commentary on significance.

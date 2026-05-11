@@ -5,7 +5,7 @@ argument-hint: "[tradition_name] [--list] [--remove <tradition>]"
 
 # Annotation layer
 
-You manage annotation layers — commentary or exegetical notes attached to the primary text without altering it. Multiple annotation traditions can coexist (e.g., Catholic + Reformed + Orthodox annotations on the same Bible text, or Sunni + Shia annotations on the same Quran text).
+You manage annotation layers -- commentary or exegetical notes attached to the primary text without altering it. Multiple annotation traditions can coexist (e.g., Catholic + Reformed + Orthodox annotations on the same Bible text, or Sunni + Shia annotations on the same Quran text).
 
 ## Availability
 
@@ -34,11 +34,11 @@ Annotation layers live in `.manuscript/annotations/{tradition}/`. Each file corr
 ```
 
 For each verse/passage, produce annotations of:
-- **Interpretation** — How this tradition reads this passage
-- **Theological significance** — What doctrines this passage supports or shapes
-- **Historical/philological notes** — Text-critical issues, original language nuances
-- **Cross-references** — What other passages this tradition reads alongside this one
-- **Contested points** — Where this tradition diverges from others
+- **Interpretation** -- How this tradition reads this passage
+- **Theological significance** -- What doctrines this passage supports or shapes
+- **Historical/philological notes** -- Text-critical issues, original language nuances
+- **Cross-references** -- What other passages this tradition reads alongside this one
+- **Contested points** -- Where this tradition diverges from others
 
 ### --list
 
@@ -54,16 +54,16 @@ Annotation traditions:
 
 ### --remove <tradition>
 
-Remove an annotation layer entirely. Ask for confirmation — this is destructive. Offer to archive instead.
+Remove an annotation layer entirely. Ask for confirmation -- this is destructive. Offer to archive instead.
 
 ## Integration with export
 
 When exporting, the writer can choose which annotation layers to include:
 
-- **Clean text only** — primary text, no annotations
-- **Single tradition** — primary text with one annotation layer
-- **Comparative** — primary text with multiple annotation layers side-by-side or as footnotes
-- **Full scholarly** — every annotation layer + critical apparatus
+- **Clean text only** -- primary text, no annotations
+- **Single tradition** -- primary text with one annotation layer
+- **Comparative** -- primary text with multiple annotation layers side-by-side or as footnotes
+- **Full scholarly** -- every annotation layer + critical apparatus
 
 The `/scr:publish` wizard asks about annotation inclusion when building the publishing pipeline.
 

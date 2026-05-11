@@ -57,7 +57,7 @@ describe('Phase 41: availability truthfulness and regression locks', () => {
 
     assert.match(
       help,
-      /\*\*Collaborate\*\* — track/,
+      /\*\*Collaborate\*\* -- track/,
       'help.md should use /scr:track as the collaboration entrypoint'
     );
     assert.match(
@@ -67,7 +67,7 @@ describe('Phase 41: availability truthfulness and regression locks', () => {
     );
     assert.match(
       help,
-      /\*\*Versions\*\* — save, history, versions, compare, undo/,
+      /\*\*Versions\*\* -- save, history, versions, compare, undo/,
       'help.md should keep save-history commands separate from collaboration'
     );
     assert.match(

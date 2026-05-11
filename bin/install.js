@@ -30,7 +30,7 @@ function shellQuote(value) {
 }
 
 // Escape a string for safe embedding inside a YAML double-quoted scalar.
-// Handles both `\` and `"` — bare backslashes are invalid in YAML double-quoted
+// Handles both `\` and `"` -- bare backslashes are invalid in YAML double-quoted
 // scalars, so they must be escaped before the `"`-escaping pass.
 function yamlDoubleQuoted(s) {
   return String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
@@ -61,7 +61,7 @@ This setup target prepares Scriven for **Perplexity Desktop on macOS** using Per
 1. Install **Perplexity Desktop** from the Mac App Store
 2. In Perplexity Desktop, open **Settings -> Connectors**
 3. Install the **PerplexityXPC** helper when prompted
-4. Ensure Node.js 20+ is available so \`npx\` can run the filesystem MCP server
+4. Ensure Node.js >=20.0.0 is available so \`npx\` can run the filesystem MCP server
 
 ## Add the connector
 
@@ -113,7 +113,7 @@ ${c('dim', 'Spec-driven creative writing, publishing, and translation for AI cod
 
 const RUNTIME_SUPPORT_NOTE = c(
   'dim',
-  'Installer requires Node.js 20+. The runtimes below are installer targets with varying support evidence.'
+  'Installer requires Node.js >=20.0.0. Use a current LTS for new installs.'
 );
 
 const RUNTIMES = {
@@ -234,7 +234,7 @@ function generateSkillManifest(constraintsPath) {
   // Build markdown table
   const tableRows = entries.map(e => `| ${e.name} | ${e.category} | ${e.description} |`);
 
-  return `# Scriven — AI Creative Writing Skills
+  return `# Scriven -- AI Creative Writing Skills
 
 Version: ${VERSION}
 
@@ -279,7 +279,7 @@ function extractFrontmatterBlock(content) {
       return lines.slice(1, i);
     }
   }
-  // No closing fence — treat as malformed / no frontmatter.
+  // No closing fence -- treat as malformed / no frontmatter.
   return null;
 }
 
@@ -319,7 +319,7 @@ function readFrontmatterValues(content) {
       // changing downstream behavior, but surface the edit bug.
       try {
         console.warn(
-          `[scriven] frontmatter duplicate key "${key}" — first occurrence retained; later value ignored`
+          `[scriven] frontmatter duplicate key "${key}" -- first occurrence retained; later value ignored`
         );
       } catch { /* best effort */ }
       continue;
@@ -353,6 +353,9 @@ function readFrontmatterValue(content, key) {
 }
 
 function commandRefToCodexSkillName(commandRef) {
+  if (commandRef === '/scr:sacred-verse-numbering') {
+    return 'scr-tradition-verse-numbering';
+  }
   return commandRef
     .replace(/^\/scr:/, 'scr-')
     .replace(/:/g, '-');
@@ -552,13 +555,13 @@ function atomicWriteFileSync(targetPath, content) {
     fd = undefined;
     fs.renameSync(tmpPath, targetPath);
     // H-01: fsync the parent directory so the rename is durable on crash.
-    // Best effort — Windows rejects dir fsync with EISDIR/EPERM; some network
+    // Best effort -- Windows rejects dir fsync with EISDIR/EPERM; some network
     // filesystems also reject it. Swallow any error to preserve existing
     // cross-platform behavior.
     try {
       const dfd = fs.openSync(dir, 'r');
       try { fs.fsyncSync(dfd); } finally { fs.closeSync(dfd); }
-    } catch { /* best effort — Windows rejects dir fsync */ }
+    } catch { /* best effort -- Windows rejects dir fsync */ }
   } catch (err) {
     if (fd !== undefined) {
       try { fs.closeSync(fd); } catch { /* best effort */ }
@@ -630,7 +633,7 @@ function insertMarkerComment(content, comment) {
 //   - If a code block has no closer before EOF, the remainder of the file is
 //     treated as code (fail-safe: prefer under-rewriting over mangling code).
 //
-// Indented (4-space / tab) code blocks are NOT detected — only fenced blocks.
+// Indented (4-space / tab) code blocks are NOT detected -- only fenced blocks.
 // This is intentional per Phase 27 CONTEXT: documentation snippets use fences.
 function rewriteInstalledCommandRefs(content, transform) {
   if (typeof content !== 'string' || content.length === 0) return content;
@@ -665,17 +668,17 @@ function rewriteInstalledCommandRefs(content, transform) {
       const inner = lines[i];
       const mc = inner.match(FENCE_RE);
       if (mc && mc[2][0] === fenceChar && mc[2].length >= fenceLen) {
-        // closer — emit and exit code block
+        // closer -- emit and exit code block
         out.push(inner);
         i++;
         break;
       }
-      // still inside code block — emit verbatim
+      // still inside code block -- emit verbatim
       out.push(inner);
       i++;
     }
     // If we fell out of the loop with no closer (i === lines.length without
-    // seeing a matching closer), the code block implicitly extends to EOF —
+    // seeing a matching closer), the code block implicitly extends to EOF --
     // the trailing lines were already pushed verbatim above.
   }
 
@@ -891,7 +894,7 @@ function ask(rl, question) {
 function requireSupportedNode() {
   const major = Number.parseInt(process.versions.node.split('.')[0], 10);
   if (!Number.isInteger(major) || major < MIN_NODE_MAJOR) {
-    console.error(c('red', `Scriven's installer requires Node.js 20+. You are running ${process.versions.node}.`));
+    console.error(c('red', `Scriven's installer requires Node.js >=20.0.0. You are running ${process.versions.node}.`));
     console.error(c('dim', 'See the repository README for the full runtime support matrix and current installer guidance.'));
     process.exit(1);
   }
@@ -950,11 +953,11 @@ function copyDirWithPreservation(src, dest, options = {}) {
       if (err.code !== 'ENOENT') throw err;
     }
 
-    // Read the source buffer once — used for both hashing and the atomic write.
+    // Read the source buffer once -- used for both hashing and the atomic write.
     const srcBuf = fs.readFileSync(srcPath);
 
     if (destStat === null) {
-      // No existing dest — fresh write.
+      // No existing dest -- fresh write.
       atomicWriteFileSync(destPath, srcBuf);
       result.fresh++;
       continue;
@@ -969,7 +972,7 @@ function copyDirWithPreservation(src, dest, options = {}) {
       try {
         fs.renameSync(destPath, backupPath);
       } catch {
-        // Fall back to unlink — renameSync can fail across some boundaries.
+        // Fall back to unlink -- renameSync can fail across some boundaries.
         try { fs.unlinkSync(destPath); } catch { /* best effort */ }
       }
       atomicWriteFileSync(destPath, srcBuf);
@@ -980,7 +983,7 @@ function copyDirWithPreservation(src, dest, options = {}) {
     const destHash = sha256File(destPath);
     const srcHash = crypto.createHash('sha256').update(srcBuf).digest('hex');
     if (srcHash === destHash) {
-      // Identical content — rewrite atomically so an interrupted run still
+      // Identical content -- rewrite atomically so an interrupted run still
       // leaves a complete file (no partial-write window).
       atomicWriteFileSync(destPath, srcBuf);
       result.replaced++;
@@ -1253,11 +1256,11 @@ async function main() {
   if (installRequest.isGlobal !== null) {
     isGlobal = installRequest.isGlobal;
     console.log('\n' + c('bold', 'Install scope:'));
-    console.log(`  ${c('green', '✓')} Preset via CLI flag: ${isGlobal ? 'Global' : 'Project'}`);
+    console.log(`  ${c('green', 'OK')} Preset via CLI flag: ${isGlobal ? 'Global' : 'Project'}`);
   } else {
     console.log('\n' + c('bold', 'Install scope:'));
-    console.log(`  ${c('cyan', '1.')} Global — available in all your projects`);
-    console.log(`  ${c('cyan', '2.')} Project — just this directory`);
+    console.log(`  ${c('cyan', '1.')} Global -- available in all your projects`);
+    console.log(`  ${c('cyan', '2.')} Project -- just this directory`);
     if (runtime.type === 'guided-mcp') {
       console.log(c('dim', '  Note: Perplexity Desktop connectors still point at specific project paths even when you choose Global scope.'));
     }
@@ -1269,11 +1272,11 @@ async function main() {
   if (installRequest.developerMode !== null) {
     developerMode = installRequest.developerMode;
     console.log('\n' + c('bold', 'Mode:'));
-    console.log(`  ${c('green', '✓')} Preset via CLI flag: ${developerMode ? 'Developer mode' : 'Writer mode'}`);
+    console.log(`  ${c('green', 'OK')} Preset via CLI flag: ${developerMode ? 'Developer mode' : 'Writer mode'}`);
   } else {
     console.log('\n' + c('bold', 'Mode:'));
-    console.log(`  ${c('cyan', '1.')} ${c('bold', 'Writer mode')} — git terminology hidden, friendly errors (default for non-developers)`);
-    console.log(`  ${c('cyan', '2.')} ${c('bold', 'Developer mode')} — full git access, technical output`);
+    console.log(`  ${c('cyan', '1.')} ${c('bold', 'Writer mode')} -- git terminology hidden, friendly errors (default for non-developers)`);
+    console.log(`  ${c('cyan', '2.')} ${c('bold', 'Developer mode')} -- full git access, technical output`);
     const modeChoice = await ask(rl, `\n${c('dim', 'Choice [1]: ')}`);
     developerMode = (modeChoice || '1').trim() === '2';
   }
@@ -1296,8 +1299,8 @@ function installCommandRuntime(runtime, isGlobal, log) {
   const removedAgentFiles = cleanMirroredFiles(path.join(PKG_ROOT, 'agents'), agentsDir);
   const commandCount = copyDir(path.join(PKG_ROOT, 'commands', 'scr'), commandsDir);
   const agentCount = copyDir(path.join(PKG_ROOT, 'agents'), agentsDir);
-  log(`  ${c('green', '✓')} ${runtime.label}: ${commandCount} command files → ${c('dim', commandsDir)}`);
-  log(`  ${c('green', '✓')} ${runtime.label}: ${agentCount} agent prompts → ${c('dim', agentsDir)}${removedAgentFiles ? c('dim', ` (cleaned ${removedAgentFiles} stale files)`) : ''}`);
+  log(`  ${c('green', 'OK')} ${runtime.label}: ${commandCount} command files -> ${c('dim', commandsDir)}`);
+  log(`  ${c('green', 'OK')} ${runtime.label}: ${agentCount} agent prompts -> ${c('dim', agentsDir)}${removedAgentFiles ? c('dim', ` (cleaned ${removedAgentFiles} stale files)`) : ''}`);
 }
 
 function installClaudeCommandRuntime(runtime, isGlobal, log) {
@@ -1322,8 +1325,8 @@ function installClaudeCommandRuntime(runtime, isGlobal, log) {
   writeInstalledCommandManifest(commandsDir, 'claude-code', fileNames);
   const agentCount = copyDir(path.join(PKG_ROOT, 'agents'), agentsDir);
 
-  log(`  ${c('green', '✓')} ${runtime.label}: ${commandEntries.length} /scr-* command files → ${c('dim', commandsDir)}${removedCommandFiles ? c('dim', ` (cleaned ${removedCommandFiles} stale items)`) : ''}`);
-  log(`  ${c('green', '✓')} ${runtime.label}: ${agentCount} agent prompts → ${c('dim', agentsDir)}${removedAgentFiles ? c('dim', ` (cleaned ${removedAgentFiles} stale files)`) : ''}`);
+  log(`  ${c('green', 'OK')} ${runtime.label}: ${commandEntries.length} /scr-* command files -> ${c('dim', commandsDir)}${removedCommandFiles ? c('dim', ` (cleaned ${removedCommandFiles} stale items)`) : ''}`);
+  log(`  ${c('green', 'OK')} ${runtime.label}: ${agentCount} agent prompts -> ${c('dim', agentsDir)}${removedAgentFiles ? c('dim', ` (cleaned ${removedAgentFiles} stale files)`) : ''}`);
 }
 
 function installManifestSkillRuntime(runtime, isGlobal, log) {
@@ -1334,9 +1337,9 @@ function installManifestSkillRuntime(runtime, isGlobal, log) {
   atomicWriteFileSync(path.join(skillsDir, 'SKILL.md'), manifest);
   const commandCount = copyDir(path.join(PKG_ROOT, 'commands', 'scr'), path.join(skillsDir, 'commands', 'scr'));
   const agentCount = copyDir(path.join(PKG_ROOT, 'agents'), path.join(skillsDir, 'agents'));
-  log(`  ${c('green', '✓')} ${runtime.label}: SKILL.md manifest → ${c('dim', path.join(skillsDir, 'SKILL.md'))}`);
-  log(`  ${c('green', '✓')} ${runtime.label}: ${commandCount} command files → ${c('dim', path.join(skillsDir, 'commands', 'scr'))}`);
-  log(`  ${c('green', '✓')} ${runtime.label}: ${agentCount} agent prompts → ${c('dim', path.join(skillsDir, 'agents'))}`);
+  log(`  ${c('green', 'OK')} ${runtime.label}: SKILL.md manifest -> ${c('dim', path.join(skillsDir, 'SKILL.md'))}`);
+  log(`  ${c('green', 'OK')} ${runtime.label}: ${commandCount} command files -> ${c('dim', path.join(skillsDir, 'commands', 'scr'))}`);
+  log(`  ${c('green', 'OK')} ${runtime.label}: ${agentCount} agent prompts -> ${c('dim', path.join(skillsDir, 'agents'))}`);
 }
 
 function installCodexRuntime(runtime, isGlobal, log) {
@@ -1359,7 +1362,7 @@ function installCodexRuntime(runtime, isGlobal, log) {
   // Rewrite each command file individually for the Codex invocation surface
   // ($scr-*) using atomicWriteFileSync (Phase 23). Re-reading the pristine
   // source on every run means the install marker is inserted once against
-  // clean content — not on top of a previously-marked installed file — so
+  // clean content -- not on top of a previously-marked installed file -- so
   // re-runs are idempotent (single marker, current prose rewrite).
   let commandCount = 0;
   for (const entry of commandEntries) {
@@ -1380,9 +1383,9 @@ function installCodexRuntime(runtime, isGlobal, log) {
   }
   writeCodexSkillManifest(skillsDir, skillNames);
 
-  log(`  ${c('green', '✓')} ${runtime.label}: ${commandEntries.length} \$scr-* skills → ${c('dim', skillsDir)}${removedSkillDirs ? c('dim', ` (cleaned ${removedSkillDirs} stale dirs)`) : ''}`);
-  log(`  ${c('green', '✓')} ${runtime.label}: ${commandCount} command files → ${c('dim', commandsDir)}`);
-  log(`  ${c('green', '✓')} ${runtime.label}: ${agentCount} agent prompts → ${c('dim', agentsDir)}${removedAgentFiles ? c('dim', ` (cleaned ${removedAgentFiles} stale files)`) : ''}`);
+  log(`  ${c('green', 'OK')} ${runtime.label}: ${commandEntries.length} \$scr-* skills -> ${c('dim', skillsDir)}${removedSkillDirs ? c('dim', ` (cleaned ${removedSkillDirs} stale dirs)`) : ''}`);
+  log(`  ${c('green', 'OK')} ${runtime.label}: ${commandCount} command files -> ${c('dim', commandsDir)}`);
+  log(`  ${c('green', 'OK')} ${runtime.label}: ${agentCount} agent prompts -> ${c('dim', agentsDir)}${removedAgentFiles ? c('dim', ` (cleaned ${removedAgentFiles} stale files)`) : ''}`);
 }
 
 function installGuidedRuntime(runtime, isGlobal, dataDir, log) {
@@ -1405,8 +1408,8 @@ function installGuidedRuntime(runtime, isGlobal, dataDir, log) {
   atomicWriteFileSync(path.join(guideDir, 'connector-command.txt'), connectorCommand + '\n');
   atomicWriteFileSync(path.join(guideDir, 'connector-command.current-project.txt'), currentProjectCommand + '\n');
 
-  log(`  ${c('green', '✓')} ${runtime.label}: setup guide → ${c('dim', path.join(guideDir, 'SETUP.md'))}`);
-  log(`  ${c('green', '✓')} ${runtime.label}: connector recipe → ${c('dim', path.join(guideDir, 'connector-command.txt'))}`);
+  log(`  ${c('green', 'OK')} ${runtime.label}: setup guide -> ${c('dim', path.join(guideDir, 'SETUP.md'))}`);
+  log(`  ${c('green', 'OK')} ${runtime.label}: connector recipe -> ${c('dim', path.join(guideDir, 'connector-command.txt'))}`);
 }
 
 function writeSharedAssets(dataDir, runtimeKeys, isGlobal, developerMode, installMode, log) {
@@ -1415,7 +1418,7 @@ function writeSharedAssets(dataDir, runtimeKeys, isGlobal, developerMode, instal
   const templateResult = copyDirWithPreservation(path.join(PKG_ROOT, 'templates'), path.join(dataDir, 'templates'));
   const dataResult = copyDirWithPreservation(path.join(PKG_ROOT, 'data'), path.join(dataDir, 'data'));
   const sum = (r) => r.fresh + r.replaced + r.backedUp;
-  log(`  ${c('green', '✓')} ${sum(templateResult)} templates + ${sum(dataResult)} data files → ${c('dim', dataDir)}`);
+  log(`  ${c('green', 'OK')} ${sum(templateResult)} templates + ${sum(dataResult)} data files -> ${c('dim', dataDir)}`);
   const totalBackedUp = templateResult.backedUp + dataResult.backedUp;
   if (totalBackedUp > 0) {
     log(`  ${c('yellow', 'i')} Preserved ${totalBackedUp} user-modified file(s) as .backup.<timestamp>`);
@@ -1458,7 +1461,7 @@ function writeSharedAssets(dataDir, runtimeKeys, isGlobal, developerMode, instal
   };
   const mergedSettings = mergeSettings(existingSettings, incomingSettings);
   atomicWriteFileSync(settingsPath, JSON.stringify(mergedSettings, null, 2));
-  log(`  ${c('green', '✓')} settings.json → ${c('dim', settingsPath)}`);
+  log(`  ${c('green', 'OK')} settings.json -> ${c('dim', settingsPath)}`);
 }
 
 function printNextSteps(runtimeKeys) {
@@ -1604,7 +1607,7 @@ module.exports = {
   mergeSettings,
   INSTALLER_OWNED_FIELDS,
   writeSharedAssets,
-  // Phase 29 v1.7 — architectural profiles (tradition / platform)
+  // Phase 29 v1.7 -- architectural profiles (tradition / platform)
   listTraditions: architecturalProfiles.listTraditions,
   listPlatforms: architecturalProfiles.listPlatforms,
   validateTradition: architecturalProfiles.validateTradition,

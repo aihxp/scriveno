@@ -160,7 +160,7 @@ in the writer's established voice.
 ## What you receive
 
 1. **STYLE-GUIDE.md** -- The voice DNA
-2. **{N}-{A}-PLAN.md** -- The plan for this atomic unit
+2. **.manuscript/plans/{N}-{A}-PLAN.md** -- The plan for this atomic unit
 3. **CHARACTERS.md excerpt** -- Relevant characters only
 4. **Previous unit tail** -- Last 200 words of previous unit
 5. **THEMES.md excerpt** -- Relevant thematic threads
@@ -379,6 +379,9 @@ When a package release changes the public story, update the release docs alongsi
 - `CHANGELOG.md` -- package-level release history
 - `docs/release-notes.md` -- public-facing summary of what changed and why it matters
 - `README.md` -- current version/status blurb when the release changes the headline positioning
+- `docs/shipped-assets.md` -- canonical inventory when bundled docs, templates, proof assets, or trust-critical files change
+- `docs/command-reference.md` -- command contract reference when command behavior or flags change
+- `templates/*/README.md` and `data/proof/*/README.md` -- shipped profile and proof documentation when those assets change
 - `.planning/` milestone summary files -- only when the release closes out milestone work or changes the archive story
 
 ### Minimum release checklist
@@ -387,7 +390,7 @@ When a package release changes the public story, update the release docs alongsi
 2. Update `CHANGELOG.md` with the new version and the user-visible changes
 3. Update `docs/release-notes.md` with a concise explanation of what changed, why, and how it was verified
 4. Run `npm test`
-5. Run `npm pack --dry-run`
+5. Run `npm run release:check`
 6. Publish only after the docs and package metadata tell the same story
 
 ## Code Style

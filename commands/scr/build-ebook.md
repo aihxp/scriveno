@@ -83,12 +83,12 @@ If no markers found: proceed to STEP 2.
 
 ### STEP 1.6: FRONT-MATTER GATE
 
-**1.6a — Scaffold exclusion**
+**1.6a -- Scaffold exclusion**
 
 Check if `.manuscript/front-matter/` exists.
 
 If the directory does not exist:
-> **Note:** No front matter found — run `/scr:front-matter` first if you want publication front matter included.
+> **Note:** No front matter found -- run `/scr:front-matter` first if you want publication front matter included.
 
 Proceed to 1.6b.
 
@@ -96,13 +96,13 @@ If the directory exists, scan all `.md` files in `.manuscript/front-matter/`. Fo
 
 If any files were added to the scaffold exclusion list, note them for the assembly step (STEP 3b) and show:
 > **Note:** [N] scaffold front-matter element(s) will be excluded from this export:
->   - `.manuscript/front-matter/12-preface.md` (scaffold: true — edit and set scaffold: false to include)
+>   - `.manuscript/front-matter/12-preface.md` (scaffold: true -- edit and set scaffold: false to include)
 >
 > To include a scaffold element, open the file and change `scaffold: true` to `scaffold: false`.
 
 If no scaffold files were found, show no note.
 
-**1.6b — GENERATE element auto-refresh**
+**1.6b -- GENERATE element auto-refresh**
 
 If `.manuscript/front-matter/` does not exist, skip auto-refresh and proceed to STEP 2.
 
@@ -131,9 +131,9 @@ Proceed to STEP 2.
 
 ### STEP 1.7: TRADITION LOADING
 
-Read `tradition:` from `.manuscript/config.json`.
+Read top-level `tradition` from `.manuscript/config.json`. For older projects only, if top-level `tradition` is absent and `sacred.tradition` exists, use `sacred.tradition` as a legacy fallback.
 
-If absent or null: skip this step silently and proceed to STEP 2.
+If absent or null: skip this step silently and proceed to STEP 1.8.
 
 Validate the tradition slug against the accepted list:
 `catholic`, `orthodox`, `tewahedo`, `protestant`, `jewish`, `islamic-hafs`, `islamic-warsh`, `pali`, `tibetan`, `sanskrit`
@@ -147,18 +147,65 @@ If present and valid, load `templates/sacred/{tradition}/manifest.yaml`.
 
 Apply tradition data to `.manuscript/output/metadata.yaml` (before STEP 3f writes the file):
 - Set `lang:` to the tradition's primary language tag:
-  - `arabic` script → `ar`
-  - `hebrew` script → `he`
-  - `ethiopic` script → `am` (Amharic, primary Ge'ez liturgical language)
-  - `tibetan` script → `bo`
-  - `devanagari` script → `sa` (Sanskrit)
-  - `latin` script → use the project language from config.json (default `en`)
+  - `arabic` script -> `ar`
+  - `hebrew` script -> `he`
+  - `ethiopic` script -> `am` (Amharic, primary Ge'ez liturgical language)
+  - `tibetan` script -> `bo`
+  - `devanagari` script -> `sa` (Sanskrit)
+  - `latin` script -> use the project language from config.json (default `en`)
 - Set `font-family:` to the first entry in the manifest's `font_stack`.
 
 If `rtl: true` in the manifest, add `--metadata dir=rtl` to the Pandoc invocation in STEP 4.
 
 If `approval_block.required: true` in the manifest, show after the build completes:
 > **Note:** This tradition requires an approval block ("{{approval_block.label}}") before publication. Scope: {{approval_block.scope}}.
+
+Proceed to STEP 1.8.
+
+---
+
+### STEP 1.8: VALIDATE PLATFORM
+
+**Resolve the platform slug:**
+
+- If `--platform` was passed, use that value.
+- If `--platform` was not passed and top-level `platform` is set in `.manuscript/config.json`, use that value.
+- If neither is set, default to `kdp`.
+
+**Validate the platform slug:**
+
+Check that the slug is one of the following allowed values:
+`kdp`, `ingram`, `apple`, `bn`, `d2d`, `kobo`, `google`, `smashwords`
+
+If the platform slug is invalid:
+> **Platform "{slug}" is not recognised.**
+>
+> Valid EPUB platforms: kdp, ingram, apple, bn, d2d, kobo, google, smashwords
+>
+> Example: `/scr:build-ebook --platform kdp`
+
+Then **stop**.
+
+**Load manifest for selected platform:**
+
+Load `templates/platforms/{platform}/manifest.yaml`.
+
+If the manifest is missing:
+> **Platform manifest missing: `templates/platforms/{platform}/manifest.yaml`.**
+> Re-install Scriven or restore the platform profile before building.
+
+Then **stop**.
+
+Read `label`, `formats_accepted`, `epub_variant`, and `metadata_shape` from the manifest.
+
+If `formats_accepted` does not include `epub`:
+> **{PLATFORM} does not accept EPUB output.**
+>
+> Choose a platform whose manifest includes `epub` in `formats_accepted`.
+
+Then **stop**.
+
+Carry the selected platform label and `epub_variant` forward to the metadata and final report.
 
 Proceed to STEP 2.
 
@@ -278,6 +325,8 @@ subtitle: "[subtitle if available]"
 author:
   - name: "[author from config.json]"
 lang: "[language from config.json, default en-US]"
+publisher-platform: "[selected platform label]"
+epub-variant: "[epub_variant from platform manifest]"
 rights: "Copyright [year] [author]. All rights reserved."
 date: "[current year]"
 description: "[description if available]"
@@ -290,14 +339,14 @@ Write to `.manuscript/output/metadata.yaml`.
 
 ### STEP 4: BUILD EPUB
 
-**4a — Accessibility pre-check:**
+**4a -- Accessibility pre-check:**
 
 Before invoking Pandoc, verify:
 
 - All images referenced in the assembled manuscript have alt text in their Markdown syntax (`![alt text](path)`). For any image missing alt text, add a placeholder: `![Illustration: [describe the image]](path)`.
-- The project language (`lang`) is set — if absent from config.json, default to `en`.
+- The project language (`lang`) is set -- if absent from config.json, default to `en`.
 
-**4b — Pandoc invocation:**
+**4b -- Pandoc invocation:**
 
 **If `--fixed-layout` is enabled:**
 
@@ -341,7 +390,7 @@ pandoc .manuscript/output/assembled-manuscript.md \
 If `.manuscript/build/ebook-cover.jpg` does not exist, check `.manuscript/build/ebook-cover.png`. If neither exists, omit the `--epub-cover-image` flag and note:
 > **Note:** No ebook cover found at `.manuscript/build/ebook-cover.jpg` or `.png`. EPUB will be generated without a cover. To add a cover, place your front-cover-only RGB file at `.manuscript/build/ebook-cover.jpg` (or `.png`) and re-run this build command.
 
-**4c — Semantic nav note:**
+**4c -- Semantic nav note:**
 
 The `--toc` flag causes Pandoc to emit an `epub:type="toc"` nav document (EPUB3 semantic navigation). This satisfies EU EAA June 2025 requirement for machine-readable navigation.
 
@@ -353,7 +402,8 @@ If `--fixed-layout` is active:
 
 Show:
 ```
-✓ EPUB built → .manuscript/output/ebook-fixed-layout.epub ({file_size})
+OK EPUB built -> .manuscript/output/ebook-fixed-layout.epub ({file_size})
+Platform: {selected platform label}
 ```
 
 Get file size with:
@@ -365,7 +415,8 @@ Otherwise:
 
 Show:
 ```
-✓ EPUB built → .manuscript/output/ebook.epub ({file_size})
+OK EPUB built -> .manuscript/output/ebook.epub ({file_size})
+Platform: {selected platform label}
 ```
 
 Get file size with:

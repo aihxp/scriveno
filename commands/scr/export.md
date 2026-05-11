@@ -167,12 +167,12 @@ If no markers found: proceed to STEP 2.
 
 ### STEP 1.6: FRONT-MATTER GATE
 
-**1.6a — Scaffold exclusion**
+**1.6a -- Scaffold exclusion**
 
 Check if `.manuscript/front-matter/` exists.
 
 If the directory does not exist:
-> **Note:** No front matter found — run `/scr:front-matter` first if you want publication front matter included.
+> **Note:** No front matter found -- run `/scr:front-matter` first if you want publication front matter included.
 
 Proceed to 1.6b.
 
@@ -180,13 +180,13 @@ If the directory exists, scan all `.md` files in `.manuscript/front-matter/`. Fo
 
 If any files were added to the scaffold exclusion list, note them for the assembly step (STEP 3b) and show:
 > **Note:** [N] scaffold front-matter element(s) will be excluded from this export:
->   - `.manuscript/front-matter/12-preface.md` (scaffold: true — edit and set scaffold: false to include)
+>   - `.manuscript/front-matter/12-preface.md` (scaffold: true -- edit and set scaffold: false to include)
 >
 > To include a scaffold element, open the file and change `scaffold: true` to `scaffold: false`.
 
 If no scaffold files were found, show no note.
 
-**1.6b — GENERATE element auto-refresh**
+**1.6b -- GENERATE element auto-refresh**
 
 If `.manuscript/front-matter/` does not exist, skip auto-refresh and proceed to STEP 2.
 

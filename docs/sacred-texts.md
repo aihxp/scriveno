@@ -21,6 +21,25 @@ Scriven supports 15 work types in the sacred group, spanning six traditions and 
 
 **Config defaults:** Some scripture types include tradition-specific configuration defaults. Biblical and Torah types use Masoretic verse numbering. Quranic types use Hafs verse numbering and the Hijri calendar. Torah types use the Hebrew calendar. Vedic types use Vikram Samvat. Buddhist types use the Buddhist Era calendar.
 
+## Tradition Profiles and Config
+
+Sacred projects use a top-level `tradition` key in `.manuscript/config.json`. That key points to one of the shipped profile directories under `templates/sacred/`:
+
+- `catholic`
+- `orthodox`
+- `tewahedo`
+- `protestant`
+- `jewish`
+- `islamic-hafs`
+- `islamic-warsh`
+- `pali`
+- `tibetan`
+- `sanskrit`
+
+New projects also store sacred profile settings as top-level config keys, including `verse_numbering_system`, `calendar_system`, `translation_philosophy`, `canonical_alignment`, `annotation_traditions`, `doctrinal_framework`, `preserve_source_terms`, and `transliteration_style`. Older projects that still have a nested `sacred` object are accepted as legacy input by commands that read those values, but new projects use the top-level shape.
+
+Tradition-aware commands load `templates/sacred/{tradition}/manifest.yaml` for book order, script direction, numbering formats, font stack, and approval-block guidance. Build commands use that manifest to set language/script metadata and warn when the selected tradition expects an approval block before publication.
+
 ### Sacred Prose Types
 
 | Work Type | Label | Hierarchy (Top / Mid / Atomic) | Command Unit | Use For |
@@ -163,6 +182,8 @@ Apply or adjust verse numbering systems to your drafted text. Supports tradition
 
 **Requires:** At least one drafted unit.
 
+The top-level `/scr:sacred-verse-numbering` compatibility command is read-only: it shows the active tradition's numbering format and can render example citations. The nested `/scr:sacred:verse-numbering` command changes or verifies the project's numbering system.
+
 ### `/scr:sacred:source-tracking`
 
 Track and document the source traditions, manuscripts, and textual variants underlying your sacred text. For critical editions, translation projects, and any work that draws from multiple source texts.
@@ -255,6 +276,8 @@ Sacred back matter can include:
 Here is a quick walkthrough for starting a sacred writing project:
 
 1. **Create your project.** Run `/scr:new-work` and select a sacred work type. For example, choose `commentary` for a Quranic tafsir, `scripture_biblical` for a new translation, or `mythological_collection` for a retelling of Norse myths.
+
+   The generated config stores `tradition` and the sacred profile fields at the top level. If you already know the tradition profile you want, choose one of the shipped slugs listed above.
 
 2. **Set up your voice.** Run `/scr:profile-writer` to generate your STYLE-GUIDE.md. Pay special attention to the "Sacred voice registers" section at the bottom -- this is where you customize how YOUR writing voice handles each register. A prophetic passage in your voice should sound different from a prophetic passage in someone else's.
 

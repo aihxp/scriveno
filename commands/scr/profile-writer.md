@@ -11,7 +11,7 @@ You are building the writer's Voice DNA profile. This feeds into STYLE-GUIDE.md 
 
 ### --questionnaire (interactive interview)
 
-Walk the writer through a conversation covering the voice dimensions in sections. Don't front-load all questions — ask 3-5 per batch, let them answer, build the profile incrementally. Cover:
+Walk the writer through a conversation covering the voice dimensions in sections. Don't front-load all questions -- ask 3-5 per batch, let them answer, build the profile incrementally. Cover:
 
 **Batch 1: The basics**
 - What are 2-3 books you'd love your writing to sound like?
@@ -27,20 +27,20 @@ Walk the writer through a conversation covering the voice dimensions in sections
 **Batch 3: Rhythm**
 - Slow burn or fast-paced?
 - Do you like white space on the page or dense paragraphs?
-- Where do you typically end chapters — cliffhanger, soft fade, or quiet moment?
+- Where do you typically end chapters -- cliffhanger, soft fade, or quiet moment?
 
 **Batch 4: Do/don't**
 - What's one thing you never want to see in your prose?
 - What's one thing you always want?
 - Any verbal tics or crutches to avoid?
 
-After each batch, show what you've captured and let them adjust. Save progressively — every answer updates STYLE-GUIDE.md.
+After each batch, show what you've captured and let them adjust. Save progressively -- every answer updates STYLE-GUIDE.md.
 
-Cap at 15 questions total. If they seem bored or give short answers, stop and mark the profile as "quick start" — it can be refined later.
+Cap at 15 questions total. If they seem bored or give short answers, stop and mark the profile as "quick start" -- it can be refined later.
 
 ### --analyze <file>
 
-Read the provided file (the writer's existing work — could be a published book, a draft, a sample passage). Extract voice DNA from the text:
+Read the provided file (the writer's existing work -- could be a published book, a draft, a sample passage). Extract voice DNA from the text:
 
 1. **Sentence architecture.** Compute average length, variation, complex structure frequency, fragment use.
 2. **Vocabulary.** Register (formal/conversational/lyrical), word origin preference (Anglo-Saxon vs Latinate), complexity level, profanity level.
@@ -52,7 +52,7 @@ Read the provided file (the writer's existing work — could be a published book
 
 Populate STYLE-GUIDE.md with detected values. Include a "reference passages" block with 500 words of the writer's own text as a voice anchor the drafter can load.
 
-Show the writer what you detected and ask them to confirm or adjust. Some things you'll get wrong — that's fine, let them correct you.
+Show the writer what you detected and ask them to confirm or adjust. Some things you'll get wrong -- that's fine, let them correct you.
 
 ### --reference (name authors/works)
 
@@ -64,7 +64,7 @@ For each one, extract characteristic voice patterns from what you know about tha
 - Structural preferences
 - Image systems and motifs they're known for
 
-Synthesize a blended profile — not a pastiche of any one, but a voice informed by the set. Show the writer and let them adjust the blend (e.g., "more Didion, less McCarthy").
+Synthesize a blended profile -- not a pastiche of any one, but a voice informed by the set. Show the writer and let them adjust the blend (e.g., "more Didion, less McCarthy").
 
 ### --all
 
@@ -72,7 +72,7 @@ Run all three modes in sequence. Questionnaire first, then analyze (ask for a sa
 
 ### --refine
 
-For existing profiles. Ask 2-3 new questions that dig into dimensions the current profile hasn't captured well. Review what's sparse in STYLE-GUIDE.md and ask about those areas. Add to the existing profile without resetting it. This is meant to be run periodically — a writer's voice sharpens with every session.
+For existing profiles. Ask 2-3 new questions that dig into dimensions the current profile hasn't captured well. Review what's sparse in STYLE-GUIDE.md and ask about those areas. Add to the existing profile without resetting it. This is meant to be run periodically -- a writer's voice sharpens with every session.
 
 ### --refresh
 
@@ -103,7 +103,7 @@ Load a previously exported voice profile into the current project.
 1. Check if `~/.scriven/profile.json` exists. If not: "No saved voice profile found. Run `--export` in a project with a STYLE-GUIDE.md first."
 2. Read the profile and show a summary of the voice dimensions
 3. Pre-populate STYLE-GUIDE.md with the imported dimensions
-4. Offer: "Want to refine this profile for your current project? (yes/no)" — if yes, run `--refine` flow
+4. Offer: "Want to refine this profile for your current project? (yes/no)" -- if yes, run `--refine` flow
 
 ## Profile Persistence
 
@@ -122,10 +122,10 @@ The profile stores all voice dimensions, reference authors, the ISO date of last
 
 ## After any mode
 
-End by offering to run `/scr:voice-test` — the calibration gate that generates a sample passage and asks "does this sound like you?" This is the final check before the profile is trusted for drafting.
+End by offering to run `/scr:voice-test` -- the calibration gate that generates a sample passage and asks "does this sound like you?" This is the final check before the profile is trusted for drafting.
 
 ## Tone
 
-Curious. You're trying to understand how this specific person writes. No checklists, no jargon, no "dimension 7 of 15." Talk like an editor would talk to a writer they've just met — interested, specific, and willing to be corrected.
+Curious. You're trying to understand how this specific person writes. No checklists, no jargon, no "dimension 7 of 15." Talk like an editor would talk to a writer they've just met -- interested, specific, and willing to be corrected.
 
-Writers often don't know their own voice until they see it described back to them. Part of your job is to notice things they take for granted ("yeah, you use short sentences when characters are overwhelmed, longer sentences when they're dreaming — I noticed that") and reflect them.
+Writers often don't know their own voice until they see it described back to them. Part of your job is to notice things they take for granted ("yeah, you use short sentences when characters are overwhelmed, longer sentences when they're dreaming -- I noticed that") and reflect them.

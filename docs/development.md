@@ -18,7 +18,7 @@ There is no compiled app, frontend bundle, service, or dependency-heavy local de
 
 Scriven’s local development requirements are intentionally small:
 
-- Node.js 20+ for the installer and test runner
+- Node.js >=20.0.0 for the installer and test runner. Use a currently supported LTS such as Node.js 24 for new work.
 - npm for package scripts and publish tooling
 - git for normal repo history
 
@@ -80,7 +80,7 @@ These constraints matter more than convenience:
 
 - keep the system markdown-first and dependency-light
 - preserve the Voice DNA pipeline
-- keep Node 20+ as the supported installer floor unless the product plan changes
+- keep `>=20.0.0` as the installer compatibility floor unless the product plan changes
 - treat `docs/runtime-support.md` and `docs/shipped-assets.md` as trust-critical docs
 - avoid overstating runtime parity or shipped assets
 
@@ -100,10 +100,10 @@ Run a smaller targeted subset while iterating:
 node --test test/package.test.js test/constraints.test.js
 ```
 
-Check package contents before publishing:
+Run the release gate before publishing:
 
 ```bash
-npm pack --dry-run
+npm run release:check
 ```
 
 Start the installer locally:
@@ -114,13 +114,16 @@ npm start
 
 ## Docs and release workflow
 
-Docs are part of the shipped product. If you change visible behavior, update the relevant files under `docs/` or `README.md` in the same pass.
+Docs are part of the shipped product. If you change visible behavior, update every affected documentation surface in the same pass: root docs, files under `docs/`, proof READMEs, template READMEs, and command markdown that exposes user-facing contracts.
 
 For release-oriented documentation surfaces, the main files are:
 
 - `README.md`
 - `CHANGELOG.md`
 - `docs/release-notes.md`
+- `docs/shipped-assets.md`
+- `docs/command-reference.md`
+- `templates/*/README.md` when shipped profiles or templates change
 - `.planning/` milestone summaries when you are still using the GSD planning layer
 
 ## Before shipping
@@ -129,7 +132,7 @@ A good pre-ship pass for Scriven changes is:
 
 1. run the targeted tests for the touched surface
 2. run `npm test`
-3. run `npm pack --dry-run` for package-facing changes
+3. run `npm run release:check` for package-facing changes
 4. review trust-sensitive docs for runtime, asset, and support claims
 
 ## Related docs

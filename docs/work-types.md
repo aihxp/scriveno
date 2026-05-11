@@ -58,7 +58,7 @@ Task-oriented documentation and system explanation work where accuracy, audience
 
 **Members:** Technical Guide / User Guide, Runbook / SOP, API or CLI Reference, Design Spec / Architecture Doc
 
-Technical-writing work types keep the core discuss → plan → draft flow, but relabel context and review surfaces to match docs work. `WORLD.md` becomes `SYSTEM.md`, `PLOT-GRAPH.md` becomes `PROCEDURES.md`, `/scr:build-world` is presented as `map-system`, and `/scr:editor-review` is presented as `technical-review`.
+Technical-writing work types keep the core discuss -> plan -> draft flow, but relabel context and review surfaces to match docs work. `WORLD.md` becomes `SYSTEM.md`, `PLOT-GRAPH.md` becomes `PROCEDURES.md`, `/scr:build-world` is presented as `map-system`, and `/scr:editor-review` is presented as `technical-review`.
 
 ### Visual
 
@@ -100,6 +100,8 @@ Sacred texts, historical chronicles, and religious literature. This is the most 
 
 Sacred work types relabel selected review commands (`/scr:editor-review` becomes `scholarly-review`, `/scr:voice-check` becomes `register-check`), unlock 8 exclusive commands (`/scr:sacred:concordance`, `/scr:sacred:cross-reference`, `/scr:sacred:genealogy`, `/scr:sacred:chronology`, `/scr:sacred:annotation-layer`, `/scr:sacred:verse-numbering`, `/scr:sacred:source-tracking`, `/scr:sacred:doctrinal-check`), and support 10 voice registers in STYLE-GUIDE.md.
 
+Sacred projects also use a shipped tradition profile slug in the top-level `tradition` config key. The current shipped slugs are `catholic`, `orthodox`, `tewahedo`, `protestant`, `jewish`, `islamic-hafs`, `islamic-warsh`, `pali`, `tibetan`, and `sanskrit`.
+
 ## Word Count and Page Ranges
 
 Every work type includes industry-standard word count and page range guidance. These are guides, not gates -- a literary novel can exceed 100,000 words. But the system has informed defaults instead of writing blind.
@@ -115,76 +117,76 @@ Page counts use ~250 words/page (standard manuscript format).
 
 | Work Type | Words | Pages | Units | Words/Unit | Pages/Unit |
 |-----------|-------|-------|-------|------------|------------|
-| Novel | 70,000–100,000 | 280–400 | 20–35 chapters | 2,500–5,000 | 10–20 |
-| Novella | 17,500–40,000 | 70–160 | 5–15 chapters | 2,000–4,000 | 8–16 |
-| Short Story | 1,000–7,500 | 4–30 | 1–5 sections | 500–2,500 | 2–10 |
-| Flash Fiction | 100–1,000 | 1–4 | 1–3 beats | 100–500 | 1–2 |
-| Memoir | 60,000–90,000 | 240–360 | 15–30 chapters | 2,500–5,000 | 10–20 |
-| Creative Nonfiction | 50,000–90,000 | 200–360 | 12–25 chapters | 2,500–5,000 | 10–20 |
-| Biography | 70,000–120,000 | 280–480 | 15–35 chapters | 3,000–5,000 | 12–20 |
-| Essay | 1,500–10,000 | 6–40 | 3–8 sections | 500–2,000 | 2–8 |
-| Essay Collection | 40,000–80,000 | 160–320 | 10–25 essays | 2,000–6,000 | 8–24 |
+| Novel | 70,000-100,000 | 280-400 | 20-35 chapters | 2,500-5,000 | 10-20 |
+| Novella | 17,500-40,000 | 70-160 | 5-15 chapters | 2,000-4,000 | 8-16 |
+| Short Story | 1,000-7,500 | 4-30 | 1-5 sections | 500-2,500 | 2-10 |
+| Flash Fiction | 100-1,000 | 1-4 | 1-3 beats | 100-500 | 1-2 |
+| Memoir | 60,000-90,000 | 240-360 | 15-30 chapters | 2,500-5,000 | 10-20 |
+| Creative Nonfiction | 50,000-90,000 | 200-360 | 12-25 chapters | 2,500-5,000 | 10-20 |
+| Biography | 70,000-120,000 | 280-480 | 15-35 chapters | 3,000-5,000 | 12-20 |
+| Essay | 1,500-10,000 | 6-40 | 3-8 sections | 500-2,000 | 2-8 |
+| Essay Collection | 40,000-80,000 | 160-320 | 10-25 essays | 2,000-6,000 | 8-24 |
 
 ### Script
 
 | Work Type | Words | Pages | Units | Words/Unit | Pages/Unit |
 |-----------|-------|-------|-------|------------|------------|
-| Screenplay | 7,500–12,500 | 90–120 | 3–5 acts | 2,000–4,000 | 25–35 |
-| Stage Play | 10,000–15,000 | 60–120 | 1–5 acts | 3,000–7,000 | 15–40 |
-| TV Pilot | 5,000–10,000 | 30–60 | 4–6 acts | 1,000–2,500 | 6–12 |
-| TV Series Bible | 15,000–40,000 | 60–160 | 6–13 episodes | 1,500–3,000 | 6–12 |
-| Audio Drama | 3,000–8,000 | 12–32 | 1–10 episodes | 2,000–5,000 | 8–20 |
-| Libretto | 5,000–12,000 | 20–48 | 2–3 acts | 2,000–5,000 | 8–20 |
+| Screenplay | 7,500-12,500 | 90-120 | 3-5 acts | 2,000-4,000 | 25-35 |
+| Stage Play | 10,000-15,000 | 60-120 | 1-5 acts | 3,000-7,000 | 15-40 |
+| TV Pilot | 5,000-10,000 | 30-60 | 4-6 acts | 1,000-2,500 | 6-12 |
+| TV Series Bible | 15,000-40,000 | 60-160 | 6-13 episodes | 1,500-3,000 | 6-12 |
+| Audio Drama | 3,000-8,000 | 12-32 | 1-10 episodes | 2,000-5,000 | 8-20 |
+| Libretto | 5,000-12,000 | 20-48 | 2-3 acts | 2,000-5,000 | 8-20 |
 
 ### Academic
 
 | Work Type | Words | Pages | Units | Words/Unit | Pages/Unit |
 |-----------|-------|-------|-------|------------|------------|
-| Research Paper | 5,000–15,000 | 20–60 | 4–8 sections | 1,000–3,000 | 4–12 |
-| Thesis | 40,000–100,000 | 160–400 | 5–10 chapters | 5,000–15,000 | 20–60 |
-| Journal Article | 3,000–8,000 | 12–32 | 4–7 sections | 500–2,000 | 2–8 |
-| White Paper | 3,000–10,000 | 12–40 | 4–8 sections | 500–2,000 | 2–8 |
-| Literature Review | 5,000–15,000 | 20–60 | 4–8 sections | 1,000–3,000 | 4–12 |
-| Monograph | 50,000–100,000 | 200–400 | 8–15 chapters | 4,000–8,000 | 16–32 |
+| Research Paper | 5,000-15,000 | 20-60 | 4-8 sections | 1,000-3,000 | 4-12 |
+| Thesis | 40,000-100,000 | 160-400 | 5-10 chapters | 5,000-15,000 | 20-60 |
+| Journal Article | 3,000-8,000 | 12-32 | 4-7 sections | 500-2,000 | 2-8 |
+| White Paper | 3,000-10,000 | 12-40 | 4-8 sections | 500-2,000 | 2-8 |
+| Literature Review | 5,000-15,000 | 20-60 | 4-8 sections | 1,000-3,000 | 4-12 |
+| Monograph | 50,000-100,000 | 200-400 | 8-15 chapters | 4,000-8,000 | 16-32 |
 
 ### Technical Writing
 
 | Work Type | Words | Pages | Units | Words/Unit | Pages/Unit |
 |-----------|-------|-------|-------|------------|------------|
-| Technical Guide | 3,000–25,000 | 12–100 | 4–12 sections | 500–2,500 | 2–10 |
-| Runbook | 1,500–12,000 | 6–48 | 3–10 procedures | 300–1,500 | 1–6 |
-| API / CLI Reference | 2,000–30,000 | 8–120 | 5–40 resources | 150–1,000 | 1–4 |
-| Design Spec | 2,000–15,000 | 8–60 | 4–12 sections | 500–2,000 | 2–8 |
+| Technical Guide | 3,000-25,000 | 12-100 | 4-12 sections | 500-2,500 | 2-10 |
+| Runbook | 1,500-12,000 | 6-48 | 3-10 procedures | 300-1,500 | 1-6 |
+| API / CLI Reference | 2,000-30,000 | 8-120 | 5-40 resources | 150-1,000 | 1-4 |
+| Design Spec | 2,000-15,000 | 8-60 | 4-12 sections | 500-2,000 | 2-8 |
 
 ### Visual
 
 | Work Type | Words | Pages | Units | Words/Unit | Pages/Unit |
 |-----------|-------|-------|-------|------------|------------|
-| Comic | 2,000–5,000 | 22–32 | 1–6 issues | 500–1,500 | 22–32 |
-| Graphic Novel | 5,000–20,000 | 80–200 | 5–12 chapters | 500–2,500 | 10–25 |
-| Children's Book | 500–5,000 | 24–48 | 12–24 spreads | 20–200 | 2 |
-| Picture Book | 200–1,000 | 24–40 | 12–20 spreads | 10–60 | 2 |
+| Comic | 2,000-5,000 | 22-32 | 1-6 issues | 500-1,500 | 22-32 |
+| Graphic Novel | 5,000-20,000 | 80-200 | 5-12 chapters | 500-2,500 | 10-25 |
+| Children's Book | 500-5,000 | 24-48 | 12-24 spreads | 20-200 | 2 |
+| Picture Book | 200-1,000 | 24-40 | 12-20 spreads | 10-60 | 2 |
 
 ### Poetry
 
 | Work Type | Words | Pages | Units | Words/Unit | Pages/Unit |
 |-----------|-------|-------|-------|------------|------------|
-| Poetry Collection | 5,000–15,000 | 48–120 | 3–8 sections | 1,000–3,000 | 8–20 |
-| Single Poem | 20–2,000 | 1–8 | 1–20 stanzas | 10–200 | 1 |
-| Song Lyric | 100–600 | 1–3 | 3–6 sections | 20–150 | 1 |
+| Poetry Collection | 5,000-15,000 | 48-120 | 3-8 sections | 1,000-3,000 | 8-20 |
+| Single Poem | 20-2,000 | 1-8 | 1-20 stanzas | 10-200 | 1 |
+| Song Lyric | 100-600 | 1-3 | 3-6 sections | 20-150 | 1 |
 
 ### Interactive
 
 | Work Type | Words | Pages | Units | Words/Unit | Pages/Unit |
 |-----------|-------|-------|-------|------------|------------|
-| Interactive Fiction | 20,000–100,000 | 80–400 | 20–100 nodes | 500–2,000 | 2–8 |
-| Game Narrative | 30,000–150,000 | 120–600 | 10–40 quests | 2,000–5,000 | 8–20 |
+| Interactive Fiction | 20,000-100,000 | 80-400 | 20-100 nodes | 500-2,000 | 2-8 |
+| Game Narrative | 30,000-150,000 | 120-600 | 10-40 quests | 2,000-5,000 | 8-20 |
 
 ### Speech
 
 | Work Type | Words | Pages | Units | Words/Unit | Pages/Unit |
 |-----------|-------|-------|-------|------------|------------|
-| Speech | 500–5,000 | 2–20 | 3–6 sections | 150–1,000 | 1–4 |
+| Speech | 500-5,000 | 2-20 | 3-6 sections | 150-1,000 | 1-4 |
 
 ### Sacred & Historical
 
@@ -192,15 +194,15 @@ Sacred scriptures (Biblical, Quranic, Torah, Vedic, Buddhist, Generic) have no m
 
 | Work Type | Words | Pages | Units | Words/Unit | Pages/Unit |
 |-----------|-------|-------|-------|------------|------------|
-| Commentary | 20,000–150,000 | 80–600 | 5–30 sections | 2,000–8,000 | 8–32 |
-| Devotional | 15,000–50,000 | 60–200 | 30–366 entries | 200–800 | 1–3 |
-| Liturgical Text | 5,000–30,000 | 20–120 | 5–20 sections | 500–3,000 | 2–12 |
-| Historical Chronicle | 50,000–150,000 | 200–600 | 10–40 chapters | 3,000–6,000 | 12–24 |
-| Historical Account | 40,000–100,000 | 160–400 | 10–30 chapters | 3,000–5,000 | 12–20 |
-| Mythological Collection | 30,000–100,000 | 120–400 | 10–50 tales | 1,500–5,000 | 6–20 |
-| Religious Epic | 50,000–300,000 | 200–1,200 | 10–100 cantos | 2,000–8,000 | 8–32 |
-| Sermon | 1,500–4,000 | 6–16 | 3–5 movements | 400–1,000 | 2–4 |
-| Homiletic Collection | 50,000–150,000 | 200–600 | 30–60 sermons | 1,500–4,000 | 6–16 |
+| Commentary | 20,000-150,000 | 80-600 | 5-30 sections | 2,000-8,000 | 8-32 |
+| Devotional | 15,000-50,000 | 60-200 | 30-366 entries | 200-800 | 1-3 |
+| Liturgical Text | 5,000-30,000 | 20-120 | 5-20 sections | 500-3,000 | 2-12 |
+| Historical Chronicle | 50,000-150,000 | 200-600 | 10-40 chapters | 3,000-6,000 | 12-24 |
+| Historical Account | 40,000-100,000 | 160-400 | 10-30 chapters | 3,000-5,000 | 12-20 |
+| Mythological Collection | 30,000-100,000 | 120-400 | 10-50 tales | 1,500-5,000 | 6-20 |
+| Religious Epic | 50,000-300,000 | 200-1,200 | 10-100 cantos | 2,000-8,000 | 8-32 |
+| Sermon | 1,500-4,000 | 6-16 | 3-5 movements | 400-1,000 | 2-4 |
+| Homiletic Collection | 50,000-150,000 | 200-600 | 30-60 sermons | 1,500-4,000 | 6-16 |
 
 ## Complete Work Type Table
 

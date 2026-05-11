@@ -5,7 +5,7 @@ argument-hint: "<file_or_directory_path> [--type <work_type>]"
 
 # Import
 
-You are importing an existing manuscript into Scriven. The writer has content — in a Google Doc, a Scrivener project, a folder of markdown files, a Word document, or similar — and wants Scriven's tooling without starting from scratch.
+You are importing an existing manuscript into Scriven. The writer has content -- in a Google Doc, a Scrivener project, a folder of markdown files, a Word document, or similar -- and wants Scriven's tooling without starting from scratch.
 
 ## What to do
 
@@ -14,12 +14,12 @@ You are importing an existing manuscript into Scriven. The writer has content �
 2. **Read the content.** For docx, use pandoc or similar to extract text. For markdown, read directly. For a directory, concatenate files in order.
 
 3. **Detect the work type.** If `--type` was passed, use it. Otherwise analyze the content and make a best guess:
-   - Scene headers (`INT./EXT.`) → screenplay
-   - Chapter markers with prose → novel or memoir
-   - Section headers with citations → academic paper
-   - Verse and chapter numbers → scripture
-   - Panel descriptions → comic
-   - Poem titles separated by breaks → poetry collection
+   - Scene headers (`INT./EXT.`) -> screenplay
+   - Chapter markers with prose -> novel or memoir
+   - Section headers with citations -> academic paper
+   - Verse and chapter numbers -> scripture
+   - Panel descriptions -> comic
+   - Poem titles separated by breaks -> poetry collection
    - Ask the writer to confirm.
 
 4. **Parse structure.** Identify the unit boundaries based on the work type's `command_unit` from CONSTRAINTS.json. For a novel, find chapter breaks. For a screenplay, find act breaks or scene headers. For a research paper, find section headers.
@@ -45,7 +45,7 @@ You are importing an existing manuscript into Scriven. The writer has content �
    - [specific flags: uncertain chapter breaks, possible POV shifts, etc.]
 
    Next steps:
-   - Review STYLE-GUIDE.md and CHARACTERS.md — confirm or adjust
+   - Review STYLE-GUIDE.md and CHARACTERS.md -- confirm or adjust
    - Run /scr:next to start working on the imported manuscript
    ```
 
@@ -53,7 +53,7 @@ You are importing an existing manuscript into Scriven. The writer has content �
 
 - **Messy source.** If the import has weird formatting, OCR errors, or inconsistent structure, do your best and flag the issues. Don't refuse the import.
 - **Huge manuscript.** For texts over 200k words, warn about import time but proceed. Split voice analysis across multiple samples.
-- **Mixed work types.** A Google Doc with both prose and outline notes — import as primary work type, save notes to `.manuscript/notes/`.
+- **Mixed work types.** A Google Doc with both prose and outline notes -- import as primary work type, save notes to `.manuscript/notes/`.
 - **Source in a different language.** Detect it. Ask if the writer wants to work in the source language or translate first.
 - **No clear structure.** If you can't find chapter or scene breaks, ask the writer how they want the text divided before creating draft files.
 
@@ -61,7 +61,7 @@ You are importing an existing manuscript into Scriven. The writer has content �
 
 - Don't "improve" the writer's text during import. Preserve it exactly. They'll revise via normal commands.
 - Don't rename files without asking.
-- Don't skip voice analysis — it's the highest-value part of import.
+- Don't skip voice analysis -- it's the highest-value part of import.
 - Don't assume character roles without evidence. Mark uncertain roles as such.
 
 ## Tone

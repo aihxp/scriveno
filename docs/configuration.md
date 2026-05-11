@@ -15,7 +15,7 @@ There is no compiled app config, no environment-variable matrix for the core wor
 
 ## Installer baseline
 
-The supported installer floor is:
+The installer compatibility floor is:
 
 ```json
 "engines": {
@@ -23,11 +23,13 @@ The supported installer floor is:
 }
 ```
 
-That same Node 20+ baseline is enforced in:
+That same `>=20.0.0` floor is enforced in:
 
 - `package.json`
 - `bin/install.js`
 - `docs/runtime-support.md`
+
+For new installs, use a currently supported LTS release such as Node.js 24. Node.js 20 reached end of life on 2026-04-30, so it remains a compatibility floor, not the recommended fresh-install target.
 
 For runtime support details, use [Runtime Support](runtime-support.md). That document is the canonical compatibility matrix.
 
@@ -51,11 +53,11 @@ If a command or doc claim conflicts with `CONSTRAINTS.json`, fix the command or 
 
 ## Project config
 
-When a writer runs `/scr:new-work`, Scriven creates `.manuscript/config.json`. The command file in [new-work.md](/Users/hprincivil/Projects/scriven/commands/scr/new-work.md) defines the baseline shape:
+When a writer runs `/scr:new-work`, Scriven creates `.manuscript/config.json`. The command file in [new-work.md](../commands/scr/new-work.md) defines the baseline shape:
 
 ```json
 {
-  "scriven_version": "1.7.0",
+  "scriven_version": "1.7.1",
   "work_type": "<chosen>",
   "group": "<group>",
   "command_unit": "<unit>",
@@ -87,15 +89,51 @@ Technical projects also swap in the specialized templates under `templates/techn
 
 ### Sacred and historical projects
 
-Sacred work types add a `sacred` block seeded from `config_defaults`. Depending on the type, that can include:
+Sacred work types add top-level sacred profile keys seeded from `config_defaults` and `architectural_profiles.defaults_by_work_type.tradition`. New projects should not nest these values under a `sacred` object.
 
-- tradition
-- verse numbering system
-- calendar system
-- translation philosophy
-- canonical alignment
+The supported tradition profile slugs are:
 
-Sacred projects also load the template variants under `templates/sacred/`.
+- `catholic`
+- `orthodox`
+- `tewahedo`
+- `protestant`
+- `jewish`
+- `islamic-hafs`
+- `islamic-warsh`
+- `pali`
+- `tibetan`
+- `sanskrit`
+
+Sacred project config can include:
+
+- `tradition`
+- `verse_numbering_system`
+- `calendar_system`
+- `translation_philosophy`
+- `canonical_alignment`
+- `annotation_traditions`
+- `doctrinal_framework`
+- `preserve_source_terms`
+- `transliteration_style`
+
+Sacred projects also load the template variants under `templates/sacred/`. Older projects with a nested `sacred` object are accepted as legacy input by commands that read these keys, but new projects should use the top-level shape.
+
+### Platform defaults
+
+Some work types can also set a top-level `platform`, seeded from `architectural_profiles.defaults_by_work_type.platform`. Ebook and print builders use this value when the writer does not pass `--platform`.
+
+The shipped ebook platform profile slugs are:
+
+- `kdp`
+- `ingram`
+- `apple`
+- `bn`
+- `d2d`
+- `kobo`
+- `google`
+- `smashwords`
+
+`/scr:build-ebook` validates the selected platform, loads `templates/platforms/{platform}/manifest.yaml`, checks that the manifest accepts EPUB, and carries the platform label plus `epub_variant` into the output metadata.
 
 ### Drafter quality settings
 
@@ -125,7 +163,7 @@ Scriven defaults projects to:
 
 That setting exists so non-technical writers can stay in writer-first language. In writer mode, Scriven prefers terms like `save`, `version`, and `compare` instead of raw git terminology.
 
-The broader product behavior is described in [Getting Started](getting-started.md) and [README.md](/Users/hprincivil/Projects/scriven/README.md). The repo does not currently ship a separate standalone developer-mode settings reference beyond the project config itself.
+The broader product behavior is described in [Getting Started](getting-started.md) and [README.md](../README.md). The repo does not currently ship a separate standalone developer-mode settings reference beyond the project config itself.
 
 ## Installer targets
 
@@ -174,7 +212,7 @@ npm test
 And for release-facing changes, also run:
 
 ```bash
-npm pack --dry-run
+npm run release:check
 ```
 
 ## Related docs

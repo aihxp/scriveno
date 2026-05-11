@@ -1,8 +1,8 @@
-# Style guide — Voice DNA
+# Style guide -- Voice DNA
 
-*This file is loaded into every drafter agent invocation. It is the single most important file in the project — the difference between prose that sounds like the writer and prose that sounds like generic AI.*
+*This file is loaded into every drafter agent invocation. It is the single most important file in the project -- the difference between prose that sounds like the writer and prose that sounds like generic AI.*
 
-## Part 1 — Narrative architecture
+## Part 1 -- Narrative architecture
 
 ### Narrative perspective
 - **POV:** {{POV}} (first person, close third, distant third, omniscient, second person)
@@ -19,7 +19,7 @@
 - **Emotional distance:** {{EMO_DISTANCE}} (warm/cool, sympathetic/critical/neutral)
 - **Judgment:** {{JUDGMENT}} (moralistic, withholding, ironic, compassionate)
 
-## Part 2 — Sentence and paragraph architecture
+## Part 2 -- Sentence and paragraph architecture
 
 ### Sentence architecture
 - **Average sentence length:** {{SENTENCE_LENGTH}} words
@@ -30,9 +30,9 @@
 ### Paragraph architecture
 - **Paragraph length:** {{PARAGRAPH_LENGTH}} (short, medium, long, variable)
 - **White space:** {{WHITESPACE}} (dense, generous, rhythmic)
-- **Paragraph breaks:** {{BREAK_RULES}} (when to break — beat shift, POV shift, emphasis)
+- **Paragraph breaks:** {{BREAK_RULES}} (when to break -- beat shift, POV shift, emphasis)
 
-## Part 3 — Vocabulary and figurative language
+## Part 3 -- Vocabulary and figurative language
 
 ### Vocabulary
 - **Register:** {{REGISTER}} (formal, conversational, lyrical, colloquial, literary)
@@ -48,7 +48,7 @@
 - **Similes:** {{SIMILES}} (frequency and style)
 - **Symbolism:** {{SYMBOLISM}} (overt, buried, emergent)
 
-## Part 4 — Dialogue
+## Part 4 -- Dialogue
 
 ### Dialogue voice
 - **Ratio:** {{DIALOGUE_RATIO}} (% of text that is dialogue)
@@ -60,7 +60,7 @@
 ### Character voice differentiation
 Each character should sound distinct. See CHARACTERS.md for individual voice anchors.
 
-## Part 5 — Description and sensory detail
+## Part 5 -- Description and sensory detail
 
 ### Description density
 - **Overall density:** {{DESCRIPTION_DENSITY}} (sparse, moderate, rich, lush)
@@ -72,7 +72,7 @@ Each character should sound distinct. See CHARACTERS.md for individual voice anc
 - **Place:** {{PLACE}} (how strongly setting is felt)
 - **Time of day/weather:** {{ATMOSPHERE}} (how often atmosphere is referenced)
 
-## Part 6 — Pacing, rhythm, and transitions
+## Part 6 -- Pacing, rhythm, and transitions
 
 ### Pacing
 - **Default pace:** {{PACE}} (slow-burn, steady, brisk, breakneck)
@@ -84,7 +84,7 @@ Each character should sound distinct. See CHARACTERS.md for individual voice anc
 - **Between chapters:** {{CHAPTER_TRANSITIONS}} (cliffhangers, echoes, clean breaks)
 - **Time jumps:** {{TIME_JUMPS}} (signaling, frequency, handling)
 
-## Part 7 — Reference influences
+## Part 7 -- Reference influences
 
 ### Authors/works the writer wants to evoke
 {{INFLUENCES}}
@@ -93,13 +93,13 @@ Each character should sound distinct. See CHARACTERS.md for individual voice anc
 {{REFERENCE_PASSAGES}}
 *(500-word samples from the writer's own previous work or selected reference authors, used by the drafter as voice anchors.)*
 
-## Part 8 — Sacred voice registers (sacred/historical work types only)
+## Part 8 -- Sacred voice registers (sacred/historical work types only)
 
 {{SACRED_REGISTERS_BLOCK}}
 
 *If the work type is sacred/historical, this section lists the active voice registers (prophetic, wisdom, legal, liturgical, narrative-historical, apocalyptic, epistolary, psalmic, parabolic, didactic) and which units use which register.*
 
-## Part 9 — Do and don't
+## Part 9 -- Do and don't
 
 ### Always
 {{ALWAYS}}
@@ -112,4 +112,4 @@ Each character should sound distinct. See CHARACTERS.md for individual voice anc
 
 ---
 
-*This style guide is generated from the `/scr:profile-writer` questionnaire and refined by `/scr:voice-test`. It is updated whenever the writer says "this doesn't sound like me" or flags a specific voice issue. Every drafter agent loads this file — it is the single most important artifact in the project.*
+*This style guide is generated from the `/scr:profile-writer` questionnaire and refined by `/scr:voice-test`. It is updated whenever the writer says "this doesn't sound like me" or flags a specific voice issue. Every drafter agent loads this file -- it is the single most important artifact in the project.*

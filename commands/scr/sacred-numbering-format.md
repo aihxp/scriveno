@@ -19,9 +19,9 @@ If `--example <text>` is provided, format the given text as a citation in the tr
 
 ### STEP 1: LOAD TRADITION
 
-Read `tradition:` from `.manuscript/config.json`.
+Read top-level `tradition` from `.manuscript/config.json`. For older projects only, if top-level `tradition` is absent and `sacred.tradition` exists, use `sacred.tradition` as a legacy fallback.
 
-If `tradition:` is absent or null:
+If `tradition` is absent or null:
 > **No tradition set.** Add `"tradition": "<slug>"` to `.manuscript/config.json` to use this command. Valid traditions: `catholic`, `orthodox`, `tewahedo`, `protestant`, `jewish`, `islamic-hafs`, `islamic-warsh`, `pali`, `tibetan`, `sanskrit`.
 
 Then **stop**.
@@ -41,9 +41,9 @@ Load `templates/sacred/{tradition}/manifest.yaml`.
 ### STEP 2: DISPLAY NUMBERING FORMAT
 
 From the loaded manifest, read:
-- `label` — the tradition's human name
-- `numbering.format` — the citation format (e.g. `chapter:verse`, `surah:ayah`, `nikaya:sutta`)
-- `numbering.separator` — the separator character (e.g. `:` or `.`)
+- `label` -- the tradition's human name
+- `numbering.format` -- the citation format (e.g. `chapter:verse`, `surah:ayah`, `nikaya:sutta`)
+- `numbering.separator` -- the separator character (e.g. `:` or `.`)
 
 Display the numbering reference:
 

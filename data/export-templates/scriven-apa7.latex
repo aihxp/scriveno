@@ -4,11 +4,11 @@
 %
 % Default class options: [jou,longtable] for journal format; [man] for manuscript format.
 % Pass via Pandoc: --metadata classoption=man
-% Note: apa7.cls requires biblatex — load with \usepackage[style=apa]{biblatex} in your local preamble additions
+% Note: apa7.cls requires biblatex -- load with \usepackage[style=apa]{biblatex} in your local preamble additions
 
 \documentclass[$if(classoption)$$for(classoption)$$classoption$$sep$,$endfor$$endif$]{apa7}
 
-% Encoding — safe with apa7 when using pdflatex
+% Encoding -- safe with apa7 when using pdflatex
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 

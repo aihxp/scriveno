@@ -22,10 +22,10 @@ You are helping the user navigate Scriven commands. Load Scriven's installed/sha
 
 ## The "getting started" view (no project yet)
 
-Ask the user what they want to do. Don't list 170 commands — show them this:
+Ask the user what they want to do. Don't list 170 commands -- show them this:
 
 ```
-Scriven — ready to start.
+Scriven -- ready to start.
 
 What do you want to do?
   /scr:new-work        Start a new project (novel, runbook, screenplay, paper, etc.)
@@ -41,18 +41,18 @@ Already have a project? Just cd into it and run /scr:next.
 Show commands relevant to the current stage. Use `.manuscript/STATE.md` to figure out where the user is.
 
 Group by stage:
-- **Create** — new-work, profile-writer, series-bible
-- **Write** — discuss, plan, draft, quick-write, plus any profile-building commands actually available for the current work type
-- **Revise** — editor-review, line-edit, copy-edit, continuity-check, beta-reader, voice-check
-- **Publish** — front-matter, back-matter, blurb, cover-art, publish, export
-- **Collaborate** — track
+- **Create** -- new-work, profile-writer, series-bible
+- **Write** -- discuss, plan, draft, quick-write, plus any profile-building commands actually available for the current work type
+- **Revise** -- editor-review, line-edit, copy-edit, continuity-check, beta-reader, voice-check
+- **Publish** -- front-matter, back-matter, blurb, cover-art, publish, export
+- **Collaborate** -- track
   Present `/scr:track` as the entrypoint for revision-track workflows, and describe its subcommands in prose: create, list, switch, compare, merge, propose.
-- **Versions** — save, history, versions, compare, undo
-- **Navigate** — next, progress, pause-work, resume-work
+- **Versions** -- save, history, versions, compare, undo
+- **Navigate** -- next, progress, pause-work, resume-work
 
-Revision tracks are a writer-facing workflow, not a developer-only one. Always surface `/scr:track` when it is otherwise available for the current project, and explain that comparison and merge actions live under its subcommands. Do not invent top-level commands like `/scr:merge` for collaboration, and do not confuse `/scr:compare` (save-to-save history comparison) with `/scr:track compare` (revision-track comparison). `developer_mode` only changes whether you expose extra technical detail such as hashes, branch names, or raw git output — it does not hide the collaboration workflow itself.
+Revision tracks are a writer-facing workflow, not a developer-only one. Always surface `/scr:track` when it is otherwise available for the current project, and explain that comparison and merge actions live under its subcommands. Do not invent top-level commands like `/scr:merge` for collaboration, and do not confuse `/scr:compare` (save-to-save history comparison) with `/scr:track compare` (revision-track comparison). `developer_mode` only changes whether you expose extra technical detail such as hashes, branch names, or raw git output -- it does not hide the collaboration workflow itself.
 
-Only show commands where `available` includes the current work type's group, OR where it's `"all"`, **and** any narrower command-level constraints still pass for the specific work type. For example, `book-proposal` is still hidden for fiction prose because `nonfiction_only` narrows the broad prose/sacred availability, and `panel-layout` is hidden for non-comic visual projects because `comic_only` narrows the visual group. Show canonical runnable command names, and use adapted labels as descriptive text only when the base command is actually available — sacred review surfaces may show `/scr:editor-review` as scholarly review, and technical docs may show `/scr:plot-graph` as procedure map, but hidden commands stay hidden even if CONSTRAINTS.json stores an adapted label.
+Only show commands where `available` includes the current work type's group, OR where it's `"all"`, **and** any narrower command-level constraints still pass for the specific work type. For example, `book-proposal` is still hidden for fiction prose because `nonfiction_only` narrows the broad prose/sacred availability, and `panel-layout` is hidden for non-comic visual projects because `comic_only` narrows the visual group. Show canonical runnable command names, and use adapted labels as descriptive text only when the base command is actually available -- sacred review surfaces may show `/scr:editor-review` as scholarly review, and technical docs may show `/scr:plot-graph` as procedure map, but hidden commands stay hidden even if CONSTRAINTS.json stores an adapted label.
 
 ## The filtered view
 
@@ -62,4 +62,4 @@ If the argument matches a category name (e.g., "revise", "publish"), show just t
 
 Scannable. No narration, no memory-system lectures. A writer checking help wants a menu, not an essay.
 
-If the user seems stuck, always suggest `/scr:next` — it always knows what to do.
+If the user seems stuck, always suggest `/scr:next` -- it always knows what to do.

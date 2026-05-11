@@ -21,19 +21,19 @@ Load `.manuscript/config.json` to get the `command_unit` (chapter, act, section,
 
 3. **Ask the right questions** based on the work type group:
 
-   - **Prose/Script/Visual/Interactive** — Use the 14 creative writing categories from section 12.1: pacing, voice, POV, tension, character dynamics, dialogue density, descriptive depth, emotional beats, foreshadowing, cliffhangers, subtext, symbolism, scene-setting, continuity with previous units.
-   - **Academic** — Use the 7 academic categories from section 12.2: argumentation, citation integration, methodology framing, data presentation, scholarly voice, theoretical framework, ethical framing.
-   - **Sacred/Historical** — Use the 10 sacred categories from section 12.3:
-     1. **Doctrinal framing** — Confessional vs. neutral stance, denominational alignment, hedging on disputed points. How openly does this unit take a doctrinal position?
-     2. **Voice register** — Which register dominates (prophetic, wisdom, legal, liturgical, narrative-historical, apocalyptic, epistolary, psalmic, parabolic, didactic)? Transition handling if multiple registers appear. If this unit uses a different register than the previous one, always discuss the transition.
-     3. **Intertextual density** — Quote vs. allude vs. echo. Source attribution decisions. How much should the reader be expected to recognize? Dense intertextuality rewards the learned reader but may alienate the newcomer.
-     4. **Supernatural / miraculous** — Naturalistic vs. supernatural framing, narrator stance, faith assumptions. Does the narrator describe miracles as fact, as reported experience, or as metaphor? What does FRAMEWORK.md specify?
-     5. **Genealogical integration** — Compressed list vs. narrative weaving. Is this genealogy theological (proving lineage to a promise) or historical (recording descent)? How much does the reader need to care about each name?
-     6. **Law vs. narrative** — Where to embed legal/halakhic material within narrative flow. Transition style between prescriptive and descriptive. Didactic vs. storytelling balance. Does the law interrupt the story or emerge from it?
-     7. **Historical claim weight** — Historical-critical vs. faith-affirming approach. Hedging on disputed events. Does the text present events as "this happened" or "tradition holds that"? What does FRAMEWORK.md specify for contested history?
-     8. **Liturgical rhythm** — Meter, repetition, call-and-response, antiphonal structure. Is this unit meant to be read aloud, sung, or chanted? How does the rhythm serve the content?
-     9. **Pastoral sensitivity** — Tone toward the reader. Comfort vs. challenge. Contextual nuance for passages dealing with suffering, judgment, exclusion, or violence. How does the writer want the reader to feel?
-     10. **Translation stance** — When to preserve original terms (untranslated, transliterated, or translated). Footnote density. Audience assumptions about familiarity with source language and tradition.
+   - **Prose/Script/Visual/Interactive** -- Use the 14 creative writing categories from section 12.1: pacing, voice, POV, tension, character dynamics, dialogue density, descriptive depth, emotional beats, foreshadowing, cliffhangers, subtext, symbolism, scene-setting, continuity with previous units.
+   - **Academic** -- Use the 7 academic categories from section 12.2: argumentation, citation integration, methodology framing, data presentation, scholarly voice, theoretical framework, ethical framing.
+   - **Sacred/Historical** -- Use the 10 sacred categories from section 12.3:
+     1. **Doctrinal framing** -- Confessional vs. neutral stance, denominational alignment, hedging on disputed points. How openly does this unit take a doctrinal position?
+     2. **Voice register** -- Which register dominates (prophetic, wisdom, legal, liturgical, narrative-historical, apocalyptic, epistolary, psalmic, parabolic, didactic)? Transition handling if multiple registers appear. If this unit uses a different register than the previous one, always discuss the transition.
+     3. **Intertextual density** -- Quote vs. allude vs. echo. Source attribution decisions. How much should the reader be expected to recognize? Dense intertextuality rewards the learned reader but may alienate the newcomer.
+     4. **Supernatural / miraculous** -- Naturalistic vs. supernatural framing, narrator stance, faith assumptions. Does the narrator describe miracles as fact, as reported experience, or as metaphor? What does FRAMEWORK.md specify?
+     5. **Genealogical integration** -- Compressed list vs. narrative weaving. Is this genealogy theological (proving lineage to a promise) or historical (recording descent)? How much does the reader need to care about each name?
+     6. **Law vs. narrative** -- Where to embed legal/halakhic material within narrative flow. Transition style between prescriptive and descriptive. Didactic vs. storytelling balance. Does the law interrupt the story or emerge from it?
+     7. **Historical claim weight** -- Historical-critical vs. faith-affirming approach. Hedging on disputed events. Does the text present events as "this happened" or "tradition holds that"? What does FRAMEWORK.md specify for contested history?
+     8. **Liturgical rhythm** -- Meter, repetition, call-and-response, antiphonal structure. Is this unit meant to be read aloud, sung, or chanted? How does the rhythm serve the content?
+     9. **Pastoral sensitivity** -- Tone toward the reader. Comfort vs. challenge. Contextual nuance for passages dealing with suffering, judgment, exclusion, or violence. How does the writer want the reader to feel?
+     10. **Translation stance** -- When to preserve original terms (untranslated, transliterated, or translated). Footnote density. Audience assumptions about familiarity with source language and tradition.
 
      For sacred works, pick the 3-4 most relevant categories for this specific unit. Always include Voice Register if this unit uses a different register than the previous one.
 
@@ -47,6 +47,6 @@ Load `.manuscript/config.json` to get the `command_unit` (chapter, act, section,
 
 ## Tone
 
-Collaborative. This is the writer thinking out loud with you. Ask one question at a time. Listen. Paraphrase back to make sure you got it. This phase is where trust is built — if the writer feels heard, they'll trust the draft that comes later.
+Collaborative. This is the writer thinking out loud with you. Ask one question at a time. Listen. Paraphrase back to make sure you got it. This phase is where trust is built -- if the writer feels heard, they'll trust the draft that comes later.
 
-If the writer says "just do it" — skip to planning with sensible defaults from STYLE-GUIDE.md.
+If the writer says "just do it" -- skip to planning with sensible defaults from STYLE-GUIDE.md.

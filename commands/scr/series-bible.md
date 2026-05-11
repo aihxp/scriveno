@@ -1,11 +1,11 @@
 ---
-description: Create, view, or check the series bible — a persistent cross-book knowledge base for multi-volume works (novel series, TV seasons, comic runs, sequel trilogies, multi-book commentaries).
+description: Create, view, or check the series bible -- a persistent cross-book knowledge base for multi-volume works (novel series, TV seasons, comic runs, sequel trilogies, multi-book commentaries).
 argument-hint: "[--init] [--import <work_path>] [--check] [--timeline] [--characters]"
 ---
 
 # Series bible
 
-You are managing the series bible — a global knowledge base that spans multiple books in a series. Unlike project-local files, the series bible lives at `~/.scriven/series/{series_name}/SERIES-BIBLE.md` so it's shared across all books in the series.
+You are managing the series bible -- a global knowledge base that spans multiple books in a series. Unlike project-local files, the series bible lives at `~/.scriven/series/{series_name}/SERIES-BIBLE.md` so it's shared across all books in the series.
 
 ## Modes
 
@@ -30,8 +30,8 @@ Initialize a new series bible from the current project. Prompt for:
 - Genre consistency expectations
 
 Then import from the current project's context files:
-- Copy CHARACTERS.md → series canonical character states
-- Copy WORLD.md → series world rules (marked as locked)
+- Copy CHARACTERS.md -> series canonical character states
+- Copy WORLD.md -> series world rules (marked as locked)
 - Extract themes and motifs from THEMES.md
 - Record the current book as Book 1 in the series
 
@@ -40,11 +40,11 @@ Save to `~/.scriven/series/{name}/SERIES-BIBLE.md` and add a reference in the cu
 ### --import <work_path>
 
 Import another Scriven project into the existing series bible. Merge:
-- Characters not yet in the bible → add as "appeared in Book N"
-- Existing character updates → add state changes (e.g., "Sarah married Marcus in Book 3")
-- New world rules → add unless they contradict existing rules (flag conflicts)
-- Timeline events → add to cross-book timeline
-- Unresolved threads → add to active threads
+- Characters not yet in the bible -> add as "appeared in Book N"
+- Existing character updates -> add state changes (e.g., "Sarah married Marcus in Book 3")
+- New world rules -> add unless they contradict existing rules (flag conflicts)
+- Timeline events -> add to cross-book timeline
+- Unresolved threads -> add to active threads
 
 Show the writer a summary of what was merged and flag any conflicts for resolution.
 
@@ -57,7 +57,7 @@ Verify the current project against the series bible. Flag:
 - Resolved threads being re-raised without acknowledgment
 - Canonical events being contradicted
 
-Produce a report with specific locations in the current project (file:line) and suggest fixes. Do not auto-fix — the writer decides.
+Produce a report with specific locations in the current project (file:line) and suggest fixes. Do not auto-fix -- the writer decides.
 
 ### --timeline
 
@@ -85,15 +85,15 @@ SARAH DUNN
 
 Every series bible tracks:
 
-1. **Canonical character states** — alive/dead, married, transformed, relationships, positions, possessions. Each state has a "since Book N" marker.
-2. **Locked world rules** — magic system rules, technology level, geography, physics. Changes require writer override with explicit note.
-3. **Timeline of events** — every significant event across all books with book/chapter reference.
-4. **Relationship evolution** — how character relationships change across books.
-5. **Unresolved threads** — what was planted and not yet resolved, with expected resolution book (if planned).
-6. **Reader knowledge state** — what the reader knows at each book's endpoint.
-7. **Series-level style guide** — voice DNA consistent across books (so Book 5 sounds like Book 1).
-8. **Recurring motifs and symbols** — visual and thematic patterns that should echo across books.
-9. **Terminology glossary** — invented words, place names, proper nouns, with canonical spelling.
+1. **Canonical character states** -- alive/dead, married, transformed, relationships, positions, possessions. Each state has a "since Book N" marker.
+2. **Locked world rules** -- magic system rules, technology level, geography, physics. Changes require writer override with explicit note.
+3. **Timeline of events** -- every significant event across all books with book/chapter reference.
+4. **Relationship evolution** -- how character relationships change across books.
+5. **Unresolved threads** -- what was planted and not yet resolved, with expected resolution book (if planned).
+6. **Reader knowledge state** -- what the reader knows at each book's endpoint.
+7. **Series-level style guide** -- voice DNA consistent across books (so Book 5 sounds like Book 1).
+8. **Recurring motifs and symbols** -- visual and thematic patterns that should echo across books.
+9. **Terminology glossary** -- invented words, place names, proper nouns, with canonical spelling.
 
 ## When starting a new book in the series
 
@@ -101,4 +101,4 @@ Every series bible tracks:
 
 ## Tone
 
-Clerical. The series bible is a reference document, not a creative one. Be precise, be complete, flag contradictions loudly. The whole point is that the writer can trust Book 7 to remember what Book 1 established — don't let your summaries drift from source facts.
+Clerical. The series bible is a reference document, not a creative one. Be precise, be complete, flag contradictions loudly. The whole point is that the writer can trust Book 7 to remember what Book 1 established -- don't let your summaries drift from source facts.

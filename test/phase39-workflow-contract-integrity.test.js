@@ -46,6 +46,85 @@ describe('Phase 39: workflow contract integrity', () => {
     );
   });
 
+  it('plan and draft use .manuscript/plans/ as the canonical plan tree', () => {
+    assert.match(
+      read('commands/scr/plan.md'),
+      /\.manuscript\/plans\/\{N\}-\{A\}-PLAN\.md/,
+      'plan.md should write the canonical plan path'
+    );
+
+    assert.match(
+      read('commands/scr/draft.md'),
+      /\.manuscript\/plans\/\{N\}-\*-PLAN\.md/,
+      'draft.md should read the canonical plan path'
+    );
+
+    assert.match(
+      read('agents/drafter.md'),
+      /\.manuscript\/plans\/\{N\}-\{A\}-PLAN\.md/,
+      'drafter.md should receive the canonical plan path'
+    );
+  });
+
+  it('editor review and submit use .manuscript/reviews/ as the canonical review tree', () => {
+    assert.match(
+      read('commands/scr/editor-review.md'),
+      /\.manuscript\/reviews\/\{N\}-REVIEW\.md/,
+      'editor-review.md should write the canonical review report path'
+    );
+
+    assert.match(
+      read('commands/scr/submit.md'),
+      /\.manuscript\/reviews\/\{N\}-REVIEW\.md/,
+      'submit.md should check the canonical review report path'
+    );
+  });
+
+  it('core dependency chain uses canonical draft and review paths', () => {
+    const constraints = JSON.parse(read('data/CONSTRAINTS.json'));
+    const coreChain = constraints.dependencies.core_chain;
+    const editorReview = coreChain.find((entry) => entry.command === 'editor-review');
+    const submit = coreChain.find((entry) => entry.command === 'submit');
+
+    assert.deepEqual(
+      editorReview.requires,
+      ['.manuscript/drafts/body/{N}-*-DRAFT.md'],
+      'editor-review dependency should point at the canonical body drafts tree'
+    );
+    assert.deepEqual(
+      submit.requires,
+      ['.manuscript/reviews/{N}-REVIEW.md'],
+      'submit dependency should point at the canonical review report'
+    );
+  });
+
+  it('new-work scaffolds directories and config blocks used by later workflow commands', () => {
+    const newWork = read('commands/scr/new-work.md');
+
+    for (const expected of [
+      'drafts/',
+      'body/',
+      'plans/',
+      'reviews/',
+      'editor-notes/',
+      '"voice"',
+      '"draft"',
+      '"export"',
+      '"translation"',
+      '"collaboration"',
+      'top-level sacred profile keys',
+      '`tradition`',
+      '`verse_numbering_system`',
+      'top-level `platform`',
+    ]) {
+      assert.match(
+        newWork,
+        new RegExp(expected.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
+        `new-work.md should scaffold or configure ${expected}`
+      );
+    }
+  });
+
   it('source-manuscript consumers read from the canonical drafts tree', () => {
     assert.match(
       read('commands/scr/back-translate.md'),

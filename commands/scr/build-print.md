@@ -18,7 +18,7 @@ Assemble the manuscript and produce a print-ready PDF for the selected publishin
 
 **Platform values:** `kdp | ingram | apple | bn | d2d | kobo | google | smashwords | ieee | acm | lncs | elsevier | apa7` (default: kdp)
 
-**Academic platforms** (`ieee | acm | lncs | elsevier | apa7`): produce `.tex` source only — no `--trim` applies, no `--hardcover` applies. Writer compiles with their own TeX distribution.
+**Academic platforms** (`ieee | acm | lncs | elsevier | apa7`): produce `.tex` source only -- no `--trim` applies, no `--hardcover` applies. Writer compiles with their own TeX distribution.
 
 **Trim values (KDP/Ingram):** `5x8 | 5.25x8 | 5.5x8.5 | 6x9 | 7x10` (default: 6x9)
 
@@ -86,12 +86,12 @@ If no markers found: proceed to STEP 2.
 
 ### STEP 1.6: FRONT-MATTER GATE
 
-**1.6a — Scaffold exclusion**
+**1.6a -- Scaffold exclusion**
 
 Check if `.manuscript/front-matter/` exists.
 
 If the directory does not exist:
-> **Note:** No front matter found — run `/scr:front-matter` first if you want publication front matter included.
+> **Note:** No front matter found -- run `/scr:front-matter` first if you want publication front matter included.
 
 Proceed to 1.6b.
 
@@ -99,13 +99,13 @@ If the directory exists, scan all `.md` files in `.manuscript/front-matter/`. Fo
 
 If any files were added to the scaffold exclusion list, note them for the assembly step (STEP 3b) and show:
 > **Note:** [N] scaffold front-matter element(s) will be excluded from this export:
->   - `.manuscript/front-matter/12-preface.md` (scaffold: true — edit and set scaffold: false to include)
+>   - `.manuscript/front-matter/12-preface.md` (scaffold: true -- edit and set scaffold: false to include)
 >
 > To include a scaffold element, open the file and change `scaffold: true` to `scaffold: false`.
 
 If no scaffold files were found, show no note.
 
-**1.6b — GENERATE element auto-refresh**
+**1.6b -- GENERATE element auto-refresh**
 
 If `.manuscript/front-matter/` does not exist, skip auto-refresh and proceed to STEP 2.
 
@@ -134,7 +134,7 @@ Proceed to STEP 2.
 
 ### STEP 1.7: TRADITION LOADING
 
-Read `tradition:` from `.manuscript/config.json`.
+Read top-level `tradition` from `.manuscript/config.json`. For older projects only, if top-level `tradition` is absent and `sacred.tradition` exists, use `sacred.tradition` as a legacy fallback.
 
 If absent or null: skip this step silently and proceed to STEP 1.8.
 
@@ -150,12 +150,12 @@ If present and valid, load `templates/sacred/{tradition}/manifest.yaml`.
 
 Apply tradition data to `.manuscript/output/metadata.yaml` (before STEP 3f writes the file):
 - Set `lang:` to the tradition's primary language tag:
-  - `arabic` script → `ar`
-  - `hebrew` script → `he`
-  - `ethiopic` script → `am` (Amharic, primary Ge'ez liturgical language)
-  - `tibetan` script → `bo`
-  - `devanagari` script → `sa` (Sanskrit)
-  - `latin` script → use the project language from config.json (default `en`)
+  - `arabic` script -> `ar`
+  - `hebrew` script -> `he`
+  - `ethiopic` script -> `am` (Amharic, primary Ge'ez liturgical language)
+  - `tibetan` script -> `bo`
+  - `devanagari` script -> `sa` (Sanskrit)
+  - `latin` script -> use the project language from config.json (default `en`)
 - Set `font-family:` to the first entry in the manifest's `font_stack`.
 
 If `rtl: true` in the manifest, add `--metadata dir=rtl` to the Pandoc invocation in STEP 4.
@@ -377,7 +377,7 @@ Then **stop**.
 
 **If platform is an academic publisher platform** (`ieee`, `acm`, `lncs`, `elsevier`, `apa7`):
 
-Skip trim-size validation and page-count guardrail — these are not applicable to `.tex` output. Academic platforms have no trim size or page limit.
+Skip trim-size validation and page-count guardrail -- these are not applicable to `.tex` output. Academic platforms have no trim size or page limit.
 
 Proceed directly to STEP 3.
 
@@ -415,12 +415,12 @@ estimated_pages = Math.round(word_count / manifest.trim_sizes[trim].wpp)
 
 Compare against `manifest.max_pages`:
 - For paperback: compare against `manifest.max_pages.paperback`
-- For hardcover: only KDP hardcover applies — compare against `manifest.max_pages.hardcover` only if `--hardcover` flag is passed (otherwise use paperback limit)
+- For hardcover: only KDP hardcover applies -- compare against `manifest.max_pages.hardcover` only if `--hardcover` flag is passed (otherwise use paperback limit)
 
 If `estimated_pages` exceeds the limit:
 
 - If `--strict` was NOT passed (default warning mode):
-  > ⚠ Estimated {estimated_pages} pages at {trim} ({PLATFORM} paperback limit: {MAX}pp). Consider IngramSpark (1200pp). Building anyway...
+  > WARNING Estimated {estimated_pages} pages at {trim} ({PLATFORM} paperback limit: {MAX}pp). Consider IngramSpark (1200pp). Building anyway...
 
 - If `--strict` was passed (hard block):
   > **Build blocked (--strict): Estimated {estimated_pages} pages at {trim} exceeds {PLATFORM} paperback limit ({MAX}pp).**
@@ -545,7 +545,7 @@ gs -dPDFX -dBATCH -dNOPAUSE \
 Show:
 
 ```
-✓ PDF built → .manuscript/output/print-{platform}.pdf ({file_size})
+OK PDF built -> .manuscript/output/print-{platform}.pdf ({file_size})
 ```
 
 Get file size with:
@@ -565,7 +565,7 @@ Include this note:
 **If `--platform` IS one of `ieee`, `acm`, `lncs`, `elsevier`, `apa7`, show instead:**
 
 ```
-✓ LaTeX source built → .manuscript/output/paper-{platform}.tex ({file_size})
+OK LaTeX source built -> .manuscript/output/paper-{platform}.tex ({file_size})
   Compile with pdflatex or xelatex using your TeX distribution.
 ```
 

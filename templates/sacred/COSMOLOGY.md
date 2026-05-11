@@ -29,14 +29,14 @@
 
 ### Intermediate beings
 {{INTERMEDIATE_BEINGS}}
-*(Angels, demons, spirits, bodhisattvas, devas — whatever the tradition recognizes.)*
+*(Angels, demons, spirits, bodhisattvas, devas -- whatever the tradition recognizes.)*
 
 ### Afterlife
 {{AFTERLIFE}}
 
 ### Time and eras
 {{TIME_ERAS}}
-*(How the text conceives of time — cyclical, linear, apocalyptic, ages/yugas/dispensations.)*
+*(How the text conceives of time -- cyclical, linear, apocalyptic, ages/yugas/dispensations.)*
 
 ## Natural/supernatural interface
 
@@ -72,7 +72,7 @@
 
 ### Dating
 {{DATING}}
-*(Use the config's calendar_system — AM, AH, BCE/CE, regnal years, etc.)*
+*(Use the config's calendar_system -- AM, AH, BCE/CE, regnal years, etc.)*
 
 ### Adjacent cultures and kingdoms
 {{ADJACENT}}

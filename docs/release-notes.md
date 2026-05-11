@@ -2,6 +2,36 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 1.7.1 - 2026-05-11
+
+### What changed
+
+- Fixed a generated install-name collision between the top-level sacred verse-numbering compatibility command and the nested sacred verse-numbering command
+- Standardized sacred project configuration on top-level profile keys, with legacy nested `sacred` fallbacks kept for existing projects
+- Matched sacred tradition validation to the shipped profile slugs: `catholic`, `orthodox`, `tewahedo`, `protestant`, `jewish`, `islamic-hafs`, `islamic-warsh`, `pali`, `tibetan`, and `sanskrit`
+- Made ebook platform selection operational by validating `--platform`, loading platform manifests, checking EPUB support, and writing selected platform metadata
+- Corrected workflow dependency metadata so plan, draft, review, and submit paths point at the canonical `.manuscript/` trees
+- Refreshed repository documentation across root docs, `docs/`, template READMEs, release notes, package metadata, shipped-profile READMEs, and regression coverage for the new audit guarantees
+
+### Why it matters
+
+`1.7.1` closes audit findings on top of the `1.7.0` character-continuity and context-integrity release. It keeps the new character, scan, context, and export behavior intact while tightening the command, workflow, platform, package, and writing-policy contracts.
+
+### Affected areas
+
+- installer command generation
+- sacred project config and tradition profiles
+- ebook platform build guidance
+- workflow dependency metadata
+- repository documentation and release-facing package metadata
+- regression tests and npm release checks
+
+### Verification
+
+- `npm test` (1629 tests pass)
+- `npm run pack:check`
+- `git diff --check`
+
 ## 1.7.0 - 2026-05-10
 
 ### What changed
@@ -59,13 +89,13 @@ The context-integrity layer is the defense against the silent failure mode where
 
 ### What changed
 
-- Brought the post-`1.6.0` documentation deck refresh into the published tarball: `docs/shipped-assets.md`, `docs/voice-dna.md`, `docs/configuration.md`, `docs/command-reference.md`, and `docs/architecture.md` all updated to document `WRITING-RULES.md`, the per-work-type pitfall packs, the `draft` config block, and the override hierarchy
+- Brought the post-`1.6.0` repository documentation refresh into the published tarball: `docs/shipped-assets.md`, `docs/voice-dna.md`, `docs/configuration.md`, `docs/command-reference.md`, and `docs/architecture.md` all updated to document `WRITING-RULES.md`, the per-work-type pitfall packs, the `draft` config block, and the override hierarchy
 - Aligned the reference documentation on canonical `/scr:` command notation; onboarding (`docs/getting-started.md`), README cross-runtime examples, and historical 1.5.1 release-notes prose still use Claude flat `/scr-*` and Codex `$scr-*` where contextually appropriate
 - No code, agent, command, or template changes; runtime behavior is identical to `1.6.0`
 
 ### Why it matters
 
-`1.6.0` shipped before the documentation deck refresh landed. Writers running `npx scriven-cli@1.6.0` got the new agents, templates, and settings but a thinner `~/.scriven/docs/` tree. `1.6.1` closes that gap so the docs writers see in their installed tree match what is on GitHub.
+`1.6.0` shipped before the repository documentation refresh landed. Writers running `npx scriven-cli@1.6.0` got the new agents, templates, and settings but a thinner `~/.scriven/docs/` tree. `1.6.1` closes that gap so the docs writers see in their installed tree match what is on GitHub.
 
 ### Affected areas
 

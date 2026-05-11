@@ -68,7 +68,7 @@ Then **stop**.
 
 ### STEP 1.6: FRONT-MATTER GATE
 
-Follow /scr:build-ebook STEP 1.6a–1.6b (scaffold exclusion and GENERATE auto-refresh).
+Follow /scr:build-ebook STEP 1.6a-1.6b (scaffold exclusion and GENERATE auto-refresh).
 Use the resulting scaffold exclusion list in STEP 3 assembly.
 
 ---
@@ -100,7 +100,7 @@ Then **stop**.
 
 ### STEP 3: ASSEMBLE MANUSCRIPT
 
-Follow the same assembly steps as `/scr:build-ebook` STEP 3a–3e:
+Follow the same assembly steps as `/scr:build-ebook` STEP 3a-3e:
 - Read OUTLINE.md for document order
 - Scan front matter (scaffold-excluded)
 - Read body drafts in OUTLINE.md order
@@ -123,14 +123,14 @@ pandoc .manuscript/output/assembled-manuscript.md \
 
 **Smashwords compliance notes applied automatically by the reference doc:**
 - First-line indent comes from the Normal paragraph style (not tabs or spaces)
-- No custom headers/footers — removed by reference doc style
+- No custom headers/footers -- removed by reference doc style
 - Auto-generated TOC field (Word-compatible) via `--toc`
 
 **Post-build reminder:**
 > **Smashwords submission checklist:**
-> 1. Open `smashwords.docx` and verify no tab characters (Find/Replace `^t` — result should be zero matches)
+> 1. Open `smashwords.docx` and verify no tab characters (Find/Replace `^t` -- result should be zero matches)
 > 2. Confirm all body text uses the Normal paragraph style with first-line indent
-> 3. Confirm the auto-TOC updates when you open the document (Word: right-click TOC → Update Field)
+> 3. Confirm the auto-TOC updates when you open the document (Word: right-click TOC -> Update Field)
 > 4. Submit via https://www.smashwords.com/upload or Draft2Digital upload portal
 
 ---
@@ -139,7 +139,7 @@ pandoc .manuscript/output/assembled-manuscript.md \
 
 Show:
 ```
-✓ Smashwords DOCX built → .manuscript/output/smashwords.docx ({file_size})
+OK Smashwords DOCX built -> .manuscript/output/smashwords.docx ({file_size})
 ```
 
 Get file size with:

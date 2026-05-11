@@ -1,4 +1,4 @@
-// Scriven Stage Play Template — Samuel French format
+// Scriven Stage Play Template -- Samuel French format
 // Usage: pandoc ... --pdf-engine=typst --template=data/export-templates/scriven-stageplay.typst
 //
 // Samuel French standard: 8.5x11 US Letter, Courier 12pt, 1.5in left (binding), 1in right/top/bottom.
@@ -7,7 +7,7 @@
 // H1 = Act headings, H2 = Scene headings.
 
 // Page dimensions (Pandoc -V variables with defaults)
-// US Letter — standard for stage plays and Samuel French submissions
+// US Letter -- standard for stage plays and Samuel French submissions
 #let page-width = $if(paperwidth)$$paperwidth$$else$8.5in$endif$
 #let page-height = $if(paperheight)$$paperheight$$else$11in$endif$
 
@@ -44,7 +44,7 @@
   },
 )
 
-// Courier 12pt — industry standard font for stage plays
+// Courier 12pt -- industry standard font for stage plays
 #set text(
   font: $if(mainfont)$"$mainfont$"$else$"Courier New"$endif$,
   size: $if(fontsize)$$fontsize$$else$12pt$endif$,
@@ -70,7 +70,7 @@
   text(style: "italic")[#it.body]
 }
 
-// Act headings (H1): centered, uppercase, extra space — new page per act
+// Act headings (H1): centered, uppercase, extra space -- new page per act
 #show heading.where(level: 1): it => {
   pagebreak(weak: true)
   v(2em)

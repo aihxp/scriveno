@@ -13,12 +13,12 @@ Load `.manuscript/config.json` for `command_unit`. The runnable command stays `/
 
 ## Prerequisites
 
-- Editor notes must exist (`{N}-EDITOR-NOTES.md`)
+- Review report must exist at `.manuscript/reviews/{N}-REVIEW.md`. For older projects, root-level `{N}-EDITOR-NOTES.md` also counts as a legacy review artifact.
 
 ## What to do
 
 1. Load `.manuscript/config.json` for project context
-2. Check that the specified unit has been through editor review (`{N}-EDITOR-NOTES.md` exists)
+2. Check that the specified unit has been through editor review. Prefer `.manuscript/reviews/{N}-REVIEW.md`; if it is missing, accept legacy `{N}-EDITOR-NOTES.md`.
 3. Mark the unit as submitted in `STATE.md`
 4. Report: "Unit {N} submitted. {remaining} units remaining."
 
