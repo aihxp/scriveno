@@ -78,6 +78,8 @@ Output: `.manuscript/output/manuscript-print.pdf`. Uses the `scriven-book.typst`
 
 Output: `.manuscript/output/manuscript.epub`. Includes table of contents, metadata, and custom CSS styling via `scriven-epub.css`. If an ebook front cover exists at `.manuscript/build/ebook-cover.jpg` (or `.png`), it's embedded automatically.
 
+For platform-aware EPUB builds, use `/scr:build-ebook --platform <platform>`. Shipped platform profiles live under `templates/platforms/` for `kdp`, `ingram`, `apple`, `bn`, `d2d`, `kobo`, `google`, and `smashwords`. The build command validates the platform manifest, confirms EPUB support, and carries the selected platform label plus `epub_variant` into output metadata.
+
 ## Canonical Cover Deliverables
 
 Scriven treats cover files as a separate build contract under `.manuscript/build/`.
@@ -129,6 +131,13 @@ Output: `.manuscript/output/manuscript.tex`. Uses the `scriven-academic.latex` t
 ## Platform Packages
 
 Platform packages bundle everything a specific publishing platform needs into a single directory -- interior files, cover specifications, metadata, and checklists.
+
+The lower-level build commands are platform-aware too:
+
+- `/scr:build-ebook --platform <platform>` loads `templates/platforms/{platform}/manifest.yaml`, validates EPUB support, and writes platform metadata.
+- `/scr:build-print --platform <platform>` uses print and academic platform profiles for trim-size, page-count, and template routing.
+
+If a project has top-level `platform` in `.manuscript/config.json`, build commands use it when `--platform` is omitted. Otherwise ebook builds default to `kdp`.
 
 ### KDP (Kindle Direct Publishing)
 

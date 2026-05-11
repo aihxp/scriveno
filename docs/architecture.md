@@ -353,7 +353,7 @@ The user chooses during installation. Guided local-MCP targets still write their
 
 ### Runtime credibility
 
-Scriven's installer compatibility floor is `Node.js 20+` (`>=20.0.0`). For new installs, prefer a currently supported LTS such as Node.js 24. The compatibility floor applies to `npx scriven-cli@latest`, `bin/install.js`, and the repo's JavaScript test suite, not to the markdown command system once files are installed.
+Scriven's installer compatibility floor is `Node.js >=20.0.0`. For new installs, prefer a currently supported LTS such as Node.js 24. The compatibility floor applies to `npx scriven-cli@latest`, `bin/install.js`, and the repo's JavaScript test suite, not to the markdown command system once files are installed.
 
 This architecture doc is intentionally about mechanics: detection rules, install path shapes, `commands` versus `skills` versus `guided-mcp`, and global versus project scope. For the authoritative runtime matrix, support levels, and verification status, see [`docs/runtime-support.md`](runtime-support.md).
 

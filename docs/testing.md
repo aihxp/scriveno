@@ -96,6 +96,7 @@ Use these when changing README, docs, shipped-assets claims, or milestone trust 
 - `test/phase13-launch-surface-integrity.test.js`
 - `test/phase15-proof-artifacts-positioning.test.js`
 - `test/phase19-verification-trust-surface-updates.test.js`
+- `test/repository-policy.test.js`
 
 ### Feature-family regression tests
 

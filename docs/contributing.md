@@ -379,6 +379,9 @@ When a package release changes the public story, update the release docs alongsi
 - `CHANGELOG.md` -- package-level release history
 - `docs/release-notes.md` -- public-facing summary of what changed and why it matters
 - `README.md` -- current version/status blurb when the release changes the headline positioning
+- `docs/shipped-assets.md` -- canonical inventory when bundled docs, templates, proof assets, or trust-critical files change
+- `docs/command-reference.md` -- command contract reference when command behavior or flags change
+- `templates/*/README.md` and `data/proof/*/README.md` -- shipped profile and proof documentation when those assets change
 - `.planning/` milestone summary files -- only when the release closes out milestone work or changes the archive story
 
 ### Minimum release checklist

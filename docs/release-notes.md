@@ -11,7 +11,7 @@ This document is the public-facing summary of what changed between package relea
 - Matched sacred tradition validation to the shipped profile slugs: `catholic`, `orthodox`, `tewahedo`, `protestant`, `jewish`, `islamic-hafs`, `islamic-warsh`, `pali`, `tibetan`, and `sanskrit`
 - Made ebook platform selection operational by validating `--platform`, loading platform manifests, checking EPUB support, and writing selected platform metadata
 - Corrected workflow dependency metadata so plan, draft, review, and submit paths point at the canonical `.manuscript/` trees
-- Refreshed the documentation deck, release notes, package metadata, shipped-profile READMEs, and regression coverage for the new audit guarantees
+- Refreshed repository documentation across root docs, `docs/`, template READMEs, release notes, package metadata, shipped-profile READMEs, and regression coverage for the new audit guarantees
 
 ### Why it matters
 
@@ -23,7 +23,7 @@ This document is the public-facing summary of what changed between package relea
 - sacred project config and tradition profiles
 - ebook platform build guidance
 - workflow dependency metadata
-- documentation deck and release-facing package metadata
+- repository documentation and release-facing package metadata
 - regression tests and npm release checks
 
 ### Verification
@@ -36,13 +36,13 @@ This document is the public-facing summary of what changed between package relea
 
 ### What changed
 
-- Brought the post-`1.6.0` documentation deck refresh into the published tarball: `docs/shipped-assets.md`, `docs/voice-dna.md`, `docs/configuration.md`, `docs/command-reference.md`, and `docs/architecture.md` all updated to document `WRITING-RULES.md`, the per-work-type pitfall packs, the `draft` config block, and the override hierarchy
+- Brought the post-`1.6.0` repository documentation refresh into the published tarball: `docs/shipped-assets.md`, `docs/voice-dna.md`, `docs/configuration.md`, `docs/command-reference.md`, and `docs/architecture.md` all updated to document `WRITING-RULES.md`, the per-work-type pitfall packs, the `draft` config block, and the override hierarchy
 - Aligned the reference documentation on canonical `/scr:` command notation; onboarding (`docs/getting-started.md`), README cross-runtime examples, and historical 1.5.1 release-notes prose still use Claude flat `/scr-*` and Codex `$scr-*` where contextually appropriate
 - No code, agent, command, or template changes; runtime behavior is identical to `1.6.0`
 
 ### Why it matters
 
-`1.6.0` shipped before the documentation deck refresh landed. Writers running `npx scriven-cli@1.6.0` got the new agents, templates, and settings but a thinner `~/.scriven/docs/` tree. `1.6.1` closes that gap so the docs writers see in their installed tree match what is on GitHub.
+`1.6.0` shipped before the repository documentation refresh landed. Writers running `npx scriven-cli@1.6.0` got the new agents, templates, and settings but a thinner `~/.scriven/docs/` tree. `1.6.1` closes that gap so the docs writers see in their installed tree match what is on GitHub.
 
 ### Affected areas
 

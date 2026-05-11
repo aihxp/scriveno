@@ -144,8 +144,8 @@ describe('canonical proof hub integrity', () => {
 describe('runtime support regression checks', () => {
   const runtimeSupport = read('docs/runtime-support.md');
 
-  it('keeps the Node 20+ baseline visible', () => {
-    assert.match(runtimeSupport, /Node\.js 20\+/);
+  it('keeps the Node >=20.0.0 baseline visible', () => {
+    assert.match(runtimeSupport, /Node\.js >=20\.0\.0/);
     assert.match(runtimeSupport, />=20\.0\.0/);
   });
 

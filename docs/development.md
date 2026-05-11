@@ -114,13 +114,16 @@ npm start
 
 ## Docs and release workflow
 
-Docs are part of the shipped product. If you change visible behavior, update the relevant files under `docs/` or `README.md` in the same pass.
+Docs are part of the shipped product. If you change visible behavior, update every affected documentation surface in the same pass: root docs, files under `docs/`, proof READMEs, template READMEs, and command markdown that exposes user-facing contracts.
 
 For release-oriented documentation surfaces, the main files are:
 
 - `README.md`
 - `CHANGELOG.md`
 - `docs/release-notes.md`
+- `docs/shipped-assets.md`
+- `docs/command-reference.md`
+- `templates/*/README.md` when shipped profiles or templates change
 - `.planning/` milestone summaries when you are still using the GSD planning layer
 
 ## Before shipping

@@ -11,14 +11,14 @@ This release packages the audit-hardening pass after `1.6.1`.
 - tightened sacred tradition validation to the 10 shipped tradition profile slugs and updated tradition-aware commands and docs to match
 - made `/scr:build-ebook --platform` real by validating platform slugs, loading `templates/platforms/{platform}/manifest.yaml`, checking EPUB support, and carrying platform metadata into build output
 - corrected the core workflow dependency chain to point at canonical `.manuscript/plans/`, `.manuscript/drafts/body/`, and `.manuscript/reviews/` paths
-- updated the documentation deck, shipped-profile READMEs, package scripts, and regression tests so release checks cover npm packaging and repository writing policy
+- updated the repository documentation surface, shipped-profile READMEs, package scripts, and regression tests so release checks cover npm packaging and repository writing policy
 
 ## 1.6.1 - 2026-05-07
 
-This release is a docs-only patch follow-up to `1.6.0`.
+This release is a documentation-only patch follow-up to `1.6.0`.
 
-- brought the post-`1.6.0` documentation deck refresh into the published tarball: `docs/shipped-assets.md` now lists `WRITING-RULES.md` and the 8 pitfall packs, `docs/voice-dna.md` documents the three rule layers and `draft` config knobs, `docs/configuration.md` documents the optional `draft` block defaults, `docs/command-reference.md` exposes the new `/scr:settings` knobs, `docs/architecture.md` extends "What the drafter receives" from 6 to 8 items with the override hierarchy
-- aligned the reference documentation deck on canonical `/scr:` command notation; runtime-specific shapes still appear in onboarding (`docs/getting-started.md`), README cross-runtime examples, and historical 1.5.1 release-notes prose
+- brought the post-`1.6.0` repository documentation refresh into the published tarball: `docs/shipped-assets.md` now lists `WRITING-RULES.md` and the 8 pitfall packs, `docs/voice-dna.md` documents the three rule layers and `draft` config knobs, `docs/configuration.md` documents the optional `draft` block defaults, `docs/command-reference.md` exposes the new `/scr:settings` knobs, `docs/architecture.md` extends "What the drafter receives" from 6 to 8 items with the override hierarchy
+- aligned the reference documentation set on canonical `/scr:` command notation; runtime-specific shapes still appear in onboarding (`docs/getting-started.md`), README cross-runtime examples, and historical 1.5.1 release-notes prose
 - no code, agent, command, or template changes; behavior identical to `1.6.0`
 
 ## 1.6.0 - 2026-05-05

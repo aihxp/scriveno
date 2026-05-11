@@ -100,6 +100,8 @@ Sacred texts, historical chronicles, and religious literature. This is the most 
 
 Sacred work types relabel selected review commands (`/scr:editor-review` becomes `scholarly-review`, `/scr:voice-check` becomes `register-check`), unlock 8 exclusive commands (`/scr:sacred:concordance`, `/scr:sacred:cross-reference`, `/scr:sacred:genealogy`, `/scr:sacred:chronology`, `/scr:sacred:annotation-layer`, `/scr:sacred:verse-numbering`, `/scr:sacred:source-tracking`, `/scr:sacred:doctrinal-check`), and support 10 voice registers in STYLE-GUIDE.md.
 
+Sacred projects also use a shipped tradition profile slug in the top-level `tradition` config key. The current shipped slugs are `catholic`, `orthodox`, `tewahedo`, `protestant`, `jewish`, `islamic-hafs`, `islamic-warsh`, `pali`, `tibetan`, and `sanskrit`.
+
 ## Word Count and Page Ranges
 
 Every work type includes industry-standard word count and page range guidance. These are guides, not gates -- a literary novel can exceed 100,000 words. But the system has informed defaults instead of writing blind.

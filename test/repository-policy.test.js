@@ -73,4 +73,16 @@ describe('repository writing policy', () => {
 
     assert.deepEqual(offenders, []);
   });
+
+  it('does not use deck shorthand for repo-wide docs', () => {
+    const offenders = [];
+    const forbidden = new RegExp(['documentation', 'deck'].join(' '), 'i');
+
+    for (const file of files) {
+      const content = fs.readFileSync(path.join(ROOT, file), 'utf8');
+      if (forbidden.test(content)) offenders.push(file);
+    }
+
+    assert.deepEqual(offenders, []);
+  });
 });

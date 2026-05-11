@@ -4,7 +4,7 @@ Scriven's runtime claims should be grounded in what the repo can actually prove.
 
 ## Node.js Baseline
 
-Scriven's installer compatibility floor is `Node.js 20+` (`>=20.0.0`). For new installs, prefer a currently supported LTS release such as Node.js 24. Node.js 20 reached end of life on 2026-04-30, so it remains a compatibility floor, not the recommended fresh-install target.
+Scriven's installer compatibility floor is `Node.js >=20.0.0`. For new installs, prefer a currently supported LTS release such as Node.js 24. Node.js 20 reached end of life on 2026-04-30, so it remains a compatibility floor, not the recommended fresh-install target.
 
 Node is required for:
 

@@ -59,12 +59,49 @@ These export templates are currently bundled in `data/export-templates/`:
   - Hardcover case wrap: `.manuscript/build/hardcover-cover.pdf`
 - Those cover files are designer-provided or externally produced assets that Scriven's build/export commands reference; exact paperback and hardcover wrap geometry still comes from the active platform cover template generator.
 
+## Platform Profiles Shipped Today
+
+These platform manifests are currently bundled in `templates/platforms/` and loaded by build commands:
+
+- `kdp`
+- `ingram`
+- `apple`
+- `bn`
+- `d2d`
+- `kobo`
+- `google`
+- `smashwords`
+
+`/scr:build-ebook` validates the selected platform, loads `templates/platforms/{platform}/manifest.yaml`, checks `formats_accepted` for EPUB support, and carries the manifest's `label` and `epub_variant` into output metadata. `/scr:build-print` uses print and academic platform metadata for trim-size, page-count, and template routing.
+
+## Sacred Tradition Profiles Shipped Today
+
+These tradition manifests are currently bundled in `templates/sacred/` and accepted as top-level `tradition` values in `.manuscript/config.json`:
+
+- `catholic`
+- `orthodox`
+- `tewahedo`
+- `protestant`
+- `jewish`
+- `islamic-hafs`
+- `islamic-warsh`
+- `pali`
+- `tibetan`
+- `sanskrit`
+
+Sacred commands read top-level sacred profile keys in new projects and preserve legacy fallback reads for older projects that still have a nested `sacred` object.
+
 ## Trust-Critical Launch Files
 
 - `README.md` -- primary launch narrative and status claims
+- `CHANGELOG.md` -- package-level release history
+- `docs/release-notes.md` -- public-facing release summary
 - `docs/proof-artifacts.md` -- canonical proof hub for sample-flow and voice-preservation evidence
 - `docs/runtime-support.md` -- canonical runtime matrix, Node baseline, and support-confidence framing
+- `docs/command-reference.md` -- canonical command surface reference
+- `docs/configuration.md` -- canonical project config and package metadata reference
 - `data/proof/watchmaker-flow/README.md` -- canonical sample-flow proof bundle rooted in shipped demo files
+- `data/proof/voice-dna/README.md` -- canonical Voice DNA proof bundle
 - `commands/scr/export.md` -- source of truth for export command behavior
 - `docs/publishing.md` -- user-facing explanation of export formats and publishing packages
 - `docs/contributing.md` -- contributor-facing guidance for extending export support
