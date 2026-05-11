@@ -2,6 +2,49 @@
 
 All notable package-level changes to `scriven-cli` are documented here.
 
+## 1.7.0 - 2026-05-10
+
+Substantial minor release focused on character continuity and context integrity.
+
+**Character continuity**
+
+- Drafter now loads the full `CHARACTERS.md` / `FIGURES.md` by default at the `standard` context profile. Previously the drafter received "relevant figures only" -- determined by who appeared in the unit's plan -- which silently dropped characters added late in the project (their entries were not in older plans, so the drafter never saw them). The relevance filter is now opt-in via `draft.context_profile: minimal` only, and that profile carries an explicit warning that newly added characters get dropped.
+- Added `/scr:character-touch <name>`: updates a character's evolving state (emotional position, knowledge, possessions, relationships) after a unit lands. Voice anchor and physical description stay untouched -- those are identity, not state. The command reads the most recent draft (or `--from <unit>`), proposes a delta across the four dimensions, asks for a yes/no/edit confirmation, applies the changes, stamps a "Last touched" line, and appends a HISTORY.log entry.
+- Drafter agent now emits one-line `CHARACTER STATE NUDGE` suggestions to the orchestrator when a unit clearly shifts a character's state. Up to three nudges per unit; silence is the default. The drafter does NOT modify CHARACTERS.md itself -- the writer is always in the loop on character state.
+- Wired the previously-orphan `agents/plan-checker.md` into `/scr:plan` (gates the draft suggestion if the plan flags NEEDS REVISION) and `agents/continuity-checker.md` into `/scr:continuity-check`.
+
+**Context integrity layer**
+
+- Added `/scr:scan`: 10 checks against `STATE.md`, `OUTLINE.md`, drafts, `STYLE-GUIDE.md` mtime vs. last drafter run, scaffold elements still pending, stale exports, sacred config vs. shipped templates, CHARACTERS.md orphans. `--fix` mode for auto-correctable findings; `--quiet` for use as a pre-export gate.
+- Added auto-regenerated `.manuscript/CONTEXT.md` one-page bootstrap. Written by `/scr:save`, `/scr:pause-work`, `/scr:resume-work`. Read first by `/scr:next` and `/scr:resume-work`, with stale-detection + STATE.md fallback. Template at `templates/CONTEXT.md`.
+- Added append-only `.manuscript/HISTORY.log` audit trail (pipe-delimited, UTC ISO timestamps, committed to git). Wired into `/scr:save`, `/scr:draft`, `/scr:plan`, `/scr:export`, `/scr:publish`, `/scr:front-matter`, `/scr:back-matter`, `/scr:pause-work`, `/scr:resume-work`, `/scr:scan --fix`. Distinct from `/scr:history` (writer-friendly git saves).
+- Two new spec docs: `docs/context-protocol.md` and `docs/history-protocol.md`.
+- 12 high-impact commands now read CONTEXT.md first when fresh and skip the redundant raw-file orientation loads (`autopilot`, `autopilot-publish`, `autopilot-translate`, `publish`, `multi-publish`, `export`, `front-matter`, `back-matter`, `discuss`, `plan`, `complete-draft`, `new-revision`).
+
+**Export polish**
+
+- Added five destination-neutral presets to `/scr:publish`: `share-pdf`, `share-docx`, `share-epub`, `share-bundle`, `all-formats`. Writers can hand someone a single file without thinking about KDP.
+- `/scr:publish` wizard reorganized as a two-level decision tree (Share / Publish / Submit / Academic / Screenplay / Everything / Custom).
+- `/scr:export` (no args) now shows an interactive picker grouped into Single file / Print and store packaging / Submission packages, filtered by work type.
+- Added `--level minimum|balanced|maximum` flag to `/scr:front-matter` and `/scr:back-matter` plus a skip prompt. `/scr:publish` asks once per matter type before chaining.
+- Fixed: the Typst book interior template (`data/export-templates/scriven-book.typst`) now updates the running head per chapter on recto pages. Previously verso pages always showed the book title and recto pages were empty -- across a full book that read as "the same chapter title repeating on every spread." Suppressed on chapter-opener pages.
+
+**Installer hardening**
+
+- Renamed `commands/scr/sacred-verse-numbering.md` -> `commands/scr/sacred-numbering-format.md` to resolve a flat/nested skill-name collision with `commands/scr/sacred/verse-numbering.md` (both flattened to `scr-sacred-verse-numbering` and one was silently overwritten on every install).
+- New `assertNoSkillNameCollisions` guard runs at command-entry collection time and aborts the install with a clear error before any runtime starts writing. Future regressions fail loudly instead of dropping a command.
+- New `test/runtime-parity.test.js` (6 tests) pins that Claude flat filenames and Codex skill names map 1:1 across the source tree.
+- Sacred subcommand keys in `CONSTRAINTS.json` now use the `sacred:<name>` form so `/scr:help` can render the runnable slash-command path directly.
+
+**Backward compatibility**
+
+- All existing scripted callers of `/scr:front-matter` and `/scr:back-matter` continue to work; the level prompt only fires when neither `--level` nor `--element` is provided.
+- Existing projects keep working without modification. STATE.md-based commands continue to function when CONTEXT.md is absent or stale; the protocol explicitly preserves correctness on a CONTEXT.md miss.
+
+**Tests**
+
+1629 tests pass (1617 in 1.6.1 + 12 net new across runtime-parity, scan coverage, and constraint integrity).
+
 ## 1.6.1 - 2026-05-07
 
 This release is a docs-only patch follow-up to `1.6.0`.
