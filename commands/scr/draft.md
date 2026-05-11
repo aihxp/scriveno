@@ -22,7 +22,7 @@ Require `.manuscript/plans/{N}-*-PLAN.md` files to exist. If none exist, also ch
 2. **For each atomic unit, invoke the installed `drafter.md` agent for the current runtime in a fresh context.** Use the agent path for the writer's active Scriven install (for example the runtime's global or project-scoped `agents/drafter.md`). Fresh context per atomic unit is critical -- it prevents voice drift, context bloat, and lets each scene be its best. The drafter receives:
    - STYLE-GUIDE.md (always, every time -- this is the voice DNA)
    - The specific `.manuscript/plans/{N}-{A}-PLAN.md` for this atomic unit, or the matching legacy root-level plan if that is all the project has
-   - CHARACTERS.md or FIGURES.md (relevant figures only)
+   - CHARACTERS.md or FIGURES.md (full file by default; only filtered to "relevant figures" when `draft.context_profile` is `minimal`). Loading the full file is the default because a character introduced via `/scr:new-character` after some plans were already written will not appear in those plans, and a relevance filter would silently exclude them from the drafter's view -- breaking character continuity through the manuscript.
    - The last 200 words of the previous atomic unit (for voice/tone continuity)
    - THEMES.md or DOCTRINES.md (relevant threads only)
 
@@ -33,6 +33,16 @@ Require `.manuscript/plans/{N}-*-PLAN.md` files to exist. If none exist, also ch
 5. **Update STATE.md:** mark unit as drafted, note word count, flag any voice-check issues.
 
 6. **Tell the writer:** "Drafted {unit} {N}: X words across Y {atomic_units}. Voice consistency: Z%. Ready for editor review? Run `/scr:editor-review N` or `/scr:next`."
+
+## History log
+
+After all atomic units in this invocation are drafted, append one line to `.manuscript/HISTORY.log` per `docs/history-protocol.md`:
+
+```
+{ISO timestamp} | scr:draft | unit={N} | files={comma-separated draft filenames written this run} | outcome=ok
+```
+
+If the run failed (drafter agent returned an error, voice-check blocked, etc.), use `outcome=failed:<short-reason>` instead. Create HISTORY.log if it does not exist. Do not log per atomic unit -- one line per `/scr:draft` invocation keeps the log scannable.
 
 ## Autopilot behavior
 

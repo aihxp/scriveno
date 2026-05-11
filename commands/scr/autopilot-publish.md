@@ -1,6 +1,6 @@
 ---
 description: "Run full publishing pipeline unattended with quality gate (voice-check + continuity-check)."
-argument-hint: "--preset <preset>"
+argument-hint: "--preset <preset> [--front-level <minimum|balanced|maximum|skip>] [--back-level <minimum|balanced|maximum|skip>]"
 ---
 
 # /scr:autopilot-publish -- Unattended Publishing Pipeline
@@ -13,11 +13,21 @@ You are running the full publishing pipeline autonomously. Your job is to run qu
 /scr:autopilot-publish --preset <preset>
 ```
 
-The `--preset` argument is **required**. There is no interactive mode in autopilot -- the writer must specify their destination upfront. Valid presets: `kdp-paperback`, `kdp-ebook`, `query-submission`, `ebook-wide`, `ingram-paperback`, `academic-submission`, `thesis-defense`, `screenplay-query`.
+The `--preset` argument is **required**. There is no interactive mode in autopilot -- the writer must specify their destination upfront. Valid presets: `kdp-paperback`, `kdp-ebook`, `query-submission`, `ebook-wide`, `ingram-paperback`, `academic-submission`, `thesis-defense`, `screenplay-query`, `share-pdf`, `share-docx`, `share-epub`, `share-bundle`, `all-formats`, `submission-package`.
+
+`--front-level` and `--back-level` control how much front/back matter is generated when the preset includes those steps. Both default to **balanced** for retail and academic presets, **minimum** for share-* and all-formats, and **skip** for query-submission, screenplay-query, and submission-package (the package itself does not need book front/back matter). Pass `skip` to suppress the corresponding generation step entirely. The default is applied silently per the table below; the writer only needs to pass these flags to override.
 
 ---
 
 ## Instruction
+
+### STEP 0: BOOTSTRAP (context-cost protocol)
+
+Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it as your orientation source for project title, work type, phase, current unit, recent activity, and open items. In STEP 1, skip the raw-file loads of `config.json`, `STATE.md`, and `OUTLINE.md` for those fields -- still load `CONSTRAINTS.json` (CONTEXT.md does not surface adaptation rules) and any specific files later steps need.
+
+If CONTEXT.md is missing, stale, or contradicts STATE.md, fall back to the original loads in STEP 1 unchanged. See `docs/context-protocol.md` for the contract.
+
+---
 
 ### STEP 1: LOAD CONTEXT AND VALIDATE
 
@@ -88,13 +98,19 @@ Auto-generate any missing prerequisites required by the chosen preset. Do not as
 | academic-submission | (none) |
 | thesis-defense | front-matter, back-matter |
 | screenplay-query | blurb, synopsis, query-letter |
+| share-pdf | (none) |
+| share-docx | (none) |
+| share-epub | (none) |
+| share-bundle | (none) |
+| all-formats | (none) |
+| submission-package | synopsis, query-letter, back-matter |
 
 For each prerequisite the preset needs:
 
 | Prerequisite | Check | Generate Command |
 |-------------|-------|-----------------|
-| front-matter | `.manuscript/front-matter/` has files | `/scr:front-matter` |
-| back-matter | `.manuscript/back-matter/` has files | `/scr:back-matter` |
+| front-matter | `.manuscript/front-matter/` has files | `/scr:front-matter --level <resolved-front-level>` (resolve by `--front-level` or the per-preset default; if `skip`, do not run) |
+| back-matter | `.manuscript/back-matter/` has files | `/scr:back-matter --level <resolved-back-level>` (resolve by `--back-level` or the per-preset default; if `skip`, do not run) |
 | blurb | `.manuscript/output/blurb.md` exists | `/scr:blurb` |
 | synopsis | Any `.manuscript/marketing/SYNOPSIS-*.md` file exists | `/scr:synopsis` |
 | query-letter | `.manuscript/marketing/QUERY-LETTER.md` exists | `/scr:query-letter` |

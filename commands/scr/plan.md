@@ -17,6 +17,8 @@ Require `{N}-CONTEXT.md` to exist (from discuss phase). If it doesn't, offer to 
 
 ## What to do
 
+0. **Bootstrap (context-cost protocol).** Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it for orientation (project title, work type, current unit, recent activity, open items). The plan phase still needs the full creative inputs in step 1 (WORK.md, OUTLINE.md, STYLE-GUIDE.md, characters, plot, themes, the discuss-phase context file, prior drafts) -- those are source material for the plan, not orientation. The bootstrap saves the redundant orientation reads. If CONTEXT.md is missing or stale, run step 1 unchanged. See `docs/context-protocol.md`.
+
 1. **Load full context:** WORK.md, OUTLINE.md, STYLE-GUIDE.md, CHARACTERS.md (or adapted), PLOT-GRAPH.md (or adapted), THEMES.md, {N}-CONTEXT.md, and any previously drafted units for continuity.
 
 2. **Research (if enabled).** If the work type is academic, research the literature. If it's sacred, check canonical sources and traditional commentaries. If it's historical, verify period details. For fiction, research anything the writer flagged in {N}-CONTEXT.md (e.g., "I need to know how 18th century sailing worked").
@@ -31,9 +33,17 @@ Require `{N}-CONTEXT.md` to exist (from discuss phase). If it doesn't, offer to 
 
    For older projects, if root-level `.manuscript/{N}-{A}-PLAN.md` files already exist, read them as legacy input, but write new and revised plans to `.manuscript/plans/`.
 
-5. **Write a short summary** for the writer: "Planned {unit} {N}: X {atomic_units}, main arc goes from Y to Z, voice notes applied from STYLE-GUIDE.md."
+5. **Run the plan check.** For each `{N}-{A}-PLAN.md` you just wrote, invoke the installed `plan-checker.md` agent for the writer's active Scriven runtime (for example the runtime's global or project-scoped `agents/plan-checker.md`) in a fresh context. Pass the plan file plus WORK.md, OUTLINE.md, the relevant arc file (PLOT-GRAPH.md or THEOLOGICAL-ARC.md), CHARACTERS.md (or FIGURES.md), STYLE-GUIDE.md, and any previously drafted units. The agent returns a PLAN CHECK report with status READY or NEEDS REVISION plus specific completeness, alignment, character, voice, and pacing findings. Surface its recommendations to the writer before suggesting the draft step. If the agent flags NEEDS REVISION on any plan, hold the draft suggestion and offer to fix the flagged items first.
 
-6. **Update STATE.md** and suggest: "Ready to draft? Run `/scr:draft N`."
+6. **Write a short summary** for the writer: "Planned {unit} {N}: X {atomic_units}, main arc goes from Y to Z, voice notes applied from STYLE-GUIDE.md. Plan check: {READY | N items flagged}."
+
+7. **Update STATE.md** and suggest: "Ready to draft? Run `/scr:draft N`." (Suppress the draft suggestion if any plan came back NEEDS REVISION; suggest addressing the flagged items first.)
+
+8. **Append one line to `.manuscript/HISTORY.log`** per `docs/history-protocol.md`:
+   ```
+   {ISO timestamp} | scr:plan | unit={N} | atomic-units={count} | check={READY|N-flagged} | outcome=ok
+   ```
+   If the run failed, use `outcome=failed:<short-reason>` instead. Create HISTORY.log if it does not exist.
 
 ## Tone
 

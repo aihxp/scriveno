@@ -22,6 +22,14 @@ You are the publishing wizard. Your job is to turn a completed manuscript into p
 
 ## Instruction
 
+### STEP 0: BOOTSTRAP (context-cost protocol)
+
+Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it as your orientation source for project title, work type, phase, current unit, recent activity, and open items. In STEP 1, skip the raw-file loads of `config.json`, `STATE.md`, and `OUTLINE.md` for those fields -- still load `CONSTRAINTS.json` (CONTEXT.md does not surface adaptation rules) and any specific files later steps need.
+
+If CONTEXT.md is missing, stale, or contradicts STATE.md, fall back to the original loads in STEP 1 unchanged. See `docs/context-protocol.md` for the contract.
+
+---
+
 ### STEP 1: LOAD CONTEXT
 
 Load these project files:
@@ -168,23 +176,85 @@ Missing 3 prerequisites. Generate them now? (yes/no)
 
 #### 3b. Choose Destination
 
-After prerequisites are resolved, ask:
+After prerequisites are resolved, ask the destination question as a two-level decision tree. Show the top-level prompt first, then drill into the chosen branch. Filter every option against the current work type group (skip a row entirely when the underlying preset is unavailable for the group).
 
-> Where are you publishing?
+> What are you doing?
 >
-> 1. **kdp-paperback** -- Amazon KDP print (6x9 interior PDF + package)
+> 1. **Share** -- hand someone a single file (beta reader, friend, agent who asked for "the manuscript")
+> 2. **Publish** -- ship to a retail or distribution platform (KDP, IngramSpark, ebook stores)
+> 3. **Submit** -- query letter / submission package for an agent or editor
+> 4. **Academic** -- journal article, thesis, or other academic build
+> 5. **Screenplay** -- script-format deliverables for a manager or production
+> 6. **Everything** -- generate every format I can (archival)
+> 7. **Custom** -- pick specific formats by hand
+
+Then, based on the top-level answer:
+
+**Share branch** -- ask:
+> Which file?
+>
+> 1. **share-pdf** -- manuscript PDF (single file, no print formatting)
+> 2. **share-docx** -- manuscript DOCX (single file, opens in Word/Pages/Docs)
+> 3. **share-epub** -- standalone EPUB (single file, no store packaging)
+> 4. **share-bundle** -- PDF + DOCX + EPUB together
+
+**Publish branch** -- ask:
+> Where?
+>
+> 1. **ebook-wide** -- All major ebook stores (EPUB + manuscript PDF)
 > 2. **kdp-ebook** -- Amazon Kindle (EPUB)
-> 3. **ebook-wide** -- All ebook stores (EPUB + PDF)
-> 4. **query-submission** -- Agent/publisher query (blurb + synopsis + query letter)
-> 5. **ingram-paperback** -- IngramSpark bookstore distribution
-> 6. **academic-submission** -- Journal/academic source build via supported academic platform
-> 7. **thesis-defense** -- Thesis/dissertation source build with front/back matter and supported academic platform
-> 8. **screenplay-query** -- Screenplay agent query (Fountain + FDX + package)
-> 9. **custom** -- Choose specific export formats
+> 3. **kdp-paperback** -- Amazon KDP print-on-demand (interior PDF + KDP package)
+> 4. **ingram-paperback** -- IngramSpark bookstore distribution (CMYK PDF/X-1a + package)
 
-Map the answer to a preset and proceed to STEP 4.
+**Submit branch** -- ask:
+> Which submission?
+>
+> 1. **query-submission** -- agent query (blurb + synopsis + query letter + sample)
+> 2. **submission-package** -- full manuscript submission (DOCX + synopsis + cover letter + bio)
 
-If "custom," ask the writer which formats they want and build a custom pipeline.
+**Academic branch** -- map directly to:
+- **academic-submission** -- journal article wrapper for the writer's chosen academic platform (`ieee`, `acm`, `lncs`, `elsevier`, `apa7`)
+- **thesis-defense** -- thesis/dissertation build with front/back matter and academic platform wrapper
+
+If only one academic preset is appropriate, run it; otherwise ask which.
+
+**Screenplay branch** -- map directly to:
+- **screenplay-query** -- Fountain + FDX + query package
+
+**Everything branch** -- map directly to:
+- **all-formats** -- generate markdown, DOCX, PDF, and EPUB in one pass (no store/package wrappers)
+
+**Custom branch** -- ask which `/scr:export --format <format>` calls to chain, then run them in sequence.
+
+Map the final answer to a preset and proceed to STEP 3c.
+
+#### 3c. Choose Front + Back Matter Level
+
+If the chosen preset includes front-matter or back-matter generation steps (any preset whose pipeline calls `/scr:front-matter` or `/scr:back-matter` -- see STEP 4), and the corresponding directories are empty, ask the writer once **per matter type that the preset will generate**:
+
+> Front matter: how much should I generate?
+>
+> 1. **skip** -- I do not want any front matter
+> 2. **minimum** -- title page, copyright, TOC (legal floor)
+> 3. **balanced** -- minimum + half-title, dedication, epigraph, acknowledgments (recommended for retail)
+> 4. **maximum** -- every applicable element
+
+> Back matter: how much should I generate?
+>
+> 1. **skip** -- I do not want any back matter
+> 2. **minimum** -- about-the-author (legal floor)
+> 3. **balanced** -- minimum + colophon, permissions when applicable
+> 4. **maximum** -- every applicable element
+
+**Defaults to suggest if the writer just hits enter:**
+- Share-* and all-formats presets: **minimum** for both (these are not retail builds)
+- kdp-ebook, kdp-paperback, ebook-wide, ingram-paperback: **balanced** for both
+- academic-submission, thesis-defense: **balanced** front, **balanced** back (academic adaptation will pull bibliography in automatically)
+- query-submission, screenplay-query, submission-package: skip both (the package itself does not need book front/back matter)
+
+If the writer answers **skip** for either, the preset will skip that step entirely (do not run the corresponding `/scr:front-matter` / `/scr:back-matter` call). If `.manuscript/front-matter/` or `.manuscript/back-matter/` already has files, do not ask -- treat them as already chosen and skip the prompt.
+
+Pass the chosen level to the underlying calls in STEP 4 as `--level <value>`.
 
 ---
 
@@ -207,16 +277,16 @@ Step 4/4: Building KDP package...
 **kdp-paperback** -- Amazon KDP print-on-demand
 | Step | Command | Condition |
 |------|---------|-----------|
-| 1 | `/scr:front-matter` | If `.manuscript/front-matter/` is empty |
-| 2 | `/scr:back-matter` | If `.manuscript/back-matter/` is empty |
+| 1 | `/scr:front-matter --level {front-level}` | If `.manuscript/front-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
+| 2 | `/scr:back-matter --level {back-level}` | If `.manuscript/back-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
 | 3 | `/scr:export --format pdf --print-ready` | Always (produces interior PDF) |
 | 4 | `/scr:export --format kdp-package` | Always (produces KDP upload package) |
 
 **kdp-ebook** -- Amazon Kindle ebook
 | Step | Command | Condition |
 |------|---------|-----------|
-| 1 | `/scr:front-matter` | If `.manuscript/front-matter/` is empty |
-| 2 | `/scr:back-matter` | If `.manuscript/back-matter/` is empty |
+| 1 | `/scr:front-matter --level {front-level}` | If `.manuscript/front-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
+| 2 | `/scr:back-matter --level {back-level}` | If `.manuscript/back-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
 | 3 | `/scr:export --format epub` | Always |
 
 **query-submission** -- Traditional publishing query
@@ -230,8 +300,8 @@ Step 4/4: Building KDP package...
 **ebook-wide** -- All major ebook stores
 | Step | Command | Condition |
 |------|---------|-----------|
-| 1 | `/scr:front-matter` | If `.manuscript/front-matter/` is empty |
-| 2 | `/scr:back-matter` | If `.manuscript/back-matter/` is empty |
+| 1 | `/scr:front-matter --level {front-level}` | If `.manuscript/front-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
+| 2 | `/scr:back-matter --level {back-level}` | If `.manuscript/back-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
 | 3 | `/scr:export --format epub` | Always |
 | 4 | `/scr:export --format pdf` | Always (manuscript PDF for stores that accept it) |
 
@@ -240,8 +310,8 @@ Step 4/4: Building KDP package...
 **ingram-paperback** -- IngramSpark bookstore distribution
 | Step | Command | Condition |
 |------|---------|-----------|
-| 1 | `/scr:front-matter` | If `.manuscript/front-matter/` is empty |
-| 2 | `/scr:back-matter` | If `.manuscript/back-matter/` is empty |
+| 1 | `/scr:front-matter --level {front-level}` | If `.manuscript/front-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
+| 2 | `/scr:back-matter --level {back-level}` | If `.manuscript/back-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
 | 3 | `/scr:export --format pdf --print-ready` | Always |
 | 4 | `/scr:export --format ingram-package` | Always |
 
@@ -254,8 +324,8 @@ Step 4/4: Building KDP package...
 **thesis-defense** -- Thesis or dissertation
 | Step | Command | Condition |
 |------|---------|-----------|
-| 1 | `/scr:front-matter` | If `.manuscript/front-matter/` is empty |
-| 2 | `/scr:back-matter` | If `.manuscript/back-matter/` is empty |
+| 1 | `/scr:front-matter --level {front-level}` | If `.manuscript/front-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
+| 2 | `/scr:back-matter --level {back-level}` | If `.manuscript/back-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
 | 3 | Ask the writer which supported academic platform best matches the institution requirement: `ieee`, `acm`, `lncs`, `elsevier`, or `apa7` | If not already specified |
 | 4 | `/scr:build-print --platform <selected academic platform>` | Always |
 
@@ -268,6 +338,42 @@ Step 4/4: Building KDP package...
 | 4 | `/scr:export --format fountain` | Always |
 | 5 | `/scr:export --format fdx` | Always |
 | 6 | `/scr:export --format query-package` | Always |
+
+#### Destination-neutral Presets
+
+These presets produce single deliverables without retailer-specific packaging. They are appropriate for sharing manuscripts with beta readers, collaborators, or agents who asked for "the manuscript" rather than a store package.
+
+**share-pdf** -- single-file PDF, no print formatting
+| Step | Command | Condition |
+|------|---------|-----------|
+| 1 | `/scr:export --format pdf` | Always |
+
+**share-docx** -- single-file DOCX
+| Step | Command | Condition |
+|------|---------|-----------|
+| 1 | `/scr:export --format docx` | Always |
+
+**share-epub** -- single-file standalone EPUB (no store packaging)
+| Step | Command | Condition |
+|------|---------|-----------|
+| 1 | `/scr:export --format epub` | Always |
+
+**share-bundle** -- PDF + DOCX + EPUB together for handing someone "everything readable"
+| Step | Command | Condition |
+|------|---------|-----------|
+| 1 | `/scr:export --format pdf` | Always |
+| 2 | `/scr:export --format docx` | Always |
+| 3 | `/scr:export --format epub` | Always |
+
+**all-formats** -- archival pass: every base format Scriven can produce (no store/package wrappers)
+| Step | Command | Condition |
+|------|---------|-----------|
+| 1 | `/scr:export --format markdown` | Always |
+| 2 | `/scr:export --format docx` | Always |
+| 3 | `/scr:export --format pdf` | Always |
+| 4 | `/scr:export --format epub` | Always |
+
+If a base format is not available for the current work type group (per `CONSTRAINTS.json` `exports`), skip that step silently and continue. Report skipped formats in STEP 5.
 
 ---
 
@@ -303,6 +409,21 @@ Adapt the "Next Steps" section to the preset:
 - **query-submission/screenplay-query:** How to send query packages to agents
 - **academic-submission/thesis-defense:** Academic wrapper and TeX compilation submission steps
 - **ebook-wide:** Upload to each platform (KDP, Apple Books, Kobo, B&N, Google Play)
+- **share-pdf/share-docx/share-epub:** Path to the single output file and a one-line "send this to your reader" note. No upload steps.
+- **share-bundle:** Paths to the three output files and a note that they are interchangeable -- send whichever the recipient prefers.
+- **all-formats:** Paths to every generated file plus a note listing any formats that were skipped because they are not available for this work type.
+
+---
+
+### STEP 6: HISTORY LOG
+
+After the preset pipeline completes, append one line to `.manuscript/HISTORY.log` per `docs/history-protocol.md`:
+
+```
+{ISO timestamp} | scr:publish | preset={resolved preset} | front-level={resolved or "skip" or "-"} | back-level={resolved or "skip" or "-"} | outcome={ok|partial:<count-failed>|failed:<short-reason>}
+```
+
+Use `front-level=-` and `back-level=-` for presets that do not run front-matter / back-matter generation (share-*, all-formats, query-submission, screenplay-query, submission-package). The chained `/scr:export`, `/scr:front-matter`, `/scr:back-matter` calls log their own lines per their command specs -- this `scr:publish` line records the wrapper invocation so the log shows both the high-level intent and the granular steps. Create HISTORY.log if it does not exist.
 
 ---
 

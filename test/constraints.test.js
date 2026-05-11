@@ -79,12 +79,14 @@ describe('CONSTRAINTS.json schema integrity', () => {
       .filter(f => f.endsWith('.md'))
       .map(f => f.replace('.md', ''));
 
-    // Check sacred/ subdirectory
+    // Check sacred/ subdirectory. Nested commands run as /scr:sacred:<name>
+    // and are keyed in CONSTRAINTS.json as "sacred:<name>" so /scr:help can
+    // emit the runnable slash-command path directly.
     const sacredDir = path.join(commandsDir, 'sacred');
     const sacredFiles = fs.existsSync(sacredDir)
       ? fs.readdirSync(sacredDir)
           .filter(f => f.endsWith('.md'))
-          .map(f => f.replace('.md', ''))
+          .map(f => `sacred:${f.replace('.md', '')}`)
       : [];
 
     const allFiles = [...topFiles, ...sacredFiles];

@@ -125,6 +125,8 @@ See `docs/runtime-support.md` for the canonical runtime matrix, support levels, 
 See `docs/shipped-assets.md` for the canonical inventory of bundled export templates and launch-critical files.
 
 ## Currently Shipped Export Templates
+Load-bearing baseline. Files live in `data/export-templates/`. See `docs/shipped-assets.md` for the full inventory of bundled templates.
+
 | Template | Format | Purpose |
 |----------|--------|---------|
 | `scriven-book.typst` | Typst template | Book interior PDF (trim sizes, margins, headers, page numbers) |

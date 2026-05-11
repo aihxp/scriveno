@@ -1,6 +1,6 @@
 # Command Reference
 
-Scriven has **108 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
+Scriven has **110 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
 
 Commands marked with **adaptive terminology** change how Scriven talks about your work type's `command_unit` in `.manuscript/config.json`, while keeping the runnable command id stable. Commands marked with **group adaptation** have different labels for specific work type groups (academic, sacred, etc.).
 
@@ -774,6 +774,28 @@ View Maria's full profile and make changes.
 
 ---
 
+### `/scr:character-touch`
+
+**Description:** Update a character's evolving state (emotional position, knowledge, possessions, relationships) after a unit lands. CHARACTERS.md is a living document; this command keeps it from freezing at character-creation time.
+
+**Usage:** `/scr:character-touch <name> [--from <unit>]`
+
+**Prerequisites:** CHARACTERS.md must exist; at least one unit drafted
+
+**Available for:** Prose, script, visual, interactive, sacred (renamed `figure-touch` for sacred)
+
+**Flags:**
+- `<name>` -- Character to update. Omit to list all characters and pick interactively.
+- `--from <unit>` -- Base the update on a specific unit's drafted prose. If omitted, defaults to the most recently modified draft file.
+
+**Example:**
+```
+/scr:character-touch Marcus --from 12
+```
+After drafting unit 12, propose updates to Marcus's emotional position, knowledge, possessions, and relationships based on what happened in that draft. Voice anchor and physical description stay untouched. The drafter agent emits a "CHARACTER STATE NUDGE" suggestion when it spots a visible state shift, pointing the writer here.
+
+---
+
 ### `/scr:relationship-map`
 
 **Description:** Generate an ASCII relationship graph between characters.
@@ -1122,9 +1144,13 @@ Commands for preparing your manuscript for publication -- front/back matter, mar
 
 **Description:** Generate publication-ready front matter elements in Chicago Manual of Style order.
 
-**Usage:** `/scr:front-matter`
+**Usage:** `/scr:front-matter [--level <minimum|balanced|maximum>] [--element <name>]`
 
 **Prerequisites:** Complete draft must exist
+
+**Flags:**
+- `--level <value>` -- How much to generate. `minimum` = title page, copyright, TOC. `balanced` = minimum + half-title, dedication, epigraph, acknowledgments. `maximum` = every applicable element (legacy "all 19" behavior). If omitted (and `--element` is also omitted), the command prompts: skip / minimum / balanced / maximum.
+- `--element <name>` -- Generate only the named element. Bypasses the level filter.
 
 **Available for:** Prose, script, academic, visual, sacred
 
@@ -1134,9 +1160,11 @@ Commands for preparing your manuscript for publication -- front/back matter, mar
 
 **Example:**
 ```
-/scr:front-matter
+/scr:front-matter                          # interactive prompt
+/scr:front-matter --level balanced         # non-interactive, retail default
+/scr:front-matter --element copyright      # one element, ignores level
 ```
-Generate title page, copyright page, dedication, epigraph, table of contents, and more.
+Generate title page, copyright page, dedication, epigraph, table of contents, and more (level controls how much).
 
 ---
 
@@ -1144,9 +1172,13 @@ Generate title page, copyright page, dedication, epigraph, table of contents, an
 
 **Description:** Generate publication-ready back matter elements.
 
-**Usage:** `/scr:back-matter`
+**Usage:** `/scr:back-matter [--level <minimum|balanced|maximum>] [--element <name>]`
 
 **Prerequisites:** Complete draft must exist
+
+**Flags:**
+- `--level <value>` -- How much to generate. `minimum` = about-the-author (plus bibliography for academic and sacred). `balanced` = minimum + colophon, permissions when applicable. `maximum` = every applicable element (legacy "all 12" behavior). If omitted (and `--element` is also omitted), the command prompts: skip / minimum / balanced / maximum.
+- `--element <name>` -- Generate only the named element. Bypasses the level filter.
 
 **Available for:** Prose, script, academic, visual, sacred
 
@@ -1156,9 +1188,11 @@ Generate title page, copyright page, dedication, epigraph, table of contents, an
 
 **Example:**
 ```
-/scr:back-matter
+/scr:back-matter                           # interactive prompt
+/scr:back-matter --level balanced          # non-interactive, retail default
+/scr:back-matter --element about-author    # one element, ignores level
 ```
-Generate acknowledgments, about the author, reading group guide, also by, and more.
+Generate acknowledgments, about the author, reading group guide, also by, and more (level controls how much).
 
 ---
 
@@ -1261,9 +1295,14 @@ Generate 10-15 book club questions that spark real conversation about your theme
 **Prerequisites:** None (wraps export commands)
 
 **Flags:**
-- `--preset <preset>` -- Use a preset such as `kdp-paperback`, `kdp-ebook`, `ebook-wide`, `ingram-paperback`, `query-submission`, or `screenplay-query`
+- `--preset <preset>` -- Run a named preset without questions. Presets group into four families:
+  - **Share (single deliverable, no retailer packaging):** `share-pdf`, `share-docx`, `share-epub`, `share-bundle`
+  - **Publish (retail / distribution):** `ebook-wide`, `kdp-ebook`, `kdp-paperback`, `ingram-paperback`
+  - **Submit (agent / editor):** `query-submission`, `submission-package`, `screenplay-query`
+  - **Academic / archival:** `academic-submission`, `thesis-defense`, `all-formats`
 - `--all` -- Run all applicable presets
 - `--skip-validate` -- Skip the scaffold-marker validation gate (not recommended)
+- No flags -- Run the interactive wizard, which asks the writer-facing question "What are you doing?" (Share / Publish / Submit / Academic / Screenplay / Everything / Custom) and drills into the matching branch.
 
 **Available for:** All work types
 
@@ -1279,23 +1318,24 @@ Run the full KDP paperback publishing pipeline: prepare the interior package, ge
 
 **Description:** Compile and export manuscript to publication-ready formats.
 
-**Usage:** `/scr:export --format <format> [--formatted] [--print-ready] [--skip-validate]`
+**Usage:** `/scr:export [--format <format>] [--formatted] [--print-ready] [--skip-validate]`
 
 **Prerequisites:** Complete draft must exist
 
 **Flags:**
-- `--format` -- Target format: markdown, docx, pdf, epub, fountain, fdx, latex, kdp-package, ingram-package, submission-package, query-package
+- `--format` -- Target format: markdown, docx, pdf, epub, fountain, fdx, latex, kdp-package, ingram-package, submission-package, query-package. If omitted, the command shows an interactive picker grouped into Single file / Print and store packaging / Submission packages and respects per-work-type availability.
 - `--formatted` -- Use designed/formatted template (vs. manuscript format)
 - `--print-ready` -- Generate the interior print PDF surface used by print-package flows
-
 - `--skip-validate` -- Skip the scaffold-marker validation gate (not recommended)
+
 **Available for:** All work types (format availability varies by work type)
 
 **Example:**
 ```
 /scr:export --format epub
+/scr:export                       # interactive picker, then runs the chosen format
 ```
-Export your manuscript as a publication-ready EPUB with proper metadata, table of contents, and styling.
+Export your manuscript as a publication-ready EPUB with proper metadata, table of contents, and styling. With no flags, the command asks which format to produce instead of failing on the missing argument.
 
 ---
 
@@ -1863,6 +1903,29 @@ Check for missing files, broken references, and state inconsistencies, then fix 
 
 ---
 
+### `/scr:scan`
+
+**Description:** Detect drift between recorded state (STATE.md, OUTLINE.md, config.json) and what is actually on disk.
+
+**Usage:** `/scr:scan [--fix] [--quiet]`
+
+**Prerequisites:** None
+
+**Flags:**
+- `--fix` -- After reporting, offer to apply auto-fixable corrections (e.g. update STATE.md unit counts to match disk, regenerate stale CONTEXT.md)
+- `--quiet` -- Suppress the all-clear summary; only emit output when drift is found. Useful in scripts and pre-export gates.
+
+**Available for:** All work types
+
+**Example:**
+```
+/scr:scan          # report-only context-integrity scan
+/scr:scan --fix    # report + offer to fix the auto-fixable mismatches
+```
+Complements `/scr:health` (structural fixer) by interrogating whether the *recorded* project state still matches reality. Run at session start, before publish, and after manually editing files outside Scriven.
+
+---
+
 ### `/scr:cleanup`
 
 **Description:** Strip template scaffold markers from draft files. Dry-run by default.
@@ -2070,11 +2133,11 @@ Build your Voice DNA profile by analyzing an existing piece of your writing.
 
 Commands available only for sacred and historical work types (scripture, commentary, devotional, liturgical, historical chronicle, religious epic, sermon, etc.). These commands are hidden from other work types.
 
-### `/scr:sacred-verse-numbering`
+### `/scr:sacred-numbering-format`
 
 **Description:** Show verse numbering format for the active sacred tradition.
 
-**Usage:** `/scr:sacred-verse-numbering [--example <text>]`
+**Usage:** `/scr:sacred-numbering-format [--example <text>]`
 
 **Prerequisites:** `.manuscript/config.json` must include a valid `tradition`
 
@@ -2083,7 +2146,7 @@ Commands available only for sacred and historical work types (scripture, comment
 
 **Example:**
 ```
-/scr:sacred-verse-numbering --example "John 3 16"
+/scr:sacred-numbering-format --example "John 3 16"
 ```
 Show the active tradition's numbering format and render an example citation using that system.
 

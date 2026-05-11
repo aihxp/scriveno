@@ -41,14 +41,31 @@ You are saving the writer's current work. Your job is to create a git commit wit
    - Unit: current unit from STATE.md
    - Outcome: the generated message
 
-7. **Execute the save:**
+7. **Regenerate `.manuscript/CONTEXT.md`** before staging. This file is the bootstrap any new session reads first. Use the `templates/CONTEXT.md` scaffold and fill every `{{TOKEN}}`:
+   - `{{LAST_UPDATED}}` -- ISO 8601 timestamp of this save
+   - `{{LAST_COMMAND}}` -- `/scr:save`
+   - `{{TITLE}}`, `{{WORK_TYPE}}` -- from `.manuscript/config.json`
+   - `{{PHASE}}`, `{{CURRENT_UNIT}}` -- from STATE.md (the values you computed in step 6)
+   - `{{RECENT_ACTIONS}}` -- the last 5 lines of `.manuscript/HISTORY.log` rendered as table rows. If HISTORY.log is missing, use the last 5 entries from STATE.md "Last actions" instead.
+   - `{{UNITS_PENDING_REVIEW}}`, `{{UNITS_PENDING_DRAFT}}`, `{{VOICE_WARNINGS}}`, `{{CONTINUITY_FLAGS}}`, `{{SCAFFOLD_MARKERS}}` -- from STATE.md "Pending"
+   - `{{NEXT_STEP}}` -- the same suggestion `/scr:next` would emit
+   - `{{LAST_SCAN}}`, `{{LAST_SCAN_VERDICT}}` -- from STATE.md if recorded; otherwise `never run` and `unknown`
+   Save to `.manuscript/CONTEXT.md`. This file is committed alongside STATE.md.
+
+8. **Append one line to `.manuscript/HISTORY.log`** per `docs/history-protocol.md`:
+   ```
+   {ISO timestamp} | scr:save | message="{generated message}" | files={changed file count} | outcome=committed
+   ```
+   If HISTORY.log does not exist, create it. Do not stage it as a separate operation -- step 9 picks it up.
+
+9. **Execute the save:**
    ```
    git add .manuscript/
    git commit -m "{generated message}"
    ```
-   This commit must include the `STATE.md` update from step 6 so the worktree is clean immediately after a successful save.
+   This commit must include the `STATE.md`, `CONTEXT.md`, and `HISTORY.log` updates from steps 6 through 8 so the worktree is clean immediately after a successful save.
 
-8. **Tell the writer** the result (see output section below).
+10. **Tell the writer** the result (see output section below).
 
 ## Writer mode output
 

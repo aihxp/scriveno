@@ -33,12 +33,20 @@ You are helping the writer pause their session gracefully. Your job is to captur
    - Outcome: `Paused session`
    Keep this pause marker in the Last actions table because `/scr:session-report` and future resume logic use it as a session boundary.
 
-6. **Auto-save if there were pre-existing uncommitted changes.**
+6. **Regenerate `.manuscript/CONTEXT.md`** using the `templates/CONTEXT.md` scaffold and the field set described in `/scr:save` step 7, with `{{LAST_COMMAND}}` set to `/scr:pause-work`. This is the file the next session reads first; refreshing it on pause means the writer (or a fresh AI session) returns to a current view without having to call `/scr:resume-work` to bootstrap.
+
+7. **Append one line to `.manuscript/HISTORY.log`** per `docs/history-protocol.md`:
+   ```
+   {ISO timestamp} | scr:pause-work | unit={current unit or --} | outcome=paused
+   ```
+   Create HISTORY.log if it does not exist.
+
+8. **Auto-save if there were pre-existing uncommitted changes.**
    - Use the result from step 2, not a fresh post-update `git status` check.
-   - If the manuscript already had modified or untracked files before the pause-state update, run the `/scr:save` logic with the message "Saved before pausing" so both the writer's in-progress work and the pause metadata are preserved together.
+   - If the manuscript already had modified or untracked files before the pause-state update, run the `/scr:save` logic with the message "Saved before pausing" so both the writer's in-progress work and the pause metadata (CONTEXT.md and HISTORY.log included) are preserved together.
    - Do not treat the pause-state update by itself as proof that the writer had unsaved manuscript work before pausing.
 
-7. **Tell the writer:** "Paused. When you're ready to come back, just run `/scr:resume-work`."
+9. **Tell the writer:** "Paused. When you're ready to come back, just run `/scr:resume-work`."
 
 ## State capture
 

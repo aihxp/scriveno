@@ -64,7 +64,7 @@ For technical work types, load the matching files from `templates/technical/` an
 Write `.manuscript/config.json` by starting from `templates/config.json` and filling the project-specific values. The generated config must include the shared settings blocks that later commands read:
 ```json
 {
-  "scriven_version": "1.6.2",
+  "scriven_version": "1.7.1",
   "work_type": "<chosen>",
   "group": "<group>",
   "command_unit": "<unit>",

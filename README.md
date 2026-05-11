@@ -23,7 +23,7 @@ npx scriven-cli@latest
 
 Scriven is a command system that turns your AI coding agent into a voice-preserving writing studio. It supports 50 work types -- novels, screenplays, research papers, technical guides, runbooks, scripture commentaries, comics, memoirs -- each with its own adaptive vocabulary and toolset.
 
-The wedge comes first: Scriven profiles the writer, loads that voice into every drafting step, and keeps each unit on fresh context so the prose stays specific to the project. From there, it expands into 108 writing commands covering the rest of the pipeline:
+The wedge comes first: Scriven profiles the writer, loads that voice into every drafting step, and keeps each unit on fresh context so the prose stays specific to the project. From there, it expands into 110 writing commands covering the rest of the pipeline:
 
 - **Create** -- Set up a project with tailored context files. Progressive onboarding, never overwhelming.
 - **Write** -- Discuss, plan, draft, and revise one unit at a time. The drafter agent loads your Voice DNA and writes in *your* voice, not generic AI prose.
@@ -156,7 +156,7 @@ Scriven is built on five principles:
 
 - [Proof Artifacts](docs/proof-artifacts.md) -- Canonical proof hub for the watchmaker sample flow and Voice DNA before/after bundle
 - [Getting Started](docs/getting-started.md) -- Install to first draft in 10 minutes
-- [Command Reference](docs/command-reference.md) -- All 108 commands with usage, flags, and examples
+- [Command Reference](docs/command-reference.md) -- All 110 commands with usage, flags, and examples
 - [Work Types Guide](docs/work-types.md) -- How 50 work types adapt Scriven's vocabulary
 - [Voice DNA Guide](docs/voice-dna.md) -- The 15+ dimension voice profiling system
 - [Publishing Guide](docs/publishing.md) -- 13 export formats, KDP, IngramSpark, submission packages
@@ -197,11 +197,11 @@ Scriven currently ships installer targets for these AI tooling environments:
 
 ## Status
 
-**Version:** 1.6.2
+**Version:** 1.7.1
 
- Scriven's core command surface is stable across 108 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, and the package version is now `1.6.2`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
+ Scriven's core command surface is stable across 110 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, and the package version is now `1.7.1`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
 
- Version `1.6.2` packages the audit-hardening pass: unique installed command names for sacred verse-numbering surfaces, top-level sacred profile keys with legacy fallback, shipped-slug tradition validation, real ebook platform manifest loading, canonical workflow dependency paths, refreshed repository documentation, and stronger package/repository-policy checks. Version `1.6.1` brought the `1.6.0` repository documentation refresh into the published tarball, and version `1.6.0` introduced the draft-quality-aware drafter: `WRITING-RULES.md`, per-work-type pitfall packs, and the `draft` config block. See [docs/drafter-quality.md](docs/drafter-quality.md) for the full system.
+ Version `1.7.1` packages the audit-hardening pass on top of `1.7.0`: unique installed command names for sacred verse-numbering surfaces, top-level sacred profile keys with legacy fallback, shipped-slug tradition validation, real ebook platform manifest loading, canonical workflow dependency paths, refreshed repository documentation, and stronger package/repository-policy checks. Version `1.7.0` introduced character continuity and context integrity: full `CHARACTERS.md` / `FIGURES.md` drafter loading by default, `/scr:character-touch`, `/scr:scan`, `.manuscript/CONTEXT.md`, `.manuscript/HISTORY.log`, destination-neutral export presets, interactive export and publish pickers, front/back matter level controls, and the Typst running-head fix. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
 
 Package history is tracked in [CHANGELOG.md](CHANGELOG.md), and the public-facing summary for this release is in [docs/release-notes.md](docs/release-notes.md).
 

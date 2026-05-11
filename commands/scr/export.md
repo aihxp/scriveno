@@ -1,6 +1,6 @@
 ---
 description: Compile and export manuscript to publication-ready formats.
-argument-hint: "--format <format> [--formatted] [--print-ready] [--skip-validate]"
+argument-hint: "[--format <format>] [--formatted] [--print-ready] [--skip-validate]"
 ---
 
 # /scr:export -- Manuscript Export
@@ -10,8 +10,48 @@ Assemble the manuscript from OUTLINE.md and export to the specified format. Hand
 ## Usage
 
 ```
+/scr:export                                  # interactive picker
 /scr:export --format <format> [--formatted] [--print-ready] [--skip-validate]
 ```
+
+If `--format` is omitted, run the interactive picker (see STEP 0). Otherwise jump straight to STEP 1 with the requested format.
+
+---
+
+### STEP 0: INTERACTIVE PICKER (only when --format is omitted)
+
+Load `.manuscript/config.json` and the installed `CONSTRAINTS.json` (same paths as STEP 1) so you know the work type group. For every option below, check it against the `exports` section of `CONSTRAINTS.json` and skip any row that is not available for the current work type group.
+
+Show the writer this prompt and wait for an answer:
+
+> What do you want to export?
+>
+> **Single file**
+> 1. **markdown** -- one `.md` file (no external tools required)
+> 2. **docx** -- manuscript Word document (requires Pandoc)
+> 3. **pdf** -- manuscript PDF (requires Pandoc + Typst)
+> 4. **epub** -- standalone EPUB (requires Pandoc)
+> 5. **latex** -- LaTeX source (academic / sacred only)
+> 6. **fountain** -- screenplay text (script work types only)
+> 7. **fdx** -- Final Draft XML (script work types only, requires Screenplain)
+>
+> **Print / store packaging**
+> 8. **pdf --print-ready** -- print interior PDF with trim size and margins
+> 9. **docx --formatted** -- designed DOCX for review copies
+> 10. **kdp-package** -- Amazon KDP print upload bundle
+> 11. **ingram-package** -- IngramSpark CMYK PDF/X-1a bundle
+>
+> **Submission packages**
+> 12. **query-package** -- agent query bundle (query letter + synopsis + sample)
+> 13. **submission-package** -- full submission bundle (DOCX + synopsis + cover letter + bio)
+>
+> Pick a number, or type the format name. Type `publish` if you want a guided multi-format pipeline instead -- that lives in `/scr:publish`.
+
+Map the answer to the corresponding `--format` value (and `--formatted` / `--print-ready` modifiers where applicable), then proceed to STEP 1 as if the writer had passed it on the command line.
+
+If the writer answers `publish`, do not run the export; tell them to run `/scr:publish` and stop.
+
+---
 
 **Primary Formats:**
 
@@ -44,6 +84,14 @@ Assemble the manuscript from OUTLINE.md and export to the specified format. Hand
 ## Instruction
 
 You are a **manuscript export specialist**. Your job is to assemble the complete manuscript from its component files and convert it to the requested format using external tools.
+
+---
+
+### STEP 0: BOOTSTRAP (context-cost protocol)
+
+Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it as your orientation source for project title, work type, and recent activity. In STEP 1, skip the raw-file loads of `config.json` and `STATE.md` for those fields -- still load `CONSTRAINTS.json` (export availability rules) and the assembly inputs (`OUTLINE.md`, drafts, front-matter, back-matter, metadata) since the export pipeline needs them in full.
+
+If CONTEXT.md is missing, stale, or contradicts STATE.md, fall back to the original loads in STEP 1 unchanged. See `docs/context-protocol.md` for the contract.
 
 ---
 
@@ -857,3 +905,15 @@ After export completes, report:
 > **Next steps:**
 > - Add missing chapters and re-export
 > - Validate EPUB: `java -jar epubcheck.jar .manuscript/output/manuscript.epub`
+
+---
+
+### STEP 6: HISTORY LOG
+
+After the export completes (success or failure), append one line to `.manuscript/HISTORY.log` per `docs/history-protocol.md`:
+
+```
+{ISO timestamp} | scr:export | format={resolved format} | files={output filename or package dir} | outcome={ok|failed:<short-reason>}
+```
+
+For multi-file packages (kdp-package, ingram-package, query-package, submission-package), record the package directory in `files=` rather than enumerating individual files. Create HISTORY.log if it does not exist.

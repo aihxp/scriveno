@@ -362,10 +362,7 @@ function commandRefToCodexSkillName(commandRef) {
 }
 
 function commandRefToConstraintKey(commandRef) {
-  return commandRef
-    .replace(/^\/scr:/, '')
-    .split(':')
-    .pop();
+  return commandRef.replace(/^\/scr:/, '');
 }
 
 function commandRefToClaudeInvocation(commandRef) {
@@ -413,7 +410,43 @@ function collectCommandEntries(commandsRoot) {
 
   walk(commandsRoot);
   entries.sort((a, b) => a.commandRef.localeCompare(b.commandRef));
+  assertNoSkillNameCollisions(entries);
   return entries;
+}
+
+// Both Claude (flat scr-foo.md filename) and Codex (per-command skill dir
+// scr-foo/SKILL.md) install commands keyed by the same skill-name function:
+// /scr:foo and /scr:foo:bar both flatten under commandRefToCodexSkillName by
+// stripping `/scr:` and replacing remaining `:` with `-`. So
+// /scr:sacred-verse-numbering and /scr:sacred:verse-numbering both produce
+// scr-sacred-verse-numbering, and at install time the second one written
+// silently overwrites the first.
+//
+// This check is the early gate. Run it once at collection time so every
+// install path (Claude flat, Codex skill, generic SKILL.md) sees the same
+// guarantee: no two source files can claim the same flat skill name.
+function assertNoSkillNameCollisions(entries) {
+  const seen = new Map();
+  const collisions = [];
+  for (const entry of entries) {
+    const existing = seen.get(entry.skillName);
+    if (existing) {
+      collisions.push({ skillName: entry.skillName, sources: [existing.relativePath, entry.relativePath] });
+    } else {
+      seen.set(entry.skillName, entry);
+    }
+  }
+  if (collisions.length === 0) return;
+
+  const lines = collisions.map(c =>
+    `  ${c.skillName}\n    <- ${c.sources[0]}\n    <- ${c.sources[1]}`
+  );
+  throw new Error(
+    `Scriven installer aborted: two or more source command files flatten to the same skill name.\n` +
+    `Both Claude (flat scr-foo.md filenames) and Codex (per-command skill directories) would silently\n` +
+    `overwrite one of each pair. Rename one source file in each pair so the flat names differ.\n\n` +
+    lines.join('\n\n')
+  );
 }
 
 function collectCanonicalCommandInventory(commandsRoot, constraintsPath = path.join(PKG_ROOT, 'data', 'CONSTRAINTS.json')) {
@@ -1544,6 +1577,7 @@ module.exports = {
   parseArgs,
   resolveInstallRequest,
   collectCommandEntries,
+  assertNoSkillNameCollisions,
   cleanCodexSkillDirs,
   commandRefToCodexSkillName,
   commandRefToClaudeInvocation,

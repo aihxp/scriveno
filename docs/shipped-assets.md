@@ -23,6 +23,16 @@ Conflict resolution is top-down: `STYLE-GUIDE.md` beats `WRITING-RULES.md` beats
 
 A contributor adding `templates/pitfalls/<work_type>.md` is automatically picked up by `lib/architectural-profiles.js#listPitfallPacks` with no edits to library code or `CONSTRAINTS.json`.
 
+## Context Integrity Assets Shipped Today (1.7.0)
+
+These files ship in `templates/` and `docs/` and provide the trust trio for session-aware AI work:
+
+- `templates/CONTEXT.md` -- one-page session bootstrap scaffold copied into every project. Auto-regenerated on `/scr:save`, `/scr:pause-work`, `/scr:resume-work`. Read first by `/scr:next` and `/scr:resume-work` for orientation, with stale-detection + STATE.md fallback.
+- `docs/context-protocol.md` -- canonical contract for the CONTEXT.md preference rule. The 12 high-impact commands that opt into the protocol reference this doc.
+- `docs/history-protocol.md` -- canonical line-format spec for `.manuscript/HISTORY.log`, the append-only audit trail. Pipe-delimited, UTC ISO timestamps, committed to git.
+
+`STATE.md` (data) + `CONTEXT.md` (narrative bootstrap) + `HISTORY.log` (audit trail) together form the integrity layer. `/scr:scan` is the trust check that interrogates whether the recorded state still matches disk.
+
 ## Export Templates Shipped Today
 
 These export templates are currently bundled in `data/export-templates/`:

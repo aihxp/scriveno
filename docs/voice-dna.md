@@ -286,5 +286,5 @@ See [docs/drafter-quality.md](drafter-quality.md) for the full system, including
 - [Proof Artifacts](proof-artifacts.md) -- inspect the Voice DNA before/after bundle first if you want the fastest concrete evidence
 - [Getting Started](getting-started.md) -- Install Scriven and write your first draft
 - [Drafter Quality](drafter-quality.md) -- the three rule layers, the `draft` config block, and model-tier recommendations
-- [Command Reference](command-reference.md) -- Full list of all 108 commands with usage and examples
+- [Command Reference](command-reference.md) -- Full list of all 110 commands with usage and examples
 - [Work Types Guide](work-types.md) -- How work types adapt Scriven's vocabulary and commands

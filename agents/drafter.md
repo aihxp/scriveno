@@ -22,7 +22,7 @@ You will always receive these files loaded into your context (load in this exact
 
 4. **.manuscript/plans/{N}-{A}-PLAN.md** -- The specific plan for this atomic unit. Legacy root-level `{N}-{A}-PLAN.md` files may be provided for older projects. This tells you what happens, what the emotional arc is, what voice notes apply, what continuity anchors to respect.
 
-5. **CHARACTERS.md excerpt** (or FIGURES.md for sacred works) -- Only the characters/figures relevant to this unit. Includes their voice anchors, speech patterns, and current emotional state.
+5. **CHARACTERS.md** (or FIGURES.md for sacred works) -- The full file by default. Includes voice anchors, speech patterns, and current emotional state for every character. Filtering to "only relevant figures" is opt-in via `draft.context_profile: minimal` and only appropriate when the writer has confirmed character continuity is not at risk -- a character introduced via `/scr:new-character` after some plans were already written will not appear in those plans, and a relevance filter would silently exclude them from your view.
 
 6. **Previous unit tail** -- The last 200 words of the previous atomic unit (if any), for voice and tone continuity. Don't reference it directly -- just let its rhythm and register flow into your opening.
 
@@ -44,8 +44,8 @@ Before loading context, read `.manuscript/config.json` and check the `draft` blo
 
 Controls how much context to load per atomic unit. Cheaper profiles save tokens on every drafter invocation, which matters when running on weaker models or drafting many short units.
 
-- **`minimal`**: load only STYLE-GUIDE.md, WRITING-RULES.md, the unit's PLAN, the previous unit's tail (200 words), and CHARACTERS/FIGURES entries for speakers actually appearing in this unit's plan. Skip THEMES.md and WORK.md unless the plan explicitly references them. Skip CHARACTERS entries for off-stage figures.
-- **`standard`** (default): load the full context list described in "What you receive" above.
+- **`minimal`**: load only STYLE-GUIDE.md, WRITING-RULES.md, the unit's PLAN, the previous unit's tail (200 words), and CHARACTERS/FIGURES entries for speakers actually appearing in this unit's plan. Skip THEMES.md and WORK.md unless the plan explicitly references them. Skip CHARACTERS entries for off-stage figures. **Use only when the writer has confirmed character continuity is not at risk** -- a character added late via `/scr:new-character` will not yet be referenced in older plans and a `minimal` filter will silently drop them.
+- **`standard`** (default): load the full context list described in "What you receive" above. **CHARACTERS.md / FIGURES.md is loaded in full**, not filtered, so newly added characters and characters who are off-stage but emotionally referenced still flow into the drafter's view.
 - **`full`**: load everything in `standard` plus, for sacred works, full DOCTRINES.md and LINEAGES.md (not just excerpts), and any reference passages the orchestrator provides. Use only when the unit genuinely needs cross-document continuity.
 
 ### draft.rigor
@@ -101,6 +101,25 @@ Before finalizing, do these quick checks:
 
 ### Step 5: Write to file
 Save your draft to `.manuscript/drafts/body/{N}-{A}-DRAFT.md`. No preamble, no "Here's the draft:" -- just the prose. The file is the draft.
+
+### Step 6: Character state nudge
+
+After writing the draft, scan it for any character whose state has visibly shifted during this unit -- new emotional position, new knowledge gained, possessions taken or lost, a relationship reset, a skill demonstrated for the first time. CHARACTERS.md is a living document; without periodic touch-ups it freezes at character-creation time and the next unit's drafter will read a stale "current emotional state" that no longer matches the manuscript.
+
+For each character with a visible shift, emit a single-line nudge to the orchestrator (one nudge per character, no more than 3 per unit -- pick the biggest shifts). Format:
+
+```
+CHARACTER STATE NUDGE: <name> -- <one-sentence delta>. Suggest: /scr:character-touch <name>
+```
+
+Examples:
+
+```
+CHARACTER STATE NUDGE: Marcus -- learned the letter was forged; now carries doubt where he had certainty. Suggest: /scr:character-touch Marcus
+CHARACTER STATE NUDGE: Sarah -- physically wounded (left arm); previously uninjured. Suggest: /scr:character-touch Sarah
+```
+
+The nudges go in your output to the orchestrator, not into the draft file. Do not modify CHARACTERS.md yourself -- that is the writer's call via `/scr:character-touch`. If no character state visibly shifted, emit no nudges (silence is the default).
 
 ## What you must never do
 

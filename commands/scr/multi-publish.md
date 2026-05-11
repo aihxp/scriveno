@@ -26,6 +26,14 @@ You are a **multi-language publishing specialist**. Your job is to take translat
 
 ---
 
+### STEP 0: BOOTSTRAP (context-cost protocol)
+
+Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it as your orientation source for project title, work type, phase, current unit, and open items. In STEP 1, skip the raw-file loads for those fields -- still load language manifests, translation glossaries, and any per-language config CONTEXT.md does not surface.
+
+If CONTEXT.md is missing, stale, or contradicts STATE.md, fall back to the original loads in STEP 1 unchanged. See `docs/context-protocol.md` for the contract.
+
+---
+
 ### STEP 1: LOAD CONTEXT
 
 1. Load `.manuscript/config.json` for `target_languages`, `source_language`, `work_type`, title, author

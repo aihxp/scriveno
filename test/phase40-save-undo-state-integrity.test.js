@@ -12,8 +12,12 @@ function read(relativePath) {
 describe('Phase 40: save / undo state integrity', () => {
   it('save updates STATE.md before the checkpoint commit', () => {
     const save = read('commands/scr/save.md');
-    const stateStep = save.indexOf('6. **Update STATE.md** "Last actions" table');
-    const executeStep = save.indexOf('7. **Execute the save:**');
+    // Step numbers may grow as new write-side steps land (CONTEXT.md regeneration,
+    // HISTORY.log append). The invariant is ordering: STATE.md update precedes the
+    // commit, and CONTEXT.md / HISTORY.log (when present) sit between them so the
+    // commit captures all three writes.
+    const stateStep = save.search(/^\s*\d+\.\s+\*\*Update STATE\.md\*\* "Last actions" table/m);
+    const executeStep = save.search(/^\s*\d+\.\s+\*\*Execute the save:\*\*/m);
 
     assert.notEqual(stateStep, -1, 'save.md should include the STATE.md update step');
     assert.notEqual(executeStep, -1, 'save.md should include the checkpoint execution step');

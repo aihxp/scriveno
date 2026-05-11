@@ -1,16 +1,38 @@
 ---
 description: Generate publication-ready front matter elements in Chicago Manual of Style order.
+argument-hint: "[--level <minimum|balanced|maximum>] [--element <name>]"
 ---
 
 # /scr:front-matter -- Front Matter Generation
 
-Generate all 19 front matter elements for a publication-ready manuscript. Elements follow Chicago Manual of Style ordering and are classified as generatable, scaffoldable, or suggestable depending on whether AI can produce a complete version or must provide a template for the writer.
+Generate publication-ready front matter elements in Chicago Manual of Style order. Elements are classified as generatable, scaffoldable, or suggestable depending on whether AI can produce a complete version or must provide a template for the writer.
 
 ## Usage
 
 ```
-/scr:front-matter [--element <name>]
+/scr:front-matter                                      # interactive: skip / minimum / balanced / maximum
+/scr:front-matter --level <minimum|balanced|maximum>   # non-interactive
+/scr:front-matter --element <name>                     # generate one specific element
 ```
+
+**Levels:**
+
+| Level | What it generates | When to use |
+|-------|-------------------|-------------|
+| `minimum` | Legal / structural floor only: title page, copyright, TOC. Plus tradition approval block if required. | Beta-reader handoff, draft sharing, anything not yet hitting a retailer. |
+| `balanced` | `minimum` + the elements most trade books actually print: half-title, dedication scaffold, epigraph, acknowledgments. | Default for retail publishing. |
+| `maximum` | Every applicable element (the legacy "all 19" behavior). | Critical editions, scholarly works, anyone who wants the full Chicago menu. |
+
+If neither `--level` nor `--element` is provided, the command prompts the writer first:
+
+> Generate front matter?
+>
+> 1. **skip** -- I do not want any front matter generated
+> 2. **minimum** -- title page, copyright, TOC (legal floor)
+> 3. **balanced** -- minimum + half-title, dedication, epigraph, acknowledgments (trade default)
+> 4. **maximum** -- every applicable element
+
+If the writer answers **skip**, exit with no files written and no error.
 
 **Elements (Chicago Manual of Style order):**
 
@@ -44,6 +66,14 @@ You are a **publishing specialist** preparing front matter for a manuscript. You
 
 ---
 
+### STEP 0: BOOTSTRAP (context-cost protocol)
+
+Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it as your orientation source for project title, work type, phase, and open items. In STEP 1, skip raw-file loads of `config.json` and `STATE.md` for those fields -- still load `WORK.md`, `OUTLINE.md`, `CHARACTERS.md`, and `CONSTRAINTS.json` (each holds element-generation data CONTEXT.md does not surface).
+
+If CONTEXT.md is missing, stale, or contradicts STATE.md, fall back to the original loads in STEP 1 unchanged. See `docs/context-protocol.md` for the contract.
+
+---
+
 ### STEP 1: LOAD CONTEXT
 
 Load the following project files:
@@ -59,6 +89,34 @@ Load the following project files:
 Check for adapted behavior:
 - If work type group is `academic`: apply `academic_front_matter` behavior (see Academic Adaptation below)
 - If work type group is `sacred`: apply `sacred_front_matter` behavior (see Sacred Adaptation below)
+
+---
+
+### STEP 1.5: RESOLVE LEVEL
+
+Resolve the level filter that controls which elements are eligible to be generated.
+
+**Routing:**
+- If `--element <name>` is given, ignore `--level` entirely and generate only that one element. Skip the rest of this step.
+- If `--level <value>` is given, use that value (`minimum`, `balanced`, or `maximum`).
+- If neither flag is given, run the interactive prompt from the Usage section. If the writer chooses **skip**, write a one-line summary ("Front matter generation skipped at writer's request -- no files written.") and exit without doing anything else.
+
+**Level membership** (the eligible set per level, before work-type filtering):
+
+| Level | Elements eligible |
+|-------|-------------------|
+| `minimum` | 3 (title page), 4 (copyright), 7 (TOC) |
+| `balanced` | minimum + 1 (half-title), 5 (dedication), 6 (epigraph), 13 (acknowledgments) |
+| `maximum` | All 19 standard elements + every applicable adaptation element (academic, sacred-tradition specific) |
+
+**Adaptation interaction:**
+- The Academic and Sacred adaptations modify or add elements. They run regardless of level. Their additions are eligible only at `maximum`, except for the **tradition approval block** (STEP 3.5) which is required-when-applicable and runs at every level including `minimum`. The adaptations do not lift `minimum` or `balanced` to `maximum` -- they only adjust per-element behavior for the elements that the chosen level already includes.
+- If the writer used `--level minimum` or `--level balanced` and an academic/sacred adaptation would normally substitute or rename an element (for example "Dedication becomes Abstract" for academic), apply the substitution only when that element is already in the eligible set.
+- Tradition-specific extras (imprimatur, haskamah, bismillah, ijazah, scriptural-dedication, theological-preface) are eligible only at `maximum`.
+
+**Work-type filtering applies on top of the level filter.** An element that is in the level's eligible set but is hidden for the current work type group (per `CONSTRAINTS.json`) is still skipped.
+
+Use the resolved eligible set for STEP 3. Track the resolved level so STEP 4 can report it.
 
 ---
 
@@ -93,7 +151,7 @@ This separation preserves voice fidelity for elements the reader experiences as 
 
 ### STEP 3: GENERATE ELEMENTS
 
-Process each element in Chicago Manual of Style order. If `--element` was specified, skip to that element only.
+Process each element in Chicago Manual of Style order, but only if it is in the eligible set resolved in STEP 1.5. If `--element` was specified, skip the level filter and generate only that element. Skip any element not in the eligible set silently (it goes into the STEP 4 skipped-elements report instead).
 
 #### Element 1: Half-Title (Recto) -- GENERATE
 
@@ -575,17 +633,35 @@ The `00-` prefix ensures this page precedes the half-title in any file listing.
 
 ### STEP 4: SKIPPED ELEMENTS REPORT
 
-When running without `--element`, after generating all applicable elements, list any elements that were skipped:
+When running without `--element`, after generating all eligible elements, list any elements that were skipped along with the resolved level:
 
 ```markdown
+## Front Matter Summary
+
+Level: [minimum | balanced | maximum]
+
 ## Skipped Elements
 
 The following front matter elements were not generated for this work:
 
-- **[Element name]**: [Reason -- e.g., "No series info in WORK.md", "Not applicable to academic works", "No illustrations found in manuscript"]
+- **[Element name]**: [Reason -- e.g., "Not in level: balanced", "No series info in WORK.md", "Not applicable to academic works", "No illustrations found in manuscript"]
 ```
 
+When the reason is the level filter, use the form **"Not in level: \<resolved-level\>"** so the writer can see what re-running with `--level maximum` would add.
+
 Append this report to the final output displayed to the writer.
+
+---
+
+### STEP 5: HISTORY LOG
+
+Append one line to `.manuscript/HISTORY.log` per `docs/history-protocol.md`:
+
+```
+{ISO timestamp} | scr:front-matter | level={resolved level or "skip" or "single-element"} | elements={count generated} | outcome=ok
+```
+
+If the writer chose `skip` in the interactive prompt, log `level=skip | elements=0 | outcome=skipped` -- the skip is itself a state event worth recording. If `--element <name>` was used, log `level=single-element | elements=1 | element={name} | outcome=ok`. Create HISTORY.log if it does not exist.
 
 ---
 

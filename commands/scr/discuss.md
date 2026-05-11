@@ -13,6 +13,8 @@ Load `.manuscript/config.json` to get the `command_unit` (chapter, act, section,
 
 ## What to do
 
+0. **Bootstrap (context-cost protocol).** Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it for orientation (project title, work type, current unit, recent activity) and skip the corresponding STATE.md lookup in step 2. The discuss phase still needs the full creative inputs in step 1 (WORK.md, OUTLINE.md, STYLE-GUIDE.md, characters, plot, themes, prior drafts) -- those are not orientation; they are source material the discussion turns on. If CONTEXT.md is missing or stale, run steps 1-2 unchanged. See `docs/context-protocol.md`.
+
 1. **Load context.** Read WORK.md, OUTLINE.md, STYLE-GUIDE.md, CHARACTERS.md (or adapted equivalents), PLOT-GRAPH.md, THEMES.md, and any previously drafted units. Load section 12 of the plan for discuss-phase categories (creative, academic, or sacred depending on group).
 
 2. **Figure out which unit** to discuss. If the user passed a number, use it. Otherwise check STATE.md for the next pending unit.

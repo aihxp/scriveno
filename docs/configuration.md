@@ -57,7 +57,7 @@ When a writer runs `/scr:new-work`, Scriven creates `.manuscript/config.json`. T
 
 ```json
 {
-  "scriven_version": "1.6.2",
+  "scriven_version": "1.7.1",
   "work_type": "<chosen>",
   "group": "<group>",
   "command_unit": "<unit>",

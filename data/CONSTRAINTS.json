@@ -1,6 +1,6 @@
 {
   "$schema": "./constraints.schema.json",
-  "version": "1.6.2",
+  "version": "1.7.1",
   "description": "Scriven constraint system: work types, command availability, exports, and dependencies. Every command checks this file at runtime.",
 
   "work_type_groups": {
@@ -730,6 +730,15 @@
       "hidden": ["poetry", "speech_song"],
       "requires": ["CHARACTERS.md"]
     },
+    "character-touch": {
+      "category": "character_world",
+      "available": ["prose", "script", "visual", "interactive", "sacred"],
+      "adapted": {
+        "sacred": { "rename": "figure-touch" }
+      },
+      "hidden": ["academic", "poetry", "speech_song"],
+      "requires": ["CHARACTERS.md", "draft_exists"]
+    },
     "relationship-map": {
       "category": "character_world",
       "available": ["prose", "script", "visual", "interactive"],
@@ -1121,53 +1130,54 @@
       "description": "Run multi-language translation pipeline unattended with glossary, translation, and publishing",
       "requires": ["complete-draft"]
     },
-    "concordance": {
+    "_sacred_keys_note": "Sacred subcommands live at commands/scr/sacred/<name>.md and run as /scr:sacred:<name>. Their CONSTRAINTS keys use the sacred:<name> form so /scr:help can render the runnable slash-command path directly. The sacred-numbering-format entry below is a separate flat command (commands/scr/sacred-numbering-format.md) that surfaces the active tradition's numbering format. It used to be named sacred-verse-numbering, which collided with sacred:verse-numbering at install time -- both flattened to scr-sacred-verse-numbering. Renamed in v1.6.x; the installer now refuses to install when two sources share a flat skill name.",
+    "sacred:concordance": {
       "category": "sacred_exclusive",
       "available": ["sacred"],
       "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"],
       "requires": ["draft_exists"]
     },
-    "cross-reference": {
+    "sacred:cross-reference": {
       "category": "sacred_exclusive",
       "available": ["sacred"],
       "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"],
       "requires": ["draft_exists"]
     },
-    "genealogy": {
+    "sacred:genealogy": {
       "category": "sacred_exclusive",
       "available": ["sacred"],
       "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"],
       "requires": ["FIGURES.md", { "min_figures": 2 }]
     },
-    "chronology": {
+    "sacred:chronology": {
       "category": "sacred_exclusive",
       "available": ["sacred"],
       "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"]
     },
-    "annotation-layer": {
+    "sacred:annotation-layer": {
       "category": "sacred_exclusive",
       "available": ["sacred"],
       "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"],
       "requires": ["draft_exists"]
     },
-    "verse-numbering": {
+    "sacred:verse-numbering": {
       "category": "sacred_exclusive",
       "available": ["sacred"],
       "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"],
       "requires": ["draft_exists"]
     },
-    "sacred-verse-numbering": {
+    "sacred-numbering-format": {
       "category": "sacred_exclusive",
       "available": ["sacred"],
       "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"],
       "requires": ["config.tradition"]
     },
-    "source-tracking": {
+    "sacred:source-tracking": {
       "category": "sacred_exclusive",
       "available": ["sacred"],
       "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"]
     },
-    "doctrinal-check": {
+    "sacred:doctrinal-check": {
       "category": "sacred_exclusive",
       "available": ["sacred"],
       "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"],
@@ -1182,6 +1192,11 @@
       "category": "utility",
       "available": ["all"],
       "description": "Diagnose and repair common project state issues"
+    },
+    "scan": {
+      "category": "utility",
+      "available": ["all"],
+      "description": "Detect drift between recorded state (STATE.md, OUTLINE.md, config.json) and what is on disk"
     },
     "cleanup": {
       "category": "utility",
@@ -1303,14 +1318,14 @@
       "character-ref": ["CHARACTERS.md"],
       "cover-art": ["WORK.md"],
       "map-illustration": ["WORLD.md"],
-      "concordance": ["draft_exists"],
-      "cross-reference": ["draft_exists"],
-      "genealogy": ["FIGURES.md", { "min_figures": 2 }],
-      "chronology": ["OUTLINE.md"],
-      "annotation-layer": ["draft_exists"],
-      "verse-numbering": ["draft_exists"],
-      "source-tracking": ["WORK.md"],
-      "doctrinal-check": ["draft_exists", "DOCTRINES.md"],
+      "sacred:concordance": ["draft_exists"],
+      "sacred:cross-reference": ["draft_exists"],
+      "sacred:genealogy": ["FIGURES.md", { "min_figures": 2 }],
+      "sacred:chronology": ["OUTLINE.md"],
+      "sacred:annotation-layer": ["draft_exists"],
+      "sacred:verse-numbering": ["draft_exists"],
+      "sacred:source-tracking": ["WORK.md"],
+      "sacred:doctrinal-check": ["draft_exists", "DOCTRINES.md"],
       "outline": ["OUTLINE.md"],
       "add-unit": ["OUTLINE.md"],
       "insert-unit": ["OUTLINE.md"],
