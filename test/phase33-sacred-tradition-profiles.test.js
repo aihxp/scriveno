@@ -8,7 +8,10 @@ const SACRED_DIR        = path.join(ROOT, 'templates', 'sacred');
 const BUILD_EBOOK_PATH  = path.join(ROOT, 'commands', 'scr', 'build-ebook.md');
 const BUILD_PRINT_PATH  = path.join(ROOT, 'commands', 'scr', 'build-print.md');
 const FRONT_MATTER_PATH = path.join(ROOT, 'commands', 'scr', 'front-matter.md');
-const VERSE_NUM_PATH    = path.join(ROOT, 'commands', 'scr', 'sacred-verse-numbering.md');
+// Was sacred-numbering-format.md until v1.6.x; renamed to resolve a flat-skill-name
+// collision with commands/scr/sacred/verse-numbering.md (both flattened to
+// scr-sacred-numbering-format.md at install time, silently dropping one).
+const VERSE_NUM_PATH    = path.join(ROOT, 'commands', 'scr', 'sacred-numbering-format.md');
 
 /**
  * Read a file and return its content, or null if it doesn't exist.
@@ -303,20 +306,20 @@ describe('TRAD-03-behavioral: front-matter.md approval block step', () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// TRAD-04-behavioral: sacred-verse-numbering.md command file
+// TRAD-04-behavioral: sacred-numbering-format.md command file
 // ─────────────────────────────────────────────────────────────────────────────
-describe('TRAD-04-behavioral: sacred-verse-numbering.md command file', () => {
-  it('sacred-verse-numbering.md exists — TRAD-04', () => {
+describe('TRAD-04-behavioral: sacred-numbering-format.md command file', () => {
+  it('sacred-numbering-format.md exists — TRAD-04', () => {
     const content = readFile(VERSE_NUM_PATH);
-    assert.ok(content !== null, 'commands/scr/sacred-verse-numbering.md must exist — TRAD-04');
+    assert.ok(content !== null, 'commands/scr/sacred-numbering-format.md must exist — TRAD-04');
   });
 
-  it('sacred-verse-numbering.md contains numbering.format reference — TRAD-04', () => {
+  it('sacred-numbering-format.md contains numbering.format reference — TRAD-04', () => {
     const content = readFile(VERSE_NUM_PATH);
-    assert.ok(content !== null, 'commands/scr/sacred-verse-numbering.md must exist — TRAD-04');
+    assert.ok(content !== null, 'commands/scr/sacred-numbering-format.md must exist — TRAD-04');
     assert.ok(
       content.includes('numbering.format') || content.includes('chapter:verse'),
-      'sacred-verse-numbering.md must reference numbering.format or chapter:verse — TRAD-04'
+      'sacred-numbering-format.md must reference numbering.format or chapter:verse — TRAD-04'
     );
   });
 });

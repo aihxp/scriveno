@@ -2107,11 +2107,11 @@ Build your Voice DNA profile by analyzing an existing piece of your writing.
 
 Commands available only for sacred and historical work types (scripture, commentary, devotional, liturgical, historical chronicle, religious epic, sermon, etc.). These commands are hidden from other work types.
 
-### `/scr:sacred-verse-numbering`
+### `/scr:sacred-numbering-format`
 
 **Description:** Show verse numbering format for the active sacred tradition.
 
-**Usage:** `/scr:sacred-verse-numbering [--example <text>]`
+**Usage:** `/scr:sacred-numbering-format [--example <text>]`
 
 **Prerequisites:** `.manuscript/config.json` must include a valid `tradition`
 
@@ -2120,7 +2120,7 @@ Commands available only for sacred and historical work types (scripture, comment
 
 **Example:**
 ```
-/scr:sacred-verse-numbering --example "John 3 16"
+/scr:sacred-numbering-format --example "John 3 16"
 ```
 Show the active tradition's numbering format and render an example citation using that system.
 

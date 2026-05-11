@@ -1121,7 +1121,7 @@
       "description": "Run multi-language translation pipeline unattended with glossary, translation, and publishing",
       "requires": ["complete-draft"]
     },
-    "_sacred_keys_note": "Sacred subcommands live at commands/scr/sacred/<name>.md and run as /scr:sacred:<name>. Their CONSTRAINTS keys use the sacred:<name> form so /scr:help can render the runnable slash-command path directly. The lone sacred-verse-numbering entry below is a separate flat command (commands/scr/sacred-verse-numbering.md) that surfaces the active tradition's numbering format.",
+    "_sacred_keys_note": "Sacred subcommands live at commands/scr/sacred/<name>.md and run as /scr:sacred:<name>. Their CONSTRAINTS keys use the sacred:<name> form so /scr:help can render the runnable slash-command path directly. The sacred-numbering-format entry below is a separate flat command (commands/scr/sacred-numbering-format.md) that surfaces the active tradition's numbering format. It used to be named sacred-verse-numbering, which collided with sacred:verse-numbering at install time -- both flattened to scr-sacred-verse-numbering. Renamed in v1.6.x; the installer now refuses to install when two sources share a flat skill name.",
     "sacred:concordance": {
       "category": "sacred_exclusive",
       "available": ["sacred"],
@@ -1157,7 +1157,7 @@
       "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"],
       "requires": ["draft_exists"]
     },
-    "sacred-verse-numbering": {
+    "sacred-numbering-format": {
       "category": "sacred_exclusive",
       "available": ["sacred"],
       "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"],
