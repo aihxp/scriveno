@@ -730,6 +730,15 @@
       "hidden": ["poetry", "speech_song"],
       "requires": ["CHARACTERS.md"]
     },
+    "character-touch": {
+      "category": "character_world",
+      "available": ["prose", "script", "visual", "interactive", "sacred"],
+      "adapted": {
+        "sacred": { "rename": "figure-touch" }
+      },
+      "hidden": ["academic", "poetry", "speech_song"],
+      "requires": ["CHARACTERS.md", "draft_exists"]
+    },
     "relationship-map": {
       "category": "character_world",
       "available": ["prose", "script", "visual", "interactive"],

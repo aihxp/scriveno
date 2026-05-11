@@ -1,6 +1,6 @@
 # Command Reference
 
-Scriven has **109 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
+Scriven has **110 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
 
 Commands marked with **adaptive terminology** change how Scriven talks about your work type's `command_unit` in `.manuscript/config.json`, while keeping the runnable command id stable. Commands marked with **group adaptation** have different labels for specific work type groups (academic, sacred, etc.).
 
@@ -771,6 +771,28 @@ Start building a character. Scriven interviews you about appearance, personality
 /scr:character-sheet Maria --edit
 ```
 View Maria's full profile and make changes.
+
+---
+
+### `/scr:character-touch`
+
+**Description:** Update a character's evolving state (emotional position, knowledge, possessions, relationships) after a unit lands. CHARACTERS.md is a living document; this command keeps it from freezing at character-creation time.
+
+**Usage:** `/scr:character-touch <name> [--from <unit>]`
+
+**Prerequisites:** CHARACTERS.md must exist; at least one unit drafted
+
+**Available for:** Prose, script, visual, interactive, sacred (renamed `figure-touch` for sacred)
+
+**Flags:**
+- `<name>` -- Character to update. Omit to list all characters and pick interactively.
+- `--from <unit>` -- Base the update on a specific unit's drafted prose. If omitted, defaults to the most recently modified draft file.
+
+**Example:**
+```
+/scr:character-touch Marcus --from 12
+```
+After drafting unit 12, propose updates to Marcus's emotional position, knowledge, possessions, and relationships based on what happened in that draft. Voice anchor and physical description stay untouched. The drafter agent emits a "CHARACTER STATE NUDGE" suggestion when it spots a visible state shift, pointing the writer here.
 
 ---
 

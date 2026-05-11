@@ -22,7 +22,7 @@ Require `{N}-*-PLAN.md` files to exist. If not, offer `/scr:plan N` first. If th
 2. **For each atomic unit, invoke the installed `drafter.md` agent for the current runtime in a fresh context.** Use the agent path for the writer's active Scriven install (for example the runtime's global or project-scoped `agents/drafter.md`). Fresh context per atomic unit is critical — it prevents voice drift, context bloat, and lets each scene be its best. The drafter receives:
    - STYLE-GUIDE.md (always, every time — this is the voice DNA)
    - The specific {N}-{A}-PLAN.md for this atomic unit
-   - CHARACTERS.md or FIGURES.md (relevant figures only)
+   - CHARACTERS.md or FIGURES.md (full file by default; only filtered to "relevant figures" when `draft.context_profile` is `minimal`). Loading the full file is the default because a character introduced via `/scr:new-character` after some plans were already written will not appear in those plans, and a relevance filter would silently exclude them from the drafter's view -- breaking character continuity through the manuscript.
    - The last 200 words of the previous atomic unit (for voice/tone continuity)
    - THEMES.md or DOCTRINES.md (relevant threads only)
 

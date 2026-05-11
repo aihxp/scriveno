@@ -269,5 +269,5 @@ Here is a quick walkthrough for starting a sacred writing project:
 ## See Also
 
 - [Getting Started](getting-started.md) -- Install Scriven and create your first project
-- [Command Reference](command-reference.md) -- Full reference for all 109 commands, including the [Sacred Exclusive](command-reference.md#sacred-exclusive) section
+- [Command Reference](command-reference.md) -- Full reference for all 110 commands, including the [Sacred Exclusive](command-reference.md#sacred-exclusive) section
 - [README](../README.md) -- Project overview and feature list
