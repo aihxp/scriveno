@@ -9,6 +9,9 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   release-check:
     name: Release check on Node ${{ matrix.node-version }}
