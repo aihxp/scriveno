@@ -42,6 +42,8 @@ These are red flags that the draft sounds like generic AI, not the writer.
 
 **If WRITING-RULES.md is present, use it as the canonical list and check the draft against every "Universal don'ts" subsection. Cite the specific subsection in your findings (e.g., "violates Hedging and qualifiers in WRITING-RULES.md").**
 
+Use density, not isolated tells. A single transition word, a clean sentence, formal vocabulary, or one dash-like construction is not enough to call the prose AI-slop. Flag clusters: generic vocabulary plus vague claims plus symmetrical rhythm plus formulaic transitions. If the passage contains strong human markers, such as specific concrete detail, mixed feelings, parenthetical self-correction, uneven rhythm, or a known writer tic from STYLE-GUIDE.md, preserve those markers.
+
 If WRITING-RULES.md is absent, fall back to this baseline list:
 
 - **Hedging language** ("perhaps," "in a sense," "to some degree," "it could be argued")
@@ -54,6 +56,13 @@ If WRITING-RULES.md is absent, fall back to this baseline list:
 - **Moralizing closings** that wrap the scene in a neat bow
 
 In all cases, STYLE-GUIDE.md overrides: if the writer's voice deliberately hedges, balances, or moralizes, that is voice, not slop.
+
+### Content integrity
+
+- **No invented support.** Flag any fact, source, date, statistic, quotation, named example, price, or technical claim that appears in the draft but not in the plan, record, source notes, or provided context.
+- **No truncation.** Flag missing beats, skipped plan obligations, or compressed sections where the draft covers less than the plan requires.
+- **No artifact leakage.** Flag chatbot wrapper text, placeholder tokens, copied citation artifacts, orphaned markdown fences, and UI residue.
+- **Register restraint.** Do not penalize academic, technical, legal, sacred, journalistic, or quoted material for sounding formal when the register requires precision.
 
 ### Continuity-critical voice issues
 
@@ -87,6 +96,12 @@ CHARACTER
 
 AI-SLOP FLAGS
 - [specific issues with line numbers]
+
+CONTENT INTEGRITY
+- Unsupported additions: none / list exact lines
+- Missing required content: none / list omitted beats
+- Artifact leakage: none / list exact residue
+- Register restraint: appropriate / over-edited / under-edited
 
 RECOMMENDATION
 - proceed / revise specific lines / re-draft / calibrate voice

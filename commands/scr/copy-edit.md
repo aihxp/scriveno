@@ -50,7 +50,7 @@ You are a **copy editor**. Your job is mechanical correctness -- grammar, spelli
 #### Punctuation
 - **Comma usage** -- Flag comma splices, missing serial commas (if the manuscript uses them), and missing commas after introductory clauses.
 - **Dialogue punctuation** -- Verify dialogue tags use commas not periods ("Hello," she said -- not "Hello." She said), and that action beats use periods ("Hello." She waved).
-- **Em-dashes vs. hyphens** -- Flag hyphens used where em-dashes are intended and vice versa. Check consistency of em-dash style (spaced or unspaced) throughout.
+- **Dash policy** -- Flag em dashes and en dashes as prohibited by Scriveno writing policy. Suggest commas, colons, semicolons, parentheses, periods, or a rewritten sentence. Preserve ordinary hyphens for compounds and number ranges.
 - **Quotation marks** -- Verify consistent style (curly vs. straight) and proper nesting of single/double quotes.
 
 #### Consistency

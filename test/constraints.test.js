@@ -69,6 +69,24 @@ describe('CONSTRAINTS.json schema integrity', () => {
     }
   });
 
+  it('every command entry is a command object with a category', () => {
+    constraints = JSON.parse(fs.readFileSync(constraintsPath, 'utf8'));
+    for (const [cmdName, cmdObj] of Object.entries(constraints.commands)) {
+      assert.equal(
+        typeof cmdObj,
+        'object',
+        `command "${cmdName}" must be an object, not ${typeof cmdObj}`
+      );
+      assert.ok(cmdObj !== null, `command "${cmdName}" must not be null`);
+      assert.equal(
+        typeof cmdObj.category,
+        'string',
+        `command "${cmdName}" must declare a category`
+      );
+      assert.ok(cmdObj.category.length > 0, `command "${cmdName}" category must not be empty`);
+    }
+  });
+
   it('every command file on disk is referenced in CONSTRAINTS.json', () => {
     constraints = JSON.parse(fs.readFileSync(constraintsPath, 'utf8'));
     const commandKeys = Object.keys(constraints.commands);

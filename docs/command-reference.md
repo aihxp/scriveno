@@ -227,7 +227,7 @@ Commands for finding your way through the workflow and understanding your manusc
 
 ### `/scr:next`
 
-**Description:** Auto-detect what to do next in your workflow and run it. The one command a writer can always use.
+**Description:** Auto-detect what to do next in your workflow and recommend the best path. The one command a writer can always use.
 
 **Usage:** `/scr:next`
 
@@ -237,7 +237,7 @@ Commands for finding your way through the workflow and understanding your manusc
 ```
 /scr:next
 ```
-Not sure what comes after planning? Just run `/scr:next` and Scriveno figures it out.
+Not sure what comes after planning? Just run `/scr:next` and Scriveno recommends one next command with a short reason and a few useful alternatives.
 
 ---
 
@@ -259,7 +259,7 @@ Scriveno maps your intent to the right command and runs it.
 
 ### `/scr:help`
 
-**Description:** Show Scriveno commands grouped by workflow stage, filtered to what's relevant for your current work type and progress.
+**Description:** Show Scriveno commands grouped by inferred writer intent, filtered to what's relevant for your current work type and progress.
 
 **Usage:** `/scr:help [category or search term]`
 
@@ -269,7 +269,7 @@ Scriveno maps your intent to the right command and runs it.
 ```
 /scr:help publishing
 ```
-Show all publishing-related commands available for your work type.
+Show publishing-related commands available for your work type. Without a category, `/scr:help` starts with a compact view based on project state: start, draft, revise, navigate, publish, translate, collaborate, or repair.
 
 ---
 

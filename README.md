@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/aihxp/scriveno/actions/workflows/ci.yml/badge.svg)](https://github.com/aihxp/scriveno/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.0.0-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.0.1-blue)](CHANGELOG.md)
 [![npm](https://img.shields.io/npm/v/scriveno-cli.svg)](https://www.npmjs.com/package/scriveno-cli)
 [![Downloads](https://img.shields.io/npm/dm/scriveno-cli.svg)](https://www.npmjs.com/package/scriveno-cli)
 
@@ -81,7 +81,7 @@ Scriveno's core insight: drafted prose should sound like *you*, not like an AI. 
 
 This profile is saved as `STYLE-GUIDE.md` and loaded into every drafter agent invocation. The drafter writes one atomic unit per fresh context -- a scene, a subsection, a passage -- with the style guide as its primary reference. Voice stays consistent across hundreds of scenes.
 
-The drafter is also backed by two additional rule layers that scaffold weaker models without overriding the writer's voice: a universal `WRITING-RULES.md` (AI-tell don'ts loaded into every drafter, voice-checker, and originality-check pass) and per-work-type pitfall packs at `templates/pitfalls/<work_type>.md` (filter words for prose, unfilmable description for screenplays, missing-precondition checks for runbooks, anachronism for sacred commentary, and so on). Conflict resolution is top-down: STYLE-GUIDE.md > WRITING-RULES.md > pitfall pack. See [docs/drafter-quality.md](docs/drafter-quality.md) for the full system, including `draft.rigor` and `draft.context_profile` settings for matching the drafter to the model tier you're routing to.
+The drafter is also backed by two additional rule layers that scaffold weaker models without overriding the writer's voice: a universal `WRITING-RULES.md` (human-first restraint, factual integrity, AI-tell don'ts, register awareness, and artifact cleanup loaded into every drafter, voice-checker, and originality-check pass) and per-work-type pitfall packs at `templates/pitfalls/<work_type>.md` (filter words for prose, unfilmable description for screenplays, missing-precondition checks for runbooks, anachronism for sacred commentary, and so on). Conflict resolution is top-down: STYLE-GUIDE.md > WRITING-RULES.md > pitfall pack. See [docs/drafter-quality.md](docs/drafter-quality.md) for the full system, including `draft.rigor` and `draft.context_profile` settings for matching the drafter to the model tier you're routing to.
 
 Every project also gets `RECORD.md`, a neutral established-content store. `STATE.md` tracks workflow position, `OUTLINE.md` tracks structure, and `RECORD.md` tracks what the work has established: open threads, reader promises, payoffs, continuity facts, and movement that future units must honor.
 
@@ -203,11 +203,11 @@ Scriveno currently ships installer targets for these AI tooling environments:
 
 ## Status
 
-**Version:** 2.0.0
+**Version:** 2.0.1
 
- Scriveno's core command surface is stable across 112 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, plus the creative-context, record-store, branching-next, runtime-sync, and release-readiness work for `2.0.0`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
+ Scriveno's core command surface is stable across 112 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, plus the creative-context, record-store, branching-next, runtime-sync, adaptive concierge, and human-first writing-safeguard work for `2.0.1`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
 
- Version `2.0.0` makes Scriveno's creative context layer first-class: `RECORD.md` for established content, non-character subject tracking, relationship-aware character work, branching next-command suggestions, and `/scr:sync` for keeping installed runtime surfaces current with the source tree. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
+ Version `2.0.1` keeps the `2.0.0` creative context layer and adds a calmer front door: adaptive `/scr:help`, adaptive `/scr:next`, and human-first writing rules that preserve Voice DNA while guarding against invented details, flattened register, copied chat artifacts, and over-polished prose. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
 
 Package history is tracked in [CHANGELOG.md](CHANGELOG.md), and the public-facing summary for this release is in [docs/release-notes.md](docs/release-notes.md).
 

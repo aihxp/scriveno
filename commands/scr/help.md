@@ -18,7 +18,19 @@ You are helping the user navigate Scriveno commands. Load Scriveno's installed/s
    - Apply explicit constraints such as `nonfiction_only` and `comic_only` before you show the command.
    - If a group has a dedicated replacement command family (for example sacred chronology and doctrinal checks), prefer that real surface over any conceptual adapted label on a hidden base command.
 
-3. **If the user passed an argument**, treat it as a category filter or search term. Otherwise show the full grouped view.
+3. **Load `command_intents` from CONSTRAINTS.json.** Treat these intents as the front door: start, draft, revise, navigate, publish, translate, collaborate, repair. If the field is missing in an older install, fall back to the stage groups below.
+
+4. **Infer the likely intent before showing commands.**
+   - No `.manuscript/` directory -> start
+   - `.manuscript/` exists but no drafted units -> draft
+   - Drafted units exist but review is incomplete -> revise
+   - Draft is complete and export files are missing -> publish
+   - Translation folders or language config exist -> translate
+   - Revision-track metadata exists -> collaborate
+   - State drift, failed command, missing required file, or validation concern -> repair
+   - Otherwise -> navigate
+
+5. **If the user passed an argument**, treat it as an intent, category filter, or search term. Otherwise show the inferred intent first, then compact alternatives.
 
 ## The "getting started" view (no project yet)
 
@@ -40,6 +52,25 @@ Already have a project? Just cd into it and run /scr:next.
 
 Show commands relevant to the current stage. Use `.manuscript/STATE.md` to figure out where the user is.
 
+Lead with a compact intent view, not the full command catalog:
+
+```markdown
+Likely next area: Draft
+
+Most useful now:
+- `/scr:next`: Inspect the project state and choose the next step.
+- `/scr:discuss 4`: Shape the next unit before planning.
+- `/scr:plan 4`: Turn the discussion into a draftable plan.
+
+Other useful areas:
+- Revise: `/scr:editor-review`, `/scr:voice-check`, `/scr:continuity-check`
+- Navigate: `/scr:progress`, `/scr:manuscript-stats`, `/scr:pause-work`
+```
+
+Keep the primary list to 3-6 commands. Put additional commands under "More for this intent" only when the user asked for detail, used `/scr:help all`, or passed a specific intent/category. This is the thin front door: the full command surface remains available, but the default view should never feel like a catalog dump.
+
+Use `command_intents` to choose candidates, then apply availability and command-level constraints. For example, `publish` intent can include `build-print`, but a fresh project should not show publishing as the likely next area; `translate` can include `translate`, but it should not appear as a primary path until drafted work exists or translation configuration exists; `repair` should move to the top when scan/health conditions are present.
+
 Group by stage:
 - **Create** -- new-work, profile-writer, series-bible
 - **Write** -- discuss, plan, draft, quick-write, plus any profile-building commands actually available for the current work type
@@ -58,7 +89,7 @@ Only show commands where `available` includes the current work type's group, OR 
 
 ## The filtered view
 
-If the argument matches a category name (e.g., "revise", "publish"), show just that category. If it's a free-text search, match against command names and descriptions.
+If the argument matches an intent or category name (e.g., "revise", "publish"), show that view first. If it's a free-text search, match against command names and descriptions. If the writer asks for "all", "catalog", or "everything", show the grouped stage view after the compact intent view.
 
 ## Response Contract
 

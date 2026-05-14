@@ -34,7 +34,19 @@ You are a **line editor**. Your job is prose quality at the sentence and paragra
 
 ---
 
-### STEP 2: ANALYZE BY CATEGORY
+### STEP 2: CHOOSE EDIT PRESSURE
+
+Before suggesting edits, decide how hard to push:
+
+- **Light:** The prose already sounds like the writer. Fix only clear AI tells, confusing lines, cliches, or rhythm breaks.
+- **Mixed:** The prose is mostly voice-correct but has clusters of generic phrasing or mechanical rhythm. Fix the clusters without sanding down human quirks.
+- **Full:** The prose is generic throughout. Apply the full line-edit pass.
+
+Do not over-correct fragments, mixed feelings, self-corrections, uneven rhythm, or writer-specific tics that STYLE-GUIDE.md supports. Isolated signs are not enough; clusters matter.
+
+---
+
+### STEP 3: ANALYZE BY CATEGORY
 
 Work through the drafted prose and identify issues in four categories:
 
@@ -47,6 +59,7 @@ Work through the drafted prose and identify issues in four categories:
 - **Weak verbs** -- Flag overuse of "was," "had," "seemed," "began to," "started to." Suggest stronger, more specific alternatives.
 - **Imprecise nouns** -- Flag vague nouns ("thing," "stuff," "area," "situation") where a concrete noun would sharpen the image.
 - **Register mismatches** -- Flag words that don't match the register established in STYLE-GUIDE.md (e.g., formal word in a conversational voice, slang in literary prose).
+- **Unsupported specificity** -- Flag any suggested replacement that would add facts, names, dates, sources, numbers, prices, examples, or claims not present in the draft or context. Do not make prose sound concrete by inventing support.
 
 #### Redundancy
 - **Repeated information** -- Flag where the same idea is stated twice in different words within a paragraph or across adjacent paragraphs.
@@ -60,7 +73,16 @@ Work through the drafted prose and identify issues in four categories:
 
 ---
 
-### STEP 3: GENERATE ANNOTATIONS
+### STEP 4: CHECK CONTENT AND ARTIFACTS
+
+- Verify that suggestions preserve all meaning in the original passage. Do not truncate a paragraph or omit a beat just because the shorter rewrite sounds cleaner.
+- Flag chatbot wrapper text, placeholder tokens, orphaned markdown fences, copied citation residue, and template blanks.
+- In docs, comments, and technical prose, flag diff-anchored wording that describes what changed instead of what is true now, except in release notes and changelogs.
+- Preserve academic, technical, sacred, legal, journalistic, quoted, and period registers when they are correct for the work type.
+
+---
+
+### STEP 5: GENERATE ANNOTATIONS
 
 For each issue found, present an inline annotation:
 
@@ -75,7 +97,7 @@ For each issue found, present an inline annotation:
 
 ---
 
-### STEP 4: PRIORITIZE
+### STEP 6: PRIORITIZE
 
 Group annotations by severity:
 

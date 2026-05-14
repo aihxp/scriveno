@@ -3,15 +3,18 @@
 Scriveno's drafter agent loads three layers of rule context, in this order, on every atomic unit:
 
 1. **STYLE-GUIDE.md** (always, sovereign): the writer's Voice DNA. The drafter's primary loyalty.
-2. **WRITING-RULES.md** (optional, universal): canonical AI-tell don'ts that apply to all writing.
+2. **WRITING-RULES.md** (optional, universal): human-first restraint, content integrity, register awareness, artifact cleanup, and canonical AI-tell don'ts that apply to all writing.
 3. **Pitfall pack** (optional, type-specific): traps unique to the project's `work_type`.
 
 Conflict resolution is top-down. STYLE-GUIDE.md beats WRITING-RULES.md beats the pitfall pack. The writer's voice is sovereign; the rule layers are scaffolding to keep weaker models from drifting into generic AI prose, not constraints to override the writer.
 
 ## WRITING-RULES.md
 
-Ships as `templates/WRITING-RULES.md` and lands in every new project's `.manuscript/` via `/scr:new-work` and `/scr:import`. One screen of universal AI-tell rules covering:
+Ships as `templates/WRITING-RULES.md` and lands in every new project's `.manuscript/` via `/scr:new-work` and `/scr:import`. The file is a universal restraint layer covering:
 
+- Human-first restraint: do not over-correct prose that already sounds like the writer
+- Factual integrity and content preservation
+- Register-aware restraint for academic, technical, legal, sacred, journalistic, quoted, and period material
 - Hedging and qualifiers
 - Throat-clearing and scaffolding
 - Balanced-both-sides constructions
@@ -22,10 +25,14 @@ Ships as `templates/WRITING-RULES.md` and lands in every new project's `.manuscr
 - Abstract vagueness
 - Emotional telling
 - AI tics in dialogue
+- Chat artifacts, placeholder tokens, copied citation residue, and orphaned fences
+- Durable-doc wording that describes what is true now
 - Show-don't-tell triggers
 - Punctuation defaults (no em/en dashes, no emojis)
 
-The drafter, voice-checker, and originality-check all reference this as the canonical AI-slop list. If a writer's STYLE-GUIDE.md says they hedge or moralize deliberately, that voice choice wins.
+The drafter, voice-checker, and originality-check all reference this as the canonical universal rulebook. If a writer's STYLE-GUIDE.md says they hedge, fragment, moralize, use period diction, or keep a formal register deliberately, that voice choice wins.
+
+The human-first additions are especially important for revision. They tell Scriveno to look for clusters before flagging AI-like prose, preserve mixed feelings and uneven rhythm, keep every required beat, and avoid making unsupported details more specific just because the sentence would sound smoother.
 
 ## Pitfall packs
 

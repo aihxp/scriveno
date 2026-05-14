@@ -222,7 +222,7 @@ Scriveno uses a **fresh-context-per-unit** architecture. Here's how it works:
 
 1. Each atomic unit (scene, passage, verse, beat) gets its own fresh drafter agent invocation
 2. The drafter loads STYLE-GUIDE.md first -- before anything else
-3. The drafter then loads two optional rule layers (see "Three rule layers" below) that scaffold weaker models against AI tells
+3. The drafter then loads two optional rule layers (see "Three rule layers" below) that scaffold weaker models against AI tells without overriding the writer's voice
 4. The drafter also receives the last 200 words of the previous unit for continuity
 5. The drafter writes the unit, checking every sentence against your voice profile
 6. After drafting, a voice-check pass flags any drift
@@ -236,10 +236,10 @@ This is the same principle behind recording each instrument separately in a stud
 Starting in `1.6.0`, Scriveno loads three rule layers in this order on every drafter invocation:
 
 1. **STYLE-GUIDE.md** (sovereign): your Voice DNA. Always loaded; nothing overrides it.
-2. **WRITING-RULES.md** (universal, optional): canonical AI-tell don'ts that apply to all writing. Hedging, throat-clearing, balanced-both-sides constructions, generic metaphors, symmetrical rhythm, moralizing closings, AI tics in dialogue. Loaded if the file is present in `.manuscript/` or the installed templates.
+2. **WRITING-RULES.md** (universal, optional): human-first restraint, factual integrity, register awareness, artifact cleanup, and canonical AI-tell don'ts. It tells the drafter to avoid hedging, throat-clearing, balanced-both-sides constructions, generic metaphors, symmetrical rhythm, moralizing closings, AI tics in dialogue, invented support, truncated beats, copied chat residue, and over-polishing human texture. Loaded if the file is present in `.manuscript/` or the installed templates.
 3. **Pitfall pack** (type-specific, optional): traps unique to your `work_type`. Filter words for prose, unfilmable description for screenplays, missing-precondition checks for runbooks, anachronism for sacred commentary, and so on. Loaded from `.manuscript/PITFALLS.md` if you've authored a project-local override, otherwise from the installed `templates/pitfalls/<work_type>.md`.
 
-Conflict resolution is top-down: STYLE-GUIDE.md beats WRITING-RULES.md beats the pitfall pack. If your voice in STYLE-GUIDE.md says you hedge or moralize deliberately, that voice wins. The new rule layers are scaffolding, not constraints.
+Conflict resolution is top-down: STYLE-GUIDE.md beats WRITING-RULES.md beats the pitfall pack. If your voice in STYLE-GUIDE.md says you hedge, fragment, moralize, use formal register, or keep period diction deliberately, that voice wins. The rule layers are scaffolding, not constraints.
 
 Three knobs in `.manuscript/config.json` tune the system:
 

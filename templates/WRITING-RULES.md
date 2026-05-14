@@ -14,6 +14,24 @@
 
 These patterns make prose sound generated. Avoid them unless STYLE-GUIDE.md explicitly calls for them.
 
+### Human-first restraint
+- Do not over-correct prose that already sounds like the writer.
+- Isolated signals are not enough. Look for clusters: generic vocabulary plus symmetrical rhythm plus vague claims plus formulaic transitions.
+- Preserve human markers: specific details, mixed feelings, fragments, self-corrections, uneven rhythm, and era-bound references.
+- If the passage has only one or two weak spots, fix those spots. Do not sand down the whole paragraph.
+
+### Factual integrity and content preservation
+- Do not invent facts, names, numbers, sources, quotes, dates, prices, examples, locations, or claims.
+- Specificity is good only when the source material provides it.
+- Cover every original beat the plan or draft requires. Do not truncate, skip paragraphs, compress away obligations, or replace concrete content with a prettier generalization.
+- If a detail is missing, leave the gap visible for the writer or planner rather than filling it with plausible material.
+
+### Register-aware restraint
+- Academic, technical, legal, sacred, journalistic, and quoted material should not be casualized just to sound "human."
+- Preserve required terms of art, citation language, doctrinal phrasing, legal precision, procedural commands, and period diction.
+- Change register only when STYLE-GUIDE.md or the plan asks for the shift.
+- When a sentence is correct for its register, leave it alone even if it would sound warmer in another context.
+
 ### Hedging and qualifiers
 - Avoid "perhaps", "maybe", "in a sense", "to some degree", "it could be argued", "one could say", "it bears mentioning", "it is worth noting", "it should be noted".
 - Avoid stacked qualifiers: "quite", "rather", "somewhat", "fairly", "relatively", "arguably", "potentially".
@@ -54,6 +72,12 @@ These patterns make prose sound generated. Avoid them unless STYLE-GUIDE.md expl
 - Name the factors. Name the reasons. Name the thing.
 - Specificity is voice. Vagueness is filler.
 
+### Chat artifacts and placeholder contamination
+- Remove chatbot wrapper text: "I hope this helps", "Would you like me to", "Here is the revised version", "As an AI".
+- Remove copied citation artifacts, UI references, orphaned markdown fences, access-date placeholders, and template blanks.
+- Do not leave `[INSERT]`, `[YEAR]`, `[COMPANY]`, `[TODO]`, `turn0search0`, `oai_citation`, or similar residue in writer-facing prose.
+- If the artifact hides missing information, flag the missing information instead of inventing it.
+
 ### Emotional telling
 - Do not write "she felt sad", "he was angry", "they were excited".
 - Show it through action, dialogue, body, or implication.
@@ -68,6 +92,11 @@ These patterns make prose sound generated. Avoid them unless STYLE-GUIDE.md expl
 - Default to "said". "Said" is invisible.
 - Action beats are stronger than creative tags. "He set down the cup." beats "he muttered darkly".
 - Attribute only when the speaker would be unclear. Two-character scenes need fewer tags than you think.
+
+### Diff-anchored explanation
+- In docs, comments, and technical prose, describe what is true now, not what changed from an older version.
+- Release notes and changelogs may describe changes. Durable documentation should stand on its own.
+- Prefer "Authentication uses encrypted cookies for session storage" over "We replaced the old session middleware with encrypted cookies."
 
 ## Show-don't-tell triggers
 

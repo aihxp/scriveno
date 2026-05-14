@@ -2,6 +2,27 @@
 
 All notable package-level changes to `scriveno-cli` are documented here.
 
+## 2.0.1 - 2026-05-14
+
+Patch release focused on adaptive command guidance and human-first Voice DNA scaffolding.
+
+**Adaptive command guidance**
+
+- Added `command_intents` to `CONSTRAINTS.json` so `/scr:help` and `/scr:next` can group commands by writer intent instead of presenting a flat catalog.
+- Updated `/scr:help` to infer the likely project state and show a compact front door: start commands for new projects, drafting commands before publish/translate, review commands after drafts, repair commands when state drift or validation issues appear, and collaboration or translation commands only when their project signals are present.
+- Updated `/scr:next` to act as an adaptive concierge: one recommended command, a short reason, and two or three useful alternatives instead of a broad command list.
+
+**Human-first writing safeguards**
+
+- Strengthened `WRITING-RULES.md` with human-first restraint, factual integrity, register-aware restraint, artifact cleanup, and durable-doc wording guidance.
+- Updated the drafter, voice-checker, line-edit, and copy-edit contracts so edits preserve the writer's voice, avoid invented support, preserve required beats, keep formal registers intact, and remove copied chat artifacts or placeholders.
+- Kept the hierarchy explicit: `STYLE-GUIDE.md` remains sovereign, `WRITING-RULES.md` is a restraint layer under Voice DNA, and pitfall packs remain type-specific refinements.
+
+**Release alignment**
+
+- Bumped package, constraints, generated config, README badge/status, and documentation references to `2.0.1`.
+- Added regression coverage for adaptive command intent routing and human-first writing principles.
+
 ## 2.0.0 - 2026-05-14
 
 Major release focused on creative-context intelligence and installed-runtime trust.

@@ -2,6 +2,39 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.0.1 - 2026-05-14
+
+### What changed
+
+- `/scr:help` and `/scr:next` now use intent groups from `CONSTRAINTS.json` so the writer sees the most likely next surface for the current project state, not a catalog dump.
+- `/scr:help` keeps new projects focused on start commands, fresh projects focused on drafting, drafted projects focused on review, complete drafts focused on publish/export, and drifted projects focused on repair.
+- `/scr:next` now recommends one command with a short reason, then offers a few useful alternatives.
+- `WRITING-RULES.md` gained human-first restraint, factual integrity, register-aware restraint, chat artifact cleanup, placeholder cleanup, and durable-doc wording guidance.
+- The drafter, voice-checker, line-edit, and copy-edit contracts now preserve writer quirks, avoid invented support, preserve all required beats, respect formal registers, and reject copied chatbot residue.
+- Package and shipped metadata are aligned on `2.0.1`.
+
+### Why it matters
+
+The `2.0.0` release made Scriveno's context layer broader and more reliable. `2.0.1` makes the front door and prose-quality layer calmer. Writers get fewer irrelevant options, and the quality rules now help without flattening the writer into generic polish.
+
+Voice DNA remains the top authority. The new safeguards live underneath it: they catch risky AI habits, but they do not overrule a deliberate writer style.
+
+### Affected areas
+
+- navigation commands (`/scr:help`, `/scr:next`)
+- command registry intent metadata (`data/CONSTRAINTS.json`)
+- Voice DNA support rules (`templates/WRITING-RULES.md`)
+- quality agents (`drafter`, `voice-checker`)
+- edit commands (`line-edit`, `copy-edit`)
+- package metadata, README status, release notes, and documentation
+- regression tests for adaptive routing and human-first writing principles
+
+### Verification
+
+- `npm test`
+- `npm run pack:check`
+- `git diff --check`
+
 ## 2.0.0 - 2026-05-14
 
 ### What changed

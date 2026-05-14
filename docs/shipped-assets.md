@@ -6,7 +6,7 @@ Scriveno's launch surface should point to what is actually bundled in this repo 
 
 These files ship in `templates/` and provide layered rule scaffolding loaded by the drafter, voice-checker, and originality-check after `STYLE-GUIDE.md`. See [docs/drafter-quality.md](drafter-quality.md) for the full system.
 
-- `templates/WRITING-RULES.md` (universal AI-tell rulebook, 5.5kB; loaded after `STYLE-GUIDE.md`)
+- `templates/WRITING-RULES.md` (universal human-first and AI-tell rulebook; loaded after `STYLE-GUIDE.md`)
 
 Per-work-type pitfall packs in `templates/pitfalls/`:
 
@@ -19,11 +19,11 @@ Per-work-type pitfall packs in `templates/pitfalls/`:
 - `pitfalls/comic.md` (visual: script-versus-art boundary, panel rhythm, caption voice)
 - `pitfalls/commentary.md` (sacred: register drift, anachronism, source-handling, doctrinal precision)
 
-Conflict resolution is top-down: `STYLE-GUIDE.md` beats `WRITING-RULES.md` beats the pitfall pack. The writer's voice is sovereign; the new rule layers are scaffolding.
+Conflict resolution is top-down: `STYLE-GUIDE.md` beats `WRITING-RULES.md` beats the pitfall pack. The writer's voice is sovereign; the rule layers are scaffolding for human-first restraint, factual integrity, register awareness, artifact cleanup, and type-specific polish.
 
 A contributor adding `templates/pitfalls/<work_type>.md` is automatically picked up by `lib/architectural-profiles.js#listPitfallPacks` with no edits to library code or `CONSTRAINTS.json`.
 
-## Context Integrity Assets Shipped Today (2.0.0)
+## Context Integrity Assets Shipped Since 2.0.0
 
 These files ship in `templates/` and `docs/` and provide the trust trio for session-aware AI work:
 

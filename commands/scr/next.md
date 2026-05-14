@@ -18,7 +18,16 @@ You are routing the writer to the right next step in their workflow. This comman
 
 5. **Read `.manuscript/config.json`** to get the work type and command_unit (chapter, act, section, surah, etc.).
 
-6. **Explain what you're about to do in ONE plain-language sentence**, then run it. Examples:
+6. **Load `command_intents` from CONSTRAINTS.json** if present. Use it to keep alternatives small and contextual:
+   - draft: discuss, plan, draft, quick-write, voice-test
+   - revise: editor-review, voice-check, continuity-check, line-edit, copy-edit
+   - publish: complete-draft, front-matter, back-matter, publish, export
+   - translate: translate, translation-glossary, back-translate, multi-publish
+   - collaborate: track, editor-review, compare
+   - repair: scan, health, validate, troubleshoot, undo
+   If the field is missing in an older install, continue with the routing logic below.
+
+7. **Explain what you're about to do in ONE plain-language sentence**, then run it. Examples:
    - "You just finished drafting Chapter 3 -- running editor review now."
    - "Chapter 4 has a plan but no draft yet -- drafting it."
    - "You haven't discussed the next chapter -- shaping Chapter 5."
@@ -43,6 +52,37 @@ Walk the core chain in order and run the first incomplete step:
 10. **Draft complete, no revisions** -> suggest revision, beta reader, or publishing path
 11. **Revisions pending** -> run the next revision step
 12. **Everything done** -> suggest publishing: "Your draft is complete. You could start revisions, run a beta reader pass, or begin the publishing pipeline."
+
+## Recommendation shape
+
+Act like an adaptive concierge, not a catalog. The writer should see one recommended action and a small set of real alternatives.
+
+For every route:
+
+1. State the recommended command in one sentence.
+2. State why that command is next in one sentence.
+3. Offer 2-3 alternatives from the matching intent or a closely related intent.
+
+Example:
+
+```markdown
+Chapter 4 has a plan but no draft yet, so `/scr:draft 4` is the next best move.
+It uses the existing plan and current voice profile instead of opening a new planning loop.
+
+Next commands:
+- `/scr:draft 4`: Draft the planned chapter now.
+- `/scr:discuss 4`: Reopen the chapter shape before drafting.
+- `/scr:voice-check 3`: Check the previous chapter before moving on.
+```
+
+Use progressive surfacing rules:
+- No project -> recommend `/scr:new-work`; alternatives may include `/scr:demo`, `/scr:import`, and `/scr:profile-writer`.
+- No drafted work -> keep publish and translate out of the primary choices.
+- Drafted work but no review -> recommend revise commands before publish commands.
+- Complete draft -> surface revision, beta-reader, publish, and export paths.
+- Failed command, state mismatch, or missing required context -> surface repair commands first.
+- Translation config or existing translation work -> surface translation commands, but still offer review/export alternatives when relevant.
+- Revision-track metadata or collaboration request -> surface `/scr:track` and keep save-history commands separate.
 
 ## Edge cases
 

@@ -298,15 +298,15 @@ This is the core architectural pattern that makes Scriveno work. Every agent inv
 For each atomic unit (scene, subsection, passage, stanza), the drafter agent gets, loaded in this exact order so the prompt cache stays warm across invocations:
 
 1. **STYLE-GUIDE.md** -- Always first, sovereign. The voice DNA profile with 15+ dimensions: POV, tense, sentence architecture, vocabulary register, figurative density, dialogue style, pacing, and always/never/consider rules.
-2. **WRITING-RULES.md** (optional, 1.6.0+) -- Universal AI-tell rulebook. The canonical list of don'ts (hedging, throat-clearing, balanced-both-sides, generic metaphors, symmetrical rhythm, moralizing closings, AI tics in dialogue, show-don't-tell triggers). Loaded if present; falls back to inline rules in `agents/drafter.md` when absent.
+2. **WRITING-RULES.md** (optional, 1.6.0+) -- Universal human-first and AI-tell rulebook. The canonical list covers human-first restraint, factual integrity, register awareness, artifact cleanup, hedging, throat-clearing, balanced-both-sides constructions, generic metaphors, symmetrical rhythm, moralizing closings, AI tics in dialogue, and show-don't-tell triggers. Loaded if present; falls back to inline rules in `agents/drafter.md` when absent.
 3. **Pitfall pack** (optional, 1.6.0+) -- Type-specific traps from `templates/pitfalls/<work_type>.md` (or `.manuscript/PITFALLS.md` for project-local overrides). Refines WRITING-RULES.md with traps unique to the work type: filter words for prose, unfilmable description for screenplays, missing-precondition checks for runbooks, anachronism for sacred commentary.
 4. **.manuscript/plans/{N}-{A}-PLAN.md** -- The specific plan for this unit: what happens, emotional arc, beats to hit, voice notes, continuity anchors. Legacy root-level plans are accepted only as older project input.
-5. **CHARACTERS.md excerpt** -- Only characters relevant to this unit, with their voice anchors and speech patterns.
+5. **CHARACTERS.md or FIGURES.md** -- Full file by default, with voice anchors, speech patterns, persona notes, relationship-specific interactions, and current state. Filtering to relevant entries is opt-in through `draft.context_profile: minimal`.
 6. **Previous unit tail** -- The last 200 words of the preceding unit, for rhythm and tone continuity.
 7. **THEMES.md excerpt** -- Only the thematic threads this unit should advance.
 8. **WORK.md excerpt** -- Premise, tone, central question (for orientation, not copying).
 
-Conflict resolution is top-down: STYLE-GUIDE.md beats WRITING-RULES.md beats the pitfall pack. The writer's voice stays sovereign; the new rule layers are scaffolding intended to keep weaker models from drifting into generic AI prose. The `draft` block in `.manuscript/config.json` (`rigor`, `context_profile`, `pitfalls_enabled`) tunes the system. See [Drafter Quality](drafter-quality.md) for the full reference.
+Conflict resolution is top-down: STYLE-GUIDE.md beats WRITING-RULES.md beats the pitfall pack. The writer's voice stays sovereign; the rule layers are scaffolding intended to keep weaker models from drifting into generic AI prose while preserving factual integrity, register, and human texture. The `draft` block in `.manuscript/config.json` (`rigor`, `context_profile`, `pitfalls_enabled`) tunes the system. See [Drafter Quality](drafter-quality.md) for the full reference.
 
 ### What the drafter does NOT receive
 
