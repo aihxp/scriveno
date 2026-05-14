@@ -1,7 +1,10 @@
 # Scriveno
 
-[![npm version](https://img.shields.io/npm/v/scriveno-cli)](https://www.npmjs.com/package/scriveno-cli)
-[![npm downloads](https://img.shields.io/npm/dm/scriveno-cli)](https://www.npmjs.com/package/scriveno-cli)
+[![CI](https://github.com/aihxp/scriveno/actions/workflows/ci.yml/badge.svg)](https://github.com/aihxp/scriveno/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-2.0.0-blue)](CHANGELOG.md)
+[![npm](https://img.shields.io/npm/v/scriveno-cli.svg)](https://www.npmjs.com/package/scriveno-cli)
+[![Downloads](https://img.shields.io/npm/dm/scriveno-cli.svg)](https://www.npmjs.com/package/scriveno-cli)
 
 **[scriveno-cli on npm](https://www.npmjs.com/package/scriveno-cli)**
 
