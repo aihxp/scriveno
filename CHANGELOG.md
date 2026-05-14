@@ -2,6 +2,34 @@
 
 All notable package-level changes to `scriven-cli` are documented here.
 
+## 2.0.0 - 2026-05-14
+
+Major release focused on creative-context intelligence and installed-runtime trust.
+
+**Creative context**
+
+- Added `RECORD.md`, a neutral established-content store for what the work has put on page: open threads, reader promises, payoffs, continuity facts, movement, and next-unit obligations.
+- Wired Record Notes through `/scr:discuss`, `/scr:plan`, `/scr:draft`, `/scr:editor-review`, `/scr:next`, `/scr:progress`, `/scr:continuity-check`, `/scr:scan`, `/scr:save`, the drafter agent, and the plan-checker agent.
+- Added non-character subject tracking so nonfiction, poetry, sacred commentary, technical work, and other non-character forms can track concepts, procedures, doctrines, objects, images, and reader-state movement without forcing a character model.
+- Expanded character work with relationship and interaction paths while still letting character projects reuse the non-character subject approach when that is the better fit.
+
+**Workflow guidance**
+
+- Added the branching next-command response contract across the command surface: every writer-facing response now ends with one to four practical next paths, each with a short explanation.
+- Updated `/scr:next` to support non-linear suggestions instead of forcing one linear path when several useful next moves exist.
+- Updated progress and scan surfaces to show record threads and context drift more clearly.
+
+**Runtime sync**
+
+- Added `/scr:sync` to compare and refresh installed Scriven runtime commands, Codex skills, command mirrors, and agent prompts from the current source tree.
+- Kept `/scr:sync` distinct from future package upgrades: sync repairs local runtime drift; update remains reserved for fetching a newer released package.
+
+**Release alignment**
+
+- Bumped package, constraints, generated config, and documentation references to `2.0.0`.
+- Updated docs for the 112-command surface, `RECORD.md`, creative context, runtime sync, and release-facing behavior.
+- Added regression coverage for the record store, creative-context pilot, sync command, and updated command-surface contracts.
+
 ## 1.7.1 - 2026-05-11
 
 This release packages the audit-hardening pass on top of `1.7.0`.

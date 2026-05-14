@@ -112,6 +112,14 @@ Start the installer locally:
 npm start
 ```
 
+Refresh installed runtime surfaces from this checkout after changing commands, agents, or installer-generated skills:
+
+```bash
+node bin/install.js --runtime codex --global --developer --silent
+```
+
+The writer-facing form of this maintenance operation is `/scr:sync`.
+
 ## Docs and release workflow
 
 Docs are part of the shipped product. If you change visible behavior, update every affected documentation surface in the same pass: root docs, files under `docs/`, proof READMEs, template READMEs, and command markdown that exposes user-facing contracts.

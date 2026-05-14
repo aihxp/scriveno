@@ -1,3 +1,9 @@
+---
+creative_pillar: structure
+always_load_for: [discuss, plan, next]
+authority: project
+---
+
 # Outline
 
 ## High-level structure

@@ -11,6 +11,8 @@ You are setting up a new Scriven project. Load Scriven's installed/shared `CONST
 
 Progressive disclosure. Ask 3 questions max before starting. Don't interrogate the writer -- this is a conversation, not a survey. If they want depth, they'll say so. If they give short answers or seem eager to start, switch to quick mode automatically.
 
+Scriven tracks what moves in the work. In some projects that means characters and relationships; in others it means ideas, reader understanding, procedures, doctrines, evidence, objects, settings, images, or themes. Do not force a character model onto work that does not need one.
+
 ## The 3 questions
 
 1. **What are you writing?** -- Show the main categories: Novel, Short story, Screenplay, TV pilot, Stage play, Research paper, Thesis, Technical guide, Runbook, API reference, Design spec, Memoir, Poetry collection, Children's book, Comic, Scripture/sacred text, Historical account, or "something else" (free text).
@@ -39,6 +41,7 @@ Create the following structure. Use the `file_adaptations` section of CONSTRAINT
 ├── WORK.md              (always)
 ├── BRIEF.md             (-> PROPOSAL.md for academic, -> DOC-BRIEF.md for technical, -> FRAMEWORK.md for sacred)
 ├── OUTLINE.md           (always)
+├── RECORD.md            (always -- tracks what the work has established)
 ├── STATE.md             (always -- tracks workflow position)
 ├── STYLE-GUIDE.md       (always)
 ├── WRITING-RULES.md     (always; copy verbatim from templates/WRITING-RULES.md; universal AI-tell rules loaded by drafter, voice-checker, originality-check)
@@ -57,14 +60,16 @@ Create the following structure. Use the `file_adaptations` section of CONSTRAINT
 ```
 
 For sacred work types, also create: `CONCORDANCE.md`, `CHRONOLOGY.md`, `SOURCES.md`, `annotations/`.
+For academic work types, load the matching files from `templates/academic/` and treat them as the first-pass argument contract for concepts, research questions, academic context, proposal framing, and argument movement.
 For technical work types, load the matching files from `templates/technical/` and treat them as the first-pass document contract for audience, environment, procedures, and references.
+Always create `RECORD.md` from `templates/RECORD.md` without renaming it. It is deliberately neutral across prose, sacred, academic, technical, poetry, script, and visual work. It records what the work has established, while `STATE.md` records workflow position and `OUTLINE.md` records structure.
 
 ## Config file
 
 Write `.manuscript/config.json` by starting from `templates/config.json` and filling the project-specific values. The generated config must include the shared settings blocks that later commands read:
 ```json
 {
-  "scriven_version": "1.7.1",
+  "scriven_version": "2.0.0",
   "work_type": "<chosen>",
   "group": "<group>",
   "command_unit": "<unit>",
@@ -118,3 +123,26 @@ Tell the writer:
 3. That they can always run `/scr:next` if unsure
 
 Keep it warm. This is the moment they decide whether to commit to the project. Make them feel like they've started something real.
+
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.

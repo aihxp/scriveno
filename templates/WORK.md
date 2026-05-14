@@ -1,3 +1,9 @@
+---
+creative_pillar: work
+always_load_for: [discuss, plan, next]
+authority: project
+---
+
 # {{WORK_TITLE}}
 
 ## Premise

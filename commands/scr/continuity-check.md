@@ -20,6 +20,7 @@ Load `.manuscript/config.json` to get `work_type`. Load Scriven's installed/shar
 Invoke the installed `continuity-checker.md` agent for the writer's active Scriven runtime (for example the runtime's global or project-scoped `agents/continuity-checker.md`) in a fresh context. Pass it:
 
 - The full set of drafted units (`.manuscript/drafts/body/{N}-{A}-DRAFT.md` files in scope -- all units, or only Act `N` and prior acts when scoped)
+- RECORD.md when present, as the compact store of established facts, open threads, promises, payoffs, and continuity obligations
 - CHARACTERS.md (or FIGURES.md for sacred works)
 - WORLD.md (or COSMOLOGY.md for sacred works)
 - PLOT-GRAPH.md (or THEOLOGICAL-ARC.md for sacred works)
@@ -27,6 +28,8 @@ Invoke the installed `continuity-checker.md` agent for the writer's active Scriv
 - The previous continuity report if one exists, so the agent can verify resolved issues stayed resolved instead of re-flagging them
 
 The agent reads all drafted scenes and checks:
+
+If RECORD.md contradicts the drafted text, flag the mismatch as a RECORD drift finding. If the drafted text reveals established facts or open threads that are missing from RECORD.md, list compact suggested updates under a "Record updates" section without rewriting the file unless the writer asked for fixes.
 
 <continuity_checks>
   <check name="character_consistency">
@@ -101,3 +104,26 @@ For each issue:
 - Suggested fix
 
 Save to `.manuscript/{act_num}-CONTINUITY-REPORT.md` or `.manuscript/FULL-CONTINUITY-REPORT.md`. For technical work types, use `CONSISTENCY-REPORT` in the writer-facing title even if the file path stays the same.
+
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.

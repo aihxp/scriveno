@@ -46,6 +46,8 @@ Determine adapted terminology:
   Read the character's existing profile, focusing on:
   - Voice anchor attributes (speech patterns, vocabulary register, sentence length, verbal tics, internal monologue style)
   - Speech patterns section (register, tics, vocabulary, sentence length, avoidances)
+  - Persona under pressure (how fear, anger, lying, or vulnerability change the voice)
+  - Relationship-specific interactions (the character may sound different depending on who they are speaking to)
   - Psychology (want, need, lie -- these shape HOW they speak)
   - Key relationships (they may speak differently to different people)
 
@@ -84,3 +86,26 @@ Determine adapted terminology:
 - **Character not found:** Show partial matches or direct to cast-list
 - **STYLE-GUIDE.md missing:** Warn that voice consistency cannot be verified without the style guide
 - **Sacred work type:** Use "register sample" terminology; voice attributes map to sacred registers (prophetic, wisdom, legal, etc.)
+
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.

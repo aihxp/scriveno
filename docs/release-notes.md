@@ -2,6 +2,40 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.0.0 - 2026-05-14
+
+### What changed
+
+- Added `RECORD.md`, a neutral store for what the work has established on page. It tracks open threads, reader promises, payoffs, continuity facts, movement, and next-unit obligations.
+- Wired Record Notes through the core loop: discuss, plan, draft, editor review, next, progress, continuity, scan, save, drafter, and plan-checker.
+- Added non-character subject tracking so Scriven can serve essays, poetry, sacred commentary, technical guides, and other works where characters are not the right organizing model.
+- Expanded character workflows with relationship and interaction paths, while letting character-driven works reuse the subject-tracking approach when useful.
+- Added branching next-command suggestions across commands, with one to four practical next paths and a short explanation for each.
+- Added `/scr:sync`, a local runtime-surface sync command that refreshes installed commands, Codex skills, command mirrors, and agent prompts from the current source tree.
+- Bumped the package and shipped metadata to `2.0.0` and updated the documentation for the 112-command surface.
+
+### Why it matters
+
+`2.0.0` is the point where Scriven's context model becomes broader than character continuity. Fiction still gets character and relationship intelligence, but nonfiction, technical writing, sacred commentary, poetry, and other forms now have an equally native way to track what the work has established.
+
+The runtime sync command closes a separate trust gap: when command source changes, installed Codex or Claude surfaces can drift. `/scr:sync` gives contributors and power users a direct way to bring those installed surfaces back in line without treating it as a package update.
+
+### Affected areas
+
+- project templates (`RECORD.md`, config version)
+- core commands (`new-work`, `import`, `discuss`, `plan`, `draft`, `editor-review`, `next`, `progress`, `scan`, `continuity-check`, `save`)
+- character and subject commands
+- agents (`drafter`, `plan-checker`)
+- installed runtime maintenance (`/scr:sync`)
+- docs, command reference, shipped assets, and release metadata
+- regression tests and repository policy checks
+
+### Verification
+
+- `npm test`
+- `npm run pack:check`
+- `git diff --check`
+
 ## 1.7.1 - 2026-05-11
 
 ### What changed
@@ -44,7 +78,7 @@ Two real defects fixed and three new systems shipped.
 
 **Context-integrity layer.** Three coordinated additions defend against context rot when a fresh AI session opens, when the writer hand-edits files outside Scriven, or when a command is interrupted mid-run.
 
-- `/scr:scan` -- 10 checks against STATE.md, OUTLINE.md, drafts, STYLE-GUIDE.md mtime vs. last drafter run, scaffold elements still pending, stale exports, sacred config vs. shipped templates, CHARACTERS.md orphans. `--fix` mode for auto-correctable findings.
+- `/scr:scan` -- 11 checks against STATE.md, OUTLINE.md, RECORD.md, drafts, STYLE-GUIDE.md mtime vs. last drafter run, scaffold elements still pending, stale exports, sacred config vs. shipped templates, CHARACTERS.md orphans. `--fix` mode for auto-correctable findings.
 - `.manuscript/CONTEXT.md` -- one-page bootstrap auto-regenerated on save / pause / resume. Read first by `/scr:next` and `/scr:resume-work`.
 - `.manuscript/HISTORY.log` -- append-only audit trail (pipe-delimited, UTC ISO timestamps, committed to git). Wired into 10 state-mutating commands.
 

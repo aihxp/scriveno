@@ -23,15 +23,20 @@ Conflict resolution is top-down: `STYLE-GUIDE.md` beats `WRITING-RULES.md` beats
 
 A contributor adding `templates/pitfalls/<work_type>.md` is automatically picked up by `lib/architectural-profiles.js#listPitfallPacks` with no edits to library code or `CONSTRAINTS.json`.
 
-## Context Integrity Assets Shipped Today (1.7.0)
+## Context Integrity Assets Shipped Today (2.0.0)
 
 These files ship in `templates/` and `docs/` and provide the trust trio for session-aware AI work:
 
 - `templates/CONTEXT.md` -- one-page session bootstrap scaffold copied into every project. Auto-regenerated on `/scr:save`, `/scr:pause-work`, `/scr:resume-work`. Read first by `/scr:next` and `/scr:resume-work` for orientation, with stale-detection + STATE.md fallback.
+- `templates/RECORD.md` -- compact established-content store copied into every project. It tracks what the work has established, including open threads, promises, payoffs, continuity facts, movement, and next-unit obligations. It is deliberately neutral so sacred, academic, technical, poetry, script, visual, and prose projects can all use the same filename.
 - `docs/context-protocol.md` -- canonical contract for the CONTEXT.md preference rule. The 12 high-impact commands that opt into the protocol reference this doc.
 - `docs/history-protocol.md` -- canonical line-format spec for `.manuscript/HISTORY.log`, the append-only audit trail. Pipe-delimited, UTC ISO timestamps, committed to git.
 
-`STATE.md` (data) + `CONTEXT.md` (narrative bootstrap) + `HISTORY.log` (audit trail) together form the integrity layer. `/scr:scan` is the trust check that interrogates whether the recorded state still matches disk.
+`STATE.md` (workflow data) + `RECORD.md` (established content) + `CONTEXT.md` (narrative bootstrap) + `HISTORY.log` (audit trail) together form the integrity layer. `/scr:scan` is the trust check that interrogates whether the recorded state still matches disk.
+
+## Runtime Sync Asset Shipped Today
+
+- `commands/scr/sync.md` -- local runtime-surface synchronization command. It compares and refreshes installed Scriven commands, Codex skills, command mirrors, and agent prompts from the current source tree by delegating to `bin/install.js`.
 
 ## Export Templates Shipped Today
 

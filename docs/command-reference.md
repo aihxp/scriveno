@@ -1,6 +1,6 @@
 # Command Reference
 
-Scriven has **110 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
+Scriven has **112 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
 
 Commands marked with **adaptive terminology** change how Scriven talks about your work type's `command_unit` in `.manuscript/config.json`, while keeping the runnable command id stable. Commands marked with **group adaptation** have different labels for specific work type groups (academic, sacred, etc.).
 
@@ -577,6 +577,29 @@ See events in chronological order, even if your narrative is non-linear.
 /scr:theme-tracker
 ```
 See where your themes appear across chapters and which ones need more development.
+
+---
+
+### `/scr:subject-touch`
+
+**Description:** Update an evolving subject, concept, procedure, doctrine, object, image, or reader-state thread after a unit lands.
+
+**Usage:** `/scr:subject-touch <subject> [--from <unit>]`
+
+**Prerequisites:** Adapted subject file must exist, drafted prose must exist
+
+**Available for:** All work types
+
+**Group adaptation:**
+- Academic label: `concept-touch`
+- Technical label: `procedure-touch`
+- Sacred label: `doctrine-touch`
+
+**Example:**
+```
+/scr:subject-touch "forged letter" --from 4
+```
+Update how the forged letter is tracked after Chapter 4 changes its meaning from evidence to burden.
 
 ---
 
@@ -1923,6 +1946,32 @@ Check for missing files, broken references, and state inconsistencies, then fix 
 /scr:scan --fix    # report + offer to fix the auto-fixable mismatches
 ```
 Complements `/scr:health` (structural fixer) by interrogating whether the *recorded* project state still matches reality. Run at session start, before publish, and after manually editing files outside Scriven.
+
+---
+
+### `/scr:sync`
+
+**Description:** Synchronize installed Scriven runtime commands, skills, and agents with the current source tree.
+
+**Usage:** `/scr:sync [--check] [--apply] [--runtime <key>] [--detected] [--global|--project] [--writer|--developer]`
+
+**Prerequisites:** Node.js >=20.0.0 and a Scriven package or repo checkout with `bin/install.js`
+
+**Flags:**
+- `--check` -- Report stale installed runtime files without writing changes
+- `--apply` -- Re-run the installer for stale or selected runtimes
+- `--runtime <key>` -- Sync one runtime such as `codex` or `claude-code`
+- `--detected` -- Sync every runtime the installer detects
+- `--global` / `--project` -- Choose the installed runtime scope
+- `--writer` / `--developer` -- Choose the installed output mode
+
+**Available for:** All work types
+
+**Example:**
+```
+/scr:sync --apply --runtime codex --global --developer
+```
+Refresh Codex `$scr-*` skills, command mirrors, and agent prompts from the current Scriven source tree.
 
 ---
 

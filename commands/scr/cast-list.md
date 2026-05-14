@@ -79,3 +79,26 @@ Determine adapted terminology:
 - **Characters with incomplete profiles:** Include in roster but mark with indicator (e.g., "[incomplete]")
 - **Sacred work type:** Use "figures" terminology, group by role adapted to sacred context (prophet, disciple, angel, etc.)
 - **Academic work type:** Use "concepts" terminology, group by function (thesis, antithesis, supporting argument, counterpoint)
+
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.

@@ -168,6 +168,7 @@ scriven/
     config.json            Per-project configuration template
     WORK.md                Work overview template
     OUTLINE.md             Structural outline template
+    RECORD.md              Established content store template
     CHARACTERS.md          Character profiles template
     STYLE-GUIDE.md         Voice DNA template
     WRITING-RULES.md       Universal AI-tell rulebook (1.6.0+)
@@ -216,7 +217,13 @@ scriven/
   .manuscript/             Per-project working directory (created by commands)
 ```
 
-The `.manuscript/` directory is created when a writer runs `/scr:new-work`. It contains their project's context files (STYLE-GUIDE.md, OUTLINE.md, CHARACTERS.md, etc.), plans, drafts, and state. It is not shipped with Scriven -- it is generated per project.
+The `.manuscript/` directory is created when a writer runs `/scr:new-work`. It contains their project's context files (STYLE-GUIDE.md, OUTLINE.md, RECORD.md, CHARACTERS.md, etc.), plans, drafts, and state. It is not shipped with Scriven -- it is generated per project.
+
+## Creative Context
+
+Scriven context files can include optional Creative Context metadata that helps commands route project memory without changing the historical file contract. See [Creative Context](creative-context.md) for the full pilot protocol.
+
+The important rule is unchanged: `STYLE-GUIDE.md` is sovereign and loads first for any prose-producing task. Other metadata is advisory. Existing projects without frontmatter still work through the established filenames.
 
 ## Agent Orchestration
 
@@ -403,7 +410,7 @@ Scriven's `package.json` has no runtime dependencies. The installer is pure Node
 
 ### Plan is canonical
 
-The product plan is the source of truth. If a command file contradicts the plan, the command file is wrong. This ensures consistency across 110 commands and prevents drift as multiple contributors work on the system.
+The product plan is the source of truth. If a command file contradicts the plan, the command file is wrong. This ensures consistency across 112 commands and prevents drift as multiple contributors work on the system.
 
 ### Backward compatibility
 

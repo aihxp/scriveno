@@ -32,6 +32,13 @@
 - **Address style:** {{ADDRESS}} (direct, mediated, third-person)
 - **Authority source:** {{AUTHORITY}} (divine commission, inherited, scholarly)
 
+### Persona under pressure
+- **When afraid:** {{AFRAID_BEHAVIOR}}
+- **When angry:** {{ANGER_BEHAVIOR}}
+- **When withholding truth:** {{LYING_BEHAVIOR}}
+- **When vulnerable:** {{VULNERABLE_BEHAVIOR}}
+- **Physical tells:** {{PHYSICAL_TELLS}}
+
 ### Arc across the text
 - **Introduction:** {{INTRODUCTION}}
 - **Key moments:** {{KEY_MOMENTS}}
@@ -41,6 +48,15 @@
 ### Relationships
 {{RELATIONSHIPS_SUMMARY}}
 *(Cross-reference LINEAGES.md for genealogical and covenantal connections.)*
+
+### Relationship-specific interactions
+For each important relationship, note how this figure changes with that person.
+
+- **With {{OTHER_FIGURE}}:** {{INTERACTION_DYNAMIC}}
+  - **Trust posture:** {{TRUST_POSTURE}}
+  - **Conflict pattern:** {{CONFLICT_PATTERN}}
+  - **Speech shift:** {{SPEECH_SHIFT}}
+  - **Hidden agenda, fear, or theological tension:** {{HIDDEN_AGENDA}}
 
 ### Source traditions
 {{SOURCES}}

@@ -1,3 +1,9 @@
+---
+creative_pillar: voice
+always_load_for: [draft, voice-check, plan, editor-review, translate]
+authority: sovereign
+---
+
 # Style guide -- Voice DNA
 
 *This file is loaded into every drafter agent invocation. It is the single most important file in the project -- the difference between prose that sounds like the writer and prose that sounds like generic AI.*

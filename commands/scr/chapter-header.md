@@ -133,3 +133,26 @@ After saving, suggest:
 - **Sacred work type:** Adapt ornament suggestions to tradition-appropriate motifs (Islamic: geometric/arabesque, no figurative imagery; Christian: crosses, vine/branch motifs, illuminated manuscript style; Jewish: Star of David, menorah, olive branches; Buddhist: lotus, dharma wheel; generic sacred: sacred geometry, light motifs)
 - **--style custom:** Ask the writer to describe their desired ornament style, then build the prompt around their description
 - **ART-DIRECTION.md exists:** Style and color sections MUST reference it; override genre defaults with art direction established choices
+
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.

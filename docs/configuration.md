@@ -57,7 +57,7 @@ When a writer runs `/scr:new-work`, Scriven creates `.manuscript/config.json`. T
 
 ```json
 {
-  "scriven_version": "1.7.1",
+  "scriven_version": "2.0.0",
   "work_type": "<chosen>",
   "group": "<group>",
   "command_unit": "<unit>",
@@ -174,6 +174,8 @@ The broader product behavior is described in [Getting Started](getting-started.m
 - 1 guided local-MCP target for Perplexity Desktop
 
 The installer also decides whether the install is global or project-local and writes files into the matching runtime-specific directories. The target matrix and support framing live in [Runtime Support](runtime-support.md).
+
+Use `/scr:sync` when the source tree has changed and an installed runtime surface needs to be refreshed from that local source. Sync is intentionally narrower than update: it re-runs the installer for selected or detected runtimes and does not fetch a newer package release.
 
 ## Export prerequisites
 

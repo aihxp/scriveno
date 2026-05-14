@@ -113,6 +113,29 @@ Keep observations factual and brief -- the writer decides what to do with them.
 - **Parallel timelines:** If the outline contains multiple concurrent threads (e.g., alternating POV chapters happening at the same time), group them under the same time point.
 - **Flashbacks/flash-forwards:** Mark with indicators and show where they fall in both story and chronological order.
 
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.
+
 ## Tone
 
 Clear and factual. Present the timeline as reference material, not as critique. The writer uses this to spot gaps and pacing issues on their own.

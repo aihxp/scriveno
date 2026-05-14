@@ -1,0 +1,133 @@
+# Creative Context
+
+Creative Context is Scriven's writer-native context routing protocol. It gives commands a light way to know which project files matter for a task without turning a manuscript into a process artifact.
+
+The protocol is a pilot for the core writing loop:
+
+`discuss -> plan -> draft -> editor-review -> next`
+
+It is additive. Existing projects without metadata continue to work because every command still recognizes the historical `.manuscript/*.md` files.
+
+## Purpose
+
+Creative Context solves three problems:
+
+- **Memory:** choices made in conversation should travel into plans, drafts, and reviews.
+- **Trust:** commands should load the right creative truth instead of re-reading everything or guessing.
+- **Continuity:** open questions and watchpoints should remain visible without blocking creative momentum.
+
+## Principles
+
+1. `STYLE-GUIDE.md` is sovereign. It always loads first for drafting, voice checks, translation, and any task that can affect prose voice.
+2. Metadata routes context. It does not replace the existing files.
+3. Creative uncertainty is allowed. A `QUESTION` can block, but it can also travel forward as a `WATCHPOINT`.
+4. Writer-facing language stays writer-native. Commands should say voice, continuity, readiness, question, and watchpoint, not compliance or tier.
+5. Drafted prose never receives craft labels. Labels belong in context, plans, and reviews.
+
+## Pillar Map
+
+| Creative pillar | Existing source files | Role |
+|---|---|---|
+| `voice` | `STYLE-GUIDE.md` | Authorial voice, register, sentence music, hard do and do-not rules |
+| `work` | `WORK.md`, `BRIEF.md` | Project identity, premise, audience, reader promise |
+| `structure` | `OUTLINE.md`, `PLOT-GRAPH.md` | Unit order, arc shape, pacing, setup and payoff |
+| `record` | `RECORD.md` | Established content, open threads, promises, payoffs, continuity facts, movement, and next-unit obligations |
+| `cast` | `CHARACTERS.md`, `FIGURES.md` | Character state, voice anchors, relationships, figure continuity |
+| `world` | `WORLD.md`, `COSMOLOGY.md`, `SYSTEM.md` | Setting, constraints, environment, cosmology, operating rules |
+| `themes` | `THEMES.md`, `DOCTRINES.md`, `QUESTIONS.md` | Motifs, doctrine, argument, inquiry, recurring meaning |
+| `continuity` | `STATE.md`, `CONTEXT.md`, `HISTORY.log` | Current position, recent activity, open items, disk truth |
+| `publication` | front matter, back matter, build files | Export and publishing intent |
+| `translation` | glossary, translation memory, language config | Term consistency and cultural adaptation |
+| `art` | cover, illustration, storyboard assets | Visual continuity and image direction |
+
+The v2.1 pilot only changes the core writing loop. Publication, translation, art, and sacred expansion can adopt the same protocol later.
+
+## Template Metadata
+
+Templates may include optional frontmatter:
+
+```yaml
+---
+creative_pillar: voice
+always_load_for: [draft, voice-check, plan, editor-review, translate]
+authority: sovereign
+---
+```
+
+Commands should treat this metadata as routing help. If the metadata is absent, fall back to the file's established role.
+
+## Craft Notes
+
+Discuss, plan, and review artifacts can carry four labels:
+
+| Label | Meaning | Blocks drafting? |
+|---|---|---|
+| `CHOICE` | Confirmed creative decision | No |
+| `HUNCH` | Creative bet to test in drafting | No |
+| `QUESTION` | Unresolved issue for writer or editor | Only when marked blocking |
+| `WATCHPOINT` | Thing to preserve, test, or re-check later | No |
+
+Use labels in context files, plan files, and review reports. Do not insert them into manuscript prose.
+
+Recommended section:
+
+```markdown
+## Craft Notes
+
+- CHOICE: Keep the chapter close third from Mara's point of view.
+- HUNCH: Let the room feel colder after the argument without explaining why.
+- QUESTION: Blocking: does Elias know about the forged letter yet?
+- WATCHPOINT: Preserve Mara's clipped dialogue when she is afraid.
+```
+
+## Command Behavior
+
+### discuss
+
+Capture the writer's confirmed choices, creative hunches, open questions, and watchpoints in `.manuscript/{N}-CONTEXT.md`.
+
+When the conversation touches established content, also capture `## Record Notes`: what RECORD.md says this unit must honor, what thread or promise the unit may handle, and what the draft or review should add to RECORD.md after the unit lands.
+
+### plan
+
+Load craft notes from `{N}-CONTEXT.md`. Convert confirmed choices into plan constraints, hunches into draftable tests, questions into blocking or non-blocking items, and watchpoints into plan checks.
+
+Load RECORD.md as the compact established-content store. Plans should include `## Record Notes` when the unit touches established facts, open threads, reader promises, payoffs, continuity facts, or next-unit obligations.
+
+### draft
+
+Pass craft notes through the plan file to the drafter. The drafter follows `CHOICE`, dramatizes `HUNCH` where useful, respects `WATCHPOINT`, and makes the safest call on non-blocking `QUESTION` items. Blocking questions must be resolved before drafting.
+
+Pass Record Notes and RECORD.md to the drafter when present. After drafting, update RECORD.md with compact reader-visible changes: established facts, open threads, promises, payoffs, continuity facts, movement, and next-unit obligations. Do not turn every beat into a record entry.
+
+Character persona notes are part of the same loop. Plans can include `## Character Persona Notes` for pressure behavior, relationship-specific interactions, dialogue constraints, and pairwise trust or conflict patterns. The drafter turns those notes into behavior on the page, never exposition.
+
+Subject dynamics can layer onto any work type. Plans can include `## Subject Dynamics Notes` for the active idea, subject, process, place, object, doctrine, claim, evidence set, procedure, reader problem, or thematic pressure. These notes track the reader's starting state, the desired shift, the pressure or friction around the subject, and the interaction between ideas, evidence, steps, exceptions, images, objects, settings, or themes. The drafter turns those notes into movement on the page, never into visible craft labels.
+
+For character-based work, use both sections when both layers matter. `## Character Persona Notes` answers how people behave under pressure. `## Subject Dynamics Notes` answers how meaning, theme, object significance, setting pressure, doctrine, argument, or reader understanding moves through the unit. If the two sections conflict, the plan should resolve the conflict before drafting rather than asking the drafter to guess.
+
+When a draft changes subject movement after the plan has already landed, `/scr:subject-touch` updates the relevant living subject file, such as THEMES.md, QUESTIONS.md, REFERENCES.md, DOCTRINES.md, PROCEDURES.md, ARGUMENT-MAP.md, or an adapted context file.
+
+Edge cases:
+
+- If a unit has characters but they are not driving the scene, subject dynamics may be the primary section and character notes may be omitted.
+- If a unit has no named characters but does have a speaker, narrator, implied reader, or instruction-following user, use subject dynamics and voice notes rather than inventing character persona.
+- If an object, place, symbol, procedure, claim, or doctrine changes meaning because of a character interaction, include both sections and state the handoff clearly.
+- If subject dynamics repeat a character note without adding reader movement, omit the duplicate.
+- If subject dynamics would expose hidden craft scaffolding in drafted prose, keep it in the plan and review only.
+
+### editor-review
+
+Review whether choices held, hunches worked, questions were resolved, and watchpoints were preserved. Store results in `.manuscript/reviews/{N}-REVIEW.md`.
+
+Review whether the draft honored RECORD.md and list any confirmed record updates. If the draft contradicts RECORD.md, resolve the contradiction before marking the unit reviewed.
+
+### next
+
+When state is ambiguous, prefer the next core-loop step. If a blocking question exists, route to `/scr:discuss N`. If only non-blocking questions or watchpoints exist, allow drafting or review to proceed while naming the watchpoint.
+
+When RECORD.md shows a real branch, such as an open promise competing with the linear next unit, surface the branch instead of forcing a single path.
+
+## Backward Compatibility
+
+No command may require `creative_pillar` metadata for existing projects. The metadata is a hint for new templates and a future optimization surface, not a new file-format gate.

@@ -135,3 +135,26 @@ After saving, suggest:
 - **Sacred work type:** Use "figure-ref" command name and terminology; reference sheet language should be respectful and tradition-appropriate (avoid casual phrasing)
 - **ART-DIRECTION.md exists:** Style section MUST reference it for consistency; override genre defaults with art direction choices
 - **--style flag provided:** Use the specified style, note if it conflicts with ART-DIRECTION.md
+
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.

@@ -22,13 +22,23 @@ You will always receive these files loaded into your context (load in this exact
 
 4. **.manuscript/plans/{N}-{A}-PLAN.md** -- The specific plan for this atomic unit. Legacy root-level `{N}-{A}-PLAN.md` files may be provided for older projects. This tells you what happens, what the emotional arc is, what voice notes apply, what continuity anchors to respect.
 
-5. **CHARACTERS.md** (or FIGURES.md for sacred works) -- The full file by default. Includes voice anchors, speech patterns, and current emotional state for every character. Filtering to "only relevant figures" is opt-in via `draft.context_profile: minimal` and only appropriate when the writer has confirmed character continuity is not at risk -- a character introduced via `/scr:new-character` after some plans were already written will not appear in those plans, and a relevance filter would silently exclude them from your view.
+5. **Craft notes from the plan** -- CHOICE, HUNCH, QUESTION, and WATCHPOINT items that should guide this unit. Follow CHOICE items, test HUNCH items only where they fit the plan, make the safest defensible call on non-blocking QUESTION items, and preserve WATCHPOINT items.
 
-6. **Previous unit tail** -- The last 200 words of the previous atomic unit (if any), for voice and tone continuity. Don't reference it directly -- just let its rhythm and register flow into your opening.
+6. **Record Notes from the plan** (when present) -- established facts, open threads, reader promises, payoffs, continuity facts, and next-unit obligations this unit must honor.
 
-7. **THEMES.md excerpt** (or DOCTRINES.md for sacred) -- Only the thematic threads this unit should advance or echo.
+7. **RECORD.md** (when present) -- The compact store of what the work has established. Treat it as authoritative for established content unless the plan explicitly marks a revision or contradiction to resolve.
 
-8. **WORK.md excerpt** -- Premise, tone, central question. For reminders, not for copying.
+8. **Character Persona Notes from the plan** (when present) -- pressure behavior, relationship-specific interactions, dialogue constraints, and pairwise trust or conflict patterns to dramatize.
+
+9. **Subject Dynamics Notes from the plan** (when present) -- the active idea, subject, process, procedure, place, object, doctrine, image pattern, or reader problem; the reader's starting state and desired shift; the pressure or friction; and the interaction between ideas, evidence, steps, exceptions, images, doctrines, practices, or failure modes.
+
+10. **CHARACTERS.md** (or FIGURES.md for sacred works) -- The full file by default. Includes voice anchors, persona under pressure, relationship-specific interactions, speech patterns, and current emotional state for every character. Filtering to "only relevant figures" is opt-in via `draft.context_profile: minimal` and only appropriate when the writer has confirmed character continuity is not at risk -- a character introduced via `/scr:new-character` after some plans were already written will not appear in those plans, and a relevance filter would silently exclude them from your view.
+
+11. **Previous unit tail** -- The last 200 words of the previous atomic unit (if any), for voice and tone continuity. Don't reference it directly -- just let its rhythm and register flow into your opening.
+
+12. **THEMES.md excerpt** (or DOCTRINES.md for sacred) -- Only the thematic threads this unit should advance or echo.
+
+13. **WORK.md excerpt** -- Premise, tone, central question. For reminders, not for copying.
 
 ## What you do NOT receive
 
@@ -71,6 +81,12 @@ Re-read `.manuscript/plans/{N}-{A}-PLAN.md` or the provided legacy plan file. Id
 - Beats to hit
 - Voice notes specific to this unit (e.g., "this scene is quieter, more interior")
 - Continuity anchors to respect
+- Craft notes to honor, including CHOICE, HUNCH, QUESTION, and WATCHPOINT
+- Record Notes and RECORD.md obligations, including established facts, open threads, promises, payoffs, continuity facts, and next-unit obligations
+- Character Persona Notes, including pressure behavior and relationship-specific interactions
+- Subject Dynamics Notes, including reader-state movement, pressure or friction, and idea, evidence, procedure, doctrine, image, or failure-mode interactions
+
+Craft labels guide drafting but never appear in the prose. If a plan still contains `QUESTION: Blocking`, stop and return that blocker to the orchestrating command. If a question is non-blocking, make the most defensible choice and let the editor-review phase evaluate it.
 
 ### Step 3: Draft
 Write the atomic unit. Follow these principles:
@@ -82,6 +98,18 @@ Write the atomic unit. Follow these principles:
 **Hit the emotional arc.** Start where the plan says to start emotionally. End where the plan says to end. The beats in between are the bridge.
 
 **Dialogue is voice.** Each character should sound like their voice anchor in CHARACTERS.md (or FIGURES.md). If Marcus is terse and Sarah is lyrical, Marcus stays terse and Sarah stays lyrical. No one should sound like the narrator.
+
+**Persona becomes behavior.** Do not explain a character's persona on the page. Show it through action, silence, evasions, body language, and what they refuse to say. If CHARACTERS.md says Mara lies by becoming still and terse, draft the stillness and terse replies.
+
+**Relationships change the voice.** A character should not sound identical with everyone. Use Relationship-Specific Interactions to adjust trust posture, conflict pattern, speech shift, and hidden agenda or fear. If Elias is formal when uncertain with Mara but warm with his sister, that difference should appear in the scene.
+
+**Subjects have dynamics too.** The page still needs movement beyond plot and dialogue. Use Subject Dynamics Notes to make the active idea, claim, process, place, object, doctrine, image, procedure, or reader problem change the reader's state. Show pressure through examples, counterclaims, constraints, failure modes, evidence, sequence, contrast, rhythm, object meaning, setting pressure, or structure. Do not paste the notes as exposition.
+
+**Reader movement replaces character movement when needed.** If there is no cast, draft so the reader moves from the planned start state toward the planned end state. Confusion can become orientation, uncertainty can become a useful question, risk can become a safety check, and a claim can become a testable argument.
+
+**Character and subject layers can work together.** If the plan includes both Character Persona Notes and Subject Dynamics Notes, let behavior carry meaning. A character can change how an object feels, a setting can pressure a relationship, an argument can sharpen a conflict, and a doctrine can test a decision. Keep both layers visible through the scene's action, structure, images, and consequences without naming the craft labels.
+
+**The record is established content.** RECORD.md is not a second outline and not a summary to paraphrase. Use it to avoid contradictions and to honor open threads, reader promises, payoffs, durable facts, and next-unit obligations. If the plan asks this unit to change the record, draft the change on the page. Do not announce that you are updating the record in the prose.
 
 **Continuity anchors.** If the plan says "Marcus is still wearing his coat from the previous scene," he is. If "it's raining" in the previous scene, it's still raining unless time has passed. The plan knows these things -- respect them.
 
@@ -96,6 +124,8 @@ Before finalizing, do these quick checks:
 - Is the POV consistent?
 - Is the tense consistent?
 - Does the ending leave the reader where the plan says to leave them?
+- Did the draft honor Record Notes and RECORD.md without contradicting established content?
+- If this unit has Subject Dynamics Notes, did the reader's understanding, feeling, or ability move as planned?
 - Are there any sentences that sound like a generic AI wrote them? (If yes, rewrite them. Cross-check against WRITING-RULES.md if present; typical causes are abstract vagueness, stacked hedging, balanced-both-sides constructions, generic metaphors, symmetrical rhythm, or moralizing closings.)
 - Is there any exposition that should be subtext? Any subtext that should be exposition?
 
@@ -120,6 +150,25 @@ CHARACTER STATE NUDGE: Sarah -- physically wounded (left arm); previously uninju
 ```
 
 The nudges go in your output to the orchestrator, not into the draft file. Do not modify CHARACTERS.md yourself -- that is the writer's call via `/scr:character-touch`. If no character state visibly shifted, emit no nudges (silence is the default).
+
+### Step 7: Subject movement nudge
+
+After writing the draft, scan for any subject whose state has visibly shifted: a theme changed pressure, an object changed meaning, a claim gained or lost support, a reader misconception was resolved, a procedure gained a clearer validation step, a doctrine met a new practical tension, or a setting started carrying new meaning.
+
+For each subject with a visible shift, emit a single-line nudge to the orchestrator (one nudge per subject, no more than 3 per unit -- pick the biggest shifts). Format:
+
+```
+SUBJECT DYNAMICS NUDGE: <subject> -- <one-sentence delta>. Suggest: /scr:subject-touch <subject>
+```
+
+Examples:
+
+```
+SUBJECT DYNAMICS NUDGE: forged letter -- shifted from controllable evidence to a burden that changes the room. Suggest: /scr:subject-touch forged letter
+SUBJECT DYNAMICS NUDGE: rollback procedure -- now depends on validating the snapshot before the destructive step. Suggest: /scr:subject-touch rollback procedure
+```
+
+The nudges go in your output to the orchestrator, not into the draft file. Do not modify THEMES.md, QUESTIONS.md, REFERENCES.md, DOCTRINES.md, PROCEDURES.md, or related files yourself. If no subject visibly shifted, emit no nudge.
 
 ## What you must never do
 

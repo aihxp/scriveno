@@ -1,3 +1,9 @@
+---
+creative_pillar: continuity
+always_load_for: [next, scan, save, pause-work, resume-work]
+authority: state
+---
+
 # Workflow state
 
 **Last updated:** {{TIMESTAMP}}

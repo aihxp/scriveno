@@ -25,6 +25,7 @@ You are saving the writer's current work. Your job is to create a git commit wit
    - Current stage (discuss/plan/draft/review/submit)
    - Current unit name and number (from config.json `command_unit` and STATE.md `Current unit`)
    - Last command run (from "Last actions" table)
+   - Record highlights from `.manuscript/RECORD.md` when present: open threads, next-unit obligations, and recent established items
 
 5. **Auto-generate the commit message** based on context:
    - If the writer provided an optional message argument: `"Saved: {writer's message}"`
@@ -48,6 +49,7 @@ You are saving the writer's current work. Your job is to create a git commit wit
    - `{{PHASE}}`, `{{CURRENT_UNIT}}` -- from STATE.md (the values you computed in step 6)
    - `{{RECENT_ACTIONS}}` -- the last 5 lines of `.manuscript/HISTORY.log` rendered as table rows. If HISTORY.log is missing, use the last 5 entries from STATE.md "Last actions" instead.
    - `{{UNITS_PENDING_REVIEW}}`, `{{UNITS_PENDING_DRAFT}}`, `{{VOICE_WARNINGS}}`, `{{CONTINUITY_FLAGS}}`, `{{SCAFFOLD_MARKERS}}` -- from STATE.md "Pending"
+   - `{{RECORD_HIGHLIGHTS}}` -- a compact 3-5 line summary from RECORD.md: open threads, promises needing payoff, and next-unit obligations. If RECORD.md is missing, use `No RECORD.md found yet.`
    - `{{NEXT_STEP}}` -- the same suggestion `/scr:next` would emit
    - `{{LAST_SCAN}}`, `{{LAST_SCAN_VERDICT}}` -- from STATE.md if recorded; otherwise `never run` and `unknown`
    Save to `.manuscript/CONTEXT.md`. This file is committed alongside STATE.md.
@@ -78,6 +80,29 @@ You are saving the writer's current work. Your job is to create a git commit wit
 - **Not in a Scriven project** (no `.manuscript/` directory): "No manuscript found. Start with `/scr:new-work`."
 - **Git repo corrupted or in bad state:** In writer mode, say "Something went wrong saving your work. Try again, or ask for help." In developer mode, show the git error.
 - **Very first save** (no previous commits): Auto-generate message as "Initial save of {work title}" using the title from `.manuscript/WORK.md` if available.
+
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.
 
 ## Tone
 

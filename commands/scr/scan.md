@@ -5,9 +5,9 @@ argument-hint: "[--fix] [--quiet]"
 
 # /scr:scan -- Context Drift Scanner
 
-You are the project's drift detector. Trust nothing. Compare what `.manuscript/STATE.md`, `OUTLINE.md`, `config.json`, and the various structural files **claim** against what the filesystem actually contains, and report every mismatch.
+You are the project's drift detector. Trust nothing. Compare what `.manuscript/STATE.md`, `OUTLINE.md`, `RECORD.md`, `config.json`, and the various structural files **claim** against what the filesystem actually contains, and report every mismatch.
 
-This is the defense against context corruption. A fresh Claude session, a writer who hand-edited files between sessions, an interrupted command, or a partial revert can all leave the project in an internally inconsistent state. STATE.md says 12 units drafted; the disk has 14. OUTLINE.md lists "Chapter 8" but no draft file exists. STYLE-GUIDE.md was edited yesterday but no voice-check has run since. `/scr:scan` finds those.
+This is the defense against context corruption. A fresh Claude session, a writer who hand-edited files between sessions, an interrupted command, or a partial revert can all leave the project in an internally inconsistent state. STATE.md says 12 units drafted; the disk has 14. OUTLINE.md lists "Chapter 8" but no draft file exists. RECORD.md says a promise is still open but the draft paid it off. STYLE-GUIDE.md was edited yesterday but no voice-check has run since. `/scr:scan` finds those.
 
 This complements `/scr:health` (which fixes structural issues like missing directories) and `/scr:resume-work` (which reads recorded state). `/scr:scan` interrogates whether the recorded state is true.
 
@@ -21,7 +21,7 @@ This complements `/scr:health` (which fixes structural issues like missing direc
 
 ## Instruction
 
-Load `.manuscript/config.json`, `.manuscript/STATE.md`, and `.manuscript/OUTLINE.md`. Each check below produces a finding with one of three severities:
+Load `.manuscript/config.json`, `.manuscript/STATE.md`, `.manuscript/OUTLINE.md`, and `.manuscript/RECORD.md` when present. Each check below produces a finding with one of three severities:
 
 - **DRIFT** -- recorded state contradicts disk reality. Trust nothing downstream until resolved.
 - **WARNING** -- an artifact is stale or out of date. Downstream work may be silently using outdated input.
@@ -183,6 +183,27 @@ This is best-effort. False positives (locations, brands, common nouns capitalize
 
 ---
 
+### CHECK 11: RECORD.md integrity
+
+If `.manuscript/RECORD.md` does not exist, emit INFO for older projects:
+
+```
+INFO   RECORD.md is missing.
+       This project can still work, but Scriven has no compact store for what the work has established.
+       Fix: /scr:scan --fix can initialize RECORD.md from the installed template.
+```
+
+If RECORD.md exists, check it against drafted content as a compact best-effort audit:
+
+- **Staleness** -- If the newest draft is newer than RECORD.md and no later editor review or save mentions record updates, emit WARNING that RECORD.md may not include the latest established content.
+- **Empty store after drafts** -- If draft files exist but RECORD.md still contains only placeholders, emit WARNING.
+- **Resolved thread still marked open** -- If a thread is listed as open but review reports or later draft text clearly mark it resolved, emit INFO with a suggested update.
+- **Record contradiction** -- If a durable fact in RECORD.md directly contradicts a later draft, emit DRIFT and cite both locations when possible.
+
+Do not over-claim. RECORD.md is an interpretive store, so uncertain findings should be INFO or WARNING unless the contradiction is explicit.
+
+---
+
 ### REPORT
 
 Output a single structured report:
@@ -225,7 +246,7 @@ If `--quiet` was passed and there are zero findings, exit silently with no outpu
 
 When `--fix` is passed, after the report, group findings by auto-fixability:
 
-- **Auto-fixable now** -- finding has a deterministic fix Scriven can apply (e.g. update STATE.md unit counts to match disk, regenerate stale CONTEXT.md, sort orphan drafts into a `_unsorted/` review directory). For each, ask the writer once:
+- **Auto-fixable now** -- finding has a deterministic fix Scriven can apply (e.g. update STATE.md unit counts to match disk, initialize missing RECORD.md from the installed template, regenerate stale CONTEXT.md, sort orphan drafts into a `_unsorted/` review directory). For each, ask the writer once:
   > Apply [N] auto-fixes? (yes / no / show me what each does)
 - **Requires writer decision** -- finding needs a judgment call (e.g. character orphans, scaffold pending, voice drift). List with suggested next command.
 - **Manual** -- finding requires manual cleanup (e.g. malformed HISTORY.log lines).
@@ -239,6 +260,29 @@ After any auto-fix, append a single line to HISTORY.log per `docs/history-protoc
 ```
 
 ---
+
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.
 
 ## Tone
 

@@ -47,6 +47,7 @@ Read the basis draft file (from STEP 1). Identify what about this character has 
 2. **Knowledge** -- what they learned this unit that they did not know before (or, less commonly, what they have forgotten or been deceived into believing)
 3. **Possessions** -- objects gained, lost, given, taken (e.g. "now carries the letter; left the coat behind")
 4. **Relationships** -- with whom, how shifted (e.g. "trust with Marcus broken; new alliance with Sarah forming")
+5. **Relationship-specific interaction** -- whether this unit changed how the character behaves with another person (speech shift, trust posture, conflict pattern, hidden agenda or fear)
 
 Present the proposed delta to the writer in this exact format:
 
@@ -71,6 +72,9 @@ Proposed updates to <NAME>'s entry in CHARACTERS.md:
   Relationships
     <other character>: <new state>
 
+  Relationship-specific interaction
+    <other character>: <new trust posture, conflict pattern, speech shift, hidden agenda or fear>
+
 Apply these updates? (yes / no / edit)
 ```
 
@@ -84,6 +88,7 @@ Update the character's entry in `.manuscript/CHARACTERS.md` (or `FIGURES.md`):
 - **Append** new knowledge bullets under a "Knowledge" subsection (create the subsection if absent).
 - **Append** possession changes under a "Possessions" subsection (create the subsection if absent), with `+` for gained and `-` for lost.
 - **Update or append** relationship lines under a "Relationships" subsection (create the subsection if absent).
+- **Update or append** pairwise behavior under a "Relationship-specific interactions" subsection (create the subsection if absent).
 
 **Do not touch:**
 - The character's voice anchor (this is identity, not state -- voice changes are a separate craft decision and need a different command)
@@ -117,6 +122,29 @@ If the writer chose `no` and exited with no changes, do not append a line. Touch
 End with a one-line suggestion:
 
 > Updated <name>. The next `/scr:draft` invocation will read the new state. Consider running `/scr:scan` if multiple characters drifted in this unit.
+
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.
 
 ## Tone
 

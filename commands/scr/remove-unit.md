@@ -92,6 +92,29 @@ Commit: `structure: remove {unit_type} {N} "{title}"`
 - **Invalid unit-id:** Show numbered list of current units for selection.
 - **Archive directory doesn't exist:** Create `.manuscript/archive/` automatically.
 
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.
+
 ## Tone
 
 Cautious and protective. Removing content is a significant action. Be thorough in warnings without being patronizing. The writer's prose is valuable -- treat it that way.

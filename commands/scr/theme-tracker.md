@@ -100,6 +100,29 @@ For each theme, show:
 - **Sacred work type:** This command is hidden. Tell the writer to work directly in `DOCTRINES.md` instead of pretending `/scr:theme-tracker` is available there.
 - **Academic work type:** This command is hidden. Tell the writer to work directly in `QUESTIONS.md` instead of pretending `/scr:theme-tracker` is available there.
 
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.
+
 ## Tone
 
 Observant and respectful. The theme-tracker surfaces patterns -- it does not tell the writer what their work means. Present findings as "I notice..." not "Your theme is..." The writer is the authority on their own thematic intent.

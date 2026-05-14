@@ -14,14 +14,20 @@ You are routing the writer to the right next step in their workflow. This comman
 
 3. **Read `.manuscript/STATE.md`** to figure out the current workflow position. STATE.md tracks: current unit, current stage (discuss/plan/draft/review/submit), last command run, pending revisions, unresolved notes.
 
-4. **Read `.manuscript/config.json`** to get the work type and command_unit (chapter, act, section, surah, etc.).
+4. **Read `.manuscript/RECORD.md` when present.** Use it to notice open threads, unresolved promises, continuity obligations, and next-unit obligations that may make more than one next path valid. If RECORD.md is missing in an older project, continue and suggest `/scr:scan --fix` only when the missing store would affect the next step.
 
-5. **Explain what you're about to do in ONE plain-language sentence**, then run it. Examples:
+5. **Read `.manuscript/config.json`** to get the work type and command_unit (chapter, act, section, surah, etc.).
+
+6. **Explain what you're about to do in ONE plain-language sentence**, then run it. Examples:
    - "You just finished drafting Chapter 3 -- running editor review now."
    - "Chapter 4 has a plan but no draft yet -- drafting it."
    - "You haven't discussed the next chapter -- shaping Chapter 5."
 
 ## Routing logic
+
+Use the core writing lifecycle as the default map:
+
+`seed -> voice -> outline -> discuss -> plan -> draft -> review -> revise -> publish -> translate`
 
 Walk the core chain in order and run the first incomplete step:
 
@@ -41,12 +47,38 @@ Walk the core chain in order and run the first incomplete step:
 ## Edge cases
 
 - **Multiple valid next steps** -- Present choices: "Chapter 3 is ready to draft, but you also have editor notes on Chapter 2. Which first?"
+- **Record-driven branch** -- If RECORD.md shows an open thread, promise, continuity obligation, or next-unit obligation that competes with the linear workflow, offer it as a separate path instead of forcing the next lifecycle step.
 - **Stuck state** -- If a command failed recently (logged in STATE.md), offer `/scr:troubleshoot` instead of retrying blindly.
+- **Blocking craft question** -- If a context or plan file contains `QUESTION: Blocking`, route to `/scr:discuss N` before drafting.
+- **Non-blocking craft question or watchpoint** -- If only `QUESTION: Non-blocking`, `HUNCH`, or `WATCHPOINT` items remain, allow the next draft or review step and mention the watchpoint in one sentence.
 - **Autopilot mode** -- If config has `autopilot.enabled: true`, run multiple steps in sequence without asking, pausing only per the profile's rules (guided, supervised, full-auto).
 
 ## Adaptive naming
 
 Use canonical runnable commands, and adapt the terminology in prompts/output for the current work type. If `command_unit` is `surah`, run `/scr:draft` and frame the work as drafting a surah; keep the command id stable and treat unit labels as presentation only.
+
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.
 
 ## Tone
 

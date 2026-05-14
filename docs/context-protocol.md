@@ -1,9 +1,10 @@
 # Context preference protocol
 
-This is the canonical context-cost contract for Scriven commands. The goal is to stop every session-aware command from independently re-loading STATE.md, OUTLINE.md, config.json, and other orientation files when the auto-regenerated `.manuscript/CONTEXT.md` already summarizes them.
+This is the canonical context-cost contract for Scriven commands. The goal is to stop every session-aware command from independently re-loading STATE.md, OUTLINE.md, RECORD.md, config.json, and other orientation files when the auto-regenerated `.manuscript/CONTEXT.md` already summarizes them.
 
-It is the third piece of the trust trio:
+It is part of the trust layer:
 - `STATE.md` -- structured snapshot (data)
+- `RECORD.md` -- compact established-content store
 - `.manuscript/CONTEXT.md` -- one-page narrative bootstrap (synthesis)
 - `.manuscript/HISTORY.log` -- append-only audit trail
 
@@ -34,6 +35,7 @@ CONTEXT.md (template at `templates/CONTEXT.md`) holds:
 - Phase and active unit (substitute for STATE.md `Current phase` / `Current unit`)
 - Last 5 actions (substitute for STATE.md `Last actions` table)
 - Open items: drafted-but-not-reviewed, planned-but-not-drafted, voice warnings, continuity flags, scaffold markers (substitute for STATE.md `Pending`)
+- Record highlights: open threads, reader promises, and next-unit obligations (substitute for a full RECORD.md read when routing only needs orientation)
 - Suggested next step (substitute for `/scr:next` re-derivation)
 - Last `/scr:scan` verdict
 

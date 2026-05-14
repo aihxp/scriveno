@@ -26,6 +26,13 @@
 - Reader can verify: {{VERIFICATION}}
 - Reviewer can confirm accuracy from: {{SOURCE_OF_TRUTH}}
 
+## Subject movement
+
+- **Reader starts with:** {{READER_START}}
+- **Reader should move toward:** {{READER_SHIFT}}
+- **Main pressure:** {{MAIN_PRESSURE}} (ambiguity, missing prerequisite, operational risk, version drift, unsafe action, unclear owner)
+- **Key interaction:** {{KEY_INTERACTION}} (step vs. failure mode, prerequisite vs. action, source of truth vs. local convention, normal path vs. recovery path)
+
 ## Risks to avoid
 
 - Missing prerequisite context: {{PREREQ_RISK}}

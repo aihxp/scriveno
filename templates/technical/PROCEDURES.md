@@ -28,3 +28,10 @@
 #### Rollback / recovery
 
 {{RECOVERY}}
+
+#### Subject dynamics
+
+**Reader starts with:** {{READER_START}}
+**Reader should be able to do after this:** {{READER_SHIFT}}
+**Pressure or failure mode:** {{FAILURE_MODE}}
+**Interaction to make clear:** {{INTERACTION_PATTERN}} (normal path vs. exception, command vs. verification, prerequisite vs. blocked step)

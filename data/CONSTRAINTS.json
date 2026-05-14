@@ -1,6 +1,6 @@
 {
   "$schema": "./constraints.schema.json",
-  "version": "1.7.1",
+  "version": "2.0.0",
   "description": "Scriven constraint system: work types, command availability, exports, and dependencies. Every command checks this file at runtime.",
 
   "work_type_groups": {
@@ -809,6 +809,17 @@
       },
       "hidden": ["speech_song"]
     },
+    "subject-touch": {
+      "category": "structure",
+      "available": ["all"],
+      "adapted": {
+        "academic": { "rename": "concept-touch" },
+        "technical": { "rename": "procedure-touch" },
+        "sacred": { "rename": "doctrine-touch" }
+      },
+      "description": "Update evolving subject, concept, procedure, doctrine, object, image, or reader-state movement",
+      "requires": ["THEMES.md", "draft_exists"]
+    },
     "subplot-map": {
       "category": "structure",
       "available": ["prose", "script", "interactive"],
@@ -1198,6 +1209,11 @@
       "available": ["all"],
       "description": "Detect drift between recorded state (STATE.md, OUTLINE.md, config.json) and what is on disk"
     },
+    "sync": {
+      "category": "utility",
+      "available": ["all"],
+      "description": "Synchronize installed Scriven runtime commands, skills, and agents with the current source"
+    },
     "cleanup": {
       "category": "utility",
       "available": ["all"],
@@ -1304,6 +1320,7 @@
       "plot-graph": ["OUTLINE.md"],
       "timeline": ["OUTLINE.md"],
       "theme-tracker": ["THEMES.md"],
+      "subject-touch": ["THEMES.md", "draft_exists"],
       "continuity-check": ["draft_exists"],
       "voice-check": ["draft_exists", "STYLE-GUIDE.md"],
       "pacing-analysis": ["draft_exists"],
@@ -1401,6 +1418,7 @@
   "file_adaptations": {
     "default": {
       "BRIEF.md": "BRIEF.md",
+      "RECORD.md": "RECORD.md",
       "CHARACTERS.md": "CHARACTERS.md",
       "RELATIONSHIPS.md": "RELATIONSHIPS.md",
       "WORLD.md": "WORLD.md",
@@ -1409,6 +1427,7 @@
     },
     "academic": {
       "BRIEF.md": "PROPOSAL.md",
+      "RECORD.md": "RECORD.md",
       "CHARACTERS.md": "CONCEPTS.md",
       "WORLD.md": "CONTEXT.md",
       "PLOT-GRAPH.md": "ARGUMENT-MAP.md",
@@ -1416,6 +1435,7 @@
     },
     "technical": {
       "BRIEF.md": "DOC-BRIEF.md",
+      "RECORD.md": "RECORD.md",
       "CHARACTERS.md": "AUDIENCE.md",
       "RELATIONSHIPS.md": "DEPENDENCIES.md",
       "WORLD.md": "SYSTEM.md",
@@ -1424,6 +1444,7 @@
     },
     "sacred": {
       "BRIEF.md": "FRAMEWORK.md",
+      "RECORD.md": "RECORD.md",
       "CHARACTERS.md": "FIGURES.md",
       "RELATIONSHIPS.md": "LINEAGES.md",
       "WORLD.md": "COSMOLOGY.md",

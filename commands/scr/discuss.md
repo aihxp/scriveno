@@ -13,9 +13,9 @@ Load `.manuscript/config.json` to get the `command_unit` (chapter, act, section,
 
 ## What to do
 
-0. **Bootstrap (context-cost protocol).** Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it for orientation (project title, work type, current unit, recent activity) and skip the corresponding STATE.md lookup in step 2. The discuss phase still needs the full creative inputs in step 1 (WORK.md, OUTLINE.md, STYLE-GUIDE.md, characters, plot, themes, prior drafts) -- those are not orientation; they are source material the discussion turns on. If CONTEXT.md is missing or stale, run steps 1-2 unchanged. See `docs/context-protocol.md`.
+0. **Bootstrap (context-cost protocol).** Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it for orientation (project title, work type, current unit, recent activity) and skip the corresponding STATE.md lookup in step 2. The discuss phase still needs the full creative inputs in step 1 (WORK.md, OUTLINE.md, RECORD.md, STYLE-GUIDE.md, characters, plot, themes, prior drafts) -- those are not orientation; they are source material the discussion turns on. If CONTEXT.md is missing or stale, run steps 1-2 unchanged. See `docs/context-protocol.md`.
 
-1. **Load context.** Read WORK.md, OUTLINE.md, STYLE-GUIDE.md, CHARACTERS.md (or adapted equivalents), PLOT-GRAPH.md, THEMES.md, and any previously drafted units. Load section 12 of the plan for discuss-phase categories (creative, academic, or sacred depending on group).
+1. **Load Creative Context.** Read WORK.md, OUTLINE.md, RECORD.md, STYLE-GUIDE.md, CHARACTERS.md (or adapted equivalents), PLOT-GRAPH.md, THEMES.md, and any previously drafted units. If RECORD.md is missing in an older project, continue and note that `/scr:scan --fix` or `/scr:save` can initialize it later. If those files include `creative_pillar` frontmatter, use it as a routing hint only; older projects without metadata are equally valid. STYLE-GUIDE.md remains sovereign for voice. Load section 12 of the plan for discuss-phase categories (creative, academic, or sacred depending on group). See `docs/creative-context.md`.
 
 2. **Figure out which unit** to discuss. If the user passed a number, use it. Otherwise check STATE.md for the next pending unit.
 
@@ -39,11 +39,70 @@ Load `.manuscript/config.json` to get the `command_unit` (chapter, act, section,
 
    Don't ask all of them. Pick the 3-4 most relevant for this specific unit. If the writer seems ready to move on, move on.
 
-4. **Capture decisions** in `.manuscript/{N}-CONTEXT.md`. This file is the input to `/scr:plan`. It should contain: approach, voice notes, what to include, what to avoid, continuity anchors, specific beats the writer wants hit.
+   If the unit involves named characters, read their `Persona under pressure` and `Relationship-specific interactions` sections from CHARACTERS.md. Ask at most one persona or interaction question, for example: "Mara gets terse when afraid, but Elias makes her defensive. Does this scene let that mask hold, or crack?" If the writer answers, capture it as a `CHOICE` or `WATCHPOINT`.
+
+   If the unit is driven by an idea, subject, theme, object, setting, process, doctrine, argument, reader problem, or image pattern, use subject dynamics whether or not named characters are present. Read the reader journey in BRIEF.md or DOC-BRIEF.md, the theme or doctrine threads, the argument or procedure map, and any adapted source such as QUESTIONS.md, REFERENCES.md, DOCTRINES.md, SYSTEM.md, or PROCEDURES.md.
+
+   Use this quick detection test: does this unit change what the reader understands, feels, fears, believes, can do, can verify, or notices about a subject? If yes, capture subject dynamics. Ask at most one subject-dynamics question, for example: "This section moves the reader from confusion to usable confidence. What is the main friction: a misconception, a risk, or a missing example?" If the writer answers, capture it as a `CHOICE`, `HUNCH`, or `WATCHPOINT`.
+
+   Use RECORD.md to ask about established content only when it matters. Good prompts connect the current unit to an existing thread, promise, continuity fact, or next-unit obligation without making the writer audit the whole project.
+
+4. **Capture craft notes** in `.manuscript/{N}-CONTEXT.md`. This file is the input to `/scr:plan`. It should contain: approach, voice notes, what to include, what to avoid, continuity anchors, specific beats the writer wants hit, and a `## Craft Notes` section using only these labels:
+
+   - `CHOICE`: confirmed creative decision
+   - `HUNCH`: creative bet to test in drafting
+   - `QUESTION`: unresolved issue for writer or editor; mark as `Blocking` or `Non-blocking`
+   - `WATCHPOINT`: thing to preserve, test, or re-check later
+
+   These labels belong in the context artifact only. Do not add them to drafted prose.
+
+   If character dynamics matter in this unit, add a `## Character Persona Notes` section with:
+   - characters present
+   - pressure behavior to show
+   - relationship-specific interaction to preserve
+   - any persona or relationship watchpoints
+
+   If the unit is driven by an idea, subject, process, procedure, place, object, doctrine, argument, reader problem, or image pattern, add a `## Subject Dynamics Notes` section with:
+   - active subject, idea, claim, procedure, place, object, doctrine, image pattern, or reader problem
+   - reader state at the start and desired shift by the end
+   - pressure or friction to make clear
+   - interaction to preserve, such as claim vs. counterclaim, rule vs. exception, step vs. failure mode, doctrine vs. practice, or image vs. meaning
+   - subject, reader, evidence, procedure, or theme watchpoints
+
+   Character Persona Notes and Subject Dynamics Notes may both appear in the same context file. Avoid duplicating the same point in both sections. If they seem to pull in different directions, record the conflict as a `QUESTION: Blocking` instead of leaving the drafter to guess.
+
+   Add a `## Record Notes` section when the conversation touches established content. Include:
+   - established facts, claims, procedures, or events this unit must honor
+   - open threads, promises, or reader expectations this unit should pay off, deepen, or leave open
+   - new facts or movement this unit is likely to establish
+   - any RECORD.md updates the draft or review should make after the unit lands
 
 5. **Update STATE.md** to mark discuss phase complete for this unit.
 
 6. **Suggest next step:** "Ready to plan this {unit}? Run `/scr:plan N` or `/scr:next` and I'll handle it."
+
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.
 
 ## Tone
 

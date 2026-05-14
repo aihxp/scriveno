@@ -92,3 +92,26 @@ Present a summary count: "Found X issues: Y high, Z medium, W low."
 Save the full annotated report to `.manuscript/{scope}-LINE-EDIT-REPORT.md` where `{scope}` is the unit identifier (e.g., `act-1`, `chapter-3`) or `full` for the entire manuscript.
 
 Present the high-priority issues to the writer first, then offer to show medium and low.
+
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.

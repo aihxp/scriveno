@@ -6,6 +6,7 @@ This document is the canonical index of Scriven's proof layer. It points to conc
 
 - Read the **Watchmaker Sample Flow** if you want one end-to-end writing workflow from setup through drafts, review, and next step.
 - Read **Voice DNA** if you want the shortest possible proof of how style guidance changes output on the same brief.
+- Read **Creative Context** if you want to see one craft choice travel through discuss, plan, draft, and review artifacts.
 
 ## Watchmaker Sample Flow
 
@@ -41,6 +42,12 @@ Start with the proof bundle if you want the curated version. Follow the underlyi
 - [data/proof/voice-dna/GUIDED-SAMPLE.md](../data/proof/voice-dna/GUIDED-SAMPLE.md)
 
 Read the bundle in order if you want to inspect sentence rhythm, metaphor selection, dialogue restraint, and physical grounding at the same time.
+
+## Creative Context
+
+**What it proves:** Scriven can preserve craft choices, character behavior, and subject movement across the core writing loop without adding labels to manuscript prose.
+
+**Canonical artifact:** [data/proof/creative-context/README.md](../data/proof/creative-context/README.md)
 
 ## Related Trust Docs
 

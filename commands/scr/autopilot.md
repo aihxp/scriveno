@@ -9,7 +9,7 @@ You are running the Scriven pipeline autonomously. Your job is to execute the di
 
 ## What to do
 
-0. **Bootstrap (context-cost protocol).** Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it for orientation (project title, work type, phase, current unit, recent activity, open items) and skip the corresponding raw-file loads in steps 1-3 below; you still need to read `OUTLINE.md` for unit ordering and `config.json` for the `autopilot` settings block specifically. If CONTEXT.md is missing, stale, or contradicts STATE.md, run steps 1-3 unchanged. See `docs/context-protocol.md` for the contract.
+0. **Bootstrap (context-cost protocol).** Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it for orientation (project title, work type, phase, current unit, recent activity, open items, and record highlights when present) and skip the corresponding raw-file loads in steps 1-3 below; you still need to read `OUTLINE.md` for unit ordering, `RECORD.md` for established-content obligations when present, and `config.json` for the `autopilot` settings block specifically. If CONTEXT.md is missing, stale, or contradicts STATE.md, run steps 1-3 unchanged. See `docs/context-protocol.md` for the contract.
 
 1. **Read `.manuscript/config.json`** for autopilot settings: `profile` (guided, supervised, or full-auto), `enabled`, and `custom_checkpoints` array.
 
@@ -17,11 +17,13 @@ You are running the Scriven pipeline autonomously. Your job is to execute the di
 
 3. **Read `.manuscript/OUTLINE.md`** for total units and their order. This is the master list of what needs to be drafted.
 
-4. **If `--resume` flag is set:** Read STATE.md "Session handoff" and "Progress" sections. Determine the last completed unit and the last stage completed. Output ONE sentence explaining where you left off (e.g., "Last time, you drafted chapter 3 and passed voice check. Picking up at chapter 4, discuss stage."). Then re-enter the main loop from that point.
+4. **Read `.manuscript/RECORD.md` when present.** Treat it as the compact store for established content: open threads, reader promises, payoffs, continuity facts, movement, and next-unit obligations. Older projects may not have RECORD.md; do not fail if it is missing.
 
-5. **If `--profile` flag is set:** Override the config.json profile with the provided value. Valid values: `guided`, `supervised`, `full-auto`.
+5. **If `--resume` flag is set:** Read STATE.md "Session handoff" and "Progress" sections. Determine the last completed unit and the last stage completed. Output ONE sentence explaining where you left off (e.g., "Last time, you drafted chapter 3 and passed voice check. Picking up at chapter 4, discuss stage."). Then re-enter the main loop from that point.
 
-6. **Enter the main loop** (see below).
+6. **If `--profile` flag is set:** Override the config.json profile with the provided value. Valid values: `guided`, `supervised`, `full-auto`.
+
+7. **Enter the main loop** (see below).
 
 ## Main loop
 
@@ -36,7 +38,7 @@ FOR each unit in OUTLINE.md (starting from current position):
     If writer says "skip": advance to next unit, update STATE.md
 ```
 
-When the loop completes (all units through all stages), show a completion summary: total units, total word count, voice consistency across the manuscript, any flags or issues encountered.
+When the loop completes (all units through all stages), show a completion summary: total units, total word count, voice consistency across the manuscript, open record threads or promises, and any flags or issues encountered.
 
 ## Profile rules
 
@@ -89,7 +91,8 @@ The writer trusts the pipeline. Autopilot runs until the entire manuscript is co
 2. **Voice drift** exceeding `config.voice.drift_threshold` (default 0.3). After each unit, compare the drafted prose against STYLE-GUIDE.md. If drift exceeds threshold, pause.
 3. **Plot hole** with no clear resolution path (e.g., a setup with no payoff, a character motivation gap)
 4. **Missing critical information** that prevents drafting (character motivation gap, setting inconsistency, unresolved plot dependency)
-5. **Writer-defined checkpoints** from `config.autopilot.custom_checkpoints` array
+5. **Record drift** against `.manuscript/RECORD.md` that the agent cannot resolve safely (e.g., a promised payoff is contradicted, an open thread is closed without being recorded, or a next-unit obligation is skipped)
+6. **Writer-defined checkpoints** from `config.autopilot.custom_checkpoints` array
 
 **Writer-defined checkpoints:** Read each checkpoint string as a natural-language instruction. At each iteration, check if the just-completed unit matches any checkpoint condition against the OUTLINE.md structure. Examples:
 - `"pause after each act climax"` -- Check if the just-completed unit is marked as a climax in OUTLINE.md
@@ -106,6 +109,7 @@ The writer trusts the pipeline. Autopilot runs until the entire manuscript is co
 - Total units drafted
 - Total word count
 - Voice consistency score across the manuscript
+- Open record threads, reader promises, and unresolved next-unit obligations from RECORD.md
 - Any flags or issues encountered during the run
 - List of any quality gate pauses that occurred and how they were resolved
 
@@ -142,6 +146,29 @@ On pause or stop:
 1. Write current position to "Session handoff" section so `--resume` can pick up exactly where you left off
 2. Include what was just completed and what the next action would be
 3. Record the writer's notes if they provide any
+
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.
 
 ## Tone
 

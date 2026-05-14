@@ -76,6 +76,7 @@ From your answers, Scriven generates your project structure:
 .manuscript/
   WORK.md          -- your project's identity
   OUTLINE.md       -- structure and unit breakdown
+  RECORD.md        -- what the work has established
   STYLE-GUIDE.md   -- your Voice DNA profile
   CHARACTERS.md    -- cast and voice anchors
   THEMES.md        -- thematic threads

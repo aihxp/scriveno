@@ -56,10 +56,18 @@ Ask these questions adaptively. Skip what doesn't apply to the genre/form. Go de
     <q>Do they have a physical mannerism or gesture?</q>
   </section>
 
+  <section name="persona_under_pressure">
+    <q>What do they do when afraid?</q>
+    <q>How do they lie, deflect, or avoid the truth?</q>
+    <q>What changes in their body or speech when they are under pressure?</q>
+  </section>
+
   <section name="relationships">
     <q>How do they relate to [each existing character]?</q>
     <q>Who do they trust? Who do they distrust?</q>
     <q>What's their attachment style? (Secure, anxious, avoidant, disorganized)</q>
+    <q>How do they speak differently with someone they trust versus someone they fear?</q>
+    <q>Which relationship changes them the most on the page?</q>
   </section>
 
   <section name="world_connection">
@@ -110,6 +118,13 @@ Create the character profile and append to `CHARACTERS.md`:
   - Distinguishing speech patterns
   - Physical mannerisms
 
+  ### Persona Under Pressure
+  - When afraid
+  - When angry
+  - When lying or avoiding truth
+  - When vulnerable
+  - Physical tells
+
   ### Thematic Function
   - Which themes this character embodies or challenges
   - Narrative purpose beyond plot
@@ -117,9 +132,36 @@ Create the character profile and append to `CHARACTERS.md`:
   ### Key Relationships
   - [Character A]: nature of relationship, dynamic, tension
   - [Character B]: ...
+
+  ### Relationship-Specific Interactions
+  - [Character A]: trust posture, conflict pattern, speech shift, hidden agenda or fear
+  - [Character B]: trust posture, conflict pattern, speech shift, hidden agenda or fear
 </character_profile>
 
 Update `RELATIONSHIPS.md` with new connections.
 Update `THEMES.md` if this character introduces or reinforces themes.
 
 Commit: `character: add {name}`
+
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.

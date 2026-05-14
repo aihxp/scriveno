@@ -71,6 +71,34 @@ describe('Command file structure', () => {
           `"${file}" missing heading after frontmatter`
         );
       });
+
+      it('has a branching next-command response contract with explanations', () => {
+        assert.match(
+          content,
+          /## Response Contract/,
+          `"${file}" missing Response Contract section`
+        );
+        assert.match(
+          content,
+          /Every writer-facing response must end with one to four next-command suggestions\./,
+          `"${file}" must allow one to four next-command suggestions`
+        );
+        assert.match(
+          content,
+          /Next commands:\n- `\/scr:\.\.\.`: One short sentence explaining what this path will do\.\n- `\/scr:\.\.\.`: One short sentence explaining what this alternate path will do\./,
+          `"${file}" must show the branching Next commands response format`
+        );
+        assert.match(
+          content,
+          /Do not force a linear path when the writer has a real choice\./,
+          `"${file}" must preserve non-linear next-command guidance`
+        );
+        assert.match(
+          content,
+          /Next commands:\n- `\/scr:next`: Inspect the project state and choose the right next step\./,
+          `"${file}" must provide the /scr:next fallback explanation`
+        );
+      });
     });
   }
 });

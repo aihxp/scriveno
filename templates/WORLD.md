@@ -1,3 +1,9 @@
+---
+creative_pillar: world
+always_load_for: [discuss, plan, draft, continuity-check]
+authority: project
+---
+
 # World
 
 *The setting rules that constrain everything. If it's not in here, don't assume it exists.*

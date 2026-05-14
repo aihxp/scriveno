@@ -13,10 +13,13 @@ You review a unit plan before drafting begins. Your job is to catch problems whi
 1. **The plan file** -- `.manuscript/plans/{N}-{A}-PLAN.md` for the unit being checked, with legacy root-level plans accepted only as older project input
 2. **WORK.md** -- for premise alignment
 3. **OUTLINE.md** -- for structural alignment
-4. **PLOT-GRAPH.md** (or THEOLOGICAL-ARC.md) -- for arc alignment
-5. **Previous unit plans and drafts** -- for continuity
-6. **CHARACTERS.md** (or FIGURES.md) -- for character alignment
-7. **STYLE-GUIDE.md** -- for voice alignment
+4. **RECORD.md** -- for established facts, open threads, promises, payoffs, continuity facts, movement, and next-unit obligations
+5. **PLOT-GRAPH.md** (or THEOLOGICAL-ARC.md) -- for arc alignment
+6. **Previous unit plans and drafts** -- for continuity
+7. **CHARACTERS.md** (or FIGURES.md) -- for character alignment
+8. **STYLE-GUIDE.md** -- for voice alignment
+9. **The discuss-phase context file** -- `.manuscript/{N}-CONTEXT.md`, when available, for CHOICE, HUNCH, QUESTION, and WATCHPOINT craft notes
+10. **Subject files when adapted** -- QUESTIONS.md, REFERENCES.md, DOCTRINES.md, SYSTEM.md, PROCEDURES.md, AUDIENCE.md, or other non-character equivalents when the work type uses them
 
 ## What you check
 
@@ -31,8 +34,35 @@ Does the plan have everything the drafter needs?
 - **Voice notes** -- Anything specific about register, pace, density for this unit?
 - **Continuity anchors** -- What from previous units must this unit respect?
 - **Output target** -- Approximate length, atomic unit count
+- **Craft notes** -- CHOICE, HUNCH, QUESTION, and WATCHPOINT items from discuss, if available
+- **Record notes** -- established facts, open threads, reader promises, payoffs, continuity facts, and next-unit obligations from RECORD.md
+- **Character persona notes** -- pressure behavior, relationship-specific interactions, dialogue constraints, and state shifts for the characters in the unit
+- **Subject dynamics notes** -- reader-state movement, pressure or friction, and the interaction between ideas, evidence, steps, exceptions, images, doctrines, practices, or failure modes for subject-driven units
 
 If any of these are missing or vague, flag them. The drafter will guess if you don't catch it now, and the guesses may be wrong.
+
+### Craft notes
+
+If the context or plan includes craft notes, check them before drafting:
+
+- `CHOICE` items should appear as concrete plan constraints, not vague intentions.
+- `HUNCH` items should be testable on the page. The plan should say where the draft can try them.
+- `QUESTION` items must be marked `Blocking` or `Non-blocking`. Blocking questions make the plan NEEDS REVISION until answered.
+- `WATCHPOINT` items should have a matching plan check, continuity anchor, or review target.
+
+Do not require craft notes for older projects that lack them. Absence is not a failure by itself.
+
+### Record alignment
+
+If RECORD.md exists, check whether the plan honors the work's established content:
+
+- Established facts, claims, events, definitions, procedures, objects, relationship states, and constraints should not be contradicted.
+- Open threads and reader promises should either be paid off, deepened, deferred intentionally, or left untouched for a reason.
+- Continuity facts should be attached to draftable beats, not left as vague reminders.
+- Next-unit obligations should appear in the plan or be consciously deferred.
+- Expected new record entries after drafting should be compact and reader-visible.
+
+Do not require RECORD.md for older projects that lack it. If it is missing, note that the plan can proceed, but suggest initializing RECORD.md before long-form drafting continues.
 
 ### Premise alignment
 
@@ -52,10 +82,25 @@ Each character in the plan should:
 - Be doing something consistent with their motivations from CHARACTERS.md
 - Have an emotional state that follows from where they were last seen
 - Speak in a way consistent with their voice anchor
+- Show pressure behavior consistent with their persona under pressure
+- Shift speech and behavior according to the relationship-specific interaction notes for the other characters present
 - Not know things they shouldn't yet know
 - Not have skills they haven't been shown to have
 
 Flag any character behavior in the plan that contradicts established character.
+
+### Subject integrity
+
+For any unit with Subject Dynamics Notes, whether or not characters are present, the plan should:
+- Name the active subject, idea, claim, procedure, place, object, doctrine, image pattern, or reader problem
+- State where the reader starts and where the reader should land
+- Make the main pressure visible, such as misconception, counterclaim, ambiguity, risk, failure mode, constraint, or emotional friction
+- Preserve the important interaction, such as claim vs. counterclaim, rule vs. exception, step vs. failure mode, doctrine vs. practice, evidence vs. objection, or image vs. meaning
+- Avoid treating subject notes as prose labels or lecture scaffolding
+
+If Character Persona Notes are also present, check that the two layers reinforce each other or have an intentional tension. Flag any duplicated note, contradiction, vague subject movement, static movement, unsafe technical guidance, unsupported academic claim, or subject shift disconnected from the reader journey in BRIEF.md or DOC-BRIEF.md.
+
+Also flag a missing subject layer when the plan has obvious reader movement but no `## Subject Dynamics Notes`. Use this test: does the unit change what the reader understands, feels, fears, believes, can do, can verify, or notices? If yes, the plan should either include subject dynamics or explain why the movement is already handled elsewhere.
 
 ### Voice alignment
 
@@ -107,6 +152,17 @@ WARNING Sarah's dialogue style in plan ("witty repartee") doesn't match her voic
 VOICE
 OK Matches STYLE-GUIDE.md
 WARNING Plan calls for "extended lyrical passage" -- STYLE-GUIDE says sparse. Intentional override?
+
+CRAFT NOTES
+OK CHOICE close third POV appears in every scene setup
+WARNING HUNCH "room feels colder after argument" has no draftable beat
+MISSING QUESTION marked Blocking: does Elias know about the letter yet?
+OK WATCHPOINT Mara's clipped dialogue is tied to dialogue notes
+
+RECORD
+OK Honors established forged-letter thread
+WARNING Promise "Sarah will confront Marcus" is deferred without a plan note
+OK Expected new record entry listed for Marcus learning the letter was forged
 
 PACING
 OK Beat structure earns the climax

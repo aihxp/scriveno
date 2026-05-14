@@ -35,7 +35,7 @@ describe('phase 19 technical-writing trust surfaces', () => {
   });
 
   it('keeps secondary trust docs aligned on the live command inventory count', () => {
-    assert.match(architecture, /consistency across 110 commands/i);
+    assert.match(architecture, /consistency across 112 commands/i);
     assert.doesNotMatch(architecture, /consistency across 101 commands/i);
   });
 

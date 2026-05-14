@@ -285,3 +285,26 @@ When `/scr:translate` invokes the translator agent for each unit:
 - **NEVER** delete the TM file directly -- use `--clear` for safe removal with confirmation
 - **NEVER** include low-confidence segments without marking them -- the translator needs to know what to trust
 - **NEVER** overwrite prior translation entries silently -- deduplicate and flag conflicts
+
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.

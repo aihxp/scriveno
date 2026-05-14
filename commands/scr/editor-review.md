@@ -27,7 +27,7 @@ You are conducting an editorial review. Load `.manuscript/config.json` for `work
 
 ### STEP 1: EXTRACT REVIEWABLE BEATS
 
-Load the act's scene plans and drafts. For each scene, extract the key experiential beats the writer should evaluate:
+Load the act's scene plans, drafts, and RECORD.md when present. Also extract each plan's `## Craft Notes`, `## Record Notes`, `## Character Persona Notes`, and `## Subject Dynamics Notes` sections, if present. For each scene, extract the key experiential beats the writer should evaluate:
 
 <beat_extraction>
   For each scene, identify 2-4 things the writer should notice when reading:
@@ -40,6 +40,34 @@ Load the act's scene plans and drafts. For each scene, extract the key experient
   - Does this character's voice sound distinct from others?
   - Is the subtext clear enough without being on-the-nose?
 </beat_extraction>
+
+<craft_note_followup>
+  For each `CHOICE`, check whether the draft honored the confirmed decision.
+  For each `HUNCH`, check whether the creative bet worked on the page.
+  For each `QUESTION`, record whether the draft resolved it, kept it productively open, or exposed a blocker.
+  For each `WATCHPOINT`, check whether the draft preserved the intended continuity, voice, image, or craft concern.
+</craft_note_followup>
+
+<record_followup>
+  Check whether the draft honored the relevant established facts, open threads, promises, payoffs, continuity facts, and next-unit obligations from RECORD.md and the plan's Record Notes.
+  Record any new reader-visible facts, claims, events, procedures, objects, relationship states, subject movement, or payoffs that should be added to RECORD.md.
+  If the draft contradicts RECORD.md, flag the contradiction before marking the unit reviewed.
+</record_followup>
+
+<character_persona_followup>
+  For each major character in the unit, check whether their persona under pressure held on the page.
+  For each important pairing, check whether the relationship-specific interaction stayed true: trust posture, conflict pattern, speech shift, and hidden agenda or fear.
+  If the draft changes a character's current state or relationship stance, recommend `/scr:character-touch <name>`.
+</character_persona_followup>
+
+<subject_dynamics_followup>
+  When Subject Dynamics Notes are present, check whether the active subject moved as planned, even in character-based scenes.
+  Confirm that the reader state changed from the planned starting point toward the planned end state.
+  Check whether the pressure or friction stayed visible without becoming lecture, filler, or hidden scaffolding.
+  For important interactions, check whether the relationship between ideas, evidence, steps, exceptions, images, doctrines, practices, or failure modes stayed true on the page.
+  If Character Persona Notes are also present, check whether character behavior and subject movement reinforced each other or fought for focus.
+  If Subject Dynamics Notes are absent, still scan for an obvious missing layer: a draft with character motion but no change in meaning, or a subject-driven unit with information but no reader movement. Recommend adding Subject Dynamics Notes in the next plan or running `/scr:subject-touch <subject>` when the draft changed the subject's state.
+</subject_dynamics_followup>
 
 ---
 
@@ -98,6 +126,38 @@ Write the standard review report to `.manuscript/reviews/{N}-REVIEW.md`. If an o
     Any patterns across scenes (recurring issues, consistent strengths).
     Craft observations the writer should consider for future acts.
   </section>
+  <section name="craft_notes_follow_up">
+    For each CHOICE, HUNCH, QUESTION, and WATCHPOINT from the plan files,
+    record whether it held, worked, resolved, stayed open, or needs revision.
+    Keep labels in the review report only. Do not add labels to manuscript prose.
+  </section>
+  <section name="record_follow_up">
+    Record whether this unit honored established facts, handled open threads,
+    paid off or deepened promises, and created any new RECORD.md entries.
+    If the draft changed the work's established state, list the exact compact
+    updates that should be applied to RECORD.md.
+  </section>
+  <section name="character_persona_follow_up">
+    For each relevant character, record whether persona under pressure held,
+    whether any persona drift appeared, and whether current state should be
+    updated with `/scr:character-touch`.
+  </section>
+  <section name="relationship_interaction_follow_up">
+    For each important pairing, record whether the trust posture, conflict
+    pattern, speech shift, and hidden agenda or fear stayed true on the page.
+  </section>
+  <section name="subject_dynamics_follow_up">
+    When Subject Dynamics Notes are present, record whether the reader moved
+    as intended, whether the main pressure stayed visible, and whether the key
+    interaction between ideas, evidence, steps, exceptions, images, doctrines,
+    practices, or failure modes held on the page. If Character Persona Notes
+    also appear, record whether the human behavior and subject movement
+    reinforced each other or fought for focus.
+    If Subject Dynamics Notes are absent but the unit clearly needed them,
+    record the missing layer and recommend adding it before the next draft or
+    running `/scr:subject-touch <subject>` if the draft already changed a
+    tracked subject.
+  </section>
 </editor_notes>
 
 ---
@@ -106,6 +166,7 @@ Write the standard review report to `.manuscript/reviews/{N}-REVIEW.md`. If an o
 
 If all beats passed:
 - Mark act as "reviewed" in STATE.md
+- Apply confirmed compact updates to RECORD.md when the review established or corrected the work's durable content state
 - Suggest moving to `/scr:submit N` or `/scr:discuss {N+1}`
 
 If revision plans were created:
@@ -380,3 +441,26 @@ This command uses writer-friendly terminology throughout:
 - `{unit}-notes.md` in `editor-notes/` (editor notes via --notes)
 - `{slug}-responses.json` (writer's responses via --respond)
 - Applied changes to manuscript (via --respond when changes are accepted)
+
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.

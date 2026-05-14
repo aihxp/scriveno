@@ -28,7 +28,9 @@ You are importing an existing manuscript into Scriven. The writer has content --
 
 6. **Detect characters.** Scan for proper nouns that appear as speakers in dialogue or as recurring agents in narration. Build a draft CHARACTERS.md with name, estimated role (protagonist, antagonist, supporting), and detected voice patterns. Flag for writer review.
 
-7. **Generate the .manuscript/ directory.** Create all context files (WORK.md, BRIEF.md, OUTLINE.md, STYLE-GUIDE.md, CHARACTERS.md, etc.) populated from the import. Also copy `WRITING-RULES.md` verbatim from the installed Scriven templates (`templates/WRITING-RULES.md`) into `.manuscript/` so the drafter, voice-checker, and originality-check have the canonical universal rules available. Save the actual drafted text as `.manuscript/drafts/body/{N}-{A}-DRAFT.md` files, one per atomic unit.
+7. **Generate the .manuscript/ directory.** Create all context files (WORK.md, BRIEF.md, OUTLINE.md, RECORD.md, STYLE-GUIDE.md, CHARACTERS.md, etc.) populated from the import. Also copy `WRITING-RULES.md` verbatim from the installed Scriven templates (`templates/WRITING-RULES.md`) into `.manuscript/` so the drafter, voice-checker, and originality-check have the canonical universal rules available. Save the actual drafted text as `.manuscript/drafts/body/{N}-{A}-DRAFT.md` files, one per atomic unit.
+
+   Populate `RECORD.md` from the imported manuscript, not from speculation. Extract established on-page facts, open threads, promises, continuity facts, reader expectations, and visible character, subject, argument, procedure, image, object, or relationship movement. Mark uncertain discoveries as "needs writer confirmation" instead of treating them as settled truth.
 
 8. **Set STATE.md** to reflect that all imported units are drafted but not yet reviewed. This lets the writer pick up with `/scr:editor-review` or `/scr:next`.
 
@@ -40,6 +42,7 @@ You are importing an existing manuscript into Scriven. The writer has content --
    Word count: 65,432
    Voice profile: extracted from 2000-word sample (review in STYLE-GUIDE.md)
    Characters detected: 7 (review in CHARACTERS.md)
+   Record initialized: established facts and open threads extracted into RECORD.md
 
    Some things I wasn't sure about:
    - [specific flags: uncertain chapter breaks, possible POV shifts, etc.]
@@ -63,6 +66,29 @@ You are importing an existing manuscript into Scriven. The writer has content --
 - Don't rename files without asking.
 - Don't skip voice analysis -- it's the highest-value part of import.
 - Don't assume character roles without evidence. Mark uncertain roles as such.
+
+## Response Contract
+
+Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+Use this format:
+
+```markdown
+Next commands:
+- `/scr:...`: One short sentence explaining what this path will do.
+- `/scr:...`: One short sentence explaining what this alternate path will do.
+```
+
+If exactly one path is clearly best, provide one suggestion. If two, three, or four useful paths exist, show them as alternatives. Do not force a linear path when the writer has a real choice.
+
+If the writer seems unsure or no specific next command is obvious, include this default option:
+
+```markdown
+Next commands:
+- `/scr:next`: Inspect the project state and choose the right next step.
+```
+
+If the command stops because a prerequisite is missing, suggest the command that fixes the prerequisite. Keep every explanation practical and writer-facing.
 
 ## Tone
 
