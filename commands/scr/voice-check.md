@@ -22,7 +22,7 @@ You are orchestrating a **voice fidelity check**. Your job is to feed the right 
 ### STEP 1: LOAD CONTEXT AND VALIDATE
 
 1. Load `config.json` -- determine work type and structural hierarchy
-2. Load Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- check for adapted command name:
+2. Load Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- check for adapted command name:
    - Sacred work types use **register-check** instead of voice-check (per CONSTRAINTS.json `adapted.sacred.rename`)
    - Adapt the report title and terminology accordingly (e.g., "Register Check Report" instead of "Voice Check Report")
 3. Check for `STYLE-GUIDE.md`:

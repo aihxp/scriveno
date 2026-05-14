@@ -19,291 +19,291 @@ function readFile(filePath) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// TPL-07: scriven-ieee.latex (IEEE Transactions / Conference)
+// TPL-07: scriveno-ieee.latex (IEEE Transactions / Conference)
 // ─────────────────────────────────────────────────────────────────────────────
 
-describe('Phase 35: TPL-07 scriven-ieee.latex exists with IEEEtran class', () => {
-  const TPLFILE = path.join(TEMPLATES_DIR, 'scriven-ieee.latex');
+describe('Phase 35: TPL-07 scriveno-ieee.latex exists with IEEEtran class', () => {
+  const TPLFILE = path.join(TEMPLATES_DIR, 'scriveno-ieee.latex');
 
-  it('scriven-ieee.latex exists -- TPL-07', () => {
+  it('scriveno-ieee.latex exists -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'data/export-templates/scriven-ieee.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'data/export-templates/scriveno-ieee.latex must exist -- TPL-07');
   });
 
-  it('scriven-ieee.latex contains \\documentclass with IEEEtran -- TPL-07', () => {
+  it('scriveno-ieee.latex contains \\documentclass with IEEEtran -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-ieee.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-ieee.latex must exist -- TPL-07');
     assert.ok(
       content.includes('\\documentclass') && content.includes('IEEEtran'),
-      'scriven-ieee.latex must contain \\documentclass with IEEEtran -- TPL-07'
+      'scriveno-ieee.latex must contain \\documentclass with IEEEtran -- TPL-07'
     );
   });
 
-  it('scriven-ieee.latex contains \\providecommand{\\tightlist} -- TPL-07', () => {
+  it('scriveno-ieee.latex contains \\providecommand{\\tightlist} -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-ieee.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-ieee.latex must exist -- TPL-07');
     assert.ok(
       content.includes('\\providecommand{\\tightlist}'),
-      'scriven-ieee.latex must contain \\providecommand{\\tightlist} -- TPL-07'
+      'scriveno-ieee.latex must contain \\providecommand{\\tightlist} -- TPL-07'
     );
   });
 
-  it('scriven-ieee.latex contains $body$ variable -- TPL-07', () => {
+  it('scriveno-ieee.latex contains $body$ variable -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-ieee.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-ieee.latex must exist -- TPL-07');
     assert.ok(
       content.includes('$body$'),
-      'scriven-ieee.latex must contain $body$ Pandoc variable -- TPL-07'
+      'scriveno-ieee.latex must contain $body$ Pandoc variable -- TPL-07'
     );
   });
 
-  it('scriven-ieee.latex contains $if(abstract)$ block -- TPL-07', () => {
+  it('scriveno-ieee.latex contains $if(abstract)$ block -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-ieee.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-ieee.latex must exist -- TPL-07');
     assert.ok(
       content.includes('$if(abstract)$'),
-      'scriven-ieee.latex must contain $if(abstract)$ block -- TPL-07'
+      'scriveno-ieee.latex must contain $if(abstract)$ block -- TPL-07'
     );
   });
 
-  it('scriven-ieee.latex contains CSL reference environment -- TPL-07', () => {
+  it('scriveno-ieee.latex contains CSL reference environment -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-ieee.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-ieee.latex must exist -- TPL-07');
     assert.ok(
       content.includes('CSLReferences'),
-      'scriven-ieee.latex must contain CSLReferences environment -- TPL-07'
+      'scriveno-ieee.latex must contain CSLReferences environment -- TPL-07'
     );
   });
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// TPL-07: scriven-acm.latex (ACM Conference / Journal)
+// TPL-07: scriveno-acm.latex (ACM Conference / Journal)
 // ─────────────────────────────────────────────────────────────────────────────
 
-describe('Phase 35: TPL-07 scriven-acm.latex exists with acmart class', () => {
-  const TPLFILE = path.join(TEMPLATES_DIR, 'scriven-acm.latex');
+describe('Phase 35: TPL-07 scriveno-acm.latex exists with acmart class', () => {
+  const TPLFILE = path.join(TEMPLATES_DIR, 'scriveno-acm.latex');
 
-  it('scriven-acm.latex exists -- TPL-07', () => {
+  it('scriveno-acm.latex exists -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'data/export-templates/scriven-acm.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'data/export-templates/scriveno-acm.latex must exist -- TPL-07');
   });
 
-  it('scriven-acm.latex contains \\documentclass with acmart -- TPL-07', () => {
+  it('scriveno-acm.latex contains \\documentclass with acmart -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-acm.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-acm.latex must exist -- TPL-07');
     assert.ok(
       content.includes('\\documentclass') && content.includes('acmart'),
-      'scriven-acm.latex must contain \\documentclass with acmart -- TPL-07'
+      'scriveno-acm.latex must contain \\documentclass with acmart -- TPL-07'
     );
   });
 
-  it('scriven-acm.latex contains \\providecommand{\\tightlist} -- TPL-07', () => {
+  it('scriveno-acm.latex contains \\providecommand{\\tightlist} -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-acm.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-acm.latex must exist -- TPL-07');
     assert.ok(
       content.includes('\\providecommand{\\tightlist}'),
-      'scriven-acm.latex must contain \\providecommand{\\tightlist} -- TPL-07'
+      'scriveno-acm.latex must contain \\providecommand{\\tightlist} -- TPL-07'
     );
   });
 
-  it('scriven-acm.latex contains $body$ variable -- TPL-07', () => {
+  it('scriveno-acm.latex contains $body$ variable -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-acm.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-acm.latex must exist -- TPL-07');
     assert.ok(
       content.includes('$body$'),
-      'scriven-acm.latex must contain $body$ Pandoc variable -- TPL-07'
+      'scriveno-acm.latex must contain $body$ Pandoc variable -- TPL-07'
     );
   });
 
-  it('scriven-acm.latex contains $if(abstract)$ block -- TPL-07', () => {
+  it('scriveno-acm.latex contains $if(abstract)$ block -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-acm.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-acm.latex must exist -- TPL-07');
     assert.ok(
       content.includes('$if(abstract)$'),
-      'scriven-acm.latex must contain $if(abstract)$ block -- TPL-07'
+      'scriveno-acm.latex must contain $if(abstract)$ block -- TPL-07'
     );
   });
 
-  it('scriven-acm.latex contains CSL reference environment -- TPL-07', () => {
+  it('scriveno-acm.latex contains CSL reference environment -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-acm.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-acm.latex must exist -- TPL-07');
     assert.ok(
       content.includes('CSLReferences'),
-      'scriven-acm.latex must contain CSLReferences environment -- TPL-07'
+      'scriveno-acm.latex must contain CSLReferences environment -- TPL-07'
     );
   });
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// TPL-07: scriven-lncs.latex (Springer Lecture Notes in Computer Science)
+// TPL-07: scriveno-lncs.latex (Springer Lecture Notes in Computer Science)
 // ─────────────────────────────────────────────────────────────────────────────
 
-describe('Phase 35: TPL-07 scriven-lncs.latex exists with llncs class', () => {
-  const TPLFILE = path.join(TEMPLATES_DIR, 'scriven-lncs.latex');
+describe('Phase 35: TPL-07 scriveno-lncs.latex exists with llncs class', () => {
+  const TPLFILE = path.join(TEMPLATES_DIR, 'scriveno-lncs.latex');
 
-  it('scriven-lncs.latex exists -- TPL-07', () => {
+  it('scriveno-lncs.latex exists -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'data/export-templates/scriven-lncs.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'data/export-templates/scriveno-lncs.latex must exist -- TPL-07');
   });
 
-  it('scriven-lncs.latex contains \\documentclass with llncs -- TPL-07', () => {
+  it('scriveno-lncs.latex contains \\documentclass with llncs -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-lncs.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-lncs.latex must exist -- TPL-07');
     assert.ok(
       content.includes('\\documentclass') && content.includes('llncs'),
-      'scriven-lncs.latex must contain \\documentclass with llncs -- TPL-07'
+      'scriveno-lncs.latex must contain \\documentclass with llncs -- TPL-07'
     );
   });
 
-  it('scriven-lncs.latex contains \\providecommand{\\tightlist} -- TPL-07', () => {
+  it('scriveno-lncs.latex contains \\providecommand{\\tightlist} -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-lncs.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-lncs.latex must exist -- TPL-07');
     assert.ok(
       content.includes('\\providecommand{\\tightlist}'),
-      'scriven-lncs.latex must contain \\providecommand{\\tightlist} -- TPL-07'
+      'scriveno-lncs.latex must contain \\providecommand{\\tightlist} -- TPL-07'
     );
   });
 
-  it('scriven-lncs.latex contains $body$ variable -- TPL-07', () => {
+  it('scriveno-lncs.latex contains $body$ variable -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-lncs.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-lncs.latex must exist -- TPL-07');
     assert.ok(
       content.includes('$body$'),
-      'scriven-lncs.latex must contain $body$ Pandoc variable -- TPL-07'
+      'scriveno-lncs.latex must contain $body$ Pandoc variable -- TPL-07'
     );
   });
 
-  it('scriven-lncs.latex contains $if(abstract)$ block -- TPL-07', () => {
+  it('scriveno-lncs.latex contains $if(abstract)$ block -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-lncs.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-lncs.latex must exist -- TPL-07');
     assert.ok(
       content.includes('$if(abstract)$'),
-      'scriven-lncs.latex must contain $if(abstract)$ block -- TPL-07'
+      'scriveno-lncs.latex must contain $if(abstract)$ block -- TPL-07'
     );
   });
 
-  it('scriven-lncs.latex contains CSL reference environment -- TPL-07', () => {
+  it('scriveno-lncs.latex contains CSL reference environment -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-lncs.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-lncs.latex must exist -- TPL-07');
     assert.ok(
       content.includes('CSLReferences'),
-      'scriven-lncs.latex must contain CSLReferences environment -- TPL-07'
+      'scriveno-lncs.latex must contain CSLReferences environment -- TPL-07'
     );
   });
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// TPL-07: scriven-elsevier.latex (Elsevier journals)
+// TPL-07: scriveno-elsevier.latex (Elsevier journals)
 // ─────────────────────────────────────────────────────────────────────────────
 
-describe('Phase 35: TPL-07 scriven-elsevier.latex exists with elsarticle class', () => {
-  const TPLFILE = path.join(TEMPLATES_DIR, 'scriven-elsevier.latex');
+describe('Phase 35: TPL-07 scriveno-elsevier.latex exists with elsarticle class', () => {
+  const TPLFILE = path.join(TEMPLATES_DIR, 'scriveno-elsevier.latex');
 
-  it('scriven-elsevier.latex exists -- TPL-07', () => {
+  it('scriveno-elsevier.latex exists -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'data/export-templates/scriven-elsevier.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'data/export-templates/scriveno-elsevier.latex must exist -- TPL-07');
   });
 
-  it('scriven-elsevier.latex contains \\documentclass with elsarticle -- TPL-07', () => {
+  it('scriveno-elsevier.latex contains \\documentclass with elsarticle -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-elsevier.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-elsevier.latex must exist -- TPL-07');
     assert.ok(
       content.includes('\\documentclass') && content.includes('elsarticle'),
-      'scriven-elsevier.latex must contain \\documentclass with elsarticle -- TPL-07'
+      'scriveno-elsevier.latex must contain \\documentclass with elsarticle -- TPL-07'
     );
   });
 
-  it('scriven-elsevier.latex contains \\providecommand{\\tightlist} -- TPL-07', () => {
+  it('scriveno-elsevier.latex contains \\providecommand{\\tightlist} -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-elsevier.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-elsevier.latex must exist -- TPL-07');
     assert.ok(
       content.includes('\\providecommand{\\tightlist}'),
-      'scriven-elsevier.latex must contain \\providecommand{\\tightlist} -- TPL-07'
+      'scriveno-elsevier.latex must contain \\providecommand{\\tightlist} -- TPL-07'
     );
   });
 
-  it('scriven-elsevier.latex contains $body$ variable -- TPL-07', () => {
+  it('scriveno-elsevier.latex contains $body$ variable -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-elsevier.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-elsevier.latex must exist -- TPL-07');
     assert.ok(
       content.includes('$body$'),
-      'scriven-elsevier.latex must contain $body$ Pandoc variable -- TPL-07'
+      'scriveno-elsevier.latex must contain $body$ Pandoc variable -- TPL-07'
     );
   });
 
-  it('scriven-elsevier.latex contains $if(abstract)$ block -- TPL-07', () => {
+  it('scriveno-elsevier.latex contains $if(abstract)$ block -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-elsevier.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-elsevier.latex must exist -- TPL-07');
     assert.ok(
       content.includes('$if(abstract)$'),
-      'scriven-elsevier.latex must contain $if(abstract)$ block -- TPL-07'
+      'scriveno-elsevier.latex must contain $if(abstract)$ block -- TPL-07'
     );
   });
 
-  it('scriven-elsevier.latex contains CSL reference environment -- TPL-07', () => {
+  it('scriveno-elsevier.latex contains CSL reference environment -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-elsevier.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-elsevier.latex must exist -- TPL-07');
     assert.ok(
       content.includes('CSLReferences'),
-      'scriven-elsevier.latex must contain CSLReferences environment -- TPL-07'
+      'scriveno-elsevier.latex must contain CSLReferences environment -- TPL-07'
     );
   });
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// TPL-07: scriven-apa7.latex (APA 7th edition)
+// TPL-07: scriveno-apa7.latex (APA 7th edition)
 // ─────────────────────────────────────────────────────────────────────────────
 
-describe('Phase 35: TPL-07 scriven-apa7.latex exists with apa7 class', () => {
-  const TPLFILE = path.join(TEMPLATES_DIR, 'scriven-apa7.latex');
+describe('Phase 35: TPL-07 scriveno-apa7.latex exists with apa7 class', () => {
+  const TPLFILE = path.join(TEMPLATES_DIR, 'scriveno-apa7.latex');
 
-  it('scriven-apa7.latex exists -- TPL-07', () => {
+  it('scriveno-apa7.latex exists -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'data/export-templates/scriven-apa7.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'data/export-templates/scriveno-apa7.latex must exist -- TPL-07');
   });
 
-  it('scriven-apa7.latex contains \\documentclass with apa7 -- TPL-07', () => {
+  it('scriveno-apa7.latex contains \\documentclass with apa7 -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-apa7.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-apa7.latex must exist -- TPL-07');
     assert.ok(
       content.includes('\\documentclass') && content.includes('apa7'),
-      'scriven-apa7.latex must contain \\documentclass with apa7 -- TPL-07'
+      'scriveno-apa7.latex must contain \\documentclass with apa7 -- TPL-07'
     );
   });
 
-  it('scriven-apa7.latex contains \\providecommand{\\tightlist} -- TPL-07', () => {
+  it('scriveno-apa7.latex contains \\providecommand{\\tightlist} -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-apa7.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-apa7.latex must exist -- TPL-07');
     assert.ok(
       content.includes('\\providecommand{\\tightlist}'),
-      'scriven-apa7.latex must contain \\providecommand{\\tightlist} -- TPL-07'
+      'scriveno-apa7.latex must contain \\providecommand{\\tightlist} -- TPL-07'
     );
   });
 
-  it('scriven-apa7.latex contains $body$ variable -- TPL-07', () => {
+  it('scriveno-apa7.latex contains $body$ variable -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-apa7.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-apa7.latex must exist -- TPL-07');
     assert.ok(
       content.includes('$body$'),
-      'scriven-apa7.latex must contain $body$ Pandoc variable -- TPL-07'
+      'scriveno-apa7.latex must contain $body$ Pandoc variable -- TPL-07'
     );
   });
 
-  it('scriven-apa7.latex contains $if(abstract)$ block -- TPL-07', () => {
+  it('scriveno-apa7.latex contains $if(abstract)$ block -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-apa7.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-apa7.latex must exist -- TPL-07');
     assert.ok(
       content.includes('$if(abstract)$'),
-      'scriven-apa7.latex must contain $if(abstract)$ block -- TPL-07'
+      'scriveno-apa7.latex must contain $if(abstract)$ block -- TPL-07'
     );
   });
 
-  it('scriven-apa7.latex contains CSL reference environment -- TPL-07', () => {
+  it('scriveno-apa7.latex contains CSL reference environment -- TPL-07', () => {
     const content = readFile(TPLFILE);
-    assert.ok(content !== null, 'scriven-apa7.latex must exist -- TPL-07');
+    assert.ok(content !== null, 'scriveno-apa7.latex must exist -- TPL-07');
     assert.ok(
       content.includes('CSLReferences'),
-      'scriven-apa7.latex must contain CSLReferences environment -- TPL-07'
+      'scriveno-apa7.latex must contain CSLReferences environment -- TPL-07'
     );
   });
 });

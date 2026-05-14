@@ -97,7 +97,7 @@ None - plan executed exactly as written.
 ## Issues Encountered
 
 - Worktree base did not match expected commit hash (7e65c78); reset applied before execution.
-- Test run from main project directory (`/Users/hprincivil/Projects/scriven`) showed TRAD-05 ORDER FAIL for both files because the tests read from the main project tree, not the worktree. Verified directly from worktree paths — both files pass ORDER OK. TRAD-05 tests run from the worktree confirm all 4 assertions GREEN.
+- Test run from main project directory (`/Users/hprincivil/Projects/scriveno`) showed TRAD-05 ORDER FAIL for both files because the tests read from the main project tree, not the worktree. Verified directly from worktree paths — both files pass ORDER OK. TRAD-05 tests run from the worktree confirm all 4 assertions GREEN.
 - TRAD-01 through TRAD-04 and behavioral tests (134 total failures) remain in RED state — these are pre-existing failures owned by plans 33-02 (manifest content) and 33-04 (verse numbering command), not introduced by this plan.
 
 ## User Setup Required

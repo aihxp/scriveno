@@ -1,8 +1,8 @@
 # Command Reference
 
-Scriven has **112 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
+Scriveno has **112 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
 
-Commands marked with **adaptive terminology** change how Scriven talks about your work type's `command_unit` in `.manuscript/config.json`, while keeping the runnable command id stable. Commands marked with **group adaptation** have different labels for specific work type groups (academic, sacred, etc.).
+Commands marked with **adaptive terminology** change how Scriveno talks about your work type's `command_unit` in `.manuscript/config.json`, while keeping the runnable command id stable. Commands marked with **group adaptation** have different labels for specific work type groups (academic, sacred, etc.).
 
 ## Table of Contents
 
@@ -43,7 +43,7 @@ The main workflow commands. Every writing project follows this chain: new-work, 
 ```
 /scr:new-work --type novel
 ```
-Start a novel project. Scriven asks your premise and whether you have existing material, then generates all context files.
+Start a novel project. Scriveno asks your premise and whether you have existing material, then generates all context files.
 
 ---
 
@@ -55,7 +55,7 @@ Start a novel project. Scriven asks your premise and whether you have existing m
 
 **Prerequisites:** OUTLINE.md must exist
 
-**Adaptive terminology:** Scriven keeps the runnable command as `/scr:discuss` and frames the unit appropriately -- chapter (novel), act (screenplay), surah (Quranic), section (research paper)
+**Adaptive terminology:** Scriveno keeps the runnable command as `/scr:discuss` and frames the unit appropriately -- chapter (novel), act (screenplay), surah (Quranic), section (research paper)
 
 **Example:**
 ```
@@ -73,7 +73,7 @@ Talk through Chapter 3 before planning it -- themes to explore, character arcs t
 
 **Prerequisites:** Discussed unit context (`{N}-CONTEXT.md`)
 
-**Adaptive terminology:** Same pattern as discuss -- `/scr:plan` stays stable while Scriven speaks in chapters, acts, surahs, and other unit labels
+**Adaptive terminology:** Same pattern as discuss -- `/scr:plan` stays stable while Scriveno speaks in chapters, acts, surahs, and other unit labels
 
 **Example:**
 ```
@@ -91,7 +91,7 @@ Research and plan Chapter 5, producing plan files for each scene the drafter age
 
 **Prerequisites:** Plan files must exist in `.manuscript/plans/` (`{N}-*-PLAN.md`). Legacy root-level plan files are still accepted for older projects.
 
-**Adaptive terminology:** `/scr:draft` stays stable while Scriven frames the work as drafting a chapter, act, surah, section, and so on
+**Adaptive terminology:** `/scr:draft` stays stable while Scriveno frames the work as drafting a chapter, act, surah, section, and so on
 
 **Example:**
 ```
@@ -122,7 +122,7 @@ Draft all scenes in Chapter 5. Each scene gets fresh context with STYLE-GUIDE.md
 ```
 /scr:editor-review 3
 ```
-Review the draft of unit 3 with your editor hat on. Scriven highlights issues, suggests improvements, and tracks your decisions.
+Review the draft of unit 3 with your editor hat on. Scriveno highlights issues, suggests improvements, and tracks your decisions.
 
 ---
 
@@ -134,7 +134,7 @@ Review the draft of unit 3 with your editor hat on. Scriven highlights issues, s
 
 **Prerequisites:** Review report must exist in `.manuscript/reviews/` (`{N}-REVIEW.md`). Legacy root-level `{N}-EDITOR-NOTES.md` is still accepted for older projects.
 
-**Adaptive terminology:** `/scr:submit` stays stable while Scriven describes the current chapter, act, surah, or other unit being finalized
+**Adaptive terminology:** `/scr:submit` stays stable while Scriveno describes the current chapter, act, surah, or other unit being finalized
 
 **Example:**
 ```
@@ -237,13 +237,13 @@ Commands for finding your way through the workflow and understanding your manusc
 ```
 /scr:next
 ```
-Not sure what comes after planning? Just run `/scr:next` and Scriven figures it out.
+Not sure what comes after planning? Just run `/scr:next` and Scriveno figures it out.
 
 ---
 
 ### `/scr:do`
 
-**Description:** Natural language router. Type what you want in plain English, Scriven figures out which command to run.
+**Description:** Natural language router. Type what you want in plain English, Scriveno figures out which command to run.
 
 **Usage:** `/scr:do "<what you want to do>"`
 
@@ -253,13 +253,13 @@ Not sure what comes after planning? Just run `/scr:next` and Scriven figures it 
 ```
 /scr:do "edit the scene where Maria meets the detective"
 ```
-Scriven maps your intent to the right command and runs it.
+Scriveno maps your intent to the right command and runs it.
 
 ---
 
 ### `/scr:help`
 
-**Description:** Show Scriven commands grouped by workflow stage, filtered to what's relevant for your current work type and progress.
+**Description:** Show Scriveno commands grouped by workflow stage, filtered to what's relevant for your current work type and progress.
 
 **Usage:** `/scr:help [category or search term]`
 
@@ -291,7 +291,7 @@ See "Chapter 4 of 12 drafted. 32,000 words. Next: discuss-chapter 5."
 
 ### `/scr:demo`
 
-**Description:** Launch or clear a pre-built sample project sandbox for exploring Scriven without risk.
+**Description:** Launch or clear a pre-built sample project sandbox for exploring Scriveno without risk.
 
 **Usage:** `/scr:demo [--clear] [--genre <genre>]`
 
@@ -305,20 +305,20 @@ See "Chapter 4 of 12 drafted. 32,000 words. Next: discuss-chapter 5."
 ```
 /scr:demo
 ```
-Explore Scriven with a pre-built watchmaker story -- 5 scenes, full context files, everything ready to try commands.
+Explore Scriveno with a pre-built watchmaker story -- 5 scenes, full context files, everything ready to try commands.
 
 ---
 
 ### `/scr:import`
 
-**Description:** Import an existing manuscript (docx, markdown, txt, or directory) and structure it into a Scriven `.manuscript/` directory.
+**Description:** Import an existing manuscript (docx, markdown, txt, or directory) and structure it into a Scriveno `.manuscript/` directory.
 
 **Usage:** `/scr:import <file_or_directory_path> [--type <work_type>]`
 
 **Prerequisites:** None
 
 **Flags:**
-- `--type <work_type>` -- Specify the work type if Scriven can't auto-detect it
+- `--type <work_type>` -- Specify the work type if Scriveno can't auto-detect it
 
 **Example:**
 ```
@@ -340,7 +340,7 @@ Import an existing Word document and split it into chapters, scenes, and context
 ```
 /scr:map-manuscript
 ```
-Analyze a manuscript you imported. Scriven reads the whole thing and extracts voice profile, character list, themes, and structure.
+Analyze a manuscript you imported. Scriveno reads the whole thing and extracts voice profile, character list, themes, and structure.
 
 ---
 
@@ -387,7 +387,7 @@ Writer-friendly git abstractions. Save your work, compare versions, and undo mis
 ```
 /scr:save "finished the rooftop confrontation"
 ```
-Save your work with a note. If you skip the message, Scriven writes one based on what changed.
+Save your work with a note. If you skip the message, Scriveno writes one based on what changed.
 
 ---
 
@@ -461,7 +461,7 @@ Use `--all` when you want the complete save-version list without the default 10-
 ```
 /scr:undo
 ```
-Go back to the previous save. Scriven shows what will be reverted and still asks for confirmation, even with `--force`.
+Go back to the previous save. Scriveno shows what will be reverted and still asks for confirmation, even with `--force`.
 
 ---
 
@@ -477,7 +477,7 @@ Go back to the previous save. Scriven shows what will be reverted and still asks
 ```
 /scr:pause-work
 ```
-Capture your mental state before stepping away. Scriven notes what you were working on, open threads, and next steps.
+Capture your mental state before stepping away. Scriveno notes what you were working on, open threads, and next steps.
 
 ---
 
@@ -493,7 +493,7 @@ Capture your mental state before stepping away. Scriven notes what you were work
 ```
 /scr:resume-work
 ```
-Get oriented after a break. Scriven reminds you what you were doing and suggests what to tackle next.
+Get oriented after a break. Scriveno reminds you what you were doing and suggests what to tackle next.
 
 ---
 
@@ -696,7 +696,7 @@ Insert a new chapter at position 3, shifting later chapters forward.
 ```
 /scr:remove-unit 7
 ```
-Remove chapter 7. Scriven warns if it has drafted content and asks for confirmation.
+Remove chapter 7. Scriveno warns if it has drafted content and asks for confirmation.
 
 ---
 
@@ -772,7 +772,7 @@ Commands for creating and managing characters, relationships, and world-building
 ```
 /scr:new-character
 ```
-Start building a character. Scriven interviews you about appearance, personality, backstory, voice, and role in the story.
+Start building a character. Scriveno interviews you about appearance, personality, backstory, voice, and role in the story.
 
 ---
 
@@ -936,7 +936,7 @@ Commands for calibrating voice and polishing prose.
 ```
 /scr:voice-test
 ```
-Scriven drafts a sample passage using your voice profile. If it doesn't sound right, you refine together until it does.
+Scriveno drafts a sample passage using your voice profile. If it doesn't sound right, you refine together until it does.
 
 ---
 
@@ -954,7 +954,7 @@ Scriven drafts a sample passage using your voice profile. If it doesn't sound ri
 ```
 /scr:line-edit
 ```
-Scriven reads your prose line by line, flagging weak verbs, passive voice, redundancy, and awkward phrasing.
+Scriveno reads your prose line by line, flagging weak verbs, passive voice, redundancy, and awkward phrasing.
 
 ---
 
@@ -1094,7 +1094,7 @@ Flag content that could be unintentionally harmful, with context-aware suggestio
 ```
 /scr:pacing-analysis
 ```
-See where your story drags or rushes. Scriven maps scene length, tension, and tempo across the full manuscript.
+See where your story drags or rushes. Scriveno maps scene length, tension, and tempo across the full manuscript.
 
 ---
 
@@ -1377,7 +1377,7 @@ Export your manuscript as a publication-ready EPUB with proper metadata, table o
 
 **Available for:** Prose, visual, poetry, interactive, sacred
 
-**Platform behavior:** If `--platform` is omitted, Scriven uses top-level `platform` from `.manuscript/config.json`, then falls back to `kdp`. The command validates the selected slug, loads `templates/platforms/{platform}/manifest.yaml`, confirms the manifest accepts EPUB, and carries the platform label plus `epub_variant` into the EPUB metadata and final report.
+**Platform behavior:** If `--platform` is omitted, Scriveno uses top-level `platform` from `.manuscript/config.json`, then falls back to `kdp`. The command validates the selected slug, loads `templates/platforms/{platform}/manifest.yaml`, confirms the manifest accepts EPUB, and carries the platform label plus `epub_variant` into the EPUB metadata and final report.
 
 **Example:**
 ```
@@ -1945,17 +1945,17 @@ Check for missing files, broken references, and state inconsistencies, then fix 
 /scr:scan          # report-only context-integrity scan
 /scr:scan --fix    # report + offer to fix the auto-fixable mismatches
 ```
-Complements `/scr:health` (structural fixer) by interrogating whether the *recorded* project state still matches reality. Run at session start, before publish, and after manually editing files outside Scriven.
+Complements `/scr:health` (structural fixer) by interrogating whether the *recorded* project state still matches reality. Run at session start, before publish, and after manually editing files outside Scriveno.
 
 ---
 
 ### `/scr:sync`
 
-**Description:** Synchronize installed Scriven runtime commands, skills, and agents with the current source tree.
+**Description:** Synchronize installed Scriveno runtime commands, skills, and agents with the current source tree.
 
 **Usage:** `/scr:sync [--check] [--apply] [--runtime <key>] [--detected] [--global|--project] [--writer|--developer]`
 
-**Prerequisites:** Node.js >=20.0.0 and a Scriven package or repo checkout with `bin/install.js`
+**Prerequisites:** Node.js >=20.0.0 and a Scriveno package or repo checkout with `bin/install.js`
 
 **Flags:**
 - `--check` -- Report stale installed runtime files without writing changes
@@ -1971,7 +1971,7 @@ Complements `/scr:health` (structural fixer) by interrogating whether the *recor
 ```
 /scr:sync --apply --runtime codex --global --developer
 ```
-Refresh Codex `$scr-*` skills, command mirrors, and agent prompts from the current Scriven source tree.
+Refresh Codex `$scr-*` skills, command mirrors, and agent prompts from the current Scriveno source tree.
 
 ---
 
@@ -2103,7 +2103,7 @@ Save a story idea for later without committing to it now.
 ```
 /scr:troubleshoot "draft command says OUTLINE.md is missing but it exists"
 ```
-Scriven investigates the issue and tells you exactly what's wrong and how to fix it.
+Scriveno investigates the issue and tells you exactly what's wrong and how to fix it.
 
 ---
 
@@ -2377,7 +2377,7 @@ Many commands automatically rename based on your work type group. Here is a summ
 
 Sacred-specific flow labels like `chronology` and `doctrinal-check` are exposed through the dedicated `/scr:sacred:*` command family rather than by relabeling hidden base commands.
 
-Commands with **adaptive terminology** (discuss, plan, draft, submit) keep the runnable command id stable and change only the unit wording in prompts and output. For example, a novel still runs `/scr:draft 5`, but Scriven frames it as drafting Chapter 5. A screenplay frames the same command as drafting Act 5. A Quranic commentary frames it as drafting Surah 5.
+Commands with **adaptive terminology** (discuss, plan, draft, submit) keep the runnable command id stable and change only the unit wording in prompts and output. For example, a novel still runs `/scr:draft 5`, but Scriveno frames it as drafting Chapter 5. A screenplay frames the same command as drafting Act 5. A Quranic commentary frames it as drafting Surah 5.
 
 ---
 

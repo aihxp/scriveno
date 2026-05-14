@@ -28,7 +28,7 @@ Display a table:
 | 3 | Untitled Screenplay | Screenplay | 0/3 acts     | 1 week ago    |
 ```
 
-If no `.manuscript/` folders found: "No Scriven projects found in this directory. Start one with `/scr:new-work`"
+If no `.manuscript/` folders found: "No Scriveno projects found in this directory. Start one with `/scr:new-work`"
 
 ### --switch <project>
 

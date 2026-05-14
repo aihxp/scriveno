@@ -16,7 +16,7 @@ Generate a detailed, structured illustration prompt for a specific scene, pullin
 
 You are generating a scene-specific illustration prompt. Load:
 - `.manuscript/config.json` (to get `work_type`, `genre`, trim size if set)
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check `commands.illustrate-scene.available` and prerequisites)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `commands.illustrate-scene.available` and prerequisites)
 - `.manuscript/illustrations/ART-DIRECTION.md` (visual style bible -- **required**)
 - `.manuscript/OUTLINE.md` (to resolve `<scene-ref>` to a file path)
 - The drafted scene file for `<scene-ref>`

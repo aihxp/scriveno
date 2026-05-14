@@ -6,7 +6,7 @@
 <domain>
 ## Phase Boundary
 
-Wire the new cover deliverables into Scriven's build/export/publish surface, then align the release-facing trust docs and regression coverage so the cover workflow stays truthful over time.
+Wire the new cover deliverables into Scriveno's build/export/publish surface, then align the release-facing trust docs and regression coverage so the cover workflow stays truthful over time.
 
 </domain>
 
@@ -15,7 +15,7 @@ Wire the new cover deliverables into Scriven's build/export/publish surface, the
 
 ### Build wiring
 - Build and export commands should point at the canonical `.manuscript/build/` cover assets rather than legacy output paths.
-- Print packaging should reference the relevant paperback or hardcover cover asset without pretending Scriven computes final wrap geometry.
+- Print packaging should reference the relevant paperback or hardcover cover asset without pretending Scriveno computes final wrap geometry.
 
 ### Trust-surface alignment
 - Public command docs and shipped-asset inventory must describe the same cover workflow the command files expect.
@@ -35,7 +35,7 @@ Wire the new cover deliverables into Scriven's build/export/publish surface, the
 - `docs/command-reference.md` and `docs/shipped-assets.md` are the highest-signal trust surfaces outside the commands themselves.
 
 ### Established Patterns
-- Scriven prefers manuscript asset conventions over generated helper code, so build-surface integrity must be enforced through docs + tests.
+- Scriveno prefers manuscript asset conventions over generated helper code, so build-surface integrity must be enforced through docs + tests.
 - Release-facing docs should never imply a bundled template or automation path that the repo does not actually ship.
 
 ### Integration Points

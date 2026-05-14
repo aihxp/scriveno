@@ -7,9 +7,9 @@
 
 ## 1. Project Overview
 
-Milestone `v1.5 Runtime Install Reliability` tightened Scriven's real installation story for Codex and Claude Code without expanding into broader runtime-parity claims. The milestone focused on three practical outcomes: a scriptable silent installer, a native Codex `$scr-*` discovery surface, and docs/tests that describe the exact install contract the repo now ships.
+Milestone `v1.5 Runtime Install Reliability` tightened Scriveno's real installation story for Codex and Claude Code without expanding into broader runtime-parity claims. The milestone focused on three practical outcomes: a scriptable silent installer, a native Codex `$scr-*` discovery surface, and docs/tests that describe the exact install contract the repo now ships.
 
-This milestone shipped phases `20` through `22`, passed milestone audit in [v1.5-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/scriven/.planning/v1.5-MILESTONE-AUDIT.md), and closed the review findings raised during post-ship code review before the final audit pass.
+This milestone shipped phases `20` through `22`, passed milestone audit in [v1.5-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/scriveno/.planning/v1.5-MILESTONE-AUDIT.md), and closed the review findings raised during post-ship code review before the final audit pass.
 
 ## 2. Architecture & Technical Decisions
 
@@ -19,8 +19,8 @@ This milestone shipped phases `20` through `22`, passed milestone audit in [v1.5
 - **Decision:** Allow one install run to target both Codex and Claude Code.
   - **Why:** The real user flow often needs both host surfaces updated together, and re-running prompt flows is brittle.
   - **Phase:** Phase 20
-- **Decision:** Limit reinstall cleanup to Scriven-owned output paths only.
-  - **Why:** Clean installs should remove stale Scriven assets without deleting unrelated user runtime files.
+- **Decision:** Limit reinstall cleanup to Scriveno-owned output paths only.
+  - **Why:** Clean installs should remove stale Scriveno assets without deleting unrelated user runtime files.
   - **Phase:** Phase 20
 - **Decision:** Treat Codex as a skill-native surface with generated `$scr-*` skills.
   - **Why:** Codex users discover functionality through skills, not slash-command parity, so the install surface should match the host.
@@ -36,7 +36,7 @@ This milestone shipped phases `20` through `22`, passed milestone audit in [v1.5
 
 | Phase | Name | Status | One-Liner |
 |-------|------|--------|-----------|
-| 20 | Silent Multi-Runtime Installer | Complete | Added scriptable multi-runtime install flags and Scriven-owned clean reinstall behavior |
+| 20 | Silent Multi-Runtime Installer | Complete | Added scriptable multi-runtime install flags and Scriveno-owned clean reinstall behavior |
 | 21 | Codex Skill-Native Surface | Complete | Added generated `$scr-*` Codex skills backed by mirrored installed command markdown |
 | 22 | Runtime Docs & Verification | Complete | Updated runtime docs and tests so Codex and Claude install guidance matches the shipped installer contract |
 
@@ -50,7 +50,7 @@ Current requirement and audit artifacts show full milestone coverage:
 - ✅ `RUNTIME-11` satisfied across Phases `20` and `21`
 - ✅ `QA-04` satisfied in Phase `22`
 
-Audit verdict: `passed` in [v1.5-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/scriven/.planning/v1.5-MILESTONE-AUDIT.md), with `5/5` requirements satisfied and all milestone flows verified.
+Audit verdict: `passed` in [v1.5-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/scriveno/.planning/v1.5-MILESTONE-AUDIT.md), with `5/5` requirements satisfied and all milestone flows verified.
 
 ## 5. Key Decisions Log
 
@@ -72,10 +72,10 @@ Audit verdict: `passed` in [v1.5-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/
 
 ## 7. Getting Started
 
-- **Run the project:** `npx scriven-cli@latest`
-- **Key directories:** [bin/install.js](/Users/hprincivil/Projects/scriven/bin/install.js), [README.md](/Users/hprincivil/Projects/scriven/README.md), [docs/runtime-support.md](/Users/hprincivil/Projects/scriven/docs/runtime-support.md), [docs/getting-started.md](/Users/hprincivil/Projects/scriven/docs/getting-started.md), [test/installer.test.js](/Users/hprincivil/Projects/scriven/test/installer.test.js), [.planning/phases/20-silent-multi-runtime-installer](/Users/hprincivil/Projects/scriven/.planning/phases/20-silent-multi-runtime-installer), [.planning/phases/21-codex-skill-native-surface](/Users/hprincivil/Projects/scriven/.planning/phases/21-codex-skill-native-surface), and [.planning/phases/22-runtime-docs-verification](/Users/hprincivil/Projects/scriven/.planning/phases/22-runtime-docs-verification)
+- **Run the project:** `npx scriveno-cli@latest`
+- **Key directories:** [bin/install.js](/Users/hprincivil/Projects/scriveno/bin/install.js), [README.md](/Users/hprincivil/Projects/scriveno/README.md), [docs/runtime-support.md](/Users/hprincivil/Projects/scriveno/docs/runtime-support.md), [docs/getting-started.md](/Users/hprincivil/Projects/scriveno/docs/getting-started.md), [test/installer.test.js](/Users/hprincivil/Projects/scriveno/test/installer.test.js), [.planning/phases/20-silent-multi-runtime-installer](/Users/hprincivil/Projects/scriveno/.planning/phases/20-silent-multi-runtime-installer), [.planning/phases/21-codex-skill-native-surface](/Users/hprincivil/Projects/scriveno/.planning/phases/21-codex-skill-native-surface), and [.planning/phases/22-runtime-docs-verification](/Users/hprincivil/Projects/scriveno/.planning/phases/22-runtime-docs-verification)
 - **Tests:** `npm test`
-- **Where to look first:** [ROADMAP.md](/Users/hprincivil/Projects/scriven/.planning/ROADMAP.md), [REQUIREMENTS.md](/Users/hprincivil/Projects/scriven/.planning/REQUIREMENTS.md), [v1.5-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/scriven/.planning/v1.5-MILESTONE-AUDIT.md), then the phase summaries and verification reports for phases `20` through `22`
+- **Where to look first:** [ROADMAP.md](/Users/hprincivil/Projects/scriveno/.planning/ROADMAP.md), [REQUIREMENTS.md](/Users/hprincivil/Projects/scriveno/.planning/REQUIREMENTS.md), [v1.5-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/scriveno/.planning/v1.5-MILESTONE-AUDIT.md), then the phase summaries and verification reports for phases `20` through `22`
 
 ---
 
@@ -89,4 +89,4 @@ Audit verdict: `passed` in [v1.5-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/
 
 ---
 
-Primary artifacts used: [PROJECT.md](/Users/hprincivil/Projects/scriven/.planning/PROJECT.md), [ROADMAP.md](/Users/hprincivil/Projects/scriven/.planning/ROADMAP.md), [REQUIREMENTS.md](/Users/hprincivil/Projects/scriven/.planning/REQUIREMENTS.md), [STATE.md](/Users/hprincivil/Projects/scriven/.planning/STATE.md), [v1.5-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/scriven/.planning/v1.5-MILESTONE-AUDIT.md), and the phase artifacts under [.planning/phases](/Users/hprincivil/Projects/scriven/.planning/phases).
+Primary artifacts used: [PROJECT.md](/Users/hprincivil/Projects/scriveno/.planning/PROJECT.md), [ROADMAP.md](/Users/hprincivil/Projects/scriveno/.planning/ROADMAP.md), [REQUIREMENTS.md](/Users/hprincivil/Projects/scriveno/.planning/REQUIREMENTS.md), [STATE.md](/Users/hprincivil/Projects/scriveno/.planning/STATE.md), [v1.5-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/scriveno/.planning/v1.5-MILESTONE-AUDIT.md), and the phase artifacts under [.planning/phases](/Users/hprincivil/Projects/scriveno/.planning/phases).

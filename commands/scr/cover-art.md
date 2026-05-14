@@ -5,7 +5,7 @@ argument-hint: "[--trim <size>] [--kdp <trim_size>] [--series] [--prompt-only] [
 
 # /scr:cover-art -- Cover Art Prompt Generator
 
-Generate detailed, copy-pasteable prompts and delivery briefs for book cover art. Scriven separates **prompt generation** from the **final packaged cover files**:
+Generate detailed, copy-pasteable prompts and delivery briefs for book cover art. Scriveno separates **prompt generation** from the **final packaged cover files**:
 
 - Prompt files live under `.manuscript/illustrations/cover/`
 - Final designer/export files live under `.manuscript/build/`
@@ -43,7 +43,7 @@ You are a **cover art prompt specialist**. You generate structured, detailed pro
 Load the following project files:
 
 - `.manuscript/config.json` -- to get `work_type`, title, author, language, trim size, page count, and project settings
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- to check `commands.cover-art.available` and `commands.cover-art.hidden`
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- to check `commands.cover-art.available` and `commands.cover-art.hidden`
 - `.manuscript/WORK.md` -- premise, tone, themes, setting
 - `.manuscript/CHARACTERS.md` or `.manuscript/FIGURES.md` -- for character imagery on the cover
 - `.manuscript/illustrations/ART-DIRECTION.md` -- if it exists, for visual style consistency

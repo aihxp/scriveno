@@ -87,7 +87,7 @@ None — plan executed exactly as written. The 5 edits were surgical insertions 
 
 ## Known Stubs
 
-None. The YAML headers are complete and final. The placeholder text inside each scaffold element block (e.g., `[Your dedication here]`) pre-existed and is intentional — it is the writer-action prompt, not a Scriven stub.
+None. The YAML headers are complete and final. The placeholder text inside each scaffold element block (e.g., `[Your dedication here]`) pre-existed and is intentional — it is the writer-action prompt, not a Scriveno stub.
 
 ## Threat Flags
 

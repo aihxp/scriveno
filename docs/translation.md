@@ -1,18 +1,18 @@
 # Translation Guide
 
-Scriven translates your manuscript into any language while preserving your voice. The translation pipeline handles glossary management, translation memory, cultural adaptation, quality verification, and multi-language publishing -- from setup to finished translated editions.
+Scriveno translates your manuscript into any language while preserving your voice. The translation pipeline handles glossary management, translation memory, cultural adaptation, quality verification, and multi-language publishing -- from setup to finished translated editions.
 
 This guide covers the full pipeline: choosing a translation engine, translating your manuscript, managing terminology, verifying quality, and publishing in multiple languages.
 
 ## Translation Engines
 
-Scriven uses three translation approaches, each suited to different languages and content types.
+Scriveno uses three translation approaches, each suited to different languages and content types.
 
 **DeepL** -- Primary engine for European languages. Higher quality than alternatives for English, French, German, Spanish, Italian, Portuguese, Dutch, Polish, Japanese, Chinese, and Korean. GDPR-compliant -- your content is not stored or used for training.
 
 **Google Cloud Translation** -- Broad language coverage with 130+ languages. Required for Arabic, Hebrew, Hindi, Swahili, and other languages DeepL does not cover. Best choice for RTL scripts and languages with limited DeepL support.
 
-**AI Agent (Claude/GPT)** -- The AI agent itself handles literary nuance, sacred text translation, and cultural adaptation that machine translation APIs miss. It applies your voice profile, maintains glossary compliance, and can do formal/dynamic equivalence translation. This is Scriven's default for literary content -- every unit is translated by the translator agent with your STYLE-GUIDE.md loaded.
+**AI Agent (Claude/GPT)** -- The AI agent itself handles literary nuance, sacred text translation, and cultural adaptation that machine translation APIs miss. It applies your voice profile, maintains glossary compliance, and can do formal/dynamic equivalence translation. This is Scriveno's default for literary content -- every unit is translated by the translator agent with your STYLE-GUIDE.md loaded.
 
 The translator agent works unit by unit in fresh context (just like the drafter), ensuring consistent quality and glossary compliance across the entire manuscript.
 
@@ -42,7 +42,7 @@ Before translating, set up a glossary for consistent terminology:
 /scr:translation-glossary fr
 ```
 
-Scriven scans your manuscript for character names, place names, invented terms, titles, recurring phrases, and cultural references, then generates suggested translations. Review and edit the glossary before starting translation -- the translator agent treats glossary entries as law.
+Scriveno scans your manuscript for character names, place names, invented terms, titles, recurring phrases, and cultural references, then generates suggested translations. Review and edit the glossary before starting translation -- the translator agent treats glossary entries as law.
 
 ### Step 3: Translate
 
@@ -52,7 +52,7 @@ Translate your manuscript:
 /scr:translate fr
 ```
 
-Scriven translates one atomic unit at a time (scene, chapter, passage), each in fresh context with your STYLE-GUIDE.md, glossary, and translation memory loaded. You see progress per unit:
+Scriveno translates one atomic unit at a time (scene, chapter, passage), each in fresh context with your STYLE-GUIDE.md, glossary, and translation memory loaded. You see progress per unit:
 
 ```
 Translated chapter 1, scene 1: 1,247 -> 1,389 words (1.11x)
@@ -93,7 +93,7 @@ Glossaries are stored as readable markdown tables at `.manuscript/translation/GL
 /scr:translation-glossary fr
 ```
 
-Scriven extracts terms from your manuscript and generates an initial glossary with suggested translations. Terms are organized by category:
+Scriveno extracts terms from your manuscript and generates an initial glossary with suggested translations. Terms are organized by category:
 
 | Category | What It Covers |
 |----------|---------------|
@@ -155,7 +155,7 @@ After completing a translation, build the TM from your approved translations:
 /scr:translation-memory fr --build
 ```
 
-Scriven aligns source and target segments at the paragraph and sentence level, assigns confidence scores (1.0 for exact alignment, down to 0.3 for fuzzy matches), and deduplicates.
+Scriveno aligns source and target segments at the paragraph and sentence level, assigns confidence scores (1.0 for exact alignment, down to 0.3 for fuzzy matches), and deduplicates.
 
 ### Translation Memory Commands
 
@@ -171,7 +171,7 @@ The TMX export produces industry-standard Translation Memory eXchange format com
 
 ## Cultural Adaptation
 
-Machine translation handles words. Cultural adaptation handles meaning. Scriven flags culturally sensitive content that needs human attention beyond what translation APIs catch.
+Machine translation handles words. Cultural adaptation handles meaning. Scriveno flags culturally sensitive content that needs human attention beyond what translation APIs catch.
 
 ```
 /scr:cultural-adaptation fr
@@ -211,7 +211,7 @@ Back-translation is the primary quality verification tool. It translates the tra
 
 ### How It Works
 
-1. Scriven reads the translated text (without looking at the original)
+1. Scriveno reads the translated text (without looking at the original)
 2. Translates it back to the source language
 3. Compares the back-translation with the original
 4. Annotates each segment with a drift marker
@@ -241,7 +241,7 @@ Scope to a specific unit or generate a full report:
 
 ## RTL and CJK Support
 
-Scriven handles right-to-left and CJK (Chinese, Japanese, Korean) scripts throughout the pipeline.
+Scriveno handles right-to-left and CJK (Chinese, Japanese, Korean) scripts throughout the pipeline.
 
 ### Right-to-Left Languages
 
@@ -249,7 +249,7 @@ RTL languages (Arabic, Hebrew, Persian, Urdu) receive special handling:
 
 - **Text direction** -- Export commands automatically set `--variable dir=rtl` for Pandoc and `text-dir` for Typst
 - **Template adjustments** -- The Typst book template reverses inside/outside margins for RTL binding
-- **Font requirements** -- RTL exports need fonts with Arabic/Hebrew glyph support. Scriven uses system-available fonts by default; specify custom fonts in `.manuscript/config.json`
+- **Font requirements** -- RTL exports need fonts with Arabic/Hebrew glyph support. Scriveno uses system-available fonts by default; specify custom fonts in `.manuscript/config.json`
 - **Punctuation** -- Quotation marks use the appropriate convention (e.g., French-style guillemets for Arabic)
 
 ### CJK Languages
@@ -263,7 +263,7 @@ CJK languages (Chinese, Japanese, Korean) receive:
 
 ### Script Detection
 
-Scriven auto-detects script direction from the language code:
+Scriveno auto-detects script direction from the language code:
 
 - **RTL:** `ar`, `he`, `fa`, `ur`, `yi`, `ps`, `sd`
 - **CJK:** `zh`, `ja`, `ko`

@@ -1,6 +1,6 @@
 # Creative Context
 
-Creative Context is Scriven's writer-native context routing protocol. It gives commands a light way to know which project files matter for a task without turning a manuscript into a process artifact.
+Creative Context is Scriveno's writer-native context routing protocol. It gives commands a light way to know which project files matter for a task without turning a manuscript into a process artifact.
 
 The protocol is a pilot for the core writing loop:
 

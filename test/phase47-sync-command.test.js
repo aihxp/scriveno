@@ -17,14 +17,14 @@ describe('Phase 47: runtime sync command', () => {
     assert.match(command, /^# Sync/m);
     assert.equal(constraints.commands.sync.category, 'utility');
     assert.deepEqual(constraints.commands.sync.available, ['all']);
-    assert.match(constraints.commands.sync.description, /Synchronize installed Scriven runtime commands/);
+    assert.match(constraints.commands.sync.description, /Synchronize installed Scriveno runtime commands/);
   });
 
   it('keeps sync distinct from update or package upgrade behavior', () => {
     const command = read('commands/scr/sync.md');
 
     assert.match(command, /This is not a package upgrade command/);
-    assert.match(command, /Do not fetch a newer Scriven release/);
+    assert.match(command, /Do not fetch a newer Scriveno release/);
     assert.match(command, /future `\/scr:update` command/);
     assert.match(command, /do not modify manuscript content/i);
   });

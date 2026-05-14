@@ -12,7 +12,7 @@ const {
 } = require('../bin/install.js');
 
 function mkTmp() {
-  return fs.mkdtempSync(path.join(os.tmpdir(), 'scriven-p26-'));
+  return fs.mkdtempSync(path.join(os.tmpdir(), 'scriveno-p26-'));
 }
 
 function cleanup(dir) {

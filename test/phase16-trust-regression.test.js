@@ -39,9 +39,9 @@ describe('trust-critical shipped assets', () => {
 
   it('matches the currently shipped export templates on disk', () => {
     const shippedTemplates = [
-      'data/export-templates/scriven-book.typst',
-      'data/export-templates/scriven-epub.css',
-      'data/export-templates/scriven-academic.latex',
+      'data/export-templates/scriveno-book.typst',
+      'data/export-templates/scriveno-epub.css',
+      'data/export-templates/scriveno-academic.latex',
     ];
 
     for (const templatePath of shippedTemplates) {
@@ -55,10 +55,10 @@ describe('trust-critical shipped assets', () => {
 
   it('still marks planned-but-unshipped templates as absent', () => {
     const absentTemplates = [
-      'data/export-templates/scriven-manuscript.docx',
-      'data/export-templates/scriven-formatted.docx',
-      'data/export-templates/scriven-kdp-cover.typst',
-      'data/export-templates/scriven-ingram-cover.typst',
+      'data/export-templates/scriveno-manuscript.docx',
+      'data/export-templates/scriveno-formatted.docx',
+      'data/export-templates/scriveno-kdp-cover.typst',
+      'data/export-templates/scriveno-ingram-cover.typst',
     ];
 
     for (const templatePath of absentTemplates) {

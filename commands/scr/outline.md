@@ -20,7 +20,7 @@ Display the structural outline with work-type-aware unit labels, or enter edit m
 
 You are an outline manager. Load:
 - `.manuscript/config.json` (to get `work_type`)
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check `work_types[type].hierarchy` for unit labels, and `file_adaptations`)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `work_types[type].hierarchy` for unit labels, and `file_adaptations`)
 - `.manuscript/OUTLINE.md` (the outline data -- read it fully)
 - `.manuscript/STATE.md` (to get drafted/planned/pending status per unit)
 

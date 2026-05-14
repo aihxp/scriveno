@@ -1,11 +1,11 @@
 ---
-description: Import an existing manuscript (docx, markdown, txt, or directory) and structure it into a Scriven .manuscript/ directory.
+description: Import an existing manuscript (docx, markdown, txt, or directory) and structure it into a Scriveno .manuscript/ directory.
 argument-hint: "<file_or_directory_path> [--type <work_type>]"
 ---
 
 # Import
 
-You are importing an existing manuscript into Scriven. The writer has content -- in a Google Doc, a Scrivener project, a folder of markdown files, a Word document, or similar -- and wants Scriven's tooling without starting from scratch.
+You are importing an existing manuscript into Scriveno. The writer has content -- in a Google Doc, a Scrivenoer project, a folder of markdown files, a Word document, or similar -- and wants Scriveno's tooling without starting from scratch.
 
 ## What to do
 
@@ -28,7 +28,7 @@ You are importing an existing manuscript into Scriven. The writer has content --
 
 6. **Detect characters.** Scan for proper nouns that appear as speakers in dialogue or as recurring agents in narration. Build a draft CHARACTERS.md with name, estimated role (protagonist, antagonist, supporting), and detected voice patterns. Flag for writer review.
 
-7. **Generate the .manuscript/ directory.** Create all context files (WORK.md, BRIEF.md, OUTLINE.md, RECORD.md, STYLE-GUIDE.md, CHARACTERS.md, etc.) populated from the import. Also copy `WRITING-RULES.md` verbatim from the installed Scriven templates (`templates/WRITING-RULES.md`) into `.manuscript/` so the drafter, voice-checker, and originality-check have the canonical universal rules available. Save the actual drafted text as `.manuscript/drafts/body/{N}-{A}-DRAFT.md` files, one per atomic unit.
+7. **Generate the .manuscript/ directory.** Create all context files (WORK.md, BRIEF.md, OUTLINE.md, RECORD.md, STYLE-GUIDE.md, CHARACTERS.md, etc.) populated from the import. Also copy `WRITING-RULES.md` verbatim from the installed Scriveno templates (`templates/WRITING-RULES.md`) into `.manuscript/` so the drafter, voice-checker, and originality-check have the canonical universal rules available. Save the actual drafted text as `.manuscript/drafts/body/{N}-{A}-DRAFT.md` files, one per atomic unit.
 
    Populate `RECORD.md` from the imported manuscript, not from speculation. Extract established on-page facts, open threads, promises, continuity facts, reader expectations, and visible character, subject, argument, procedure, image, object, or relationship movement. Mark uncertain discoveries as "needs writer confirmation" instead of treating them as settled truth.
 

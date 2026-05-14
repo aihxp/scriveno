@@ -1,5 +1,5 @@
-// Scriven Picture Book Template -- 8.5x8.5 with 0.125in bleed
-// Usage: pandoc ... --pdf-engine=typst --template=data/export-templates/scriven-picturebook.typst
+// Scriveno Picture Book Template -- 8.5x8.5 with 0.125in bleed
+// Usage: pandoc ... --pdf-engine=typst --template=data/export-templates/scriveno-picturebook.typst
 //
 // Picture book: 8.5×8.5 trim + 0.125in bleed on all sides = 8.75×8.75 total document size.
 // Safe zone: 0.25in from trim edge (0.375in from bleed edge) -- keep all text and key visuals inside.

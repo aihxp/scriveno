@@ -1,6 +1,6 @@
 /*
- * Scriven EPUB Stylesheet
- * Usage: pandoc ... --css=data/export-templates/scriven-epub.css
+ * Scriveno EPUB Stylesheet
+ * Usage: pandoc ... --css=data/export-templates/scriveno-epub.css
  *
  * KDP-compatible: uses em/rem units only (no px for font sizes).
  * No fixed widths or absolute positioning (EPUB reflow requirement).

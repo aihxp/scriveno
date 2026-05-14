@@ -35,7 +35,7 @@ If CONTEXT.md is missing, stale, or contradicts STATE.md, fall back to the origi
 Load these project files:
 
 - `.manuscript/config.json` -- to get `work_type`, title, author, language
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- to check `publishing_prerequisites`, `exports` section, and work type group
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- to check `publishing_prerequisites`, `exports` section, and work type group
 - `.manuscript/OUTLINE.md` -- to verify draft completeness
 
 Determine the work type group from CONSTRAINTS.json `work_type_groups` so you can check which presets and commands are available.
@@ -164,7 +164,7 @@ Missing 3 prerequisites. Generate them now? (yes/no)
 | Synopsis | Any `.manuscript/marketing/SYNOPSIS-*.md` file exists | `/scr:synopsis` |
 | Cover art | `.manuscript/build/ebook-cover.jpg` or `.png`, plus `.manuscript/build/paperback-cover.pdf` for print presets | `/scr:cover-art` |
 
-**Canonical cover build surface:** Scriven's cover handoff contract lives under `.manuscript/build/`:
+**Canonical cover build surface:** Scriveno's cover handoff contract lives under `.manuscript/build/`:
 - Ebook front cover: `.manuscript/build/ebook-cover.jpg` (or `.png`)
 - Paperback full wrap: `.manuscript/build/paperback-cover.pdf`
 - Hardcover case wrap: `.manuscript/build/hardcover-cover.pdf`
@@ -365,7 +365,7 @@ These presets produce single deliverables without retailer-specific packaging. T
 | 2 | `/scr:export --format docx` | Always |
 | 3 | `/scr:export --format epub` | Always |
 
-**all-formats** -- archival pass: every base format Scriven can produce (no store/package wrappers)
+**all-formats** -- archival pass: every base format Scriveno can produce (no store/package wrappers)
 | Step | Command | Condition |
 |------|---------|-----------|
 | 1 | `/scr:export --format markdown` | Always |

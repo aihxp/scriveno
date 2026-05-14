@@ -1,6 +1,6 @@
 # Changelog
 
-All notable package-level changes to `scriven-cli` are documented here.
+All notable package-level changes to `scriveno-cli` are documented here.
 
 ## 2.0.0 - 2026-05-14
 
@@ -21,7 +21,7 @@ Major release focused on creative-context intelligence and installed-runtime tru
 
 **Runtime sync**
 
-- Added `/scr:sync` to compare and refresh installed Scriven runtime commands, Codex skills, command mirrors, and agent prompts from the current source tree.
+- Added `/scr:sync` to compare and refresh installed Scriveno runtime commands, Codex skills, command mirrors, and agent prompts from the current source tree.
 - Kept `/scr:sync` distinct from future package upgrades: sync repairs local runtime drift; update remains reserved for fetching a newer released package.
 
 **Release alignment**
@@ -66,7 +66,7 @@ Substantial minor release focused on character continuity and context integrity.
 - `/scr:publish` wizard reorganized as a two-level decision tree (Share / Publish / Submit / Academic / Screenplay / Everything / Custom).
 - `/scr:export` (no args) now shows an interactive picker grouped into Single file / Print and store packaging / Submission packages, filtered by work type.
 - Added `--level minimum|balanced|maximum` flag to `/scr:front-matter` and `/scr:back-matter` plus a skip prompt. `/scr:publish` asks once per matter type before chaining.
-- Fixed: the Typst book interior template (`data/export-templates/scriven-book.typst`) now updates the running head per chapter on recto pages. Previously verso pages always showed the book title and recto pages were empty -- across a full book that read as "the same chapter title repeating on every spread." Suppressed on chapter-opener pages.
+- Fixed: the Typst book interior template (`data/export-templates/scriveno-book.typst`) now updates the running head per chapter on recto pages. Previously verso pages always showed the book title and recto pages were empty -- across a full book that read as "the same chapter title repeating on every spread." Suppressed on chapter-opener pages.
 
 **Installer hardening**
 
@@ -123,7 +123,7 @@ This release is a Claude command-surface follow-up to `1.5.0`.
 
 - switched Claude Code installs from nested `/scr:*` command-directory files to flat `/scr-*` command files at `.claude/commands/`
 - rewrote installed Claude command references so help text and cross-command suggestions use the same `/scr-*` surface writers invoke
-- added safe Claude command cleanup so Scriven removes only its own stale `scr-*.md` files and legacy `scr/` installs without touching unrelated user commands
+- added safe Claude command cleanup so Scriveno removes only its own stale `scr-*.md` files and legacy `scr/` installs without touching unrelated user commands
 - updated installer regression coverage and Claude-facing docs to lock the new command contract in place
 
 ## 1.5.0 - 2026-04-09
@@ -131,9 +131,9 @@ This release is a Claude command-surface follow-up to `1.5.0`.
 This release packages the shipped `v1.5 Runtime Install Reliability` milestone.
 
 - added explicit non-interactive installer flags for runtime selection, scope, mode, help, and version output
-- added one-run multi-runtime installs for Codex and Claude Code with shared `.scriven` output written once per run
+- added one-run multi-runtime installs for Codex and Claude Code with shared `.scriveno` output written once per run
 - generated native Codex `$scr-*` skills backed by mirrored installed command markdown under `.codex/commands/scr`
-- tightened reinstall cleanup so Scriven removes stale generated Codex skill wrappers and other Scriven-owned runtime assets without wiping unrelated user files
+- tightened reinstall cleanup so Scriveno removes stale generated Codex skill wrappers and other Scriveno-owned runtime assets without wiping unrelated user files
 - updated README and runtime-facing docs to describe the real Codex and Claude install surfaces truthfully
 - expanded installer and trust-regression coverage so silent install parsing, Codex skill generation, and runtime-surface wording stay aligned
 
@@ -141,7 +141,7 @@ This release packages the shipped `v1.5 Runtime Install Reliability` milestone.
 
 This release is a packaging follow-up to `1.4.0`.
 
-- normalized npm publish metadata to the form npm expects for the `scriven` bin mapping and repository URL
+- normalized npm publish metadata to the form npm expects for the `scriveno` bin mapping and repository URL
 - marked `bin/install.js` executable in the package so the shipped installer entrypoint is explicit on disk
 - updated the package regression test to enforce the publish-safe bin path going forward
 
@@ -162,11 +162,11 @@ This release rolls up the hardening work that landed after `1.3.3`.
 - added explicit validation artifacts for phases 13-16 and retroactive security artifacts for phases 13-16
 - expanded regression coverage with new phase-level Nyquist tests for phases 13-15 and stronger package/runtime trust checks for phase 16
 - reconciled planning-health drift and finalized the archived `v1.3 Trust & Proof` milestone state
-- prepared and published `scriven-cli@1.3.4` from that hardened baseline
+- prepared and published `scriveno-cli@1.3.4` from that hardened baseline
 
 ## 1.3.3 - 2026-04-08
 
-- restored public npm publishing for `scriven-cli`
+- restored public npm publishing for `scriveno-cli`
 - shipped the `v1.3 Trust & Proof` product surface before the post-release hardening pass
 
 ## [0.3.0] -- 2026-04-06

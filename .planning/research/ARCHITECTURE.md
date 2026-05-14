@@ -26,7 +26,7 @@
 | `generateClaudeCommandContent()` | 448-451 | Rewrites content for Claude Code only | Multi-runtime command-ref rewriting |
 | `installCommandRuntime()` | 821-830 | Generic runtime install (Cursor, Gemini, etc.) | Multi-runtime rewriting, atomic writes |
 | `removePathIfExists()` | 422-425 | Destructive delete before copy | Settings preservation |
-| `writeInstalledCommandManifest()` | 499-509 | Writes `.scriven-installed.json` | Atomic writes |
+| `writeInstalledCommandManifest()` | 499-509 | Writes `.scriveno-installed.json` | Atomic writes |
 | `writeCodexSkillManifest()` | 720-729 | Writes Codex skill manifest | Atomic writes |
 
 ---
@@ -51,7 +51,7 @@ All 5 features are modifications to existing functions in `bin/install.js`. No n
 
 ### Problem
 
-Every `fs.writeFileSync()` call (9 total) writes directly to the target path. If the process is interrupted mid-write (Ctrl-C, power loss, disk full), the file is left truncated or empty. For manifest files (`.scriven-installed.json`) and settings (`settings.json`), this means a corrupted install state that the installer cannot recover from.
+Every `fs.writeFileSync()` call (9 total) writes directly to the target path. If the process is interrupted mid-write (Ctrl-C, power loss, disk full), the file is left truncated or empty. For manifest files (`.scriveno-installed.json`) and settings (`settings.json`), this means a corrupted install state that the installer cannot recover from.
 
 ### Integration
 
@@ -192,7 +192,7 @@ function writeSharedAssets(dataDir, runtimeKeys, isGlobal, developerMode, instal
   const settingsPath = path.join(dataDir, 'settings.json');
   const existingSettings = readJsonIfExists(settingsPath);
   
-  // Templates and data: overwrite Scriven-owned files, but preserve user additions
+  // Templates and data: overwrite Scriveno-owned files, but preserve user additions
   // Instead of removePathIfExists, use selective copy that only overwrites source-owned files
   fs.mkdirSync(path.join(dataDir, 'templates'), { recursive: true });
   fs.mkdirSync(path.join(dataDir, 'data'), { recursive: true });
@@ -222,16 +222,16 @@ function writeSharedAssets(dataDir, runtimeKeys, isGlobal, developerMode, instal
 
 **Key change:** Remove the two `removePathIfExists()` calls for `templates/` and `data/`. Instead, `copyDir()` overwrites files that exist in the source package and leaves user-added files untouched. This is safe because `copyDir()` already creates directories and writes files -- it just needs to not delete first.
 
-**Template preservation detail:** If a user has customized `templates/WORK.md`, the reinstall will overwrite it with the package version. To prevent this, we would need a manifest of user-modified files. For v1.6, the simpler approach is: remove the `removePathIfExists()` calls so user-added files survive, but accept that Scriven-shipped templates get refreshed. This matches the command file behavior (Scriven-owned files are refreshed, non-Scriven files are preserved).
+**Template preservation detail:** If a user has customized `templates/WORK.md`, the reinstall will overwrite it with the package version. To prevent this, we would need a manifest of user-modified files. For v1.6, the simpler approach is: remove the `removePathIfExists()` calls so user-added files survive, but accept that Scriveno-shipped templates get refreshed. This matches the command file behavior (Scriveno-owned files are refreshed, non-Scriveno files are preserved).
 
 **Settings merge rule:** The installer owns these fields and always overwrites them: `version`, `runtime`, `runtimes`, `scope`, `developer_mode`, `data_dir`, `install_mode`, `installed_at`. Any other keys in the existing settings (user customizations) are preserved via spread.
 
 ### What about runtime-specific install functions?
 
-- `installCommandRuntime()` line 824: `removePathIfExists(commandsDir)` -- this is the Scriven-owned commands subdirectory (e.g., `.cursor/commands/scr/`). The `scr/` suffix scopes it to Scriven content only. This is safe to keep as-is.
-- `installManifestSkillRuntime()` line 860: `removePathIfExists(skillsDir)` -- this removes `~/.scriven/skills/` or `~/.manus/skills/scriven/`. Again, Scriven-scoped. Safe.
-- `installCodexRuntime()` line 878: `removePathIfExists(commandsDir)` -- Scriven-scoped. Safe.
-- `installGuidedRuntime()` line 912: `removePathIfExists(guideDir)` -- Scriven-scoped. Safe.
+- `installCommandRuntime()` line 824: `removePathIfExists(commandsDir)` -- this is the Scriveno-owned commands subdirectory (e.g., `.cursor/commands/scr/`). The `scr/` suffix scopes it to Scriveno content only. This is safe to keep as-is.
+- `installManifestSkillRuntime()` line 860: `removePathIfExists(skillsDir)` -- this removes `~/.scriveno/skills/` or `~/.manus/skills/scriveno/`. Again, Scriveno-scoped. Safe.
+- `installCodexRuntime()` line 878: `removePathIfExists(commandsDir)` -- Scriveno-scoped. Safe.
+- `installGuidedRuntime()` line 912: `removePathIfExists(guideDir)` -- Scriveno-scoped. Safe.
 
 The preservation problem is specifically in `writeSharedAssets()` where `removePathIfExists(path.join(dataDir, 'templates'))` removes ALL templates including user-added ones, and settings.json is fully overwritten.
 
@@ -449,7 +449,7 @@ Read existing settings.json
 validateSettings(existing)  <-- catch corruption early
   |
   v
-copyDir (NO pre-delete)     <-- overwrites Scriven files, preserves user additions
+copyDir (NO pre-delete)     <-- overwrites Scriveno files, preserves user additions
   |
   v
 atomicWriteFileSync()       <-- write-to-tmp + rename
@@ -563,9 +563,9 @@ Features have dependencies that constrain the order.
 
 **What:** Adding a YAML parser dependency (e.g., `js-yaml`) for frontmatter parsing.
 
-**Why bad:** Scriven's architecture constraint is zero npm dependencies. The frontmatter is simple key-value pairs, never YAML sequences or nested objects.
+**Why bad:** Scriveno's architecture constraint is zero npm dependencies. The frontmatter is simple key-value pairs, never YAML sequences or nested objects.
 
-**Instead:** First-colon split within the `---` block. Handles every frontmatter pattern actually used in Scriven command files.
+**Instead:** First-colon split within the `---` block. Handles every frontmatter pattern actually used in Scriveno command files.
 
 ### Anti-Pattern 4: Runtime-Specific Install Files
 
@@ -579,7 +579,7 @@ Features have dependencies that constrain the order.
 
 **What:** Creating `.bak` copies of templates before overwriting.
 
-**Why bad:** Backup files accumulate. Users don't know they exist. Restore is manual. The `.scriven/` directory fills with `.bak` debris.
+**Why bad:** Backup files accumulate. Users don't know they exist. Restore is manual. The `.scriveno/` directory fills with `.bak` debris.
 
 **Instead:** Stop deleting the directory before copying. `copyDir()` already overwrites individual files. User-added files that don't exist in the source package survive naturally.
 
@@ -601,6 +601,6 @@ Not a concern for this milestone. The installer runs once per install/upgrade. P
 ## Sources
 
 - [Node.js fs.renameSync](https://nodejs.org/api/fs.html#fsrenamesyncoldpath-newpath) -- Atomic rename semantics on POSIX
-- Scriven `bin/install.js` -- Primary source, 1035 lines analyzed line-by-line
-- Scriven `test/installer.test.js` -- Existing test patterns
-- Scriven `.planning/PROJECT.md` -- Milestone v1.6 requirements
+- Scriveno `bin/install.js` -- Primary source, 1035 lines analyzed line-by-line
+- Scriveno `test/installer.test.js` -- Existing test patterns
+- Scriveno `.planning/PROJECT.md` -- Milestone v1.6 requirements

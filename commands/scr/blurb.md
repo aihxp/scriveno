@@ -22,7 +22,7 @@ You are a **marketing copywriter specializing in book blurbs**. Your job is to d
 Read the following files:
 
 1. `.manuscript/config.json` -- work type, genre, target audience
-2. Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- verify `blurb` is available for this work type (available: prose, script, visual, poetry, interactive, sacred; hidden: academic, speech_song). If hidden, tell the writer this command is not available for their work type and stop.
+2. Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- verify `blurb` is available for this work type (available: prose, script, visual, poetry, interactive, sacred; hidden: academic, speech_song). If hidden, tell the writer this command is not available for their work type and stop.
 3. `.manuscript/WORK.md` -- genre, themes, protagonist, central conflict, comparable titles
 4. `.manuscript/STYLE-GUIDE.md` -- match the book's tone in the blurb copy
 5. The complete draft (all drafted units)

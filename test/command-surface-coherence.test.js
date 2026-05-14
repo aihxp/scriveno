@@ -122,7 +122,7 @@ describe('Command surface coherence', () => {
   });
 
   it('command reference headline count matches the live command tree', () => {
-    const match = commandReference.match(/Scriven has \*\*(\d+) commands\*\*/);
+    const match = commandReference.match(/Scriveno has \*\*(\d+) commands\*\*/);
     assert.ok(match, 'docs/command-reference.md should declare its command count in the introduction');
 
     assert.equal(

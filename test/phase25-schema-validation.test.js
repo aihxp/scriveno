@@ -18,7 +18,7 @@ function validSettings(overrides = {}) {
     runtimes: ['claude-code'],
     scope: 'global',
     developer_mode: false,
-    data_dir: '/tmp/.scriven',
+    data_dir: '/tmp/.scriveno',
     install_mode: 'interactive',
     installed_at: '2026-04-16T00:00:00.000Z',
     ...overrides,
@@ -26,7 +26,7 @@ function validSettings(overrides = {}) {
 }
 
 function mkTmp(label) {
-  return fs.mkdtempSync(path.join(os.tmpdir(), `scriven-schema-${label}-`));
+  return fs.mkdtempSync(path.join(os.tmpdir(), `scriveno-schema-${label}-`));
 }
 
 describe('SETTINGS_SCHEMA', () => {
@@ -125,7 +125,7 @@ describe('migrateSettings', () => {
       version: '1.0.0',
       runtime: 'claude-code',
       developer_mode: false,
-      data_dir: '/tmp/.scriven',
+      data_dir: '/tmp/.scriveno',
       installed_at: '2026-01-01T00:00:00Z',
     };
     const migrated = migrateSettings(raw);
@@ -185,7 +185,7 @@ describe('migrateSettings', () => {
       version: '1.0.0',
       runtime: 'claude-code',
       developer_mode: false,
-      data_dir: '/tmp/.scriven',
+      data_dir: '/tmp/.scriveno',
       installed_at: '2026-01-01T00:00:00Z',
     };
     const migrated = migrateSettings(raw);

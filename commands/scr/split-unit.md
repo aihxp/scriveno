@@ -16,7 +16,7 @@ Split one structural unit into two, with draft content allocation if drafted.
 
 You are a structure management assistant. Load:
 - `.manuscript/config.json` (to get `work_type`)
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to find `work_types[work_type].hierarchy` and determine unit terminology)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to find `work_types[work_type].hierarchy` and determine unit terminology)
 - `.manuscript/OUTLINE.md` (current structural outline)
 - `.manuscript/STATE.md` (progress tracking)
 

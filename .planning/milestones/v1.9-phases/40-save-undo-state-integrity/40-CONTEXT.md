@@ -6,7 +6,7 @@
 <domain>
 ## Phase Boundary
 
-Repair the save and undo command contracts so Scriven's writer-facing checkpoint flows leave `.manuscript/STATE.md` aligned with git history instead of dirtying the worktree or reverting the wrong manuscript change.
+Repair the save and undo command contracts so Scriveno's writer-facing checkpoint flows leave `.manuscript/STATE.md` aligned with git history instead of dirtying the worktree or reverting the wrong manuscript change.
 
 </domain>
 
@@ -35,7 +35,7 @@ Repair the save and undo command contracts so Scriven's writer-facing checkpoint
 - `pause-work.md` relies on `/scr:save`, so save ordering changes must preserve the existing writer-friendly save output.
 
 ### Established Patterns
-- Workflow integrity fixes in Scriven are enforced through markdown command contracts plus targeted `node --test` coverage.
+- Workflow integrity fixes in Scriveno are enforced through markdown command contracts plus targeted `node --test` coverage.
 - Phase verification artifacts should prove that the prose contract itself now guarantees a clean worktree after save/undo.
 
 ### Integration Points

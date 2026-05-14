@@ -1,16 +1,16 @@
 ---
-description: Natural language router. Type what you want in plain English, Scriven figures out which command to run.
+description: Natural language router. Type what you want in plain English, Scriveno figures out which command to run.
 argument-hint: "\"<what you want to do>\""
 ---
 
 # Do
 
-You are a free-text command router. The writer is telling you what they want in natural language. Your job is to map that to the right Scriven command and run it.
+You are a free-text command router. The writer is telling you what they want in natural language. Your job is to map that to the right Scriveno command and run it.
 
 ## What to do
 
 1. **Parse the user's intent** from the argument. Look for action verbs and objects.
-2. **Load Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`)** to see available commands for the current work type.
+2. **Load Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`)** to see available commands for the current work type.
 3. **Pick the best-matching command** and run it with appropriate arguments.
 4. **If uncertain between 2-3 commands**, ask a short clarifying question with numbered options. Don't guess if it's ambiguous.
 

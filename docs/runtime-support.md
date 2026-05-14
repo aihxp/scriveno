@@ -1,18 +1,18 @@
 # Runtime Support
 
-Scriven's runtime claims should be grounded in what the repo can actually prove. This document is the canonical source of truth for Scriven's installer compatibility floor, runtime evidence levels, support levels, and verification status.
+Scriveno's runtime claims should be grounded in what the repo can actually prove. This document is the canonical source of truth for Scriveno's installer compatibility floor, runtime evidence levels, support levels, and verification status.
 
 ## Node.js Baseline
 
-Scriven's installer compatibility floor is `Node.js >=20.0.0`. For new installs, prefer a currently supported LTS release such as Node.js 24. Node.js 20 reached end of life on 2026-04-30, so it remains a compatibility floor, not the recommended fresh-install target.
+Scriveno's installer compatibility floor is `Node.js >=20.0.0`. For new installs, prefer a currently supported LTS release such as Node.js 24. Node.js 20 reached end of life on 2026-04-30, so it remains a compatibility floor, not the recommended fresh-install target.
 
 Node is required for:
 
-- running `npx scriven-cli@latest`
+- running `npx scriveno-cli@latest`
 - executing `bin/install.js`
 - running the repo's JavaScript test suite
 
-Node is not a runtime dependency for Scriven's markdown command system itself. Once installed, Scriven's command files, agent prompts, templates, and constraints are read by the host AI coding agent.
+Node is not a runtime dependency for Scriveno's markdown command system itself. Once installed, Scriveno's command files, agent prompts, templates, and constraints are read by the host AI coding agent.
 
 ## Evidence Levels
 
@@ -20,11 +20,11 @@ Node is not a runtime dependency for Scriven's markdown command system itself. O
 - **Registry-tested**: `test/installer.test.js` asserts the runtime key exists and that its install properties match the expected `commands` or `skills` strategy.
 - **Guided setup assets**: the installer writes setup files or connector recipes for a documented runtime surface instead of copying slash-command files.
 - **Repo-documented**: the install strategy and detection behavior are described in project docs such as [Architecture](architecture.md).
-- **Host-runtime parity**: end-to-end proof that the installed command surface behaves equivalently inside the host agent. Scriven does not currently ship this proof for any runtime in the repo.
+- **Host-runtime parity**: end-to-end proof that the installed command surface behaves equivalently inside the host agent. Scriveno does not currently ship this proof for any runtime in the repo.
 
 ## Support Levels
 
-- **Primary reference runtime**: the runtime used as Scriven's primary example when docs need one concrete reference environment.
+- **Primary reference runtime**: the runtime used as Scriveno's primary example when docs need one concrete reference environment.
 - **Standard installer target**: the installer ships a first-class command-directory target for this runtime, with registry and path-shape evidence in the repo.
 - **Skills installer target**: the installer ships a manifest-based target for runtimes that do not use command directories.
 - **Guided desktop MCP target**: the installer ships setup assets and connector recipes for a documented desktop local-MCP surface rather than a writable command directory.
@@ -34,7 +34,7 @@ Node is not a runtime dependency for Scriven's markdown command system itself. O
 
 - **Registry-tested**: installer registry shape is covered by automated tests.
 - **Repo-documented**: detection and install strategy are documented in the repo.
-- **No host-runtime parity verification yet**: Scriven does not currently ship an end-to-end verification artifact for behavior inside the host runtime.
+- **No host-runtime parity verification yet**: Scriveno does not currently ship an end-to-end verification artifact for behavior inside the host runtime.
 
 ## Runtime Compatibility Matrix
 
@@ -48,13 +48,13 @@ Node is not a runtime dependency for Scriven's markdown command system itself. O
 | GitHub Copilot | commands | `~/.github/commands/scr` + `~/.github/agents` or `.github/commands/scr` + `.github/agents` | Installer registry, registry-tested, repo-documented | Standard installer target | Registry-tested; repo-documented; no host-runtime parity verification yet |
 | Windsurf | commands | `~/.windsurf/commands/scr` + `~/.windsurf/agents` or `.windsurf/commands/scr` + `.windsurf/agents` | Installer registry, registry-tested, repo-documented | Standard installer target | Registry-tested; repo-documented; no host-runtime parity verification yet |
 | Antigravity | commands | `~/.gemini/antigravity/commands/scr` + `~/.gemini/antigravity/agents` or `.gemini/antigravity/commands/scr` + `.gemini/antigravity/agents` | Installer registry, registry-tested, repo-documented | Standard installer target | Registry-tested; repo-documented; no host-runtime parity verification yet |
-| Manus Desktop | skills | `~/.manus/skills/scriven/SKILL.md` or `.manus/skills/scriven/SKILL.md` | Installer registry, registry-tested, repo-documented | Skills installer target | Registry-tested; repo-documented; no host-runtime parity verification yet |
-| Perplexity Desktop | guided-mcp | `~/.scriven/perplexity/SETUP.md` or `.scriven/perplexity/SETUP.md` plus Perplexity Desktop Connectors setup | Installer registry, registry-tested, guided setup assets, repo-documented | Guided desktop MCP target | Registry-tested; repo-documented; no host-runtime parity verification yet |
-| Generic (SKILL.md) | skills | `~/.scriven/skills/SKILL.md` or `.scriven/skills/SKILL.md` | Installer registry, registry-tested | Generic skills fallback | Registry-tested; no host-runtime parity verification yet |
+| Manus Desktop | skills | `~/.manus/skills/scriveno/SKILL.md` or `.manus/skills/scriveno/SKILL.md` | Installer registry, registry-tested, repo-documented | Skills installer target | Registry-tested; repo-documented; no host-runtime parity verification yet |
+| Perplexity Desktop | guided-mcp | `~/.scriveno/perplexity/SETUP.md` or `.scriveno/perplexity/SETUP.md` plus Perplexity Desktop Connectors setup | Installer registry, registry-tested, guided setup assets, repo-documented | Guided desktop MCP target | Registry-tested; repo-documented; no host-runtime parity verification yet |
+| Generic (SKILL.md) | skills | `~/.scriveno/skills/SKILL.md` or `.scriveno/skills/SKILL.md` | Installer registry, registry-tested | Generic skills fallback | Registry-tested; no host-runtime parity verification yet |
 
-## What Scriven Proves Today
+## What Scriveno Proves Today
 
-Scriven currently proves all of the following in-repo:
+Scriveno currently proves all of the following in-repo:
 
 - a named installer target exists for each runtime listed above
 - each target has a declared install strategy (`commands`, `skills`, or `guided-mcp`)
@@ -62,7 +62,7 @@ Scriven currently proves all of the following in-repo:
 - the runtime registry shape is covered by automated installer tests
 - the high-level install strategies and detection rules are documented in [Architecture](architecture.md)
 
-Scriven does not currently prove:
+Scriveno does not currently prove:
 
 - end-to-end host-runtime parity across every listed runtime
 - that every runtime behaves identically once commands are installed

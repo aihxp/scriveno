@@ -24,7 +24,7 @@ const TB = '`' + '`' + '`'; // triple-backtick, avoids clashing with template li
 const TT = '~~~';
 
 function mkTmp(label) {
-  return fs.mkdtempSync(path.join(os.tmpdir(), `scriven-atomic-${label}-`));
+  return fs.mkdtempSync(path.join(os.tmpdir(), `scriveno-atomic-${label}-`));
 }
 
 describe('atomicWriteFileSync', () => {
@@ -112,7 +112,7 @@ describe('atomicWriteFileSync', () => {
 
 describe('cleanOrphanedTempFiles', () => {
   it('returns 0 when directory does not exist (no throw)', () => {
-    const nonexistent = path.join(os.tmpdir(), 'scriven-absent-' + Date.now());
+    const nonexistent = path.join(os.tmpdir(), 'scriveno-absent-' + Date.now());
     assert.equal(cleanOrphanedTempFiles(nonexistent), 0);
   });
 
@@ -240,7 +240,7 @@ describe('collectTargetDirsForSweep', () => {
   });
 
   it('resolves project-scope relative dirs to absolute paths', () => {
-    const dataDir = path.resolve('.scriven');
+    const dataDir = path.resolve('.scriveno');
     const dirs = collectTargetDirsForSweep(['claude-code'], false, dataDir);
     // Each resolved path should be absolute
     for (const d of dirs) {
@@ -328,7 +328,7 @@ describe('Installer leaves no *.tmp. files behind', () => {
   it('crash-simulation: orphan from prior run is cleaned before fresh write succeeds', () => {
     const tmpDir = mkTmp('crash-sim');
     try {
-      const dataDir = path.join(tmpDir, '.scriven');
+      const dataDir = path.join(tmpDir, '.scriveno');
       fs.mkdirSync(dataDir, { recursive: true });
 
       // Simulate a prior interrupted install: an orphan tmp file with UUID suffix
@@ -568,7 +568,7 @@ describe('generateCodexCommandContent', () => {
     assert.ok(out.includes(TB + '\n/scr:help\n' + TB));
     // Marker present
     assert.ok(out.includes(
-      '<!-- scriven-cli-installed-command runtime:codex command:$scr-help source:help.md -->'
+      '<!-- scriveno-cli-installed-command runtime:codex command:$scr-help source:help.md -->'
     ));
   });
 
@@ -586,7 +586,7 @@ describe('generateCodexCommandContent', () => {
     assert.ok(out.startsWith('---\ndescription: hi\n---\n'));
     // Marker comes immediately after frontmatter
     const afterFm = out.slice('---\ndescription: hi\n---\n'.length);
-    assert.ok(afterFm.startsWith('<!-- scriven-cli-installed-command runtime:codex'));
+    assert.ok(afterFm.startsWith('<!-- scriveno-cli-installed-command runtime:codex'));
   });
 });
 
@@ -604,7 +604,7 @@ describe('generateClaudeCommandContent regression (code-block aware)', () => {
     assert.ok(out.includes('Run /scr-help'));
     assert.ok(out.includes(TB + '\n/scr:help\n' + TB));
     assert.ok(out.includes(
-      '<!-- scriven-cli-installed-command runtime:claude-code command:/scr-help source:help.md -->'
+      '<!-- scriveno-cli-installed-command runtime:claude-code command:/scr-help source:help.md -->'
     ));
   });
 });
@@ -614,7 +614,7 @@ describe('installCodexRuntime rewrites command files', () => {
   const PKG_ROOT = path.join(__dirname, '..');
 
   it('writes installed Codex command files with $scr- in prose, preserves code blocks, inserts marker', () => {
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriven-codex-install-'));
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriveno-codex-install-'));
     const origCwd = process.cwd();
     try {
       process.chdir(tmpDir);
@@ -630,7 +630,7 @@ describe('installCodexRuntime rewrites command files', () => {
       assert.ok(fs.existsSync(helpPath), 'help.md should be installed');
       const content = fs.readFileSync(helpPath, 'utf8');
       // Marker present exactly once
-      const markerRe = /<!-- scriven-cli-installed-command runtime:codex /g;
+      const markerRe = /<!-- scriveno-cli-installed-command runtime:codex /g;
       const matches = content.match(markerRe) || [];
       assert.equal(matches.length, 1, 'marker should appear exactly once');
       assert.ok(content.includes('runtime:codex'));
@@ -642,7 +642,7 @@ describe('installCodexRuntime rewrites command files', () => {
   });
 
   it('preserves nested command paths (sacred/concordance.md)', () => {
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriven-codex-nested-'));
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriveno-codex-nested-'));
     const origCwd = process.cwd();
     try {
       process.chdir(tmpDir);
@@ -677,7 +677,7 @@ describe('installCodexRuntime rewrites command files', () => {
   });
 
   it('re-running the installer is idempotent (marker appears once, no tmp files)', () => {
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriven-codex-idem-'));
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriveno-codex-idem-'));
     const origCwd = process.cwd();
     try {
       process.chdir(tmpDir);
@@ -692,7 +692,7 @@ describe('installCodexRuntime rewrites command files', () => {
 
       const helpPath = path.join(tmpDir, '.codex/commands/scr/help.md');
       const content = fs.readFileSync(helpPath, 'utf8');
-      const markerRe = /<!-- scriven-cli-installed-command runtime:codex /g;
+      const markerRe = /<!-- scriveno-cli-installed-command runtime:codex /g;
       const matches = content.match(markerRe) || [];
       assert.equal(matches.length, 1, 'marker should appear exactly once even after re-run');
 
@@ -843,7 +843,7 @@ describe('M-04: writeSharedAssets migrate+validate existing settings', () => {
     const origCwd = process.cwd();
     try {
       process.chdir(tmpDir);
-      const dataDir = path.join(tmpDir, '.scriven');
+      const dataDir = path.join(tmpDir, '.scriveno');
       fs.mkdirSync(dataDir, { recursive: true });
 
       // Write a schema-invalid settings.json -- valid JSON but bad types.
@@ -883,7 +883,7 @@ describe('M-04: writeSharedAssets migrate+validate existing settings', () => {
     const origCwd = process.cwd();
     try {
       process.chdir(tmpDir);
-      const dataDir = path.join(tmpDir, '.scriven');
+      const dataDir = path.join(tmpDir, '.scriveno');
 
       // First install to populate the file with a valid shape.
       install.writeSharedAssets(dataDir, ['codex'], false, true, 'interactive', () => {});

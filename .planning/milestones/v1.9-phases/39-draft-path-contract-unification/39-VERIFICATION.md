@@ -21,7 +21,7 @@ re_verification: false
 
 | # | Truth | Status | Evidence |
 |---|-------|--------|----------|
-| 1 | Scriven now defines one canonical active-manuscript body draft path | ✓ VERIFIED | Phase context and updated command contracts converge on `.manuscript/drafts/body/` |
+| 1 | Scriveno now defines one canonical active-manuscript body draft path | ✓ VERIFIED | Phase context and updated command contracts converge on `.manuscript/drafts/body/` |
 | 2 | Draft-producing commands no longer advertise root-level active-manuscript draft files | ✓ VERIFIED | `commands/scr/draft.md` and `commands/scr/import.md` now write `.manuscript/drafts/body/{N}-{A}-DRAFT.md` |
 | 3 | Source draft readers now resolve the same canonical path | ✓ VERIFIED | `commands/scr/back-translate.md` reads `.manuscript/drafts/body/{unit}-DRAFT.md` |
 | 4 | Trust-facing command examples no longer reintroduce the old root-level layout in this phase scope | ✓ VERIFIED | `back-matter.md`, `autopilot.md`, `compare.md`, and `demo.md` now teach the drafts tree rather than `.manuscript/*-DRAFT.md` |

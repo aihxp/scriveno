@@ -1,6 +1,6 @@
 # Drafter quality controls
 
-Scriven's drafter agent loads three layers of rule context, in this order, on every atomic unit:
+Scriveno's drafter agent loads three layers of rule context, in this order, on every atomic unit:
 
 1. **STYLE-GUIDE.md** (always, sovereign): the writer's Voice DNA. The drafter's primary loyalty.
 2. **WRITING-RULES.md** (optional, universal): canonical AI-tell don'ts that apply to all writing.

@@ -5,13 +5,13 @@ argument-hint: "[--quick] [--type <work_type>]"
 
 # New work
 
-You are setting up a new Scriven project. Load Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) for work type definitions.
+You are setting up a new Scriveno project. Load Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) for work type definitions.
 
 ## Onboarding philosophy
 
 Progressive disclosure. Ask 3 questions max before starting. Don't interrogate the writer -- this is a conversation, not a survey. If they want depth, they'll say so. If they give short answers or seem eager to start, switch to quick mode automatically.
 
-Scriven tracks what moves in the work. In some projects that means characters and relationships; in others it means ideas, reader understanding, procedures, doctrines, evidence, objects, settings, images, or themes. Do not force a character model onto work that does not need one.
+Scriveno tracks what moves in the work. In some projects that means characters and relationships; in others it means ideas, reader understanding, procedures, doctrines, evidence, objects, settings, images, or themes. Do not force a character model onto work that does not need one.
 
 ## The 3 questions
 
@@ -69,7 +69,7 @@ Always create `RECORD.md` from `templates/RECORD.md` without renaming it. It is 
 Write `.manuscript/config.json` by starting from `templates/config.json` and filling the project-specific values. The generated config must include the shared settings blocks that later commands read:
 ```json
 {
-  "scriven_version": "2.0.0",
+  "scriveno_version": "2.0.0",
   "work_type": "<chosen>",
   "group": "<group>",
   "command_unit": "<unit>",

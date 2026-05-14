@@ -85,8 +85,8 @@ describe('phase 18 technical-writing scaffolding', () => {
     assert.match(newWork, /REFERENCES\.md/);
     assert.match(newWork, /templates\/technical\//);
     assert.match(newWork, /technical` block/);
-    assert.equal(templateConfig.scriven_version, pkg.version);
-    assert.match(newWork, new RegExp(`"scriven_version": "${pkg.version.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
+    assert.equal(templateConfig.scriveno_version, pkg.version);
+    assert.match(newWork, new RegExp(`"scriveno_version": "${pkg.version.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`));
   });
 });
 

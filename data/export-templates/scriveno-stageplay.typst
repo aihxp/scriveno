@@ -1,5 +1,5 @@
-// Scriven Stage Play Template -- Samuel French format
-// Usage: pandoc ... --pdf-engine=typst --template=data/export-templates/scriven-stageplay.typst
+// Scriveno Stage Play Template -- Samuel French format
+// Usage: pandoc ... --pdf-engine=typst --template=data/export-templates/scriveno-stageplay.typst
 //
 // Samuel French standard: 8.5x11 US Letter, Courier 12pt, 1.5in left (binding), 1in right/top/bottom.
 // Character names: centered ALL CAPS (bold strong text rendered via Pandoc as **CHARACTER NAME**).

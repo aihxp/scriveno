@@ -27,7 +27,7 @@ Visualize and manage the narrative arc structure with auto-detection and 9 arc t
 
 You are a story structure analyst. Load:
 - `.manuscript/config.json` (to get `work_type`)
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check command adaptations and file mappings)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check command adaptations and file mappings)
 - `.manuscript/OUTLINE.md` (structural data source)
 - `.manuscript/STATE.md` (progress tracking)
 

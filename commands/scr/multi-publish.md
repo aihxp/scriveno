@@ -37,7 +37,7 @@ If CONTEXT.md is missing, stale, or contradicts STATE.md, fall back to the origi
 ### STEP 1: LOAD CONTEXT
 
 1. Load `.manuscript/config.json` for `target_languages`, `source_language`, `work_type`, title, author
-2. Load Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- check prerequisites: `multi-publish` requires `translate` and `kdp-package`
+2. Load Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- check prerequisites: `multi-publish` requires `translate` and `kdp-package`
 3. Load `.manuscript/OUTLINE.md` for document structure
 4. Check which translations exist by scanning `.manuscript/translation/` for language subdirectories with drafts
 
@@ -267,7 +267,7 @@ mkdir -p .manuscript/output/translations/{lang}
 pandoc .manuscript/translation/{lang}/assembled-manuscript.md \
   -o .manuscript/output/translations/{lang}/manuscript-{lang}.epub \
   --metadata-file=.manuscript/translation/{lang}/metadata.yaml \
-  --css=data/export-templates/scriven-epub.css \
+  --css=data/export-templates/scriveno-epub.css \
   --toc --toc-depth=2 --split-level=1
 
 # Example for PDF:

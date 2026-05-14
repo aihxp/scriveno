@@ -16,7 +16,7 @@ Generate children's book / picture book page spread layouts with labeled zones f
 
 You are generating a page spread layout for a children's book or picture book. Load:
 - `.manuscript/config.json` (to get `work_type` -- must be in visual group: childrens_book, picture_book, illustrated_book)
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check `commands.spread-layout.available` -- visual group only)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `commands.spread-layout.available` -- visual group only)
 - `.manuscript/illustrations/ART-DIRECTION.md` if it exists (for visual style consistency)
 - `.manuscript/OUTLINE.md` (to get spread content -- for picture books, each spread is an atomic unit)
 - Drafted spread content if it exists (the text and scene description for this spread)

@@ -18,7 +18,7 @@ Generate a structured prompt for decorative chapter openers, ornamental dividers
 
 You are generating a decorative chapter header/ornament design prompt. Load:
 - `.manuscript/config.json` (to get `work_type`, `genre`)
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check `commands.chapter-header` availability)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `commands.chapter-header` availability)
 - `ART-DIRECTION.md` from `.manuscript/` if it exists (for style consistency)
 - `OUTLINE.md` from `.manuscript/` if `--chapter` flag is provided (to get chapter title/theme)
 

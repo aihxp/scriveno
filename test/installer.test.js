@@ -27,7 +27,7 @@ const ROOT = path.join(__dirname, '..');
 
 describe('Installer copyDir', () => {
   it('copies files to temp directory', () => {
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriven-test-'));
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriveno-test-'));
     try {
       const src = path.join(ROOT, 'commands', 'scr');
       const dest = path.join(tmpDir, 'scr');
@@ -43,12 +43,12 @@ describe('Installer copyDir', () => {
   });
 
   it('returns 0 for non-existent source', () => {
-    const count = copyDir('/tmp/nonexistent-scriven-path', '/tmp/nonexistent-scriven-dest');
+    const count = copyDir('/tmp/nonexistent-scriveno-path', '/tmp/nonexistent-scriveno-dest');
     assert.equal(count, 0);
   });
 
   it('copies nested directories', () => {
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriven-test-'));
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriveno-test-'));
     try {
       const src = path.join(ROOT, 'commands');
       const dest = path.join(tmpDir, 'commands');
@@ -199,8 +199,8 @@ describe('generateSkillManifest', () => {
     assert.equal(typeof manifest, 'string');
   });
 
-  it('contains Scriven header', () => {
-    assert.ok(manifest.includes('# Scriven'), 'manifest should contain "# Scriven" header');
+  it('contains Scriveno header', () => {
+    assert.ok(manifest.includes('# Scriveno'), 'manifest should contain "# Scriveno" header');
   });
 
   it('contains markdown table header', () => {
@@ -257,7 +257,7 @@ describe('generateSkillManifest', () => {
 });
 
 describe('Codex skill helpers', () => {
-  it('maps Scriven commands to Codex skill names and invocations', () => {
+  it('maps Scriveno commands to Codex skill names and invocations', () => {
     assert.equal(commandRefToCodexSkillName('/scr:help'), 'scr-help');
     assert.equal(commandRefToClaudeInvocation('/scr:help'), '/scr-help');
     assert.equal(commandRefToClaudeInvocation('/scr:sacred:concordance'), '/scr-sacred-concordance');
@@ -267,7 +267,7 @@ describe('Codex skill helpers', () => {
     assert.equal(commandRefToCodexInvocation('/scr:new-work'), '$scr-new-work');
   });
 
-  it('collects command entries from the Scriven command tree', () => {
+  it('collects command entries from the Scriveno command tree', () => {
     const entries = collectCommandEntries(path.join(ROOT, 'commands', 'scr'));
     assert.ok(entries.length >= 90, `expected at least 90 command entries, got ${entries.length}`);
     assert.ok(entries.some((entry) => entry.commandRef === '/scr:help'));
@@ -278,7 +278,7 @@ describe('Codex skill helpers', () => {
     const entry = {
       commandRef: '/scr:help',
       skillName: 'scr-help',
-      description: 'Show Scriven commands grouped by workflow stage',
+      description: 'Show Scriveno commands grouped by workflow stage',
       argumentHint: '[category or search term, optional]',
       relativePath: 'help.md',
     };
@@ -327,7 +327,7 @@ Run \`/scr:help\`, then \`/scr:new-work\`, and finally \`/scr:sacred:concordance
       content
     );
 
-    assert.match(installed, /scriven-cli-installed-command runtime:claude-code/);
+    assert.match(installed, /scriveno-cli-installed-command runtime:claude-code/);
     assert.match(installed, /`\/scr-help`/);
     assert.match(installed, /`\/scr-new-work`/);
     assert.match(installed, /`\/scr-sacred-concordance`/);
@@ -383,8 +383,8 @@ describe('resolveInstallRequest', () => {
 });
 
 describe('cleanCodexSkillDirs', () => {
-  it('removes stale Scriven-owned skills from the manifest while preserving unrelated directories', () => {
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriven-codex-clean-'));
+  it('removes stale Scriveno-owned skills from the manifest while preserving unrelated directories', () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriveno-codex-clean-'));
     const skillsDir = path.join(tmpDir, '.codex', 'skills');
     fs.mkdirSync(skillsDir, { recursive: true });
 
@@ -394,7 +394,7 @@ describe('cleanCodexSkillDirs', () => {
     fs.writeFileSync(path.join(skillsDir, 'scr-old-command', 'SKILL.md'), '# old stale');
     fs.mkdirSync(path.join(skillsDir, 'custom-skill'), { recursive: true });
     fs.writeFileSync(path.join(skillsDir, 'custom-skill', 'SKILL.md'), '# custom');
-    fs.writeFileSync(path.join(skillsDir, '.scriven-installed.json'), JSON.stringify({
+    fs.writeFileSync(path.join(skillsDir, '.scriveno-installed.json'), JSON.stringify({
       skills: ['scr-help', 'scr-old-command'],
     }, null, 2));
 
@@ -405,8 +405,8 @@ describe('cleanCodexSkillDirs', () => {
     assert.ok(fs.existsSync(path.join(skillsDir, 'custom-skill')));
   });
 
-  it('removes stale Scriven-owned skill directories detected by wrapper signature', () => {
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriven-codex-sig-'));
+  it('removes stale Scriveno-owned skill directories detected by wrapper signature', () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriveno-codex-sig-'));
     const skillsDir = path.join(tmpDir, '.codex', 'skills');
     const staleDir = path.join(skillsDir, 'scr-removed');
     fs.mkdirSync(staleDir, { recursive: true });
@@ -416,7 +416,7 @@ name: "scr-removed"
 <codex_skill_adapter>
 </codex_skill_adapter>
 <objective>
-Execute Scriven's \`/scr:removed\` command inside Codex by reading the installed Scriven command file below as the source of truth.
+Execute Scriveno's \`/scr:removed\` command inside Codex by reading the installed Scriveno command file below as the source of truth.
 </objective>
 <context>
 Installed command file: /tmp/.codex/commands/scr/removed.md
@@ -429,21 +429,21 @@ Installed command file: /tmp/.codex/commands/scr/removed.md
 });
 
 describe('cleanFlatCommandFiles', () => {
-  it('removes stale Scriven-owned Claude command files and the legacy scr/ directory while preserving unrelated files', () => {
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriven-claude-clean-'));
+  it('removes stale Scriveno-owned Claude command files and the legacy scr/ directory while preserving unrelated files', () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriveno-claude-clean-'));
     const commandsDir = path.join(tmpDir, '.claude', 'commands');
     fs.mkdirSync(commandsDir, { recursive: true });
 
     fs.writeFileSync(
       path.join(commandsDir, 'scr-help.md'),
-      '<!-- scriven-cli-installed-command runtime:claude-code command:/scr-help source:help.md -->\nhelp'
+      '<!-- scriveno-cli-installed-command runtime:claude-code command:/scr-help source:help.md -->\nhelp'
     );
     fs.writeFileSync(
       path.join(commandsDir, 'scr-old-command.md'),
-      '<!-- scriven-cli-installed-command runtime:claude-code command:/scr-old-command source:old-command.md -->\nold'
+      '<!-- scriveno-cli-installed-command runtime:claude-code command:/scr-old-command source:old-command.md -->\nold'
     );
     fs.writeFileSync(path.join(commandsDir, 'custom.md'), '# custom');
-    fs.writeFileSync(path.join(commandsDir, '.scriven-installed.json'), JSON.stringify({
+    fs.writeFileSync(path.join(commandsDir, '.scriveno-installed.json'), JSON.stringify({
       files: ['scr-help.md', 'scr-old-command.md'],
     }, null, 2));
     fs.mkdirSync(path.join(commandsDir, 'scr'), { recursive: true });
@@ -460,7 +460,7 @@ describe('cleanFlatCommandFiles', () => {
 
 describe('Skill-file install simulation', () => {
   it('creates SKILL.md and command files in target directory', () => {
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriven-skill-test-'));
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriveno-skill-test-'));
     try {
       // Generate and write SKILL.md
       const manifest = generateSkillManifest(path.join(ROOT, 'data', 'CONSTRAINTS.json'));
@@ -480,7 +480,7 @@ describe('Skill-file install simulation', () => {
       );
       const content = fs.readFileSync(path.join(tmpDir, 'SKILL.md'), 'utf8');
       assert.ok(content.length > 0, 'SKILL.md should have content');
-      assert.ok(content.includes('# Scriven'), 'SKILL.md should contain Scriven header');
+      assert.ok(content.includes('# Scriveno'), 'SKILL.md should contain Scriveno header');
 
       // Verify command files exist
       assert.ok(
@@ -495,17 +495,17 @@ describe('Skill-file install simulation', () => {
 
 describe('Perplexity Desktop guided setup', () => {
   it('builds a filesystem MCP command with quoted allowed directories', () => {
-    const command = buildFilesystemMcpCommand(['/tmp/project', '/tmp/project/.scriven']);
+    const command = buildFilesystemMcpCommand(['/tmp/project', '/tmp/project/.scriveno']);
     assert.match(command, /^npx -y @modelcontextprotocol\/server-filesystem /);
     assert.match(command, /'\/tmp\/project'/);
-    assert.match(command, /'\/tmp\/project\/\.scriven'/);
+    assert.match(command, /'\/tmp\/project\/\.scriveno'/);
   });
 
   it('generates a setup guide that preserves the limited support boundary', () => {
     const guide = generatePerplexitySetupGuide({
       isGlobal: false,
-      guideDir: '/tmp/project/.scriven/perplexity',
-      dataDir: '/tmp/project/.scriven',
+      guideDir: '/tmp/project/.scriveno/perplexity',
+      dataDir: '/tmp/project/.scriveno',
       currentProjectDir: '/tmp/project',
     });
 

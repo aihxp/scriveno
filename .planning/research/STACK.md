@@ -16,7 +16,7 @@
 |------------|---------|---------|-----------------|
 | **`node:fs`** (writeFileSync + renameSync) | Node 20+ | Atomic file writes | POSIX `rename()` is atomic within the same filesystem. Write to a temp file in the same directory, then `fs.renameSync()` to the target. No npm package needed — `write-file-atomic` does the same thing but adds a dependency. |
 | **`node:crypto`** (randomUUID) | Node 20+ | Unique temp file names | `crypto.randomUUID()` is available since Node 14.17. Generates collision-free temp file names like `.target.tmp.${uuid}`. No need for `mkdtempSync` since temp files should live in the same directory as the target (same-filesystem rename requirement). |
-| **Custom frontmatter parser** | N/A | YAML frontmatter extraction | Node.js has no built-in YAML parser. But Scriven's frontmatter is trivial (2-3 keys: `description`, `argument-hint`). A targeted regex-free line parser handles colon-in-value correctly where the current regex fails. No need for `gray-matter`, `js-yaml`, or any npm package. |
+| **Custom frontmatter parser** | N/A | YAML frontmatter extraction | Node.js has no built-in YAML parser. But Scriveno's frontmatter is trivial (2-3 keys: `description`, `argument-hint`). A targeted regex-free line parser handles colon-in-value correctly where the current regex fails. No need for `gray-matter`, `js-yaml`, or any npm package. |
 | **Custom schema validator** | N/A | Settings.json validation | Node.js has no built-in JSON Schema validator. Ajv is overkill for validating a 10-field settings object. A hand-written validator with explicit field checks, type assertions, and human-readable error messages is clearer, smaller, and dependency-free. |
 
 ### Supporting Patterns
@@ -190,7 +190,7 @@ function validateSettings(settings) {
 
 - **Zero dependencies:** Ajv is 150 KB+ and brings transitive dependencies. The settings object has 8 fields.
 - **Human-readable errors:** A hand-written validator produces messages like `"scope" must be one of [global, project], got "both"` — clearer than JSON Schema validation errors.
-- **Exact fit:** The validator checks exactly what Scriven needs. No unused spec surface area.
+- **Exact fit:** The validator checks exactly what Scriveno needs. No unused spec surface area.
 
 ### When to Validate
 
@@ -276,8 +276,8 @@ function mergeSettings(existing, incoming) {
 
 | Recommended | Alternative | When to Use Alternative |
 |-------------|-------------|-------------------------|
-| Hand-rolled atomic write | `write-file-atomic` (npm) | Never — it does the same temp+rename but adds a dependency. Scriven's zero-dep constraint rules it out. |
-| Line-based frontmatter parser | `gray-matter` (npm) | Never — gray-matter pulls in `js-yaml` which is 60 KB. Scriven's frontmatter is 2-3 simple key-value pairs. |
+| Hand-rolled atomic write | `write-file-atomic` (npm) | Never — it does the same temp+rename but adds a dependency. Scriveno's zero-dep constraint rules it out. |
+| Line-based frontmatter parser | `gray-matter` (npm) | Never — gray-matter pulls in `js-yaml` which is 60 KB. Scriveno's frontmatter is 2-3 simple key-value pairs. |
 | Hand-rolled schema validator | Ajv (npm) | Never — 150 KB+ with transitive deps. Settings has 8 fields. |
 | `crypto.randomUUID()` | `Date.now()` for temp file names | Never — `Date.now()` can collide if two installs run in the same millisecond. UUID is collision-proof. |
 | Same-directory temp files | `os.tmpdir()` temp files | Never — `rename()` across filesystems fails with EXDEV. Same-directory guarantees same filesystem. |
@@ -292,7 +292,7 @@ function mergeSettings(existing, incoming) {
 | **Ajv / `jsonschema` (npm)** | 150 KB+ for validating an 8-field object | Hand-written validator with human-readable errors |
 | **`os.tmpdir()` for temp files** | Cross-filesystem rename fails with EXDEV | Temp files adjacent to target: `${targetPath}.tmp.${uuid}` |
 | **`fs.mkdtempSync()`** | Creates temp directories in system temp dir (cross-filesystem risk) | UUID-named temp files in the target directory |
-| **Full YAML parser** | Scriven frontmatter is `key: value` pairs only — no arrays, nesting, or anchors | Simple line parser with first-colon split |
+| **Full YAML parser** | Scriveno frontmatter is `key: value` pairs only — no arrays, nesting, or anchors | Simple line parser with first-colon split |
 | **JSON Schema (the spec)** | Spec is complex, implementations are heavy, error messages are cryptic | Imperative validation with explicit field checks |
 
 ---
@@ -330,11 +330,11 @@ All APIs are well within the Node 20+ baseline. No version risk.
 
 - [Node.js fs documentation](https://nodejs.org/api/fs.html) — renameSync, writeFileSync, copyFileSync APIs
 - [POSIX rename() specification](https://pubs.opengroup.org/onlinepubs/9699919799/functions/rename.html) — atomic rename guarantee within same filesystem
-- [write-file-atomic (npm)](https://github.com/npm/write-file-atomic) — reference implementation of the same temp+rename pattern Scriven should use natively
+- [write-file-atomic (npm)](https://github.com/npm/write-file-atomic) — reference implementation of the same temp+rename pattern Scriveno should use natively
 - [Node.js crypto.randomUUID](https://nodejs.org/api/crypto.html#cryptorandomuuidoptions) — available since Node 14.17
 - [gray-matter](https://github.com/jonschlinkert/gray-matter) — evaluated and rejected due to dependency chain
 - [Ajv](https://ajv.js.org/) — evaluated and rejected due to size and zero-dep constraint
 
 ---
-*Stack research for: Scriven v1.6 Installer Hardening*
+*Stack research for: Scriveno v1.6 Installer Hardening*
 *Researched: 2026-04-16*

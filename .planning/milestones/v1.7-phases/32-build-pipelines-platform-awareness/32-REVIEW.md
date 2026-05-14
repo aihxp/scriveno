@@ -100,18 +100,18 @@ Then remove line 246 (`-V lang={language}`) from the Pandoc invocation entirely.
 ### WR-03: No prerequisite check for the EPUB CSS template file in build-ebook.md
 
 **File:** `commands/scr/build-ebook.md:128-146` (STEP 2)
-**Issue:** STEP 2 checks for the `pandoc` binary but does not verify that `data/export-templates/scriven-epub.css` exists before invoking Pandoc. The Pandoc invocation at line 242 passes `--css=data/export-templates/scriven-epub.css`. If that file is absent, Pandoc will silently proceed and produce an EPUB without the custom stylesheet, with no warning to the user. Given that the CSS provides KDP-compatible EPUB styling (per CLAUDE.md), a missing CSS file produces a publication-quality defect without any visible error.
+**Issue:** STEP 2 checks for the `pandoc` binary but does not verify that `data/export-templates/scriveno-epub.css` exists before invoking Pandoc. The Pandoc invocation at line 242 passes `--css=data/export-templates/scriveno-epub.css`. If that file is absent, Pandoc will silently proceed and produce an EPUB without the custom stylesheet, with no warning to the user. Given that the CSS provides KDP-compatible EPUB styling (per CLAUDE.md), a missing CSS file produces a publication-quality defect without any visible error.
 
 **Fix:** Add a check in STEP 2 immediately after the Pandoc check:
 
 ```markdown
 Check for the EPUB stylesheet:
 
-If `data/export-templates/scriven-epub.css` does not exist:
+If `data/export-templates/scriveno-epub.css` does not exist:
 
-> **EPUB stylesheet is missing at `data/export-templates/scriven-epub.css`.**
+> **EPUB stylesheet is missing at `data/export-templates/scriveno-epub.css`.**
 > This file is required for properly styled EPUB output.
-> Re-install Scriven or restore the file from the repository.
+> Re-install Scriveno or restore the file from the repository.
 
 Then **stop** — do not attempt the build without the stylesheet.
 ```

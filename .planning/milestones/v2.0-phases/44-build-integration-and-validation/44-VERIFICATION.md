@@ -9,7 +9,7 @@ re_verification: false
 
 # Phase 44: Build Integration and Validation - Verification Report
 
-**Phase Goal:** Wire the cover deliverables into Scriven's build and export surface, align release-facing docs with the live contract, and add regression coverage that keeps the cover workflow honest.
+**Phase Goal:** Wire the cover deliverables into Scriveno's build and export surface, align release-facing docs with the live contract, and add regression coverage that keeps the cover workflow honest.
 
 **Verified:** 2026-04-18T06:59:31Z
 **Status:** passed
@@ -49,7 +49,7 @@ re_verification: false
 | Requirement | Source Plan | Description | Status | Evidence |
 |-------------|------------|-------------|--------|----------|
 | COV-08 | 44-01 | Build/export surfaces point at the three cover deliverables under `.manuscript/build/` | ✓ SATISFIED | Build, export, and publish commands now reference the canonical cover asset files |
-| COV-09 | 44-01, 44-02 | Docs clearly separate what Scriven validates locally from what comes from platform templates or designer assets | ✓ SATISFIED | Build/export docs now defer geometry to template generators and treat CMYK print covers as external assets |
+| COV-09 | 44-01, 44-02 | Docs clearly separate what Scriveno validates locally from what comes from platform templates or designer assets | ✓ SATISFIED | Build/export docs now defer geometry to template generators and treat CMYK print covers as external assets |
 | COV-10 | 44-02 | Public publishing docs and trust surfaces describe the same cover workflow contract | ✓ SATISFIED | Command reference, publishing guide, and shipped-asset inventory now align with the command files |
 | COV-11 | 44-03 | Regression coverage locks the cover contract against future drift | ✓ SATISFIED | New phase 42-44 regression tests plus the full suite keep the contract honest |
 

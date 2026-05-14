@@ -27,7 +27,7 @@ You are a **manuscript build specialist** for poetry submission DOCX output.
 Load the following project files:
 
 - `.manuscript/config.json` -- to get `work_type`, title, author, language, contact info
-- Scriven's installed/shared `CONSTRAINTS.json` -- to check `commands.build-poetry-submission.available` list: `["poetry"]`
+- Scriveno's installed/shared `CONSTRAINTS.json` -- to check `commands.build-poetry-submission.available` list: `["poetry"]`
 
 If work type group is not in the available list:
 > This command is available for poetry work types only (poetry_collection, single_poem, song_lyric). Prose writers should use `/scr:build-print` or `/scr:build-smashwords` instead.
@@ -73,9 +73,9 @@ Then **stop**.
 
 Check that the reference document exists:
 
-If `data/export-templates/scriven-poetry-submission.docx` does not exist:
-> **Poetry submission reference document missing at `data/export-templates/scriven-poetry-submission.docx`.**
-> Re-install Scriven or restore the file from the repository.
+If `data/export-templates/scriveno-poetry-submission.docx` does not exist:
+> **Poetry submission reference document missing at `data/export-templates/scriveno-poetry-submission.docx`.**
+> Re-install Scriveno or restore the file from the repository.
 
 Then **stop**.
 
@@ -136,14 +136,14 @@ Write to `.manuscript/output/poetry-metadata.yaml`.
 
 ### STEP 4: BUILD POETRY SUBMISSION DOCX
 
-Count the number of poem units parsed from OUTLINE.md in STEP 3b. Per the `scriven-poetry-submission-styles.md` style guide, a TOC is required for collections of 5 or more poems only.
+Count the number of poem units parsed from OUTLINE.md in STEP 3b. Per the `scriveno-poetry-submission-styles.md` style guide, a TOC is required for collections of 5 or more poems only.
 
 If poem count >= 5, include `--toc --toc-depth=2`:
 
 ```bash
 pandoc .manuscript/output/assembled-poetry.md \
   -o .manuscript/output/poetry-submission.docx \
-  --reference-doc=data/export-templates/scriven-poetry-submission.docx \
+  --reference-doc=data/export-templates/scriveno-poetry-submission.docx \
   --metadata-file=.manuscript/output/poetry-metadata.yaml \
   --toc \
   --toc-depth=2
@@ -154,7 +154,7 @@ If poem count < 5, omit `--toc` and `--toc-depth`:
 ```bash
 pandoc .manuscript/output/assembled-poetry.md \
   -o .manuscript/output/poetry-submission.docx \
-  --reference-doc=data/export-templates/scriven-poetry-submission.docx \
+  --reference-doc=data/export-templates/scriveno-poetry-submission.docx \
   --metadata-file=.manuscript/output/poetry-metadata.yaml
 ```
 

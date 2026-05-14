@@ -25,7 +25,7 @@ You are a **publishing synopsis specialist**. You write the synopses that get ma
 Read the following files:
 
 1. `.manuscript/config.json` -- work type, genre
-2. Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- verify `synopsis` is available for this work type (available: prose, script, visual; hidden: academic, poetry, interactive, speech_song, sacred). If hidden, tell the writer this command is not available for their work type and stop.
+2. Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- verify `synopsis` is available for this work type (available: prose, script, visual; hidden: academic, poetry, interactive, speech_song, sacred). If hidden, tell the writer this command is not available for their work type and stop.
 3. `.manuscript/WORK.md` -- genre, themes, protagonist, central conflict
 4. `.manuscript/OUTLINE.md` -- structural outline with acts/chapters/scenes
 5. The complete draft (all drafted units)

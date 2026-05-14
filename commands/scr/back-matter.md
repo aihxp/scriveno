@@ -72,7 +72,7 @@ If CONTEXT.md is missing, stale, or contradicts STATE.md, fall back to the origi
 Load the following project files:
 
 - `.manuscript/config.json` -- to get `work_type`, title, author, and project settings
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- to check back-matter availability and adaptations for the current work type
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- to check back-matter availability and adaptations for the current work type
 - `.manuscript/WORK.md` -- title, author, publisher, and publication details
 - `.manuscript/CHARACTERS.md` -- for glossary extraction (character names, terms)
 - Drafted prose from `.manuscript/drafts/` (especially `.manuscript/drafts/body/`) -- for content extraction (glossary terms, endnotes, themes)

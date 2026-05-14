@@ -2,10 +2,10 @@
 
 ## Purpose
 
-`scriven-smashwords.docx` is a Pandoc reference document used with:
+`scriveno-smashwords.docx` is a Pandoc reference document used with:
 
 ```
-pandoc ... --reference-doc=data/export-templates/scriven-smashwords.docx -o output.docx
+pandoc ... --reference-doc=data/export-templates/scriveno-smashwords.docx -o output.docx
 ```
 
 Pandoc maps its internal styles to the named styles in this reference doc.
@@ -39,7 +39,7 @@ These rules come from the official [Smashwords Style Guide](https://www.smashwor
 Run this command after any style change (requires Pandoc):
 
 ```bash
-pandoc --print-default-data-file reference.docx > data/export-templates/scriven-smashwords.docx
+pandoc --print-default-data-file reference.docx > data/export-templates/scriveno-smashwords.docx
 ```
 
 Then open in Word/LibreOffice and modify the paragraph styles per the mapping table above.

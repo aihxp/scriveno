@@ -35,7 +35,7 @@ You are a **manuscript build specialist** for print-ready PDF output.
 Load the following project files:
 
 - `.manuscript/config.json` -- to get `work_type`, title, author, language, and project settings
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- to check `exports` section for format availability by work type group
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- to check `exports` section for format availability by work type group
 
 **Check format availability:**
 
@@ -177,17 +177,17 @@ Map the platform to its LaTeX wrapper template:
 
 | Platform | LATEX_TEMPLATE |
 |----------|----------------|
-| `ieee` | `data/export-templates/scriven-ieee.latex` |
-| `acm` | `data/export-templates/scriven-acm.latex` |
-| `lncs` | `data/export-templates/scriven-lncs.latex` |
-| `elsevier` | `data/export-templates/scriven-elsevier.latex` |
-| `apa7` | `data/export-templates/scriven-apa7.latex` |
+| `ieee` | `data/export-templates/scriveno-ieee.latex` |
+| `acm` | `data/export-templates/scriveno-acm.latex` |
+| `lncs` | `data/export-templates/scriveno-lncs.latex` |
+| `elsevier` | `data/export-templates/scriveno-elsevier.latex` |
+| `apa7` | `data/export-templates/scriveno-apa7.latex` |
 
 Set `LATEX_TEMPLATE` to the resolved path.
 
 If the template file does not exist at that path:
-> **Build template missing: `data/export-templates/scriven-{platform}.latex` not found.**
-> Re-install Scriven or restore the file from the repository.
+> **Build template missing: `data/export-templates/scriveno-{platform}.latex` not found.**
+> Re-install Scriveno or restore the file from the repository.
 
 Then **stop**.
 
@@ -199,17 +199,17 @@ Map `work_type` to the appropriate Typst template:
 
 | work_type | Template |
 |-----------|----------|
-| `stage_play` | `data/export-templates/scriven-stageplay.typst` |
-| `picture_book` | `data/export-templates/scriven-picturebook.typst` |
-| `poetry_collection` | `data/export-templates/scriven-chapbook.typst` |
-| `single_poem` | `data/export-templates/scriven-chapbook.typst` |
-| All other work types | `data/export-templates/scriven-book.typst` |
+| `stage_play` | `data/export-templates/scriveno-stageplay.typst` |
+| `picture_book` | `data/export-templates/scriveno-picturebook.typst` |
+| `poetry_collection` | `data/export-templates/scriveno-chapbook.typst` |
+| `single_poem` | `data/export-templates/scriveno-chapbook.typst` |
+| All other work types | `data/export-templates/scriveno-book.typst` |
 
 Set the resolved template path as `TYPST_TEMPLATE` for use in STEP 4.
 
 If the resolved template file does not exist at the path:
 > **Build template missing: `{TYPST_TEMPLATE}` not found.**
-> Re-install Scriven or restore the file from the repository.
+> Re-install Scriveno or restore the file from the repository.
 
 Then **stop**.
 
@@ -486,7 +486,7 @@ Read `.manuscript/config.json` and `.manuscript/WORK.md` (if it exists) to gener
 ```bash
 pandoc .manuscript/output/assembled-manuscript.md \
   -o .manuscript/output/paper-{platform}.tex \
-  --template=data/export-templates/scriven-{platform}.latex \
+  --template=data/export-templates/scriveno-{platform}.latex \
   --metadata-file=.manuscript/output/metadata.yaml
 ```
 
@@ -560,7 +560,7 @@ Then report the canonical cover file that pairs with this interior:
 
 Include this note:
 
-> **Cover pairing:** Scriven expects the matching finished print cover in `.manuscript/build/`. Exact wrap width, spine width, and safety guides must come from the current IngramSpark cover template generator (paperback for perfect-bound, hardcover for case laminate). Scriven does not hard-code those final cover dimensions in this command.
+> **Cover pairing:** Scriveno expects the matching finished print cover in `.manuscript/build/`. Exact wrap width, spine width, and safety guides must come from the current IngramSpark cover template generator (paperback for perfect-bound, hardcover for case laminate). Scriveno does not hard-code those final cover dimensions in this command.
 
 **If `--platform` IS one of `ieee`, `acm`, `lncs`, `elsevier`, `apa7`, show instead:**
 

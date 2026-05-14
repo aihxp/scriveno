@@ -71,7 +71,7 @@ Adapt flags to:
    - `title` — the manuscript title
    - `author` — the author name
    - `work_type` — the work type (novel, memoir, screenplay, etc.)
-2. Read Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) to get the structural hierarchy names for this work type (e.g., "chapter", "scene").
+2. Read Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) to get the structural hierarchy names for this work type (e.g., "chapter", "scene").
 ```
 
 Adapt: cleanup only needs `config.json` + `CONSTRAINTS.json` for context; no `OUTLINE.md` needed.
@@ -144,7 +144,7 @@ Note: `voice-check.md` has no `argument-hint:` — but `validate.md` needs one f
 ### STEP 1: LOAD CONTEXT AND VALIDATE
 
 1. Load `config.json` — determine work type and structural hierarchy
-2. Load Scriven's installed/shared `CONSTRAINTS.json` ...
+2. Load Scriveno's installed/shared `CONSTRAINTS.json` ...
 3. Check for `STYLE-GUIDE.md`:
    - **If STYLE-GUIDE.md exists:** Load it. Proceed.
    - **If STYLE-GUIDE.md does NOT exist:** STOP. Tell the writer: ...
@@ -279,7 +279,7 @@ If no markers found: proceed to STEP 2.
 Load these project files:
 
 - `.manuscript/config.json` -- to get `work_type`, title, author, language
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- to check `publishing_prerequisites`, `exports` section, and work type group
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- to check `publishing_prerequisites`, `exports` section, and work type group
 - `.manuscript/OUTLINE.md` -- to verify draft completeness
 
 Determine the work type group from CONSTRAINTS.json `work_type_groups` so you can check which presets and commands are available.

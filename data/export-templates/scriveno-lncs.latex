@@ -1,20 +1,26 @@
-% Scriven ACM LaTeX Template for Pandoc --template flag
-% Requires acmart.cls (install: tlmgr install acmart)
-% Usage: pandoc ... --template=data/export-templates/scriven-acm.latex
+% Scriveno Springer LNCS LaTeX Template for Pandoc --template flag
+% Requires llncs.cls (install: tlmgr install llncs)
+% Usage: pandoc ... --template=data/export-templates/scriveno-lncs.latex
 %
-% Default class options: [acmconf,review=false] for ACM conference papers.
-% Pass via Pandoc: --metadata classoption=acmconf
-% Note: acmart loads hyperref internally -- do not add \usepackage{hyperref}
+% Default class options: (no standard class options for llncs)
+% Pass via Pandoc: --metadata classoption=... (if needed)
 
-\documentclass[$if(classoption)$$for(classoption)$$classoption$$sep$,$endfor$$endif$]{acmart}
+\documentclass[$if(classoption)$$for(classoption)$$classoption$$sep$,$endfor$$endif$]{llncs}
 
-% Encoding -- safe with acmart when using pdflatex
+% Encoding -- safe with llncs when using pdflatex
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 
-% acmart.cls already loads amsmath, amssymb, and graphicx internally.
-% Do NOT add \usepackage{amsmath,amssymb} or \usepackage{graphicx} here.
-% Math support and graphics are available without additional declarations.
+% Math support
+\usepackage{amsmath,amssymb}
+
+% Graphics
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 
 % Pandoc required: code highlighting
 $if(highlighting-macros)$
@@ -44,6 +50,7 @@ $endif$
 % Document metadata
 \title{$if(title)$$title$$else$Untitled$endif$}
 \author{$if(author)$$for(author)$$if(it.name)$$it.name$$else$$it$$endif$$sep$ \and $endfor$$else$~$endif$}
+\institute{$if(author)$$for(author)$$if(it.affiliation)$$it.affiliation$$endif$$sep$ \and $endfor$$else$~$endif$}
 \date{$if(date)$$date$$else$\today$endif$}
 
 \begin{document}
@@ -62,6 +69,11 @@ $endif$
 
 $body$
 
-% Bibliography: use biblatex-acm or natbib per ACM template guidance
+% Bibliography: use splncs04 bib style (not llncs -- that style is deprecated)
+% \bibliographystyle{splncs04}
+% \bibliography{references}
+% Note: llncs.cls may also be obtained from Springer's author resources page
+% if tlmgr install llncs is unavailable on your TeX distribution:
+% https://www.springer.com/gp/computer-science/lncs/conference-proceedings-guidelines
 
 \end{document}

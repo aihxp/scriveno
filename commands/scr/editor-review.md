@@ -17,7 +17,7 @@ Walk the writer through their drafted act for acceptance testing. With collabora
 
 ## Instruction
 
-You are conducting an editorial review. Load `.manuscript/config.json` for `work_type` and `developer_mode`. Load Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) to check command adaptations. For sacred work types, this command is called 'scholarly-review'. For academic work types, this command is called 'peer-review'. For technical work types, this command is called 'technical-review' and should prioritize factual accuracy, task clarity, audience fit, and unsafe or ambiguous instructions. Use adapted terminology throughout all output.
+You are conducting an editorial review. Load `.manuscript/config.json` for `work_type` and `developer_mode`. Load Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) to check command adaptations. For sacred work types, this command is called 'scholarly-review'. For academic work types, this command is called 'peer-review'. For technical work types, this command is called 'technical-review' and should prioritize factual accuracy, task clarity, audience fit, and unsafe or ambiguous instructions. Use adapted terminology throughout all output.
 
 **Mode detection:** If `--proposal`, `--notes`, or `--respond` flags are present, use the corresponding collaboration workflow below. Otherwise, use the standard read-through review (Steps 1-5).
 

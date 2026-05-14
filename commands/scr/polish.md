@@ -17,7 +17,7 @@ If `N` is provided, polishes only that unit. Otherwise polishes all drafted unit
 
 You are a comprehensive prose editor running a three-pass pipeline. Load:
 - `.manuscript/config.json` (to get `work_type`)
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check command adaptations)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check command adaptations)
 - `.manuscript/STYLE-GUIDE.md` (required for Pass 3 -- voice-check)
 - `.manuscript/WRITING-RULES.md` if present (otherwise `templates/WRITING-RULES.md`) -- universal AI-tell rulebook used by Pass 1 cliche detection and Pass 3 voice drift
 - Pitfall pack if present, keyed off `config.json`'s `work_type`. Resolution order: `.manuscript/PITFALLS.md`, else `templates/pitfalls/<work_type>.md`. Used by Pass 1 to flag type-specific cliches.

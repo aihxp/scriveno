@@ -1,13 +1,14 @@
-% Scriven Springer LNCS LaTeX Template for Pandoc --template flag
-% Requires llncs.cls (install: tlmgr install llncs)
-% Usage: pandoc ... --template=data/export-templates/scriven-lncs.latex
+% Scriveno APA7 LaTeX Template for Pandoc --template flag
+% Requires apa7.cls (install: tlmgr install apa7)
+% Usage: pandoc ... --template=data/export-templates/scriveno-apa7.latex
 %
-% Default class options: (no standard class options for llncs)
-% Pass via Pandoc: --metadata classoption=... (if needed)
+% Default class options: [jou,longtable] for journal format; [man] for manuscript format.
+% Pass via Pandoc: --metadata classoption=man
+% Note: apa7.cls requires biblatex -- load with \usepackage[style=apa]{biblatex} in your local preamble additions
 
-\documentclass[$if(classoption)$$for(classoption)$$classoption$$sep$,$endfor$$endif$]{llncs}
+\documentclass[$if(classoption)$$for(classoption)$$classoption$$sep$,$endfor$$endif$]{apa7}
 
-% Encoding -- safe with llncs when using pdflatex
+% Encoding -- safe with apa7 when using pdflatex
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 
@@ -26,6 +27,15 @@
 $if(highlighting-macros)$
 $highlighting-macros$
 $endif$
+
+% Pandoc: allow preamble additions via header-includes in metadata YAML
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+% APA7 requires biblatex-apa. Uncomment if using bibliography:
+% \usepackage[style=apa,sortcites=true,sorting=nyt,backend=biber]{biblatex}
+% \addbibresource{references.bib}
 
 % Pandoc required: tight lists
 \providecommand{\tightlist}{%
@@ -50,7 +60,6 @@ $endif$
 % Document metadata
 \title{$if(title)$$title$$else$Untitled$endif$}
 \author{$if(author)$$for(author)$$if(it.name)$$it.name$$else$$it$$endif$$sep$ \and $endfor$$else$~$endif$}
-\institute{$if(author)$$for(author)$$if(it.affiliation)$$it.affiliation$$endif$$sep$ \and $endfor$$else$~$endif$}
 \date{$if(date)$$date$$else$\today$endif$}
 
 \begin{document}
@@ -69,11 +78,6 @@ $endif$
 
 $body$
 
-% Bibliography: use splncs04 bib style (not llncs -- that style is deprecated)
-% \bibliographystyle{splncs04}
-% \bibliography{references}
-% Note: llncs.cls may also be obtained from Springer's author resources page
-% if tlmgr install llncs is unavailable on your TeX distribution:
-% https://www.springer.com/gp/computer-science/lncs/conference-proceedings-guidelines
+% Bibliography: apa7 requires biblatex-apa; use \printbibliography manually after compiling
 
 \end{document}

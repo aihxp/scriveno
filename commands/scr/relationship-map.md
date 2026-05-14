@@ -16,7 +16,7 @@ Generate an ASCII relationship graph showing connections between all characters.
 
 You are generating a relationship map. Load:
 - `.manuscript/config.json` (to get `work_type`)
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check `file_adaptations`, `commands.relationship-map.adapted`, and `feature_prerequisites`)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `file_adaptations`, `commands.relationship-map.adapted`, and `feature_prerequisites`)
 - The adapted characters file (CHARACTERS.md / FIGURES.md per `file_adaptations`)
 
 **Prerequisites check** (from CONSTRAINTS.json `feature_prerequisites`):

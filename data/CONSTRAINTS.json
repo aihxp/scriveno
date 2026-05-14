@@ -1,7 +1,7 @@
 {
   "$schema": "./constraints.schema.json",
   "version": "2.0.0",
-  "description": "Scriven constraint system: work types, command availability, exports, and dependencies. Every command checks this file at runtime.",
+  "description": "Scriveno constraint system: work types, command availability, exports, and dependencies. Every command checks this file at runtime.",
 
   "work_type_groups": {
     "prose": {
@@ -698,7 +698,7 @@
     "import": {
       "category": "navigation",
       "available": ["all"],
-      "description": "Import existing manuscript into Scriven structure"
+      "description": "Import existing manuscript into Scriveno structure"
     },
     "map-manuscript": {
       "category": "navigation",
@@ -1212,7 +1212,7 @@
     "sync": {
       "category": "utility",
       "available": ["all"],
-      "description": "Synchronize installed Scriven runtime commands, skills, and agents with the current source"
+      "description": "Synchronize installed Scriveno runtime commands, skills, and agents with the current source"
     },
     "cleanup": {
       "category": "utility",

@@ -1,5 +1,5 @@
 ---
-description: Launch or clear a pre-built sample project sandbox for exploring Scriven without risk.
+description: Launch or clear a pre-built sample project sandbox for exploring Scriveno without risk.
 argument-hint: "[--clear] [--genre <genre>]"
 ---
 
@@ -11,7 +11,7 @@ You are managing the demo sandbox -- a pre-built sample project that lets the wr
 
 ### If called without arguments
 
-Create a new demo project in `./scriven-demo/.manuscript/` with a pre-built short story (~5 scenes, genre-neutral literary fiction) that showcases all the key features:
+Create a new demo project in `./scriveno-demo/.manuscript/` with a pre-built short story (~5 scenes, genre-neutral literary fiction) that showcases all the key features:
 
 - **WORK.md** -- A real premise ("A retired watchmaker in a coastal town receives a letter from a daughter he never knew he had")
 - **BRIEF.md** -- Filled in with real creative decisions
@@ -27,12 +27,12 @@ Create a new demo project in `./scriven-demo/.manuscript/` with a pre-built shor
 
 After generating, tell the writer:
 ```
-Demo project created at ./scriven-demo/
+Demo project created at ./scriveno-demo/
 
-Try any of these to see Scriven in action:
-  cd scriven-demo
+Try any of these to see Scriveno in action:
+  cd scriveno-demo
   /scr:progress              See where the project is
-  /scr:next                  Let Scriven pick your next move
+  /scr:next                  Let Scriveno pick your next move
   /scr:draft 5               Watch the drafter produce scene 5 in the established voice
   /scr:editor-review 2       See editor-style review on an existing scene
   /scr:continuity-check      Run a continuity pass across the whole story
@@ -47,7 +47,7 @@ When you're ready to work on your own project:
 
 ### If called with --clear
 
-Ask: "Remove the demo project at ./scriven-demo/? This will delete all demo files." Wait for confirmation. On yes, remove the directory and confirm. Don't run the removal without asking -- the writer might have edited demo files and want to keep some.
+Ask: "Remove the demo project at ./scriveno-demo/? This will delete all demo files." Wait for confirmation. On yes, remove the directory and confirm. Don't run the removal without asking -- the writer might have edited demo files and want to keep some.
 
 ### If called with --genre
 
@@ -63,7 +63,7 @@ Same structure, different premise and characters.
 
 ## Key principle
 
-The demo must feel real. Not placeholders, not lorem ipsum, not "example scene 1." Actual prose the writer can read and react to. The demo is often the writer's first experience of what Scriven can do -- make it count.
+The demo must feel real. Not placeholders, not lorem ipsum, not "example scene 1." Actual prose the writer can read and react to. The demo is often the writer's first experience of what Scriveno can do -- make it count.
 
 ## Response Contract
 

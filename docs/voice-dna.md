@@ -1,6 +1,6 @@
 # Voice DNA Guide
 
-Scriven's core value is simple: **drafted prose sounds like the writer, not like AI.** The Voice DNA system makes this possible by profiling your writing voice across 15+ dimensions and loading that profile into every drafter agent invocation. If voice fidelity breaks, trust breaks, and no other feature matters.
+Scriveno's core value is simple: **drafted prose sounds like the writer, not like AI.** The Voice DNA system makes this possible by profiling your writing voice across 15+ dimensions and loading that profile into every drafter agent invocation. If voice fidelity breaks, trust breaks, and no other feature matters.
 
 This guide explains how Voice DNA works, what each dimension controls, and how to calibrate your profile.
 
@@ -163,11 +163,11 @@ Your STYLE-GUIDE.md starts as a template during project setup, then gets filled 
 
 ### Path 1: Interview (recommended)
 
-Run `/scr:profile-writer --questionnaire` (or simply `/scr:profile-writer`) and Scriven interviews you about your writing preferences. It asks about your sentence style, dialogue preferences, figurative language density, and other dimensions, then writes those decisions into STYLE-GUIDE.md.
+Run `/scr:profile-writer --questionnaire` (or simply `/scr:profile-writer`) and Scriveno interviews you about your writing preferences. It asks about your sentence style, dialogue preferences, figurative language density, and other dimensions, then writes those decisions into STYLE-GUIDE.md.
 
 ### Path 2: Writing sample
 
-Run `/scr:profile-writer --analyze <file>` with a sample of your existing writing (500-1000 words works well) and Scriven analyzes it to extract your voice profile automatically. This works especially well if you have published work or a manuscript-in-progress that represents the voice you want.
+Run `/scr:profile-writer --analyze <file>` with a sample of your existing writing (500-1000 words works well) and Scriveno analyzes it to extract your voice profile automatically. This works especially well if you have published work or a manuscript-in-progress that represents the voice you want.
 
 After profiling, run `/scr:voice-test` before drafting. `/scr:discuss` comes later in the workflow and assumes STYLE-GUIDE.md already exists for the unit-planning conversation.
 
@@ -179,7 +179,7 @@ Before drafting your first unit, run:
 /scr:voice-test
 ```
 
-This command drafts a short sample scene using your current STYLE-GUIDE.md profile. You read the sample and tell Scriven what sounds right and what sounds off. "The dialogue is too formal." "The sentences are too long." "I would never use that word." Scriven adjusts your profile based on your feedback.
+This command drafts a short sample scene using your current STYLE-GUIDE.md profile. You read the sample and tell Scriveno what sounds right and what sounds off. "The dialogue is too formal." "The sentences are too long." "I would never use that word." Scriveno adjusts your profile based on your feedback.
 
 Think of voice-test as a sound check before a concert. You're making sure the drafter will sound like you before it writes 80,000 words.
 
@@ -218,7 +218,7 @@ For full details on sacred work types, exclusive commands, and tradition-specifi
 
 ## How Voice Stays Consistent
 
-Scriven uses a **fresh-context-per-unit** architecture. Here's how it works:
+Scriveno uses a **fresh-context-per-unit** architecture. Here's how it works:
 
 1. Each atomic unit (scene, passage, verse, beat) gets its own fresh drafter agent invocation
 2. The drafter loads STYLE-GUIDE.md first -- before anything else
@@ -227,13 +227,13 @@ Scriven uses a **fresh-context-per-unit** architecture. Here's how it works:
 5. The drafter writes the unit, checking every sentence against your voice profile
 6. After drafting, a voice-check pass flags any drift
 
-Why fresh context? Because AI agents accumulate context over a conversation, and accumulated context causes voice drift. After 10,000 words of continuous generation, the AI starts sounding like itself instead of like you. By giving each unit a clean slate with STYLE-GUIDE.md loaded fresh, Scriven keeps every unit at peak voice fidelity.
+Why fresh context? Because AI agents accumulate context over a conversation, and accumulated context causes voice drift. After 10,000 words of continuous generation, the AI starts sounding like itself instead of like you. By giving each unit a clean slate with STYLE-GUIDE.md loaded fresh, Scriveno keeps every unit at peak voice fidelity.
 
 This is the same principle behind recording each instrument separately in a studio -- isolation gives you control.
 
 ### Three rule layers
 
-Starting in `1.6.0`, Scriven loads three rule layers in this order on every drafter invocation:
+Starting in `1.6.0`, Scriveno loads three rule layers in this order on every drafter invocation:
 
 1. **STYLE-GUIDE.md** (sovereign): your Voice DNA. Always loaded; nothing overrides it.
 2. **WRITING-RULES.md** (universal, optional): canonical AI-tell don'ts that apply to all writing. Hedging, throat-clearing, balanced-both-sides constructions, generic metaphors, symmetrical rhythm, moralizing closings, AI tics in dialogue. Loaded if the file is present in `.manuscript/` or the installed templates.
@@ -284,7 +284,7 @@ See [docs/drafter-quality.md](drafter-quality.md) for the full system, including
 ## See Also
 
 - [Proof Artifacts](proof-artifacts.md) -- inspect the Voice DNA before/after bundle first if you want the fastest concrete evidence
-- [Getting Started](getting-started.md) -- Install Scriven and write your first draft
+- [Getting Started](getting-started.md) -- Install Scriveno and write your first draft
 - [Drafter Quality](drafter-quality.md) -- the three rule layers, the `draft` config block, and model-tier recommendations
 - [Command Reference](command-reference.md) -- Full list of all 112 commands with usage and examples
-- [Work Types Guide](work-types.md) -- How work types adapt Scriven's vocabulary and commands
+- [Work Types Guide](work-types.md) -- How work types adapt Scriveno's vocabulary and commands

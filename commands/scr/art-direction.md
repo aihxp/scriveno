@@ -16,7 +16,7 @@ Generate or refine ART-DIRECTION.md, the visual style bible that governs all ill
 
 You are creating the project's visual style bible. Load:
 - `.manuscript/config.json` (to get `work_type`, `genre`)
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check `commands.art-direction.available` and `commands.art-direction.hidden`)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `commands.art-direction.available` and `commands.art-direction.hidden`)
 - `.manuscript/WORK.md` (genre, premise, tone, setting context)
 - `.manuscript/CHARACTERS.md` or `.manuscript/FIGURES.md` (per `file_adaptations` for sacred work types) for character physical descriptions
 - `.manuscript/WORLD.md` or `.manuscript/COSMOLOGY.md` (per `file_adaptations`) if it exists, for setting descriptions

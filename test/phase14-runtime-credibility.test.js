@@ -33,7 +33,7 @@ describe('phase 14 runtime matrix', () => {
       '## Support Levels',
       '## Verification Status',
       '## Runtime Compatibility Matrix',
-      '## What Scriven Proves Today',
+      '## What Scriveno Proves Today',
     ];
 
     for (const heading of expectedHeadings) {
@@ -82,8 +82,8 @@ describe('phase 14 runtime credibility wiring', () => {
   });
 
   it('keeps Perplexity troubleshooting guidance honest for both install scopes', () => {
-    assert.match(troubleshootDoc, /~\/\.scriven\/perplexity\/SETUP\.md/);
-    assert.match(troubleshootDoc, /`\.scriven\/perplexity\/SETUP\.md`/);
+    assert.match(troubleshootDoc, /~\/\.scriveno\/perplexity\/SETUP\.md/);
+    assert.match(troubleshootDoc, /`\.scriveno\/perplexity\/SETUP\.md`/);
     assert.match(troubleshootDoc, /docs\/runtime-support\.md/);
   });
 

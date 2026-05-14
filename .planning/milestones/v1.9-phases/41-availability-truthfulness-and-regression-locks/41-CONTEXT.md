@@ -57,7 +57,7 @@ Align help, command prose, and trust-facing docs with the real availability cont
 <deferred>
 ## Deferred Ideas
 
-- A shared executable availability helper for command runtimes if Scriven ever moves beyond markdown-only command contracts.
+- A shared executable availability helper for command runtimes if Scriveno ever moves beyond markdown-only command contracts.
 - Broader cleanup of every conceptual adaptation stored in `CONSTRAINTS.json` if product decisions later prune hidden mappings entirely.
 
 </deferred>

@@ -7,11 +7,11 @@ dependency_graph:
   requires: [phase-34-regression-tests]
   provides: [TPL-04, TPL-05, TPL-06]
   affects:
-    - data/export-templates/scriven-chapbook.typst
-    - data/export-templates/scriven-smashwords.docx
-    - data/export-templates/scriven-smashwords-styles.md
-    - data/export-templates/scriven-poetry-submission.docx
-    - data/export-templates/scriven-poetry-submission-styles.md
+    - data/export-templates/scriveno-chapbook.typst
+    - data/export-templates/scriveno-smashwords.docx
+    - data/export-templates/scriveno-smashwords-styles.md
+    - data/export-templates/scriveno-poetry-submission.docx
+    - data/export-templates/scriveno-poetry-submission-styles.md
     - commands/scr/build-smashwords.md
     - commands/scr/build-poetry-submission.md
     - data/CONSTRAINTS.json
@@ -23,11 +23,11 @@ tech_stack:
     - per-poem page break assembly (STEP 3b newpage injection)
 key_files:
   created:
-    - data/export-templates/scriven-chapbook.typst
-    - data/export-templates/scriven-smashwords.docx
-    - data/export-templates/scriven-smashwords-styles.md
-    - data/export-templates/scriven-poetry-submission.docx
-    - data/export-templates/scriven-poetry-submission-styles.md
+    - data/export-templates/scriveno-chapbook.typst
+    - data/export-templates/scriveno-smashwords.docx
+    - data/export-templates/scriveno-smashwords-styles.md
+    - data/export-templates/scriveno-poetry-submission.docx
+    - data/export-templates/scriveno-poetry-submission-styles.md
     - commands/scr/build-smashwords.md
     - commands/scr/build-poetry-submission.md
   modified:
@@ -54,7 +54,7 @@ metrics:
 
 | Task | Name | Commit | Files |
 |------|------|--------|-------|
-| 1 | Create scriven-chapbook.typst and both DOCX reference docs + style spec files | 604db20 | scriven-chapbook.typst, scriven-smashwords.docx, scriven-smashwords-styles.md, scriven-poetry-submission.docx, scriven-poetry-submission-styles.md |
+| 1 | Create scriveno-chapbook.typst and both DOCX reference docs + style spec files | 604db20 | scriveno-chapbook.typst, scriveno-smashwords.docx, scriveno-smashwords-styles.md, scriveno-poetry-submission.docx, scriveno-poetry-submission-styles.md |
 | 2 | Create build-smashwords.md and build-poetry-submission.md; update CONSTRAINTS.json | d8f5bf3 | build-smashwords.md, build-poetry-submission.md, CONSTRAINTS.json |
 
 ## Verification Results
@@ -66,9 +66,9 @@ All TPL-04, TPL-05, TPL-06 regression tests pass:
 - TPL-06: 8/8 tests pass (poetry submission DOCX + build command)
 
 Key checks confirmed:
-- `grep "5.5in" data/export-templates/scriven-chapbook.typst` exits 0
-- `grep "no tabs" data/export-templates/scriven-smashwords-styles.md` exits 0
-- `grep "Times New Roman" data/export-templates/scriven-poetry-submission-styles.md` exits 0
+- `grep "5.5in" data/export-templates/scriveno-chapbook.typst` exits 0
+- `grep "no tabs" data/export-templates/scriveno-smashwords-styles.md` exits 0
+- `grep "Times New Roman" data/export-templates/scriveno-poetry-submission-styles.md` exits 0
 - `grep '"build-smashwords"' data/CONSTRAINTS.json` exits 0
 - `grep '"build-poetry-submission"' data/CONSTRAINTS.json` exits 0
 - `node -e "JSON.parse(...CONSTRAINTS.json...)"` exits 0
@@ -90,11 +90,11 @@ None. No new network endpoints or auth paths introduced. CONSTRAINTS.json edit w
 
 ## Self-Check: PASSED
 
-- `data/export-templates/scriven-chapbook.typst` exists: FOUND
-- `data/export-templates/scriven-smashwords.docx` exists: FOUND
-- `data/export-templates/scriven-smashwords-styles.md` exists: FOUND
-- `data/export-templates/scriven-poetry-submission.docx` exists: FOUND
-- `data/export-templates/scriven-poetry-submission-styles.md` exists: FOUND
+- `data/export-templates/scriveno-chapbook.typst` exists: FOUND
+- `data/export-templates/scriveno-smashwords.docx` exists: FOUND
+- `data/export-templates/scriveno-smashwords-styles.md` exists: FOUND
+- `data/export-templates/scriveno-poetry-submission.docx` exists: FOUND
+- `data/export-templates/scriveno-poetry-submission-styles.md` exists: FOUND
 - `commands/scr/build-smashwords.md` exists: FOUND
 - `commands/scr/build-poetry-submission.md` exists: FOUND
 - Commit `604db20` exists: FOUND

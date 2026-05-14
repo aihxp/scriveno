@@ -60,7 +60,7 @@ Adapt to:
 Load the following project files:
 
 - `.manuscript/config.json` -- to get `work_type`, title, author, language, and project settings
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- to check `exports` section for format availability by work type group
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- to check `exports` section for format availability by work type group
 
 **Check format availability:**
 
@@ -146,7 +146,7 @@ pandoc .manuscript/output/assembled-manuscript.md \
   -o .manuscript/output/manuscript.epub \
   --metadata-file=.manuscript/output/metadata.yaml \
   --epub-cover-image=.manuscript/output/cover.jpg \
-  --css=data/export-templates/scriven-epub.css \
+  --css=data/export-templates/scriveno-epub.css \
   --toc \
   --toc-depth=2 \
   --split-level=1
@@ -210,7 +210,7 @@ If invalid: list available platforms from listPlatforms() and stop.
 pandoc .manuscript/output/assembled-manuscript.md \
   -o .manuscript/output/print-{platform}.pdf \
   --pdf-engine=typst \
-  --template=data/export-templates/scriven-book.typst \
+  --template=data/export-templates/scriveno-book.typst \
   --metadata-file=.manuscript/output/metadata.yaml \
   --toc \
   --toc-depth=2 \

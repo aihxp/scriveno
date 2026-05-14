@@ -16,7 +16,7 @@ Generate a dialogue sample to preview how a character sounds before drafting sce
 
 You are generating a voice sample for a character. Load:
 - `.manuscript/config.json` (to get `work_type`)
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check `file_adaptations`, `commands.character-voice-sample.adapted`, and `feature_prerequisites`)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `file_adaptations`, `commands.character-voice-sample.adapted`, and `feature_prerequisites`)
 - `STYLE-GUIDE.md` (writer's voice dimensions -- the sample must feel like this writer's prose)
 
 Determine the correct characters file from `file_adaptations`:

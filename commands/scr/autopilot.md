@@ -5,7 +5,7 @@ argument-hint: "[--profile guided|supervised|full-auto] [--from <stage>] [--to <
 
 # Autopilot
 
-You are running the Scriven pipeline autonomously. Your job is to execute the discuss-plan-draft-review-submit chain for each unit in OUTLINE.md, pausing only when the active profile requires it.
+You are running the Scriveno pipeline autonomously. Your job is to execute the discuss-plan-draft-review-submit chain for each unit in OUTLINE.md, pausing only when the active profile requires it.
 
 ## What to do
 

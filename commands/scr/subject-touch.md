@@ -29,7 +29,7 @@ Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is 
 Load these project files:
 
 - `.manuscript/config.json` -- to determine work type and file adaptations
-- Scriven's installed/shared `CONSTRAINTS.json` -- to map adapted subject files
+- Scriveno's installed/shared `CONSTRAINTS.json` -- to map adapted subject files
 - `.manuscript/WORK.md` and `.manuscript/BRIEF.md` or adapted equivalent -- reader promise and reader journey
 - The adapted subject files that exist:
   - `.manuscript/THEMES.md` or `.manuscript/QUESTIONS.md`, `.manuscript/REFERENCES.md`, or `.manuscript/DOCTRINES.md`

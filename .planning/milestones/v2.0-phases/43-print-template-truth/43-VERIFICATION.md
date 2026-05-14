@@ -9,7 +9,7 @@ re_verification: false
 
 # Phase 43: Print Template Truth - Verification Report
 
-**Phase Goal:** Make Scriven's cover guidance truthful for ebook, paperback, and hardcover production requirements while removing hard-coded print-cover geometry assumptions.
+**Phase Goal:** Make Scriveno's cover guidance truthful for ebook, paperback, and hardcover production requirements while removing hard-coded print-cover geometry assumptions.
 
 **Verified:** 2026-04-18T06:59:31Z
 **Status:** passed

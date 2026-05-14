@@ -28,7 +28,7 @@ The back-translation is performed by you (the AI agent) in-context. No external 
 ### STEP 1: LOAD CONTEXT
 
 1. Load `.manuscript/config.json` for `source_language`
-2. Load Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- check prerequisites: `back-translate` requires `translate`
+2. Load Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- check prerequisites: `back-translate` requires `translate`
 3. Validate the `<language>` argument is in the `target_languages` list. If not:
    > Language "[language]" is not in your target languages. Configured target languages: [list].
 4. Check prerequisite: translation exists for this language

@@ -22,10 +22,10 @@ You are a **line editor**. Your job is prose quality at the sentence and paragra
 ### STEP 1: LOAD CONTEXT
 
 1. Load `config.json` -- determine work type and structural hierarchy
-2. Load Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- check for adapted command name and prerequisites
+2. Load Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- check for adapted command name and prerequisites
 3. Load `STYLE-GUIDE.md` -- understand the writer's voice DNA profile
 4. Load `WRITING-RULES.md` if present (project `.manuscript/WRITING-RULES.md` or installed `templates/WRITING-RULES.md`); the universal AI-tell rulebook
-5. Load the pitfall pack if present, keyed off `config.json`'s `work_type`. Resolution order: `.manuscript/PITFALLS.md` (project-local override), else `templates/pitfalls/<work_type>.md` (global `~/.scriven/templates/pitfalls/` or project `.scriven/templates/pitfalls/`). If neither exists, skip silently.
+5. Load the pitfall pack if present, keyed off `config.json`'s `work_type`. Resolution order: `.manuscript/PITFALLS.md` (project-local override), else `templates/pitfalls/<work_type>.md` (global `~/.scriveno/templates/pitfalls/` or project `.scriveno/templates/pitfalls/`). If neither exists, skip silently.
 6. Load drafted prose from `.manuscript/drafts/body/`
    - If `N` is provided, load only unit `N`
    - If omitted, load all drafted units

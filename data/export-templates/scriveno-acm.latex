@@ -1,41 +1,25 @@
-% Scriven APA7 LaTeX Template for Pandoc --template flag
-% Requires apa7.cls (install: tlmgr install apa7)
-% Usage: pandoc ... --template=data/export-templates/scriven-apa7.latex
+% Scriveno ACM LaTeX Template for Pandoc --template flag
+% Requires acmart.cls (install: tlmgr install acmart)
+% Usage: pandoc ... --template=data/export-templates/scriveno-acm.latex
 %
-% Default class options: [jou,longtable] for journal format; [man] for manuscript format.
-% Pass via Pandoc: --metadata classoption=man
-% Note: apa7.cls requires biblatex -- load with \usepackage[style=apa]{biblatex} in your local preamble additions
+% Default class options: [acmconf,review=false] for ACM conference papers.
+% Pass via Pandoc: --metadata classoption=acmconf
+% Note: acmart loads hyperref internally -- do not add \usepackage{hyperref}
 
-\documentclass[$if(classoption)$$for(classoption)$$classoption$$sep$,$endfor$$endif$]{apa7}
+\documentclass[$if(classoption)$$for(classoption)$$classoption$$sep$,$endfor$$endif$]{acmart}
 
-% Encoding -- safe with apa7 when using pdflatex
+% Encoding -- safe with acmart when using pdflatex
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 
-% Math support
-\usepackage{amsmath,amssymb}
-
-% Graphics
-\usepackage{graphicx}
-\makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% acmart.cls already loads amsmath, amssymb, and graphicx internally.
+% Do NOT add \usepackage{amsmath,amssymb} or \usepackage{graphicx} here.
+% Math support and graphics are available without additional declarations.
 
 % Pandoc required: code highlighting
 $if(highlighting-macros)$
 $highlighting-macros$
 $endif$
-
-% Pandoc: allow preamble additions via header-includes in metadata YAML
-$for(header-includes)$
-$header-includes$
-$endfor$
-
-% APA7 requires biblatex-apa. Uncomment if using bibliography:
-% \usepackage[style=apa,sortcites=true,sorting=nyt,backend=biber]{biblatex}
-% \addbibresource{references.bib}
 
 % Pandoc required: tight lists
 \providecommand{\tightlist}{%
@@ -78,6 +62,6 @@ $endif$
 
 $body$
 
-% Bibliography: apa7 requires biblatex-apa; use \printbibliography manually after compiling
+% Bibliography: use biblatex-acm or natbib per ACM template guidance
 
 \end{document}

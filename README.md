@@ -1,29 +1,29 @@
-# Scriven
+# Scriveno
 
-[![npm version](https://img.shields.io/npm/v/scriven-cli)](https://www.npmjs.com/package/scriven-cli)
-[![npm downloads](https://img.shields.io/npm/dm/scriven-cli)](https://www.npmjs.com/package/scriven-cli)
+[![npm version](https://img.shields.io/npm/v/scriveno-cli)](https://www.npmjs.com/package/scriveno-cli)
+[![npm downloads](https://img.shields.io/npm/dm/scriveno-cli)](https://www.npmjs.com/package/scriveno-cli)
 
-**[scriven-cli on npm](https://www.npmjs.com/package/scriven-cli)**
+**[scriveno-cli on npm](https://www.npmjs.com/package/scriveno-cli)**
 
 **Spec-driven writing, publishing, and translation for AI coding agents.**
 
 *I don't outline -- Claude does. I don't edit -- Claude does. I don't format -- Claude does. I just write.*
 
-Scriven brings spec-driven workflows to longform writing. It runs inside your AI coding agent (Claude Code, Cursor, Gemini CLI, and more) and also ships a guided Perplexity Desktop setup path for file-aware support without overstating parity.
+Scriveno brings spec-driven workflows to longform writing. It runs inside your AI coding agent (Claude Code, Cursor, Gemini CLI, and more) and also ships a guided Perplexity Desktop setup path for file-aware support without overstating parity.
 
-Scriven is best understood as **AI-native longform writing software built around voice preservation**. Its core promise is narrow and high-stakes: drafted prose should sound like the writer, not like AI. If you want evidence before features, start with the [Proof Artifacts](docs/proof-artifacts.md).
+Scriveno is best understood as **AI-native longform writing software built around voice preservation**. Its core promise is narrow and high-stakes: drafted prose should sound like the writer, not like AI. If you want evidence before features, start with the [Proof Artifacts](docs/proof-artifacts.md).
 
 ```bash
-npx scriven-cli@latest
+npx scriveno-cli@latest
 ```
 
 ---
 
 ## What is this
 
-Scriven is a command system that turns your AI coding agent into a voice-preserving writing studio. It supports 50 work types -- novels, screenplays, research papers, technical guides, runbooks, scripture commentaries, comics, memoirs -- each with its own adaptive vocabulary and toolset.
+Scriveno is a command system that turns your AI coding agent into a voice-preserving writing studio. It supports 50 work types -- novels, screenplays, research papers, technical guides, runbooks, scripture commentaries, comics, memoirs -- each with its own adaptive vocabulary and toolset.
 
-The wedge comes first: Scriven profiles the writer, loads that voice into every drafting step, and keeps each unit on fresh context so the prose stays specific to the project. From there, it expands into 112 writing commands covering the rest of the pipeline:
+The wedge comes first: Scriveno profiles the writer, loads that voice into every drafting step, and keeps each unit on fresh context so the prose stays specific to the project. From there, it expands into 112 writing commands covering the rest of the pipeline:
 
 - **Create** -- Set up a project with tailored context files. Progressive onboarding, never overwhelming.
 - **Write** -- Discuss, plan, draft, and revise one unit at a time. The drafter agent loads your Voice DNA and writes in *your* voice, not generic AI prose.
@@ -40,7 +40,7 @@ Everything adapts to your work type. A novel uses `/scr:draft` for chapters. A s
 
 ```bash
 # Install
-npx scriven-cli@latest
+npx scriveno-cli@latest
 
 # In Claude Code:
 /scr-new-work        # Start a fresh project
@@ -67,7 +67,7 @@ If you want the shortest proof-first route, read [Proof Artifacts](docs/proof-ar
 
 ## The Voice DNA system
 
-Scriven's core insight: drafted prose should sound like *you*, not like an AI. Before drafting begins, `/scr:profile-writer` builds a detailed voice profile across 15+ dimensions:
+Scriveno's core insight: drafted prose should sound like *you*, not like an AI. Before drafting begins, `/scr:profile-writer` builds a detailed voice profile across 15+ dimensions:
 
 - Narrative perspective, tense, narrator stance
 - Sentence architecture, paragraph rhythm
@@ -104,7 +104,7 @@ For sacred and historical texts, Voice DNA is supplemented by 10 sacred voice re
 
 **Sacred & historical:** scripture (Biblical, Quranic, Torah, Vedic, Buddhist, generic), commentary/exegesis, devotional, liturgical text, historical chronicle, historical account, mythological collection, religious epic, sermon, homiletic collection
 
-Each work type has its own structural hierarchy and **industry-standard word count and page range guidance** -- a novel targets 70,000-100,000 words across 20-35 chapters, a screenplay targets 90-120 pages across 3-5 acts. These ranges guide outlining, progress tracking, and drafter pacing. The runnable command ids stay stable, while Scriven adapts the wording around them -- a Torah commentary still runs `/scr:plan 3`, but frames that work as planning Parashah 3.
+Each work type has its own structural hierarchy and **industry-standard word count and page range guidance** -- a novel targets 70,000-100,000 words across 20-35 chapters, a screenplay targets 90-120 pages across 3-5 acts. These ranges guide outlining, progress tracking, and drafter pacing. The runnable command ids stay stable, while Scriveno adapts the wording around them -- a Torah commentary still runs `/scr:plan 3`, but frames that work as planning Parashah 3.
 
 ---
 
@@ -132,7 +132,7 @@ Plus:
 
 ## Writer mode vs. developer mode
 
-Scriven detects non-technical writers and hides git terminology. Instead of `commit`, `branch`, `merge`, `diff` -- you see `save`, `version`, `compare`, `accept changes`. All the power, none of the coding jargon.
+Scriveno detects non-technical writers and hides git terminology. Instead of `commit`, `branch`, `merge`, `diff` -- you see `save`, `version`, `compare`, `accept changes`. All the power, none of the coding jargon.
 
 Technical writers can enable developer mode in settings for full git access and verbose output.
 
@@ -140,7 +140,7 @@ Technical writers can enable developer mode in settings for full git access and 
 
 ## Philosophy
 
-Scriven is built on five principles:
+Scriveno is built on five principles:
 
 1. **The writer's voice is sacred.** The drafter never imposes generic AI style. Every drafted sentence passes through the Voice DNA gate.
 
@@ -159,14 +159,14 @@ Scriven is built on five principles:
 - [Proof Artifacts](docs/proof-artifacts.md) -- Canonical proof hub for the watchmaker sample flow and Voice DNA before/after bundle
 - [Getting Started](docs/getting-started.md) -- Install to first draft in 10 minutes
 - [Command Reference](docs/command-reference.md) -- All 112 commands with usage, flags, and examples
-- [Work Types Guide](docs/work-types.md) -- How 50 work types adapt Scriven's vocabulary
+- [Work Types Guide](docs/work-types.md) -- How 50 work types adapt Scriveno's vocabulary
 - [Voice DNA Guide](docs/voice-dna.md) -- The 15+ dimension voice profiling system
 - [Creative Context](docs/creative-context.md) -- Writer-native context routing, craft notes, and core-loop memory
 - [Publishing Guide](docs/publishing.md) -- 13 export formats, KDP, IngramSpark, submission packages
 - [Sacred Text Guide](docs/sacred-texts.md) -- 15 sacred work types, voice registers, tradition-native features
 - [Translation Guide](docs/translation.md) -- Multi-language pipeline with glossary and cultural adaptation
 - [Contributing](docs/contributing.md) -- How to add commands, agents, work types, and templates
-- [Architecture](docs/architecture.md) -- How Scriven works under the hood
+- [Architecture](docs/architecture.md) -- How Scriveno works under the hood
 - [Configuration](docs/configuration.md) -- Package, installer, constraints, and `.manuscript/config.json` surfaces
 - [Development](docs/development.md) -- Contributor workflow for changing commands, templates, installer logic, and docs
 - [Testing](docs/testing.md) -- What the test suite covers and which checks to run before shipping
@@ -178,7 +178,7 @@ Scriven is built on five principles:
 
 ## Installer Targets
 
-Scriven currently ships installer targets for these AI tooling environments:
+Scriveno currently ships installer targets for these AI tooling environments:
 
 - **Claude Code** (primary reference runtime)
 - **Cursor**
@@ -192,7 +192,7 @@ Scriven currently ships installer targets for these AI tooling environments:
 - **Perplexity Desktop** (guided local-MCP setup)
 - **Generic (SKILL.md)** fallback
 
-**Installer baseline:** `Node.js >=20.0.0` for `npx scriven-cli@latest` and `bin/install.js`. For new installs, use a currently supported LTS such as Node.js 24; Node.js 20 is now a compatibility floor, not the recommended fresh-install target.
+**Installer baseline:** `Node.js >=20.0.0` for `npx scriveno-cli@latest` and `bin/install.js`. For new installs, use a currently supported LTS such as Node.js 24; Node.js 20 is now a compatibility floor, not the recommended fresh-install target.
 
 **Support note:** Claude Code is the primary reference runtime and now installs a flat `/scr-*` command surface. The environments listed above are installer targets, not a claim that every host runtime has verified parity today. Codex currently installs a skill-native `$scr-*` surface, while Perplexity Desktop is a guided local-MCP target rather than a writable command runtime. See the [runtime compatibility matrix](docs/runtime-support.md) for install type, support level, and verification status.
 
@@ -202,9 +202,9 @@ Scriven currently ships installer targets for these AI tooling environments:
 
 **Version:** 2.0.0
 
- Scriven's core command surface is stable across 112 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, plus the creative-context, record-store, branching-next, runtime-sync, and release-readiness work for `2.0.0`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
+ Scriveno's core command surface is stable across 112 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, plus the creative-context, record-store, branching-next, runtime-sync, and release-readiness work for `2.0.0`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
 
- Version `2.0.0` makes Scriven's creative context layer first-class: `RECORD.md` for established content, non-character subject tracking, relationship-aware character work, branching next-command suggestions, and `/scr:sync` for keeping installed runtime surfaces current with the source tree. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
+ Version `2.0.0` makes Scriveno's creative context layer first-class: `RECORD.md` for established content, non-character subject tracking, relationship-aware character work, branching next-command suggestions, and `/scr:sync` for keeping installed runtime surfaces current with the source tree. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
 
 Package history is tracked in [CHANGELOG.md](CHANGELOG.md), and the public-facing summary for this release is in [docs/release-notes.md](docs/release-notes.md).
 
@@ -216,4 +216,4 @@ MIT. See [LICENSE](./LICENSE).
 
 ## Contributing
 
-Scriven is an open project. Contributions welcome -- especially new work types, additional runtime adapters, and voice register definitions for languages and traditions we haven't covered yet.
+Scriveno is an open project. Contributions welcome -- especially new work types, additional runtime adapters, and voice register definitions for languages and traditions we haven't covered yet.

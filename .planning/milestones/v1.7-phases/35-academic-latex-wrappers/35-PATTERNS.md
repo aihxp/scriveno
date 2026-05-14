@@ -10,11 +10,11 @@
 
 | New/Modified File | Role | Data Flow | Closest Analog | Match Quality |
 |---|---|---|---|---|
-| `data/export-templates/scriven-ieee.latex` | config/template | transform | `data/export-templates/scriven-academic.latex` | exact (same file type, same Pandoc variable system, same purpose) |
-| `data/export-templates/scriven-acm.latex` | config/template | transform | `data/export-templates/scriven-academic.latex` | exact |
-| `data/export-templates/scriven-lncs.latex` | config/template | transform | `data/export-templates/scriven-academic.latex` | exact |
-| `data/export-templates/scriven-elsevier.latex` | config/template | transform | `data/export-templates/scriven-academic.latex` | exact |
-| `data/export-templates/scriven-apa7.latex` | config/template | transform | `data/export-templates/scriven-academic.latex` | exact |
+| `data/export-templates/scriveno-ieee.latex` | config/template | transform | `data/export-templates/scriveno-academic.latex` | exact (same file type, same Pandoc variable system, same purpose) |
+| `data/export-templates/scriveno-acm.latex` | config/template | transform | `data/export-templates/scriveno-academic.latex` | exact |
+| `data/export-templates/scriveno-lncs.latex` | config/template | transform | `data/export-templates/scriveno-academic.latex` | exact |
+| `data/export-templates/scriveno-elsevier.latex` | config/template | transform | `data/export-templates/scriveno-academic.latex` | exact |
+| `data/export-templates/scriveno-apa7.latex` | config/template | transform | `data/export-templates/scriveno-academic.latex` | exact |
 | `commands/scr/build-print.md` | middleware/command | request-response | `commands/scr/build-print.md` (self — extension) | self-extension |
 | `data/CONSTRAINTS.json` | config | CRUD | `data/CONSTRAINTS.json` (self — extension) | self-extension |
 | `test/phase35-academic-latex-wrappers.test.js` | test | batch | `test/phase34-cross-domain-templates.test.js` | exact |
@@ -23,9 +23,9 @@
 
 ## Pattern Assignments
 
-### `data/export-templates/scriven-ieee.latex` (and all 4 sibling wrappers)
+### `data/export-templates/scriveno-ieee.latex` (and all 4 sibling wrappers)
 
-**Analog:** `data/export-templates/scriven-academic.latex`
+**Analog:** `data/export-templates/scriveno-academic.latex`
 
 **Critical design constraint:** The new wrappers are STRIPPED-DOWN versions of the analog. The analog includes geometry, fancyhdr, setspace, lmodern, babel, hyperref, longtable, enumitem, xcolor, biblatex. ALL of these must be OMITTED from publisher wrappers — publisher classes own their own layout. Copying the analog wholesale will cause compilation errors.
 
@@ -33,9 +33,9 @@
 
 Header comment pattern (analog lines 1-5):
 ```latex
-% Scriven <PUBLISHER> LaTeX Template for Pandoc --template flag
+% Scriveno <PUBLISHER> LaTeX Template for Pandoc --template flag
 % Requires <CLASS>.cls (install: tlmgr install <pkg>)
-% Usage: pandoc ... --template=data/export-templates/scriven-<platform>.latex
+% Usage: pandoc ... --template=data/export-templates/scriveno-<platform>.latex
 ```
 
 Encoding block — safe universal addition (analog lines 13-14; keep, drop lmodern):
@@ -142,13 +142,13 @@ The analog uses a variable documentclass (line 8). Publisher wrappers hardcode t
 
 | File | `\documentclass` arg | Default classoption in comment | Bibliography style |
 |---|---|---|---|
-| `scriven-ieee.latex` | `IEEEtran` | `[conference]` or `[journal]` | `IEEEtran` bib style |
-| `scriven-acm.latex` | `acmart` | `[acmconf,review=false]` | biblatex-acm or natbib per ACM |
-| `scriven-lncs.latex` | `llncs` | (none standard) | `splncs04` bib style |
-| `scriven-elsevier.latex` | `elsarticle` | `[preprint,12pt]` | `elsarticle-num` |
-| `scriven-apa7.latex` | `apa7` | `[jou,longtable]` or `[man]` | biblatex-apa |
+| `scriveno-ieee.latex` | `IEEEtran` | `[conference]` or `[journal]` | `IEEEtran` bib style |
+| `scriveno-acm.latex` | `acmart` | `[acmconf,review=false]` | biblatex-acm or natbib per ACM |
+| `scriveno-lncs.latex` | `llncs` | (none standard) | `splncs04` bib style |
+| `scriveno-elsevier.latex` | `elsarticle` | `[preprint,12pt]` | `elsarticle-num` |
+| `scriveno-apa7.latex` | `apa7` | `[jou,longtable]` or `[man]` | biblatex-apa |
 
-**llncs-specific bibliography note** (LNCS only — add as comment in `scriven-lncs.latex`):
+**llncs-specific bibliography note** (LNCS only — add as comment in `scriveno-lncs.latex`):
 ```latex
 % Bibliography: use splncs04 bib style (not llncs — that style is deprecated)
 % \bibliographystyle{splncs04}
@@ -247,11 +247,11 @@ Add a new branch BEFORE the existing `work_type` map, as the first check:
 ```markdown
 **If platform is one of `ieee`, `acm`, `lncs`, `elsevier`, `apa7`:**
 
-Set `LATEX_TEMPLATE = data/export-templates/scriven-{platform}.latex`
+Set `LATEX_TEMPLATE = data/export-templates/scriveno-{platform}.latex`
 
 If the template file does not exist:
-> **Build template missing: `data/export-templates/scriven-{platform}.latex` not found.**
-> Re-install Scriven or restore the file from the repository.
+> **Build template missing: `data/export-templates/scriveno-{platform}.latex` not found.**
+> Re-install Scriveno or restore the file from the repository.
 
 Then **stop**.
 
@@ -267,7 +267,7 @@ Insert new branch BEFORE the existing `pandoc` invocation block:
 ```bash
 pandoc .manuscript/output/assembled-manuscript.md \
   -o .manuscript/output/paper-{platform}.tex \
-  --template=data/export-templates/scriven-{platform}.latex \
+  --template=data/export-templates/scriveno-{platform}.latex \
   --metadata-file=.manuscript/output/metadata.yaml
 ```
 
@@ -356,20 +356,20 @@ function readFile(filePath) {
 
 **describe/it block pattern** (analog lines 27-101) — each describe block covers one TPL requirement, it-blocks test one assertion:
 ```javascript
-describe('Phase 35: TPL-07 scriven-ieee.latex exists with IEEEtran class', () => {
-  const IEEE = path.join(TEMPLATES_DIR, 'scriven-ieee.latex');
+describe('Phase 35: TPL-07 scriveno-ieee.latex exists with IEEEtran class', () => {
+  const IEEE = path.join(TEMPLATES_DIR, 'scriveno-ieee.latex');
 
-  it('scriven-ieee.latex exists — TPL-07', () => {
+  it('scriveno-ieee.latex exists — TPL-07', () => {
     const content = readFile(IEEE);
-    assert.ok(content !== null, 'data/export-templates/scriven-ieee.latex must exist — TPL-07');
+    assert.ok(content !== null, 'data/export-templates/scriveno-ieee.latex must exist — TPL-07');
   });
 
-  it('scriven-ieee.latex contains \\documentclass{IEEEtran} — TPL-07', () => {
+  it('scriveno-ieee.latex contains \\documentclass{IEEEtran} — TPL-07', () => {
     const content = readFile(IEEE);
-    assert.ok(content !== null, 'scriven-ieee.latex must exist — TPL-07');
+    assert.ok(content !== null, 'scriveno-ieee.latex must exist — TPL-07');
     assert.ok(
       content.includes('\\documentclass') && content.includes('IEEEtran'),
-      'scriven-ieee.latex must contain \\documentclass with IEEEtran — TPL-07'
+      'scriveno-ieee.latex must contain \\documentclass with IEEEtran — TPL-07'
     );
   });
   // ... pattern repeats per assertion
@@ -444,7 +444,7 @@ Then **stop**.
 
 ### Pandoc Template Variable Syntax
 
-**Source:** `data/export-templates/scriven-academic.latex`
+**Source:** `data/export-templates/scriveno-academic.latex`
 **Apply to:** All 5 new `.latex` wrapper templates
 
 Standard Pandoc template variable forms used in the analog:
@@ -472,7 +472,7 @@ All files have close analogs. No file in this phase requires a completely novel 
 
 ## Anti-Patterns (from RESEARCH.md — do not copy from analog)
 
-These patterns exist in `scriven-academic.latex` but must NOT be copied into the 5 publisher wrappers:
+These patterns exist in `scriveno-academic.latex` but must NOT be copied into the 5 publisher wrappers:
 
 | Anti-pattern | Why not | Source in analog |
 |---|---|---|
@@ -490,5 +490,5 @@ These patterns exist in `scriven-academic.latex` but must NOT be copied into the
 ## Metadata
 
 **Analog search scope:** `data/export-templates/`, `commands/scr/`, `test/`, `data/`
-**Files scanned:** 4 (scriven-academic.latex, build-print.md, CONSTRAINTS.json, phase34-cross-domain-templates.test.js)
+**Files scanned:** 4 (scriveno-academic.latex, build-print.md, CONSTRAINTS.json, phase34-cross-domain-templates.test.js)
 **Pattern extraction date:** 2026-04-17

@@ -21,7 +21,7 @@ Require `.manuscript/plans/{N}-*-PLAN.md` files to exist. If none exist, also ch
 
    Before invoking the drafter, scan each plan for `QUESTION: Blocking`. If any blocking question remains, pause and route back to `/scr:discuss N`. Non-blocking questions and watchpoints may proceed into drafting.
 
-2. **For each atomic unit, invoke the installed `drafter.md` agent for the current runtime in a fresh context.** Use the agent path for the writer's active Scriven install (for example the runtime's global or project-scoped `agents/drafter.md`). Fresh context per atomic unit is critical -- it prevents voice drift, context bloat, and lets each scene be its best. The drafter receives:
+2. **For each atomic unit, invoke the installed `drafter.md` agent for the current runtime in a fresh context.** Use the agent path for the writer's active Scriveno install (for example the runtime's global or project-scoped `agents/drafter.md`). Fresh context per atomic unit is critical -- it prevents voice drift, context bloat, and lets each scene be its best. The drafter receives:
    - STYLE-GUIDE.md (always, every time -- this is the voice DNA)
    - The specific `.manuscript/plans/{N}-{A}-PLAN.md` for this atomic unit, or the matching legacy root-level plan if that is all the project has
    - The plan's `## Craft Notes` section, including any `CHOICE`, `HUNCH`, `QUESTION`, and `WATCHPOINT` items

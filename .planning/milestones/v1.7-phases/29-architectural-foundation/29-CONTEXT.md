@@ -47,7 +47,7 @@ All implementation choices are at Claude's discretion — discuss phase was skip
 Codebase context will be gathered during plan-phase research. Relevant entry points:
 
 - `data/CONSTRAINTS.json` — runtime constraint system governing work type availability, prerequisites, and adaptations (per CLAUDE.md)
-- `templates/` — existing template roots: shipped export templates `scriven-book.typst`, `scriven-epub.css`, `scriven-academic.latex`; additional `templates/technical/` family from v1.4
+- `templates/` — existing template roots: shipped export templates `scriveno-book.typst`, `scriveno-epub.css`, `scriveno-academic.latex`; additional `templates/technical/` family from v1.4
 - `bin/install.js` — installer; must not need changes for this phase (architecture shift is spec-level, not installer-level)
 - `docs/runtime-support.md` — canonical runtime matrix
 - `.planning/tmp/cross-domain-platforms-research.md` — v1.7 research artifact

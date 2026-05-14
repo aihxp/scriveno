@@ -1,6 +1,6 @@
 # Context preference protocol
 
-This is the canonical context-cost contract for Scriven commands. The goal is to stop every session-aware command from independently re-loading STATE.md, OUTLINE.md, RECORD.md, config.json, and other orientation files when the auto-regenerated `.manuscript/CONTEXT.md` already summarizes them.
+This is the canonical context-cost contract for Scriveno commands. The goal is to stop every session-aware command from independently re-loading STATE.md, OUTLINE.md, RECORD.md, config.json, and other orientation files when the auto-regenerated `.manuscript/CONTEXT.md` already summarizes them.
 
 It is part of the trust layer:
 - `STATE.md` -- structured snapshot (data)

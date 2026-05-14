@@ -1,12 +1,12 @@
 # Publishing Guide
 
-Scriven takes your manuscript from drafted prose to publication-ready files. Whether you're uploading to Amazon KDP, submitting to IngramSpark, or querying agents, the export pipeline handles format conversion, metadata generation, and platform-specific packaging.
+Scriveno takes your manuscript from drafted prose to publication-ready files. Whether you're uploading to Amazon KDP, submitting to IngramSpark, or querying agents, the export pipeline handles format conversion, metadata generation, and platform-specific packaging.
 
 This guide covers all 13 export formats, platform-specific packages, the publish wizard, and autopilot publishing.
 
 ## Prerequisites
 
-Scriven's export pipeline uses external tools for format conversion. You only need the tools required by your chosen formats.
+Scriveno's export pipeline uses external tools for format conversion. You only need the tools required by your chosen formats.
 
 | Tool | Install | Required For |
 |------|---------|-------------|
@@ -16,13 +16,13 @@ Scriven's export pipeline uses external tools for format conversion. You only ne
 | **Afterwriting** | `npm i -g afterwriting` | Screenplay PDF |
 | **Screenplain** | `pip install screenplain` | Final Draft (FDX) export |
 
-Scriven warns at export time if a required tool is missing and shows the install command for the format you selected.
+Scriveno warns at export time if a required tool is missing and shows the install command for the format you selected.
 
-**No tools needed for:** Markdown export and Fountain export -- these are pure text conversions handled by Scriven directly.
+**No tools needed for:** Markdown export and Fountain export -- these are pure text conversions handled by Scriveno directly.
 
 ## Export Formats
 
-Export your manuscript with `/scr:export --format <format>`. Scriven assembles the full manuscript from your outline, front matter, body drafts, and back matter, then converts to the target format.
+Export your manuscript with `/scr:export --format <format>`. Scriveno assembles the full manuscript from your outline, front matter, body drafts, and back matter, then converts to the target format.
 
 ### Core Formats
 
@@ -42,7 +42,7 @@ Output: `.manuscript/output/manuscript.md`
 /scr:export --format docx
 ```
 
-Output: `.manuscript/output/manuscript.docx`. The shipped path uses Pandoc's default DOCX styling because Scriven does not bundle a manuscript reference document. If you need standard manuscript formatting, provide your own Pandoc reference document.
+Output: `.manuscript/output/manuscript.docx`. The shipped path uses Pandoc's default DOCX styling because Scriveno does not bundle a manuscript reference document. If you need standard manuscript formatting, provide your own Pandoc reference document.
 
 **DOCX (Formatted)** -- Designed and typeset DOCX for review copies and ARCs (advance reader copies). Custom fonts, styled headers, polished layout.
 
@@ -66,7 +66,7 @@ Output: `.manuscript/output/manuscript.pdf`. Requires Pandoc and Typst.
 /scr:export --format pdf --print-ready
 ```
 
-Output: `.manuscript/output/manuscript-print.pdf`. Uses the `scriven-book.typst` template. Default trim size is 6" x 9" -- override via `trim_width` and `trim_height` in `.manuscript/config.json`.
+Output: `.manuscript/output/manuscript-print.pdf`. Uses the `scriveno-book.typst` template. Default trim size is 6" x 9" -- override via `trim_width` and `trim_height` in `.manuscript/config.json`.
 
 ### Ebook
 
@@ -76,13 +76,13 @@ Output: `.manuscript/output/manuscript-print.pdf`. Uses the `scriven-book.typst`
 /scr:export --format epub
 ```
 
-Output: `.manuscript/output/manuscript.epub`. Includes table of contents, metadata, and custom CSS styling via `scriven-epub.css`. If an ebook front cover exists at `.manuscript/build/ebook-cover.jpg` (or `.png`), it's embedded automatically.
+Output: `.manuscript/output/manuscript.epub`. Includes table of contents, metadata, and custom CSS styling via `scriveno-epub.css`. If an ebook front cover exists at `.manuscript/build/ebook-cover.jpg` (or `.png`), it's embedded automatically.
 
 For platform-aware EPUB builds, use `/scr:build-ebook --platform <platform>`. Shipped platform profiles live under `templates/platforms/` for `kdp`, `ingram`, `apple`, `bn`, `d2d`, `kobo`, `google`, and `smashwords`. The build command validates the platform manifest, confirms EPUB support, and carries the selected platform label plus `epub_variant` into output metadata.
 
 ## Canonical Cover Deliverables
 
-Scriven treats cover files as a separate build contract under `.manuscript/build/`.
+Scriveno treats cover files as a separate build contract under `.manuscript/build/`.
 
 | Deliverable | Canonical file | Requirements |
 |-------------|----------------|--------------|
@@ -92,7 +92,7 @@ Scriven treats cover files as a separate build contract under `.manuscript/build
 
 Keep editable source files under `.manuscript/build/source/`.
 
-For paperback and hardcover, treat exact wrap width, spine width, and guide lines as **template-driven** values from the current IngramSpark Cover Template Generator (or the current target-platform equivalent), not static math baked into Scriven docs.
+For paperback and hardcover, treat exact wrap width, spine width, and guide lines as **template-driven** values from the current IngramSpark Cover Template Generator (or the current target-platform equivalent), not static math baked into Scriveno docs.
 
 After export, consider validating with EPUBCheck if you have Java installed -- most retailers run their own validation and will reject non-compliant files.
 
@@ -100,13 +100,13 @@ After export, consider validating with EPUBCheck if you have Java installed -- m
 
 Available for screenplay, stage play, TV pilot, TV series bible, audio drama, and libretto work types.
 
-**Fountain** -- Plain-text screenplay format. No external tools needed -- Scriven converts your manuscript directly.
+**Fountain** -- Plain-text screenplay format. No external tools needed -- Scriveno converts your manuscript directly.
 
 ```
 /scr:export --format fountain
 ```
 
-Output: `.manuscript/output/screenplay.fountain`. If Afterwriting is installed, Scriven can also generate a formatted screenplay PDF (`screenplay.pdf`).
+Output: `.manuscript/output/screenplay.fountain`. If Afterwriting is installed, Scriveno can also generate a formatted screenplay PDF (`screenplay.pdf`).
 
 **FDX (Final Draft XML)** -- The industry-standard format for screenplay submission. Chains through Fountain as an intermediate step.
 
@@ -126,7 +126,7 @@ Available for academic and sacred text work types.
 /scr:export --format latex
 ```
 
-Output: `.manuscript/output/manuscript.tex`. Uses the `scriven-academic.latex` template. If a bibliography file exists at `.manuscript/bibliography.bib`, citations are processed automatically with `--citeproc`.
+Output: `.manuscript/output/manuscript.tex`. Uses the `scriveno-academic.latex` template. If a bibliography file exists at `.manuscript/bibliography.bib`, citations are processed automatically with `--citeproc`.
 
 ## Platform Packages
 
@@ -147,7 +147,7 @@ If a project has top-level `platform` in `.manuscript/config.json`, build comman
 /scr:export --format epub
 ```
 
-Use the standard EPUB export for KDP ebook submissions. The `scriven-epub.css` template is already KDP-compatible.
+Use the standard EPUB export for KDP ebook submissions. The `scriveno-epub.css` template is already KDP-compatible.
 
 **KDP Print** -- Paperback submission package with interior PDF, cover handoff brief, and metadata.
 
@@ -161,7 +161,7 @@ Output: `.manuscript/output/kdp-package/` containing:
 - `cover-specs.md` -- Canonical print-cover handoff brief pointing at `.manuscript/build/paperback-cover.pdf`
 - `kdp-metadata.md` -- Title, author, language, suggested categories and keywords
 
-**Print-cover geometry:** Use the current platform template generator for exact wrap width, spine width, bleed, and safe zones. Scriven's package tells you which canonical build asset to supply; it does not treat hard-coded paper-factor math as the final source of truth for print covers.
+**Print-cover geometry:** Use the current platform template generator for exact wrap width, spine width, bleed, and safe zones. Scriveno's package tells you which canonical build asset to supply; it does not treat hard-coded paper-factor math as the final source of truth for print covers.
 
 **Supported trim sizes:** 5" x 8", 5.25" x 8", 5.5" x 8.5", 6" x 9", and others. Set `trim_width` and `trim_height` in `.manuscript/config.json`.
 
@@ -179,7 +179,7 @@ Output: `.manuscript/output/ingram-package/` containing:
 - `cover-specs.md` -- Full-wrap cover handoff brief pointing at `.manuscript/build/paperback-cover.pdf`
 - `ingram-metadata.md` -- Publishing metadata for IngramSpark
 
-**IngramSpark-specific requirements:** PDF/X-1a compliance, CMYK color space, 300 DPI minimum, all fonts embedded, no transparency. Scriven handles the CMYK conversion automatically for the interior -- review the output for color accuracy, especially blues and greens which can shift during RGB-to-CMYK conversion. Exact print-cover geometry still comes from the IngramSpark Cover Template Generator.
+**IngramSpark-specific requirements:** PDF/X-1a compliance, CMYK color space, 300 DPI minimum, all fonts embedded, no transparency. Scriveno handles the CMYK conversion automatically for the interior -- review the output for color accuracy, especially blues and greens which can shift during RGB-to-CMYK conversion. Exact print-cover geometry still comes from the IngramSpark Cover Template Generator.
 
 ### Submission and Query Packages
 
@@ -189,7 +189,7 @@ Output: `.manuscript/output/ingram-package/` containing:
 /scr:export --format query-package
 ```
 
-Output: `.manuscript/output/query-package/` containing `query-letter.md`, `synopsis.md`, `sample-chapters.md` (first 3 chapters), and a combined `query-package.docx`. If the query letter or synopsis don't exist yet, Scriven tells you which commands to run (`/scr:query-letter`, `/scr:synopsis`).
+Output: `.manuscript/output/query-package/` containing `query-letter.md`, `synopsis.md`, `sample-chapters.md` (first 3 chapters), and a combined `query-package.docx`. If the query letter or synopsis don't exist yet, Scriveno tells you which commands to run (`/scr:query-letter`, `/scr:synopsis`).
 
 **Submission Package** -- Full manuscript submission for agents or publishers who request the complete work.
 
@@ -279,13 +279,13 @@ Use `--detail` for a per-chapter breakdown. Estimated page count uses the standa
 
 ## Template Customization
 
-Scriven ships with templates that control the look of your exported files. You can customize them to match your preferences or publisher requirements.
+Scriveno ships with templates that control the look of your exported files. You can customize them to match your preferences or publisher requirements.
 
 | Template | Location | Controls |
 |----------|----------|----------|
-| `scriven-book.typst` | `data/export-templates/` | Book interior PDF layout: trim size, margins, headers, page numbers |
-| `scriven-epub.css` | `data/export-templates/` | EPUB ebook styling and KDP compatibility |
-| `scriven-academic.latex` | `data/export-templates/` | Academic paper and thesis formatting |
+| `scriveno-book.typst` | `data/export-templates/` | Book interior PDF layout: trim size, margins, headers, page numbers |
+| `scriveno-epub.css` | `data/export-templates/` | EPUB ebook styling and KDP compatibility |
+| `scriveno-academic.latex` | `data/export-templates/` | Academic paper and thesis formatting |
 
 To customize a template, edit the file in `data/export-templates/`. Changes apply to all future exports. The Typst template supports variable overrides for trim size and margins through the export command's flags.
 

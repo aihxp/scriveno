@@ -6,7 +6,7 @@
 <domain>
 ## Phase Boundary
 
-Align Scriven's active manuscript draft contract around one canonical source path so draft-producing and draft-consuming commands resolve the same files during drafting, export, translation, verification, and reporting workflows.
+Align Scriveno's active manuscript draft contract around one canonical source path so draft-producing and draft-consuming commands resolve the same files during drafting, export, translation, verification, and reporting workflows.
 
 </domain>
 

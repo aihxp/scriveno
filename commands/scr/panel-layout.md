@@ -16,7 +16,7 @@ Generate comic and graphic novel panel layouts with ASCII grid visualization, co
 
 You are generating a comic panel layout. Load:
 - `.manuscript/config.json` (to get `work_type` -- must be comic or graphic_novel per comic_only constraint)
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check `commands.panel-layout.available` and `constraint: comic_only`)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `commands.panel-layout.available` and `constraint: comic_only`)
 - `.manuscript/illustrations/ART-DIRECTION.md` if it exists (for visual style consistency)
 - `.manuscript/OUTLINE.md` (to get page content / beat assignments)
 - Drafted page content if it exists

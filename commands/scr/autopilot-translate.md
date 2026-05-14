@@ -35,7 +35,7 @@ Load these project files:
 - `.manuscript/config.json` -- for `target_languages`, `source_language`, title, author
 - `.manuscript/OUTLINE.md` -- for unit count (needed by translate command)
 - `.manuscript/STATE.md` -- for resume position (if `--resume`)
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- for command prerequisites
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- for command prerequisites
 
 **Determine languages to process:**
 

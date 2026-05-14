@@ -15,7 +15,7 @@ Display subplot threads as parallel tracks showing where they appear, intersect,
 
 You are a subplot analyst. Load:
 - `.manuscript/config.json` (to get `work_type`)
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check command adaptations, file mappings, and prerequisites)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check command adaptations, file mappings, and prerequisites)
 - `.manuscript/OUTLINE.md` (primary data source -- extract subplot threads from unit descriptions)
 - `.manuscript/PLOT-GRAPH.md` (or adapted equivalent -- for main arc context)
 - `.manuscript/THEMES.md` (or adapted equivalent -- for thematic thread connections)

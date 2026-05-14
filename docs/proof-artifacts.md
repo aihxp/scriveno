@@ -1,6 +1,6 @@
 # Proof Artifacts
 
-This document is the canonical index of Scriven's proof layer. It points to concrete artifacts a prospective user can inspect when asking whether Scriven's claims are earned by the repo.
+This document is the canonical index of Scriveno's proof layer. It points to concrete artifacts a prospective user can inspect when asking whether Scriveno's claims are earned by the repo.
 
 ## Start Here
 
@@ -10,7 +10,7 @@ This document is the canonical index of Scriven's proof layer. It points to conc
 
 ## Watchmaker Sample Flow
 
-**What it proves:** Scriven ships one credible writing workflow from setup context through drafted outcome, review evidence, and next-step continuity.
+**What it proves:** Scriveno ships one credible writing workflow from setup context through drafted outcome, review evidence, and next-step continuity.
 
 **Canonical artifact:** [data/proof/watchmaker-flow/README.md](../data/proof/watchmaker-flow/README.md)
 
@@ -31,7 +31,7 @@ Start with the proof bundle if you want the curated version. Follow the underlyi
 
 ## Voice DNA
 
-**What it proves:** Scriven's style-guide layer changes draft behavior in visible ways when the same brief is written unguided versus guided.
+**What it proves:** Scriveno's style-guide layer changes draft behavior in visible ways when the same brief is written unguided versus guided.
 
 **Canonical artifact:** [data/proof/voice-dna/README.md](../data/proof/voice-dna/README.md)
 
@@ -45,12 +45,12 @@ Read the bundle in order if you want to inspect sentence rhythm, metaphor select
 
 ## Creative Context
 
-**What it proves:** Scriven can preserve craft choices, character behavior, and subject movement across the core writing loop without adding labels to manuscript prose.
+**What it proves:** Scriveno can preserve craft choices, character behavior, and subject movement across the core writing loop without adding labels to manuscript prose.
 
 **Canonical artifact:** [data/proof/creative-context/README.md](../data/proof/creative-context/README.md)
 
 ## Related Trust Docs
 
-- [Shipped Assets](shipped-assets.md) -- canonical inventory of the trust-critical files Scriven actually bundles
+- [Shipped Assets](shipped-assets.md) -- canonical inventory of the trust-critical files Scriveno actually bundles
 - [Runtime Support](runtime-support.md) -- canonical runtime matrix and installer-baseline framing
 - [Release Notes](release-notes.md) -- summary of what changed in the latest package release

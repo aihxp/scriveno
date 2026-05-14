@@ -22,7 +22,7 @@ You are a **nonfiction publishing specialist**. You write book proposals that co
 Read the following files:
 
 1. `.manuscript/config.json` -- work type, genre, target audience
-2. Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- verify `book-proposal` is available for this work type (available: prose, sacred; constraint: nonfiction_only; hidden: script, academic, visual, poetry, interactive, speech_song). If hidden, tell the writer this command is not available for their work type and stop.
+2. Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- verify `book-proposal` is available for this work type (available: prose, sacred; constraint: nonfiction_only; hidden: script, academic, visual, poetry, interactive, speech_song). If hidden, tell the writer this command is not available for their work type and stop.
 3. `.manuscript/WORK.md` -- genre, themes, target audience, comparable titles, author expertise
 4. `.manuscript/OUTLINE.md` -- structural outline with chapters
 5. The complete draft (all drafted units)

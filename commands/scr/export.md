@@ -100,7 +100,7 @@ If CONTEXT.md is missing, stale, or contradicts STATE.md, fall back to the origi
 Load the following project files:
 
 - `.manuscript/config.json` -- to get `work_type`, title, author, language, and project settings
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- to check `exports` section for format availability by work type group
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- to check `exports` section for format availability by work type group
 
 **Check format availability:**
 
@@ -380,7 +380,7 @@ pandoc .manuscript/output/assembled-manuscript.md \
   --toc-depth=1
 ```
 
-**Current shipped behavior:** Scriven does not currently bundle a manuscript DOCX reference document in `data/export-templates/`. This command uses Pandoc's default DOCX styling. If you need standard manuscript formatting (for example 12pt, double-spaced, 1-inch margins), supply your own `.docx` reference document via Pandoc's optional `--reference-doc`.
+**Current shipped behavior:** Scriveno does not currently bundle a manuscript DOCX reference document in `data/export-templates/`. This command uses Pandoc's default DOCX styling. If you need standard manuscript formatting (for example 12pt, double-spaced, 1-inch margins), supply your own `.docx` reference document via Pandoc's optional `--reference-doc`.
 
 ---
 
@@ -396,7 +396,7 @@ pandoc .manuscript/output/assembled-manuscript.md \
   --toc-depth=2
 ```
 
-**Current shipped behavior:** Scriven does not currently bundle a formatted DOCX reference document in `data/export-templates/`. The shipped command path uses Pandoc's default DOCX output. If you want a styled review-copy layout, supply your own Pandoc reference document as an optional `--reference-doc`.
+**Current shipped behavior:** Scriveno does not currently bundle a formatted DOCX reference document in `data/export-templates/`. The shipped command path uses Pandoc's default DOCX output. If you want a styled review-copy layout, supply your own Pandoc reference document as an optional `--reference-doc`.
 
 ---
 
@@ -425,7 +425,7 @@ Read trim size from `.manuscript/config.json` if set, otherwise use defaults (6i
 pandoc .manuscript/output/assembled-manuscript.md \
   -o .manuscript/output/manuscript-print.pdf \
   --pdf-engine=typst \
-  --template=data/export-templates/scriven-book.typst \
+  --template=data/export-templates/scriveno-book.typst \
   --metadata-file=.manuscript/output/metadata.yaml \
   --toc \
   --toc-depth=2 \
@@ -450,7 +450,7 @@ pandoc .manuscript/output/assembled-manuscript.md \
   -o .manuscript/output/manuscript.epub \
   --metadata-file=.manuscript/output/metadata.yaml \
   --epub-cover-image=.manuscript/build/ebook-cover.jpg \
-  --css=data/export-templates/scriven-epub.css \
+  --css=data/export-templates/scriveno-epub.css \
   --toc \
   --toc-depth=2 \
   --split-level=1
@@ -572,7 +572,7 @@ If `.manuscript/bibliography.bib` exists, include bibliography flags. If it does
 ```bash
 pandoc .manuscript/output/assembled-manuscript.md \
   -o .manuscript/output/manuscript.tex \
-  --template=data/export-templates/scriven-academic.latex \
+  --template=data/export-templates/scriveno-academic.latex \
   --metadata-file=.manuscript/output/metadata.yaml \
   --toc \
   --bibliography=.manuscript/bibliography.bib \
@@ -584,7 +584,7 @@ pandoc .manuscript/output/assembled-manuscript.md \
 ```bash
 pandoc .manuscript/output/assembled-manuscript.md \
   -o .manuscript/output/manuscript.tex \
-  --template=data/export-templates/scriven-academic.latex \
+  --template=data/export-templates/scriveno-academic.latex \
   --metadata-file=.manuscript/output/metadata.yaml \
   --toc
 ```

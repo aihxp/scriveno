@@ -77,7 +77,7 @@ You are saving the writer's current work. Your job is to create a git commit wit
 ## Edge cases
 
 - **No changes to save:** "Nothing new to save. Your last save was [timestamp]."
-- **Not in a Scriven project** (no `.manuscript/` directory): "No manuscript found. Start with `/scr:new-work`."
+- **Not in a Scriveno project** (no `.manuscript/` directory): "No manuscript found. Start with `/scr:new-work`."
 - **Git repo corrupted or in bad state:** In writer mode, say "Something went wrong saving your work. Try again, or ask for help." In developer mode, show the git error.
 - **Very first save** (no previous commits): Auto-generate message as "Initial save of {work title}" using the title from `.manuscript/WORK.md` if available.
 

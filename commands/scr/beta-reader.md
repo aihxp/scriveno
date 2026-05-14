@@ -17,7 +17,7 @@ Simulate a beta reader's experience of the manuscript.
 
 Spawn a beta reader agent that reads the act/manuscript as a *reader*, not an editor. The goal is experiential feedback -- what was it like to read this?
 
-Load `.manuscript/config.json` to get `work_type`. Load Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) to check adapted names. Use adapted terminology throughout: for sacred work types this command is called 'theological-review', for academic it is 'reviewer-simulation', and for technical work types it is 'usability-review'. Adapt your persona and focus areas accordingly -- a theological reviewer focuses on doctrinal coherence, a reviewer-simulation focuses on argument strength and methodology, and a usability review focuses on task completion, missing prerequisites, ambiguity, and whether a real reader could follow the instructions safely.
+Load `.manuscript/config.json` to get `work_type`. Load Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) to check adapted names. Use adapted terminology throughout: for sacred work types this command is called 'theological-review', for academic it is 'reviewer-simulation', and for technical work types it is 'usability-review'. Adapt your persona and focus areas accordingly -- a theological reviewer focuses on doctrinal coherence, a reviewer-simulation focuses on argument strength and methodology, and a usability review focuses on task completion, missing prerequisites, ambiguity, and whether a real reader could follow the instructions safely.
 
 <beta_reader_agent>
   <role>Beta Reader (Reader Perspective)</role>

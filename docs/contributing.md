@@ -1,8 +1,8 @@
-# Contributing to Scriven
+# Contributing to Scriveno
 
-Scriven is a pure skill system -- markdown files that AI agents read and execute. There is no compiled code, no build step, no runtime dependencies. Contributing means adding or editing markdown files and updating the central constraint registry.
+Scriveno is a pure skill system -- markdown files that AI agents read and execute. There is no compiled code, no build step, no runtime dependencies. Contributing means adding or editing markdown files and updating the central constraint registry.
 
-This guide walks you through extending Scriven: adding commands, agents, work types, templates, and export formats. Each section is self-contained -- jump to what you need.
+This guide walks you through extending Scriveno: adding commands, agents, work types, templates, and export formats. Each section is self-contained -- jump to what you need.
 
 ## File Structure Overview
 
@@ -93,7 +93,7 @@ Some commands have additional fields:
 }
 ```
 
-- **`renames_by_unit`** -- Legacy schema flag indicating that the command adapts its terminology based on the work type. A novel project still runs `/scr:draft`, but Scriven presents the work as drafting a chapter; a screenplay presents it as drafting an act.
+- **`renames_by_unit`** -- Legacy schema flag indicating that the command adapts its terminology based on the work type. A novel project still runs `/scr:draft`, but Scriveno presents the work as drafting a chapter; a screenplay presents it as drafting an act.
 - **`adapted`** -- Work-type-specific overrides (renames, behavior changes). For example, `editor-review` becomes `peer-review` for academic works.
 
 ### Step 3: Understand adaptive terminology
@@ -154,7 +154,7 @@ The body explains what the agent receives, what it does, and what it must never 
 ```markdown
 # Drafter agent
 
-You are the Scriven drafter. Your single job is to draft one atomic unit
+You are the Scriveno drafter. Your single job is to draft one atomic unit
 in the writer's established voice.
 
 ## What you receive
@@ -182,7 +182,7 @@ in the writer's established voice.
 
 ### The fresh-context-per-unit pattern
 
-This is the most important architectural pattern in Scriven. When a command invokes an agent:
+This is the most important architectural pattern in Scriveno. When a command invokes an agent:
 
 - The agent is started in a **clean context** -- no prior conversation, no accumulated state
 - It receives only the specific files it needs for this one unit
@@ -193,7 +193,7 @@ This prevents voice drift, context bloat, and cross-contamination between units.
 
 ### Existing agents
 
-Scriven ships with 6 agents:
+Scriveno ships with 6 agents:
 
 | Agent | Purpose |
 |-------|---------|
@@ -331,11 +331,11 @@ See `docs/shipped-assets.md` for the canonical inventory of shipped export templ
 
 Add your template to `data/export-templates/`. Existing templates:
 
-- `scriven-book.typst` -- Book interior PDF (Typst template)
-- `scriven-epub.css` -- EPUB styling (CSS)
-- `scriven-academic.latex` -- Academic paper formatting (LaTeX)
+- `scriveno-book.typst` -- Book interior PDF (Typst template)
+- `scriveno-epub.css` -- EPUB styling (CSS)
+- `scriveno-academic.latex` -- Academic paper formatting (LaTeX)
 
-Name your file `scriven-{purpose}.{ext}` following the existing pattern.
+Name your file `scriveno-{purpose}.{ext}` following the existing pattern.
 
 ### Step 2: Update the export command
 
@@ -347,7 +347,7 @@ If your export format is only available for certain work types, add an entry to 
 
 ## Testing Your Changes
 
-Scriven has a test suite that validates the constraint system and command structure.
+Scriveno has a test suite that validates the constraint system and command structure.
 
 ### Run the tests
 
@@ -395,7 +395,7 @@ When a package release changes the public story, update the release docs alongsi
 
 ## Code Style
 
-Scriven follows these conventions:
+Scriveno follows these conventions:
 
 - **Markdown files** -- All commands, agents, and templates are markdown
 - **YAML frontmatter** -- Delimited by `---` on its own line, top and bottom

@@ -8,7 +8,7 @@ This document is the public-facing summary of what changed between package relea
 
 - Added `RECORD.md`, a neutral store for what the work has established on page. It tracks open threads, reader promises, payoffs, continuity facts, movement, and next-unit obligations.
 - Wired Record Notes through the core loop: discuss, plan, draft, editor review, next, progress, continuity, scan, save, drafter, and plan-checker.
-- Added non-character subject tracking so Scriven can serve essays, poetry, sacred commentary, technical guides, and other works where characters are not the right organizing model.
+- Added non-character subject tracking so Scriveno can serve essays, poetry, sacred commentary, technical guides, and other works where characters are not the right organizing model.
 - Expanded character workflows with relationship and interaction paths, while letting character-driven works reuse the subject-tracking approach when useful.
 - Added branching next-command suggestions across commands, with one to four practical next paths and a short explanation for each.
 - Added `/scr:sync`, a local runtime-surface sync command that refreshes installed commands, Codex skills, command mirrors, and agent prompts from the current source tree.
@@ -16,7 +16,7 @@ This document is the public-facing summary of what changed between package relea
 
 ### Why it matters
 
-`2.0.0` is the point where Scriven's context model becomes broader than character continuity. Fiction still gets character and relationship intelligence, but nonfiction, technical writing, sacred commentary, poetry, and other forms now have an equally native way to track what the work has established.
+`2.0.0` is the point where Scriveno's context model becomes broader than character continuity. Fiction still gets character and relationship intelligence, but nonfiction, technical writing, sacred commentary, poetry, and other forms now have an equally native way to track what the work has established.
 
 The runtime sync command closes a separate trust gap: when command source changes, installed Codex or Claude surfaces can drift. `/scr:sync` gives contributors and power users a direct way to bring those installed surfaces back in line without treating it as a package update.
 
@@ -76,7 +76,7 @@ Two real defects fixed and three new systems shipped.
 
 **The character-state defect.** Nothing in the workflow updated CHARACTERS.md after units were drafted. The "current emotional state" field was frozen at character creation, so the drafter for chapter 12 still saw chapter 1's setup. Fixed: new `/scr:character-touch <name>` command for updating evolving state (emotional position, knowledge, possessions, relationships) after a unit lands. The drafter now emits one-line `CHARACTER STATE NUDGE` suggestions when it spots a visible state shift, pointing the writer at the new command. Voice anchor and physical description stay untouched -- those are identity, not state.
 
-**Context-integrity layer.** Three coordinated additions defend against context rot when a fresh AI session opens, when the writer hand-edits files outside Scriven, or when a command is interrupted mid-run.
+**Context-integrity layer.** Three coordinated additions defend against context rot when a fresh AI session opens, when the writer hand-edits files outside Scriveno, or when a command is interrupted mid-run.
 
 - `/scr:scan` -- 11 checks against STATE.md, OUTLINE.md, RECORD.md, drafts, STYLE-GUIDE.md mtime vs. last drafter run, scaffold elements still pending, stale exports, sacred config vs. shipped templates, CHARACTERS.md orphans. `--fix` mode for auto-correctable findings.
 - `.manuscript/CONTEXT.md` -- one-page bootstrap auto-regenerated on save / pause / resume. Read first by `/scr:next` and `/scr:resume-work`.
@@ -103,7 +103,7 @@ The context-integrity layer is the defense against the silent failure mode where
 - 12 commands updated for context-cost protocol
 - export surfaces (`/scr:publish`, `/scr:export`, `/scr:autopilot-publish`)
 - front/back matter (`/scr:front-matter`, `/scr:back-matter` -- new `--level` flag and skip prompt)
-- Typst template (`data/export-templates/scriven-book.typst` -- per-chapter running head)
+- Typst template (`data/export-templates/scriveno-book.typst` -- per-chapter running head)
 - installer (`bin/install.js` -- collision guard, namespace preservation in constraint-key lookup)
 - session commands (`/scr:save`, `/scr:pause-work`, `/scr:resume-work`, `/scr:next` -- CONTEXT.md regeneration / preference)
 
@@ -129,7 +129,7 @@ The context-integrity layer is the defense against the silent failure mode where
 
 ### Why it matters
 
-`1.6.0` shipped before the repository documentation refresh landed. Writers running `npx scriven-cli@1.6.0` got the new agents, templates, and settings but a thinner `~/.scriven/docs/` tree. `1.6.1` closes that gap so the docs writers see in their installed tree match what is on GitHub.
+`1.6.0` shipped before the repository documentation refresh landed. Writers running `npx scriveno-cli@1.6.0` got the new agents, templates, and settings but a thinner `~/.scriveno/docs/` tree. `1.6.1` closes that gap so the docs writers see in their installed tree match what is on GitHub.
 
 ### Affected areas
 
@@ -226,12 +226,12 @@ Every layer is optional. Projects predating `1.6.0` keep working: WRITING-RULES.
 
 - Switched Claude Code installs to flat `/scr-*` commands such as `/scr-next` and `/scr-help`
 - Rewrote installed Claude command references so in-command guidance matches the new slash syntax
-- Added safe Claude cleanup so stale Scriven-owned `scr-*.md` files and the old `scr/` folder are removed without touching unrelated commands
+- Added safe Claude cleanup so stale Scriveno-owned `scr-*.md` files and the old `scr/` folder are removed without touching unrelated commands
 - Updated runtime docs and installer regression coverage around the Claude command surface
 
 ### Why it matters
 
-`1.5.1` makes Claude Code feel native instead of carrying forward the older nested `/scr:*` shape. Writers now get one consistent command style in Claude, and reinstalling Scriven stays clean without being destructive in the shared command directory.
+`1.5.1` makes Claude Code feel native instead of carrying forward the older nested `/scr:*` shape. Writers now get one consistent command style in Claude, and reinstalling Scriveno stays clean without being destructive in the shared command directory.
 
 ### Affected areas
 
@@ -253,7 +253,7 @@ Every layer is optional. Projects predating `1.6.0` keep working: WRITING-RULES.
 - Added explicit non-interactive installer flags for runtime selection, scope, mode, help, and version output
 - Added one-run multi-runtime installs so Codex and Claude Code can be targeted together
 - Generated native Codex `$scr-*` skills backed by mirrored installed command markdown
-- Tightened reinstall cleanup so stale Scriven-owned Codex skill wrappers are removed without touching unrelated user files
+- Tightened reinstall cleanup so stale Scriveno-owned Codex skill wrappers are removed without touching unrelated user files
 - Updated runtime docs and onboarding copy so Codex and Claude examples match the installer contract now shipped in the package
 
 ### Why it matters
@@ -277,7 +277,7 @@ Every layer is optional. Projects predating `1.6.0` keep working: WRITING-RULES.
 
 ### What changed
 
-- Normalized npm publish metadata for the `scriven` installer command and repository URL
+- Normalized npm publish metadata for the `scriveno` installer command and repository URL
 - Marked the packaged installer entrypoint as executable
 - Updated package-level regression coverage so the publish-safe bin path stays locked in
 

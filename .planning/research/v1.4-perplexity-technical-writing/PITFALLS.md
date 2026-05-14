@@ -1,10 +1,10 @@
 # Domain Pitfalls
 
-**Domain:** Perplexity runtime support and technical-writing expansion for Scriven
+**Domain:** Perplexity runtime support and technical-writing expansion for Scriveno
 **Researched:** 2026-04-09
 **Overall confidence:** MEDIUM-HIGH
 
-This brief is intentionally narrow. It focuses on the ways Scriven is most likely to break trust, architecture, or milestone scope while adding Perplexity support and technical-writing work types to an existing markdown-first writing system.
+This brief is intentionally narrow. It focuses on the ways Scriveno is most likely to break trust, architecture, or milestone scope while adding Perplexity support and technical-writing work types to an existing markdown-first writing system.
 
 ## Critical Pitfalls
 
@@ -13,7 +13,7 @@ This brief is intentionally narrow. It focuses on the ways Scriven is most likel
 **Confidence:** MEDIUM
 **Absorb in phase:** Phase A — Perplexity Runtime Discovery & Support Policy
 
-**What goes wrong:** Scriven adds a `perplexity` entry to `bin/install.js` using the existing `commands` or `skills` model and invents a local install path without proof.
+**What goes wrong:** Scriveno adds a `perplexity` entry to `bin/install.js` using the existing `commands` or `skills` model and invents a local install path without proof.
 
 **Why it happens:** The current installer only knows two runtime shapes:
 - command-directory runtimes
@@ -21,7 +21,7 @@ This brief is intentionally narrow. It focuses on the ways Scriven is most likel
 
 Perplexity’s documented surfaces are UI-managed features such as Spaces, Tasks, AI Profile, model/source selection, and Comet Shortcuts. I could not find official documentation for a local command-directory or SKILL-style import path.
 
-**Consequences:** The installer may “support” Perplexity in name only, `docs/runtime-support.md` becomes aspirational instead of factual, and Scriven repeats the exact credibility problem Phase 14 was created to prevent.
+**Consequences:** The installer may “support” Perplexity in name only, `docs/runtime-support.md` becomes aspirational instead of factual, and Scriveno repeats the exact credibility problem Phase 14 was created to prevent.
 
 **Prevention:** Do a discovery-first phase before any installer entry lands. Require one of these outcomes:
 - an official, documented install surface with path proof
@@ -37,7 +37,7 @@ Perplexity’s documented surfaces are UI-managed features such as Spaces, Tasks
 
 **What goes wrong:** The milestone treats “Perplexity runtime”, “Perplexity Desktop”, and “Comet” as one interchangeable host environment.
 
-**Why it happens:** Scriven’s existing runtime matrix is keyed around install path shapes, but Perplexity’s documented capabilities are feature- and plan-dependent. Spaces, Tasks, file sources, connectors, model selection, and Comet Shortcuts do not map cleanly to a single host-runtime abstraction.
+**Why it happens:** Scriveno’s existing runtime matrix is keyed around install path shapes, but Perplexity’s documented capabilities are feature- and plan-dependent. Spaces, Tasks, file sources, connectors, model selection, and Comet Shortcuts do not map cleanly to a single host-runtime abstraction.
 
 **Consequences:** Docs promise parity that does not exist, onboarding tells users to expect the wrong setup flow, and later verification cannot say what was actually supported on April 9, 2026.
 
@@ -50,19 +50,19 @@ Only merge them later if the repo can prove identical behavior.
 
 **Detection:** If one runtime matrix row tries to cover multiple setup paths, UI surfaces, or plan-gated features, the abstraction is too coarse.
 
-### Pitfall 3: Treating Comet Shortcuts as equivalent to Scriven commands
+### Pitfall 3: Treating Comet Shortcuts as equivalent to Scriveno commands
 **Type:** Architecture
 **Confidence:** HIGH
 **Absorb in phase:** Phase B — Perplexity Adapter Workflow
 
-**What goes wrong:** Scriven assumes a Comet Shortcut is the same thing as `/scr:new-work` or `/scr:draft`.
+**What goes wrong:** Scriveno assumes a Comet Shortcut is the same thing as `/scr:new-work` or `/scr:draft`.
 
-**Why it happens:** Perplexity’s own docs describe Shortcuts as reusable prompts that expand at submit time, can be edited in settings, can be combined, and do not auto-execute. That is much closer to prompt macros than to Scriven’s current installed command files.
+**Why it happens:** Perplexity’s own docs describe Shortcuts as reusable prompts that expand at submit time, can be edited in settings, can be combined, and do not auto-execute. That is much closer to prompt macros than to Scriveno’s current installed command files.
 
 **Consequences:** Command semantics blur. A “command” can silently inherit extra user text, mixed shortcuts, or changed model/source settings. That weakens determinism and makes bug reports hard to reproduce.
 
 **Prevention:** Define an adapter contract before implementation:
-- what a Scriven command becomes in Perplexity
+- what a Scriveno command becomes in Perplexity
 - what guarantees are lost
 - which commands are safe as shortcuts
 - which commands require guided manual steps instead
@@ -76,9 +76,9 @@ Preserve the language `workflow template` or `shortcut recipe` unless the host t
 **Confidence:** HIGH
 **Absorb in phase:** Phase B — Perplexity Adapter Workflow
 
-**What goes wrong:** Scriven pushes Voice DNA into AI Profile, Space instructions, or long-lived thread memory and stops explicitly loading `STYLE-GUIDE.md` first for each atomic drafting unit.
+**What goes wrong:** Scriveno pushes Voice DNA into AI Profile, Space instructions, or long-lived thread memory and stops explicitly loading `STYLE-GUIDE.md` first for each atomic drafting unit.
 
-**Why it happens:** Perplexity emphasizes persistent personalization and contextual memory. Scriven’s core value depends on the opposite discipline for drafting: fresh context per atomic unit, with the voice guide loaded first.
+**Why it happens:** Perplexity emphasizes persistent personalization and contextual memory. Scriveno’s core value depends on the opposite discipline for drafting: fresh context per atomic unit, with the voice guide loaded first.
 
 **Consequences:** Voice drifts across units, stale instructions linger after the writer updates their voice profile, and the product breaks its central trust claim while seeming to work.
 
@@ -89,7 +89,7 @@ Preserve the language `workflow template` or `shortcut recipe` unless the host t
 
 If Perplexity support cannot preserve that invariant, it should ship as research or review support only, not as full drafting parity.
 
-**Detection:** If a Perplexity draft path can run without an explicit, current `STYLE-GUIDE.md` handoff, the milestone is violating Scriven’s core value.
+**Detection:** If a Perplexity draft path can run without an explicit, current `STYLE-GUIDE.md` handoff, the milestone is violating Scriveno’s core value.
 
 ### Pitfall 5: Using Spaces as a dumping ground for whole-project context
 **Type:** Product + security + architecture
@@ -98,7 +98,7 @@ If Perplexity support cannot preserve that invariant, it should ship as research
 
 **What goes wrong:** The implementation uploads the whole manuscript, voice files, planning artifacts, and supporting research into a shared Space and treats that as normal operating context.
 
-**Why it happens:** Spaces are attractive because they support custom instructions, attached files, collaborators, and web/file search. But they also have plan-dependent file limits, shared-access implications, and persistent context that is broader than Scriven’s current minimal-context discipline.
+**Why it happens:** Spaces are attractive because they support custom instructions, attached files, collaborators, and web/file search. But they also have plan-dependent file limits, shared-access implications, and persistent context that is broader than Scriveno’s current minimal-context discipline.
 
 **Consequences:** Sensitive writer material becomes more broadly accessible than expected, context becomes noisy and stale, and Perplexity support starts favoring workspace persistence over deliberate file loading.
 
@@ -115,7 +115,7 @@ If Perplexity support cannot preserve that invariant, it should ship as research
 **Confidence:** HIGH
 **Absorb in phase:** Phase C — Technical-Writing Taxonomy & Constraints
 
-**What goes wrong:** Scriven adds technical-writing work types by reusing the `academic` group and only renaming a few labels.
+**What goes wrong:** Scriveno adds technical-writing work types by reusing the `academic` group and only renaming a few labels.
 
 **Why it happens:** The repo already has an academic group with `research_paper`, `journal_article`, and `white_paper`, so it is tempting to wedge technical docs into that existing taxonomy. But technical-writing ecosystems separate different document jobs: tutorial, how-to, reference, and explanation have different structures, prompts, and success criteria.
 
@@ -124,7 +124,7 @@ If Perplexity support cannot preserve that invariant, it should ship as research
 - `peer-review` / `citation-check` when they need technical accuracy or reproducibility review
 - academic tone where they need operator clarity
 
-**Prevention:** Add a distinct technical-writing taxonomy before adding work types. Decide explicitly whether Scriven needs:
+**Prevention:** Add a distinct technical-writing taxonomy before adding work types. Decide explicitly whether Scriveno needs:
 - one `technical` group with multiple doc families
 - or separate groups for product docs and engineering docs
 
@@ -139,7 +139,7 @@ Do not ship new technical work types until their file adaptations, command adapt
 
 **What goes wrong:** `/scr:new-work` creates manuscript files that are sensible for prose or academic writing but nonsensical for technical documentation.
 
-**Why it happens:** Scriven’s adaptation system is powerful, but it currently assumes manuscript-style context files. Technical docs usually need scope, audience, prerequisites, system boundaries, command examples, error cases, compatibility notes, and source-of-truth references rather than character/world/theme scaffolds.
+**Why it happens:** Scriveno’s adaptation system is powerful, but it currently assumes manuscript-style context files. Technical docs usually need scope, audience, prerequisites, system boundaries, command examples, error cases, compatibility notes, and source-of-truth references rather than character/world/theme scaffolds.
 
 **Consequences:** The first-run experience feels fake, prompts pull the wrong context, and the user has to fight the system to write practical documentation.
 
@@ -162,7 +162,7 @@ Map existing commands only where they still make sense; hide the rest.
 **Confidence:** HIGH
 **Absorb in phase:** Phase F — Verification, Trust Regression & Proof
 
-**What goes wrong:** Scriven adds technical-writing support, but the verification layer still mostly checks writing quality, runtime-claim integrity, and packaging truth rather than factual correctness of commands, examples, and versions.
+**What goes wrong:** Scriveno adds technical-writing support, but the verification layer still mostly checks writing quality, runtime-claim integrity, and packaging truth rather than factual correctness of commands, examples, and versions.
 
 **Why it happens:** Technical docs are source-sensitive. Google’s technical-writing guidance emphasizes audience, scope, and document goals; Microsoft’s reference and procedure guidance emphasizes consistent structure and accurate operational detail. Perplexity also explicitly tells users to validate sourced answers against citations.
 
@@ -229,7 +229,7 @@ Style should remain subordinate to clarity and task completion.
 |-------------|---------------|------------|
 | Phase A — Perplexity Runtime Discovery & Support Policy | Inventing a copy-based installer target without a documented install surface | Require source-backed runtime modeling before touching `bin/install.js` or `docs/runtime-support.md` |
 | Phase A — Perplexity Runtime Discovery & Support Policy | Treating web, desktop, and Comet as one host | Define separate support rows and proof obligations per surface |
-| Phase B — Perplexity Adapter Workflow | Shortcut macros drifting from Scriven command semantics | Write an adapter spec that states which commands become shortcuts, guided workflows, or unsupported |
+| Phase B — Perplexity Adapter Workflow | Shortcut macros drifting from Scriveno command semantics | Write an adapter spec that states which commands become shortcuts, guided workflows, or unsupported |
 | Phase B — Perplexity Adapter Workflow | Voice DNA diluted by AI Profile, Spaces, or thread memory | Keep per-unit explicit `STYLE-GUIDE.md` loading as a hard invariant |
 | Phase B — Perplexity Adapter Workflow | Shared Spaces becoming default storage for sensitive project context | Adopt a least-context upload policy and document collaboration/privacy implications |
 | Phase C — Technical-Writing Taxonomy & Constraints | Reusing the academic group for technical docs | Create a dedicated taxonomy grounded in doc families, not just tone |

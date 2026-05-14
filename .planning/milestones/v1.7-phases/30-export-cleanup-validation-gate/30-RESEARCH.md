@@ -54,13 +54,13 @@
 
 ## Summary
 
-Phase 30 delivers two new markdown command files (`cleanup.md`, `validate.md`) plus targeted edits to two existing command files (`export.md`, `publish.md`). Because Scriven is a pure skill system — no compiled runtime, agents read markdown and execute it — all deliverables are markdown files with YAML frontmatter. There is no code to compile, no npm install, and no external tool to detect.
+Phase 30 delivers two new markdown command files (`cleanup.md`, `validate.md`) plus targeted edits to two existing command files (`export.md`, `publish.md`). Because Scriveno is a pure skill system — no compiled runtime, agents read markdown and execute it — all deliverables are markdown files with YAML frontmatter. There is no code to compile, no npm install, and no external tool to detect.
 
-The scaffold markers this phase targets (`[Fill in or delete:]`, `[Fill in:]`, `[Delete if not applicable:]`, `Alternate 1:`, `Alternate 2:`, duplicate top-level `#` headings) are emitted by agent-driven draft commands into `.manuscript/drafts/` files. They do NOT appear in `templates/` source files (templates use `{{VAR}}` substitution, which is explicitly out of scope). Confirmed by exhaustive grep of `templates/`: zero instances of bracket or Alternate markers found. [VERIFIED: grep of /Users/hprincivil/Projects/scriven/templates/]
+The scaffold markers this phase targets (`[Fill in or delete:]`, `[Fill in:]`, `[Delete if not applicable:]`, `Alternate 1:`, `Alternate 2:`, duplicate top-level `#` headings) are emitted by agent-driven draft commands into `.manuscript/drafts/` files. They do NOT appear in `templates/` source files (templates use `{{VAR}}` substitution, which is explicitly out of scope). Confirmed by exhaustive grep of `templates/`: zero instances of bracket or Alternate markers found. [VERIFIED: grep of /Users/hprincivil/Projects/scriveno/templates/]
 
 The inject point in `/scr:export` is clearly defined by the existing step sequence: STEP 1 loads context, STEP 2 checks prerequisites. The validate gate belongs as a new STEP 1.5 (or STEP 0) inserted before STEP 2, so a dirty manuscript never reaches tool detection. In `/scr:publish`, the gate belongs in STEP 1 (Load Context), immediately after the draft-completeness check, before the wizard routes to a preset.
 
-**Primary recommendation:** Two new standalone command files + surgical edits to `export.md` and `publish.md`. Gate injection pattern: inline instruction block at the correct step position, not a shared include (Scriven has no include mechanism).
+**Primary recommendation:** Two new standalone command files + surgical edits to `export.md` and `publish.md`. Gate injection pattern: inline instruction block at the correct step position, not a shared include (Scriveno has no include mechanism).
 
 ---
 
@@ -95,7 +95,7 @@ This phase requires zero new dependencies. The agent reads draft files, applies 
 
 | Instead of | Could Use | Tradeoff |
 |------------|-----------|----------|
-| Inline gate block in export.md | Shared instruction include | No include mechanism exists in Scriven; inline is the only pattern. All 94 commands are self-contained. |
+| Inline gate block in export.md | Shared instruction include | No include mechanism exists in Scriveno; inline is the only pattern. All 94 commands are self-contained. |
 | Dry-run default for cleanup | Apply-by-default | CONTEXT.md locks dry-run default for safety; `--apply` is the explicit opt-in |
 
 ---
@@ -160,7 +160,7 @@ test/
 └── phase30-export-cleanup-validation-gate.test.js   (NEW — regression suite)
 ```
 
-### Pattern 1: Command File Structure (All Scriven Commands)
+### Pattern 1: Command File Structure (All Scriveno Commands)
 
 Every command in `commands/scr/` follows this exact structure. New commands MUST match it or the `commands.test.js` suite fails (it checks every `.md` file). [VERIFIED: test/commands.test.js lines 34-59]
 
@@ -289,11 +289,11 @@ Summary: 3 bracket markers and 1 Alternate block removed from 1 file.
 
 | Problem | Don't Build | Use Instead | Why |
 |---------|-------------|-------------|-----|
-| Command include/template | Shared scaffold fragments | None needed | Every Scriven command is self-contained markdown. No include mechanism exists or is needed. |
+| Command include/template | Shared scaffold fragments | None needed | Every Scriveno command is self-contained markdown. No include mechanism exists or is needed. |
 | Persistent validate log | VALIDATE-REPORT.md | In-session agent output | Explicitly deferred per CONTEXT.md. Writing a file creates a new Phase 31 dependency for FM-03. |
-| CLI parser for `--apply`/`--skip-validate` | Argument parsing code | Agent reads the argument naturally | Scriven commands are agent instructions, not compiled code. The agent interprets flags via natural language instruction in the command markdown. |
+| CLI parser for `--apply`/`--skip-validate` | Argument parsing code | Agent reads the argument naturally | Scriveno commands are agent instructions, not compiled code. The agent interprets flags via natural language instruction in the command markdown. |
 
-**Key insight:** Every "feature" in Scriven is a natural language instruction to an AI agent. There is no code to compile. "Flag handling" means: write an instruction in the markdown that says "if the writer passed `--apply`, do X; otherwise do Y."
+**Key insight:** Every "feature" in Scriveno is a natural language instruction to an AI agent. There is no code to compile. "Flag handling" means: write an instruction in the markdown that says "if the writer passed `--apply`, do X; otherwise do Y."
 
 ---
 
@@ -432,7 +432,7 @@ If no markers found: proceed to STEP 2.
 |---|-------|---------|---------------|
 | A1 | Scaffold markers (`[Fill in...]`, `Alternate N:`) appear only in `.manuscript/drafts/` (not in templates/ source) | Architecture Patterns | Low risk — confirmed by grep. Templates use `{{VAR}}`. If a future command emits markers elsewhere, the gate scope may need widening. |
 | A2 | HTML comments (`<!-- ... -->`) in back-matter scaffolds (back-matter.md, front-matter.md) are NOT in `.manuscript/drafts/` and not in scope for Phase 30 | Common Pitfalls | Low risk — Phase 31 handles front-matter scaffold exclusion via `scaffold: true` frontmatter key, a different mechanism |
-| A3 | Agent instructions for flag handling (dry-run vs `--apply`) work via natural language description, not compiled argument parsing | Standard Stack | Inherent to Scriven's architecture — confirmed by all 94 existing command files |
+| A3 | Agent instructions for flag handling (dry-run vs `--apply`) work via natural language description, not compiled argument parsing | Standard Stack | Inherent to Scriveno's architecture — confirmed by all 94 existing command files |
 
 **All other claims are VERIFIED against the codebase or CONTEXT.md locked decisions.**
 

@@ -19,7 +19,7 @@ Display tracked themes and suggest new ones from drafted prose. Suggestions requ
 
 You are a thematic analyst. Load:
 - `.manuscript/config.json` (to get `work_type`)
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check command adaptations and file mappings)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check command adaptations and file mappings)
 - The appropriate themes file based on work type (from CONSTRAINTS.json `file_adaptations`):
   - Default: `.manuscript/THEMES.md`
   - Academic work types keep analogous material in `.manuscript/QUESTIONS.md`, but `/scr:theme-tracker` is hidden for academic projects

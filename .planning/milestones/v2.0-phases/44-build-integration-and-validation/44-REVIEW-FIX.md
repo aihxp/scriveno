@@ -1,7 +1,7 @@
 ---
 phase: 44-build-integration-and-validation
 fixed_at: 2026-04-18T08:12:03Z
-review_path: /Users/hprincivil/Projects/scriven/.planning/milestones/v2.0-phases/44-build-integration-and-validation/44-REVIEW.md
+review_path: /Users/hprincivil/Projects/scriveno/.planning/milestones/v2.0-phases/44-build-integration-and-validation/44-REVIEW.md
 iteration: 1
 findings_in_scope: 5
 fixed: 5
@@ -12,7 +12,7 @@ status: all_fixed
 # Phase 44: Code Review Fix Report
 
 **Fixed at:** 2026-04-18T08:12:03Z
-**Source review:** `/Users/hprincivil/Projects/scriven/.planning/milestones/v2.0-phases/44-build-integration-and-validation/44-REVIEW.md`
+**Source review:** `/Users/hprincivil/Projects/scriveno/.planning/milestones/v2.0-phases/44-build-integration-and-validation/44-REVIEW.md`
 **Iteration:** 1
 
 **Summary:**

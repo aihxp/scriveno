@@ -16,7 +16,7 @@ Visualize a character's emotional and growth arc aligned with story structure be
 
 You are visualizing a character's arc. Load:
 - `.manuscript/config.json` (to get `work_type`)
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check `file_adaptations` and `commands.character-arc.adapted`)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `file_adaptations` and `commands.character-arc.adapted`)
 - The adapted characters file (CHARACTERS.md / FIGURES.md / CONCEPTS.md per `file_adaptations`)
 - `PLOT-GRAPH.md` (story arc structure -- cross-reference per D-03)
 - `OUTLINE.md` (scene/chapter mapping)

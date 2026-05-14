@@ -1,9 +1,9 @@
 {
-  "name": "scriven-cli",
+  "name": "scriveno-cli",
   "version": "2.0.0",
   "description": "Spec-driven creative writing, publishing, and translation pipeline for AI coding agents. From blank page to published book.",
   "bin": {
-    "scriven": "bin/install.js"
+    "scriveno": "bin/install.js"
   },
   "scripts": {
     "start": "node bin/install.js",
@@ -27,15 +27,15 @@
     "kdp",
     "translation"
   ],
-  "author": "Scriven contributors",
+  "author": "Scriveno contributors",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aihxp/scriven.git"
+    "url": "git+https://github.com/aihxp/scriveno.git"
   },
-  "homepage": "https://github.com/aihxp/scriven#readme",
+  "homepage": "https://github.com/aihxp/scriveno#readme",
   "bugs": {
-    "url": "https://github.com/aihxp/scriven/issues"
+    "url": "https://github.com/aihxp/scriveno/issues"
   },
   "engines": {
     "node": ">=20.0.0"

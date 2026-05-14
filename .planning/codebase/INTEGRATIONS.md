@@ -2,7 +2,7 @@
 
 ## Host Runtime Integrations
 
-`bin/install.js` installs Scriven into multiple AI coding agent ecosystems by copying command and agent files into runtime-specific directories.
+`bin/install.js` installs Scriveno into multiple AI coding agent ecosystems by copying command and agent files into runtime-specific directories.
 
 ### Command-Based Runtimes
 
@@ -22,14 +22,14 @@ These runtimes receive:
 
 ### Skill-Based Runtimes
 
-- Manus Desktop: installs a `skills/scriven` payload
+- Manus Desktop: installs a `skills/scriveno` payload
 - Generic target: installs a portable `SKILL.md` plus copied command files
 
 The generic/manus path is driven by `generateSkillManifest()`, which renders a markdown catalog from `data/CONSTRAINTS.json`.
 
 ## Internal File-System Contracts
 
-Scriven relies on file-based integration rather than libraries or services:
+Scriveno relies on file-based integration rather than libraries or services:
 
 - `.manuscript/`: per-project working state created by `/scr:new-work`
 - `templates/`: source templates copied into manuscript projects
@@ -47,7 +47,7 @@ The command set assumes shell access to external tools and checks for them expli
 - `afterwriting`: optional screenplay PDF output
 - `gs`: Ghostscript for CMYK/PDF-X conversion
 
-This keeps Scriven's npm package dependency-free while still supporting rich export workflows.
+This keeps Scriveno's npm package dependency-free while still supporting rich export workflows.
 
 ## Publishing And Distribution Targets
 

@@ -1,14 +1,14 @@
 # Configuration
 
-This guide covers the configuration surfaces Scriven actually ships today: package-level installer metadata, shared constraint data, runtime install targets, and per-project `.manuscript/config.json`.
+This guide covers the configuration surfaces Scriveno actually ships today: package-level installer metadata, shared constraint data, runtime install targets, and per-project `.manuscript/config.json`.
 
 ## What is configurable
 
-Scriven is intentionally narrow in where configuration lives:
+Scriveno is intentionally narrow in where configuration lives:
 
 - `package.json` defines the npm package metadata, installer entrypoint, and supported Node baseline
 - `data/CONSTRAINTS.json` is the central registry for work types, command availability, adaptive terminology, and export rules
-- `bin/install.js` defines installer targets and where Scriven writes commands, skills, agents, or guided setup assets
+- `bin/install.js` defines installer targets and where Scriveno writes commands, skills, agents, or guided setup assets
 - `.manuscript/config.json` stores project-specific writing settings after `/scr:new-work`
 
 There is no compiled app config, no environment-variable matrix for the core workflow, and no runtime dependency graph beyond Node.js for the installer.
@@ -33,12 +33,12 @@ For new installs, use a currently supported LTS release such as Node.js 24. Node
 
 For runtime support details, use [Runtime Support](runtime-support.md). That document is the canonical compatibility matrix.
 
-## Shared Scriven data
+## Shared Scriveno data
 
-Scriven commands are designed to load the shared constraints file from an installed Scriven location first:
+Scriveno commands are designed to load the shared constraints file from an installed Scriveno location first:
 
-- global install: `~/.scriven/data/CONSTRAINTS.json`
-- project install: `.scriven/data/CONSTRAINTS.json`
+- global install: `~/.scriveno/data/CONSTRAINTS.json`
+- project install: `.scriveno/data/CONSTRAINTS.json`
 
 The repo-local copy at `data/CONSTRAINTS.json` is the authoring source of truth. The installer copies that data into the runtime-facing install location.
 
@@ -53,11 +53,11 @@ If a command or doc claim conflicts with `CONSTRAINTS.json`, fix the command or 
 
 ## Project config
 
-When a writer runs `/scr:new-work`, Scriven creates `.manuscript/config.json`. The command file in [new-work.md](../commands/scr/new-work.md) defines the baseline shape:
+When a writer runs `/scr:new-work`, Scriveno creates `.manuscript/config.json`. The command file in [new-work.md](../commands/scr/new-work.md) defines the baseline shape:
 
 ```json
 {
-  "scriven_version": "2.0.0",
+  "scriveno_version": "2.0.0",
   "work_type": "<chosen>",
   "group": "<group>",
   "command_unit": "<unit>",
@@ -70,7 +70,7 @@ When a writer runs `/scr:new-work`, Scriven creates `.manuscript/config.json`. T
 }
 ```
 
-That `scriven_version` value should track the current package release and the live `/scr:new-work` contract, not an older milestone snapshot.
+That `scriveno_version` value should track the current package release and the live `/scr:new-work` contract, not an older milestone snapshot.
 
 Every project gets those core keys. Additional blocks are added only when the work type requires them.
 
@@ -155,13 +155,13 @@ Starting in `1.6.0`, projects can include an optional `draft` block to tune how 
 
 ## Developer mode
 
-Scriven defaults projects to:
+Scriveno defaults projects to:
 
 ```json
 "developer_mode": false
 ```
 
-That setting exists so non-technical writers can stay in writer-first language. In writer mode, Scriven prefers terms like `save`, `version`, and `compare` instead of raw git terminology.
+That setting exists so non-technical writers can stay in writer-first language. In writer mode, Scriveno prefers terms like `save`, `version`, and `compare` instead of raw git terminology.
 
 The broader product behavior is described in [Getting Started](getting-started.md) and [README.md](../README.md). The repo does not currently ship a separate standalone developer-mode settings reference beyond the project config itself.
 
@@ -179,7 +179,7 @@ Use `/scr:sync` when the source tree has changed and an installed runtime surfac
 
 ## Export prerequisites
 
-Scriven keeps export tools out of `package.json`. They are external prerequisites the agent invokes through the shell when needed.
+Scriveno keeps export tools out of `package.json`. They are external prerequisites the agent invokes through the shell when needed.
 
 Current documented prerequisites include:
 

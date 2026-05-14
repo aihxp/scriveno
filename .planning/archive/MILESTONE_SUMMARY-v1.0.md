@@ -7,13 +7,13 @@
 
 ## 1. Project Overview
 
-Milestone `v1.0 MVP` established Scriven’s core product surface: a markdown-first writing pipeline that runs inside AI coding agents, preserves writer voice through the Voice DNA system, and carries a project from setup through drafting, revision, export, illustration, translation, and collaboration.
+Milestone `v1.0 MVP` established Scriveno’s core product surface: a markdown-first writing pipeline that runs inside AI coding agents, preserves writer voice through the Voice DNA system, and carries a project from setup through drafting, revision, export, illustration, translation, and collaboration.
 
 This milestone shipped phases `1` through `8` and created the foundation the later trust and technical-writing milestones build on. Its center of gravity was the writer workflow, not infrastructure: get installed quickly, start a project, preserve voice, and keep the whole pipeline accessible through adaptive `/scr:*` commands.
 
 ## 2. Architecture & Technical Decisions
 
-- **Decision:** Keep Scriven as a pure markdown skill and command system.
+- **Decision:** Keep Scriveno as a pure markdown skill and command system.
   - **Why:** Maximum portability across Claude Code, Cursor, Gemini CLI, and similar hosts without adding a build step or runtime dependency graph.
   - **Phase:** v1.0 foundation
 - **Decision:** Use fresh context per atomic unit for drafting.
@@ -49,13 +49,13 @@ Roadmap history shows all v1.0 requirement groups as shipped:
 - ✅ `QUAL-*` and `PUB-*` requirements were satisfied across editorial workflows and publication-supporting content generation
 - ✅ `EXP-*`, `ILL-*`, `TRANS-*`, `COLLAB-*`, `RUNTIME-*`, and `SACRED-*` roadmap requirements were shipped in phases 5 through 8
 
-Audit verdict: no standalone archived milestone audit is retained for `v1.0` in this workspace, so this section is based on the shipped roadmap and the validated product surface recorded in [PROJECT.md](/Users/hprincivil/Projects/scriven/.planning/PROJECT.md).
+Audit verdict: no standalone archived milestone audit is retained for `v1.0` in this workspace, so this section is based on the shipped roadmap and the validated product surface recorded in [PROJECT.md](/Users/hprincivil/Projects/scriveno/.planning/PROJECT.md).
 
 ## 5. Key Decisions Log
 
 - Fresh-context drafting is a non-negotiable architectural rule because voice fidelity is the core product promise.
 - Markdown instructions are the product runtime; there is no compiled application layer.
-- Scriven adapts to the writer’s domain vocabulary rather than forcing generic chapter/scene language across all work types.
+- Scriveno adapts to the writer’s domain vocabulary rather than forcing generic chapter/scene language across all work types.
 - The installer is part of the product surface, not a secondary convenience layer.
 
 ## 6. Tech Debt & Deferred Items
@@ -66,10 +66,10 @@ Audit verdict: no standalone archived milestone audit is retained for `v1.0` in 
 
 ## 7. Getting Started
 
-- **Run the project:** `npx scriven-cli@latest`
+- **Run the project:** `npx scriveno-cli@latest`
 - **Key directories:** `commands/scr/`, `agents/`, `templates/`, `data/`, `docs/`, `test/`
 - **Tests:** `npm test`
-- **Where to look first:** [README.md](/Users/hprincivil/Projects/scriven/README.md), [docs/getting-started.md](/Users/hprincivil/Projects/scriven/docs/getting-started.md), and [docs/architecture.md](/Users/hprincivil/Projects/scriven/docs/architecture.md)
+- **Where to look first:** [README.md](/Users/hprincivil/Projects/scriveno/README.md), [docs/getting-started.md](/Users/hprincivil/Projects/scriveno/docs/getting-started.md), and [docs/architecture.md](/Users/hprincivil/Projects/scriveno/docs/architecture.md)
 
 ---
 

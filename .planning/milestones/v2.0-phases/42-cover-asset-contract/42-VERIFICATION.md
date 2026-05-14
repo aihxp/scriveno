@@ -21,7 +21,7 @@ re_verification: false
 
 | # | Truth | Status | Evidence |
 |---|-------|--------|----------|
-| 1 | Scriven now defines one canonical build-surface cover contract | ✓ VERIFIED | `commands/scr/cover-art.md`, `commands/scr/publish.md`, and `docs/publishing.md` all point at `.manuscript/build/` |
+| 1 | Scriveno now defines one canonical build-surface cover contract | ✓ VERIFIED | `commands/scr/cover-art.md`, `commands/scr/publish.md`, and `docs/publishing.md` all point at `.manuscript/build/` |
 | 2 | Ebook, paperback, and hardcover cover deliverables are now distinct files | ✓ VERIFIED | Canonical files are `.manuscript/build/ebook-cover.jpg`, `.manuscript/build/paperback-cover.pdf`, and `.manuscript/build/hardcover-cover.pdf` |
 | 3 | Prompt-generation outputs stay separate from final deliverables | ✓ VERIFIED | `cover-art.md` keeps prompt outputs in `.manuscript/illustrations/cover/` and final files in `.manuscript/build/` |
 | 4 | Editable source files are part of the handoff contract | ✓ VERIFIED | `cover-art.md` and `docs/publishing.md` require `.manuscript/build/source/` |

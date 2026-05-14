@@ -1,8 +1,8 @@
-# Scriven
+# Scriveno
 
 ## What This Is
 
-Scriven is a spec-driven writing, publishing, and translation pipeline that runs inside AI coding agents. It takes writers from blank page to publication-ready manuscript or technical document set with voice profiling, adaptive work types, autonomous drafting, illustration, translation, and multi-format export. It currently supports 50 work types with tradition-native vocabulary such as chapters, acts, procedures, and surahs.
+Scriveno is a spec-driven writing, publishing, and translation pipeline that runs inside AI coding agents. It takes writers from blank page to publication-ready manuscript or technical document set with voice profiling, adaptive work types, autonomous drafting, illustration, translation, and multi-format export. It currently supports 50 work types with tradition-native vocabulary such as chapters, acts, procedures, and surahs.
 
 ## Core Value
 
@@ -93,19 +93,19 @@ Scriven is a spec-driven writing, publishing, and translation pipeline that runs
 ### Out of Scope
 
 - Real-time collaborative editing (Google Docs style) — complexity outweighs value for CLI tool
-- GUI/web interface — Scriven runs inside existing AI agents, not as a standalone app
+- GUI/web interface — Scriveno runs inside existing AI agents, not as a standalone app
 - AI model fine-tuning — Voice DNA works via prompt engineering, not model training
 - Hosting/cloud storage — all files are local, writer owns everything
 
 ## Context
 
-Scriven is built as a markdown-first skill system. Commands, agents, templates, and constraints are all file-based; the installer (`bin/install.js`) copies those assets into supported AI runtimes. There is no compiled runtime library; the host agent reads the markdown instructions and executes them with its own tools.
+Scriveno is built as a markdown-first skill system. Commands, agents, templates, and constraints are all file-based; the installer (`bin/install.js`) copies those assets into supported AI runtimes. There is no compiled runtime library; the host agent reads the markdown instructions and executes them with its own tools.
 
-The product plan (`SCRIVEN-PRODUCT-PLAN-v0.3.md`) is the canonical source of truth. `data/CONSTRAINTS.json` is the runtime constraint system that governs work type availability, prerequisites, and adaptations.
+The product plan (`SCRIVENO-PRODUCT-PLAN-v0.3.md`) is the canonical source of truth. `data/CONSTRAINTS.json` is the runtime constraint system that governs work type availability, prerequisites, and adaptations.
 
 Milestones v1.0 through v1.2 shipped the core product surface, multi-runtime installer expansion, and a complete documentation suite. The docs verification pass also exposed a new class of product problem: trust gaps between what the product promises and what the repo can prove today.
 
-The most visible gaps were in the export stack and launch proof layer. Phase 13 aligned shipped-asset truth, Phase 14 standardized the Node 20+ installer baseline while making runtime evidence explicit, Phase 15 added the canonical proof layer that makes Scriven's voice-preservation wedge tangible, and Phase 16 turned those trust surfaces into release-time regression gates. Milestone v1.4 then extended that posture into Perplexity Desktop support and a first-pass technical-writing family without weakening the existing trust model. Milestone v1.8 tightened the command surface the same way: the names Scriven advertises now match the runtime surfaces it actually installs, and the repo has regression coverage to keep that contract honest.
+The most visible gaps were in the export stack and launch proof layer. Phase 13 aligned shipped-asset truth, Phase 14 standardized the Node 20+ installer baseline while making runtime evidence explicit, Phase 15 added the canonical proof layer that makes Scriveno's voice-preservation wedge tangible, and Phase 16 turned those trust surfaces into release-time regression gates. Milestone v1.4 then extended that posture into Perplexity Desktop support and a first-pass technical-writing family without weakening the existing trust model. Milestone v1.8 tightened the command surface the same way: the names Scriveno advertises now match the runtime surfaces it actually installs, and the repo has regression coverage to keep that contract honest.
 
 ## Constraints
 
@@ -118,7 +118,7 @@ The most visible gaps were in the export stack and launch proof layer. Phase 13 
 ## Current State
 
 **Latest shipped milestone:** v2.0 Publishing Cover Packaging (complete 2026-04-18)
-**Status:** No active milestone. Scriven's current shipped baseline includes the v2.0 cover-packaging contract and is locked by 1590 passing regression tests.
+**Status:** No active milestone. Scriveno's current shipped baseline includes the v2.0 cover-packaging contract and is locked by 1590 passing regression tests.
 
 **Current product surface:**
 - Installer writes are crash-safe via atomic temp-file-then-rename with orphan cleanup on startup
@@ -147,7 +147,7 @@ The most visible gaps were in the export stack and launch proof layer. Phase 13 
 
 ## Latest Milestone: v2.0 Publishing Cover Packaging
 
-**Goal:** Make Scriven's cover workflow production-ready by defining truthful ebook, paperback, and hardcover cover deliverables, wiring them into `.manuscript/build/`, and aligning publishing/build docs with real platform requirements.
+**Goal:** Make Scriveno's cover workflow production-ready by defining truthful ebook, paperback, and hardcover cover deliverables, wiring them into `.manuscript/build/`, and aligning publishing/build docs with real platform requirements.
 
 **Outcome shipped:**
 - Canonical cover asset contract under `.manuscript/build/` for ebook front covers, paperback full wraps, and hardcover case wraps
@@ -160,7 +160,7 @@ The most visible gaps were in the export stack and launch proof layer. Phase 13 
 
 ## Previous Milestone: v1.9 Workflow Contract Integrity
 
-**Goal:** Restore internal workflow truth so Scriven's core commands agree on where drafts live, save/undo leave the manuscript state clean, and help surfaces only advertise commands the current project can actually run.
+**Goal:** Restore internal workflow truth so Scriveno's core commands agree on where drafts live, save/undo leave the manuscript state clean, and help surfaces only advertise commands the current project can actually run.
 
 **Outcome shipped:**
 - Draft-producing and draft-consuming commands now converge on the canonical `.manuscript/drafts/body/` source path
@@ -174,7 +174,7 @@ The most visible gaps were in the export stack and launch proof layer. Phase 13 
 
 ## Earlier Milestone: v1.8 Command Surface Coherence
 
-**Goal:** Make Scriven's command surface truthful and runtime-native so every documented command name is runnable in the host that advertises it.
+**Goal:** Make Scriveno's command surface truthful and runtime-native so every documented command name is runnable in the host that advertises it.
 
 **Outcome shipped:**
 - Sacred-exclusive commands now resolve to the same names the installer actually exposes, including canonical `/scr:sacred:*` references for sacred-only tools
@@ -189,17 +189,17 @@ The most visible gaps were in the export stack and launch proof layer. Phase 13 
 
 - Choose the next product focus from the shipped v2.0 baseline instead of reopening already-shipped cover-contract work
 - Preserve the canonical draft-path, save-history, constrained-availability, and cover-packaging contracts while extending the product
-- Keep trust surfaces narrower and provable: do not claim bundled templates, runtime parity, or printer geometry Scriven does not actually ship
+- Keep trust surfaces narrower and provable: do not claim bundled templates, runtime parity, or printer geometry Scriveno does not actually ship
 
 <details>
 <summary>Archived milestone context: v1.4 Perplexity & Technical Writing</summary>
 
-**Goal:** Extend Scriven's runtime surface to Perplexity while defining a research-backed technical-writing expansion that fits the existing adaptive work-type system.
+**Goal:** Extend Scriveno's runtime surface to Perplexity while defining a research-backed technical-writing expansion that fits the existing adaptive work-type system.
 
 **Target features:**
 - Add installer support for Perplexity as a named runtime target with support-level framing consistent with `docs/runtime-support.md`
 - Add installer support for Perplexity Desktop if its path model differs from the CLI/runtime entry
-- Research the technical-writing document families Scriven should support before implementing new work types or command adaptations
+- Research the technical-writing document families Scriveno should support before implementing new work types or command adaptations
 - Translate that research into scoped requirements for technical-writing work types, context files, and publishing/export expectations
 
 **Key context:**
@@ -218,14 +218,14 @@ The most visible gaps were in the export stack and launch proof layer. Phase 13 
 | CONSTRAINTS.json as single source for command availability | One file controls all work type adaptations; easy to extend | ✓ Good |
 | Ship npm + polish in parallel | Get npx working early for feedback while improving experience | ✓ Good |
 | GSD-derived phase decomposition | Product plan has 10 phases but GSD regrouped into 8 for standard granularity | ✓ Good |
-| Generic SKILL.md installer for platforms without command directories | Manus and future platforms can use Scriven without needing a proprietary command system | ✓ Good |
+| Generic SKILL.md installer for platforms without command directories | Manus and future platforms can use Scriveno without needing a proprietary command system | ✓ Good |
 | Trust beats breadth on the launch surface | Narrow, provable claims create more confidence than ambitious but weakly evidenced breadth | ✓ Good |
 | Guided runtime targets can be first-class when their setup model is explicit | Some host surfaces are real but do not expose writable command registries; guided setup is better than fake parity | ✓ Good |
 | Technical writing should start as a small, domain-native family | A narrow set of real document types produces better adaptive behavior than one vague catch-all type | ✓ Good |
 | Codex should be treated as a skill-native runtime, not a slash-command clone | Match the host's real discovery surface while keeping installed command markdown as the behavior source of truth | ✓ Good |
-| Silent installs must clean only Scriven-owned runtime outputs | Reliability gains are not worth risking user-managed host files | ✓ Good |
+| Silent installs must clean only Scriveno-owned runtime outputs | Reliability gains are not worth risking user-managed host files | ✓ Good |
 | Runtime command names must only advertise installable surfaces | A guide that points at dead command names erodes trust faster than a missing feature | ✓ Good |
-| Claude Code should follow a flat `/scr-*` surface, mirroring GSD's runtime-native style | Flat slash commands are easier to discover and match the upstream host conventions Scriven now claims to support | ✓ Good |
+| Claude Code should follow a flat `/scr-*` surface, mirroring GSD's runtime-native style | Flat slash commands are easier to discover and match the upstream host conventions Scriveno now claims to support | ✓ Good |
 | Cover deliverables should live under `.manuscript/build/` as project assets | Writers need one canonical delivery surface that is separate from prompts, bundled templates, and staging output | ✓ Good |
 | Print-cover geometry must stay template-driven | Platform cover templates are the authoritative source for wrap width and spine measurements; static formulas would erode trust | ✓ Good |
 

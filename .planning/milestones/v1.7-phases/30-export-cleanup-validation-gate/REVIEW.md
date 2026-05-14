@@ -102,7 +102,7 @@ Apply the same addition at the equivalent location in `commands/scr/publish.md` 
 
 **Issue:** The `--skip-validate` escape hatch is introduced in STEP 1.5 of both commands but does not appear in either command's Usage section or Flags list. Writers who haven't read the full instruction text have no discoverability path for the flag. The argument-hint fields (`"--format <format> [--formatted] [--print-ready]"` and `"[--preset <preset>] [--all]"`) also don't mention it.
 
-This is consistent with how Scriven commands generally handle instruction-level flags, and it doesn't break any functionality. However, when the gate blocks export, the writer is presented with a stop message that mentions no bypass option — the only way to discover `--skip-validate` is to re-read the command documentation or use `/scr:validate` first.
+This is consistent with how Scriveno commands generally handle instruction-level flags, and it doesn't break any functionality. However, when the gate blocks export, the writer is presented with a stop message that mentions no bypass option — the only way to discover `--skip-validate` is to re-read the command documentation or use `/scr:validate` first.
 
 **Fix (optional):** Add `--skip-validate` to the Flags section of each command's Usage block:
 

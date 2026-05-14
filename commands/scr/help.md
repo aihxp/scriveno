@@ -1,11 +1,11 @@
 ---
-description: Show Scriven commands grouped by workflow stage, filtered to what's relevant for your current work
+description: Show Scriveno commands grouped by workflow stage, filtered to what's relevant for your current work
 argument-hint: "[category or search term, optional]"
 ---
 
-# Scriven help
+# Scriveno help
 
-You are helping the user navigate Scriven commands. Load Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) to see every command and its availability.
+You are helping the user navigate Scriveno commands. Load Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) to see every command and its availability.
 
 ## What to do
 
@@ -25,7 +25,7 @@ You are helping the user navigate Scriven commands. Load Scriven's installed/sha
 Ask the user what they want to do. Don't list 170 commands -- show them this:
 
 ```
-Scriven -- ready to start.
+Scriveno -- ready to start.
 
 What do you want to do?
   /scr:new-work        Start a new project (novel, runbook, screenplay, paper, etc.)
@@ -52,7 +52,7 @@ Group by stage:
 
 Revision tracks are a writer-facing workflow, not a developer-only one. Always surface `/scr:track` when it is otherwise available for the current project, and explain that comparison and merge actions live under its subcommands. Do not invent top-level commands like `/scr:merge` for collaboration, and do not confuse `/scr:compare` (save-to-save history comparison) with `/scr:track compare` (revision-track comparison). `developer_mode` only changes whether you expose extra technical detail such as hashes, branch names, or raw git output -- it does not hide the collaboration workflow itself.
 
-When useful, describe Scriven's creative-context model in one sentence: Scriven tracks what moves, including characters, ideas, reader understanding, objects, places, procedures, doctrines, evidence, and themes. Keep this as orientation, not a lecture.
+When useful, describe Scriveno's creative-context model in one sentence: Scriveno tracks what moves, including characters, ideas, reader understanding, objects, places, procedures, doctrines, evidence, and themes. Keep this as orientation, not a lecture.
 
 Only show commands where `available` includes the current work type's group, OR where it's `"all"`, **and** any narrower command-level constraints still pass for the specific work type. For example, `book-proposal` is still hidden for fiction prose because `nonfiction_only` narrows the broad prose/sacred availability, and `panel-layout` is hidden for non-comic visual projects because `comic_only` narrows the visual group. Show canonical runnable command names, and use adapted labels as descriptive text only when the base command is actually available -- sacred review surfaces may show `/scr:editor-review` as scholarly review, and technical docs may show `/scr:plot-graph` as procedure map, but hidden commands stay hidden even if CONSTRAINTS.json stores an adapted label.
 

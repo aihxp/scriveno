@@ -158,33 +158,33 @@ describe('D-03: Back-translate side-by-side with drift annotations (TRANS-05)', 
 // ── D-04: RTL detection automatic by language (TRANS-07) ───────
 
 describe('D-04: RTL detection automatic by language (TRANS-07)', () => {
-  const typstPath = path.join(templatesDir, 'scriven-book.typst');
-  const cssPath = path.join(templatesDir, 'scriven-epub.css');
+  const typstPath = path.join(templatesDir, 'scriveno-book.typst');
+  const cssPath = path.join(templatesDir, 'scriveno-epub.css');
   const autopilotPath = path.join(commandsDir, 'autopilot-translate.md');
 
-  it('scriven-book.typst contains text-dir parameter', () => {
+  it('scriveno-book.typst contains text-dir parameter', () => {
     const content = fs.readFileSync(typstPath, 'utf8');
-    assert.match(content, /text-dir/, 'scriven-book.typst should contain text-dir');
+    assert.match(content, /text-dir/, 'scriveno-book.typst should contain text-dir');
   });
 
-  it('scriven-epub.css contains RTL rules', () => {
+  it('scriveno-epub.css contains RTL rules', () => {
     const content = fs.readFileSync(cssPath, 'utf8');
-    assert.match(content, /rtl/, 'scriven-epub.css should contain rtl');
+    assert.match(content, /rtl/, 'scriveno-epub.css should contain rtl');
   });
 
-  it('scriven-epub.css contains bidi support', () => {
+  it('scriveno-epub.css contains bidi support', () => {
     const content = fs.readFileSync(cssPath, 'utf8');
     assert.ok(
       /unicode-bidi|direction/.test(content),
-      'scriven-epub.css should contain unicode-bidi or direction'
+      'scriveno-epub.css should contain unicode-bidi or direction'
     );
   });
 
-  it('scriven-epub.css contains CJK support', () => {
+  it('scriveno-epub.css contains CJK support', () => {
     const content = fs.readFileSync(cssPath, 'utf8');
     assert.ok(
       /CJK|cjk|writing-mode|break-all/i.test(content),
-      'scriven-epub.css should contain CJK, writing-mode, or break-all'
+      'scriveno-epub.css should contain CJK, writing-mode, or break-all'
     );
   });
 

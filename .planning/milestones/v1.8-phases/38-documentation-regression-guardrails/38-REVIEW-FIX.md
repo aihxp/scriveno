@@ -29,7 +29,7 @@ status: all_fixed
 
 ---
 
-### WR-01: Back matter loads a draft directory that the rest of Scriven no longer uses
+### WR-01: Back matter loads a draft directory that the rest of Scriveno no longer uses
 
 **Files modified:** `commands/scr/back-matter.md`
 **Applied fix:** Switched the draft-loading guidance from the stale `.manuscript/drafts/` directory to the canonical `.manuscript/*-DRAFT.md` contract used by the rest of the workflow.

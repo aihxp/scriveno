@@ -1,8 +1,8 @@
-# Project Milestones: Scriven
+# Project Milestones: Scriveno
 
 ## v2.0 Publishing Cover Packaging (Shipped: 2026-04-18)
 
-**Delivered:** Turned Scriven's cover workflow into a truthful production contract by separating ebook, paperback, and hardcover deliverables, wiring them into the build/export surface, and aligning the publishing trust docs to the same live asset model.
+**Delivered:** Turned Scriveno's cover workflow into a truthful production contract by separating ebook, paperback, and hardcover deliverables, wiring them into the build/export surface, and aligning the publishing trust docs to the same live asset model.
 
 **Phases completed:** 42-44 (3 phases, 9 plans)
 
@@ -48,7 +48,7 @@
 
 ## v1.8 Command Surface Coherence (Shipped: 2026-04-18)
 
-**Delivered:** Closed the command-surface trust gap so the names Scriven documents now match the runtime surfaces it actually installs across sacred commands, Claude-facing docs, and generic manifests.
+**Delivered:** Closed the command-surface trust gap so the names Scriveno documents now match the runtime surfaces it actually installs across sacred commands, Claude-facing docs, and generic manifests.
 
 **Phases completed:** 36-38 (3 phases, 7 plans)
 
@@ -70,7 +70,7 @@
 
 ## v1.7 Last Mile (Shipped: 2026-04-17)
 
-**Delivered:** Closed the production edge — shipped real build pipelines, cross-domain templates, sacred tradition profiles, and academic LaTeX wrappers so Scriven reaches publication-ready output for any supported work type, not just book prose.
+**Delivered:** Closed the production edge — shipped real build pipelines, cross-domain templates, sacred tradition profiles, and academic LaTeX wrappers so Scriveno reaches publication-ready output for any supported work type, not just book prose.
 
 **Phases completed:** 29-35 (7 phases, 23 plans)
 
@@ -95,7 +95,7 @@
 
 ## v1.6 Installer Hardening (Shipped: 2026-04-16)
 
-**Delivered:** Correctness pass on the Scriven installer based on cross-referencing GSD releases v1.33–v1.36. Fixed frontmatter parsing fragility, non-atomic writes, destructive reinstall behavior, incomplete command-ref rewriting, and lack of settings validation — all while preserving the zero-dependency architecture.
+**Delivered:** Correctness pass on the Scriveno installer based on cross-referencing GSD releases v1.33–v1.36. Fixed frontmatter parsing fragility, non-atomic writes, destructive reinstall behavior, incomplete command-ref rewriting, and lack of settings validation — all while preserving the zero-dependency architecture.
 
 **Phases completed:** 23-28 (6 plans total)
 
@@ -150,7 +150,7 @@
 
 ## v1.3 Trust & Proof (Shipped: 2026-04-09)
 
-**Delivered:** A trust-first hardening pass that aligned launch claims, runtime policy, proof artifacts, release-time regression coverage, and post-ship closeout work around Scriven's voice-preservation wedge.
+**Delivered:** A trust-first hardening pass that aligned launch claims, runtime policy, proof artifacts, release-time regression coverage, and post-ship closeout work around Scriveno's voice-preservation wedge.
 
 **Phases completed:** 13-16 (9 plans total)
 
@@ -162,7 +162,7 @@
 - Reframed launch and onboarding docs around proof-first, voice-preserving longform writing
 - Added automated trust-regression and package dry-run checks that now gate release through `npm test`
 - Fixed review findings across the v1.3 trust surface and historical publishing/runtime command paths without regressing the shipped state
-- Closed the milestone with full phase-level validation and retroactive security records across phases 13-16, then prepared `scriven-cli@1.3.4` from that hardened baseline
+- Closed the milestone with full phase-level validation and retroactive security records across phases 13-16, then prepared `scriveno-cli@1.3.4` from that hardened baseline
 
 **Stats:**
 

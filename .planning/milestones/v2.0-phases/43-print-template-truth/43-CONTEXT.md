@@ -6,7 +6,7 @@
 <domain>
 ## Phase Boundary
 
-Make Scriven's print-cover guidance truthful for ebook, paperback, and hardcover production requirements so the product stops implying one generic cover file or universal spine math.
+Make Scriveno's print-cover guidance truthful for ebook, paperback, and hardcover production requirements so the product stops implying one generic cover file or universal spine math.
 
 </domain>
 
@@ -57,7 +57,7 @@ Make Scriven's print-cover guidance truthful for ebook, paperback, and hardcover
 <deferred>
 ## Deferred Ideas
 
-- Auto-fetching live IngramSpark template PDFs from Scriven.
+- Auto-fetching live IngramSpark template PDFs from Scriveno.
 - Supporting printer-specific geometry calculators beyond the documented template-driven workflow.
 
 </deferred>

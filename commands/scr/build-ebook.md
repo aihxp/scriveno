@@ -16,7 +16,7 @@ Assemble the manuscript and produce an accessible EPUB for the selected publishi
 **Platform values:** `kdp | ingram | apple | bn | d2d | kobo | google | smashwords` (default: kdp)
 
 **Flags:**
-  `--fixed-layout`    Produce a fixed-layout EPUB (for picture books and illustrated books). Uses `data/export-templates/scriven-fixed-layout-epub.css` and generates an OPF stub. Work type `picture_book` auto-enables this flag.
+  `--fixed-layout`    Produce a fixed-layout EPUB (for picture books and illustrated books). Uses `data/export-templates/scriveno-fixed-layout-epub.css` and generates an OPF stub. Work type `picture_book` auto-enables this flag.
 
 ## Instruction
 
@@ -29,7 +29,7 @@ You are a **manuscript build specialist** for EPUB output.
 Load the following project files:
 
 - `.manuscript/config.json` -- to get `work_type`, title, author, language, and project settings
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- to check `exports` section for format availability by work type group
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- to check `exports` section for format availability by work type group
 
 **Check format availability:**
 
@@ -192,7 +192,7 @@ Load `templates/platforms/{platform}/manifest.yaml`.
 
 If the manifest is missing:
 > **Platform manifest missing: `templates/platforms/{platform}/manifest.yaml`.**
-> Re-install Scriven or restore the platform profile before building.
+> Re-install Scriveno or restore the platform profile before building.
 
 Then **stop**.
 
@@ -235,25 +235,25 @@ Then **stop** -- do not attempt the build without the required tool.
 
 Check for the EPUB stylesheet:
 
-If `data/export-templates/scriven-epub.css` does not exist:
+If `data/export-templates/scriveno-epub.css` does not exist:
 
-> **EPUB stylesheet is missing at `data/export-templates/scriven-epub.css`.**
+> **EPUB stylesheet is missing at `data/export-templates/scriveno-epub.css`.**
 > This file is required for properly styled EPUB output.
-> Re-install Scriven or restore the file from the repository.
+> Re-install Scriveno or restore the file from the repository.
 
 Then **stop** -- do not attempt the build without the stylesheet.
 
 If `--fixed-layout` was passed (or auto-enabled):
 
-If `data/export-templates/scriven-fixed-layout-epub.css` does not exist:
-> **Fixed-layout EPUB stylesheet is missing at `data/export-templates/scriven-fixed-layout-epub.css`.**
-> Re-install Scriven or restore the file from the repository.
+If `data/export-templates/scriveno-fixed-layout-epub.css` does not exist:
+> **Fixed-layout EPUB stylesheet is missing at `data/export-templates/scriveno-fixed-layout-epub.css`.**
+> Re-install Scriveno or restore the file from the repository.
 
 Then **stop**.
 
-If `data/export-templates/scriven-fixed-layout.opf` does not exist:
-> **Fixed-layout OPF stub is missing at `data/export-templates/scriven-fixed-layout.opf`.**
-> Re-install Scriven or restore the file from the repository.
+If `data/export-templates/scriveno-fixed-layout.opf` does not exist:
+> **Fixed-layout OPF stub is missing at `data/export-templates/scriveno-fixed-layout.opf`.**
+> Re-install Scriveno or restore the file from the repository.
 
 Then **stop**.
 
@@ -352,7 +352,7 @@ Before invoking Pandoc, verify:
 
 First, copy the OPF stub for reference:
 ```bash
-cp data/export-templates/scriven-fixed-layout.opf .manuscript/output/fixed-layout.opf
+cp data/export-templates/scriveno-fixed-layout.opf .manuscript/output/fixed-layout.opf
 ```
 
 Invoke Pandoc with the fixed-layout stylesheet:
@@ -361,7 +361,7 @@ pandoc .manuscript/output/assembled-manuscript.md \
   -o .manuscript/output/ebook-fixed-layout.epub \
   --metadata-file=.manuscript/output/metadata.yaml \
   --epub-cover-image=.manuscript/build/ebook-cover.jpg \
-  --css=data/export-templates/scriven-fixed-layout-epub.css \
+  --css=data/export-templates/scriveno-fixed-layout-epub.css \
   --toc \
   --toc-depth=2 \
   --split-level=0
@@ -381,7 +381,7 @@ pandoc .manuscript/output/assembled-manuscript.md \
   -o .manuscript/output/ebook.epub \
   --metadata-file=.manuscript/output/metadata.yaml \
   --epub-cover-image=.manuscript/build/ebook-cover.jpg \
-  --css=data/export-templates/scriven-epub.css \
+  --css=data/export-templates/scriveno-epub.css \
   --toc \
   --toc-depth=2 \
   --split-level=1

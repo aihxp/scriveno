@@ -211,13 +211,13 @@ Then **stop**.
 <!DOCTYPE tmx SYSTEM "tmx14.dtd">
 <tmx version="1.4">
   <header
-    creationtool="Scriven"
+    creationtool="Scriveno"
     creationtoolversion="0.3.0"
     datatype="plaintext"
     segtype="sentence"
     adminlang="en"
     srclang="[source_language]"
-    o-tmf="Scriven TM"
+    o-tmf="Scriveno TM"
   />
   <body>
     <tu>

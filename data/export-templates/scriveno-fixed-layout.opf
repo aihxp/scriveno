@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Scriven Fixed-Layout OPF Stub
+<!-- Scriveno Fixed-Layout OPF Stub
      For picture books and illustrated books.
      Merge metadata block into the book's package.opf when packaging the EPUB.
      Apple Books compatibility: rendition:layout + rendition:spread are required.

@@ -2,13 +2,13 @@
 
 ## System Shape
 
-Scriven is a content-driven orchestration system, not a traditional application runtime. The repository ships instructions, registries, templates, and a lightweight installer. Execution happens when an AI coding agent reads markdown command files and follows them using its built-in file and shell tools.
+Scriveno is a content-driven orchestration system, not a traditional application runtime. The repository ships instructions, registries, templates, and a lightweight installer. Execution happens when an AI coding agent reads markdown command files and follows them using its built-in file and shell tools.
 
 ## Primary Architectural Layers
 
 ### 1. Distribution Layer
 
-- `package.json` publishes the package and exposes the `scriven` CLI
+- `package.json` publishes the package and exposes the `scriveno` CLI
 - `bin/install.js` detects supported runtimes and copies files into the correct command/agent or skill directories
 
 ### 2. Command Layer
@@ -62,7 +62,7 @@ The repository documents one especially important rule: `STYLE-GUIDE.md` is the 
 
 Export is intentionally decoupled:
 
-- Scriven assembles intermediate manuscript content and metadata as files
+- Scriveno assembles intermediate manuscript content and metadata as files
 - external CLIs perform format conversion
 - templates in `data/export-templates/` shape final output
 

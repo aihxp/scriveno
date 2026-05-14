@@ -7,17 +7,17 @@
 
 ## 1. Project Overview
 
-Milestone `v1.2 Documentation` turned Scriven’s shipped feature surface into a real documentation suite. It covered discovery, onboarding, command reference, feature guides, and contributor-facing architecture and extension docs.
+Milestone `v1.2 Documentation` turned Scriveno’s shipped feature surface into a real documentation suite. It covered discovery, onboarding, command reference, feature guides, and contributor-facing architecture and extension docs.
 
 This milestone shipped phases `10` through `12` and made documentation part of the product surface rather than a trailing afterthought.
 
 ## 2. Architecture & Technical Decisions
 
 - **Decision:** Document the live codebase rather than aspirational future behavior.
-  - **Why:** Scriven’s command set is broad, and stale docs would actively mislead writers and contributors.
+  - **Why:** Scriveno’s command set is broad, and stale docs would actively mislead writers and contributors.
   - **Phase:** Phase 12
 - **Decision:** Organize docs around writer workflow first.
-  - **Why:** Scriven’s main audience is writers, so the docs need to prioritize navigation, onboarding, and actionability over internal taxonomy.
+  - **Why:** Scriveno’s main audience is writers, so the docs need to prioritize navigation, onboarding, and actionability over internal taxonomy.
   - **Phase:** Phase 10
 - **Decision:** Treat contributor docs and architecture docs as part of the shipped system.
   - **Why:** The product is markdown-first, so maintainability depends on contributors understanding the real runtime patterns.
@@ -55,10 +55,10 @@ Audit verdict: no standalone archived milestone audit is retained for `v1.2` in 
 
 ## 7. Getting Started
 
-- **Run the project:** `npx scriven-cli@latest`
+- **Run the project:** `npx scriveno-cli@latest`
 - **Key directories:** `docs/`, `commands/scr/`, `agents/`, `templates/`, `data/`
 - **Tests:** `npm test`
-- **Where to look first:** [README.md](/Users/hprincivil/Projects/scriven/README.md), [docs/getting-started.md](/Users/hprincivil/Projects/scriven/docs/getting-started.md), [docs/command-reference.md](/Users/hprincivil/Projects/scriven/docs/command-reference.md), [docs/contributing.md](/Users/hprincivil/Projects/scriven/docs/contributing.md)
+- **Where to look first:** [README.md](/Users/hprincivil/Projects/scriveno/README.md), [docs/getting-started.md](/Users/hprincivil/Projects/scriveno/docs/getting-started.md), [docs/command-reference.md](/Users/hprincivil/Projects/scriveno/docs/command-reference.md), [docs/contributing.md](/Users/hprincivil/Projects/scriveno/docs/contributing.md)
 
 ---
 

@@ -10,7 +10,7 @@ const architecturalProfiles = require('../lib/architectural-profiles.js');
 const PKG_ROOT = path.join(__dirname, '..');
 const PKG = require('../package.json');
 const VERSION = PKG.version;
-const DOCS_URL = PKG.homepage || PKG.repository?.url || 'https://github.com/aihxp/scriven';
+const DOCS_URL = PKG.homepage || PKG.repository?.url || 'https://github.com/aihxp/scriveno';
 const MIN_NODE_MAJOR = 20;
 
 const COLORS = {
@@ -46,14 +46,14 @@ function generatePerplexitySetupGuide({ isGlobal, guideDir, dataDir, currentProj
     : buildFilesystemMcpCommand([currentProjectDir, dataDir]);
   const currentProjectCommand = buildFilesystemMcpCommand([currentProjectDir, dataDir]);
 
-  return `# Scriven for Perplexity Desktop
+  return `# Scriveno for Perplexity Desktop
 
-This setup target prepares Scriven for **Perplexity Desktop on macOS** using Perplexity's documented **local MCP connector** flow.
+This setup target prepares Scriveno for **Perplexity Desktop on macOS** using Perplexity's documented **local MCP connector** flow.
 
 ## What this target supports
 
 - Guided setup assets for Perplexity Desktop
-- Local filesystem access to a Scriven project and Scriven's shared data
+- Local filesystem access to a Scriveno project and Scriveno's shared data
 - Honest runtime framing: this is **not** slash-command parity with Claude Code, Codex, Cursor, or Gemini CLI
 
 ## Prerequisites
@@ -69,7 +69,7 @@ In Perplexity Desktop:
 
 1. Open **Settings -> Connectors**
 2. Click **Add Connector**
-3. In the **Simple** tab, choose any server name such as \`Scriven Project Files\`
+3. In the **Simple** tab, choose any server name such as \`Scriveno Project Files\`
 4. Paste this command:
 
 \`\`\`bash
@@ -77,7 +77,7 @@ ${connectorCommand}
 \`\`\`
 
 5. Save and wait for the connector to show **Running**
-6. Toggle the connector on from **Sources** when you want Perplexity to access your Scriven files
+6. Toggle the connector on from **Sources** when you want Perplexity to access your Scriveno files
 
 ## Current project command
 
@@ -95,19 +95,19 @@ ${currentProjectCommand}
 
 ## Notes
 
-- ${isGlobal ? 'Global install stores shared setup assets under your home directory, but the MCP connector itself still needs a project path.' : 'Project install points the connector at this project and its local .scriven directory.'}
-- Keep the allowed directories narrow. Prefer the project root and the matching Scriven data directory only.
-- Voice-critical drafting still depends on explicit \`STYLE-GUIDE.md\` loading per unit. Perplexity memory or spaces are not a substitute for Scriven's Voice DNA pipeline.
+- ${isGlobal ? 'Global install stores shared setup assets under your home directory, but the MCP connector itself still needs a project path.' : 'Project install points the connector at this project and its local .scriveno directory.'}
+- Keep the allowed directories narrow. Prefer the project root and the matching Scriveno data directory only.
+- Voice-critical drafting still depends on explicit \`STYLE-GUIDE.md\` loading per unit. Perplexity memory or spaces are not a substitute for Scriveno's Voice DNA pipeline.
 
 ## Installed assets
 
 - Guide directory: \`${guideDir}\`
-- Scriven data directory: \`${dataDir}\`
+- Scriveno data directory: \`${dataDir}\`
 `;
 }
 
 const BANNER = `
-${c('bold', 'Scriven')} ${c('gray', 'v' + VERSION)}
+${c('bold', 'Scriveno')} ${c('gray', 'v' + VERSION)}
 ${c('dim', 'Spec-driven creative writing, publishing, and translation for AI coding agents.')}
 `;
 
@@ -196,22 +196,22 @@ const RUNTIMES = {
   'manus': {
     label: 'Manus Desktop',
     type: 'skills',
-    skills_dir_global: path.join(os.homedir(), '.manus', 'skills', 'scriven'),
-    skills_dir_project: '.manus/skills/scriven',
+    skills_dir_global: path.join(os.homedir(), '.manus', 'skills', 'scriveno'),
+    skills_dir_project: '.manus/skills/scriveno',
     detect: () => fs.existsSync(path.join(os.homedir(), '.manus')) || fs.existsSync('/Applications/Manus.app') || fs.existsSync(path.join(os.homedir(), 'Applications', 'Manus.app')),
   },
   'perplexity-desktop': {
     label: 'Perplexity Desktop',
     type: 'guided-mcp',
-    guide_dir_global: path.join(os.homedir(), '.scriven', 'perplexity'),
-    guide_dir_project: '.scriven/perplexity',
+    guide_dir_global: path.join(os.homedir(), '.scriveno', 'perplexity'),
+    guide_dir_project: '.scriveno/perplexity',
     detect: () => fs.existsSync('/Applications/Perplexity.app') || fs.existsSync(path.join(os.homedir(), 'Applications', 'Perplexity.app')),
   },
   'generic': {
     label: 'Generic (SKILL.md)',
     type: 'skills',
-    skills_dir_global: path.join(os.homedir(), '.scriven', 'skills'),
-    skills_dir_project: '.scriven/skills',
+    skills_dir_global: path.join(os.homedir(), '.scriveno', 'skills'),
+    skills_dir_project: '.scriveno/skills',
     detect: () => false,
   },
 };
@@ -234,11 +234,11 @@ function generateSkillManifest(constraintsPath) {
   // Build markdown table
   const tableRows = entries.map(e => `| ${e.name} | ${e.category} | ${e.description} |`);
 
-  return `# Scriven -- AI Creative Writing Skills
+  return `# Scriveno -- AI Creative Writing Skills
 
 Version: ${VERSION}
 
-Scriven is a spec-driven creative writing, publishing, and translation pipeline.
+Scriveno is a spec-driven creative writing, publishing, and translation pipeline.
 
 ## Available Commands
 
@@ -319,7 +319,7 @@ function readFrontmatterValues(content) {
       // changing downstream behavior, but surface the edit bug.
       try {
         console.warn(
-          `[scriven] frontmatter duplicate key "${key}" -- first occurrence retained; later value ignored`
+          `[scriveno] frontmatter duplicate key "${key}" -- first occurrence retained; later value ignored`
         );
       } catch { /* best effort */ }
       continue;
@@ -334,7 +334,7 @@ function readFrontmatterValues(content) {
     if (leadingValue.startsWith('|') || leadingValue.startsWith('>')) {
       try {
         console.warn(
-          `[scriven] frontmatter key "${key}" uses a YAML block scalar (${leadingValue[0]}); falling back to empty value`
+          `[scriveno] frontmatter key "${key}" uses a YAML block scalar (${leadingValue[0]}); falling back to empty value`
         );
       } catch { /* best effort */ }
       result[key] = '';
@@ -442,7 +442,7 @@ function assertNoSkillNameCollisions(entries) {
     `  ${c.skillName}\n    <- ${c.sources[0]}\n    <- ${c.sources[1]}`
   );
   throw new Error(
-    `Scriven installer aborted: two or more source command files flatten to the same skill name.\n` +
+    `Scriveno installer aborted: two or more source command files flatten to the same skill name.\n` +
     `Both Claude (flat scr-foo.md filenames) and Codex (per-command skill directories) would silently\n` +
     `overwrite one of each pair. Rename one source file in each pair so the flat names differ.\n\n` +
     lines.join('\n\n')
@@ -470,8 +470,8 @@ function generateCodexSkill(entry, commandPath) {
     ? `${entry.description.slice(0, 117)}...`
     : entry.description;
   const argumentsLine = entry.argumentHint
-    ? `- Treat any text after \`${invocation}\` as the arguments for the underlying Scriven command ${entry.argumentHint}.`
-    : `- Treat any text after \`${invocation}\` as the arguments for the underlying Scriven command.`;
+    ? `- Treat any text after \`${invocation}\` as the arguments for the underlying Scriveno command ${entry.argumentHint}.`
+    : `- Treat any text after \`${invocation}\` as the arguments for the underlying Scriveno command.`;
 
   return `---
 name: "${entry.skillName}"
@@ -484,14 +484,14 @@ metadata:
 ## Invocation
 - This skill is invoked by mentioning \`${invocation}\`.
 ${argumentsLine}
-- When the installed Scriven command file mentions \`/scr:...\`, rewrite that command surface for Codex users as \`$scr-...\`.
+- When the installed Scriveno command file mentions \`/scr:...\`, rewrite that command surface for Codex users as \`$scr-...\`.
   - Example: \`/scr:help\` becomes \`$scr-help\`
   - Example: \`/scr:new-work\` becomes \`$scr-new-work\`
   - Example: \`/scr:sacred:concordance\` becomes \`$scr-sacred-concordance\`
 </codex_skill_adapter>
 
 <objective>
-Execute Scriven's \`${entry.commandRef}\` command inside Codex by reading the installed Scriven command file below as the source of truth.
+Execute Scriveno's \`${entry.commandRef}\` command inside Codex by reading the installed Scriveno command file below as the source of truth.
 </objective>
 
 <context>
@@ -502,7 +502,7 @@ Installed command file: ${commandPath}
 1. Read \`${commandPath}\`.
 2. Execute that command file exactly as written.
 3. Treat text after \`${invocation}\` as the command arguments.
-4. When suggesting other Scriven commands to Codex users, translate \`/scr:...\` references to the \`$scr-...\` surface.
+4. When suggesting other Scriveno commands to Codex users, translate \`/scr:...\` references to the \`$scr-...\` surface.
 </process>
 `;
 }
@@ -686,7 +686,7 @@ function rewriteInstalledCommandRefs(content, transform) {
 }
 
 function markInstalledCommand(content, runtimeKey, commandRef, sourcePath) {
-  const marker = `<!-- scriven-cli-installed-command runtime:${runtimeKey} command:${commandRef} source:${sourcePath} -->`;
+  const marker = `<!-- scriveno-cli-installed-command runtime:${runtimeKey} command:${commandRef} source:${sourcePath} -->`;
   return insertMarkerComment(content, marker);
 }
 
@@ -705,16 +705,16 @@ function generateCodexCommandContent(entry, sourceContent) {
   );
 }
 
-function isScrivenInstalledCommandFile(filePath) {
+function isScrivenoInstalledCommandFile(filePath) {
   if (!fs.existsSync(filePath)) return false;
   const content = fs.readFileSync(filePath, 'utf8');
-  return content.includes('scriven-cli-installed-command');
+  return content.includes('scriveno-cli-installed-command');
 }
 
 function cleanFlatCommandFiles(commandsDir, currentFileNames, legacyDirs = []) {
   if (!fs.existsSync(commandsDir)) return 0;
 
-  const manifestPath = path.join(commandsDir, '.scriven-installed.json');
+  const manifestPath = path.join(commandsDir, '.scriveno-installed.json');
   const manifest = readJsonIfExists(manifestPath);
   const currentFileSet = new Set(currentFileNames);
   const knownFileNames = new Set(Array.isArray(manifest?.files) ? manifest.files : []);
@@ -723,7 +723,7 @@ function cleanFlatCommandFiles(commandsDir, currentFileNames, legacyDirs = []) {
   for (const entry of fs.readdirSync(commandsDir, { withFileTypes: true })) {
     if (!entry.isFile() || !entry.name.endsWith('.md')) continue;
     const filePath = path.join(commandsDir, entry.name);
-    if (isScrivenInstalledCommandFile(filePath)) {
+    if (isScrivenoInstalledCommandFile(filePath)) {
       knownFileNames.add(entry.name);
     }
   }
@@ -752,9 +752,9 @@ function cleanFlatCommandFiles(commandsDir, currentFileNames, legacyDirs = []) {
 }
 
 function writeInstalledCommandManifest(commandsDir, runtimeKey, fileNames) {
-  const manifestPath = path.join(commandsDir, '.scriven-installed.json');
+  const manifestPath = path.join(commandsDir, '.scriveno-installed.json');
   const manifest = {
-    installer: 'scriven-cli',
+    installer: 'scriveno-cli',
     version: VERSION,
     runtime: runtimeKey,
     files: fileNames,
@@ -766,8 +766,8 @@ function writeInstalledCommandManifest(commandsDir, runtimeKey, fileNames) {
 function printHelp() {
   console.log(BANNER);
   console.log(`Usage:
-  scriven
-  scriven --runtimes codex,claude-code --global --writer --silent
+  scriveno
+  scriveno --runtimes codex,claude-code --global --writer --silent
 
 Options:
   --runtimes <list>   Comma-separated runtime keys to install (for example: codex,claude-code)
@@ -779,7 +779,7 @@ Options:
   --developer         Use developer mode
   --silent            Skip prompts and reduce output
   --help              Show this help text
-  --version           Show the Scriven package version
+  --version           Show the Scriveno package version
 
 Runtime keys:
   ${Object.keys(RUNTIMES).join(', ')}
@@ -894,7 +894,7 @@ function ask(rl, question) {
 function requireSupportedNode() {
   const major = Number.parseInt(process.versions.node.split('.')[0], 10);
   if (!Number.isInteger(major) || major < MIN_NODE_MAJOR) {
-    console.error(c('red', `Scriven's installer requires Node.js >=20.0.0. You are running ${process.versions.node}.`));
+    console.error(c('red', `Scriveno's installer requires Node.js >=20.0.0. You are running ${process.versions.node}.`));
     console.error(c('dim', 'See the repository README for the full runtime support matrix and current installer guidance.'));
     process.exit(1);
   }
@@ -1145,36 +1145,36 @@ function readSettings(dataDir) {
   return migrated;
 }
 
-function isScrivenCodexSkillDir(skillDir) {
+function isScrivenoCodexSkillDir(skillDir) {
   const skillFile = path.join(skillDir, 'SKILL.md');
   if (!fs.existsSync(skillFile)) return false;
   const content = fs.readFileSync(skillFile, 'utf8');
   return content.includes('<codex_skill_adapter>')
-    && content.includes("Execute Scriven's `")
+    && content.includes("Execute Scriveno's `")
     && content.includes('Installed command file:');
 }
 
 function cleanCodexSkillDirs(skillsDir, currentSkillNames) {
   if (!fs.existsSync(skillsDir)) return 0;
 
-  const manifestPath = path.join(skillsDir, '.scriven-installed.json');
+  const manifestPath = path.join(skillsDir, '.scriveno-installed.json');
   const manifest = readJsonIfExists(manifestPath);
   const currentSkillSet = new Set(currentSkillNames);
-  const knownScrivenSkillNames = new Set(Array.isArray(manifest?.skills) ? manifest.skills : []);
+  const knownScrivenoSkillNames = new Set(Array.isArray(manifest?.skills) ? manifest.skills : []);
 
   for (const entry of fs.readdirSync(skillsDir, { withFileTypes: true })) {
     if (!entry.isDirectory()) continue;
     const skillDir = path.join(skillsDir, entry.name);
-    if (isScrivenCodexSkillDir(skillDir)) {
-      knownScrivenSkillNames.add(entry.name);
+    if (isScrivenoCodexSkillDir(skillDir)) {
+      knownScrivenoSkillNames.add(entry.name);
     }
   }
 
   let removed = 0;
-  removePathIfExists(path.join(skillsDir, 'scriven'));
+  removePathIfExists(path.join(skillsDir, 'scriveno'));
   removePathIfExists(manifestPath);
 
-  for (const skillName of knownScrivenSkillNames) {
+  for (const skillName of knownScrivenoSkillNames) {
     if (!currentSkillSet.has(skillName)) {
       if (removePathIfExists(path.join(skillsDir, skillName))) {
         removed++;
@@ -1192,9 +1192,9 @@ function cleanCodexSkillDirs(skillsDir, currentSkillNames) {
 }
 
 function writeCodexSkillManifest(skillsDir, skillNames) {
-  const manifestPath = path.join(skillsDir, '.scriven-installed.json');
+  const manifestPath = path.join(skillsDir, '.scriveno-installed.json');
   const manifest = {
-    installer: 'scriven-cli',
+    installer: 'scriveno-cli',
     version: VERSION,
     skills: skillNames,
     generated_at: new Date().toISOString(),
@@ -1514,7 +1514,7 @@ function collectTargetDirsForSweep(runtimeKeys, isGlobal, dataDir) {
 }
 
 function runInstall({ runtimeKeys, isGlobal, developerMode, silent, installMode }) {
-  const dataDir = isGlobal ? path.join(os.homedir(), '.scriven') : path.resolve('.scriven');
+  const dataDir = isGlobal ? path.join(os.homedir(), '.scriveno') : path.resolve('.scriveno');
   const log = silent ? () => {} : (message) => console.log(message);
 
   if (!runtimeKeys.length) {
@@ -1554,7 +1554,7 @@ function runInstall({ runtimeKeys, isGlobal, developerMode, silent, installMode 
   writeSharedAssets(dataDir, runtimeKeys, isGlobal, developerMode, installMode, log);
 
   if (silent) {
-    console.log(`Installed Scriven ${VERSION} to ${runtimeKeys.join(', ')} (${isGlobal ? 'global' : 'project'}, ${developerMode ? 'developer' : 'writer'} mode).`);
+    console.log(`Installed Scriveno ${VERSION} to ${runtimeKeys.join(', ')} (${isGlobal ? 'global' : 'project'}, ${developerMode ? 'developer' : 'writer'} mode).`);
     return;
   }
 

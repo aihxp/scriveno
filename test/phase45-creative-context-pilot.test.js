@@ -277,7 +277,7 @@ describe('Phase 45: subject dynamics for non-character work', () => {
     assert.match(read('data/proof/creative-context/README.md'), /Blended character and subject artifact/);
     assert.match(read('data/proof/creative-context/README.md'), /the forged letter/);
     assert.match(read('docs/proof-artifacts.md'), /character behavior, and subject movement/);
-    assert.match(read('commands/scr/help.md'), /Scriven tracks what moves/);
+    assert.match(read('commands/scr/help.md'), /Scriveno tracks what moves/);
   });
 });
 

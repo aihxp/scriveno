@@ -34,7 +34,7 @@ If CONTEXT.md is missing, stale, or contradicts STATE.md, fall back to the origi
 Load these project files:
 
 - `.manuscript/config.json` -- to get `work_type`, title, author
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- to check `publishing_prerequisites` and export availability
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- to check `publishing_prerequisites` and export availability
 - `.manuscript/OUTLINE.md` -- to verify draft completeness
 
 **Validate preset:** Check that the `--preset` value matches a known preset name. If invalid:

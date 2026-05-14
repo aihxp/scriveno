@@ -15,9 +15,9 @@ If `N` is provided, checks only Act N against previous acts. Otherwise checks en
 
 ## Instruction
 
-Load `.manuscript/config.json` to get `work_type`. Load Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) to check command adaptations. For sacred work types, this command is called 'doctrinal-check' and should additionally verify doctrinal consistency and canonical alignment. For academic work types, this command is called 'citation-check' and should additionally verify citation consistency and reference accuracy. For technical work types, this command is called 'consistency-check' and should additionally verify terminology consistency, prerequisite order, command syntax, version references, and recovery steps. Use adapted terminology throughout all output.
+Load `.manuscript/config.json` to get `work_type`. Load Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) to check command adaptations. For sacred work types, this command is called 'doctrinal-check' and should additionally verify doctrinal consistency and canonical alignment. For academic work types, this command is called 'citation-check' and should additionally verify citation consistency and reference accuracy. For technical work types, this command is called 'consistency-check' and should additionally verify terminology consistency, prerequisite order, command syntax, version references, and recovery steps. Use adapted terminology throughout all output.
 
-Invoke the installed `continuity-checker.md` agent for the writer's active Scriven runtime (for example the runtime's global or project-scoped `agents/continuity-checker.md`) in a fresh context. Pass it:
+Invoke the installed `continuity-checker.md` agent for the writer's active Scriveno runtime (for example the runtime's global or project-scoped `agents/continuity-checker.md`) in a fresh context. Pass it:
 
 - The full set of drafted units (`.manuscript/drafts/body/{N}-{A}-DRAFT.md` files in scope -- all units, or only Act `N` and prior acts when scoped)
 - RECORD.md when present, as the compact store of established facts, open threads, promises, payoffs, and continuity obligations

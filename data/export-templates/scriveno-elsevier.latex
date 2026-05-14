@@ -1,6 +1,6 @@
-% Scriven Elsevier LaTeX Template for Pandoc --template flag
+% Scriveno Elsevier LaTeX Template for Pandoc --template flag
 % Requires elsarticle.cls (install: tlmgr install elsarticle)
-% Usage: pandoc ... --template=data/export-templates/scriven-elsevier.latex
+% Usage: pandoc ... --template=data/export-templates/scriveno-elsevier.latex
 %
 % Default class options: [preprint,12pt] for preprint; [final] for final submission.
 % Pass via Pandoc: --metadata classoption=preprint

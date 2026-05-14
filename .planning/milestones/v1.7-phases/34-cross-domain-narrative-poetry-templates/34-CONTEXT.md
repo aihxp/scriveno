@@ -10,10 +10,10 @@
 Cross-domain work types (stage play, picture book, illustrated book, Smashwords, chapbook, poetry submission) need dedicated export templates so writers in these domains can produce publication-ready output through the existing build pipeline — not just book prose.
 
 **In scope:**
-- 3 Typst templates: `scriven-stageplay.typst`, `scriven-picturebook.typst`, `scriven-chapbook.typst` in `data/export-templates/`
+- 3 Typst templates: `scriveno-stageplay.typst`, `scriveno-picturebook.typst`, `scriveno-chapbook.typst` in `data/export-templates/`
 - Fixed-layout EPUB template + OPF stub in `data/export-templates/`
-- 2 Pandoc DOCX reference docs (binary): `scriven-smashwords.docx`, `scriven-poetry-submission.docx` in `data/export-templates/`
-- 2 companion style spec files: `scriven-smashwords-styles.md`, `scriven-poetry-submission-styles.md`
+- 2 Pandoc DOCX reference docs (binary): `scriveno-smashwords.docx`, `scriveno-poetry-submission.docx` in `data/export-templates/`
+- 2 companion style spec files: `scriveno-smashwords-styles.md`, `scriveno-poetry-submission-styles.md`
 - STEP 1.8 (work-type template selection) added to `build-print.md`
 - `--fixed-layout` flag added to `build-ebook.md`
 - 2 new command files: `commands/scr/build-smashwords.md`, `commands/scr/build-poetry-submission.md`
@@ -31,7 +31,7 @@ Cross-domain work types (stage play, picture book, illustrated book, Smashwords,
 ## Implementation Decisions
 
 ### Build Command Integration
-- STEP 1.8 in `build-print.md` auto-detects work_type from config.json and maps to the correct Typst template: `stage-play → scriven-stageplay.typst`, `picture-book → scriven-picturebook.typst`, `chapbook → scriven-chapbook.typst`. Falls back to `scriven-book.typst` for all other work types. Placement: between STEP 1.7 (tradition loading) and STEP 2 (prerequisites).
+- STEP 1.8 in `build-print.md` auto-detects work_type from config.json and maps to the correct Typst template: `stage-play → scriveno-stageplay.typst`, `picture-book → scriveno-picturebook.typst`, `chapbook → scriveno-chapbook.typst`. Falls back to `scriveno-book.typst` for all other work types. Placement: between STEP 1.7 (tradition loading) and STEP 2 (prerequisites).
 - Fixed-layout EPUB uses `--fixed-layout` flag on existing `build-ebook.md` — adds an OPF generation step and uses the fixed-layout CSS/template. Auto-detects from picture-book work type when no flag given.
 - Smashwords DOCX output is a new `/scr:build-smashwords` command — distinct format (DOCX via Pandoc `--reference-doc`), distinct platform (D2D/Smashwords Style Guide compliance), distinct tool chain from EPUB/PDF.
 - Poetry submission DOCX is a new `/scr:build-poetry-submission` command — unique layout rules (1 poem per page, 12pt Times/Garamond, title page, TOC) distinct from any other build output.
@@ -39,7 +39,7 @@ Cross-domain work types (stage play, picture book, illustrated book, Smashwords,
 ### DOCX Reference Doc Approach
 - Both DOCX reference docs created via `pandoc --print-default-data-file reference.docx` then committed as binary files to `data/export-templates/`. This provides real Pandoc reference docs with correct style slots that can be used directly with `--reference-doc`.
 - Both committed binaries live in `data/export-templates/` alongside all other export templates.
-- Companion spec files (`scriven-smashwords-styles.md`, `scriven-poetry-submission-styles.md`) document the paragraph style names and formatting rules inline — helps agents customize when needed.
+- Companion spec files (`scriveno-smashwords-styles.md`, `scriveno-poetry-submission-styles.md`) document the paragraph style names and formatting rules inline — helps agents customize when needed.
 
 ### Regression Test Strategy
 - Tests are static file checks only — no build execution required (consistent with Phase 32/33 approach).
@@ -61,14 +61,14 @@ Cross-domain work types (stage play, picture book, illustrated book, Smashwords,
 ## Existing Code Insights
 
 ### Reusable Assets
-- `data/export-templates/scriven-book.typst` — analog for all 3 new Typst templates (structure, Pandoc variable placeholders, page layout approach)
-- `data/export-templates/scriven-epub.css` — analog for fixed-layout EPUB CSS
+- `data/export-templates/scriveno-book.typst` — analog for all 3 new Typst templates (structure, Pandoc variable placeholders, page layout approach)
+- `data/export-templates/scriveno-epub.css` — analog for fixed-layout EPUB CSS
 - `commands/scr/build-print.md` — STEP 1.7 insertion pattern to replicate for STEP 1.8
 - `commands/scr/build-ebook.md` — flag addition pattern (`--skip-validate` precedent for `--fixed-layout`)
 - `test/phase33-sacred-tradition-profiles.test.js` — test structure analog (node:test, describe/it, readFile helper, positional index checks)
 
 ### Established Patterns
-- Export templates: all in `data/export-templates/`, named `scriven-{type}.{ext}`
+- Export templates: all in `data/export-templates/`, named `scriveno-{type}.{ext}`
 - Build command STEPs: `## STEP N` headings, conditional logic as prose ("If X: do Y. If absent or null: skip silently.")
 - TDD wave pattern: test suite first (wave 1, RED), then implementation (waves 2+, GREEN)
 - CONSTRAINTS.json: new command files require an entry in the `commands` section

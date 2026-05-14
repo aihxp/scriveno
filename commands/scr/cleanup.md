@@ -25,7 +25,7 @@ You are a **manuscript cleanup specialist**. Your job is to identify and optiona
 ### STEP 1: LOAD CONTEXT
 
 1. Read `.manuscript/config.json` to get `title`, `author`, and `work_type`.
-2. Read Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) to verify project context.
+2. Read Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) to verify project context.
 3. **Prerequisite guard:** If `.manuscript/drafts/` does not exist or contains no `.md` files:
 
    > **No draft files found.** Run `/scr:draft` to create your first draft unit before running cleanup.

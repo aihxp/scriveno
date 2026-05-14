@@ -1,20 +1,20 @@
 # Work Types Guide
 
-Scriven adapts itself to what you're writing. When you run `/scr:new-work` and tell Scriven you're writing a novel, a screenplay, a runbook, a Quran commentary, or a research paper, it changes its vocabulary, commands, file names, and available features to match your tradition. A novel has chapters and scenes. A screenplay has acts and sequences. A runbook has procedures and steps. A Quranic text has surahs and ayahs. You never have to force your work into someone else's structure.
+Scriveno adapts itself to what you're writing. When you run `/scr:new-work` and tell Scriveno you're writing a novel, a screenplay, a runbook, a Quran commentary, or a research paper, it changes its vocabulary, commands, file names, and available features to match your tradition. A novel has chapters and scenes. A screenplay has acts and sequences. A runbook has procedures and steps. A Quranic text has surahs and ayahs. You never have to force your work into someone else's structure.
 
-This guide covers all 50 work types Scriven supports, organized into 9 groups.
+This guide covers all 50 work types Scriveno supports, organized into 9 groups.
 
-## How Work Types Adapt Scriven
+## How Work Types Adapt Scriveno
 
-When you set a work type (via `/scr:new-work --type <work_type>` or during onboarding), Scriven adapts in four ways:
+When you set a work type (via `/scr:new-work --type <work_type>` or during onboarding), Scriveno adapts in four ways:
 
 ### 1. Hierarchy vocabulary
 
-Every work type defines a three-level structural hierarchy: **top level**, **mid level**, and **atomic unit**. A novel's hierarchy is part > chapter > scene. A screenplay's is act > sequence > scene. A Torah project's is chumash > parashah > pasuk. Scriven uses these terms everywhere -- in commands, outlines, progress reports, and file names.
+Every work type defines a three-level structural hierarchy: **top level**, **mid level**, and **atomic unit**. A novel's hierarchy is part > chapter > scene. A screenplay's is act > sequence > scene. A Torah project's is chumash > parashah > pasuk. Scriveno uses these terms everywhere -- in commands, outlines, progress reports, and file names.
 
 ### 2. Command terminology
 
-Scriven adapts the vocabulary around a command to match your domain. `/scr:draft` talks about drafting a surah for Quranic work, an act for screenplays, a section for research papers, and a procedure for runbooks. Some commands also get domain-specific labels in help and output when that base command is available for the current group -- for example, `voice-check` is presented as `register-check` for sacred work types, and `plot-graph` is presented as `procedure-map` for technical work. See the [Command Adaptations](#command-adaptations) section below.
+Scriveno adapts the vocabulary around a command to match your domain. `/scr:draft` talks about drafting a surah for Quranic work, an act for screenplays, a section for research papers, and a procedure for runbooks. Some commands also get domain-specific labels in help and output when that base command is available for the current group -- for example, `voice-check` is presented as `register-check` for sacred work types, and `plot-graph` is presented as `procedure-map` for technical work. See the [Command Adaptations](#command-adaptations) section below.
 
 ### 3. File names
 
@@ -22,11 +22,11 @@ Context files rename per group. The default `CHARACTERS.md` becomes `FIGURES.md`
 
 ### 4. Available commands
 
-Not every command makes sense for every work type. Poetry collections don't need `/scr:subplot-map`. Academic papers don't need `/scr:dialogue-audit`. Runbooks don't need query-package exports. Scriven hides irrelevant commands and shows only what applies to your work type. Sacred work types get 8 exclusive commands (concordance, cross-reference, genealogy, etc.) that don't appear for other groups.
+Not every command makes sense for every work type. Poetry collections don't need `/scr:subplot-map`. Academic papers don't need `/scr:dialogue-audit`. Runbooks don't need query-package exports. Scriveno hides irrelevant commands and shows only what applies to your work type. Sacred work types get 8 exclusive commands (concordance, cross-reference, genealogy, etc.) that don't appear for other groups.
 
 ## Work Type Groups
 
-Scriven organizes its 50 work_types into 9 groups. Each group shares command adaptations and file naming conventions.
+Scriveno organizes its 50 work_types into 9 groups. Each group shares command adaptations and file naming conventions.
 
 ### Prose
 
@@ -34,7 +34,7 @@ Traditional narrative and nonfiction forms. This is the largest group, covering 
 
 **Members:** Novel, Novella, Short Story, Flash Fiction, Memoir, Creative Nonfiction, Biography, Essay, Essay Collection
 
-Prose work types use the default command names and file names. Most Scriven features are available to prose.
+Prose work types use the default command names and file names. Most Scriveno features are available to prose.
 
 ### Script
 
@@ -206,7 +206,7 @@ Sacred scriptures (Biblical, Quranic, Torah, Vedic, Buddhist, Generic) have no m
 
 ## Complete Work Type Table
 
-Every work type Scriven supports, with its group and structural hierarchy. Data sourced from `data/CONSTRAINTS.json`.
+Every work type Scriveno supports, with its group and structural hierarchy. Data sourced from `data/CONSTRAINTS.json`.
 
 | Work Type | Group | Top Level | Mid Level | Atomic Unit | Command Unit |
 |-----------|-------|-----------|-----------|-------------|--------------|
@@ -311,7 +311,7 @@ Sacred-specific workflows like chronology, doctrinal review, and verse numbering
 
 ## Choosing Your Work Type
 
-When you run `/scr:new-work`, Scriven asks what you're writing and picks the best work type from your answer. You can also set it explicitly:
+When you run `/scr:new-work`, Scriveno asks what you're writing and picks the best work type from your answer. You can also set it explicitly:
 
 ```
 /scr:new-work --type screenplay
@@ -334,6 +334,6 @@ Your work type is stored in `.manuscript/config.json` and can be changed later b
 
 ## See Also
 
-- [Getting Started](getting-started.md) -- Install Scriven and write your first draft
+- [Getting Started](getting-started.md) -- Install Scriveno and write your first draft
 - [Command Reference](command-reference.md) -- Full list of all 112 commands with usage and examples
-- [Voice DNA Guide](voice-dna.md) -- How Scriven profiles and preserves your writing voice
+- [Voice DNA Guide](voice-dna.md) -- How Scriveno profiles and preserves your writing voice

@@ -5,7 +5,7 @@ argument-hint: "[unit number, optional]"
 
 # Discuss {unit}
 
-You are in the **discuss phase** of the Scriven workflow. Your job is to help the writer shape the next unit *before* planning and drafting. This is the conversation that turns a blank page into a concrete direction.
+You are in the **discuss phase** of the Scriveno workflow. Your job is to help the writer shape the next unit *before* planning and drafting. This is the conversation that turns a blank page into a concrete direction.
 
 ## Adaptive naming
 

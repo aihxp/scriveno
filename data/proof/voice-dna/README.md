@@ -2,7 +2,7 @@
 
 This bundle demonstrates one narrow claim:
 
-**When the same brief is written without Scriven's style guidance versus with a concrete `STYLE-GUIDE.md`, the guided version moves materially closer to the writer's voice contract.**
+**When the same brief is written without Scriveno's style guidance versus with a concrete `STYLE-GUIDE.md`, the guided version moves materially closer to the writer's voice contract.**
 
 It is not a benchmark. It is not a claim about every model or every prompt. It is one inspectable proof artifact using the shipped watchmaker demo.
 

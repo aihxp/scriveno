@@ -9,11 +9,11 @@ const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
 
 describe('package.json fields', () => {
   it('has correct name', () => {
-    assert.equal(pkg.name, 'scriven-cli');
+    assert.equal(pkg.name, 'scriveno-cli');
   });
 
   it('has bin entry pointing to install.js', () => {
-    assert.equal(pkg.bin.scriven, 'bin/install.js');
+    assert.equal(pkg.bin.scriveno, 'bin/install.js');
   });
 
   it('has engines field', () => {
@@ -115,9 +115,9 @@ describe('npm pack dry-run', () => {
 
   it('includes currently shipped export templates', () => {
     const expectedEntries = [
-      'data/export-templates/scriven-book.typst',
-      'data/export-templates/scriven-epub.css',
-      'data/export-templates/scriven-academic.latex',
+      'data/export-templates/scriveno-book.typst',
+      'data/export-templates/scriveno-epub.css',
+      'data/export-templates/scriveno-academic.latex',
     ];
 
     for (const entry of expectedEntries) {

@@ -6,7 +6,7 @@
 <domain>
 ## Phase Boundary
 
-Phase 35 delivers five thin LaTeX wrapper templates (IEEEtran, acmart, llncs, elsarticle, apa7) that route Scriven's voice/metadata frontmatter through a `\documentclass{<publisher-class>}` without redistributing the publisher class. The writer provides the TeX distribution (TeX Live / MiKTeX); Scriven provides the wiring. The `build-print` command gains an academic publisher route: `--platform ieee|acm|lncs|elsevier|apa7` invokes Pandoc with the appropriate wrapper template and produces a `.tex` file the writer compiles locally. Pre-flight class detection (kpsewhich) produces install-guidance errors before any LaTeX compilation is attempted.
+Phase 35 delivers five thin LaTeX wrapper templates (IEEEtran, acmart, llncs, elsarticle, apa7) that route Scriveno's voice/metadata frontmatter through a `\documentclass{<publisher-class>}` without redistributing the publisher class. The writer provides the TeX distribution (TeX Live / MiKTeX); Scriveno provides the wiring. The `build-print` command gains an academic publisher route: `--platform ieee|acm|lncs|elsevier|apa7` invokes Pandoc with the appropriate wrapper template and produces a `.tex` file the writer compiles locally. Pre-flight class detection (kpsewhich) produces install-guidance errors before any LaTeX compilation is attempted.
 
 </domain>
 
@@ -15,14 +15,14 @@ Phase 35 delivers five thin LaTeX wrapper templates (IEEEtran, acmart, llncs, el
 
 ### Invocation UX
 - Writer targets a publisher class via `--platform ieee|acm|lncs|elsevier|apa7` — extends the existing `--platform` flag in `build-print.md`; no new command or flag surface needed
-- Command produces a `.tex` file only (`.manuscript/output/paper-ieee.tex`) — writer compiles with their own TeX Live; Scriven does not attempt pdflatex
+- Command produces a `.tex` file only (`.manuscript/output/paper-ieee.tex`) — writer compiles with their own TeX Live; Scriveno does not attempt pdflatex
 - Output named `paper-{platform}.tex` — parallel to `print-{platform}.pdf` convention
 - `academic` work type group is added to `build_print.available` in CONSTRAINTS.json — but only valid when platform is one of the 5 academic publisher values
 
 ### Wrapper Template Design
-- File naming: `scriven-ieee.latex`, `scriven-acm.latex`, `scriven-lncs.latex`, `scriven-elsevier.latex`, `scriven-apa7.latex` — short names, parallel to `scriven-book.typst`
+- File naming: `scriveno-ieee.latex`, `scriveno-acm.latex`, `scriveno-lncs.latex`, `scriveno-elsevier.latex`, `scriveno-apa7.latex` — short names, parallel to `scriveno-book.typst`
 - Minimal wrapper scope: each wrapper contains only `\documentclass{<CLASS>}` + standard Pandoc boilerplate (body, title, author, abstract, keywords, date, bibliography via CSL, CSL ref macros). Publisher class handles all layout/formatting.
-- Core metadata bridge: title, author, abstract, keywords, date, bibliography — same fields as existing `scriven-academic.latex`. No publisher-specific extensions (affiliation, ORCID) in this phase.
+- Core metadata bridge: title, author, abstract, keywords, date, bibliography — same fields as existing `scriveno-academic.latex`. No publisher-specific extensions (affiliation, ORCID) in this phase.
 
 ### Missing Class Detection
 - Detection mechanism: `kpsewhich IEEEtran.cls` (or equivalent for each class) before producing the `.tex` file — pre-flight check gives a clean, actionable error instead of a mid-build LaTeX failure
@@ -40,7 +40,7 @@ Phase 35 delivers five thin LaTeX wrapper templates (IEEEtran, acmart, llncs, el
 ## Existing Code Insights
 
 ### Reusable Assets
-- `data/export-templates/scriven-academic.latex` — existing generic Pandoc template using `\documentclass{article}`. The 5 new wrappers follow the same Pandoc template syntax but swap the document class and strip generic preamble that the publisher class handles itself.
+- `data/export-templates/scriveno-academic.latex` — existing generic Pandoc template using `\documentclass{article}`. The 5 new wrappers follow the same Pandoc template syntax but swap the document class and strip generic preamble that the publisher class handles itself.
 - `commands/scr/build-print.md` — existing build-print command. STEP 1.8 (work-type template selection) is the extension point for LaTeX routing. STEP 2 (prerequisite checks) is the extension point for kpsewhich / TeX detection.
 - `data/CONSTRAINTS.json` — `exports.build_print.available` list and `work_type_groups.academic` membership are the two keys to update.
 
@@ -55,7 +55,7 @@ Phase 35 delivers five thin LaTeX wrapper templates (IEEEtran, acmart, llncs, el
 - `build-print.md` STEP 2: add kpsewhich detection (and TeX distribution detection as fallback)
 - `build-print.md` STEP 2.5: add `ieee`, `acm`, `lncs`, `elsevier`, `apa7` as valid platform values, flag them as "LaTeX academic platforms" (not EPUB-only)
 - `build-print.md` STEP 1.8: add academic platform branch — if platform is one of 5 academic values, skip Typst template selection and record LaTeX wrapper path
-- `build-print.md` STEP 4: add LaTeX route branch — when academic platform, invoke Pandoc with `--template=scriven-ieee.latex` (etc.) and output `.tex` instead of calling Pandoc's `--pdf-engine=typst`
+- `build-print.md` STEP 4: add LaTeX route branch — when academic platform, invoke Pandoc with `--template=scriveno-ieee.latex` (etc.) and output `.tex` instead of calling Pandoc's `--pdf-engine=typst`
 - `data/CONSTRAINTS.json`: add `academic` to `exports.build_print.available`
 
 </code_context>
@@ -70,7 +70,7 @@ Phase 35 delivers five thin LaTeX wrapper templates (IEEEtran, acmart, llncs, el
   - elsarticle.cls → `tlmgr install elsarticle`
   - apa7.cls → `tlmgr install apa7`
 - llncs edge case: Springer LNCS class is sometimes not in TeX Live; error message should note this and link to Springer's author download page as an alternative to tlmgr
-- The existing `scriven-academic.latex` remains unchanged — it's for general academic export, not publisher-specific submission
+- The existing `scriveno-academic.latex` remains unchanged — it's for general academic export, not publisher-specific submission
 
 </specifics>
 

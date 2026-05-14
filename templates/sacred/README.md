@@ -1,6 +1,6 @@
 # Sacred Tradition Profiles
 
-This directory is the drop-in extension point for sacred tradition profiles. Each subdirectory ships as a self-contained profile; Scriven's runtime reads the directory listing at load time -- no core-template edits are required to add a tradition.
+This directory is the drop-in extension point for sacred tradition profiles. Each subdirectory ships as a self-contained profile; Scriveno's runtime reads the directory listing at load time -- no core-template edits are required to add a tradition.
 
 ## Adding a new tradition
 

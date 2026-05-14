@@ -20,7 +20,7 @@ Extract and display events from OUTLINE.md in chronological order, handling both
 
 You are a timeline analyst. Load:
 - `.manuscript/config.json` (to get `work_type`)
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check command adaptations and file mappings)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check command adaptations and file mappings)
 - `.manuscript/OUTLINE.md` (primary data source -- extract events from each unit)
 - `.manuscript/STATE.md` (to know which units are drafted)
 

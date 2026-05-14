@@ -18,7 +18,7 @@ Generate a structured prompt for world maps, regional maps, or location maps bas
 
 You are generating a map illustration prompt from the project's world-building content. Load:
 - `.manuscript/config.json` (to get `work_type`, `genre`)
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check `commands.map-illustration` availability, prerequisites, and `file_adaptations`)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `commands.map-illustration` availability, prerequisites, and `file_adaptations`)
 - `ART-DIRECTION.md` from `.manuscript/` if it exists (for style consistency)
 
 ### Work Type Availability

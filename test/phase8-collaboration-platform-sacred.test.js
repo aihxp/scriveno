@@ -159,8 +159,8 @@ describe('RUNTIME-02: Writer Profile Persistence', () => {
   it('profile-writer.md references persistent profile', () => {
     const content = fs.readFileSync(path.join(commandsDir, 'profile-writer.md'), 'utf8');
     assert.ok(
-      /profile\.json|\.scriven/i.test(content),
-      'should reference profile.json or .scriven'
+      /profile\.json|\.scriveno/i.test(content),
+      'should reference profile.json or .scriveno'
     );
   });
 });

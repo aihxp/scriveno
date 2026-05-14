@@ -5,7 +5,7 @@ argument-hint: "[--init] [--import <work_path>] [--check] [--timeline] [--charac
 
 # Series bible
 
-You are managing the series bible -- a global knowledge base that spans multiple books in a series. Unlike project-local files, the series bible lives at `~/.scriven/series/{series_name}/SERIES-BIBLE.md` so it's shared across all books in the series.
+You are managing the series bible -- a global knowledge base that spans multiple books in a series. Unlike project-local files, the series bible lives at `~/.scriveno/series/{series_name}/SERIES-BIBLE.md` so it's shared across all books in the series.
 
 ## Modes
 
@@ -35,11 +35,11 @@ Then import from the current project's context files:
 - Extract themes and motifs from THEMES.md
 - Record the current book as Book 1 in the series
 
-Save to `~/.scriven/series/{name}/SERIES-BIBLE.md` and add a reference in the current project's config.json: `"series": "{name}"`.
+Save to `~/.scriveno/series/{name}/SERIES-BIBLE.md` and add a reference in the current project's config.json: `"series": "{name}"`.
 
 ### --import <work_path>
 
-Import another Scriven project into the existing series bible. Merge:
+Import another Scriveno project into the existing series bible. Merge:
 - Characters not yet in the bible -> add as "appeared in Book N"
 - Existing character updates -> add state changes (e.g., "Sarah married Marcus in Book 3")
 - New world rules -> add unless they contradict existing rules (flag conflicts)

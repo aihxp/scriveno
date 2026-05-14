@@ -9,12 +9,12 @@
 
 Milestone `v1.1 Generic Platform Support` was a focused extension milestone. It took the broad multi-runtime surface delivered in `v1.0` and removed the assumption that every target runtime has a writable command directory. The result was a generic `SKILL.md` installer path for skill-file platforms.
 
-This milestone contains only `Phase 9`, but it matters disproportionately because it kept Scriven from being locked to a narrow set of agent hosts.
+This milestone contains only `Phase 9`, but it matters disproportionately because it kept Scriveno from being locked to a narrow set of agent hosts.
 
 ## 2. Architecture & Technical Decisions
 
 - **Decision:** Support skill-file platforms through a consolidated `SKILL.md` manifest.
-  - **Why:** Some hosts can load a skill or manifest file even when they do not expose Scriven-style command directories.
+  - **Why:** Some hosts can load a skill or manifest file even when they do not expose Scriveno-style command directories.
   - **Phase:** Phase 9
 - **Decision:** Classify installer targets by runtime type rather than treating all hosts as equivalent.
   - **Why:** Command-directory runtimes and skill-file runtimes need different installation strategies.
@@ -33,17 +33,17 @@ This milestone contains only `Phase 9`, but it matters disproportionately becaus
 
 The roadmap records all `PLAT-01` through `PLAT-06` requirements as shipped in Phase `9`.
 
-- ✅ Skill-file platforms can install Scriven through a generated `SKILL.md` manifest
+- ✅ Skill-file platforms can install Scriveno through a generated `SKILL.md` manifest
 - ✅ The installer routes between command-directory and skill-file strategies
 - ✅ Tests were added for the generic installer path
 
-Audit verdict: no standalone archived milestone audit is retained for `v1.1` in this workspace. The phase directory for `09-generic-platform-support` is an archive stub, so this summary is based on the shipped roadmap plus [PROJECT.md](/Users/hprincivil/Projects/scriven/.planning/PROJECT.md).
+Audit verdict: no standalone archived milestone audit is retained for `v1.1` in this workspace. The phase directory for `09-generic-platform-support` is an archive stub, so this summary is based on the shipped roadmap plus [PROJECT.md](/Users/hprincivil/Projects/scriveno/.planning/PROJECT.md).
 
 ## 5. Key Decisions Log
 
 - Generic platform support should be built into the installer, not treated as out-of-band documentation.
 - Runtime classification matters because “supported target” does not always mean “same install shape.”
-- Scriven should keep expanding portability without compromising the markdown-first architecture.
+- Scriveno should keep expanding portability without compromising the markdown-first architecture.
 
 ## 6. Tech Debt & Deferred Items
 
@@ -52,10 +52,10 @@ Audit verdict: no standalone archived milestone audit is retained for `v1.1` in 
 
 ## 7. Getting Started
 
-- **Run the project:** `npx scriven-cli@latest`
-- **Key directories:** [bin/install.js](/Users/hprincivil/Projects/scriven/bin/install.js), [data/CONSTRAINTS.json](/Users/hprincivil/Projects/scriven/data/CONSTRAINTS.json), [docs/runtime-support.md](/Users/hprincivil/Projects/scriven/docs/runtime-support.md)
+- **Run the project:** `npx scriveno-cli@latest`
+- **Key directories:** [bin/install.js](/Users/hprincivil/Projects/scriveno/bin/install.js), [data/CONSTRAINTS.json](/Users/hprincivil/Projects/scriveno/data/CONSTRAINTS.json), [docs/runtime-support.md](/Users/hprincivil/Projects/scriveno/docs/runtime-support.md)
 - **Tests:** `npm test`
-- **Where to look first:** the Phase `9` section in [ROADMAP.md](/Users/hprincivil/Projects/scriven/.planning/ROADMAP.md) and the runtime installer registry in [install.js](/Users/hprincivil/Projects/scriven/bin/install.js)
+- **Where to look first:** the Phase `9` section in [ROADMAP.md](/Users/hprincivil/Projects/scriveno/.planning/ROADMAP.md) and the runtime installer registry in [install.js](/Users/hprincivil/Projects/scriveno/bin/install.js)
 
 ---
 

@@ -25,7 +25,7 @@ You are computing and displaying manuscript statistics. Read the project's draft
    - `title` -- the manuscript title
    - `author` -- the author name
    - `work_type` -- the work type (novel, memoir, screenplay, etc.)
-2. Read Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) to get the structural hierarchy names for this work type (e.g., "chapter", "scene").
+2. Read Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) to get the structural hierarchy names for this work type (e.g., "chapter", "scene").
 3. Read `.manuscript/OUTLINE.md` to get:
    - Total unit count (count all atomic-level units listed in the outline)
    - Unit names/titles for the `--detail` display

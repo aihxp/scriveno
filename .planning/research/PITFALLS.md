@@ -36,7 +36,7 @@ While the current regex `(.+)` does capture everything after `key:\s*` correctly
 Hand-rolled YAML generation without a proper escaping function. The `readFrontmatterValue` + `stripWrappingQuotes` pipeline handles simple cases but the read and write escaping rules are different. Reading strips quotes; writing must add them with correct internal escaping. These two paths were built separately.
 
 **How to avoid:**
-1. For *reading*: extract the frontmatter block, then parse key-value pairs aware of YAML quoting rules. Do NOT add a full YAML library (violates zero-dependency constraint). A focused parser covering the three value forms Scriven actually uses (plain scalars, single-quoted, double-quoted) is sufficient and can be under 40 lines.
+1. For *reading*: extract the frontmatter block, then parse key-value pairs aware of YAML quoting rules. Do NOT add a full YAML library (violates zero-dependency constraint). A focused parser covering the three value forms Scriveno actually uses (plain scalars, single-quoted, double-quoted) is sufficient and can be under 40 lines.
 2. For *writing*: build a single `yamlQuote(value)` utility that always double-quotes and properly escapes `\`, `"`, and newlines within the value. Use this in `generateCodexSkill` and `markInstalledCommand`.
 3. Fix both read and write paths together so the round-trip is tested end-to-end.
 
@@ -56,15 +56,15 @@ Phase 1 (frontmatter parsing hardening). Must fix both read and write paths toge
 `writeSharedAssets` (line 922) does `removePathIfExists(path.join(dataDir, 'templates'))` and `removePathIfExists(path.join(dataDir, 'data'))` followed by a fresh copy. Then it writes `settings.json` with a fresh object (lines 931-942). If a user has customized templates, added their own files to the data directory, or modified settings.json with personal preferences, all of it is destroyed on every reinstall or upgrade.
 
 **Why it happens:**
-The current installer treats every install as a clean install. There is no concept of "Scriven-owned files" vs "user-owned files" in the templates and data directories. The settings.json is always overwritten wholesale with no merge logic.
+The current installer treats every install as a clean install. There is no concept of "Scriveno-owned files" vs "user-owned files" in the templates and data directories. The settings.json is always overwritten wholesale with no merge logic.
 
 **How to avoid:**
-1. **Templates and data**: Use the same manifest-based ownership tracking already implemented for commands (`.scriven-installed.json`). Before replacing the templates directory, compare against the manifest. Files not in the manifest are user-owned and must be preserved. Files in the manifest can be safely updated.
-2. **Settings**: Read the existing settings.json first, deep-merge Scriven-managed keys (`version`, `runtime`, `runtimes`, `scope`, `install_mode`, `installed_at`) while preserving any user-added keys. Never delete keys that Scriven did not create.
-3. **Defensive merge**: Use a whitelist of Scriven-owned keys rather than a blacklist of user keys. New Scriven keys get added; unknown keys pass through untouched.
+1. **Templates and data**: Use the same manifest-based ownership tracking already implemented for commands (`.scriveno-installed.json`). Before replacing the templates directory, compare against the manifest. Files not in the manifest are user-owned and must be preserved. Files in the manifest can be safely updated.
+2. **Settings**: Read the existing settings.json first, deep-merge Scriveno-managed keys (`version`, `runtime`, `runtimes`, `scope`, `install_mode`, `installed_at`) while preserving any user-added keys. Never delete keys that Scriveno did not create.
+3. **Defensive merge**: Use a whitelist of Scriveno-owned keys rather than a blacklist of user keys. New Scriveno keys get added; unknown keys pass through untouched.
 
 **Warning signs:**
-- Users reporting lost customizations after running `npx scriven-cli@latest`
+- Users reporting lost customizations after running `npx scriveno-cli@latest`
 - Settings reverting to defaults after upgrade
 - Custom templates disappearing after reinstall
 
@@ -76,7 +76,7 @@ Phase 3 (settings preservation). But the manifest pattern must be designed in Ph
 ### Pitfall 4: Schema validation rejects valid old configs on upgrade
 
 **What goes wrong:**
-Adding strict schema validation to settings.json means that settings files written by older Scriven versions (which lack newly added fields, or have fields in old formats) fail validation on read. The user upgrades Scriven from v1.5 to v1.6, and their existing installation breaks because the old settings.json does not conform to the new schema.
+Adding strict schema validation to settings.json means that settings files written by older Scriveno versions (which lack newly added fields, or have fields in old formats) fail validation on read. The user upgrades Scriveno from v1.5 to v1.6, and their existing installation breaks because the old settings.json does not conform to the new schema.
 
 **Why it happens:**
 Validation is implemented as "reject if schema does not match" rather than "migrate then validate." The schema is treated as a gate rather than a contract with versioned evolution.
@@ -89,32 +89,32 @@ Validation is implemented as "reject if schema does not match" rather than "migr
 
 **Warning signs:**
 - Upgrade from v1.5 to v1.6 causes "invalid settings" errors
-- `--detected` reinstalls break on machines with older Scriven data
-- CI pipelines installing Scriven over an existing installation fail unexpectedly
+- `--detected` reinstalls break on machines with older Scriveno data
+- CI pipelines installing Scriveno over an existing installation fail unexpectedly
 
 **Phase to address:**
-Phase 4 (schema validation). Must be implemented after settings preservation (Phase 3) since the migration logic depends on understanding what fields are Scriven-owned vs user-added.
+Phase 4 (schema validation). Must be implemented after settings preservation (Phase 3) since the migration logic depends on understanding what fields are Scriveno-owned vs user-added.
 
 ---
 
 ### Pitfall 5: Atomic write with orphaned temp files on crash
 
 **What goes wrong:**
-The standard atomic-write pattern is: write to a temp file in the same directory, then `fs.renameSync` to the target path. If the process is killed between creating the temp file and renaming it, the temp file persists. On repeated installs, these accumulate as orphan files in user-visible directories like `~/.claude/commands/` or `~/.scriven/`.
+The standard atomic-write pattern is: write to a temp file in the same directory, then `fs.renameSync` to the target path. If the process is killed between creating the temp file and renaming it, the temp file persists. On repeated installs, these accumulate as orphan files in user-visible directories like `~/.claude/commands/` or `~/.scriveno/`.
 
 **Why it happens:**
 `fs.renameSync` is atomic on the same filesystem, but nothing cleans up temp files from prior failed runs. The current installer (line 658) uses bare `fs.copyFileSync` and `fs.writeFileSync` with no temp-file intermediary, so adding atomic writes introduces a new failure mode that did not previously exist.
 
 **How to avoid:**
-1. Use a deterministic temp file naming scheme based on target path (e.g., `${targetPath}.scriven-tmp`) so the next install run can detect and clean orphans before writing.
-2. Add a cleanup step at the start of each install function that removes any `*.scriven-tmp` files in the target directory.
+1. Use a deterministic temp file naming scheme based on target path (e.g., `${targetPath}.scriveno-tmp`) so the next install run can detect and clean orphans before writing.
+2. Add a cleanup step at the start of each install function that removes any `*.scriveno-tmp` files in the target directory.
 3. Use `try/finally` around the write+rename to clean up on caught exceptions (does not help with SIGKILL, but covers most cases).
 4. The cleanup-on-next-run pattern handles the SIGKILL case.
 
 **Warning signs:**
-- `.scriven-tmp` files appearing in command directories after interrupted installs
+- `.scriveno-tmp` files appearing in command directories after interrupted installs
 - Users reporting "extra files" in their `.claude/commands/` directory
-- Disk space accumulation in `.scriven/` from repeated failed installs
+- Disk space accumulation in `.scriveno/` from repeated failed installs
 
 **Phase to address:**
 Phase 2 (atomic file writes). Orphan cleanup must be part of the atomic write implementation, not a separate phase.
@@ -130,7 +130,7 @@ Phase 2 (atomic file writes). Orphan cleanup must be part of the atomic write im
 Developers test on macOS where `/tmp` is a symlink to `/private/tmp` on the same volume. They write temp files to `os.tmpdir()` for "cleanliness" without realizing it breaks cross-filesystem rename.
 
 **How to avoid:**
-Always write the temp file in the *same directory* as the target file. Never use `os.tmpdir()` for atomic-write temp files. The temp file path should be `path.join(path.dirname(targetPath), '.scriven-tmp-' + path.basename(targetPath))`.
+Always write the temp file in the *same directory* as the target file. Never use `os.tmpdir()` for atomic-write temp files. The temp file path should be `path.join(path.dirname(targetPath), '.scriveno-tmp-' + path.basename(targetPath))`.
 
 **Warning signs:**
 - `EXDEV: cross-device link not permitted` errors in CI or on Linux
@@ -202,7 +202,7 @@ Phase 4 (schema validation). Design the read pipeline so migration always preced
 The current installer pattern is: `removePathIfExists(dir)` then `copyDir(src, dir)`. Between these two calls, the directory does not exist. If a concurrent reader (the AI agent runtime reading command files) accesses the directory during this window, it gets `ENOENT` and shows the user an error or missing commands. The window is typically milliseconds, but on slow I/O or large command sets, it can be noticeable.
 
 **Why it happens:**
-The delete-then-recreate pattern is the simplest way to ensure a clean state. It works for single-process batch operations but fails when readers are concurrent (which they always are -- the AI agent is running while the user reinstalls Scriven).
+The delete-then-recreate pattern is the simplest way to ensure a clean state. It works for single-process batch operations but fails when readers are concurrent (which they always are -- the AI agent is running while the user reinstalls Scriveno).
 
 **How to avoid:**
 Two options:
@@ -224,20 +224,20 @@ Phase 2 (atomic file writes). This is a natural consequence of making writes ato
 ### Pitfall 10: Manifest drift between code and disk
 
 **What goes wrong:**
-The `.scriven-installed.json` manifest tracks which files Scriven owns. If a bug in the installer writes a file but fails to record it in the manifest, that file becomes an orphan that no future install will clean up. Conversely, if the manifest lists a file that was never written (crash between manifest write and file write), the cleanup logic will try to delete a nonexistent file (harmless) but will also skip cleaning up the actual stale file (harmful).
+The `.scriveno-installed.json` manifest tracks which files Scriveno owns. If a bug in the installer writes a file but fails to record it in the manifest, that file becomes an orphan that no future install will clean up. Conversely, if the manifest lists a file that was never written (crash between manifest write and file write), the cleanup logic will try to delete a nonexistent file (harmless) but will also skip cleaning up the actual stale file (harmful).
 
 **Why it happens:**
 The manifest is written as a separate step from the file writes. The order matters: if the manifest is written first (before files), a crash leaves a manifest claiming files that do not exist. If files are written first (before manifest), a crash leaves files that no future manifest will track.
 
 **How to avoid:**
-1. Write all files first, manifest last. This ensures that a crash before manifest write means the next install sees no manifest, treats all Scriven-marker files as candidates for cleanup (the `isScrivenInstalledCommandFile` check already handles this), and writes a fresh manifest.
+1. Write all files first, manifest last. This ensures that a crash before manifest write means the next install sees no manifest, treats all Scriveno-marker files as candidates for cleanup (the `isScrivenoInstalledCommandFile` check already handles this), and writes a fresh manifest.
 2. On read, treat manifest entries for missing files as stale (silently ignore), not as errors.
 3. The existing code already does this correctly for Claude commands (writes files, then calls `writeInstalledCommandManifest`). Ensure all new manifest-tracked directories follow the same order.
 
 **Warning signs:**
 - Stale files accumulating across upgrades that are never cleaned up
 - Manifest listing files that do not exist on disk
-- Orphan files in runtime directories that do not have the `scriven-cli-installed-command` marker
+- Orphan files in runtime directories that do not have the `scriveno-cli-installed-command` marker
 
 **Phase to address:**
 Phase 3 (settings preservation). The manifest pattern is extended to templates and data in this phase; getting the write order right is critical.
@@ -262,7 +262,7 @@ Phase 3 (settings preservation). The manifest pattern is extended to templates a
 | `cleanFlatCommandFiles` to `writeInstalledCommandManifest` | Writing the manifest before writing all files, so a crash leaves a manifest claiming files that do not exist | Write all files first, manifest last. On read, silently ignore manifest entries for missing files |
 | `removePathIfExists` to `copyDir` | Nuking the entire directory then re-copying, creating a window where the directory does not exist | Write new files alongside old ones, then remove stale files (the Claude install path already does this correctly) |
 | Settings read to schema validation to install behavior | Validation rejecting old settings before migration can run | Raw read then migrate then validate then use. Never validate before migrating |
-| Atomic write temp files to directory cleanup | Cleanup logic treating `.scriven-tmp-*` files as real content | Exclude temp file name patterns from all directory-walking and cleanup functions |
+| Atomic write temp files to directory cleanup | Cleanup logic treating `.scriveno-tmp-*` files as real content | Exclude temp file name patterns from all directory-walking and cleanup functions |
 
 ## UX Pitfalls
 
@@ -278,11 +278,11 @@ Phase 3 (settings preservation). The manifest pattern is extended to templates a
 - [ ] **Frontmatter parsing:** Parses only the YAML frontmatter block, not body content -- verify with a command file that has `description:` in its body text at column zero
 - [ ] **Frontmatter colon handling:** Correctly reads `description: "Voice profiling: 15+ dimensions"` -- verify with a value containing a colon after the key's colon
 - [ ] **YAML generation round-trip:** A description read from frontmatter and written into a Codex SKILL.md produces valid YAML -- verify by parsing the generated SKILL.md with a YAML parser
-- [ ] **Atomic writes:** Cleans up orphaned temp files from prior crashed installs -- verify by creating a `.scriven-tmp-*` file in target dir and running install
+- [ ] **Atomic writes:** Cleans up orphaned temp files from prior crashed installs -- verify by creating a `.scriveno-tmp-*` file in target dir and running install
 - [ ] **Atomic writes:** Temp files are written in the same directory as the target, not in `os.tmpdir()` -- verify by checking the temp file path construction
 - [ ] **Settings preservation:** Preserves user-added keys in settings.json -- verify by adding a custom key, reinstalling, and checking it survives
 - [ ] **Settings preservation:** Preserves user-modified templates -- verify by modifying a template, reinstalling, and checking the modification survives
-- [ ] **Schema validation:** Accepts settings.json from the previous Scriven version without error -- verify by writing a v1.5-era settings.json and running v1.6 install over it
+- [ ] **Schema validation:** Accepts settings.json from the previous Scriveno version without error -- verify by writing a v1.5-era settings.json and running v1.6 install over it
 - [ ] **Schema validation:** Preserves unknown keys (open schema) -- verify by adding `"my_custom_key": true` to settings.json and checking it survives validation
 - [ ] **Schema validation:** Migration runs before validation, not after -- verify by checking the function call order in the read pipeline
 - [ ] **Command-ref rewriting:** Produces correct invocations for each runtime -- verify by installing to Claude Code, Codex, Cursor, and Gemini CLI and checking help output
@@ -292,13 +292,13 @@ Phase 3 (settings preservation). The manifest pattern is extended to templates a
 
 | Pitfall | Recovery Cost | Recovery Steps |
 |---------|---------------|----------------|
-| Orphaned temp files | LOW | Add a cleanup sweep at install start that removes `*.scriven-tmp` files from all target directories |
+| Orphaned temp files | LOW | Add a cleanup sweep at install start that removes `*.scriveno-tmp` files from all target directories |
 | Corrupted settings.json | LOW | Delete settings.json and re-run installer; it regenerates fresh settings |
 | Lost user customizations | HIGH | No automatic recovery. User must redo customizations from memory or version control. Prevention is the only strategy |
 | Malformed Codex SKILL.md | MEDIUM | Re-run installer; all SKILL.md files are regenerated. But users may not realize the skill is broken until they try to use it |
 | Wrong command-ref invocations | LOW | Re-run installer with the correct `--runtimes` flag; all command files are regenerated |
 | Schema validation blocking install | LOW | If designed correctly (warnings not errors), user can proceed. If designed incorrectly (hard errors), user must manually delete settings.json |
-| Manifest drift (orphan files) | LOW | Re-run installer; cleanup logic detects Scriven-marker files even without a manifest |
+| Manifest drift (orphan files) | LOW | Re-run installer; cleanup logic detects Scriveno-marker files even without a manifest |
 
 ## Pitfall-to-Phase Mapping
 
@@ -318,7 +318,7 @@ Phase 3 (settings preservation). The manifest pattern is extended to templates a
 
 ## Sources
 
-- Direct analysis of `bin/install.js` (1036 lines, current Scriven codebase)
+- Direct analysis of `bin/install.js` (1036 lines, current Scriveno codebase)
 - `.planning/PROJECT.md` v1.6 milestone requirements and active bugs list
 - Node.js `fs.renameSync` documentation: EXDEV behavior is POSIX-specified, occurs when source and target are on different mount points
 - Node.js `fs.writeFileSync` with `{ flag: 'wx' }`: exclusive-create semantics for lockfile patterns
@@ -326,5 +326,5 @@ Phase 3 (settings preservation). The manifest pattern is extended to templates a
 - Existing installer patterns: `cleanFlatCommandFiles` (line 459) and `installClaudeCommandRuntime` (line 833) demonstrate the correct in-place update pattern already used for Claude Code but not yet applied to other runtimes
 
 ---
-*Pitfalls research for: Scriven v1.6 installer hardening*
+*Pitfalls research for: Scriveno v1.6 installer hardening*
 *Researched: 2026-04-16*

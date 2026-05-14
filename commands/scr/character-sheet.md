@@ -16,7 +16,7 @@ Display or edit a specific character's complete profile.
 
 You are presenting a character's profile. Load:
 - `.manuscript/config.json` (to get `work_type`)
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check `file_adaptations` and `commands.character-sheet.adapted`)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `file_adaptations` and `commands.character-sheet.adapted`)
 - `STYLE-GUIDE.md` (voice dimension context)
 
 Determine the correct characters file from `file_adaptations`:

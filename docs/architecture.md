@@ -1,10 +1,10 @@
-# Scriven Architecture
+# Scriveno Architecture
 
-How Scriven works under the hood -- for developers who want to understand the system before extending it.
+How Scriveno works under the hood -- for developers who want to understand the system before extending it.
 
 ## Overview
 
-Scriven is a pure skill system. There is no compiled code, no runtime library, no framework. AI coding agents (Claude Code, Cursor, Gemini CLI, and others) read markdown command files and follow their instructions using their built-in tools (Read, Write, Bash).
+Scriveno is a pure skill system. There is no compiled code, no runtime library, no framework. AI coding agents (Claude Code, Cursor, Gemini CLI, and others) read markdown command files and follow their instructions using their built-in tools (Read, Write, Bash).
 
 The entire system is a collection of files:
 
@@ -47,9 +47,9 @@ The agent reads this file and executes it. No SDK, no API calls, no imports. The
 
 ### Why markdown?
 
-- **Portability.** Any AI agent that can read files can run Scriven
+- **Portability.** Any AI agent that can read files can run Scriveno
 - **No build step.** Contributors edit a `.md` file and the change is live
-- **Inspectable.** The writer can read any command file to understand exactly what Scriven will do
+- **Inspectable.** The writer can read any command file to understand exactly what Scriveno will do
 - **No dependencies.** No node_modules, no pip install, no version conflicts
 
 ## CONSTRAINTS.json Schema
@@ -138,7 +138,7 @@ The command registry. Each entry maps a command name to its category, availabili
 ## File Structure
 
 ```
-scriven/
+scriveno/
   commands/
     scr/                   Core command tree (100+ command files total, including sacred subcommands)
       draft.md             Core workflow: draft a unit
@@ -161,9 +161,9 @@ scriven/
     CONSTRAINTS.json       Central constraint registry (the source of truth)
     demo/                  Pre-baked demo project (watchmaker story)
     export-templates/      Output format templates
-      scriven-book.typst     Book interior PDF
-      scriven-epub.css       EPUB styling
-      scriven-academic.latex Academic paper formatting
+      scriveno-book.typst     Book interior PDF
+      scriveno-epub.css       EPUB styling
+      scriveno-academic.latex Academic paper formatting
     templates/
     config.json            Per-project configuration template
     WORK.md                Work overview template
@@ -201,14 +201,14 @@ scriven/
     proof-artifacts.md     Canonical proof layer and artifact index
     getting-started.md     Install to first draft in 10 minutes
     command-reference.md   Full command listing with usage
-    work-types.md          50 work types and how they adapt Scriven
+    work-types.md          50 work types and how they adapt Scriveno
     voice-dna.md           Voice profile system guide
     publishing.md          Export formats and publishing pipelines
     sacred-texts.md        Sacred work types and voice registers
     translation.md         Translation pipeline guide
-    contributing.md        How to extend Scriven (commands, agents, etc.)
+    contributing.md        How to extend Scriveno (commands, agents, etc.)
     configuration.md       Package, installer, constraints, and project config surfaces
-    development.md         Contributor workflow for changing Scriven itself
+    development.md         Contributor workflow for changing Scriveno itself
     testing.md             Test suite coverage and release-safety checks
     shipped-assets.md      Canonical shipped-template and trust-file inventory
     runtime-support.md     Canonical runtime matrix and Node baseline
@@ -217,11 +217,11 @@ scriven/
   .manuscript/             Per-project working directory (created by commands)
 ```
 
-The `.manuscript/` directory is created when a writer runs `/scr:new-work`. It contains their project's context files (STYLE-GUIDE.md, OUTLINE.md, RECORD.md, CHARACTERS.md, etc.), plans, drafts, and state. It is not shipped with Scriven -- it is generated per project.
+The `.manuscript/` directory is created when a writer runs `/scr:new-work`. It contains their project's context files (STYLE-GUIDE.md, OUTLINE.md, RECORD.md, CHARACTERS.md, etc.), plans, drafts, and state. It is not shipped with Scriveno -- it is generated per project.
 
 ## Creative Context
 
-Scriven context files can include optional Creative Context metadata that helps commands route project memory without changing the historical file contract. See [Creative Context](creative-context.md) for the full pilot protocol.
+Scriveno context files can include optional Creative Context metadata that helps commands route project memory without changing the historical file contract. See [Creative Context](creative-context.md) for the full pilot protocol.
 
 The important rule is unchanged: `STYLE-GUIDE.md` is sovereign and loads first for any prose-producing task. Other metadata is advisory. Existing projects without frontmatter still work through the established filenames.
 
@@ -283,7 +283,7 @@ Key points:
 
 ## Fresh Context per Unit
 
-This is the core architectural pattern that makes Scriven work. Every agent invocation starts with a clean context -- no prior conversation, no accumulated state, no cross-contamination.
+This is the core architectural pattern that makes Scriveno work. Every agent invocation starts with a clean context -- no prior conversation, no accumulated state, no cross-contamination.
 
 ### Why fresh context?
 
@@ -319,7 +319,7 @@ This constraint is what makes voice fidelity possible. The drafter writes one un
 
 ## Installer Architecture
 
-The installer (`bin/install.js`) handles getting Scriven's files into the right place for each AI agent runtime.
+The installer (`bin/install.js`) handles getting Scriveno's files into the right place for each AI agent runtime.
 
 ### Platform detection
 
@@ -345,9 +345,9 @@ The installer detects which AI agents are available by checking for their config
 
 **Skill-file (type: `skills`).** Generates a single `SKILL.md` manifest file that lists all commands in a table. For platforms that do not support file-based command directories (like Manus), the SKILL.md acts as a command index that the agent reads to discover available commands. The agent then reads individual command files from the package directory.
 
-Codex uses a skill-native variation of this strategy. The installer generates one `$scr-*` skill per Scriven command under `.codex/skills/`, while also mirroring the underlying command markdown into `.codex/commands/scr/` so the generated skills can read the installed command files as their source of truth.
+Codex uses a skill-native variation of this strategy. The installer generates one `$scr-*` skill per Scriveno command under `.codex/skills/`, while also mirroring the underlying command markdown into `.codex/commands/scr/` so the generated skills can read the installed command files as their source of truth.
 
-**Guided local-MCP (type: `guided-mcp`).** Writes setup assets and connector recipes for runtimes that expose a documented local-MCP surface instead of a writable slash-command directory. Perplexity Desktop currently fits this model: Scriven writes a setup guide and filesystem-server command recipe under `.scriven/perplexity/`, and the user adds that command inside Perplexity Desktop's Connectors UI.
+**Guided local-MCP (type: `guided-mcp`).** Writes setup assets and connector recipes for runtimes that expose a documented local-MCP surface instead of a writable slash-command directory. Perplexity Desktop currently fits this model: Scriveno writes a setup guide and filesystem-server command recipe under `.scriveno/perplexity/`, and the user adds that command inside Perplexity Desktop's Connectors UI.
 
 ### Installation modes
 
@@ -360,17 +360,17 @@ The user chooses during installation. Guided local-MCP targets still write their
 
 ### Runtime credibility
 
-Scriven's installer compatibility floor is `Node.js >=20.0.0`. For new installs, prefer a currently supported LTS such as Node.js 24. The compatibility floor applies to `npx scriven-cli@latest`, `bin/install.js`, and the repo's JavaScript test suite, not to the markdown command system once files are installed.
+Scriveno's installer compatibility floor is `Node.js >=20.0.0`. For new installs, prefer a currently supported LTS such as Node.js 24. The compatibility floor applies to `npx scriveno-cli@latest`, `bin/install.js`, and the repo's JavaScript test suite, not to the markdown command system once files are installed.
 
 This architecture doc is intentionally about mechanics: detection rules, install path shapes, `commands` versus `skills` versus `guided-mcp`, and global versus project scope. For the authoritative runtime matrix, support levels, and verification status, see [`docs/runtime-support.md`](runtime-support.md).
 
 ## Voice DNA Pipeline
 
-The Voice DNA system is what makes Scriven's output sound like the writer, not like AI. Here is how STYLE-GUIDE.md flows through the system.
+The Voice DNA system is what makes Scriveno's output sound like the writer, not like AI. Here is how STYLE-GUIDE.md flows through the system.
 
 ### Creation
 
-When the writer runs `/scr:new-work`, Scriven asks if they have existing writing samples. If they do, `/scr:profile-writer` analyzes the samples across 15+ dimensions to build the voice profile:
+When the writer runs `/scr:new-work`, Scriveno asks if they have existing writing samples. If they do, `/scr:profile-writer` analyzes the samples across 15+ dimensions to build the voice profile:
 
 - Point of view (close third, first person, omniscient, etc.)
 - Tense (past, present, mixed)
@@ -406,7 +406,7 @@ Writers can refine their voice profile over time with `/scr:voice-test` (test th
 
 ### Zero dependencies
 
-Scriven's `package.json` has no runtime dependencies. The installer is pure Node.js. Commands are markdown. This means no version conflicts, no supply-chain attacks, no broken builds. External tools (Pandoc, Typst) are optional prerequisites for export features -- the core writing workflow needs nothing beyond the AI agent itself.
+Scriveno's `package.json` has no runtime dependencies. The installer is pure Node.js. Commands are markdown. This means no version conflicts, no supply-chain attacks, no broken builds. External tools (Pandoc, Typst) are optional prerequisites for export features -- the core writing workflow needs nothing beyond the AI agent itself.
 
 ### Plan is canonical
 
@@ -422,4 +422,4 @@ Onboarding asks 3 questions max. Depth is optional and additive. The writer shou
 
 ## Next Steps
 
-To extend Scriven, see the [contributor guide](contributing.md). For the full command listing, see the [command reference](command-reference.md).
+To extend Scriveno, see the [contributor guide](contributing.md). For the full command listing, see the [command reference](command-reference.md).

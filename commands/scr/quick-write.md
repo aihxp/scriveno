@@ -18,7 +18,7 @@ Write a scene, passage, or chapter outside the full planning workflow.
 
 ## Instruction
 
-Quick write gives you Scriven guarantees (continuity tracking, voice consistency, atomic commits) with a faster path.
+Quick write gives you Scriveno guarantees (continuity tracking, voice consistency, atomic commits) with a faster path.
 
 ### STEP 1: GATHER INTENT
 

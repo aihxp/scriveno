@@ -1,6 +1,6 @@
 # Shipped Assets
 
-Scriven's launch surface should point to what is actually bundled in this repo today. This document is the canonical inventory for shipped export templates, drafter-quality assets, and other trust-critical launch files.
+Scriveno's launch surface should point to what is actually bundled in this repo today. This document is the canonical inventory for shipped export templates, drafter-quality assets, and other trust-critical launch files.
 
 ## Drafter Quality Assets Shipped Today
 
@@ -36,43 +36,43 @@ These files ship in `templates/` and `docs/` and provide the trust trio for sess
 
 ## Runtime Sync Asset Shipped Today
 
-- `commands/scr/sync.md` -- local runtime-surface synchronization command. It compares and refreshes installed Scriven commands, Codex skills, command mirrors, and agent prompts from the current source tree by delegating to `bin/install.js`.
+- `commands/scr/sync.md` -- local runtime-surface synchronization command. It compares and refreshes installed Scriveno commands, Codex skills, command mirrors, and agent prompts from the current source tree by delegating to `bin/install.js`.
 
 ## Export Templates Shipped Today
 
 These export templates are currently bundled in `data/export-templates/`:
 
-- `scriven-book.typst` -- default book interior and print-ready PDF template
-- `scriven-stageplay.typst` -- stage play interior template
-- `scriven-picturebook.typst` -- picture-book interior template
-- `scriven-chapbook.typst` -- chapbook and poetry-collection interior template
-- `scriven-epub.css` -- standard EPUB styling and KDP-compatible ebook CSS
-- `scriven-fixed-layout-epub.css` -- fixed-layout EPUB stylesheet
-- `scriven-fixed-layout.opf` -- fixed-layout EPUB OPF stub
-- `scriven-academic.latex` -- generic academic/thesis LaTeX template
-- `scriven-ieee.latex` -- IEEE wrapper template
-- `scriven-acm.latex` -- ACM wrapper template
-- `scriven-lncs.latex` -- LNCS wrapper template
-- `scriven-elsevier.latex` -- Elsevier wrapper template
-- `scriven-apa7.latex` -- APA7 wrapper template
-- `scriven-smashwords.docx` -- Smashwords reference DOCX
-- `scriven-smashwords-styles.md` -- Smashwords style guide companion
-- `scriven-poetry-submission.docx` -- poetry-submission reference DOCX
-- `scriven-poetry-submission-styles.md` -- poetry-submission style guide companion
+- `scriveno-book.typst` -- default book interior and print-ready PDF template
+- `scriveno-stageplay.typst` -- stage play interior template
+- `scriveno-picturebook.typst` -- picture-book interior template
+- `scriveno-chapbook.typst` -- chapbook and poetry-collection interior template
+- `scriveno-epub.css` -- standard EPUB styling and KDP-compatible ebook CSS
+- `scriveno-fixed-layout-epub.css` -- fixed-layout EPUB stylesheet
+- `scriveno-fixed-layout.opf` -- fixed-layout EPUB OPF stub
+- `scriveno-academic.latex` -- generic academic/thesis LaTeX template
+- `scriveno-ieee.latex` -- IEEE wrapper template
+- `scriveno-acm.latex` -- ACM wrapper template
+- `scriveno-lncs.latex` -- LNCS wrapper template
+- `scriveno-elsevier.latex` -- Elsevier wrapper template
+- `scriveno-apa7.latex` -- APA7 wrapper template
+- `scriveno-smashwords.docx` -- Smashwords reference DOCX
+- `scriveno-smashwords-styles.md` -- Smashwords style guide companion
+- `scriveno-poetry-submission.docx` -- poetry-submission reference DOCX
+- `scriveno-poetry-submission-styles.md` -- poetry-submission style guide companion
 
 ## Export Template Behaviors
 
 - Manuscript DOCX export currently relies on Pandoc's default DOCX styling unless the user supplies a custom Pandoc reference document.
 - Formatted DOCX export currently relies on Pandoc's default DOCX output unless the user supplies a custom Pandoc reference document for styled review copies.
-- `scriven-manuscript.docx` is not shipped today.
-- `scriven-formatted.docx` is not shipped today.
-- `scriven-kdp-cover.typst` is not shipped today.
-- `scriven-ingram-cover.typst` is not shipped today.
+- `scriveno-manuscript.docx` is not shipped today.
+- `scriveno-formatted.docx` is not shipped today.
+- `scriveno-kdp-cover.typst` is not shipped today.
+- `scriveno-ingram-cover.typst` is not shipped today.
 - Cover deliverables are manuscript build assets, not bundled export templates:
   - Ebook front cover: `.manuscript/build/ebook-cover.jpg` (or `.png`)
   - Paperback full wrap: `.manuscript/build/paperback-cover.pdf`
   - Hardcover case wrap: `.manuscript/build/hardcover-cover.pdf`
-- Those cover files are designer-provided or externally produced assets that Scriven's build/export commands reference; exact paperback and hardcover wrap geometry still comes from the active platform cover template generator.
+- Those cover files are designer-provided or externally produced assets that Scriveno's build/export commands reference; exact paperback and hardcover wrap geometry still comes from the active platform cover template generator.
 
 ## Platform Profiles Shipped Today
 

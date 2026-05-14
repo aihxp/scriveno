@@ -1,6 +1,6 @@
 # HISTORY.log Protocol
 
-`.manuscript/HISTORY.log` is the project's append-only chronological record of Scriven commands that mutate state. It is the third leg of the context-integrity stool, alongside `STATE.md` (structured snapshot) and `.manuscript/CONTEXT.md` (one-page bootstrap). Where STATE.md records *what is true now* and CONTEXT.md narrates *where you are*, HISTORY.log records *how you got here, in order*.
+`.manuscript/HISTORY.log` is the project's append-only chronological record of Scriveno commands that mutate state. It is the third leg of the context-integrity stool, alongside `STATE.md` (structured snapshot) and `.manuscript/CONTEXT.md` (one-page bootstrap). Where STATE.md records *what is true now* and CONTEXT.md narrates *where you are*, HISTORY.log records *how you got here, in order*.
 
 This document is the single source of truth for the line format. Every command that appends to HISTORY.log must follow this contract.
 
@@ -10,7 +10,7 @@ This document is the single source of truth for the line format. Every command t
 
 - Path: `.manuscript/HISTORY.log`
 - Committed to git (cross-session recovery is the whole point; do not gitignore)
-- Append-only. Commands never rewrite, truncate, or rotate the file. If size becomes a real problem (>10MB) the writer can manually archive it via `mv .manuscript/HISTORY.log .manuscript/HISTORY-{date}.log` and start a fresh file. Scriven does not auto-rotate.
+- Append-only. Commands never rewrite, truncate, or rotate the file. If size becomes a real problem (>10MB) the writer can manually archive it via `mv .manuscript/HISTORY.log .manuscript/HISTORY-{date}.log` and start a fresh file. Scriveno does not auto-rotate.
 
 ## Line format
 
@@ -93,4 +93,4 @@ JSON is more rigorously parseable but harder to scan visually. Pipe-delimited wi
 
 ## Why append-only and not a database
 
-Scriven's architecture rule is no compiled code, no runtime dependencies. A flat append-only log preserves that. Writers can `cat`, `grep`, and `tail` it. Git already provides durable storage, blame, and rewind. There is no parallel infrastructure to maintain.
+Scriveno's architecture rule is no compiled code, no runtime dependencies. A flat append-only log preserves that. Writers can `cat`, `grep`, and `tail` it. Git already provides durable storage, blame, and rewind. There is no parallel infrastructure to maintain.

@@ -4,7 +4,7 @@ This folder holds older planning artifacts that are still useful for historical 
 
 ## Milestone Summaries
 
-Generated onboarding summaries for earlier shipped Scriven milestones:
+Generated onboarding summaries for earlier shipped Scriveno milestones:
 
 - [v1.0 Summary](MILESTONE_SUMMARY-v1.0.md)
 - [v1.1 Summary](MILESTONE_SUMMARY-v1.1.md)

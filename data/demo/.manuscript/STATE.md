@@ -41,4 +41,4 @@
 **Resume context:** Scene 4 just drafted. Ready to draft scene 5 (The Reunion). Scene 2 editor review notes still pending revision. All context files complete. Voice calibration stable.
 
 ---
-*This file is the source of truth for workflow position. Every Scriven command reads it and updates it. Don't edit by hand -- it's managed automatically.*
+*This file is the source of truth for workflow position. Every Scriveno command reads it and updates it. Don't edit by hand -- it's managed automatically.*

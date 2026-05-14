@@ -1,6 +1,6 @@
 # Testing
 
-Scriven uses Node’s built-in test runner to lock the shipped command, docs, installer, and package surfaces against regression.
+Scriveno uses Node’s built-in test runner to lock the shipped command, docs, installer, and package surfaces against regression.
 
 ## Test runner
 

@@ -17,7 +17,7 @@
 // directory. We install with `isGlobal=false` and `process.chdir()` into the
 // tmp dir, because RUNTIMES.*.*_dir_global is captured at module-load time
 // from `os.homedir()` and cannot be retargeted via an env override. The real
-// `~/.claude`, `~/.codex`, and `~/.scriven` trees are never touched.
+// `~/.claude`, `~/.codex`, and `~/.scriveno` trees are never touched.
 
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
@@ -35,7 +35,7 @@ const {
 const PKG_VERSION = require('../package.json').version;
 
 function mkTmp(label) {
-  return fs.mkdtempSync(path.join(os.tmpdir(), `scriven-v16-${label}-`));
+  return fs.mkdtempSync(path.join(os.tmpdir(), `scriveno-v16-${label}-`));
 }
 
 function walk(dir) {
@@ -73,7 +73,7 @@ describe('v1.6 hardening integration', () => {
     const origCwd = process.cwd();
     try {
       process.chdir(tmp);
-      const dataDir = path.join(tmp, '.scriven');
+      const dataDir = path.join(tmp, '.scriveno');
       writeSharedAssets(dataDir, ['codex'], false, false, 'interactive', () => {});
       installCodexRuntime(projectCodexRuntime(), false, () => {});
 
@@ -90,7 +90,7 @@ describe('v1.6 hardening integration', () => {
     const origCwd = process.cwd();
     try {
       process.chdir(tmp);
-      const dataDir = path.join(tmp, '.scriven');
+      const dataDir = path.join(tmp, '.scriveno');
 
       // First install (developer_mode=false)
       writeSharedAssets(dataDir, ['codex'], false, false, 'interactive', () => {});
@@ -132,7 +132,7 @@ describe('v1.6 hardening integration', () => {
     const origCwd = process.cwd();
     try {
       process.chdir(tmp);
-      const dataDir = path.join(tmp, '.scriven');
+      const dataDir = path.join(tmp, '.scriveno');
 
       // First install -- populates templates/
       writeSharedAssets(dataDir, ['codex'], false, false, 'interactive', () => {});
@@ -174,7 +174,7 @@ describe('v1.6 hardening integration', () => {
     const origCwd = process.cwd();
     try {
       process.chdir(tmp);
-      const dataDir = path.join(tmp, '.scriven');
+      const dataDir = path.join(tmp, '.scriveno');
 
       // First install
       writeSharedAssets(dataDir, ['codex'], false, false, 'interactive', () => {});
@@ -250,7 +250,7 @@ describe('v1.6 hardening integration', () => {
         const anyFile = commandFiles[0];
         const content = fs.readFileSync(anyFile, 'utf8');
         assert.ok(
-          /<!-- scriven-cli-installed-command runtime:codex /.test(content),
+          /<!-- scriveno-cli-installed-command runtime:codex /.test(content),
           'at minimum, Codex runtime marker must be present in installed command'
         );
       } else {

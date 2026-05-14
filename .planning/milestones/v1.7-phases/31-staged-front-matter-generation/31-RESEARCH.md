@@ -263,7 +263,7 @@ Proceed with body content only.
 
 ### Pattern 4: Timestamp Comparison — Platform-Agnostic Instruction
 
-**What:** FM-04 requires comparing modification timestamps. Since Scriven commands are instructions to an AI agent (not shell scripts), the instruction must tell the agent how to check timestamps in a way that works across macOS, Linux, and Windows.
+**What:** FM-04 requires comparing modification timestamps. Since Scriveno commands are instructions to an AI agent (not shell scripts), the instruction must tell the agent how to check timestamps in a way that works across macOS, Linux, and Windows.
 
 **Recommended phrasing (Claude's Discretion):**
 
@@ -283,7 +283,7 @@ If WORK.md is newer than ANY of those files, or if ANY of those files do not exi
   → Regenerate all 4 GENERATE elements [...]
 ```
 
-[ASSUMED: agent instruction phrasing — no prior art for this in the codebase. The planner should verify the wording is idiomatic for Scriven's command style.]
+[ASSUMED: agent instruction phrasing — no prior art for this in the codebase. The planner should verify the wording is idiomatic for Scriveno's command style.]
 
 ### Anti-Patterns to Avoid
 
@@ -617,7 +617,7 @@ Step 2.6 SKIPPED — this phase makes no external tool calls. It edits three mar
 | # | Claim | Section | Risk if Wrong |
 |---|-------|---------|---------------|
 | A1 | Running STEP 1.6 in both export.md and publish.md with overlapping auto-refresh is idempotent and harmless (second invocation finds no work to do) | Pitfall 5 | If second auto-refresh triggers an unintended regeneration cycle, scaffold files could be overwritten — but this is prevented by the explicit "ONLY elements 1,3,4,7" scoping |
-| A2 | Agent phrasing for timestamp comparison (stat -f vs stat -c vs PowerShell) is the correct platform-agnostic approach | Pattern 4 / Code Examples | If Scriven develops a canonical cross-platform timestamp convention, this phrasing should align with it. Currently no convention exists. |
+| A2 | Agent phrasing for timestamp comparison (stat -f vs stat -c vs PowerShell) is the correct platform-agnostic approach | Pattern 4 / Code Examples | If Scriveno develops a canonical cross-platform timestamp convention, this phrasing should align with it. Currently no convention exists. |
 
 ---
 

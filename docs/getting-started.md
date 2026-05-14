@@ -1,32 +1,32 @@
-# Getting Started with Scriven
+# Getting Started with Scriveno
 
 Go from zero to a drafted scene in under 10 minutes. This guide walks you through installation, project setup, and your first draft.
 
-Want evidence first? Start with [Proof Artifacts](proof-artifacts.md). The watchmaker sample flow and the Voice DNA before/after bundle give you the fastest way to inspect what Scriven actually proves today.
+Want evidence first? Start with [Proof Artifacts](proof-artifacts.md). The watchmaker sample flow and the Voice DNA before/after bundle give you the fastest way to inspect what Scriveno actually proves today.
 
 ## Prerequisites
 
-- **An AI coding agent** -- Claude Code, Cursor, Gemini CLI, or another current Scriven installer target
+- **An AI coding agent** -- Claude Code, Cursor, Gemini CLI, or another current Scriveno installer target
 - **Node.js >=20.0.0** -- needed for the installer only. For new installs, use a currently supported LTS such as Node.js 24.
 - That's it. No other dependencies for the core writing workflow.
 
 Before choosing a runtime, check [Runtime Support](runtime-support.md) for the current installer targets, install types, support levels, and verification status.
 
-## Step 1: Install Scriven
+## Step 1: Install Scriveno
 
 Run the installer in your terminal:
 
 ```
-npx scriven-cli@latest
+npx scriveno-cli@latest
 ```
 
-This installs Scriven into the runtime you choose. Command-directory and skills targets place files where the runtime expects them. Guided targets like Perplexity Desktop instead write setup assets and show the exact connector steps you need. Takes about 30 seconds.
+This installs Scriveno into the runtime you choose. Command-directory and skills targets place files where the runtime expects them. Guided targets like Perplexity Desktop instead write setup assets and show the exact connector steps you need. Takes about 30 seconds.
 
 Once installed, Claude Code uses flat `/scr-*` commands such as `/scr-help` and `/scr-new-work`. Other command-directory runtimes currently keep `/scr:*`. Codex uses generated `$scr-*` skills such as `$scr-help` and `$scr-new-work`. Guided targets explain their supported setup path directly in the generated setup files.
 
 ## Step 2: Explore the Demo (Optional)
 
-Not sure what Scriven does? Try the demo before starting your own project:
+Not sure what Scriveno does? Try the demo before starting your own project:
 
 Claude Code:
 
@@ -68,9 +68,9 @@ Codex:
 $scr-new-work
 ```
 
-Scriven asks just 3 questions -- what you're writing, your premise, and whether you have existing material. That's it. No long setup forms, no configuration wizards.
+Scriveno asks just 3 questions -- what you're writing, your premise, and whether you have existing material. That's it. No long setup forms, no configuration wizards.
 
-From your answers, Scriven generates your project structure:
+From your answers, Scriveno generates your project structure:
 
 ```
 .manuscript/
@@ -85,7 +85,7 @@ From your answers, Scriven generates your project structure:
   config.json      -- project settings
 ```
 
-Every file adapts to your work type. Writing a screenplay? You get acts and scenes. A research paper? Sections and argument maps. A runbook? Procedures and system maps. A Quran commentary? Surahs and doctrinal frameworks. Scriven supports 50 work types with tradition-native vocabulary.
+Every file adapts to your work type. Writing a screenplay? You get acts and scenes. A research paper? Sections and argument maps. A runbook? Procedures and system maps. A Quran commentary? Surahs and doctrinal frameworks. Scriveno supports 50 work types with tradition-native vocabulary.
 
 ## Step 4: Calibrate Your Voice
 
@@ -117,7 +117,7 @@ Codex:
 $scr-voice-test
 ```
 
-That calibration pass writes a short sample and lets you say what sounds right or wrong before Scriven starts drafting real units.
+That calibration pass writes a short sample and lets you say what sounds right or wrong before Scriveno starts drafting real units.
 
 ## Step 5: Develop Your Story
 
@@ -135,7 +135,7 @@ Codex:
 $scr-discuss
 ```
 
-This opens a collaborative conversation where you and the AI work through the creative decisions for your next unit -- pacing, voice, character dynamics, what to include, what to avoid. Scriven picks the 3-4 most relevant questions for your specific scene rather than running through a checklist.
+This opens a collaborative conversation where you and the AI work through the creative decisions for your next unit -- pacing, voice, character dynamics, what to include, what to avoid. Scriveno picks the 3-4 most relevant questions for your specific scene rather than running through a checklist.
 
 Your decisions get saved to a context file that the drafter will use. Think of this as giving the drafter its marching orders.
 
@@ -159,7 +159,7 @@ $scr-draft
 
 The drafter loads your Voice DNA (STYLE-GUIDE.md) and writes in your voice, not generic AI prose. Each atomic unit (scene, beat, passage) is drafted in a fresh context to prevent voice drift and keep quality consistent across the entire work.
 
-After drafting, Scriven runs a voice-check pass to flag anything that drifted from your established style. You'll see a summary like: "Drafted Chapter 1: 2,400 words across 3 scenes. Voice consistency: 94%."
+After drafting, Scriveno runs a voice-check pass to flag anything that drifted from your established style. You'll see a summary like: "Drafted Chapter 1: 2,400 words across 3 scenes. Voice consistency: 94%."
 
 Your draft files appear in `.manuscript/` ready for you to read and revise.
 
@@ -181,7 +181,7 @@ $scr-next
 
 `/scr-next` reads your project state and runs the right next step automatically. A writer who only ever types `/scr-next` in Claude Code can complete an entire manuscript from start to finish.
 
-Beyond the core workflow, Scriven offers:
+Beyond the core workflow, Scriveno offers:
 
 - **Revision** -- `/scr-editor-review`, `/scr-line-edit`, `/scr-continuity-check`
 - **Publishing** -- `/scr-publish`, `/scr-export`, `/scr-cover-art`, `/scr-blurb`

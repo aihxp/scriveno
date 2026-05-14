@@ -2,10 +2,10 @@
 
 ## Purpose
 
-`scriven-poetry-submission.docx` is a Pandoc reference document used with:
+`scriveno-poetry-submission.docx` is a Pandoc reference document used with:
 
 ```
-pandoc ... --reference-doc=data/export-templates/scriven-poetry-submission.docx -o submission.docx
+pandoc ... --reference-doc=data/export-templates/scriveno-poetry-submission.docx -o submission.docx
 ```
 
 ## Submission Format Standards
@@ -25,7 +25,7 @@ Poetry submission manuscripts follow conventions from journals (Poetry, Ploughsh
    - Word count / poem count (lower right or centered)
 6. **TOC** (Table of Contents): Required for collections of 5+ poems. Auto-generated via Pandoc `--toc --toc-depth=2`.
 7. **Line spacing**: Single-spaced within poems; one blank line between stanzas; page break between poems.
-8. **No headers/footers** in submission drafts (page numbers only via Word field, not Scriven-written content).
+8. **No headers/footers** in submission drafts (page numbers only via Word field, not Scriveno-written content).
 
 ## Pandoc Style Mapping
 
@@ -39,7 +39,7 @@ Poetry submission manuscripts follow conventions from journals (Poetry, Ploughsh
 ## When to Regenerate the DOCX Binary
 
 ```bash
-pandoc --print-default-data-file reference.docx > data/export-templates/scriven-poetry-submission.docx
+pandoc --print-default-data-file reference.docx > data/export-templates/scriveno-poetry-submission.docx
 ```
 
 Then open in Word/LibreOffice and set Normal style to Times New Roman 12pt, single-spaced, 1in margins.

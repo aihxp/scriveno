@@ -37,7 +37,7 @@ key-decisions:
   - "EPUB-only platform tests also assert absence of pdf_print_ready in formats_accepted for completeness"
   - "Both 'Estimated' and 'pages' asserted separately for PLATFORM-02 warning format (more resilient to exact phrasing)"
   - "BUILD-05 accessibility check matches on epub:type OR semantic nav OR nav (flexible — implementation may use any of these)"
-  - "accessibility metadata flag check matches --epub-metadata OR accessibility OR epub-css OR scriven-epub.css (covers multiple valid implementations)"
+  - "accessibility metadata flag check matches --epub-metadata OR accessibility OR epub-css OR scriveno-epub.css (covers multiple valid implementations)"
 
 patterns-established:
   - "Phase 32 test structure: 8 describe blocks with require IDs, loop-generated platform manifest tests, null-safe readFile"
@@ -88,7 +88,7 @@ completed: 2026-04-17
 
 - EPUB-only platform manifest tests assert both `trim_sizes: null` and `max_pages: null`, plus absence of `pdf_print_ready`, for complete contract coverage
 - BUILD-05 accessibility assertion is flexible: matches `epub:type`, `semantic nav`, or `nav` to accommodate different valid implementations
-- The accessibility metadata flag test matches multiple valid patterns (`--epub-metadata`, `accessibility`, `epub-css`, `scriven-epub.css`) so Wave 2 implementation has reasonable latitude
+- The accessibility metadata flag test matches multiple valid patterns (`--epub-metadata`, `accessibility`, `epub-css`, `scriveno-epub.css`) so Wave 2 implementation has reasonable latitude
 - PLATFORM-02 warning format split into two separate assertions ("Estimated" + "pages") rather than one rigid string, reducing brittleness
 
 ## Deviations from Plan

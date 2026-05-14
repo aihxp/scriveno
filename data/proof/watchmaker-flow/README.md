@@ -1,15 +1,15 @@
 # Watchmaker Sample Flow
 
-This proof bundle shows one complete Scriven writing workflow using the shipped watchmaker demo. It is meant to answer a simple trust question:
+This proof bundle shows one complete Scriveno writing workflow using the shipped watchmaker demo. It is meant to answer a simple trust question:
 
-**Can I inspect a real project from setup context through drafted outcome, review, and next step without guessing what Scriven is supposed to do?**
+**Can I inspect a real project from setup context through drafted outcome, review, and next step without guessing what Scriveno is supposed to do?**
 
 ## What This Proves
 
-- Scriven ships a real project identity and outline, not placeholder setup files.
-- Scriven ships a concrete Voice DNA profile that can be inspected directly.
-- Scriven ships drafted outcome evidence, not only command descriptions.
-- Scriven ships revision evidence and next-step continuity inside the same sample.
+- Scriveno ships a real project identity and outline, not placeholder setup files.
+- Scriveno ships a concrete Voice DNA profile that can be inspected directly.
+- Scriveno ships drafted outcome evidence, not only command descriptions.
+- Scriveno ships revision evidence and next-step continuity inside the same sample.
 - The sample demonstrates a credible writing outcome. It does not claim a full publishing proof.
 
 ## Canonical Flow
@@ -40,7 +40,7 @@ This is the Voice DNA artifact for the sample. It captures the watchmaker story'
 - `data/demo/.manuscript/drafts/body/3-the-pier-DRAFT.md`
 - `data/demo/.manuscript/drafts/body/4-the-clock-DRAFT.md`
 
-These four scenes are the drafted outcome evidence. Together they show Scriven carrying the story from inciting incident through pre-climax while keeping the same voice, imagery, and object-world logic intact.
+These four scenes are the drafted outcome evidence. Together they show Scriveno carrying the story from inciting incident through pre-climax while keeping the same voice, imagery, and object-world logic intact.
 
 ### 5. Review evidence
 
@@ -75,4 +75,4 @@ The shipped sample reaches a credible writing outcome because it includes:
 - one review artifact
 - one planned next scene
 
-That is enough to inspect Scriven's writing workflow end to end without inventing missing steps. It is a writing proof, not a publication-ready package proof.
+That is enough to inspect Scriveno's writing workflow end to end without inventing missing steps. It is a writing proof, not a publication-ready package proof.

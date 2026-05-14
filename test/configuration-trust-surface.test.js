@@ -18,12 +18,12 @@ describe('configuration trust surface', () => {
 
     assert.match(
       configDoc,
-      new RegExp(`"scriven_version": "${packageJson.version.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&')}"`),
-      'docs/configuration.md should show the current package/new-work scriven_version'
+      new RegExp(`"scriveno_version": "${packageJson.version.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&')}"`),
+      'docs/configuration.md should show the current package/new-work scriveno_version'
     );
     assert.doesNotMatch(
       configDoc,
-      /"scriven_version": "1\.5\.1"/,
+      /"scriveno_version": "1\.5\.1"/,
       'docs/configuration.md should not keep the stale 1.5.1 project config example'
     );
   });

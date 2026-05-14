@@ -80,11 +80,11 @@ Rebuild the profile from scratch. Ask: "This will replace your current voice pro
 
 ### --export
 
-Save the current project's voice profile to `~/.scriven/profile.json` for use in other projects.
+Save the current project's voice profile to `~/.scriveno/profile.json` for use in other projects.
 
 1. Read the current STYLE-GUIDE.md
 2. Extract all voice dimensions (sentence architecture, vocabulary, POV, figurative language, dialogue, description, pacing, do/don't rules)
-3. Save to `~/.scriven/profile.json`:
+3. Save to `~/.scriveno/profile.json`:
    ```json
    {
      "voice_dimensions": { "...all 15+ dimensions..." },
@@ -94,23 +94,23 @@ Save the current project's voice profile to `~/.scriven/profile.json` for use in
    }
    ```
 4. If profile.json already exists, merge the current project name into the `projects` array (don't duplicate)
-5. Confirm: "Voice profile exported to ~/.scriven/profile.json"
+5. Confirm: "Voice profile exported to ~/.scriveno/profile.json"
 
 ### --import
 
 Load a previously exported voice profile into the current project.
 
-1. Check if `~/.scriven/profile.json` exists. If not: "No saved voice profile found. Run `--export` in a project with a STYLE-GUIDE.md first."
+1. Check if `~/.scriveno/profile.json` exists. If not: "No saved voice profile found. Run `--export` in a project with a STYLE-GUIDE.md first."
 2. Read the profile and show a summary of the voice dimensions
 3. Pre-populate STYLE-GUIDE.md with the imported dimensions
 4. Offer: "Want to refine this profile for your current project? (yes/no)" -- if yes, run `--refine` flow
 
 ## Profile Persistence
 
-Voice profiles persist across sessions and projects via `~/.scriven/profile.json`.
+Voice profiles persist across sessions and projects via `~/.scriveno/profile.json`.
 
 **Auto-detection on new projects:**
-When running `--all` or `--questionnaire` in a project with no existing STYLE-GUIDE.md, check for `~/.scriven/profile.json` first. If found, ask:
+When running `--all` or `--questionnaire` in a project with no existing STYLE-GUIDE.md, check for `~/.scriveno/profile.json` first. If found, ask:
 
 > "I found your voice profile from a previous project. Use it as a starting point? (yes/no)"
 

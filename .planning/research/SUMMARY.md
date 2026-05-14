@@ -1,15 +1,15 @@
 # Project Research Summary
 
-**Project:** Scriven -- Creative Writing, Publishing, and Translation Pipeline
+**Project:** Scriveno -- Creative Writing, Publishing, and Translation Pipeline
 **Domain:** CLI-based AI creative writing skill system (markdown commands executed by AI coding agents)
 **Researched:** 2026-04-06
 **Confidence:** HIGH
 
 ## Executive Summary
 
-Scriven is a pure markdown skill system with no runtime dependencies -- the AI agent (Claude Code, Cursor, Gemini CLI) reads command markdown and executes shell commands. Building its remaining pipeline (export, illustration, translation, collaboration) means orchestrating external CLI tools (primarily Pandoc + Typst for export), generating structured prompts (for illustration), and extending the existing fresh-context-per-unit agent pattern (for translation). The competitive landscape confirms that no existing tool covers blank-page-to-published-book in a single system. Writers currently stitch together 3-5 tools (Scrivener for organization, ProWritingAid for editing, Atticus/Vellum for formatting, manual KDP upload). Scriven's differentiator is pipeline completeness with voice fidelity, not feature-by-feature superiority.
+Scriveno is a pure markdown skill system with no runtime dependencies -- the AI agent (Claude Code, Cursor, Gemini CLI) reads command markdown and executes shell commands. Building its remaining pipeline (export, illustration, translation, collaboration) means orchestrating external CLI tools (primarily Pandoc + Typst for export), generating structured prompts (for illustration), and extending the existing fresh-context-per-unit agent pattern (for translation). The competitive landscape confirms that no existing tool covers blank-page-to-published-book in a single system. Writers currently stitch together 3-5 tools (Scrivenoer for organization, ProWritingAid for editing, Atticus/Vellum for formatting, manual KDP upload). Scriveno's differentiator is pipeline completeness with voice fidelity, not feature-by-feature superiority.
 
-The recommended approach is Pandoc as the universal conversion backbone with Typst as the PDF engine (27x faster than XeLaTeX, single 30MB binary vs. 4-6GB TeX Live, accessible PDF/UA-1 by default). All export formats route through Pandoc. Illustration should generate detailed prompts rather than call image APIs directly, keeping Scriven dependency-free. Translation should follow the drafter's fresh-context-per-unit pattern with a dedicated translator agent, glossary, and translation memory. The collaboration system wraps git in writer-friendly abstractions controlled by a developer_mode toggle.
+The recommended approach is Pandoc as the universal conversion backbone with Typst as the PDF engine (27x faster than XeLaTeX, single 30MB binary vs. 4-6GB TeX Live, accessible PDF/UA-1 by default). All export formats route through Pandoc. Illustration should generate detailed prompts rather than call image APIs directly, keeping Scriveno dependency-free. Translation should follow the drafter's fresh-context-per-unit pattern with a dedicated translator agent, glossary, and translation memory. The collaboration system wraps git in writer-friendly abstractions controlled by a developer_mode toggle.
 
 The top risks are: (1) broken first-run `npx` experience killing adoption before users see any value, (2) export formats that look correct locally but fail platform validation (KDP, EPUBCheck, IngramSpark), (3) voice DNA drift in generated utility text (blurbs, synopses, front matter) undermining the core value proposition, and (4) RTL/CJK support chosen too late -- PDF library decisions in Phase 5 that cannot handle bidirectional text force a rewrite in Phase 7. All four are preventable with upfront testing, validation steps, and deliberate library selection.
 
@@ -17,7 +17,7 @@ The top risks are: (1) broken first-run `npx` experience killing adoption before
 
 ### Recommended Stack
 
-Scriven invokes external CLI tools via the AI agent's Bash capability -- it does not `npm install` anything. Pandoc is the backbone for all document conversion. Typst replaces LaTeX for PDF generation. Image generation uses OpenAI GPT Image 1.5 API (via curl). Translation uses DeepL + Google Cloud Translation APIs for machine passes, with the AI agent itself for literary-quality translation.
+Scriveno invokes external CLI tools via the AI agent's Bash capability -- it does not `npm install` anything. Pandoc is the backbone for all document conversion. Typst replaces LaTeX for PDF generation. Image generation uses OpenAI GPT Image 1.5 API (via curl). Translation uses DeepL + Google Cloud Translation APIs for machine passes, with the AI agent itself for literary-quality translation.
 
 **Core technologies:**
 - **Pandoc 3.9.x**: Universal document converter (EPUB, DOCX, PDF, LaTeX) -- de facto standard, production-quality output, massive ecosystem
@@ -26,7 +26,7 @@ Scriven invokes external CLI tools via the AI agent's Bash capability -- it does
 - **DeepL API Pro + Google Cloud Translation v3**: Translation engines -- DeepL for European language quality, Google for 130+ language coverage
 - **Afterwriting CLI + Screenplain**: Screenplay tools -- Fountain-to-PDF and Fountain-to-FDX respectively (MEDIUM confidence, sporadic maintenance)
 
-**Critical version note:** Scriven's installer baseline should be `>=20.0.0` / Node.js 20+. DALL-E 2/3 APIs sunset May 2026 -- use GPT Image 1.5 only. npm classic tokens were revoked Feb 2026 -- use granular access tokens.
+**Critical version note:** Scriveno's installer baseline should be `>=20.0.0` / Node.js 20+. DALL-E 2/3 APIs sunset May 2026 -- use GPT Image 1.5 only. npm classic tokens were revoked Feb 2026 -- use granular access tokens.
 
 ### Expected Features
 
@@ -35,7 +35,7 @@ Scriven invokes external CLI tools via the AI agent's Bash capability -- it does
 - Save/history/undo abstractions over git -- every writing tool has versioning
 - Autopilot guided mode ("write the next chapter, check in after")
 - Character management (sheets, cast list) -- every competitor has this
-- Line edit and copy edit -- without this, Scriven is "drafting only"
+- Line edit and copy edit -- without this, Scriveno is "drafting only"
 - Export to DOCX and PDF -- manuscript is trapped in markdown without this
 - Front/back matter generation -- professional book structure expected
 - KDP/EPUB export -- the literal endpoint of self-publishing
@@ -64,7 +64,7 @@ All new pipelines follow the existing orchestrator-delegate pattern: command mar
 1. **Export Pipeline** -- Assembles manuscript from drafts, converts via Pandoc/Typst to target formats, validates output
 2. **Illustration Pipeline** -- Generates structured image prompts from character/setting data + art direction (prompt-not-product pattern)
 3. **Translation Pipeline** -- Translates unit-by-unit with fresh context, manages glossary and translation memory, verifies via back-translation
-4. **Collaboration System** -- Wraps git in writer-friendly abstractions (`save`, `history`, `compare`, `undo`), manages revision tracks with `scriven/` branch prefix
+4. **Collaboration System** -- Wraps git in writer-friendly abstractions (`save`, `history`, `compare`, `undo`), manages revision tracks with `scriveno/` branch prefix
 5. **Publish Orchestrator** -- Coordinates multi-step publishing with presets (KDP, IngramSpark, submission) as primary interface
 
 ### Critical Pitfalls
@@ -120,7 +120,7 @@ Based on combined research, the following phase structure aligns with dependency
 ### Phase 8: Collaboration System
 **Rationale:** Git-based revision tracks require continuity-check (Phase 4) for merge validation. Lower priority for solo writers (primary persona), but valuable for editor-writer workflows.
 **Delivers:** Revision tracks (create/switch/compare/merge), writer-mode conflict resolution, revision proposals
-**Implements:** Collaboration system with `scriven/` branch namespacing, prose-formatted conflict resolution
+**Implements:** Collaboration system with `scriveno/` branch namespacing, prose-formatted conflict resolution
 
 ### Phase 9: Multi-Runtime and Polish
 **Rationale:** Runtime-agnostic by design -- adding runtimes is an installer concern. Polish and academic features round out the platform.
@@ -146,7 +146,7 @@ Phases likely needing deeper research during planning:
 
 Phases with standard patterns (skip research-phase):
 - **Phase 2 (Autopilot + Writer Mode):** Well-documented git abstraction patterns. Autopilot is extension of existing drafter agent.
-- **Phase 3 (Structure + Character):** Standard creative writing tool features with established patterns from Scrivener/NovelCrafter.
+- **Phase 3 (Structure + Character):** Standard creative writing tool features with established patterns from Scrivenoer/NovelCrafter.
 - **Phase 4 (Quality + Review):** AI-powered editing is well-understood. Fresh-context-per-unit pattern already established.
 - **Phase 8 (Collaboration):** Git branching and merging are thoroughly documented. Writer-mode abstraction is a presentation concern.
 

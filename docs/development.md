@@ -1,10 +1,10 @@
 # Development
 
-This guide is for contributors working on Scriven itself rather than using Scriven as a writer.
+This guide is for contributors working on Scriveno itself rather than using Scriveno as a writer.
 
 ## Development model
 
-Scriven is a pure skill and command system:
+Scriveno is a pure skill and command system:
 
 - commands are markdown files in `commands/scr/`
 - agents are markdown files in `agents/`
@@ -16,7 +16,7 @@ There is no compiled app, frontend bundle, service, or dependency-heavy local de
 
 ## Local setup
 
-Scriven’s local development requirements are intentionally small:
+Scriveno’s local development requirements are intentionally small:
 
 - Node.js >=20.0.0 for the installer and test runner. Use a currently supported LTS such as Node.js 24 for new work.
 - npm for package scripts and publish tooling
@@ -136,7 +136,7 @@ For release-oriented documentation surfaces, the main files are:
 
 ## Before shipping
 
-A good pre-ship pass for Scriven changes is:
+A good pre-ship pass for Scriveno changes is:
 
 1. run the targeted tests for the touched surface
 2. run `npm test`

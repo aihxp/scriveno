@@ -16,7 +16,7 @@ Generate storyboard frames with shot types, camera movement, transitions, and AS
 
 You are generating storyboard frames for a script or visual project. Load:
 - `.manuscript/config.json` (to get `work_type`)
-- Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) (to check `commands.storyboard.available` -- script and visual groups only)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `commands.storyboard.available` -- script and visual groups only)
 - `.manuscript/illustrations/ART-DIRECTION.md` if it exists (for visual style consistency)
 - `.manuscript/OUTLINE.md` (for scene/beat structure)
 - Drafted scene files for content

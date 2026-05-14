@@ -24,56 +24,56 @@ function readFile(filePath) {
 // TPL-01: Stage Play Typst template (Samuel French format)
 // ─────────────────────────────────────────────────────────────────────────────
 
-describe('Phase 34: TPL-01 scriven-stageplay.typst exists with Samuel French format markers', () => {
-  const STAGEPLAY = path.join(TEMPLATES_DIR, 'scriven-stageplay.typst');
+describe('Phase 34: TPL-01 scriveno-stageplay.typst exists with Samuel French format markers', () => {
+  const STAGEPLAY = path.join(TEMPLATES_DIR, 'scriveno-stageplay.typst');
 
-  it('scriven-stageplay.typst exists -- TPL-01', () => {
+  it('scriveno-stageplay.typst exists -- TPL-01', () => {
     const content = readFile(STAGEPLAY);
-    assert.ok(content !== null, 'data/export-templates/scriven-stageplay.typst must exist -- TPL-01');
+    assert.ok(content !== null, 'data/export-templates/scriveno-stageplay.typst must exist -- TPL-01');
   });
 
-  it('scriven-stageplay.typst contains page width 8.5in -- TPL-01', () => {
+  it('scriveno-stageplay.typst contains page width 8.5in -- TPL-01', () => {
     const content = readFile(STAGEPLAY);
-    assert.ok(content !== null, 'data/export-templates/scriven-stageplay.typst must exist -- TPL-01');
+    assert.ok(content !== null, 'data/export-templates/scriveno-stageplay.typst must exist -- TPL-01');
     assert.ok(
       content.includes('8.5in'),
-      'scriven-stageplay.typst must contain page width 8.5in (US Letter) -- TPL-01'
+      'scriveno-stageplay.typst must contain page width 8.5in (US Letter) -- TPL-01'
     );
   });
 
-  it('scriven-stageplay.typst contains character name centering pattern -- TPL-01', () => {
+  it('scriveno-stageplay.typst contains character name centering pattern -- TPL-01', () => {
     const content = readFile(STAGEPLAY);
-    assert.ok(content !== null, 'data/export-templates/scriven-stageplay.typst must exist -- TPL-01');
+    assert.ok(content !== null, 'data/export-templates/scriveno-stageplay.typst must exist -- TPL-01');
     assert.ok(
       content.includes('upper(') || content.includes('align(center'),
-      'scriven-stageplay.typst must contain character name centering pattern (upper() or align(center)) -- TPL-01'
+      'scriveno-stageplay.typst must contain character name centering pattern (upper() or align(center)) -- TPL-01'
     );
   });
 
-  it('scriven-stageplay.typst contains italic stage direction pattern -- TPL-01', () => {
+  it('scriveno-stageplay.typst contains italic stage direction pattern -- TPL-01', () => {
     const content = readFile(STAGEPLAY);
-    assert.ok(content !== null, 'data/export-templates/scriven-stageplay.typst must exist -- TPL-01');
+    assert.ok(content !== null, 'data/export-templates/scriveno-stageplay.typst must exist -- TPL-01');
     assert.ok(
       content.includes('emph') || content.includes('style: "italic"'),
-      'scriven-stageplay.typst must contain italic stage direction pattern (emph or style: "italic") -- TPL-01'
+      'scriveno-stageplay.typst must contain italic stage direction pattern (emph or style: "italic") -- TPL-01'
     );
   });
 
-  it('scriven-stageplay.typst contains act heading at level 1 -- TPL-01', () => {
+  it('scriveno-stageplay.typst contains act heading at level 1 -- TPL-01', () => {
     const content = readFile(STAGEPLAY);
-    assert.ok(content !== null, 'data/export-templates/scriven-stageplay.typst must exist -- TPL-01');
+    assert.ok(content !== null, 'data/export-templates/scriveno-stageplay.typst must exist -- TPL-01');
     assert.ok(
       content.includes('heading.where(level: 1)'),
-      'scriven-stageplay.typst must contain heading.where(level: 1) for act headings -- TPL-01'
+      'scriveno-stageplay.typst must contain heading.where(level: 1) for act headings -- TPL-01'
     );
   });
 
-  it('scriven-stageplay.typst contains scene heading at level 2 -- TPL-01', () => {
+  it('scriveno-stageplay.typst contains scene heading at level 2 -- TPL-01', () => {
     const content = readFile(STAGEPLAY);
-    assert.ok(content !== null, 'data/export-templates/scriven-stageplay.typst must exist -- TPL-01');
+    assert.ok(content !== null, 'data/export-templates/scriveno-stageplay.typst must exist -- TPL-01');
     assert.ok(
       content.includes('heading.where(level: 2)'),
-      'scriven-stageplay.typst must contain heading.where(level: 2) for scene headings -- TPL-01'
+      'scriveno-stageplay.typst must contain heading.where(level: 2) for scene headings -- TPL-01'
     );
   });
 
@@ -104,47 +104,47 @@ describe('Phase 34: TPL-01 scriven-stageplay.typst exists with Samuel French for
 // TPL-02: Picture Book Typst template (8.5x8.5 with bleed/safe-zone)
 // ─────────────────────────────────────────────────────────────────────────────
 
-describe('Phase 34: TPL-02 scriven-picturebook.typst exists with bleed and safe zone markers', () => {
-  const PICTUREBOOK = path.join(TEMPLATES_DIR, 'scriven-picturebook.typst');
+describe('Phase 34: TPL-02 scriveno-picturebook.typst exists with bleed and safe zone markers', () => {
+  const PICTUREBOOK = path.join(TEMPLATES_DIR, 'scriveno-picturebook.typst');
 
-  it('scriven-picturebook.typst exists -- TPL-02', () => {
+  it('scriveno-picturebook.typst exists -- TPL-02', () => {
     const content = readFile(PICTUREBOOK);
-    assert.ok(content !== null, 'data/export-templates/scriven-picturebook.typst must exist -- TPL-02');
+    assert.ok(content !== null, 'data/export-templates/scriveno-picturebook.typst must exist -- TPL-02');
   });
 
-  it('scriven-picturebook.typst contains bleed width 8.75in -- TPL-02', () => {
+  it('scriveno-picturebook.typst contains bleed width 8.75in -- TPL-02', () => {
     const content = readFile(PICTUREBOOK);
-    assert.ok(content !== null, 'data/export-templates/scriven-picturebook.typst must exist -- TPL-02');
+    assert.ok(content !== null, 'data/export-templates/scriveno-picturebook.typst must exist -- TPL-02');
     assert.ok(
       content.includes('8.75in'),
-      'scriven-picturebook.typst must contain 8.75in (bleed width: 8.5 + 0.125 + 0.125) -- TPL-02'
+      'scriveno-picturebook.typst must contain 8.75in (bleed width: 8.5 + 0.125 + 0.125) -- TPL-02'
     );
   });
 
-  it('scriven-picturebook.typst contains bleed value 0.125in -- TPL-02', () => {
+  it('scriveno-picturebook.typst contains bleed value 0.125in -- TPL-02', () => {
     const content = readFile(PICTUREBOOK);
-    assert.ok(content !== null, 'data/export-templates/scriven-picturebook.typst must exist -- TPL-02');
+    assert.ok(content !== null, 'data/export-templates/scriveno-picturebook.typst must exist -- TPL-02');
     assert.ok(
       content.includes('0.125in'),
-      'scriven-picturebook.typst must contain 0.125in bleed value -- TPL-02'
+      'scriveno-picturebook.typst must contain 0.125in bleed value -- TPL-02'
     );
   });
 
-  it('scriven-picturebook.typst contains safe zone 0.25in -- TPL-02', () => {
+  it('scriveno-picturebook.typst contains safe zone 0.25in -- TPL-02', () => {
     const content = readFile(PICTUREBOOK);
-    assert.ok(content !== null, 'data/export-templates/scriven-picturebook.typst must exist -- TPL-02');
+    assert.ok(content !== null, 'data/export-templates/scriveno-picturebook.typst must exist -- TPL-02');
     assert.ok(
       content.includes('0.25in'),
-      'scriven-picturebook.typst must contain 0.25in safe zone / margin value -- TPL-02'
+      'scriveno-picturebook.typst must contain 0.25in safe zone / margin value -- TPL-02'
     );
   });
 
-  it('scriven-picturebook.typst contains spread/two-page layout marker -- TPL-02', () => {
+  it('scriveno-picturebook.typst contains spread/two-page layout marker -- TPL-02', () => {
     const content = readFile(PICTUREBOOK);
-    assert.ok(content !== null, 'data/export-templates/scriven-picturebook.typst must exist -- TPL-02');
+    assert.ok(content !== null, 'data/export-templates/scriveno-picturebook.typst must exist -- TPL-02');
     assert.ok(
       content.includes('spread') || content.includes('two-page') || content.includes('facing'),
-      'scriven-picturebook.typst must contain spread or two-page layout logic -- TPL-02'
+      'scriveno-picturebook.typst must contain spread or two-page layout logic -- TPL-02'
     );
   });
 });
@@ -154,43 +154,43 @@ describe('Phase 34: TPL-02 scriven-picturebook.typst exists with bleed and safe 
 // ─────────────────────────────────────────────────────────────────────────────
 
 describe('Phase 34: TPL-03 fixed-layout EPUB CSS and OPF stub exist with Apple Books compatibility markers', () => {
-  const FL_CSS = path.join(TEMPLATES_DIR, 'scriven-fixed-layout-epub.css');
-  const FL_OPF = path.join(TEMPLATES_DIR, 'scriven-fixed-layout.opf');
+  const FL_CSS = path.join(TEMPLATES_DIR, 'scriveno-fixed-layout-epub.css');
+  const FL_OPF = path.join(TEMPLATES_DIR, 'scriveno-fixed-layout.opf');
 
-  it('scriven-fixed-layout-epub.css exists -- TPL-03', () => {
+  it('scriveno-fixed-layout-epub.css exists -- TPL-03', () => {
     const content = readFile(FL_CSS);
-    assert.ok(content !== null, 'data/export-templates/scriven-fixed-layout-epub.css must exist -- TPL-03');
+    assert.ok(content !== null, 'data/export-templates/scriveno-fixed-layout-epub.css must exist -- TPL-03');
   });
 
-  it('scriven-fixed-layout.opf exists -- TPL-03', () => {
+  it('scriveno-fixed-layout.opf exists -- TPL-03', () => {
     const content = readFile(FL_OPF);
-    assert.ok(content !== null, 'data/export-templates/scriven-fixed-layout.opf must exist -- TPL-03');
+    assert.ok(content !== null, 'data/export-templates/scriveno-fixed-layout.opf must exist -- TPL-03');
   });
 
-  it('scriven-fixed-layout-epub.css contains epub-layout fixed marker -- TPL-03', () => {
+  it('scriveno-fixed-layout-epub.css contains epub-layout fixed marker -- TPL-03', () => {
     const content = readFile(FL_CSS);
-    assert.ok(content !== null, 'data/export-templates/scriven-fixed-layout-epub.css must exist -- TPL-03');
+    assert.ok(content !== null, 'data/export-templates/scriveno-fixed-layout-epub.css must exist -- TPL-03');
     assert.ok(
       content.includes('-epub-layout') || content.includes('rendition:layout'),
-      'scriven-fixed-layout-epub.css must contain -epub-layout or rendition:layout fixed marker -- TPL-03'
+      'scriveno-fixed-layout-epub.css must contain -epub-layout or rendition:layout fixed marker -- TPL-03'
     );
   });
 
-  it('scriven-fixed-layout.opf contains rendition:layout property -- TPL-03', () => {
+  it('scriveno-fixed-layout.opf contains rendition:layout property -- TPL-03', () => {
     const content = readFile(FL_OPF);
-    assert.ok(content !== null, 'data/export-templates/scriven-fixed-layout.opf must exist -- TPL-03');
+    assert.ok(content !== null, 'data/export-templates/scriveno-fixed-layout.opf must exist -- TPL-03');
     assert.ok(
       content.includes('rendition:layout'),
-      'scriven-fixed-layout.opf must contain rendition:layout property (OPF metadata for fixed-layout) -- TPL-03'
+      'scriveno-fixed-layout.opf must contain rendition:layout property (OPF metadata for fixed-layout) -- TPL-03'
     );
   });
 
-  it('scriven-fixed-layout.opf contains rendition:spread property -- TPL-03', () => {
+  it('scriveno-fixed-layout.opf contains rendition:spread property -- TPL-03', () => {
     const content = readFile(FL_OPF);
-    assert.ok(content !== null, 'data/export-templates/scriven-fixed-layout.opf must exist -- TPL-03');
+    assert.ok(content !== null, 'data/export-templates/scriveno-fixed-layout.opf must exist -- TPL-03');
     assert.ok(
       content.includes('rendition:spread'),
-      'scriven-fixed-layout.opf must contain rendition:spread property -- TPL-03'
+      'scriveno-fixed-layout.opf must contain rendition:spread property -- TPL-03'
     );
   });
 
@@ -209,37 +209,37 @@ describe('Phase 34: TPL-03 fixed-layout EPUB CSS and OPF stub exist with Apple B
 // ─────────────────────────────────────────────────────────────────────────────
 
 describe('Phase 34: TPL-04 Smashwords DOCX reference doc and build command exist', () => {
-  const SW_DOCX   = path.join(TEMPLATES_DIR, 'scriven-smashwords.docx');
-  const SW_STYLES = path.join(TEMPLATES_DIR, 'scriven-smashwords-styles.md');
+  const SW_DOCX   = path.join(TEMPLATES_DIR, 'scriveno-smashwords.docx');
+  const SW_STYLES = path.join(TEMPLATES_DIR, 'scriveno-smashwords-styles.md');
   const SW_CMD    = path.join(COMMANDS_DIR, 'build-smashwords.md');
 
-  it('scriven-smashwords.docx exists -- TPL-04', () => {
+  it('scriveno-smashwords.docx exists -- TPL-04', () => {
     assert.ok(
       fs.existsSync(SW_DOCX),
-      'data/export-templates/scriven-smashwords.docx must exist -- TPL-04'
+      'data/export-templates/scriveno-smashwords.docx must exist -- TPL-04'
     );
   });
 
-  it('scriven-smashwords-styles.md exists -- TPL-04', () => {
+  it('scriveno-smashwords-styles.md exists -- TPL-04', () => {
     const content = readFile(SW_STYLES);
-    assert.ok(content !== null, 'data/export-templates/scriven-smashwords-styles.md must exist -- TPL-04');
+    assert.ok(content !== null, 'data/export-templates/scriveno-smashwords-styles.md must exist -- TPL-04');
   });
 
-  it('scriven-smashwords-styles.md prohibits tabs -- TPL-04', () => {
+  it('scriveno-smashwords-styles.md prohibits tabs -- TPL-04', () => {
     const content = readFile(SW_STYLES);
-    assert.ok(content !== null, 'data/export-templates/scriven-smashwords-styles.md must exist -- TPL-04');
+    assert.ok(content !== null, 'data/export-templates/scriveno-smashwords-styles.md must exist -- TPL-04');
     assert.ok(
       content.includes('no tabs') || content.includes('tabs'),
-      'scriven-smashwords-styles.md must contain tabs prohibition -- TPL-04'
+      'scriveno-smashwords-styles.md must contain tabs prohibition -- TPL-04'
     );
   });
 
-  it('scriven-smashwords-styles.md specifies first-line indent -- TPL-04', () => {
+  it('scriveno-smashwords-styles.md specifies first-line indent -- TPL-04', () => {
     const content = readFile(SW_STYLES);
-    assert.ok(content !== null, 'data/export-templates/scriven-smashwords-styles.md must exist -- TPL-04');
+    assert.ok(content !== null, 'data/export-templates/scriveno-smashwords-styles.md must exist -- TPL-04');
     assert.ok(
       content.includes('first-line') || content.includes('FirstLineIndent') || content.includes('first_line'),
-      'scriven-smashwords-styles.md must contain first-line indent reference -- TPL-04'
+      'scriveno-smashwords-styles.md must contain first-line indent reference -- TPL-04'
     );
   });
 
@@ -271,38 +271,38 @@ describe('Phase 34: TPL-04 Smashwords DOCX reference doc and build command exist
 // TPL-05: Chapbook Typst template (5.5x8.5 saddle-stitch)
 // ─────────────────────────────────────────────────────────────────────────────
 
-describe('Phase 34: TPL-05 scriven-chapbook.typst exists with 5.5x8.5 saddle-stitch markers', () => {
-  const CHAPBOOK = path.join(TEMPLATES_DIR, 'scriven-chapbook.typst');
+describe('Phase 34: TPL-05 scriveno-chapbook.typst exists with 5.5x8.5 saddle-stitch markers', () => {
+  const CHAPBOOK = path.join(TEMPLATES_DIR, 'scriveno-chapbook.typst');
 
-  it('scriven-chapbook.typst exists -- TPL-05', () => {
+  it('scriveno-chapbook.typst exists -- TPL-05', () => {
     const content = readFile(CHAPBOOK);
-    assert.ok(content !== null, 'data/export-templates/scriven-chapbook.typst must exist -- TPL-05');
+    assert.ok(content !== null, 'data/export-templates/scriveno-chapbook.typst must exist -- TPL-05');
   });
 
-  it('scriven-chapbook.typst contains page width 5.5in -- TPL-05', () => {
+  it('scriveno-chapbook.typst contains page width 5.5in -- TPL-05', () => {
     const content = readFile(CHAPBOOK);
-    assert.ok(content !== null, 'data/export-templates/scriven-chapbook.typst must exist -- TPL-05');
+    assert.ok(content !== null, 'data/export-templates/scriveno-chapbook.typst must exist -- TPL-05');
     assert.ok(
       content.includes('5.5in'),
-      'scriven-chapbook.typst must contain page width 5.5in -- TPL-05'
+      'scriveno-chapbook.typst must contain page width 5.5in -- TPL-05'
     );
   });
 
-  it('scriven-chapbook.typst contains page height 8.5in -- TPL-05', () => {
+  it('scriveno-chapbook.typst contains page height 8.5in -- TPL-05', () => {
     const content = readFile(CHAPBOOK);
-    assert.ok(content !== null, 'data/export-templates/scriven-chapbook.typst must exist -- TPL-05');
+    assert.ok(content !== null, 'data/export-templates/scriveno-chapbook.typst must exist -- TPL-05');
     assert.ok(
       content.includes('8.5in'),
-      'scriven-chapbook.typst must contain page height 8.5in -- TPL-05'
+      'scriveno-chapbook.typst must contain page height 8.5in -- TPL-05'
     );
   });
 
-  it('scriven-chapbook.typst contains page-count multiple-of-4 comment -- TPL-05', () => {
+  it('scriveno-chapbook.typst contains page-count multiple-of-4 comment -- TPL-05', () => {
     const content = readFile(CHAPBOOK);
-    assert.ok(content !== null, 'data/export-templates/scriven-chapbook.typst must exist -- TPL-05');
+    assert.ok(content !== null, 'data/export-templates/scriveno-chapbook.typst must exist -- TPL-05');
     assert.ok(
       content.includes('multiple of 4') || content.includes('saddle') || content.includes('mod 4'),
-      'scriven-chapbook.typst must contain page-count multiple-of-4 or saddle-stitch comment -- TPL-05'
+      'scriveno-chapbook.typst must contain page-count multiple-of-4 or saddle-stitch comment -- TPL-05'
     );
   });
 });
@@ -312,37 +312,37 @@ describe('Phase 34: TPL-05 scriven-chapbook.typst exists with 5.5x8.5 saddle-sti
 // ─────────────────────────────────────────────────────────────────────────────
 
 describe('Phase 34: TPL-06 poetry submission DOCX reference doc and build command exist', () => {
-  const PS_DOCX   = path.join(TEMPLATES_DIR, 'scriven-poetry-submission.docx');
-  const PS_STYLES = path.join(TEMPLATES_DIR, 'scriven-poetry-submission-styles.md');
+  const PS_DOCX   = path.join(TEMPLATES_DIR, 'scriveno-poetry-submission.docx');
+  const PS_STYLES = path.join(TEMPLATES_DIR, 'scriveno-poetry-submission-styles.md');
   const PS_CMD    = path.join(COMMANDS_DIR, 'build-poetry-submission.md');
 
-  it('scriven-poetry-submission.docx exists -- TPL-06', () => {
+  it('scriveno-poetry-submission.docx exists -- TPL-06', () => {
     assert.ok(
       fs.existsSync(PS_DOCX),
-      'data/export-templates/scriven-poetry-submission.docx must exist -- TPL-06'
+      'data/export-templates/scriveno-poetry-submission.docx must exist -- TPL-06'
     );
   });
 
-  it('scriven-poetry-submission-styles.md exists -- TPL-06', () => {
+  it('scriveno-poetry-submission-styles.md exists -- TPL-06', () => {
     const content = readFile(PS_STYLES);
-    assert.ok(content !== null, 'data/export-templates/scriven-poetry-submission-styles.md must exist -- TPL-06');
+    assert.ok(content !== null, 'data/export-templates/scriveno-poetry-submission-styles.md must exist -- TPL-06');
   });
 
-  it('scriven-poetry-submission-styles.md specifies page break per poem -- TPL-06', () => {
+  it('scriveno-poetry-submission-styles.md specifies page break per poem -- TPL-06', () => {
     const content = readFile(PS_STYLES);
-    assert.ok(content !== null, 'data/export-templates/scriven-poetry-submission-styles.md must exist -- TPL-06');
+    assert.ok(content !== null, 'data/export-templates/scriveno-poetry-submission-styles.md must exist -- TPL-06');
     assert.ok(
       content.includes('page break') || content.includes('pagebreak') || content.includes('page-break'),
-      'scriven-poetry-submission-styles.md must specify page break per poem -- TPL-06'
+      'scriveno-poetry-submission-styles.md must specify page break per poem -- TPL-06'
     );
   });
 
-  it('scriven-poetry-submission-styles.md specifies Times New Roman or Garamond -- TPL-06', () => {
+  it('scriveno-poetry-submission-styles.md specifies Times New Roman or Garamond -- TPL-06', () => {
     const content = readFile(PS_STYLES);
-    assert.ok(content !== null, 'data/export-templates/scriven-poetry-submission-styles.md must exist -- TPL-06');
+    assert.ok(content !== null, 'data/export-templates/scriveno-poetry-submission-styles.md must exist -- TPL-06');
     assert.ok(
       content.includes('Times New Roman') || content.includes('Garamond'),
-      'scriven-poetry-submission-styles.md must specify Times New Roman or Garamond -- TPL-06'
+      'scriveno-poetry-submission-styles.md must specify Times New Roman or Garamond -- TPL-06'
     );
   });
 

@@ -32,7 +32,7 @@ status: all_fixed
 
 ### WR-02: ACM template loads packages already bundled by `acmart.cls`
 
-**Files modified:** `data/export-templates/scriven-acm.latex`
+**Files modified:** `data/export-templates/scriveno-acm.latex`
 **Commit:** efe5ea6
 **Applied fix:** Removed the `\usepackage{amsmath,amssymb}`, `\usepackage{graphicx}`, `\makeatletter`/`\makeatother` image sizing macros, and `\setkeys{Gin}{...}` block (lines 15–24). Replaced with a comment block explaining that `acmart.cls` already loads those packages internally.
 
@@ -40,7 +40,7 @@ status: all_fixed
 
 ### WR-03: APA7 template requires `biblatex` but provides no injection hook
 
-**Files modified:** `data/export-templates/scriven-apa7.latex`
+**Files modified:** `data/export-templates/scriveno-apa7.latex`
 **Commit:** 3362a75
 **Applied fix:** Added `$for(header-includes)$...$endfor$` Pandoc variable block after the graphics section (before the tight-list macro), plus a commented-out `\usepackage[style=apa,...]{biblatex}` and `\addbibresource` hint so users know exactly what to uncomment or inject via YAML front matter to enable bibliography support.
 
@@ -48,7 +48,7 @@ status: all_fixed
 
 ### WR-04: IEEE keywords use plain text instead of `IEEEkeywords` environment
 
-**Files modified:** `data/export-templates/scriven-ieee.latex`
+**Files modified:** `data/export-templates/scriveno-ieee.latex`
 **Commit:** c9d28cc
 **Applied fix:** Replaced `\noindent\textbf{Keywords:} $keywords$` with the proper `\begin{IEEEkeywords}...\end{IEEEkeywords}` environment required by IEEE Transactions and conference submission checkers.
 
@@ -56,7 +56,7 @@ status: all_fixed
 
 ### WR-05: LNCS template omits `\institute{}` — required for author affiliations
 
-**Files modified:** `data/export-templates/scriven-lncs.latex`
+**Files modified:** `data/export-templates/scriveno-lncs.latex`
 **Commit:** 53ac4ac
 **Applied fix:** Added `\institute{...}` line immediately after `\author{...}`, iterating over `it.affiliation` for each author entry using the same Pandoc for-loop pattern as the author block. Satisfies the `llncs` class requirement for camera-ready Springer LNCS submission.
 
@@ -64,7 +64,7 @@ status: all_fixed
 
 ### WR-06: Elsevier template uses wrong `\author{}` syntax for `elsarticle`
 
-**Files modified:** `data/export-templates/scriven-elsevier.latex`
+**Files modified:** `data/export-templates/scriveno-elsevier.latex`
 **Commit:** 3983eb5
 **Applied fix:** Added an `\address{$it.affiliation$}` block after the `\author{...}` declaration, iterating over each author entry's `affiliation` field. This maps to `elsarticle.cls`'s expected author+address structure for affiliation linkage.
 

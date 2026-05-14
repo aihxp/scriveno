@@ -27,7 +27,7 @@ You are a **cultural adaptation specialist**. Your job is to scan translated tex
 ### STEP 1: LOAD CONTEXT
 
 1. Load `.manuscript/config.json` for `source_language` and `target_languages`
-2. Load Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- check prerequisites: `cultural-adaptation` requires `translate`
+2. Load Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- check prerequisites: `cultural-adaptation` requires `translate`
 3. Validate the `<language>` argument is in the `target_languages` list. If not:
    > Language "[language]" is not in your target languages. Configured target languages: [list]. Add it to `.manuscript/config.json` or use one of the configured languages.
 4. Check prerequisite: translation exists for this language

@@ -6,7 +6,7 @@
 <domain>
 ## Phase Boundary
 
-Define one canonical cover-deliverable contract under `.manuscript/build/` so Scriven can distinguish ebook front-cover assets from paperback and hardcover print-wrap assets without relying on vague or legacy file names.
+Define one canonical cover-deliverable contract under `.manuscript/build/` so Scriveno can distinguish ebook front-cover assets from paperback and hardcover print-wrap assets without relying on vague or legacy file names.
 
 </domain>
 
@@ -58,7 +58,7 @@ Define one canonical cover-deliverable contract under `.manuscript/build/` so Sc
 <deferred>
 ## Deferred Ideas
 
-- Generating final CMYK print-wrap PDFs automatically inside Scriven.
+- Generating final CMYK print-wrap PDFs automatically inside Scriveno.
 - Managing barcode generation or ISBN assignment inside the CLI.
 
 </deferred>

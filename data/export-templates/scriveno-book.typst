@@ -1,5 +1,5 @@
-// Scriven Book Interior Template for Pandoc --template flag
-// Usage: pandoc ... --pdf-engine=typst --template=data/export-templates/scriven-book.typst
+// Scriveno Book Interior Template for Pandoc --template flag
+// Usage: pandoc ... --pdf-engine=typst --template=data/export-templates/scriveno-book.typst
 //
 // Accepts Pandoc variables for page dimensions, margins, and text direction.
 // Designed for print-ready PDF output compatible with KDP and IngramSpark.

@@ -1,11 +1,11 @@
-// Scriven Chapbook Template -- 5.5x8.5 saddle-stitch
+// Scriveno Chapbook Template -- 5.5x8.5 saddle-stitch
 //
 // SADDLE-STITCH CONSTRAINT: Page count must be a multiple of 4.
 // If your poem count produces a non-multiple-of-4 page total,
 // add blank filler pages (mod 4) at the back before printing.
 // Formula: padding_pages = (4 - (total_pages mod 4)) mod 4
 //
-// Usage: pandoc ... --pdf-engine=typst --template=data/export-templates/scriven-chapbook.typst
+// Usage: pandoc ... --pdf-engine=typst --template=data/export-templates/scriveno-chapbook.typst
 
 // Page dimensions (Pandoc -V variables with defaults)
 #let page-width  = $if(paperwidth)$$paperwidth$$else$5.5in$endif$

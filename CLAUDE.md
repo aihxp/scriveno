@@ -1,8 +1,8 @@
 ## Project
 
-**Scriven**
+**Scriveno**
 
-Scriven is a spec-driven writing, publishing, and translation pipeline that runs inside AI coding agents (Claude Code, Cursor, Gemini CLI). It covers the full lifecycle from blank page to publication-ready manuscript or technical document set -- including voice profiling, adaptive work types, autonomous drafting, illustration, translation, and multi-format export. Supports 50 work types with tradition-native vocabulary (novels use chapters, screenplays use acts, runbooks use procedures, Quran commentaries use surahs).
+Scriveno is a spec-driven writing, publishing, and translation pipeline that runs inside AI coding agents (Claude Code, Cursor, Gemini CLI). It covers the full lifecycle from blank page to publication-ready manuscript or technical document set -- including voice profiling, adaptive work types, autonomous drafting, illustration, translation, and multi-format export. Supports 50 work types with tradition-native vocabulary (novels use chapters, screenplays use acts, runbooks use procedures, Quran commentaries use surahs).
 
 **Core Value:** **Drafted prose sounds like the writer, not like AI.** The Voice DNA system profiles the writer across 15+ dimensions and loads that profile into every drafter agent invocation. If voice fidelity breaks, trust breaks, and no other feature matters.
 
@@ -19,7 +19,7 @@ Scriven is a spec-driven writing, publishing, and translation pipeline that runs
 ## Architecture Constraint
 - Export tools are **external CLI binaries** the agent invokes via shell, not npm dependencies
 - The agent generates intermediate files (markdown, HTML, Typst) then calls converters
-- Scriven's `package.json` stays dependency-free; tools are prerequisites the user installs
+- Scriveno's `package.json` stays dependency-free; tools are prerequisites the user installs
 - The installer (`bin/install.js`) should detect and guide installation of prerequisites
 ## Recommended Stack
 ### Document Conversion Engine
@@ -49,7 +49,7 @@ Scriven is a spec-driven writing, publishing, and translation pipeline that runs
 |------------|---------|---------|-----|------------|
 | **Pandoc** (built-in) | 3.9.x | Markdown to LaTeX source | For academic writers who need `.tex` files to submit to journals or further edit in Overleaf. Pandoc generates clean LaTeX with customizable templates. | HIGH |
 ### Publishing Platform Packages
-| Platform | Format Required | How Scriven Produces It | Confidence |
+| Platform | Format Required | How Scriveno Produces It | Confidence |
 |----------|----------------|------------------------|------------|
 | **KDP (ebook)** | EPUB or DOCX | Pandoc EPUB with KDP-specific CSS (alt text on all images, embedded fonts) | HIGH |
 | **KDP (print)** | PDF (no marks, embedded fonts, 300dpi images) | Pandoc + Typst with KDP trim size template (e.g., 6x9, 5.5x8.5), 0.25" extra height, 0.125" extra width for bleed | HIGH |
@@ -77,12 +77,12 @@ Scriven is a spec-driven writing, publishing, and translation pipeline that runs
 | Concern | Recommendation | Why | Confidence |
 |---------|---------------|-----|------------|
 | **Authentication** | Granular Access Tokens (not classic) | Classic tokens deprecated; all classic tokens revoked by Feb 2026. Write-access tokens now max 90-day lifespan. | HIGH |
-| **Publishing method** | `npm publish` with 2FA from local machine | Most secure for small-team projects. Trusted publishing (OIDC via GitHub Actions) is overkill until Scriven has CI/CD. | HIGH |
+| **Publishing method** | `npm publish` with 2FA from local machine | Most secure for small-team projects. Trusted publishing (OIDC via GitHub Actions) is overkill until Scriveno has CI/CD. | HIGH |
 | **Prepublish check** | `npm pack --dry-run` before every publish | Verify no secrets, no unnecessary files leaked. The `"files"` field in package.json already scopes what's included. | HIGH |
 | **Versioning** | `npm version patch/minor/major` with git tags | Auto-creates git tag, bumps version. Pair with GitHub releases for changelog. | HIGH |
-| **npx support** | Already configured (`"bin": {"scriven": "./bin/install.js"}`) | `npx scriven-cli@latest` will download and run the installer. Current setup is correct. | HIGH |
+| **npx support** | Already configured (`"bin": {"scriveno": "./bin/install.js"}`) | `npx scriveno-cli@latest` will download and run the installer. Current setup is correct. | HIGH |
 | **Lockfile** | Commit `package-lock.json` but since there are zero dependencies, it's effectively empty | Standard practice. Will matter when/if dev dependencies are added for testing. | HIGH |
-| **Node version** | `"engines": {"node": ">=20.0.0"}` | Scriven's installer compatibility floor is `>=20.0.0`; new installs should use a currently supported LTS such as Node.js 24. This keeps package metadata, installer guidance, and runtime docs aligned on one minimum without presenting Node 20 as the fresh-install target. | HIGH |
+| **Node version** | `"engines": {"node": ">=20.0.0"}` | Scriveno's installer compatibility floor is `>=20.0.0`; new installs should use a currently supported LTS such as Node.js 24. This keeps package metadata, installer guidance, and runtime docs aligned on one minimum without presenting Node 20 as the fresh-install target. | HIGH |
 See `docs/runtime-support.md` for the canonical runtime matrix, support levels, and host-runtime parity status.
 ### npm Publish Readiness Checklist
 ## Supporting Tools (Prerequisites for Users)
@@ -102,7 +102,7 @@ See `docs/runtime-support.md` for the canonical runtime matrix, support levels, 
 | PDF engine | Typst | Prince XML | Commercial ($3,800 license). Overkill for CLI tool targeting indie authors. |
 | EPUB | Pandoc | epub-gen-memory (npm) | Would add runtime dependency. Pandoc's EPUB is more mature, handles accessibility, KDP validation. |
 | EPUB | Pandoc | Calibre CLI | Calibre is massive (200+ MB). Pandoc is lighter and sufficient. |
-| Document conversion | Pandoc | Asciidoctor | Scriven manuscripts are markdown. Asciidoctor is AsciiDoc-native. Adding a format is unnecessary complexity. |
+| Document conversion | Pandoc | Asciidoctor | Scriveno manuscripts are markdown. Asciidoctor is AsciiDoc-native. Adding a format is unnecessary complexity. |
 | Illustration | OpenAI GPT Image 1.5 | Midjourney | No API. Cannot automate from CLI. |
 | Illustration | OpenAI GPT Image 1.5 | DALL-E 3 | Sunset May 2026. Dead end. |
 | Illustration | OpenAI GPT Image 1.5 | Replicate (Flux/SD) | Additional API signup. OpenAI key is already likely available to users of AI coding agents. |
@@ -113,8 +113,8 @@ See `docs/runtime-support.md` for the canonical runtime matrix, support levels, 
 ## What NOT to Use
 | Technology | Why Not |
 |------------|---------|
-| **npm runtime dependencies** | Scriven is a pure skill system. Adding npm deps means adding a build step, version conflicts, and breaking the zero-dependency architecture. |
-| **Calibre** | 200+ MB desktop app. Pandoc does everything Scriven needs at 1/10th the size. |
+| **npm runtime dependencies** | Scriveno is a pure skill system. Adding npm deps means adding a build step, version conflicts, and breaking the zero-dependency architecture. |
+| **Calibre** | 200+ MB desktop app. Pandoc does everything Scriveno needs at 1/10th the size. |
 | **DALL-E 2/3 API** | Sunset May 2026. Use GPT Image 1.5 instead. |
 | **Midjourney** | No API. Cannot be automated. |
 | **wkhtmltopdf** | Deprecated, security issues, poor print quality. |
@@ -129,17 +129,17 @@ Load-bearing baseline. Files live in `data/export-templates/`. See `docs/shipped
 
 | Template | Format | Purpose |
 |----------|--------|---------|
-| `scriven-book.typst` | Typst template | Book interior PDF (trim sizes, margins, headers, page numbers) |
-| `scriven-epub.css` | CSS | EPUB styling (clean, readable, KDP-compatible) |
-| `scriven-academic.latex` | LaTeX template | Academic paper/thesis formatting |
+| `scriveno-book.typst` | Typst template | Book interior PDF (trim sizes, margins, headers, page numbers) |
+| `scriveno-epub.css` | CSS | EPUB styling (clean, readable, KDP-compatible) |
+| `scriveno-academic.latex` | LaTeX template | Academic paper/thesis formatting |
 
 ## Planned Export Templates
 | Template | Format | Purpose |
 |----------|--------|---------|
-| `scriven-manuscript.docx` | DOCX reference doc | Standard manuscript format (12pt Courier, double-spaced, 1" margins) |
-| `scriven-formatted.docx` | DOCX reference doc | Designed/formatted DOCX for review copies |
-| `scriven-kdp-cover.typst` | Typst template | KDP cover with calculated spine width |
-| `scriven-ingram-cover.typst` | Typst template | IngramSpark full-wrap cover |
+| `scriveno-manuscript.docx` | DOCX reference doc | Standard manuscript format (12pt Courier, double-spaced, 1" margins) |
+| `scriveno-formatted.docx` | DOCX reference doc | Designed/formatted DOCX for review copies |
+| `scriveno-kdp-cover.typst` | Typst template | KDP cover with calculated spine width |
+| `scriveno-ingram-cover.typst` | Typst template | IngramSpark full-wrap cover |
 ## Sources
 - [Pandoc Official Site](https://pandoc.org/) -- Version 3.9.0.2 confirmed
 - [Typst Blog: Typst 0.14](https://typst.app/blog/2025/typst-0.14) -- Accessibility features confirmed

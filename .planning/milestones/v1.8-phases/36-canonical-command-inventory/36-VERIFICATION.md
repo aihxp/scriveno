@@ -9,7 +9,7 @@ re_verification: false
 
 # Phase 36: Canonical Command Inventory — Verification Report
 
-**Phase Goal:** Scriven has one authoritative command inventory per runtime so sacred command names, manifest output, and installer behavior cannot disagree.
+**Phase Goal:** Scriveno has one authoritative command inventory per runtime so sacred command names, manifest output, and installer behavior cannot disagree.
 
 **Verified:** 2026-04-18T03:20:00Z
 **Status:** passed

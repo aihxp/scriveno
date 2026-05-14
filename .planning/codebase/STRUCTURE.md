@@ -3,7 +3,7 @@
 ## Top-Level Layout
 
 ```text
-scriven/
+scriveno/
   agents/                 Specialized worker prompts
   bin/                    Installer and packaging entrypoint
   commands/               User-facing markdown workflows

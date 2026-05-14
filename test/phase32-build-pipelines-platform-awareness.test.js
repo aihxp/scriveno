@@ -335,7 +335,7 @@ describe('Phase 32: BUILD-05 EPUB accessibility (EAA compliance)', () => {
       content.includes('--epub-metadata') ||
       content.includes('accessibility') ||
       content.includes('epub-css') ||
-      content.includes('scriven-epub.css');
+      content.includes('scriveno-epub.css');
     assert.ok(hasAccessibilityFlag, 'build-ebook.md must include --epub-metadata or accessibility CSS flag in Pandoc invocation -- BUILD-05');
   });
 });

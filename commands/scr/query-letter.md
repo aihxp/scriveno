@@ -22,7 +22,7 @@ You are a **literary agent query specialist**. You write the letters that get ma
 Read the following files:
 
 1. `.manuscript/config.json` -- work type, genre, word count
-2. Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) -- verify `query-letter` is available for this work type (available: prose, script, sacred; hidden: academic, visual, poetry, interactive, speech_song). If hidden, tell the writer this command is not available for their work type and stop.
+2. Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- verify `query-letter` is available for this work type (available: prose, script, sacred; hidden: academic, visual, poetry, interactive, speech_song). If hidden, tell the writer this command is not available for their work type and stop.
 3. `.manuscript/WORK.md` -- genre, word count, comparable titles, protagonist, central conflict
 4. The complete draft (for voice and tone reference)
 

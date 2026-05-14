@@ -1,23 +1,23 @@
 ---
-description: Synchronize installed Scriven runtime commands, skills, and agents with the current source.
+description: Synchronize installed Scriveno runtime commands, skills, and agents with the current source.
 argument-hint: "[--check] [--apply] [--runtime <key>] [--detected] [--global|--project] [--writer|--developer]"
 ---
 
 # Sync
 
-You are synchronizing Scriven's installed agent surfaces with the current Scriven source tree.
+You are synchronizing Scriveno's installed agent surfaces with the current Scriveno source tree.
 
-This command is for local runtime drift: Codex skills, Codex command mirrors, Claude command files, Cursor command files, and agent prompts that no longer match the source files in the Scriven package or repo.
+This command is for local runtime drift: Codex skills, Codex command mirrors, Claude command files, Cursor command files, and agent prompts that no longer match the source files in the Scriveno package or repo.
 
-This is not a package upgrade command. Do not fetch a newer Scriven release, do not change npm dependencies, and do not modify manuscript content. If the writer wants a newer published package version, that belongs to a future `/scr:update` command.
+This is not a package upgrade command. Do not fetch a newer Scriveno release, do not change npm dependencies, and do not modify manuscript content. If the writer wants a newer published package version, that belongs to a future `/scr:update` command.
 
 ## Prerequisites
 
 - Node.js >=20.0.0
-- A Scriven source root with `package.json`, `bin/install.js`, `commands/scr/`, and `agents/`
+- A Scriveno source root with `package.json`, `bin/install.js`, `commands/scr/`, and `agents/`
 - At least one target runtime directory, or an explicit `--runtime` / `--detected` choice
 
-If you cannot find a Scriven source root, stop and explain that `/scr:sync` needs to run from the Scriven package or repo checkout. Suggest reinstalling with `npx scriven-cli@latest --detected --global --writer --silent` only when the writer wants the latest published package instead of local source sync.
+If you cannot find a Scriveno source root, stop and explain that `/scr:sync` needs to run from the Scriveno package or repo checkout. Suggest reinstalling with `npx scriveno-cli@latest --detected --global --writer --silent` only when the writer wants the latest published package instead of local source sync.
 
 ## Usage
 
@@ -30,15 +30,15 @@ If you cannot find a Scriven source root, stop and explain that `/scr:sync` need
 
 ## What To Do
 
-1. Locate the Scriven source root:
-   - First, check the current working directory and its parents for `package.json` with `"name": "scriven-cli"` plus `bin/install.js`.
-   - If running from an installed command copy that contains a `scriven-cli-installed-command` marker, derive the source root from that marker's `source:` path.
+1. Locate the Scriveno source root:
+   - First, check the current working directory and its parents for `package.json` with `"name": "scriveno-cli"` plus `bin/install.js`.
+   - If running from an installed command copy that contains a `scriveno-cli-installed-command` marker, derive the source root from that marker's `source:` path.
    - If neither works, stop with the prerequisite message above.
 2. Read `package.json` from the source root and report the source version.
 3. Detect target runtimes:
    - If `--runtime <key>` is supplied, use that runtime only.
    - If `--detected` is supplied, pass `--detected` to the installer.
-   - If no runtime is supplied, detect installed Scriven surfaces by checking known runtime locations from `bin/install.js`, especially:
+   - If no runtime is supplied, detect installed Scriveno surfaces by checking known runtime locations from `bin/install.js`, especially:
      - Codex: `~/.codex/skills/scr-*`, `~/.codex/commands/scr/`, `~/.codex/agents/`
      - Claude Code: `~/.claude/commands/scr-*.md`, `~/.claude/agents/`
      - Cursor: `~/.cursor/commands/scr/`, `~/.cursor/agents/`
@@ -55,7 +55,7 @@ If you cannot find a Scriven source root, stop and explain that `/scr:sync` need
 5. Decide mode:
    - `--check`: report only. Do not write files.
    - `--apply`: run the installer.
-   - No flag: if stale installed Scriven-owned files are detected, ask the writer before applying. If everything is current, report that no sync is needed.
+   - No flag: if stale installed Scriveno-owned files are detected, ask the writer before applying. If everything is current, report that no sync is needed.
 6. When applying, run from the source root:
 
 ```
@@ -81,12 +81,12 @@ Adjust flags from the command arguments:
 
 ## Safety Rules
 
-- Only overwrite Scriven-owned installed runtime files.
+- Only overwrite Scriveno-owned installed runtime files.
 - Do not edit `.manuscript/` files.
 - Do not run `npm install`, `npm update`, `npm version`, `npm publish`, `git pull`, or any network command.
-- Do not delete non-Scriven files from runtime directories.
+- Do not delete non-Scriveno files from runtime directories.
 - Do not claim a runtime is current unless command counts and key files were checked.
-- If an installed runtime has user-modified Scriven files without an installer marker, report it and ask before replacing them.
+- If an installed runtime has user-modified Scriveno files without an installer marker, report it and ask before replacing them.
 
 ## Response Contract
 

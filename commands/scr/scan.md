@@ -159,7 +159,7 @@ If HISTORY.log does not exist, emit INFO that history-tracking is not active.
 
 ### CHECK 9: Sacred-tradition config vs. shipped templates
 
-If `config.json` has a `tradition:` key set, verify that `templates/sacred/<tradition>/manifest.yaml` exists in the installed Scriven templates. If not, emit:
+If `config.json` has a `tradition:` key set, verify that `templates/sacred/<tradition>/manifest.yaml` exists in the installed Scriveno templates. If not, emit:
 
 ```
 DRIFT   config.json declares tradition: "{value}"
@@ -189,7 +189,7 @@ If `.manuscript/RECORD.md` does not exist, emit INFO for older projects:
 
 ```
 INFO   RECORD.md is missing.
-       This project can still work, but Scriven has no compact store for what the work has established.
+       This project can still work, but Scriveno has no compact store for what the work has established.
        Fix: /scr:scan --fix can initialize RECORD.md from the installed template.
 ```
 
@@ -209,7 +209,7 @@ Do not over-claim. RECORD.md is an interpretive store, so uncertain findings sho
 Output a single structured report:
 
 ```
-Scriven context scan
+Scriveno context scan
 ====================
 Project: [title from config.json]
 Scanned: [N] checks across .manuscript/
@@ -246,7 +246,7 @@ If `--quiet` was passed and there are zero findings, exit silently with no outpu
 
 When `--fix` is passed, after the report, group findings by auto-fixability:
 
-- **Auto-fixable now** -- finding has a deterministic fix Scriven can apply (e.g. update STATE.md unit counts to match disk, initialize missing RECORD.md from the installed template, regenerate stale CONTEXT.md, sort orphan drafts into a `_unsorted/` review directory). For each, ask the writer once:
+- **Auto-fixable now** -- finding has a deterministic fix Scriveno can apply (e.g. update STATE.md unit counts to match disk, initialize missing RECORD.md from the installed template, regenerate stale CONTEXT.md, sort orphan drafts into a `_unsorted/` review directory). For each, ask the writer once:
   > Apply [N] auto-fixes? (yes / no / show me what each does)
 - **Requires writer decision** -- finding needs a judgment call (e.g. character orphans, scaffold pending, voice drift). List with suggested next command.
 - **Manual** -- finding requires manual cleanup (e.g. malformed HISTORY.log lines).

@@ -11,7 +11,7 @@ Research for milestone `v1.4 Perplexity & Technical Writing`.
 - Users can choose **Perplexity Desktop** as an installer target
 - Installer/docs explain the support type accurately instead of implying command-directory parity
 - Runtime support docs state the verification status and evidence level clearly
-- Troubleshooting/help docs explain what Scriven installs or configures for the Perplexity surface
+- Troubleshooting/help docs explain what Scriveno installs or configures for the Perplexity surface
 
 ### Likely First-Milestone Scope
 
@@ -59,7 +59,7 @@ The most stable way to frame technical-writing support is around documentation f
 - decision rationale
 - conceptual guides
 
-### Table Stakes for Scriven
+### Table Stakes for Scriveno
 
 - a technical-writing group that uses document-native vocabulary instead of fiction-centric terms
 - context/template support for structured sections, prerequisites, steps, outputs, warnings, and references

@@ -1,5 +1,5 @@
-% Scriven Academic LaTeX Template for Pandoc --template flag
-% Usage: pandoc ... --template=data/export-templates/scriven-academic.latex
+% Scriveno Academic LaTeX Template for Pandoc --template flag
+% Usage: pandoc ... --template=data/export-templates/scriveno-academic.latex
 %
 % Supports article (default), report, or book document class.
 % Bibliography via biblatex/biber with citeproc compatibility.

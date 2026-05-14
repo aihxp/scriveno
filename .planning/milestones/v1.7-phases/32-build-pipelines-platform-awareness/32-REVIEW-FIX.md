@@ -34,7 +34,7 @@ Renamed `language:` key to `lang:` in the metadata.yaml template (Pandoc's EPUB 
 
 ### WR-03 — FIXED
 **File:** `commands/scr/build-ebook.md` (STEP 2)
-Added `scriven-epub.css` existence check immediately after the Pandoc binary check. If the file is missing, the build stops with a clear re-install message.
+Added `scriveno-epub.css` existence check immediately after the Pandoc binary check. If the file is missing, the build stops with a clear re-install message.
 
 ## Test Results
 

@@ -7,16 +7,16 @@
 
 ## 1. Project Overview
 
-Milestone `v1.3 Trust & Proof` hardened Scriven’s public story. It aligned launch claims, shipped assets, runtime support wording, packaged proof artifacts, and release-time regression coverage around the product’s strongest differentiator: voice preservation.
+Milestone `v1.3 Trust & Proof` hardened Scriveno’s public story. It aligned launch claims, shipped assets, runtime support wording, packaged proof artifacts, and release-time regression coverage around the product’s strongest differentiator: voice preservation.
 
 This milestone shipped phases `13` through `16`, passed its archived milestone audit, and later received a full closeout pass covering code review, validation, security records, UAT audit, and release preparation for `1.3.4`.
 
 ## 2. Architecture & Technical Decisions
 
-- **Decision:** Treat [docs/shipped-assets.md](/Users/hprincivil/Projects/scriven/docs/shipped-assets.md) as the canonical trust inventory.
+- **Decision:** Treat [docs/shipped-assets.md](/Users/hprincivil/Projects/scriveno/docs/shipped-assets.md) as the canonical trust inventory.
   - **Why:** Launch docs needed one provable source of truth for bundled templates and trust-critical files.
   - **Phase:** Phase 13
-- **Decision:** Treat [docs/runtime-support.md](/Users/hprincivil/Projects/scriven/docs/runtime-support.md) as the canonical runtime matrix.
+- **Decision:** Treat [docs/runtime-support.md](/Users/hprincivil/Projects/scriveno/docs/runtime-support.md) as the canonical runtime matrix.
   - **Why:** Runtime claims were drifting across installer copy, onboarding docs, and metadata.
   - **Phase:** Phase 14
 - **Decision:** Keep proof evidence under `data/proof/`.
@@ -44,7 +44,7 @@ Archived requirement and audit artifacts show full coverage:
 - ✅ `PROOF-01` to `PROOF-03` satisfied in Phase `15`
 - ✅ `QA-01` and `QA-02` satisfied in Phase `16`
 
-Audit verdict: `passed` in [v1.3-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/scriven/.planning/v1.3-MILESTONE-AUDIT.md), with `11/11` requirements satisfied and all four phases marked Nyquist-compliant after closeout.
+Audit verdict: `passed` in [v1.3-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/scriveno/.planning/v1.3-MILESTONE-AUDIT.md), with `11/11` requirements satisfied and all four phases marked Nyquist-compliant after closeout.
 
 ## 5. Key Decisions Log
 
@@ -61,10 +61,10 @@ Audit verdict: `passed` in [v1.3-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/
 
 ## 7. Getting Started
 
-- **Run the project:** `npx scriven-cli@latest`
+- **Run the project:** `npx scriveno-cli@latest`
 - **Key directories:** `docs/`, `data/proof/`, `test/`, `bin/`, `.planning/phases/13-*` through `16-*`
 - **Tests:** `npm test`
-- **Where to look first:** [docs/shipped-assets.md](/Users/hprincivil/Projects/scriven/docs/shipped-assets.md), [docs/runtime-support.md](/Users/hprincivil/Projects/scriven/docs/runtime-support.md), [docs/proof-artifacts.md](/Users/hprincivil/Projects/scriven/docs/proof-artifacts.md), and the archived roadmap at [v1.3-ROADMAP.md](/Users/hprincivil/Projects/scriven/.planning/milestones/v1.3-ROADMAP.md)
+- **Where to look first:** [docs/shipped-assets.md](/Users/hprincivil/Projects/scriveno/docs/shipped-assets.md), [docs/runtime-support.md](/Users/hprincivil/Projects/scriveno/docs/runtime-support.md), [docs/proof-artifacts.md](/Users/hprincivil/Projects/scriveno/docs/proof-artifacts.md), and the archived roadmap at [v1.3-ROADMAP.md](/Users/hprincivil/Projects/scriveno/.planning/milestones/v1.3-ROADMAP.md)
 
 ---
 
@@ -75,8 +75,8 @@ Audit verdict: `passed` in [v1.3-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/
 - **Tag:** `v1.3`
 - **Requirements:** 11 / 11 satisfied
 - **Commits:** 244 reachable at the archived tag
-- **Files changed / diff stats:** see the archived milestone record in [MILESTONES.md](/Users/hprincivil/Projects/scriven/.planning/MILESTONES.md) for the tracked `b3ca8ca` → `d0f93d1` range
+- **Files changed / diff stats:** see the archived milestone record in [MILESTONES.md](/Users/hprincivil/Projects/scriveno/.planning/MILESTONES.md) for the tracked `b3ca8ca` → `d0f93d1` range
 
 ---
 
-Primary artifacts used: [v1.3-ROADMAP.md](/Users/hprincivil/Projects/scriven/.planning/milestones/v1.3-ROADMAP.md), [v1.3-REQUIREMENTS.md](/Users/hprincivil/Projects/scriven/.planning/milestones/v1.3-REQUIREMENTS.md), [v1.3-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/scriven/.planning/v1.3-MILESTONE-AUDIT.md), and phase artifacts under [.planning/phases](/Users/hprincivil/Projects/scriven/.planning/phases).
+Primary artifacts used: [v1.3-ROADMAP.md](/Users/hprincivil/Projects/scriveno/.planning/milestones/v1.3-ROADMAP.md), [v1.3-REQUIREMENTS.md](/Users/hprincivil/Projects/scriveno/.planning/milestones/v1.3-REQUIREMENTS.md), [v1.3-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/scriveno/.planning/v1.3-MILESTONE-AUDIT.md), and phase artifacts under [.planning/phases](/Users/hprincivil/Projects/scriveno/.planning/phases).

@@ -1,6 +1,6 @@
-% Scriven IEEE LaTeX Template for Pandoc --template flag
+% Scriveno IEEE LaTeX Template for Pandoc --template flag
 % Requires IEEEtran.cls (install: tlmgr install ieeetran)
-% Usage: pandoc ... --template=data/export-templates/scriven-ieee.latex
+% Usage: pandoc ... --template=data/export-templates/scriveno-ieee.latex
 %
 % Default class options: [conference] for IEEE conference papers, [journal] for IEEE journal articles.
 % Pass via Pandoc: --metadata classoption=conference

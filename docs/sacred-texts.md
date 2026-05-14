@@ -1,12 +1,12 @@
 # Sacred Text Guide
 
-Scriven adapts its entire workflow for sacred, historical, and mythological writing. When you choose a sacred work type, every command, every structural label, and every voice setting shifts to use tradition-native vocabulary. Novels use "chapters" -- but Quranic commentary uses "surahs," Torah scholarship uses "parashot," and Vedic texts use "suktas." This is not cosmetic. The vocabulary shapes how the AI agent thinks about your text, producing drafts that respect the traditions they come from.
+Scriveno adapts its entire workflow for sacred, historical, and mythological writing. When you choose a sacred work type, every command, every structural label, and every voice setting shifts to use tradition-native vocabulary. Novels use "chapters" -- but Quranic commentary uses "surahs," Torah scholarship uses "parashot," and Vedic texts use "suktas." This is not cosmetic. The vocabulary shapes how the AI agent thinks about your text, producing drafts that respect the traditions they come from.
 
-This guide covers everything specific to sacred writing in Scriven: the 15 sacred work types, 10 voice registers, sacred-exclusive commands, command adaptations, sacred translation, and tradition-aware front and back matter.
+This guide covers everything specific to sacred writing in Scriveno: the 15 sacred work types, 10 voice registers, sacred-exclusive commands, command adaptations, sacred translation, and tradition-aware front and back matter.
 
 ## Sacred Work Types
 
-Scriven supports 15 work types in the sacred group, spanning six traditions and several cross-tradition categories. Each work type defines its own structural hierarchy -- the levels at which your text is organized -- and its own command unit, the level at which you discuss, plan, draft, and review.
+Scriveno supports 15 work types in the sacred group, spanning six traditions and several cross-tradition categories. Each work type defines its own structural hierarchy -- the levels at which your text is organized -- and its own command unit, the level at which you discuss, plan, draft, and review.
 
 ### Scripture Types
 
@@ -61,7 +61,7 @@ Tradition-aware commands load `templates/sacred/{tradition}/manifest.yaml` for b
 
 ## Tradition-Native Vocabulary
 
-When you create a project with `/scr:new-work` and select a sacred work type, Scriven renames structural units throughout the entire system. This means every command you run uses the vocabulary of your tradition, not generic publishing terms.
+When you create a project with `/scr:new-work` and select a sacred work type, Scriveno renames structural units throughout the entire system. This means every command you run uses the vocabulary of your tradition, not generic publishing terms.
 
 Here is how vocabulary flows for each scripture type:
 
@@ -78,7 +78,7 @@ Non-scripture sacred types use vocabulary appropriate to their form: a `liturgic
 
 ## Voice Registers
 
-Sacred texts use voice registers instead of a single narrative voice. A register is a mode of sacred speech -- the difference between a prophet's urgent declarations and a sage's measured observations. Scriven defines 10 registers, each with distinct characteristics. You set the register per unit in the plan file, and the drafter agent writes in that register.
+Sacred texts use voice registers instead of a single narrative voice. A register is a mode of sacred speech -- the difference between a prophet's urgent declarations and a sage's measured observations. Scriveno defines 10 registers, each with distinct characteristics. You set the register per unit in the plan file, and the drafter agent writes in that register.
 
 Your STYLE-GUIDE.md has a "Sacred voice registers" section where you customize how YOUR writing handles each register. The register descriptions below are defaults -- your STYLE-GUIDE.md always takes precedence, because the goal is your voice in that register, not a generic version.
 
@@ -213,7 +213,7 @@ Sacred-specific workflows like chronology, doctrinal review, and verse numbering
 
 Sacred translation is the most demanding form of translation work. Terms carry centuries of theological weight, registers must survive the crossing between languages, and readers have strong expectations about how canonical texts sound.
 
-Scriven's translation pipeline (accessed via `/scr:translate`) enters **sacred mode** when the work type is in the sacred group. Sacred mode adds several capabilities beyond standard translation:
+Scriveno's translation pipeline (accessed via `/scr:translate`) enters **sacred mode** when the work type is in the sacred group. Sacred mode adds several capabilities beyond standard translation:
 
 ### Translation Philosophy
 
@@ -283,7 +283,7 @@ Here is a quick walkthrough for starting a sacred writing project:
 
 3. **Explore and plan.** Use `/scr:discuss` (it adapts automatically to your sacred work type) to shape your first unit. Discuss the theological themes, source traditions, and structural approach you want to take.
 
-4. **Draft.** Run `/scr:draft`. In sacred projects, Scriven frames the work in the right unit terminology (surah, parashah, sutta, and so on) while the drafter writes in the register specified in your plan file, using your voice as defined in STYLE-GUIDE.md.
+4. **Draft.** Run `/scr:draft`. In sacred projects, Scriveno frames the work in the right unit terminology (surah, parashah, sutta, and so on) while the drafter writes in the register specified in your plan file, using your voice as defined in STYLE-GUIDE.md.
 
 5. **Review.** Use `/scr:editor-review` for expert review, `/scr:sacred:doctrinal-check` to verify consistency with your DOCTRINES.md, and `/scr:voice-check` for sacred register fidelity.
 
@@ -291,6 +291,6 @@ Here is a quick walkthrough for starting a sacred writing project:
 
 ## See Also
 
-- [Getting Started](getting-started.md) -- Install Scriven and create your first project
+- [Getting Started](getting-started.md) -- Install Scriveno and create your first project
 - [Command Reference](command-reference.md) -- Full reference for all 112 commands, including the [Sacred Exclusive](command-reference.md#sacred-exclusive) section
 - [README](../README.md) -- Project overview and feature list

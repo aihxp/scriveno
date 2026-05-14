@@ -12,12 +12,12 @@
 ### Locked Decisions
 
 - **Invocation UX:** `--platform ieee|acm|lncs|elsevier|apa7` extends the existing `--platform` flag in `build-print.md`; no new command or flag surface needed.
-- **Output:** `.tex` file only — `.manuscript/output/paper-{platform}.tex`. Writer compiles with their own TeX Live. Scriven does not attempt pdflatex.
+- **Output:** `.tex` file only — `.manuscript/output/paper-{platform}.tex`. Writer compiles with their own TeX Live. Scriveno does not attempt pdflatex.
 - **Output naming:** `paper-{platform}.tex` — parallel to `print-{platform}.pdf` convention.
 - **CONSTRAINTS.json:** `academic` added to `exports.build_print.available`; only valid when platform is one of the 5 academic publisher values.
-- **Template naming:** `scriven-ieee.latex`, `scriven-acm.latex`, `scriven-lncs.latex`, `scriven-elsevier.latex`, `scriven-apa7.latex` in `data/export-templates/`.
+- **Template naming:** `scriveno-ieee.latex`, `scriveno-acm.latex`, `scriveno-lncs.latex`, `scriveno-elsevier.latex`, `scriveno-apa7.latex` in `data/export-templates/`.
 - **Minimal wrappers:** Each wrapper contains only `\documentclass{<CLASS>}` + standard Pandoc boilerplate (body, title, author, abstract, keywords, date, bibliography via CSL, CSL ref macros). Publisher class handles all layout/formatting.
-- **Core metadata bridge:** title, author, abstract, keywords, date, bibliography — same fields as existing `scriven-academic.latex`. No publisher-specific extensions (affiliation, ORCID) in this phase.
+- **Core metadata bridge:** title, author, abstract, keywords, date, bibliography — same fields as existing `scriveno-academic.latex`. No publisher-specific extensions (affiliation, ORCID) in this phase.
 - **Detection mechanism:** `kpsewhich IEEEtran.cls` (or equivalent) as pre-flight before producing the `.tex` file.
 - **No TeX distribution:** "No TeX distribution found" error + `brew install basictex` (macOS) / TUG URL (other platforms).
 - **Missing class error:** name the class file, CTAN package, and `tlmgr install` command together: `Install IEEEtran.cls — run: tlmgr install ieeetran`.
@@ -41,20 +41,20 @@
 
 | ID | Description | Research Support |
 |----|-------------|------------------|
-| TPL-07 | Academic paper work type ships thin LaTeX wrappers for IEEE, ACM, Springer LNCS, Elsevier, APA7 that reference the user-installed publisher class and provide Scriven's metadata/frontmatter | Confirmed: all 5 publisher classes exist in TeX Live (tlmgr verified); kpsewhich exit-code detection confirmed reliable; existing scriven-academic.latex provides the Pandoc template boilerplate baseline |
+| TPL-07 | Academic paper work type ships thin LaTeX wrappers for IEEE, ACM, Springer LNCS, Elsevier, APA7 that reference the user-installed publisher class and provide Scriveno's metadata/frontmatter | Confirmed: all 5 publisher classes exist in TeX Live (tlmgr verified); kpsewhich exit-code detection confirmed reliable; existing scriveno-academic.latex provides the Pandoc template boilerplate baseline |
 </phase_requirements>
 
 ---
 
 ## Summary
 
-Phase 35 delivers five thin Pandoc LaTeX template wrappers — one per academic publisher class — that route Scriven's voice/metadata frontmatter through `\documentclass{<CLASS>}` without distributing the publisher class itself. Each wrapper is a minimal Pandoc `.latex` template following the same pattern as the existing `scriven-academic.latex`, but with the document class hardcoded to the publisher class name and the generic preamble (geometry, fancyhdr, setspace, lmodern) removed, since publisher classes handle their own layout.
+Phase 35 delivers five thin Pandoc LaTeX template wrappers — one per academic publisher class — that route Scriveno's voice/metadata frontmatter through `\documentclass{<CLASS>}` without distributing the publisher class itself. Each wrapper is a minimal Pandoc `.latex` template following the same pattern as the existing `scriveno-academic.latex`, but with the document class hardcoded to the publisher class name and the generic preamble (geometry, fancyhdr, setspace, lmodern) removed, since publisher classes handle their own layout.
 
 The `build-print.md` command gains a new route: when `--platform` is one of `ieee|acm|lncs|elsevier|apa7`, it skips the Typst PDF route entirely and instead (1) runs `kpsewhich <Class>.cls` as a pre-flight check, (2) selects the matching wrapper template, (3) invokes Pandoc with `--template=<wrapper>` and `-o paper-{platform}.tex`, producing a `.tex` file the writer compiles themselves. The three plans are: regression test suite, five wrapper templates, and the build-print command extension.
 
 The key insight for wrapper design: publisher classes are opinionated and conflict with geometry/fancyhdr/setspace. The wrappers must be lean — carry only `\providecommand{\tightlist}`, `$highlighting-macros$`, the CSL reference environment, and the metadata-bridge variables. Everything else is the publisher class's domain.
 
-**Primary recommendation:** Model each wrapper directly on `scriven-academic.latex` but strip to the minimal required boilerplate. Use the existing Pandoc template variable syntax (`$title$`, `$author$`, `$abstract$`, `$body$`, `$if(bibliography)$` etc.) that is already proven in the codebase.
+**Primary recommendation:** Model each wrapper directly on `scriveno-academic.latex` but strip to the minimal required boilerplate. Use the existing Pandoc template variable syntax (`$title$`, `$author$`, `$abstract$`, `$body$`, `$if(bibliography)$` etc.) that is already proven in the codebase.
 
 ---
 
@@ -66,7 +66,7 @@ The key insight for wrapper design: publisher classes are opinionated and confli
 | Academic platform routing (ieee/acm/lncs/elsevier/apa7) | build-print.md (STEP 2.5) | — | Platform validation already happens in STEP 2.5; new platform slugs extend the existing allowed-values list |
 | LaTeX template selection | build-print.md (STEP 1.8) | — | STEP 1.8 maps work_type/platform → template path; academic platform branch inserts here |
 | `.tex` file generation via Pandoc | build-print.md (STEP 4) | — | STEP 4 is the Pandoc invocation step; academic route branches from Typst route here |
-| Publisher class wrapper templates | data/export-templates/ | — | All export templates live here; 5 new `.latex` files follow scriven-academic.latex location pattern |
+| Publisher class wrapper templates | data/export-templates/ | — | All export templates live here; 5 new `.latex` files follow scriveno-academic.latex location pattern |
 | CONSTRAINTS.json availability gating | data/CONSTRAINTS.json | build-print.md (STEP 1) | STEP 1 reads CONSTRAINTS.json to check build_print.available; `academic` group must be added |
 | Regression tests | test/phase35-academic-latex-wrappers.test.js | — | All phase regression tests follow the pattern: `test/phase{N}-{slug}.test.js` |
 
@@ -77,17 +77,17 @@ The key insight for wrapper design: publisher classes are opinionated and confli
 ### Core
 | Library | Version | Purpose | Why Standard |
 |---------|---------|---------|--------------|
-| Pandoc | 3.9.0.2 | Markdown → `.tex` via `--template` | Already the standard Scriven converter; `--template` flag with a custom `.latex` file produces clean `.tex` without PDF compilation [VERIFIED: `pandoc --version` on host] |
+| Pandoc | 3.9.0.2 | Markdown → `.tex` via `--template` | Already the standard Scriveno converter; `--template` flag with a custom `.latex` file produces clean `.tex` without PDF compilation [VERIFIED: `pandoc --version` on host] |
 | kpsewhich | via TeX Live 2026 (kpathsea 6.4.2) | Detect installed LaTeX classes before producing `.tex` | Exit code 0 = found, 1 = not found — reliable binary check [VERIFIED: local host] |
 | Node.js test runner | built-in (`node:test`) | Phase regression tests | Used by all existing phase test files (`const { describe, it } = require('node:test')`) [VERIFIED: test/*.test.js inspection] |
 
 ### Supporting
 | Library | Version | Purpose | When to Use |
 |---------|---------|---------|-------------|
-| tlmgr | TeX Live 2026 | Install missing publisher classes | Included in error guidance strings, not invoked by Scriven directly |
+| tlmgr | TeX Live 2026 | Install missing publisher classes | Included in error guidance strings, not invoked by Scriveno directly |
 | assert (node:assert/strict) | built-in | Test assertions | Used across all existing phase tests [VERIFIED: test/phase34-cross-domain-templates.test.js] |
 
-### Publisher Classes (User-Installed — NOT Scriven dependencies)
+### Publisher Classes (User-Installed — NOT Scriveno dependencies)
 | Class | tlmgr Package | Class File | Status in TeX Live | Version |
 |-------|--------------|------------|--------------------|---------|
 | IEEEtran | `ieeetran` | `IEEEtran.cls` | In TeX Live (collection-publishers) | 1.8b [VERIFIED: tlmgr info] |
@@ -98,7 +98,7 @@ The key insight for wrapper design: publisher classes are opinionated and confli
 
 **Critical note on llncs:** Despite being available via `tlmgr install llncs`, Springer historically distributed llncs separately via their author resources page. `tlmgr info llncs` confirms it IS in TeX Live 2026 (`cat-contact-home: https://www.springer.com/gp/computer-science/lncs`), but some users on older TeX Live installations or MiKTeX may not find it. The error message should mention both `tlmgr install llncs` AND the Springer author download page. [VERIFIED: tlmgr info llncs on host]
 
-**Installation command (users, not Scriven):**
+**Installation command (users, not Scriveno):**
 ```bash
 tlmgr install ieeetran acmart llncs elsarticle apa7
 ```
@@ -122,9 +122,9 @@ Writer runs: /scr:build-print --platform ieee
     ├── STEP 1.7: Tradition loading
     ├── STEP 1.8: Template selection
     │   ├── platform ∈ {ieee,acm,lncs,elsevier,apa7}?
-    │   │   └── YES → LATEX_TEMPLATE = data/export-templates/scriven-{platform}.latex
+    │   │   └── YES → LATEX_TEMPLATE = data/export-templates/scriveno-{platform}.latex
     │   │              (skips Typst template selection entirely)
-    │   └── otherwise → TYPST_TEMPLATE = scriven-book.typst (existing path)
+    │   └── otherwise → TYPST_TEMPLATE = scriveno-book.typst (existing path)
     │
     ├── STEP 2: Prerequisites check
     │   ├── pandoc present? (existing)
@@ -144,7 +144,7 @@ Writer runs: /scr:build-print --platform ieee
     └── STEP 4: Build output
         ├── IF academic platform:
         │   pandoc assembled.md \
-        │     --template=data/export-templates/scriven-{platform}.latex \
+        │     --template=data/export-templates/scriveno-{platform}.latex \
         │     --metadata-file=metadata.yaml \
         │     -o .manuscript/output/paper-{platform}.tex
         └── IF print platform: (existing Pandoc + Typst path)
@@ -153,12 +153,12 @@ Writer runs: /scr:build-print --platform ieee
 ### Recommended Project Structure (new files only)
 ```
 data/export-templates/
-├── scriven-academic.latex      # existing — untouched
-├── scriven-ieee.latex          # NEW — IEEEtran wrapper
-├── scriven-acm.latex           # NEW — acmart wrapper
-├── scriven-lncs.latex          # NEW — llncs wrapper
-├── scriven-elsevier.latex      # NEW — elsarticle wrapper
-└── scriven-apa7.latex          # NEW — apa7 wrapper
+├── scriveno-academic.latex      # existing — untouched
+├── scriveno-ieee.latex          # NEW — IEEEtran wrapper
+├── scriveno-acm.latex           # NEW — acmart wrapper
+├── scriveno-lncs.latex          # NEW — llncs wrapper
+├── scriveno-elsevier.latex      # NEW — elsarticle wrapper
+└── scriveno-apa7.latex          # NEW — apa7 wrapper
 
 test/
 └── phase35-academic-latex-wrappers.test.js   # NEW — regression suite
@@ -172,12 +172,12 @@ data/
 
 ### Pattern 1: Minimal Publisher Wrapper Template
 
-The five wrappers follow this skeleton. The key difference from `scriven-academic.latex` is: (1) hardcoded `\documentclass{<PUBLISHERCLASS>}`, (2) no geometry/fancyhdr/setspace/lmodern (publisher class owns layout), (3) `inputenc`/`fontenc` included as safe-universal additions (per Claude's Discretion).
+The five wrappers follow this skeleton. The key difference from `scriveno-academic.latex` is: (1) hardcoded `\documentclass{<PUBLISHERCLASS>}`, (2) no geometry/fancyhdr/setspace/lmodern (publisher class owns layout), (3) `inputenc`/`fontenc` included as safe-universal additions (per Claude's Discretion).
 
 ```latex
-% Scriven <PUBLISHER> LaTeX Template for Pandoc --template flag
+% Scriveno <PUBLISHER> LaTeX Template for Pandoc --template flag
 % Requires <PUBLISHERCLASS>.cls (install: tlmgr install <pkg>)
-% Usage: pandoc ... --template=data/export-templates/scriven-<platform>.latex
+% Usage: pandoc ... --template=data/export-templates/scriveno-<platform>.latex
 
 \documentclass[$if(classoption)$$for(classoption)$$classoption$$sep$,$endfor$$endif$]{<PUBLISHERCLASS>}
 
@@ -281,7 +281,7 @@ kpsewhich IEEEtran.cls >/dev/null 2>&1
 ```bash
 pandoc .manuscript/output/assembled-manuscript.md \
   -o .manuscript/output/paper-{platform}.tex \
-  --template=data/export-templates/scriven-{platform}.latex \
+  --template=data/export-templates/scriveno-{platform}.latex \
   --metadata-file=.manuscript/output/metadata.yaml
 ```
 
@@ -303,7 +303,7 @@ The EPUB-only check (`apple | bn | d2d | kobo | google | smashwords`) does NOT a
 
 ### Anti-Patterns to Avoid
 
-- **Including geometry/fancyhdr/setspace in publisher wrappers:** Publisher classes define their own layout. Loading these packages in the preamble causes conflicts and compilation errors. The existing `scriven-academic.latex` has all of these; the new wrappers must NOT copy them.
+- **Including geometry/fancyhdr/setspace in publisher wrappers:** Publisher classes define their own layout. Loading these packages in the preamble causes conflicts and compilation errors. The existing `scriveno-academic.latex` has all of these; the new wrappers must NOT copy them.
 - **Using `\usepackage{hyperref}` without class-specific config:** IEEEtran and acmart include hyperref internally; loading it again causes multiply-defined option warnings. Either omit hyperref entirely or guard with `\@ifpackageloaded`.
 - **Routing academic platforms through the Typst path:** If STEP 1.8 or STEP 4 forgets to branch on academic platforms, Pandoc will attempt PDF generation with `--pdf-engine=typst` on a LaTeX template, which will fail.
 - **Skipping the kpsewhich check for "no TeX distribution":** If kpsewhich itself is absent, calling `kpsewhich IEEEtran.cls` will give a confusing "command not found" error rather than a clean install-guidance message.
@@ -316,10 +316,10 @@ The EPUB-only check (`apple | bn | d2d | kobo | google | smashwords`) does NOT a
 | Problem | Don't Build | Use Instead | Why |
 |---------|-------------|-------------|-----|
 | LaTeX class detection | Custom file-system scan | `kpsewhich <Class>.cls` | kpsewhich is the TeX ecosystem's own locator; it knows TEXMFHOME, user trees, and all paths correctly |
-| LaTeX template variable substitution | Custom string interpolation | Pandoc `--template` flag with `.latex` file | Pandoc's template engine handles `$if()$`, `$for()$`, `$body$`, CSL macros — already working in `scriven-academic.latex` |
+| LaTeX template variable substitution | Custom string interpolation | Pandoc `--template` flag with `.latex` file | Pandoc's template engine handles `$if()$`, `$for()$`, `$body$`, CSL macros — already working in `scriveno-academic.latex` |
 | PDF compilation | pdflatex/xelatex subprocess call | Delegate to writer's TeX workflow | Deferred by design decision; attempting compilation adds failure surface and TeX distribution complexity |
 
-**Key insight:** The "minimal wrapper" pattern is intentionally thin because the publisher class carries all expertise. Scriven's only job is the metadata bridge (title → `\title{}`, etc.) and the Pandoc boilerplate (tightlist, CSL). Any additional LaTeX beyond this is both unnecessary and likely to conflict.
+**Key insight:** The "minimal wrapper" pattern is intentionally thin because the publisher class carries all expertise. Scriveno's only job is the metadata bridge (title → `\title{}`, etc.) and the Pandoc boilerplate (tightlist, CSL). Any additional LaTeX beyond this is both unnecessary and likely to conflict.
 
 ---
 
@@ -352,7 +352,7 @@ The EPUB-only check (`apple | bn | d2d | kobo | google | smashwords`) does NOT a
 ### Pitfall 5: LNCS bibstyle Recommendation
 **What goes wrong:** Recommending `\bibliographystyle{llncs}` — the correct Springer LNCS bib style is `splncs04` (the current standard, superseding `splncs` and `llncs`).
 **Why it happens:** The old `llncs` bib style name is commonly cited in older tutorials.
-**How to avoid:** Use `splncs04` in the `scriven-lncs.latex` bibliography section comment. [ASSUMED: splncs04 is the current standard — not verified against llncs.cls documentation in this session]
+**How to avoid:** Use `splncs04` in the `scriveno-lncs.latex` bibliography section comment. [ASSUMED: splncs04 is the current standard — not verified against llncs.cls documentation in this session]
 **Warning signs:** BibTeX warning about unknown style `llncs`.
 
 ---
@@ -384,7 +384,7 @@ kpsewhich IEEEtran.cls >/dev/null 2>&1
 
 [VERIFIED: all 5 packages confirmed in TeX Live via `tlmgr info` on host]
 
-### Existing Template Variable Pattern (from scriven-academic.latex)
+### Existing Template Variable Pattern (from scriveno-academic.latex)
 ```latex
 % CSL reference environment — carry into all 5 new wrappers unchanged
 $if(csl-refs)$
@@ -397,7 +397,7 @@ $endif$
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 ```
-[VERIFIED: scriven-academic.latex line 91-108]
+[VERIFIED: scriveno-academic.latex line 91-108]
 
 ### Test Pattern (from phase34-cross-domain-templates.test.js)
 ```javascript
@@ -416,20 +416,20 @@ function readFile(filePath) {
   catch (_) { return null; }
 }
 
-describe('Phase 35: TPL-07 scriven-ieee.latex exists with IEEEtran class', () => {
-  const IEEE = path.join(TEMPLATES_DIR, 'scriven-ieee.latex');
+describe('Phase 35: TPL-07 scriveno-ieee.latex exists with IEEEtran class', () => {
+  const IEEE = path.join(TEMPLATES_DIR, 'scriveno-ieee.latex');
 
-  it('scriven-ieee.latex exists — TPL-07', () => {
+  it('scriveno-ieee.latex exists — TPL-07', () => {
     const content = readFile(IEEE);
-    assert.ok(content !== null, 'data/export-templates/scriven-ieee.latex must exist — TPL-07');
+    assert.ok(content !== null, 'data/export-templates/scriveno-ieee.latex must exist — TPL-07');
   });
 
-  it('scriven-ieee.latex contains \\documentclass{IEEEtran} — TPL-07', () => {
+  it('scriveno-ieee.latex contains \\documentclass{IEEEtran} — TPL-07', () => {
     const content = readFile(IEEE);
-    assert.ok(content !== null, 'scriven-ieee.latex must exist — TPL-07');
+    assert.ok(content !== null, 'scriveno-ieee.latex must exist — TPL-07');
     assert.ok(
       content.includes('\\documentclass') && content.includes('IEEEtran'),
-      'scriven-ieee.latex must contain \\documentclass with IEEEtran — TPL-07'
+      'scriveno-ieee.latex must contain \\documentclass with IEEEtran — TPL-07'
     );
   });
   // ... etc.
@@ -443,7 +443,7 @@ describe('Phase 35: TPL-07 scriven-ieee.latex exists with IEEEtran class', () =>
 
 | Old Approach | Current Approach | When Changed | Impact |
 |--------------|------------------|--------------|--------|
-| Pandoc `$common.latex()$` partial (default template) | Custom templates still use explicit `\providecommand{\tightlist}` and `$highlighting-macros$` | Pandoc 3.x | Pandoc 3.x default template uses `$common.latex()$` but custom templates must carry tightlist/CSL explicitly — the existing `scriven-academic.latex` already does this correctly [VERIFIED: scriven-academic.latex] |
+| Pandoc `$common.latex()$` partial (default template) | Custom templates still use explicit `\providecommand{\tightlist}` and `$highlighting-macros$` | Pandoc 3.x | Pandoc 3.x default template uses `$common.latex()$` but custom templates must carry tightlist/CSL explicitly — the existing `scriveno-academic.latex` already does this correctly [VERIFIED: scriveno-academic.latex] |
 | `$document-metadata.latex()$` partial | The default Pandoc template also uses `$passoptions.latex()$` and `$document-metadata.latex()$` | Pandoc 3.x | These partials are built into the Pandoc binary; custom templates do NOT have access to them; new wrappers must not reference `$common.latex()$` [VERIFIED: `pandoc --print-default-template=latex`] |
 
 **Deprecated/outdated:**
@@ -508,11 +508,11 @@ describe('Phase 35: TPL-07 scriven-ieee.latex exists with IEEEtran class', () =>
 ### Phase Requirements → Test Map
 | Req ID | Behavior | Test Type | Automated Command | File Exists? |
 |--------|----------|-----------|-------------------|-------------|
-| TPL-07 | `scriven-ieee.latex` exists with `\documentclass{IEEEtran}` | unit | `node --test test/phase35-academic-latex-wrappers.test.js` | No — Wave 0 |
-| TPL-07 | `scriven-acm.latex` exists with `\documentclass{acmart}` | unit | `node --test test/phase35-academic-latex-wrappers.test.js` | No — Wave 0 |
-| TPL-07 | `scriven-lncs.latex` exists with `\documentclass{llncs}` | unit | `node --test test/phase35-academic-latex-wrappers.test.js` | No — Wave 0 |
-| TPL-07 | `scriven-elsevier.latex` exists with `\documentclass{elsarticle}` | unit | `node --test test/phase35-academic-latex-wrappers.test.js` | No — Wave 0 |
-| TPL-07 | `scriven-apa7.latex` exists with `\documentclass{apa7}` | unit | `node --test test/phase35-academic-latex-wrappers.test.js` | No — Wave 0 |
+| TPL-07 | `scriveno-ieee.latex` exists with `\documentclass{IEEEtran}` | unit | `node --test test/phase35-academic-latex-wrappers.test.js` | No — Wave 0 |
+| TPL-07 | `scriveno-acm.latex` exists with `\documentclass{acmart}` | unit | `node --test test/phase35-academic-latex-wrappers.test.js` | No — Wave 0 |
+| TPL-07 | `scriveno-lncs.latex` exists with `\documentclass{llncs}` | unit | `node --test test/phase35-academic-latex-wrappers.test.js` | No — Wave 0 |
+| TPL-07 | `scriveno-elsevier.latex` exists with `\documentclass{elsarticle}` | unit | `node --test test/phase35-academic-latex-wrappers.test.js` | No — Wave 0 |
+| TPL-07 | `scriveno-apa7.latex` exists with `\documentclass{apa7}` | unit | `node --test test/phase35-academic-latex-wrappers.test.js` | No — Wave 0 |
 | TPL-07 | Each wrapper contains `\providecommand{\tightlist}` | unit | `node --test test/phase35-academic-latex-wrappers.test.js` | No — Wave 0 |
 | TPL-07 | Each wrapper contains `$body$` | unit | `node --test test/phase35-academic-latex-wrappers.test.js` | No — Wave 0 |
 | TPL-07 | Each wrapper contains `$if(abstract)$` | unit | `node --test test/phase35-academic-latex-wrappers.test.js` | No — Wave 0 |
@@ -556,7 +556,7 @@ No threat patterns identified for this phase beyond the existing STEP 2.5 platfo
 ## Sources
 
 ### Primary (HIGH confidence)
-- `data/export-templates/scriven-academic.latex` — existing template; Pandoc variable syntax and boilerplate verified directly
+- `data/export-templates/scriveno-academic.latex` — existing template; Pandoc variable syntax and boilerplate verified directly
 - `commands/scr/build-print.md` — existing command; STEP 2, 2.5, 1.8, and 4 extension points verified directly
 - `data/CONSTRAINTS.json` — existing constraints; `exports.build_print.available` and `work_type_groups.academic` verified directly
 - `test/phase34-cross-domain-templates.test.js` — test pattern verified directly (38 passing tests confirmed via `node --test`)

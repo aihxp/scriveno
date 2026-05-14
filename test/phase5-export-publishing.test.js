@@ -12,11 +12,11 @@ const constraintsPath = path.join(ROOT, 'data', 'CONSTRAINTS.json');
 
 describe('Export templates (D-06)', () => {
 
-  describe('scriven-book.typst', () => {
-    const filePath = path.join(templatesDir, 'scriven-book.typst');
+  describe('scriveno-book.typst', () => {
+    const filePath = path.join(templatesDir, 'scriveno-book.typst');
 
-    it('scriven-book.typst exists', () => {
-      assert.ok(fs.existsSync(filePath), 'scriven-book.typst should exist');
+    it('scriveno-book.typst exists', () => {
+      assert.ok(fs.existsSync(filePath), 'scriveno-book.typst should exist');
     });
 
     it('contains margin parameters', () => {
@@ -30,11 +30,11 @@ describe('Export templates (D-06)', () => {
     });
   });
 
-  describe('scriven-epub.css', () => {
-    const filePath = path.join(templatesDir, 'scriven-epub.css');
+  describe('scriveno-epub.css', () => {
+    const filePath = path.join(templatesDir, 'scriveno-epub.css');
 
-    it('scriven-epub.css exists', () => {
-      assert.ok(fs.existsSync(filePath), 'scriven-epub.css should exist');
+    it('scriveno-epub.css exists', () => {
+      assert.ok(fs.existsSync(filePath), 'scriveno-epub.css should exist');
     });
 
     it('contains font-family', () => {
@@ -48,11 +48,11 @@ describe('Export templates (D-06)', () => {
     });
   });
 
-  describe('scriven-academic.latex', () => {
-    const filePath = path.join(templatesDir, 'scriven-academic.latex');
+  describe('scriveno-academic.latex', () => {
+    const filePath = path.join(templatesDir, 'scriveno-academic.latex');
 
-    it('scriven-academic.latex exists', () => {
-      assert.ok(fs.existsSync(filePath), 'scriven-academic.latex should exist');
+    it('scriveno-academic.latex exists', () => {
+      assert.ok(fs.existsSync(filePath), 'scriveno-academic.latex should exist');
     });
 
     it('contains documentclass', () => {
@@ -124,7 +124,7 @@ describe('EXP-03: export docx --formatted', () => {
   it('describes default formatted docx output with optional custom reference doc', () => {
     const content = fs.readFileSync(filePath, 'utf8');
     assert.match(content, /default DOCX output/, 'should describe Pandoc default DOCX output');
-    assert.doesNotMatch(content, /scriven-formatted\.docx/, 'should not reference a missing bundled formatted reference doc');
+    assert.doesNotMatch(content, /scriveno-formatted\.docx/, 'should not reference a missing bundled formatted reference doc');
   });
 });
 
@@ -154,9 +154,9 @@ describe('EXP-05: export pdf --print-ready', () => {
     assert.match(content, /print-ready/i, 'should contain print-ready section');
   });
 
-  it('references scriven-book.typst template', () => {
+  it('references scriveno-book.typst template', () => {
     const content = fs.readFileSync(filePath, 'utf8');
-    assert.match(content, /scriven-book\.typst/, 'should reference scriven-book.typst template');
+    assert.match(content, /scriveno-book\.typst/, 'should reference scriveno-book.typst template');
   });
 
   it('specifies paper dimensions', () => {
@@ -180,9 +180,9 @@ describe('EXP-06: export epub', () => {
     assert.match(content, /--epub-cover-image/, 'should reference --epub-cover-image');
   });
 
-  it('references scriven-epub.css', () => {
+  it('references scriveno-epub.css', () => {
     const content = fs.readFileSync(filePath, 'utf8');
-    assert.match(content, /scriven-epub\.css/, 'should reference scriven-epub.css');
+    assert.match(content, /scriveno-epub\.css/, 'should reference scriveno-epub.css');
   });
 });
 
@@ -231,9 +231,9 @@ describe('EXP-09: export latex', () => {
     assert.match(content, /latex/i, 'should contain latex section');
   });
 
-  it('references scriven-academic.latex template', () => {
+  it('references scriveno-academic.latex template', () => {
     const content = fs.readFileSync(filePath, 'utf8');
-    assert.match(content, /scriven-academic\.latex/, 'should reference scriven-academic.latex template');
+    assert.match(content, /scriveno-academic\.latex/, 'should reference scriveno-academic.latex template');
   });
 
   it('references --citeproc for bibliography', () => {

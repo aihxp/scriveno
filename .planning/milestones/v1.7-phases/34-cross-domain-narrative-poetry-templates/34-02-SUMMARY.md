@@ -5,12 +5,12 @@ subsystem: export-templates
 tags: [typst, epub, fixed-layout, stage-play, picture-book, build-pipeline]
 dependency_graph:
   requires: [34-01-PLAN.md]
-  provides: [scriven-stageplay.typst, scriven-picturebook.typst, scriven-fixed-layout-epub.css, scriven-fixed-layout.opf, STEP-1.8, --fixed-layout-flag]
+  provides: [scriveno-stageplay.typst, scriveno-picturebook.typst, scriveno-fixed-layout-epub.css, scriveno-fixed-layout.opf, STEP-1.8, --fixed-layout-flag]
   affects:
-    - data/export-templates/scriven-stageplay.typst
-    - data/export-templates/scriven-picturebook.typst
-    - data/export-templates/scriven-fixed-layout-epub.css
-    - data/export-templates/scriven-fixed-layout.opf
+    - data/export-templates/scriveno-stageplay.typst
+    - data/export-templates/scriveno-picturebook.typst
+    - data/export-templates/scriveno-fixed-layout-epub.css
+    - data/export-templates/scriveno-fixed-layout.opf
     - commands/scr/build-print.md
     - commands/scr/build-ebook.md
 tech_stack:
@@ -22,10 +22,10 @@ tech_stack:
     - Work-type-driven template routing via TYPST_TEMPLATE variable
 key_files:
   created:
-    - data/export-templates/scriven-stageplay.typst
-    - data/export-templates/scriven-picturebook.typst
-    - data/export-templates/scriven-fixed-layout-epub.css
-    - data/export-templates/scriven-fixed-layout.opf
+    - data/export-templates/scriveno-stageplay.typst
+    - data/export-templates/scriveno-picturebook.typst
+    - data/export-templates/scriveno-fixed-layout-epub.css
+    - data/export-templates/scriveno-fixed-layout.opf
   modified:
     - commands/scr/build-print.md
     - commands/scr/build-ebook.md
@@ -33,7 +33,7 @@ decisions:
   - "Stage play page width is 8.5in (US Letter) matching Samuel French industry standard"
   - "Picture book page size is 8.75in x 8.75in (8.5x8.5 trim + 0.125in bleed each side)"
   - "Fixed-layout EPUB uses -epub-layout: pre-paginated in CSS and rendition:layout in OPF"
-  - "STEP 4 pandoc invocation now uses {TYPST_TEMPLATE} variable instead of hardcoded scriven-book.typst"
+  - "STEP 4 pandoc invocation now uses {TYPST_TEMPLATE} variable instead of hardcoded scriveno-book.typst"
   - "picture_book work_type auto-enables --fixed-layout flag without user needing to pass it"
 metrics:
   duration: "~2 minutes"
@@ -52,15 +52,15 @@ metrics:
 
 | Task | Name | Commit | Files |
 |------|------|--------|-------|
-| 1 | Create scriven-stageplay.typst and scriven-picturebook.typst | 2b1dcf6 | data/export-templates/scriven-stageplay.typst, data/export-templates/scriven-picturebook.typst |
-| 2 | Create fixed-layout EPUB CSS + OPF stub, add STEP 1.8 and --fixed-layout flag | 989ddaf | data/export-templates/scriven-fixed-layout-epub.css, data/export-templates/scriven-fixed-layout.opf, commands/scr/build-print.md, commands/scr/build-ebook.md |
+| 1 | Create scriveno-stageplay.typst and scriveno-picturebook.typst | 2b1dcf6 | data/export-templates/scriveno-stageplay.typst, data/export-templates/scriveno-picturebook.typst |
+| 2 | Create fixed-layout EPUB CSS + OPF stub, add STEP 1.8 and --fixed-layout flag | 989ddaf | data/export-templates/scriveno-fixed-layout-epub.css, data/export-templates/scriveno-fixed-layout.opf, commands/scr/build-print.md, commands/scr/build-ebook.md |
 
 ## Verification Results
 
 All TPL-01, TPL-02, and TPL-03 regression tests pass (19/19 assertions green):
 
-- TPL-01 (8 tests): scriven-stageplay.typst — 8.5in, upper(), emph, heading.where(level:1/2), STEP 1.8 positioning
-- TPL-02 (5 tests): scriven-picturebook.typst — 8.75in, 0.125in bleed, 0.25in safe zone, spread marker
+- TPL-01 (8 tests): scriveno-stageplay.typst — 8.5in, upper(), emph, heading.where(level:1/2), STEP 1.8 positioning
+- TPL-02 (5 tests): scriveno-picturebook.typst — 8.75in, 0.125in bleed, 0.25in safe zone, spread marker
 - TPL-03 (6 tests): fixed-layout CSS + OPF — -epub-layout, rendition:layout, rendition:spread, --fixed-layout in build-ebook
 
 TPL-04, TPL-05, TPL-06 remain RED (those are for plans 34-03 and 34-04).
@@ -85,10 +85,10 @@ None. The 4 new template files are read-only reference assets. No new network en
 
 ## Self-Check: PASSED
 
-- `data/export-templates/scriven-stageplay.typst` exists: FOUND
-- `data/export-templates/scriven-picturebook.typst` exists: FOUND
-- `data/export-templates/scriven-fixed-layout-epub.css` exists: FOUND
-- `data/export-templates/scriven-fixed-layout.opf` exists: FOUND
+- `data/export-templates/scriveno-stageplay.typst` exists: FOUND
+- `data/export-templates/scriveno-picturebook.typst` exists: FOUND
+- `data/export-templates/scriveno-fixed-layout-epub.css` exists: FOUND
+- `data/export-templates/scriveno-fixed-layout.opf` exists: FOUND
 - `commands/scr/build-print.md` contains STEP 1.8: CONFIRMED
 - `commands/scr/build-ebook.md` contains --fixed-layout: CONFIRMED
 - Commit `2b1dcf6` exists: FOUND

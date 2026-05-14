@@ -18,15 +18,15 @@ describe('phase 13 shipped-asset truth', () => {
 
   it('keeps the canonical shipped-template inventory aligned to disk', () => {
     const shippedTemplates = [
-      'data/export-templates/scriven-book.typst',
-      'data/export-templates/scriven-epub.css',
-      'data/export-templates/scriven-academic.latex',
+      'data/export-templates/scriveno-book.typst',
+      'data/export-templates/scriveno-epub.css',
+      'data/export-templates/scriveno-academic.latex',
     ];
     const absentTemplates = [
-      'data/export-templates/scriven-manuscript.docx',
-      'data/export-templates/scriven-formatted.docx',
-      'data/export-templates/scriven-kdp-cover.typst',
-      'data/export-templates/scriven-ingram-cover.typst',
+      'data/export-templates/scriveno-manuscript.docx',
+      'data/export-templates/scriveno-formatted.docx',
+      'data/export-templates/scriveno-kdp-cover.typst',
+      'data/export-templates/scriveno-ingram-cover.typst',
     ];
 
     for (const relativePath of shippedTemplates) {
@@ -74,8 +74,8 @@ describe('phase 13 export guidance', () => {
     assert.match(exportDoc, /Pandoc's default DOCX styling/);
     assert.match(exportDoc, /optional `--reference-doc`/);
     assert.match(exportDoc, /default DOCX output/);
-    assert.doesNotMatch(exportDoc, /scriven-manuscript\.docx/);
-    assert.doesNotMatch(exportDoc, /scriven-formatted\.docx/);
+    assert.doesNotMatch(exportDoc, /scriveno-manuscript\.docx/);
+    assert.doesNotMatch(exportDoc, /scriveno-formatted\.docx/);
 
     assert.match(publishingDoc, /Pandoc's default DOCX styling/);
     assert.match(publishingDoc, /default DOCX output/);
@@ -92,11 +92,11 @@ describe('phase 13 contributor and root-doc alignment', () => {
 
   it('keeps contributor guidance pointed at the canonical inventory', () => {
     assert.match(contributingDoc, /docs\/shipped-assets\.md/);
-    assert.match(contributingDoc, /scriven-book\.typst/);
-    assert.match(contributingDoc, /scriven-epub\.css/);
-    assert.match(contributingDoc, /scriven-academic\.latex/);
-    assert.doesNotMatch(contributingDoc, /scriven-manuscript\.docx/);
-    assert.doesNotMatch(contributingDoc, /scriven-formatted\.docx/);
+    assert.match(contributingDoc, /scriveno-book\.typst/);
+    assert.match(contributingDoc, /scriveno-epub\.css/);
+    assert.match(contributingDoc, /scriveno-academic\.latex/);
+    assert.doesNotMatch(contributingDoc, /scriveno-manuscript\.docx/);
+    assert.doesNotMatch(contributingDoc, /scriveno-formatted\.docx/);
   });
 
   it('keeps README aligned to the canonical shipped surface', () => {
@@ -111,7 +111,7 @@ describe('phase 13 contributor and root-doc alignment', () => {
       assert.match(doc, /50 work types/, `${name} should keep the 50 work-type count`);
       assert.match(doc, /## Currently Shipped Export Templates/, `${name} should list shipped templates`);
       assert.match(doc, /## Planned Export Templates/, `${name} should list planned templates separately`);
-      assert.doesNotMatch(doc, /Template Files Scriven Should Ship/, `${name} should not use the retired heading`);
+      assert.doesNotMatch(doc, /Template Files Scriveno Should Ship/, `${name} should not use the retired heading`);
     }
   });
 });

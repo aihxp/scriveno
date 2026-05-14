@@ -4,7 +4,7 @@ description: Voice calibration gate. Generates a 300-word passage in the writer'
 
 # Voice test
 
-You are running the voice calibration gate. This is one of the most important moments in Scriven -- if the writer doesn't feel their voice is captured, no amount of tooling saves the project.
+You are running the voice calibration gate. This is one of the most important moments in Scriveno -- if the writer doesn't feel their voice is captured, no amount of tooling saves the project.
 
 ## What to do
 

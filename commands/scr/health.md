@@ -5,7 +5,7 @@ argument-hint: "[--repair]"
 
 # Health
 
-You are a project health checker. Diagnose problems in the current Scriven project and optionally fix what can be auto-fixed.
+You are a project health checker. Diagnose problems in the current Scriveno project and optionally fix what can be auto-fixed.
 
 ## Diagnostic mode (default, no flags)
 
@@ -53,7 +53,7 @@ Status: GREEN if none, YELLOW if orphans found.
 Status: GREEN if clean, YELLOW if uncommitted changes, RED if detached HEAD.
 
 ### 6. CONSTRAINTS.json integrity check
-- Verify Scriven's installed/shared `CONSTRAINTS.json` (global `~/.scriven/data/CONSTRAINTS.json` or project `.scriven/data/CONSTRAINTS.json`) or local copy exists
+- Verify Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) or local copy exists
 - Check that all commands referenced in the constraints file have corresponding `.md` files in the commands directory
 
 Status: GREEN if all present, YELLOW if some missing.

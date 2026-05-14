@@ -5,7 +5,7 @@ argument-hint: "[--skip-validate]"
 
 # /scr:build-smashwords -- Smashwords/D2D DOCX Build Pipeline
 
-Assemble the manuscript and produce a Smashwords Style Guide-compliant DOCX for submission to Draft2Digital (D2D) or direct Smashwords upload. Uses `scriven-smashwords.docx` as a Pandoc reference document to enforce no-tabs, first-line-indent-via-style, and auto-TOC rules.
+Assemble the manuscript and produce a Smashwords Style Guide-compliant DOCX for submission to Draft2Digital (D2D) or direct Smashwords upload. Uses `scriveno-smashwords.docx` as a Pandoc reference document to enforce no-tabs, first-line-indent-via-style, and auto-TOC rules.
 
 ## Usage
 
@@ -27,7 +27,7 @@ You are a **manuscript build specialist** for Smashwords/D2D DOCX output.
 Load the following project files:
 
 - `.manuscript/config.json` -- to get `work_type`, title, author, language, and project settings
-- Scriven's installed/shared `CONSTRAINTS.json` -- to check `exports` section for format availability
+- Scriveno's installed/shared `CONSTRAINTS.json` -- to check `exports` section for format availability
 
 **Check format availability:**
 
@@ -90,9 +90,9 @@ Then **stop**.
 
 Check that the reference document exists:
 
-If `data/export-templates/scriven-smashwords.docx` does not exist:
-> **Smashwords reference document missing at `data/export-templates/scriven-smashwords.docx`.**
-> Re-install Scriven or restore the file from the repository.
+If `data/export-templates/scriveno-smashwords.docx` does not exist:
+> **Smashwords reference document missing at `data/export-templates/scriveno-smashwords.docx`.**
+> Re-install Scriveno or restore the file from the repository.
 
 Then **stop**.
 
@@ -115,7 +115,7 @@ Follow the same assembly steps as `/scr:build-ebook` STEP 3a-3e:
 ```bash
 pandoc .manuscript/output/assembled-manuscript.md \
   -o .manuscript/output/smashwords.docx \
-  --reference-doc=data/export-templates/scriven-smashwords.docx \
+  --reference-doc=data/export-templates/scriveno-smashwords.docx \
   --metadata-file=.manuscript/output/metadata.yaml \
   --toc \
   --toc-depth=2
