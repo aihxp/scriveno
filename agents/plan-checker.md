@@ -36,6 +36,7 @@ Does the plan have everything the drafter needs?
 - **Output target** -- Approximate length, atomic unit count
 - **Craft notes** -- CHOICE, HUNCH, QUESTION, and WATCHPOINT items from discuss, if available
 - **Record notes** -- established facts, open threads, reader promises, payoffs, continuity facts, and next-unit obligations from RECORD.md
+- **Domain model notes** -- canonical terminology, source-of-truth decisions, boundary scenarios, and durable update targets from domain grilling
 - **Character persona notes** -- pressure behavior, relationship-specific interactions, dialogue constraints, and state shifts for the characters in the unit
 - **Subject dynamics notes** -- reader-state movement, pressure or friction, and the interaction between ideas, evidence, steps, exceptions, images, doctrines, practices, or failure modes for subject-driven units
 
@@ -63,6 +64,19 @@ If RECORD.md exists, check whether the plan honors the work's established conten
 - Expected new record entries after drafting should be compact and reader-visible.
 
 Do not require RECORD.md for older projects that lack it. If it is missing, note that the plan can proceed, but suggest initializing RECORD.md before long-form drafting continues.
+
+### Domain model and terminology
+
+Check domain-sensitive language before drafting:
+
+- Canonical terminology from REFERENCES.md, RECORD.md, WORLD.md, SYSTEM.md, PROCEDURES.md, DOCTRINES.md, QUESTIONS.md, THEMES.md, CHARACTERS.md, FIGURES.md, or adapted source files should be used consistently.
+- If the plan uses an overloaded term, the plan should distinguish meanings or choose one canonical term.
+- If a term conflicts with established project language, flag it as NEEDS REVISION unless the plan explicitly records an intentional rename or source-file update.
+- Source-of-truth claims should name the source file, external source, or drafted passage they rely on.
+- Boundary scenarios should make procedures, doctrines, world rules, technical behavior, character knowledge, or reader promises concrete enough for the drafter to execute.
+- Durable updates should be routed to RECORD.md, REFERENCES.md, or the adapted source file that owns the decision. Unit-only choices can stay in the plan.
+
+For technical work types, treat REFERENCES.md as the canonical terminology and source-of-truth surface. A technical plan that changes a term, command name, file path, version boundary, prerequisite, recovery step, or procedure behavior should either match REFERENCES.md or list the required REFERENCES.md update.
 
 ### Premise alignment
 
@@ -163,6 +177,11 @@ RECORD
 OK Honors established forged-letter thread
 WARNING Promise "Sarah will confront Marcus" is deferred without a plan note
 OK Expected new record entry listed for Marcus learning the letter was forged
+
+DOMAIN MODEL
+OK Uses canonical term "workspace" from REFERENCES.md
+WARNING Plan says "account" where REFERENCES.md distinguishes user account from workspace
+MISSING Boundary scenario for retry vs. rollback procedure
 
 PACING
 OK Beat structure earns the climax

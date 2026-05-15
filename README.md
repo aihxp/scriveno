@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/aihxp/scriveno/actions/workflows/ci.yml/badge.svg)](https://github.com/aihxp/scriveno/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.0.3-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.0.4-blue)](CHANGELOG.md)
 [![npm](https://img.shields.io/npm/v/scriveno-cli.svg)](https://www.npmjs.com/package/scriveno-cli)
 [![Downloads](https://img.shields.io/npm/dm/scriveno-cli.svg)](https://www.npmjs.com/package/scriveno-cli)
 
@@ -203,11 +203,11 @@ Scriveno currently ships installer targets for these AI tooling environments:
 
 ## Status
 
-**Version:** 2.0.3
+**Version:** 2.0.4
 
- Scriveno's core command surface is stable across 112 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, plus the creative-context, record-store, branching-next, runtime-sync, adaptive concierge, human-first writing-safeguard, and authenticity-diagnostic work through `2.0.3`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
+ Scriveno's core command surface is stable across 112 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, plus the creative-context, record-store, branching-next, runtime-sync, adaptive concierge, human-first writing-safeguard, authenticity-diagnostic, and domain-grilling work through `2.0.4`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
 
- Version `2.0.3` adds the evaluative counterpart to the `2.0.2` humanizer principles by integrating `authenticity-check`: `/scr:voice-check` and `/scr:originality-check` now report an authenticity band then a 0-100 score, match scrutiny to evidence density, credit strong false positives as human markers, name what they deliberately did not flag, and never rewrite (diagnosis and the `/scr:line-edit` or `/scr:polish` fix stay separate steps with the writer between them). See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
+ Version `2.0.4` adds Domain Grilling to the Creative Context loop: `/scr:discuss` now challenges fuzzy or conflicting project language against the source files, `/scr:plan` carries resolved terms into `## Domain Model Notes`, the plan-checker validates terminology and source-of-truth alignment, and technical REFERENCES.md now owns canonical terminology and boundary examples. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
 
 Package history is tracked in [CHANGELOG.md](CHANGELOG.md), and the public-facing summary for this release is in [docs/release-notes.md](docs/release-notes.md).
 

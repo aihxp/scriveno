@@ -2,6 +2,38 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.0.4 - 2026-05-15
+
+### What changed
+
+- Added Domain Grilling to Scriveno's Creative Context loop.
+- `/scr:discuss` now checks fuzzy terms, overloaded labels, and project-behavior claims against existing source files before asking the writer. If the project already answers the question, Scriveno uses the file instead of making the writer repeat themselves.
+- `/scr:plan` now carries resolved domain language into `## Domain Model Notes`, including canonical terms, terms to avoid, source-of-truth references, boundary examples, and durable updates for RECORD.md, REFERENCES.md, or adapted source files.
+- The plan-checker agent now validates terminology and source-of-truth alignment before drafting, with stronger technical checks for command names, file paths, version boundaries, prerequisites, recovery steps, and procedure behavior.
+- Technical REFERENCES.md now has dedicated canonical terminology and domain-boundary tables.
+- Package and shipped metadata are aligned on `2.0.4`.
+
+### Why it matters
+
+Scriveno already preserved voice and continuity. `2.0.4` makes the project language itself harder to blur. When a writer says "account," "workspace," "source," "step," "doctrine," "promise," or any other term that can carry multiple meanings, Scriveno now checks the project, names conflicts early, and records the resolved term where future planning and drafting can find it.
+
+This is most visible in technical, academic, sacred, series, and worldbuilding-heavy projects, but it helps any long work where consistency depends on precise language.
+
+### Affected areas
+
+- Creative Context documentation
+- core planning loop (`/scr:discuss`, `/scr:plan`)
+- plan-checker agent
+- technical REFERENCES.md template
+- README, changelog, release notes, and version metadata
+- regression tests for terminology and boundary checks
+
+### Verification
+
+- `npm test`
+- `npm run pack:check`
+- `git diff --check`
+
 ## 2.0.3 - 2026-05-15
 
 ### What changed

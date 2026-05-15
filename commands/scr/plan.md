@@ -23,6 +23,7 @@ Require `{N}-CONTEXT.md` to exist (from discuss phase). If it doesn't, offer to 
 
    From `{N}-CONTEXT.md`, extract `CHOICE`, `HUNCH`, `QUESTION`, and `WATCHPOINT` craft notes. Blocking questions must be resolved before drafting. Non-blocking questions can travel into the plan as watchpoints.
    From RECORD.md, extract established facts, open threads, promises, payoffs, continuity facts, movement, and next-unit obligations that apply to this unit.
+   From REFERENCES.md, SYSTEM.md, PROCEDURES.md, DOCTRINES.md, QUESTIONS.md, WORLD.md, THEMES.md, CHARACTERS.md, FIGURES.md, or adapted equivalents, extract any canonical terminology, source-of-truth notes, operating rules, doctrine, world rules, subject definitions, character knowledge boundaries, or procedure constraints that apply to this unit.
 
 2. **Research (if enabled).** If the work type is academic, research the literature. If it's sacred, check canonical sources and traditional commentaries. If it's historical, verify period details. For fiction, research anything the writer flagged in {N}-CONTEXT.md (e.g., "I need to know how 18th century sailing worked").
 
@@ -58,11 +59,20 @@ Require `{N}-CONTEXT.md` to exist (from discuss phase). If it doesn't, offer to 
    - expected new record entries after drafting
    - facts, claims, objects, procedures, images, or relationship states that must remain stable
 
+   Each plan file should include `## Domain Model Notes` when domain grilling resolved a term, source-of-truth question, procedure boundary, doctrine boundary, world rule, character knowledge rule, or subject definition. Use it to list:
+   - canonical terms the drafter must use
+   - terms to avoid or distinguish
+   - source files or external sources the plan is relying on
+   - boundary scenarios that clarify what the term or rule does and does not cover
+   - any durable updates needed for RECORD.md, REFERENCES.md, or an adapted source file
+
+   Before writing the plan, compare all domain-sensitive language against the loaded source files. If the plan uses a term differently than the project does, revise it or mark a `QUESTION: Blocking` item before drafting. Do not leave a contradiction for the drafter to guess through.
+
 4. **Save as `.manuscript/plans/{N}-{A}-PLAN.md`** where {A} is the atomic unit (scene, subsection, passage, stanza). One plan file per atomic unit. The drafter will read each one in a fresh context to stay focused.
 
    For older projects, if root-level `.manuscript/{N}-{A}-PLAN.md` files already exist, read them as legacy input, but write new and revised plans to `.manuscript/plans/`.
 
-5. **Run the plan check.** For each `{N}-{A}-PLAN.md` you just wrote, invoke the installed `plan-checker.md` agent for the writer's active Scriveno runtime (for example the runtime's global or project-scoped `agents/plan-checker.md`) in a fresh context. Pass the plan file plus WORK.md, OUTLINE.md, RECORD.md, the relevant arc file (PLOT-GRAPH.md or THEOLOGICAL-ARC.md), CHARACTERS.md (or FIGURES.md), STYLE-GUIDE.md, `{N}-CONTEXT.md`, and any previously drafted units. The agent returns a PLAN CHECK report with status READY or NEEDS REVISION plus specific completeness, alignment, record, character, voice, pacing, and craft-note findings. Surface its recommendations to the writer before suggesting the draft step. If the agent flags NEEDS REVISION on any plan, hold the draft suggestion and offer to fix the flagged items first.
+5. **Run the plan check.** For each `{N}-{A}-PLAN.md` you just wrote, invoke the installed `plan-checker.md` agent for the writer's active Scriveno runtime (for example the runtime's global or project-scoped `agents/plan-checker.md`) in a fresh context. Pass the plan file plus WORK.md, OUTLINE.md, RECORD.md, the relevant arc file (PLOT-GRAPH.md or THEOLOGICAL-ARC.md), CHARACTERS.md (or FIGURES.md), STYLE-GUIDE.md, `{N}-CONTEXT.md`, REFERENCES.md, SYSTEM.md, PROCEDURES.md, DOCTRINES.md, QUESTIONS.md, WORLD.md, THEMES.md, or adapted equivalents when present, and any previously drafted units. The agent returns a PLAN CHECK report with status READY or NEEDS REVISION plus specific completeness, alignment, record, domain model, character, voice, pacing, and craft-note findings. Surface its recommendations to the writer before suggesting the draft step. If the agent flags NEEDS REVISION on any plan, hold the draft suggestion and offer to fix the flagged items first.
 
 6. **Write a short summary** for the writer: "Planned {unit} {N}: X {atomic_units}, main arc goes from Y to Z, voice notes applied from STYLE-GUIDE.md. Plan check: {READY | N items flagged}."
 

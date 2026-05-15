@@ -103,6 +103,41 @@ describe('Phase 45: core loop carries craft notes', () => {
   });
 });
 
+describe('Phase 45: domain grilling keeps project language precise', () => {
+  it('documents domain grilling as part of Creative Context without overloading CONTEXT.md', () => {
+    const doc = read('docs/creative-context.md');
+    assert.match(doc, /## Domain Grilling/);
+    assert.match(doc, /Check the project first/);
+    assert.match(doc, /Ask one question at a time and include a recommended answer/);
+    assert.match(doc, /Do not turn `\.manuscript\/CONTEXT\.md` into a glossary/);
+  });
+
+  it('discuss challenges fuzzy terms against established project language', () => {
+    const discuss = read('commands/scr/discuss.md');
+    assert.match(discuss, /Domain grilling/);
+    assert.match(discuss, /fuzzy term, overloaded label, or claim/);
+    assert.match(discuss, /call out the mismatch immediately/);
+    assert.match(discuss, /REFERENCES\.md as the canonical place/);
+  });
+
+  it('plan records domain model notes and blocks contradictions before drafting', () => {
+    const plan = read('commands/scr/plan.md');
+    assert.match(plan, /## Domain Model Notes/);
+    assert.match(plan, /canonical terms the drafter must use/);
+    assert.match(plan, /boundary scenarios/);
+    assert.match(plan, /QUESTION: Blocking/);
+    assert.match(plan, /domain model/);
+  });
+
+  it('plan-checker verifies canonical terminology and source-of-truth alignment', () => {
+    const checker = read('agents/plan-checker.md');
+    assert.match(checker, /Domain model and terminology/);
+    assert.match(checker, /Canonical terminology from REFERENCES\.md/);
+    assert.match(checker, /treat REFERENCES\.md as the canonical terminology/);
+    assert.match(checker, /DOMAIN MODEL/);
+  });
+});
+
 describe('Phase 45: agents preserve voice and avoid prose labels', () => {
   it('drafter receives craft notes but keeps labels out of prose', () => {
     const drafter = read('agents/drafter.md');

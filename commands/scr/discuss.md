@@ -47,6 +47,12 @@ Load `.manuscript/config.json` to get the `command_unit` (chapter, act, section,
 
    Use RECORD.md to ask about established content only when it matters. Good prompts connect the current unit to an existing thread, promise, continuity fact, or next-unit obligation without making the writer audit the whole project.
 
+   **Domain grilling:** Before you accept a fuzzy term, overloaded label, or claim about how the project works, check the relevant source files first. Use RECORD.md for established facts and definitions, STYLE-GUIDE.md for voice language, CHARACTERS.md or FIGURES.md for cast terms, WORLD.md or SYSTEM.md for operating rules, PLOT-GRAPH.md or PROCEDURES.md for sequence and causality, THEMES.md, QUESTIONS.md, DOCTRINES.md, or REFERENCES.md for subject language, and prior drafts for what has already appeared on the page.
+
+   If the files answer the question, do not ask the writer. If the writer's wording conflicts with existing language, call out the mismatch immediately and ask which term or rule wins. If the wording is vague, propose one precise canonical term and ask for confirmation. Always ask one question at a time and include your recommended answer.
+
+   For technical work types, treat REFERENCES.md as the canonical place for source-of-truth links and terminology. If a technical term is resolved during discussion, capture the durable term in `## Record Notes` as a recommended REFERENCES.md update, and also include any unit-specific effect in `## Subject Dynamics Notes` or `## Craft Notes`.
+
 4. **Capture craft notes** in `.manuscript/{N}-CONTEXT.md`. This file is the input to `/scr:plan`. It should contain: approach, voice notes, what to include, what to avoid, continuity anchors, specific beats the writer wants hit, and a `## Craft Notes` section using only these labels:
 
    - `CHOICE`: confirmed creative decision
@@ -76,6 +82,7 @@ Load `.manuscript/config.json` to get the `command_unit` (chapter, act, section,
    - open threads, promises, or reader expectations this unit should pay off, deepen, or leave open
    - new facts or movement this unit is likely to establish
    - any RECORD.md updates the draft or review should make after the unit lands
+   - any canonical terminology, source-of-truth, or adapted source-file updates resolved by domain grilling
 
 5. **Update STATE.md** to mark discuss phase complete for this unit.
 

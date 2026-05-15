@@ -69,7 +69,7 @@ Always create `RECORD.md` from `templates/RECORD.md` without renaming it. It is 
 Write `.manuscript/config.json` by starting from `templates/config.json` and filling the project-specific values. The generated config must include the shared settings blocks that later commands read:
 ```json
 {
-  "scriveno_version": "2.0.3",
+  "scriveno_version": "2.0.4",
   "work_type": "<chosen>",
   "group": "<group>",
   "command_unit": "<unit>",

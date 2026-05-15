@@ -2,6 +2,27 @@
 
 All notable package-level changes to `scriveno-cli` are documented here.
 
+## 2.0.4 - 2026-05-15
+
+Patch release focused on integrating Domain Grilling principles into Scriveno's Creative Context loop.
+
+**Domain Grilling**
+
+- Added a Domain Grilling contract to Creative Context: check project files first, challenge conflicting terms immediately, sharpen fuzzy language, test one concrete boundary scenario, and ask one question at a time with a recommended answer.
+- Updated `/scr:discuss` so fuzzy terms, overloaded labels, and claims about how the project works are checked against RECORD.md, STYLE-GUIDE.md, WORLD.md or SYSTEM.md, PLOT-GRAPH.md or PROCEDURES.md, subject files, cast files, and prior drafts before the writer is asked.
+- Updated `/scr:plan` to load canonical terminology and source-of-truth notes from adapted source files, write `## Domain Model Notes` when needed, and turn unresolved contradictions into blocking questions before drafting.
+- Extended the plan-checker agent with domain model and terminology validation, including technical checks against REFERENCES.md for command names, file paths, version boundaries, prerequisites, recovery steps, and procedure behavior.
+- Expanded the technical REFERENCES.md template with canonical terminology, boundary examples, source-of-truth columns, and review checks for term and boundary drift.
+
+**Docs and tests**
+
+- Updated README and release notes to describe the Domain Grilling release.
+- Added regression coverage for the Creative Context contract, discuss and plan behavior, plan-checker terminology checks, and technical REFERENCES.md boundary scaffolding.
+
+**Release alignment**
+
+- Bumped package, constraints, generated config, README badge/status, and documentation references to `2.0.4`.
+
 ## 2.0.3 - 2026-05-15
 
 Patch release focused on integrating `authenticity-check` principles into Scriveno's Voice DNA diagnostic layer. This is the evaluative counterpart to the [`humanizer`](https://github.com/aihxp/humanizer) transform principles added in `2.0.2`: it diagnoses how authentically prose reads as the writer's own work and never rewrites.

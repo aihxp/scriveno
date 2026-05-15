@@ -24,6 +24,27 @@ Creative Context solves three problems:
 4. Writer-facing language stays writer-native. Commands should say voice, continuity, readiness, question, and watchpoint, not compliance or tier.
 5. Drafted prose never receives craft labels. Labels belong in context, plans, and reviews.
 
+## Domain Grilling
+
+Domain grilling is the Creative Context habit of making language precise before it becomes a plan, draft, review, or published document. It applies most strongly to technical, academic, sacred, series, and worldbuilding-heavy projects, but it can help any work where terms carry continuity.
+
+Use it when a writer introduces a fuzzy term, a loaded term, a term that conflicts with established project language, or a claim about how the work's world, system, doctrine, argument, procedure, or cast already behaves.
+
+The rules:
+
+1. Check the project first. If WORK.md, RECORD.md, STYLE-GUIDE.md, WORLD.md, SYSTEM.md, PROCEDURES.md, REFERENCES.md, DOCTRINES.md, QUESTIONS.md, CHARACTERS.md, FIGURES.md, or prior drafts can answer the question, read them instead of asking the writer.
+2. Challenge conflicts immediately. If the writer says "account" but REFERENCES.md defines "workspace" as the thing being discussed, name the mismatch and ask which term should win.
+3. Sharpen fuzzy language. Propose a precise canonical term when a phrase can mean more than one thing.
+4. Test concrete scenarios. Use one specific edge case to expose unclear boundaries, especially for procedures, doctrines, magic systems, character knowledge, source handling, and reader promises.
+5. Ask one question at a time and include a recommended answer. Do not make the writer sort through a survey unless the work is still in broad discovery.
+6. Capture the resolution where it belongs:
+   - Unit-specific choices go in `.manuscript/{N}-CONTEXT.md` as `CHOICE`, `QUESTION`, or `WATCHPOINT`.
+   - Durable established facts, definitions, promises, and procedure truths go in RECORD.md.
+   - Technical canonical terminology and sources of truth go in REFERENCES.md.
+   - World, doctrine, audience, system, procedure, character, or theme decisions go in their matching adapted source file.
+
+Do not turn `.manuscript/CONTEXT.md` into a glossary. It is an auto-regenerated bootstrap, not a decision notebook.
+
 ## Pillar Map
 
 | Creative pillar | Existing source files | Role |
@@ -88,11 +109,15 @@ Capture the writer's confirmed choices, creative hunches, open questions, and wa
 
 When the conversation touches established content, also capture `## Record Notes`: what RECORD.md says this unit must honor, what thread or promise the unit may handle, and what the draft or review should add to RECORD.md after the unit lands.
 
+Before capturing, run domain grilling on any fuzzy term, overloaded term, or claim that may contradict the project's established language. Resolve only what matters for the current unit. If a canonical term or source-of-truth decision becomes durable, route it to RECORD.md, REFERENCES.md, or the adapted source file instead of leaving it only in the unit context.
+
 ### plan
 
 Load craft notes from `{N}-CONTEXT.md`. Convert confirmed choices into plan constraints, hunches into draftable tests, questions into blocking or non-blocking items, and watchpoints into plan checks.
 
 Load RECORD.md as the compact established-content store. Plans should include `## Record Notes` when the unit touches established facts, open threads, reader promises, payoffs, continuity facts, or next-unit obligations.
+
+Run a domain model check before drafting: compare the plan's terms and assumptions against RECORD.md, REFERENCES.md, and the relevant adapted source files. If the plan uses a term differently than the project does, either revise the plan language or mark a blocking question.
 
 ### draft
 

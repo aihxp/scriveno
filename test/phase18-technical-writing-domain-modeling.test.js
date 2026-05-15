@@ -74,6 +74,16 @@ describe('phase 18 technical-writing scaffolding', () => {
     }
   });
 
+  it('makes REFERENCES.md the technical terminology and boundary source', () => {
+    const references = read('templates/technical/REFERENCES.md');
+    assert.match(references, /## Canonical terminology/);
+    assert.match(references, /domain grilling/);
+    assert.match(references, /Boundary or example/);
+    assert.match(references, /## Domain boundaries/);
+    assert.match(references, /Canonical terminology matches/);
+    assert.match(references, /Domain boundaries still match/);
+  });
+
   it('teaches new-work to scaffold technical projects with technical-native files and config', () => {
     const newWork = read('commands/scr/new-work.md');
     const templateConfig = JSON.parse(read('templates/config.json'));
