@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/aihxp/scriveno/actions/workflows/ci.yml/badge.svg)](https://github.com/aihxp/scriveno/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.0.1-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.0.2-blue)](CHANGELOG.md)
 [![npm](https://img.shields.io/npm/v/scriveno-cli.svg)](https://www.npmjs.com/package/scriveno-cli)
 [![Downloads](https://img.shields.io/npm/dm/scriveno-cli.svg)](https://www.npmjs.com/package/scriveno-cli)
 
@@ -203,11 +203,11 @@ Scriveno currently ships installer targets for these AI tooling environments:
 
 ## Status
 
-**Version:** 2.0.1
+**Version:** 2.0.2
 
- Scriveno's core command surface is stable across 112 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, plus the creative-context, record-store, branching-next, runtime-sync, adaptive concierge, and human-first writing-safeguard work for `2.0.1`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
+ Scriveno's core command surface is stable across 112 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, plus the creative-context, record-store, branching-next, runtime-sync, adaptive concierge, and human-first writing-safeguard work for `2.0.2`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
 
- Version `2.0.1` keeps the `2.0.0` creative context layer and adds a calmer front door: adaptive `/scr:help`, adaptive `/scr:next`, and human-first writing rules that preserve Voice DNA while guarding against invented details, flattened register, copied chat artifacts, and over-polished prose. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
+ Version `2.0.2` keeps the adaptive front door from `2.0.1` and deepens the human-first writing layer with `scriveno-humanizer` principles: variance over substitution, sourced stance, soft-inference checks, anti-signature editing, and explicit restraint reporting. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
 
 Package history is tracked in [CHANGELOG.md](CHANGELOG.md), and the public-facing summary for this release is in [docs/release-notes.md](docs/release-notes.md).
 

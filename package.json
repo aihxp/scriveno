@@ -1,6 +1,6 @@
 {
   "name": "scriveno-cli",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Spec-driven creative writing, publishing, and translation pipeline for AI coding agents. From blank page to published book.",
   "bin": {
     "scriveno": "bin/install.js"

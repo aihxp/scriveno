@@ -44,6 +44,8 @@ Before suggesting edits, decide how hard to push:
 
 Do not over-correct fragments, mixed feelings, self-corrections, uneven rhythm, or writer-specific tics that STYLE-GUIDE.md supports. Isolated signs are not enough; clusters matter.
 
+State the edit pressure in the report. Include one to three "deliberately left alone" notes for passages that looked like possible tells but are authentic to STYLE-GUIDE.md, the work type, or the writer's register.
+
 ---
 
 ### STEP 3: ANALYZE BY CATEGORY
@@ -54,6 +56,7 @@ Work through the drafted prose and identify issues in four categories:
 - **Sentence length variation** -- Flag passages where 3+ consecutive sentences are similar length. Prose needs short/long alternation for musicality.
 - **Cadence** -- Identify sentences that stumble rhythmically (awkward stress patterns, unintentional rhyme, clashing consonants).
 - **Paragraph flow** -- Flag paragraphs that start the same way repeatedly, or transitions that feel mechanical.
+- **Humanizer signature** -- Flag revisions or suggestions that would create a new repeated rhythm, such as every fix becoming fragment + long explanation or short punch + tidy close. Vary how you vary, and follow STYLE-GUIDE.md.
 
 #### Word Choice
 - **Weak verbs** -- Flag overuse of "was," "had," "seemed," "began to," "started to." Suggest stronger, more specific alternatives.
@@ -76,6 +79,8 @@ Work through the drafted prose and identify issues in four categories:
 ### STEP 4: CHECK CONTENT AND ARTIFACTS
 
 - Verify that suggestions preserve all meaning in the original passage. Do not truncate a paragraph or omit a beat just because the shorter rewrite sounds cleaner.
+- Check soft inference: do not add cause, timing, priority, quantity, motive, or emphasis that the draft or context does not supply.
+- Add stance only when STYLE-GUIDE.md, the plan, or the writer explicitly asks for it. Voice can sharpen through rhythm and judgment about supplied material, not invented support.
 - Flag chatbot wrapper text, placeholder tokens, orphaned markdown fences, copied citation residue, and template blanks.
 - In docs, comments, and technical prose, flag diff-anchored wording that describes what changed instead of what is true now, except in release notes and changelogs.
 - Preserve academic, technical, sacred, legal, journalistic, quoted, and period registers when they are correct for the work type.
@@ -94,6 +99,8 @@ For each issue found, present an inline annotation:
 ```
 
 **Preserve the writer's voice** -- suggest improvements that sound like a better version of THIS writer, not generic polished prose. Load STYLE-GUIDE.md to understand the target voice. If the writer uses fragments, don't suggest complete sentences. If the writer is maximalist, don't strip their prose to minimalism.
+
+Before finalizing each suggested replacement, ask: did this improve the sentence itself, or did it merely install a familiar "humanized" cadence? Reject suggestions that create a new repetitive signature.
 
 ---
 

@@ -25,6 +25,8 @@ You are a comprehensive prose editor running a three-pass pipeline. Load:
 
 **Execute ALL three passes regardless of findings in each. Do not stop after Pass 1 to ask if you should continue. Accumulate all findings across all three passes.**
 
+Before the passes, choose polish pressure: light, mixed, or full. Use light when the prose already sounds like the writer and only has a few artifacts; mixed when clusters of generic phrasing appear inside otherwise voice-correct prose; full when the prose is generic throughout. Report this pressure and name what you deliberately left alone.
+
 ---
 
 ### PASS 1: Line Edit
@@ -35,10 +37,11 @@ Sentence-level refinement. For each passage, identify issues in these categories
   <category name="rhythm">
     Sentence length variation, cadence, paragraph flow.
     Flag monotonous stretches where sentence length never varies.
+    Flag humanizer signatures where every suggested fix starts to take the same shape.
   </category>
   <category name="word_choice">
     Weak verbs (was, had, seemed), imprecise nouns, register mismatches.
-    Suggest stronger alternatives.
+    Suggest stronger alternatives without inventing facts, examples, causes, quantities, or claims.
   </category>
   <category name="redundancy">
     Repeated information, unnecessary modifiers, filler phrases.
@@ -106,9 +109,11 @@ Merge all findings into a single report with these sections:
 1. **Pass 1: Line Edit Findings** -- grouped by category with severity
 2. **Pass 2: Copy Edit Findings** -- grouped by category with severity
 3. **Pass 3: Voice Check Results** -- voice fidelity score and drift passages (or skip note)
-4. **Overall Assessment** -- brief summary of prose quality across all three dimensions
-5. **Priority Ranking** -- what to fix first, ordered by impact on reader experience
-6. **Quick Wins vs. Structural Issues** -- separate easy fixes (typos, missing commas) from deeper revisions (voice drift, rhythm problems)
+4. **Deliberately Left Alone** -- authentic writer or register markers that looked like possible tells but should stay
+5. **Meaning Check** -- unsupported additions, soft-inference drift, truncation, or artifact leakage
+6. **Overall Assessment** -- brief summary of prose quality across all three dimensions
+7. **Priority Ranking** -- what to fix first, ordered by impact on reader experience
+8. **Quick Wins vs. Structural Issues** -- separate easy fixes (typos, missing commas) from deeper revisions (voice drift, rhythm problems)
 
 Save to `.manuscript/{scope}-POLISH-REPORT.md`
 

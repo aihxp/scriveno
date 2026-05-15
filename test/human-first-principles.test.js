@@ -32,12 +32,27 @@ describe('human-first prose principles', () => {
     assert.match(rules, /describe what is true now, not what changed from an older version/);
   });
 
+  it('WRITING-RULES captures scriveno-humanizer variance and stance principles', () => {
+    const rules = read('templates/WRITING-RULES.md');
+
+    assert.match(rules, /### Variance over substitution/);
+    assert.match(rules, /Do not fix AI-sounding prose by swapping one suspect word for another everywhere/);
+    assert.match(rules, /Do not install a new humanizer signature/);
+    assert.match(rules, /Audit soft inference as carefully as hard facts/);
+    assert.match(rules, /### Stance discipline/);
+    assert.match(rules, /Stance may react to content already present/);
+    assert.match(rules, /name one to three things deliberately left alone/);
+  });
+
   it('drafter refuses unsupported detail and required-content loss', () => {
     const drafter = read('agents/drafter.md');
 
     assert.match(drafter, /\*\*Factual integrity\.\*\*/);
     assert.match(drafter, /Do not add facts, names, dates, numbers, citations, prices, historical details, technical behavior, doctrinal claims, or examples/);
     assert.match(drafter, /Did you preserve every required beat from the plan without truncating, skipping, or replacing concrete content/);
+    assert.match(drafter, /\*\*Stance stays sourced\.\*\*/);
+    assert.match(drafter, /\*\*Variance over substitution\.\*\*/);
+    assert.match(drafter, /Did you avoid adding soft inferences/);
     assert.match(drafter, /\*\*Never invent support\.\*\*/);
     assert.match(drafter, /\*\*Never truncate the required content\.\*\*/);
   });
@@ -47,10 +62,13 @@ describe('human-first prose principles', () => {
 
     assert.match(checker, /Use density, not isolated tells/);
     assert.match(checker, /If the passage contains strong human markers/);
+    assert.match(checker, /humanizer signature/);
     assert.match(checker, /### Content integrity/);
     assert.match(checker, /\*\*No invented support\.\*\*/);
+    assert.match(checker, /\*\*No soft-inference drift\.\*\*/);
     assert.match(checker, /\*\*No truncation\.\*\*/);
     assert.match(checker, /\*\*Register restraint\.\*\*/);
+    assert.match(checker, /\*\*Stance discipline\.\*\*/);
   });
 
   it('line-edit uses edit pressure before rewriting', () => {
@@ -61,7 +79,21 @@ describe('human-first prose principles', () => {
     assert.match(lineEdit, /\*\*Mixed:\*\*/);
     assert.match(lineEdit, /\*\*Full:\*\*/);
     assert.match(lineEdit, /Do not over-correct fragments, mixed feelings, self-corrections, uneven rhythm, or writer-specific tics/);
+    assert.match(lineEdit, /deliberately left alone/);
     assert.match(lineEdit, /Verify that suggestions preserve all meaning in the original passage/);
+    assert.match(lineEdit, /Check soft inference/);
+    assert.match(lineEdit, /humanized.*cadence/);
+  });
+
+  it('polish reports restraint and meaning checks', () => {
+    const polish = read('commands/scr/polish.md');
+
+    assert.match(polish, /choose polish pressure: light, mixed, or full/);
+    assert.match(polish, /name what you deliberately left alone/);
+    assert.match(polish, /Flag humanizer signatures/);
+    assert.match(polish, /\*\*Deliberately Left Alone\*\*/);
+    assert.match(polish, /\*\*Meaning Check\*\*/);
+    assert.match(polish, /soft-inference drift/);
   });
 
   it('copy-edit enforces Scriveno dash policy instead of normalizing em dashes', () => {

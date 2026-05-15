@@ -2,6 +2,27 @@
 
 All notable package-level changes to `scriveno-cli` are documented here.
 
+## 2.0.2 - 2026-05-15
+
+Patch release focused on integrating `scriveno-humanizer` principles into Scriveno's Voice DNA quality layer.
+
+**Humanizer principle integration**
+
+- Added variance-over-substitution guidance to `WRITING-RULES.md`: fix the underlying thought and rhythm, not just suspicious words.
+- Added anti-signature editing guidance so line-edit, polish, drafter, and voice-checker do not replace generic AI cadence with a new repetitive "humanized" cadence.
+- Added sourced stance discipline: edge, warmth, irony, devotion, skepticism, or opinion must come from `STYLE-GUIDE.md`, the plan, or supplied material.
+- Added soft-inference checks for cause, timing, priority, quantity, and motive claims that are implied or invented rather than supplied.
+- Added deliberate-restraint reporting to line-edit and polish so reports name authentic writer or register markers that were intentionally left alone.
+
+**Docs and tests**
+
+- Updated Voice DNA, drafter-quality, and shipped-assets docs to describe the expanded human-first rule layer.
+- Expanded regression coverage for variance over substitution, sourced stance, soft-inference checks, humanizer-signature detection, and polish meaning checks.
+
+**Release alignment**
+
+- Bumped package, constraints, generated config, README badge/status, and documentation references to `2.0.2`.
+
 ## 2.0.1 - 2026-05-14
 
 Patch release focused on adaptive command guidance and human-first Voice DNA scaffolding.

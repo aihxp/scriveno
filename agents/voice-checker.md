@@ -44,6 +44,8 @@ These are red flags that the draft sounds like generic AI, not the writer.
 
 Use density, not isolated tells. A single transition word, a clean sentence, formal vocabulary, or one dash-like construction is not enough to call the prose AI-slop. Flag clusters: generic vocabulary plus vague claims plus symmetrical rhythm plus formulaic transitions. If the passage contains strong human markers, such as specific concrete detail, mixed feelings, parenthetical self-correction, uneven rhythm, or a known writer tic from STYLE-GUIDE.md, preserve those markers.
 
+Also check for a humanizer signature: the draft should not replace generic AI cadence with a different regular pattern. Flag repeated edit shapes, forced contractions, recurring short-punch closers, uniform "fragment then long sentence" rhythms, or stock substitutions that recur across the unit.
+
 If WRITING-RULES.md is absent, fall back to this baseline list:
 
 - **Hedging language** ("perhaps," "in a sense," "to some degree," "it could be argued")
@@ -60,9 +62,11 @@ In all cases, STYLE-GUIDE.md overrides: if the writer's voice deliberately hedge
 ### Content integrity
 
 - **No invented support.** Flag any fact, source, date, statistic, quotation, named example, price, or technical claim that appears in the draft but not in the plan, record, source notes, or provided context.
+- **No soft-inference drift.** Flag causal, temporal, quantitative, priority, or motive claims that the draft asserts when the context only implies them or does not supply them.
 - **No truncation.** Flag missing beats, skipped plan obligations, or compressed sections where the draft covers less than the plan requires.
 - **No artifact leakage.** Flag chatbot wrapper text, placeholder tokens, copied citation artifacts, orphaned markdown fences, and UI residue.
 - **Register restraint.** Do not penalize academic, technical, legal, sacred, journalistic, or quoted material for sounding formal when the register requires precision.
+- **Stance discipline.** If the prose gains edge, warmth, irony, devotion, or opinion, verify that the stance comes from STYLE-GUIDE.md, the plan, or the writer's supplied material rather than invented support.
 
 ### Continuity-critical voice issues
 
@@ -99,9 +103,11 @@ AI-SLOP FLAGS
 
 CONTENT INTEGRITY
 - Unsupported additions: none / list exact lines
+- Soft-inference drift: none / list exact lines
 - Missing required content: none / list omitted beats
 - Artifact leakage: none / list exact residue
 - Register restraint: appropriate / over-edited / under-edited
+- Stance discipline: sourced / overreached
 
 RECOMMENDATION
 - proceed / revise specific lines / re-draft / calibrate voice

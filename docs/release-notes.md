@@ -2,6 +2,38 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.0.2 - 2026-05-15
+
+### What changed
+
+- Integrated additional `scriveno-humanizer` principles into the universal Voice DNA support layer.
+- `WRITING-RULES.md` now includes variance over substitution, sourced stance discipline, soft-inference checks, and anti-signature guidance.
+- The drafter now checks that added stance stays tied to supplied material and that prose does not gain a new repetitive "humanized" rhythm.
+- The voice-checker now flags humanizer signatures, soft-inference drift, and unsupported stance.
+- `/scr:line-edit` and `/scr:polish` now report edit pressure, check soft inference, avoid formulaic humanizer cadence, and name what they deliberately left alone.
+- Package and shipped metadata are aligned on `2.0.2`.
+
+### Why it matters
+
+The earlier human-first layer protected Scriveno from over-polishing the writer. `2.0.2` closes the next failure mode: replacing AI-sounding prose with a different predictable style. The rule layer now pushes edits toward the writer's actual distribution of rhythm, stance, and detail instead of a generic "more human" flavor.
+
+Voice DNA remains the top authority. These principles live underneath it and serve the writer's style rather than replacing it.
+
+### Affected areas
+
+- Voice DNA support rules (`templates/WRITING-RULES.md`)
+- quality agents (`drafter`, `voice-checker`)
+- edit commands (`line-edit`, `polish`)
+- Voice DNA and drafter-quality docs
+- package metadata, README status, release notes, and shipped-assets docs
+- regression tests for human-first writing principles
+
+### Verification
+
+- `npm test`
+- `npm run pack:check`
+- `git diff --check`
+
 ## 2.0.1 - 2026-05-14
 
 ### What changed

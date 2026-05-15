@@ -115,6 +115,10 @@ Write the atomic unit. Follow these principles:
 
 **Register-aware voice.** The writer's voice changes by surface. Academic, technical, legal, sacred, journalistic, and quoted passages may need formal or precise language that would be wrong in memoir or fiction. Do not casualize a register just to make it sound warmer. Keep terms of art, procedural phrasing, doctrinal language, citation language, and period diction when the project requires them.
 
+**Stance stays sourced.** If STYLE-GUIDE.md or the plan calls for bite, warmth, skepticism, devotion, humor, polemic, or first-person attitude, express that stance as a reaction to the supplied material. Do not invent facts, causes, motives, lived experience, or claims to make the stance feel sharper.
+
+**Variance over substitution.** Do not replace generic prose with a new repetitive "humanized" rhythm. Match the writer's actual distribution of sentence length, paragraph shape, fragments, and silence. If every fix starts to have the same shape, change the shape.
+
 **Continuity anchors.** If the plan says "Marcus is still wearing his coat from the previous scene," he is. If "it's raining" in the previous scene, it's still raining unless time has passed. The plan knows these things -- respect them.
 
 **No throat-clearing.** Don't start with "The scene opens with..." Just start the scene. No scaffolding, no meta-commentary, no "and then..." No placeholder prose. If you don't know how to start, re-read the previous unit's tail and let its rhythm lead you in.
@@ -131,6 +135,8 @@ Before finalizing, do these quick checks:
 - Did the draft honor Record Notes and RECORD.md without contradicting established content?
 - Did you preserve every required beat from the plan without truncating, skipping, or replacing concrete content with a smoother generalization?
 - Did you avoid inventing any facts, examples, names, numbers, sources, dates, or claims?
+- Did you avoid adding soft inferences, such as cause, timing, priority, or quantity, that the plan did not state?
+- Did the draft preserve the writer's natural variance rather than installing a new uniform rhythm?
 - If this unit has Subject Dynamics Notes, did the reader's understanding, feeling, or ability move as planned?
 - Are there any sentences that sound like a generic AI wrote them? (If yes, rewrite them. Cross-check against WRITING-RULES.md if present; typical causes are abstract vagueness, stacked hedging, balanced-both-sides constructions, generic metaphors, symmetrical rhythm, or moralizing closings.)
 - Are there any copied chat artifacts, placeholder tokens, orphaned markdown fences, citation residue, or chatbot wrapper phrases? Remove them from the draft or flag the missing information.

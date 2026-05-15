@@ -13,8 +13,11 @@ Conflict resolution is top-down. STYLE-GUIDE.md beats WRITING-RULES.md beats the
 Ships as `templates/WRITING-RULES.md` and lands in every new project's `.manuscript/` via `/scr:new-work` and `/scr:import`. The file is a universal restraint layer covering:
 
 - Human-first restraint: do not over-correct prose that already sounds like the writer
+- Variance over substitution: fix the thought and rhythm, not only the suspect word
 - Factual integrity and content preservation
+- Soft-inference discipline for cause, timing, priority, quantity, and motive
 - Register-aware restraint for academic, technical, legal, sacred, journalistic, quoted, and period material
+- Stance discipline: edge or opinion only reacts to supplied material
 - Hedging and qualifiers
 - Throat-clearing and scaffolding
 - Balanced-both-sides constructions
@@ -32,7 +35,9 @@ Ships as `templates/WRITING-RULES.md` and lands in every new project's `.manuscr
 
 The drafter, voice-checker, and originality-check all reference this as the canonical universal rulebook. If a writer's STYLE-GUIDE.md says they hedge, fragment, moralize, use period diction, or keep a formal register deliberately, that voice choice wins.
 
-The human-first additions are especially important for revision. They tell Scriveno to look for clusters before flagging AI-like prose, preserve mixed feelings and uneven rhythm, keep every required beat, and avoid making unsupported details more specific just because the sentence would sound smoother.
+The human-first additions are especially important for revision. They tell Scriveno to look for clusters before flagging AI-like prose, preserve mixed feelings and uneven rhythm, keep every required beat, avoid making unsupported details more specific just because the sentence would sound smoother, and avoid installing a new "humanized" signature.
+
+Editing commands should also report restraint. A good line-edit or polish pass can say what it deliberately left alone: a formal register, an earned list, a rough sentence that carries voice, or a loaded hedge that changes the claim if removed.
 
 ## Pitfall packs
 

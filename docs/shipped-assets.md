@@ -19,7 +19,7 @@ Per-work-type pitfall packs in `templates/pitfalls/`:
 - `pitfalls/comic.md` (visual: script-versus-art boundary, panel rhythm, caption voice)
 - `pitfalls/commentary.md` (sacred: register drift, anachronism, source-handling, doctrinal precision)
 
-Conflict resolution is top-down: `STYLE-GUIDE.md` beats `WRITING-RULES.md` beats the pitfall pack. The writer's voice is sovereign; the rule layers are scaffolding for human-first restraint, factual integrity, register awareness, artifact cleanup, and type-specific polish.
+Conflict resolution is top-down: `STYLE-GUIDE.md` beats `WRITING-RULES.md` beats the pitfall pack. The writer's voice is sovereign; the rule layers are scaffolding for human-first restraint, variance over substitution, factual integrity, sourced stance, register awareness, artifact cleanup, and type-specific polish.
 
 A contributor adding `templates/pitfalls/<work_type>.md` is automatically picked up by `lib/architectural-profiles.js#listPitfallPacks` with no edits to library code or `CONSTRAINTS.json`.
 

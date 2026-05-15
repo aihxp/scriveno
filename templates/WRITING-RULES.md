@@ -19,18 +19,31 @@ These patterns make prose sound generated. Avoid them unless STYLE-GUIDE.md expl
 - Isolated signals are not enough. Look for clusters: generic vocabulary plus symmetrical rhythm plus vague claims plus formulaic transitions.
 - Preserve human markers: specific details, mixed feelings, fragments, self-corrections, uneven rhythm, and era-bound references.
 - If the passage has only one or two weak spots, fix those spots. Do not sand down the whole paragraph.
+- When reporting edits, name one to three things deliberately left alone because they are authentic to the writer or register.
+
+### Variance over substitution
+- Do not fix AI-sounding prose by swapping one suspect word for another everywhere. Fix the underlying thought.
+- Increase or preserve genuine structural variance: sentence length, paragraph shape, syntax, pace, and silence.
+- Do not install a new humanizer signature. Avoid repeated edit shapes such as every paragraph becoming short punch, long explanation, short punch.
+- Match STYLE-GUIDE.md's distribution of rhythm. If the writer is deliberately even, spare, maximalist, clipped, or formal, do not force generic variety.
 
 ### Factual integrity and content preservation
 - Do not invent facts, names, numbers, sources, quotes, dates, prices, examples, locations, or claims.
 - Specificity is good only when the source material provides it.
 - Cover every original beat the plan or draft requires. Do not truncate, skip paragraphs, compress away obligations, or replace concrete content with a prettier generalization.
 - If a detail is missing, leave the gap visible for the writer or planner rather than filling it with plausible material.
+- Audit soft inference as carefully as hard facts. Do not add causal, temporal, quantitative, or priority claims unless the source or plan states them.
 
 ### Register-aware restraint
 - Academic, technical, legal, sacred, journalistic, and quoted material should not be casualized just to sound "human."
 - Preserve required terms of art, citation language, doctrinal phrasing, legal precision, procedural commands, and period diction.
 - Change register only when STYLE-GUIDE.md or the plan asks for the shift.
 - When a sentence is correct for its register, leave it alone even if it would sound warmer in another context.
+
+### Stance discipline
+- Add edge, opinion, irony, warmth, or first-person attitude only when STYLE-GUIDE.md, the plan, or the writer explicitly calls for that stance.
+- Stance may react to content already present. It may not smuggle in new facts, motives, causes, events, expertise, lived experience, or claims.
+- If the writer asks for more voice, make the voice sharper through rhythm, emphasis, and judgment about supplied material, not through invented support.
 
 ### Hedging and qualifiers
 - Avoid "perhaps", "maybe", "in a sense", "to some degree", "it could be argued", "one could say", "it bears mentioning", "it is worth noting", "it should be noted".
@@ -124,6 +137,7 @@ STYLE-GUIDE.md takes precedence when it explicitly establishes:
 - A moralizing or didactic closing pattern (homiletic, parabolic, catechetical work types)
 - Genre-specific stock language the writer wants preserved (pastiche, parody, period voice)
 - Profanity, dialect, or register choices that would otherwise read as AI artifacts
+- A clear stance profile: skeptical, warm, devotional, polemical, restrained, comic, severe, or otherwise writer-specific
 
 When STYLE-GUIDE.md is silent, this file's defaults hold.
 
