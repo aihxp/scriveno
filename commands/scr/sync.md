@@ -32,7 +32,7 @@ If you cannot find a Scriveno source root, stop and explain that `/scr:sync` nee
 
 1. Locate the Scriveno source root:
    - First, check the current working directory and its parents for `package.json` with `"name": "scriveno"` or legacy `"name": "scriveno-cli"` plus `bin/install.js`.
-   - If running from an installed command copy that contains a `scriveno-cli-installed-command` marker, derive the source root from that marker's `source:` path.
+   - If running from an installed command copy that contains a `scriveno-installed-command` marker, derive the source root from that marker's `source:` path. Older `scriveno-cli-installed-command` markers are accepted as legacy input only.
    - If neither works, stop with the prerequisite message above.
 2. Read `package.json` from the source root and report the source version.
 3. Detect target runtimes:

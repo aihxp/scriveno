@@ -568,7 +568,7 @@ describe('generateCodexCommandContent', () => {
     assert.ok(out.includes(TB + '\n/scr:help\n' + TB));
     // Marker present
     assert.ok(out.includes(
-      '<!-- scriveno-cli-installed-command runtime:codex command:$scr-help source:help.md -->'
+      '<!-- scriveno-installed-command runtime:codex command:$scr-help source:help.md -->'
     ));
   });
 
@@ -586,7 +586,7 @@ describe('generateCodexCommandContent', () => {
     assert.ok(out.startsWith('---\ndescription: hi\n---\n'));
     // Marker comes immediately after frontmatter
     const afterFm = out.slice('---\ndescription: hi\n---\n'.length);
-    assert.ok(afterFm.startsWith('<!-- scriveno-cli-installed-command runtime:codex'));
+    assert.ok(afterFm.startsWith('<!-- scriveno-installed-command runtime:codex'));
   });
 });
 
@@ -604,7 +604,7 @@ describe('generateClaudeCommandContent regression (code-block aware)', () => {
     assert.ok(out.includes('Run /scr-help'));
     assert.ok(out.includes(TB + '\n/scr:help\n' + TB));
     assert.ok(out.includes(
-      '<!-- scriveno-cli-installed-command runtime:claude-code command:/scr-help source:help.md -->'
+      '<!-- scriveno-installed-command runtime:claude-code command:/scr-help source:help.md -->'
     ));
   });
 });
@@ -630,9 +630,10 @@ describe('installCodexRuntime rewrites command files', () => {
       assert.ok(fs.existsSync(helpPath), 'help.md should be installed');
       const content = fs.readFileSync(helpPath, 'utf8');
       // Marker present exactly once
-      const markerRe = /<!-- scriveno-cli-installed-command runtime:codex /g;
+      const markerRe = /<!-- scriveno-installed-command runtime:codex /g;
       const matches = content.match(markerRe) || [];
       assert.equal(matches.length, 1, 'marker should appear exactly once');
+      assert.ok(!content.includes('scriveno-cli-installed-command'));
       assert.ok(content.includes('runtime:codex'));
       assert.ok(content.includes('command:$scr-help'));
     } finally {
@@ -692,9 +693,10 @@ describe('installCodexRuntime rewrites command files', () => {
 
       const helpPath = path.join(tmpDir, '.codex/commands/scr/help.md');
       const content = fs.readFileSync(helpPath, 'utf8');
-      const markerRe = /<!-- scriveno-cli-installed-command runtime:codex /g;
+      const markerRe = /<!-- scriveno-installed-command runtime:codex /g;
       const matches = content.match(markerRe) || [];
       assert.equal(matches.length, 1, 'marker should appear exactly once even after re-run');
+      assert.ok(!content.includes('scriveno-cli-installed-command'));
 
       // No .tmp. files left under .codex/commands/scr/
       const commandsRoot = path.join(tmpDir, '.codex/commands/scr');

@@ -327,7 +327,8 @@ Run \`/scr:help\`, then \`/scr:new-work\`, and finally \`/scr:sacred:concordance
       content
     );
 
-    assert.match(installed, /scriveno-cli-installed-command runtime:claude-code/);
+    assert.match(installed, /scriveno-installed-command runtime:claude-code/);
+    assert.doesNotMatch(installed, /scriveno-cli-installed-command/);
     assert.match(installed, /`\/scr-help`/);
     assert.match(installed, /`\/scr-new-work`/);
     assert.match(installed, /`\/scr-sacred-concordance`/);
@@ -436,7 +437,7 @@ describe('cleanFlatCommandFiles', () => {
 
     fs.writeFileSync(
       path.join(commandsDir, 'scr-help.md'),
-      '<!-- scriveno-cli-installed-command runtime:claude-code command:/scr-help source:help.md -->\nhelp'
+      '<!-- scriveno-installed-command runtime:claude-code command:/scr-help source:help.md -->\nhelp'
     );
     fs.writeFileSync(
       path.join(commandsDir, 'scr-old-command.md'),

@@ -250,9 +250,10 @@ describe('v1.6 hardening integration', () => {
         const anyFile = commandFiles[0];
         const content = fs.readFileSync(anyFile, 'utf8');
         assert.ok(
-          /<!-- scriveno-cli-installed-command runtime:codex /.test(content),
+          /<!-- scriveno-installed-command runtime:codex /.test(content),
           'at minimum, Codex runtime marker must be present in installed command'
         );
+        assert.ok(!content.includes('scriveno-cli-installed-command'));
       } else {
         // Stronger assertion: both rewrites coexist inside a single installed file.
         // Re-read the chosen file and verify byte-for-byte that the code block content

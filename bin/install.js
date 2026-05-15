@@ -686,7 +686,7 @@ function rewriteInstalledCommandRefs(content, transform) {
 }
 
 function markInstalledCommand(content, runtimeKey, commandRef, sourcePath) {
-  const marker = `<!-- scriveno-cli-installed-command runtime:${runtimeKey} command:${commandRef} source:${sourcePath} -->`;
+  const marker = `<!-- scriveno-installed-command runtime:${runtimeKey} command:${commandRef} source:${sourcePath} -->`;
   return insertMarkerComment(content, marker);
 }
 
@@ -708,7 +708,7 @@ function generateCodexCommandContent(entry, sourceContent) {
 function isScrivenoInstalledCommandFile(filePath) {
   if (!fs.existsSync(filePath)) return false;
   const content = fs.readFileSync(filePath, 'utf8');
-  return content.includes('scriveno-cli-installed-command');
+  return content.includes('scriveno-installed-command') || content.includes('scriveno-cli-installed-command');
 }
 
 function cleanFlatCommandFiles(commandsDir, currentFileNames, legacyDirs = []) {
@@ -754,7 +754,7 @@ function cleanFlatCommandFiles(commandsDir, currentFileNames, legacyDirs = []) {
 function writeInstalledCommandManifest(commandsDir, runtimeKey, fileNames) {
   const manifestPath = path.join(commandsDir, '.scriveno-installed.json');
   const manifest = {
-    installer: 'scriveno-cli',
+    installer: 'scriveno',
     version: VERSION,
     runtime: runtimeKey,
     files: fileNames,
@@ -1194,7 +1194,7 @@ function cleanCodexSkillDirs(skillsDir, currentSkillNames) {
 function writeCodexSkillManifest(skillsDir, skillNames) {
   const manifestPath = path.join(skillsDir, '.scriveno-installed.json');
   const manifest = {
-    installer: 'scriveno-cli',
+    installer: 'scriveno',
     version: VERSION,
     skills: skillNames,
     generated_at: new Date().toISOString(),

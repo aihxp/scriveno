@@ -13,6 +13,25 @@ function exists(relativePath) {
   return fs.existsSync(path.join(ROOT, relativePath));
 }
 
+function collectMarkdownFiles(relativeDir) {
+  const absoluteDir = path.join(ROOT, relativeDir);
+  const files = [];
+
+  function walk(dir) {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const absolutePath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(absolutePath);
+      } else if (entry.isFile() && entry.name.endsWith('.md')) {
+        files.push(path.relative(ROOT, absolutePath));
+      }
+    }
+  }
+
+  walk(absoluteDir);
+  return files;
+}
+
 describe('phase 13 shipped-asset truth', () => {
   const shippedAssets = read('docs/shipped-assets.md');
 
@@ -127,6 +146,34 @@ describe('phase 13 contributor and root-doc alignment', () => {
       assert.doesNotMatch(doc, /Sunset May 2026/, `${name} should not carry stale image API sunset wording`);
       assert.doesNotMatch(doc, /\$0\.02-0\.08 per image/, `${name} should avoid stale hard-coded image pricing`);
       assert.doesNotMatch(doc, /\$0\.005\/image/, `${name} should avoid stale hard-coded image pricing`);
+    }
+  });
+
+  it('keeps legacy package names limited to historical and compatibility contexts', () => {
+    const docsToScan = [
+      'README.md',
+      'AGENTS.md',
+      'CLAUDE.md',
+      ...collectMarkdownFiles('docs'),
+      ...collectMarkdownFiles('commands'),
+    ];
+    const allowedLegacyContext = /\b(older|old|legacy|historical|unpublished|deprecated|compatibility|accepted as legacy input|version `2\.0\.5`|running `npx scriveno-cli@[0-9])/i;
+
+    for (const relativePath of docsToScan) {
+      const lines = read(relativePath).split('\n');
+      lines.forEach((line, index) => {
+        if (!/\bscriveno-cli\b|\bscriven-cli\b/.test(line)) return;
+        assert.match(
+          line,
+          allowedLegacyContext,
+          `${relativePath}:${index + 1} should explain legacy package names as historical or compatibility-only`
+        );
+        assert.doesNotMatch(
+          line,
+          /npx scriveno-cli@latest|npx scriven-cli@latest/,
+          `${relativePath}:${index + 1} should not publish a legacy latest install command`
+        );
+      });
     }
   });
 });
