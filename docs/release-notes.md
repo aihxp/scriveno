@@ -11,12 +11,15 @@ This document is the public-facing summary of what changed between package relea
 - The package executable remains `scriveno`, so the installer behavior and command surfaces are unchanged after installation.
 - `/scr:sync` now recognizes both the new source package name `scriveno` and the legacy package name `scriveno-cli` when locating a local source checkout.
 - Package and shipped metadata are aligned on `2.0.5`.
+- The older `scriveno-cli` package name was unpublished during the rename, so npm cannot show a deprecation notice for it unless a compatibility shim is republished under that name.
 
 ### Why it matters
 
 The package name now matches the product name. This removes the extra `-cli` suffix from the install command and makes the npm surface easier to remember, while preserving the same installed command system.
 
 Existing installed runtime surfaces do not need to change immediately. The old installed-command marker remains stable so local sync and compatibility checks can keep recognizing prior installs.
+
+For contributors: treat `scriveno` as the only active npm package name. Do not assume `scriveno-cli` can be deprecated in place while it remains unpublished.
 
 ### Affected areas
 

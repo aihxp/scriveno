@@ -12,11 +12,13 @@ Patch release focused on moving the public npm package name from `scriveno-cli` 
 - Updated install documentation to use `npx scriveno@latest`.
 - Updated package badges, README status, runtime docs, configuration examples, generated project metadata, and release metadata to `2.0.5`.
 - Updated `/scr:sync` source-root detection so it accepts both the new package name `scriveno` and the legacy package name `scriveno-cli`.
+- Recorded that `scriveno-cli` was unpublished during the rename, which prevents npm deprecation notices until an active registry record exists again.
 
 **Compatibility**
 
 - Kept the existing installed-command marker name stable for older installed runtime surfaces.
 - Historical references to `scriveno-cli` remain in older changelog entries where they describe past package releases.
+- Legacy package state: `scriveno-cli` is not active on npm after the rename. A compatibility shim would need a new publish under that name before it can be deprecated or redirect users.
 
 **Release alignment**
 
