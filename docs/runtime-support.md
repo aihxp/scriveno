@@ -8,7 +8,7 @@ Scriveno's installer compatibility floor is `Node.js >=20.0.0`. For new installs
 
 Node is required for:
 
-- running `npx scriveno-cli@latest`
+- running `npx scriveno@latest`
 - executing `bin/install.js`
 - running the repo's JavaScript test suite
 

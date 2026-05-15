@@ -2,11 +2,11 @@
 
 [![CI](https://github.com/aihxp/scriveno/actions/workflows/ci.yml/badge.svg)](https://github.com/aihxp/scriveno/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.0.4-blue)](CHANGELOG.md)
-[![npm](https://img.shields.io/npm/v/scriveno-cli.svg)](https://www.npmjs.com/package/scriveno-cli)
-[![Downloads](https://img.shields.io/npm/dm/scriveno-cli.svg)](https://www.npmjs.com/package/scriveno-cli)
+[![Version](https://img.shields.io/badge/version-2.0.5-blue)](CHANGELOG.md)
+[![npm](https://img.shields.io/npm/v/scriveno.svg)](https://www.npmjs.com/package/scriveno)
+[![Downloads](https://img.shields.io/npm/dm/scriveno.svg)](https://www.npmjs.com/package/scriveno)
 
-**[scriveno-cli on npm](https://www.npmjs.com/package/scriveno-cli)**
+**[scriveno on npm](https://www.npmjs.com/package/scriveno)**
 
 **Spec-driven writing, publishing, and translation for AI coding agents.**
 
@@ -17,7 +17,7 @@ Scriveno brings spec-driven workflows to longform writing. It runs inside your A
 Scriveno is best understood as **AI-native longform writing software built around voice preservation**. Its core promise is narrow and high-stakes: drafted prose should sound like the writer, not like AI. If you want evidence before features, start with the [Proof Artifacts](docs/proof-artifacts.md).
 
 ```bash
-npx scriveno-cli@latest
+npx scriveno@latest
 ```
 
 ---
@@ -43,7 +43,7 @@ Everything adapts to your work type. A novel uses `/scr:draft` for chapters. A s
 
 ```bash
 # Install
-npx scriveno-cli@latest
+npx scriveno@latest
 
 # In Claude Code:
 /scr-new-work        # Start a fresh project
@@ -195,7 +195,7 @@ Scriveno currently ships installer targets for these AI tooling environments:
 - **Perplexity Desktop** (guided local-MCP setup)
 - **Generic (SKILL.md)** fallback
 
-**Installer baseline:** `Node.js >=20.0.0` for `npx scriveno-cli@latest` and `bin/install.js`. For new installs, use a currently supported LTS such as Node.js 24; Node.js 20 is now a compatibility floor, not the recommended fresh-install target.
+**Installer baseline:** `Node.js >=20.0.0` for `npx scriveno@latest` and `bin/install.js`. For new installs, use a currently supported LTS such as Node.js 24; Node.js 20 is now a compatibility floor, not the recommended fresh-install target.
 
 **Support note:** Claude Code is the primary reference runtime and now installs a flat `/scr-*` command surface. The environments listed above are installer targets, not a claim that every host runtime has verified parity today. Codex currently installs a skill-native `$scr-*` surface, while Perplexity Desktop is a guided local-MCP target rather than a writable command runtime. See the [runtime compatibility matrix](docs/runtime-support.md) for install type, support level, and verification status.
 
@@ -203,11 +203,11 @@ Scriveno currently ships installer targets for these AI tooling environments:
 
 ## Status
 
-**Version:** 2.0.4
+**Version:** 2.0.5
 
- Scriveno's core command surface is stable across 112 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, plus the creative-context, record-store, branching-next, runtime-sync, adaptive concierge, human-first writing-safeguard, authenticity-diagnostic, and domain-grilling work through `2.0.4`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
+ Scriveno's core command surface is stable across 112 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, plus the creative-context, record-store, branching-next, runtime-sync, adaptive concierge, human-first writing-safeguard, authenticity-diagnostic, and domain-grilling work through `2.0.5`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
 
- Version `2.0.4` adds Domain Grilling to the Creative Context loop: `/scr:discuss` now challenges fuzzy or conflicting project language against the source files, `/scr:plan` carries resolved terms into `## Domain Model Notes`, the plan-checker validates terminology and source-of-truth alignment, and technical REFERENCES.md now owns canonical terminology and boundary examples. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
+ Version `2.0.5` publishes Scriveno under the package name `scriveno`, so the current install command is `npx scriveno@latest`. The older `scriveno-cli` package name remains historical; new docs and package metadata now point at `scriveno`. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
 
 Package history is tracked in [CHANGELOG.md](CHANGELOG.md), and the public-facing summary for this release is in [docs/release-notes.md](docs/release-notes.md).
 

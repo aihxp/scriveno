@@ -17,7 +17,7 @@ Before choosing a runtime, check [Runtime Support](runtime-support.md) for the c
 Run the installer in your terminal:
 
 ```
-npx scriveno-cli@latest
+npx scriveno@latest
 ```
 
 This installs Scriveno into the runtime you choose. Command-directory and skills targets place files where the runtime expects them. Guided targets like Perplexity Desktop instead write setup assets and show the exact connector steps you need. Takes about 30 seconds.

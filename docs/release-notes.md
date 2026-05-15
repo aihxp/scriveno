@@ -2,6 +2,37 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.0.5 - 2026-05-15
+
+### What changed
+
+- Scriveno is now published under the npm package name `scriveno`.
+- New installs should use `npx scriveno@latest`.
+- The package executable remains `scriveno`, so the installer behavior and command surfaces are unchanged after installation.
+- `/scr:sync` now recognizes both the new source package name `scriveno` and the legacy package name `scriveno-cli` when locating a local source checkout.
+- Package and shipped metadata are aligned on `2.0.5`.
+
+### Why it matters
+
+The package name now matches the product name. This removes the extra `-cli` suffix from the install command and makes the npm surface easier to remember, while preserving the same installed command system.
+
+Existing installed runtime surfaces do not need to change immediately. The old installed-command marker remains stable so local sync and compatibility checks can keep recognizing prior installs.
+
+### Affected areas
+
+- npm package metadata
+- README install commands and badges
+- runtime and architecture docs
+- generated project config version
+- `/scr:sync` source-root detection guidance
+- release metadata and package tests
+
+### Verification
+
+- `npm test`
+- `npm run pack:check`
+- `git diff --check`
+
 ## 2.0.4 - 2026-05-15
 
 ### What changed

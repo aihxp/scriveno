@@ -17,7 +17,7 @@ This is not a package upgrade command. Do not fetch a newer Scriveno release, do
 - A Scriveno source root with `package.json`, `bin/install.js`, `commands/scr/`, and `agents/`
 - At least one target runtime directory, or an explicit `--runtime` / `--detected` choice
 
-If you cannot find a Scriveno source root, stop and explain that `/scr:sync` needs to run from the Scriveno package or repo checkout. Suggest reinstalling with `npx scriveno-cli@latest --detected --global --writer --silent` only when the writer wants the latest published package instead of local source sync.
+If you cannot find a Scriveno source root, stop and explain that `/scr:sync` needs to run from the Scriveno package or repo checkout. Suggest reinstalling with `npx scriveno@latest --detected --global --writer --silent` only when the writer wants the latest published package instead of local source sync.
 
 ## Usage
 
@@ -31,7 +31,7 @@ If you cannot find a Scriveno source root, stop and explain that `/scr:sync` nee
 ## What To Do
 
 1. Locate the Scriveno source root:
-   - First, check the current working directory and its parents for `package.json` with `"name": "scriveno-cli"` plus `bin/install.js`.
+   - First, check the current working directory and its parents for `package.json` with `"name": "scriveno"` or legacy `"name": "scriveno-cli"` plus `bin/install.js`.
    - If running from an installed command copy that contains a `scriveno-cli-installed-command` marker, derive the source root from that marker's `source:` path.
    - If neither works, stop with the prerequisite message above.
 2. Read `package.json` from the source root and report the source version.
