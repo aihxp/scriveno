@@ -7,19 +7,19 @@ requires:
   - Phase 29 Plan 01 (templates/sacred/ and templates/platforms/ directory scaffolds with 18 placeholder manifests)
   - Phase 29 Plan 02 (data/CONSTRAINTS.json architectural_profiles block: _seeded arrays, applies_to_groups, defaults_by_work_type)
 provides:
-  - "lib/architectural-profiles.js — 6 public functions: listTraditions, listPlatforms, validateTradition, validatePlatform, inferTradition, inferPlatform"
+  - "lib/architectural-profiles.js - 6 public functions: listTraditions, listPlatforms, validateTradition, validatePlatform, inferTradition, inferPlatform"
   - "bin/install.js re-exports the 6 functions alongside existing installer helpers"
   - "Runtime-level ARCH-01/ARCH-02 drop-in guarantee: new templates/sacred/<slug>/manifest.yaml or templates/platforms/<slug>/manifest.yaml is accepted at load time with no code edit"
-  - "Runtime-level ARCH-04/ARCH-05 default inference: scripture work types get tradition defaults (e.g. scripture_biblical → catholic), book-shaped work types get platform default kdp"
+  - "Runtime-level ARCH-04/ARCH-05 default inference: scripture work types get tradition defaults (e.g. scripture_biblical -> catholic), book-shaped work types get platform default kdp"
 affects:
   - 29-architectural-foundation/04 (ARCH regression suite consumes this module)
-  - Future /scr:new-work wiring (deferred) — will call validateTradition/inferTradition/validatePlatform/inferPlatform when substituting {{PROFILE_BLOCK}}
+  - Future /scr:new-work wiring (deferred) - will call validateTradition/inferTradition/validatePlatform/inferPlatform when substituting {{PROFILE_BLOCK}}
   - 32-build-pipelines (platform-aware export flows will call listPlatforms/validatePlatform/inferPlatform)
   - 33-sacred-tradition-profiles (tradition-aware sacred flows will call listTraditions/validateTradition/inferTradition)
 tech-stack:
   added: []
   patterns:
-    - "Directory-listing-driven enum validation: intersection of CONSTRAINTS.json _seeded arrays with on-disk manifest.yaml presence — contributor drop-ins extend the accepted set with zero code or data edit"
+    - "Directory-listing-driven enum validation: intersection of CONSTRAINTS.json _seeded arrays with on-disk manifest.yaml presence - contributor drop-ins extend the accepted set with zero code or data edit"
     - "Fail-safe default inference: inferTradition/inferPlatform wrap CONSTRAINTS.json read in try/catch, return null on any failure (missing file, bad JSON, unknown work type). Never throws."
     - "Stateless re-read per call: no cache, directory+JSON read on each invocation (~0.5ms) so tests that mutate fixtures see updates immediately"
 key-files:
@@ -28,7 +28,7 @@ key-files:
   modified:
     - bin/install.js
 decisions:
-  - "Implementation is strictly permissive vs. the _seeded whitelist: listProfiles() returns every templates/<family>/<slug>/manifest.yaml whose slug matches ^[a-z][a-z0-9-]*$, not only slugs in _seeded. This is intentional per ARCH-01/ARCH-02 — _seeded is a documentation anchor for Plan 04 tests, not a runtime whitelist."
+  - "Implementation is strictly permissive vs. the _seeded whitelist: listProfiles() returns every templates/<family>/<slug>/manifest.yaml whose slug matches ^[a-z][a-z0-9-]*$, not only slugs in _seeded. This is intentional per ARCH-01/ARCH-02 - _seeded is a documentation anchor for Plan 04 tests, not a runtime whitelist."
   - "No internal cache. Directory listing + CONSTRAINTS.json re-read per call. The cost is negligible (<20 entries, ~45KB JSON) and the behavior is easier to reason about for Plan 04's fixture-based regression tests."
   - "Private test helpers exported as _paths and _loadConstraints so Plan 04 can assert against the actual paths the module reads without duplicating them."
   - "bin/install.js re-export adds 6 keys to the existing module.exports object, explicit per-key rather than spread, so grep finds every entry and future diffs stay readable."
@@ -43,7 +43,7 @@ metrics:
 
 # Phase 29 Plan 03: Architectural Profiles Runtime Validator Summary
 
-ARCH-04 + ARCH-05 shipped — `lib/architectural-profiles.js` provides 6 functions that validate tradition/platform values against directory-listed manifests and infer per-work-type defaults from `data/CONSTRAINTS.json`. Drop-in extension semantics work at runtime. Zero new dependencies. All pre-existing tests still green.
+ARCH-04 + ARCH-05 shipped - `lib/architectural-profiles.js` provides 6 functions that validate tradition/platform values against directory-listed manifests and infer per-work-type defaults from `data/CONSTRAINTS.json`. Drop-in extension semantics work at runtime. Zero new dependencies. All pre-existing tests still green.
 
 ## Performance
 
@@ -70,8 +70,8 @@ A pure Node module using only `fs` and `path` built-ins. Six public functions pl
 | `inferPlatform(workType)` | `string \| null` | Reads `architectural_profiles.defaults_by_work_type.platform[workType]` from `data/CONSTRAINTS.json`. Returns `null` for unknown work types or any read/parse failure. Never throws. |
 
 Two private exports for Plan 04 tests:
-- `_paths` — object with `SACRED_DIR`, `PLATFORMS_DIR`, `CONSTRAINTS_PATH` absolute paths.
-- `_loadConstraints()` — reads and parses `data/CONSTRAINTS.json`; used by tests to validate CONSTRAINTS shape alignment.
+- `_paths` - object with `SACRED_DIR`, `PLATFORMS_DIR`, `CONSTRAINTS_PATH` absolute paths.
+- `_loadConstraints()` - reads and parses `data/CONSTRAINTS.json`; used by tests to validate CONSTRAINTS shape alignment.
 
 ### `bin/install.js` (MODIFIED, +8 lines)
 
@@ -84,7 +84,7 @@ const architecturalProfiles = require('../lib/architectural-profiles.js');
 Six new keys appended to the existing `module.exports` block, preceded by a section comment:
 
 ```javascript
-  // Phase 29 v1.7 — architectural profiles (tradition / platform)
+  // Phase 29 v1.7 - architectural profiles (tradition / platform)
   listTraditions: architecturalProfiles.listTraditions,
   listPlatforms: architecturalProfiles.listPlatforms,
   validateTradition: architecturalProfiles.validateTradition,
@@ -101,7 +101,7 @@ ARCH-01 (sacred drop-in) and ARCH-02 (platform drop-in) demand that a contributo
 
 - `listTraditions()` / `listPlatforms()` iterate the on-disk directory each call.
 - `_seeded` arrays in `CONSTRAINTS.json` are used by Plan 04 tests to assert the ten/eight launch-set slugs remain accepted; they are NOT a runtime whitelist.
-- Dropping `templates/sacred/zoroastrian/manifest.yaml` into the repo at any point is picked up automatically at the next call — no restart, no build step, no JSON edit.
+- Dropping `templates/sacred/zoroastrian/manifest.yaml` into the repo at any point is picked up automatically at the next call - no restart, no build step, no JSON edit.
 
 The `SLUG_PATTERN = /^[a-z][a-z0-9-]*$/` check prevents accidental acceptance of junk directory names (e.g. `Catholic`, `tradition v2`, `.hidden`) that would cause downstream template-path breakage.
 
@@ -121,8 +121,8 @@ $ node -e "const m=require('./lib/architectural-profiles.js'); console.log('trad
 traditions: 10 platforms: 8
 ```
 
-`listTraditions()` → `['catholic','islamic-hafs','islamic-warsh','jewish','orthodox','pali','protestant','sanskrit','tewahedo','tibetan']` (sorted).
-`listPlatforms()` → `['apple','bn','d2d','google','ingram','kdp','kobo','smashwords']` (sorted).
+`listTraditions()` -> `['catholic','islamic-hafs','islamic-warsh','jewish','orthodox','pali','protestant','sanskrit','tewahedo','tibetan']` (sorted).
+`listPlatforms()` -> `['apple','bn','d2d','google','ingram','kdp','kobo','smashwords']` (sorted).
 
 ### Re-export contract
 
@@ -133,7 +133,7 @@ listTraditions: function validateSettings: function
 
 All 6 new exports are functions; all pre-existing exports unchanged.
 
-### Regression — pre-existing test files run green as requested
+### Regression - pre-existing test files run green as requested
 
 | Suite | Tests | Pass | Fail |
 | --- | --- | --- | --- |
@@ -144,7 +144,7 @@ All 6 new exports are functions; all pre-existing exports unchanged.
 
 ```bash
 $ git diff --stat package.json
-# (no output — package.json unchanged)
+# (no output - package.json unchanged)
 $ grep -E "^const.*require\(" lib/architectural-profiles.js
 const fs = require('fs');
 const path = require('path');
@@ -155,29 +155,29 @@ $ grep -c "require.*architectural-profiles" bin/install.js
 
 ### Acceptance-criteria spot checks
 
-- `listTraditions().length === 10` ✓
-- `listPlatforms().length === 8` ✓
-- `validateTradition('catholic').valid === true` ✓
-- `validateTradition('zzzbogus')` → `{valid: false, error: "Unknown tradition 'zzzbogus'. Valid options: catholic, islamic-hafs, islamic-warsh, jewish, orthodox, pali, protestant, sanskrit, tewahedo, tibetan"}` ✓ (every seeded slug present in error)
-- `validatePlatform('kdp').valid === true` ✓
-- `validatePlatform('bogus').error` contains `"kdp"` ✓
-- `inferTradition('scripture_biblical') === 'catholic'` ✓
-- `inferTradition('scripture_quranic') === 'islamic-hafs'` ✓
-- `inferTradition('scripture_torah') === 'jewish'` ✓
-- `inferTradition('novel') === null` ✓
-- `inferPlatform('novel') === 'kdp'` ✓
-- `inferPlatform('poetry_collection') === 'kdp'` ✓
-- Module uses exactly two `require(...)` calls, both Node built-ins ✓
-- File is 101 lines (target 80–150) ✓
+- `listTraditions().length === 10` [x]
+- `listPlatforms().length === 8` [x]
+- `validateTradition('catholic').valid === true` [x]
+- `validateTradition('zzzbogus')` -> `{valid: false, error: "Unknown tradition 'zzzbogus'. Valid options: catholic, islamic-hafs, islamic-warsh, jewish, orthodox, pali, protestant, sanskrit, tewahedo, tibetan"}` [x] (every seeded slug present in error)
+- `validatePlatform('kdp').valid === true` [x]
+- `validatePlatform('bogus').error` contains `"kdp"` [x]
+- `inferTradition('scripture_biblical') === 'catholic'` [x]
+- `inferTradition('scripture_quranic') === 'islamic-hafs'` [x]
+- `inferTradition('scripture_torah') === 'jewish'` [x]
+- `inferTradition('novel') === null` [x]
+- `inferPlatform('novel') === 'kdp'` [x]
+- `inferPlatform('poetry_collection') === 'kdp'` [x]
+- Module uses exactly two `require(...)` calls, both Node built-ins [x]
+- File is 101 lines (target 80-150) [x]
 
 ## Deviations from Plan
 
-None — plan executed exactly as written. The Task 1 `action` block specifies the module content line-by-line; the file shipped matches the specification byte-for-byte. Task 2 placed the require at the top of the require cluster and appended the six exports to the existing `module.exports` block, matching the pre-existing trailing-comma style.
+None - plan executed exactly as written. The Task 1 `action` block specifies the module content line-by-line; the file shipped matches the specification byte-for-byte. Task 2 placed the require at the top of the require cluster and appended the six exports to the existing `module.exports` block, matching the pre-existing trailing-comma style.
 
 ## Deferred (out of scope per plan)
 
-- ARCH regression test suite (test/phase29-architectural-foundation.test.js) — Plan 04 adds this. This plan's regression coverage is the pre-existing test files that already require `bin/install.js`.
-- `/scr:new-work` substitution of `{{PROFILE_BLOCK}}` — deferred to a later phase per 29-CONTEXT.md line 24. The module is ready; wiring is not required for ARCH-04/ARCH-05.
+- ARCH regression test suite (test/phase29-architectural-foundation.test.js) - Plan 04 adds this. This plan's regression coverage is the pre-existing test files that already require `bin/install.js`.
+- `/scr:new-work` substitution of `{{PROFILE_BLOCK}}` - deferred to a later phase per 29-CONTEXT.md line 24. The module is ready; wiring is not required for ARCH-04/ARCH-05.
 
 ## Issues Encountered
 
@@ -185,7 +185,7 @@ None. Both tasks executed cleanly on first attempt; no Rule 1/2/3 auto-fixes wer
 
 ## User Setup Required
 
-None — no external service configuration, no environment variables.
+None - no external service configuration, no environment variables.
 
 ## Next Phase Readiness
 

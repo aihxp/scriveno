@@ -45,16 +45,16 @@ key-files:
     - templates/sacred/sanskrit/manifest.yaml
 
 key-decisions:
-  - "Hafs and Warsh share identical 114-surah book_order — recitation differences are not canonical ordering differences"
+  - "Hafs and Warsh share identical 114-surah book_order - recitation differences are not canonical ordering differences"
   - "Jewish manifest uses unified Samuel/Kings/Chronicles entries matching Tanakh TNK division (not split like Christian canons)"
   - "Tewahedo book_order lists 81 books including Jubilees, Enoch, and Ge'ez deuterocanon unique to Ethiopian Orthodox"
   - "Protestant uses 'Song of Solomon' (KJV name) not 'Song of Songs' (ecumenical) to match tradition convention"
-  - "Pali, Sanskrit, Tibetan have book_order: null — these traditions have no universally fixed canonical sequence"
+  - "Pali, Sanskrit, Tibetan have book_order: null - these traditions have no universally fixed canonical sequence"
   - "approval_block.label set to 'none' (string) for traditions with no approval requirement, not null, for consistent type"
 
 patterns-established:
   - "Manifest header comment: two tradition-specific lines + permanent DO NOT REMOVE warning"
-  - "status field placed third after tradition/label — makes active/placeholder state immediately scannable"
+  - "status field placed third after tradition/label - makes active/placeholder state immediately scannable"
   - "font_stack always two entries: Noto family specific font first, 'serif' generic fallback second"
 
 requirements-completed:
@@ -68,7 +68,7 @@ duration: 15min
 completed: 2026-04-17
 ---
 
-# Phase 33 Plan 02: Sacred Tradition Profiles — Manifest Population Summary
+# Phase 33 Plan 02: Sacred Tradition Profiles - Manifest Population Summary
 
 **10 sacred tradition manifests fully populated with canonical book orders, RTL flags, Noto font stacks, and approval-block schemas replacing Phase 29 null placeholders**
 
@@ -84,7 +84,7 @@ completed: 2026-04-17
 
 - Replaced all 10 null-placeholder `manifest.yaml` files with fully populated tradition profiles
 - TRAD-01 (completeness), TRAD-02 (RTL booleans), TRAD-03 (book_order null for open canons), TRAD-04 (approval_block structure) all GREEN
-- TRAD-05 remains RED as expected — STEP 1.7 build command integration is Plan 33-03's scope
+- TRAD-05 remains RED as expected - STEP 1.7 build command integration is Plan 33-03's scope
 - Test suite: 151 pass / 7 fail (all 7 failures are expected future-plan work)
 - Zero null fields remain across all 10 manifests except intentional `book_order: null` for pali/sanskrit/tibetan
 
@@ -110,10 +110,10 @@ Each task was committed atomically:
 
 ## Decisions Made
 
-- Hafs and Warsh share identical 114-surah book_order — the two Quranic recitation traditions differ in vocalization, not canonical surah sequence
+- Hafs and Warsh share identical 114-surah book_order - the two Quranic recitation traditions differ in vocalization, not canonical surah sequence
 - Jewish manifest uses unified entries (Samuel, Kings, Chronicles) matching the Tanakh's undivided books, not the Christian split form
 - Tewahedo 81-book list includes Jubilees, Enoch, Sinodos, Kebra Nagast, and other texts unique to the Ethiopian Orthodox canon
-- `approval_block.label` is set to the string `"none"` (not null) for traditions without formal approval — keeps the type consistent across all 10 manifests
+- `approval_block.label` is set to the string `"none"` (not null) for traditions without formal approval - keeps the type consistent across all 10 manifests
 - Protestant canon uses "Song of Solomon" matching KJV tradition rather than ecumenical "Song of Songs"
 - `pali`, `sanskrit`, `tibetan` receive `book_order: null` because these traditions have no universally fixed canonical sequence (collections vary by school and lineage)
 
@@ -135,7 +135,7 @@ None - these are static source-controlled YAML files containing only public trad
 
 ## Next Phase Readiness
 
-- Plan 33-03 can now implement STEP 1.7 in build-ebook.md and build-print.md — the manifest data layer is complete
+- Plan 33-03 can now implement STEP 1.7 in build-ebook.md and build-print.md - the manifest data layer is complete
 - Plan 33-04 can implement `sacred-verse-numbering.md` command reading `numbering.format` from these manifests
 - All manifests accessible via `templates/sacred/{slug}/manifest.yaml` path pattern used by STEP 1.7
 - TRAD-01..TRAD-04 tests provide regression coverage; any manifest corruption will immediately surface

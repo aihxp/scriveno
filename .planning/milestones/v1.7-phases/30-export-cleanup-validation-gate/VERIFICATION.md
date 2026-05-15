@@ -7,15 +7,15 @@ overrides_applied: 0
 deferred:
   - truth: "Writers invoking /scr:build-ebook or /scr:build-print on a dirty manuscript are blocked before the converter runs"
     addressed_in: "Phase 32"
-    evidence: "Phase 30 CONTEXT.md explicit decision: 'Adding the gate to /scr:build-ebook or /scr:build-print — those commands are created in Phase 32 and will include the gate at creation time.' Phase 32 goal: 'Writers can produce EPUB and print-ready PDF output from the current manuscript.' Commands do not exist yet."
+    evidence: "Phase 30 CONTEXT.md explicit decision: 'Adding the gate to /scr:build-ebook or /scr:build-print - those commands are created in Phase 32 and will include the gate at creation time.' Phase 32 goal: 'Writers can produce EPUB and print-ready PDF output from the current manuscript.' Commands do not exist yet."
 ---
 
-# Phase 30: Export Cleanup & Validation Gate — Verification Report
+# Phase 30: Export Cleanup & Validation Gate - Verification Report
 
 **Phase Goal:** Writers can strip template scaffolding from their manuscript and are blocked from exporting a manuscript that still contains unresolved scaffold markers.
 **Verified:** 2026-04-17
 **Status:** PASSED
-**Re-verification:** No — initial verification
+**Re-verification:** No - initial verification
 
 ## Goal Achievement
 
@@ -26,9 +26,9 @@ deferred:
 | 1 | Writer running `/scr:cleanup` sees bracket markers, Alternate blocks, and duplicate H1s removed with dry-run preview | VERIFIED | `cleanup.md` (135 lines) has STEP 2 scanning all three marker classes, STEP 3 dry-run branch showing per-file/per-line output, and apply branch with diff summary |
 | 2 | `/scr:cleanup` dry-run is default; `--apply` required for in-place changes | VERIFIED | `argument-hint: "[--apply]"` in frontmatter; description text "Dry-run by default"; STEP 3 branches on `--apply` flag |
 | 3 | Writer running `/scr:validate` on a dirty manuscript sees file:line list and explicit FAIL header | VERIFIED | `validate.md` line 68: VALIDATION FAILED output block; lines 73-75: `.manuscript/drafts/body/chapter-01.md:3:` format; `Then **stop** -- do not proceed. Report a failure (non-zero) outcome.` |
-| 4 | Writer running `/scr:validate` on clean manuscript sees explicit pass confirmation | VERIFIED | `validate.md` line 93: `✓ Manuscript clean -- no scaffold markers found (N files checked)` |
+| 4 | Writer running `/scr:validate` on clean manuscript sees explicit pass confirmation | VERIFIED | `validate.md` line 93: `[x] Manuscript clean -- no scaffold markers found (N files checked)` |
 | 5 | `{{VAR}}` tokens are NOT blocking markers in validate or cleanup | VERIFIED | Both files have explicit `**IMPORTANT:**` paragraphs excluding `{{VAR}}` tokens; validate.md marker table marks them "No -- not scaffold" |
-| 6 | Export gate (STEP 1.5) in `export.md` blocks before STEP 2 (tool detection) | VERIFIED | STEP 1.5 at line 86; STEP 2 (CHECK PREREQUISITES) at line 118; `command -v pandoc` at line 127 — gate runs first |
+| 6 | Export gate (STEP 1.5) in `export.md` blocks before STEP 2 (tool detection) | VERIFIED | STEP 1.5 at line 86; STEP 2 (CHECK PREREQUISITES) at line 118; `command -v pandoc` at line 127 - gate runs first |
 | 7 | Export gate (STEP 1.5) in `publish.md` blocks before STEP 2 (ROUTE) | VERIFIED | STEP 1.5 at line 36; STEP 2: ROUTE at line 68; gate runs before preset routing |
 
 **Score:** 7/7 truths verified
@@ -84,7 +84,7 @@ Not applicable. All deliverables are markdown command instruction files (agent i
 | CLEAN-02 | 30-02 | Dry-run by default, `--apply` for in-place | SATISFIED | Frontmatter `argument-hint: "[--apply]"`, description text, STEP 3 branch logic |
 | VALID-01 | 30-02 | file:line output for each marker | SATISFIED | `validate.md` lines 53-56 and 73-75: `path/to/file.md:LINE_NUMBER: marker text` format |
 | VALID-02 | 30-02 | Only `[Fill in` and `Alternate N` blocking; NOT `{{VAR}}` | SATISFIED | Both validate.md and gate blocks exclude `{{VAR}}` explicitly; blocking patterns are `[Fill in`, `[Delete if not applicable:]`, `Alternate 1:`, `Alternate 2:`, duplicate H1 |
-| VALID-03 | 30-03 | Explicit pass confirmation: "✓ Manuscript clean" | SATISFIED | `validate.md` line 93: exact pass message present |
+| VALID-03 | 30-03 | Explicit pass confirmation: "[x] Manuscript clean" | SATISFIED | `validate.md` line 93: exact pass message present |
 | SC3 | 30-03 | Gate failure message includes pointer to `/scr:cleanup --apply` | SATISFIED | Both export.md and publish.md gate blocks include the pointer |
 | SC4 | 30-03 | Gate has `--skip-validate` escape hatch with visible warning | SATISFIED | Both files: `--skip-validate` with `> **Warning:**` blockquote (not silent) |
 
@@ -94,7 +94,7 @@ Not applicable. All deliverables are markdown command instruction files (agent i
 |------|------|---------|----------|--------|
 | None | - | - | - | No stubs, no TODO/FIXME, no placeholder implementations found |
 
-The word "placeholder" appears in `cleanup.md` line 57 in a legitimate context: documenting that `{{VAR}}` tokens "are unfinished writer content placeholders" — this is instructional prose, not a stub marker.
+The word "placeholder" appears in `cleanup.md` line 57 in a legitimate context: documenting that `{{VAR}}` tokens "are unfinished writer content placeholders" - this is instructional prose, not a stub marker.
 
 ### Human Verification Required
 
@@ -106,7 +106,7 @@ No human verification items. All requirements are verifiable via file content in
 
 No gaps. All 7 observable truths verified. All 5 required artifacts present and substantive. All 7 key links wired. All 7 requirements satisfied. Full test suite passes (1153 tests, 0 failures).
 
-**One deferred item** (not a gap): The ROADMAP SC3 mentions `/scr:build-ebook` and `/scr:build-print` in addition to `/scr:export` and `/scr:publish`. Neither `build-ebook` nor `build-print` exists yet. Phase 30's CONTEXT.md explicitly scoped these out: "Adding the gate to `/scr:build-ebook` or `/scr:build-print` — those commands are created in Phase 32 and will include the gate at creation time." Phase 32 ("Build Pipelines & Platform Awareness") is the correct home for this work.
+**One deferred item** (not a gap): The ROADMAP SC3 mentions `/scr:build-ebook` and `/scr:build-print` in addition to `/scr:export` and `/scr:publish`. Neither `build-ebook` nor `build-print` exists yet. Phase 30's CONTEXT.md explicitly scoped these out: "Adding the gate to `/scr:build-ebook` or `/scr:build-print` - those commands are created in Phase 32 and will include the gate at creation time." Phase 32 ("Build Pipelines & Platform Awareness") is the correct home for this work.
 
 ---
 

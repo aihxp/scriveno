@@ -1,4 +1,4 @@
-# Milestone v1.0 — Project Summary
+# Milestone v1.0 - Project Summary
 
 **Generated:** 2026-04-09  
 **Purpose:** Team onboarding and project review
@@ -43,11 +43,11 @@ This milestone shipped phases `1` through `8` and created the foundation the lat
 
 Roadmap history shows all v1.0 requirement groups as shipped:
 
-- ✅ `MVP-*` requirements were satisfied across installability, demo completeness, testing, and package readiness
-- ✅ `AUTO-*` requirements were satisfied across autopilot profiles, writer-friendly state management, and session continuity
-- ✅ `CHAR-*` and `STRUCT-*` requirements were satisfied across character, world, outline, and restructuring tools
-- ✅ `QUAL-*` and `PUB-*` requirements were satisfied across editorial workflows and publication-supporting content generation
-- ✅ `EXP-*`, `ILL-*`, `TRANS-*`, `COLLAB-*`, `RUNTIME-*`, and `SACRED-*` roadmap requirements were shipped in phases 5 through 8
+- [x] `MVP-*` requirements were satisfied across installability, demo completeness, testing, and package readiness
+- [x] `AUTO-*` requirements were satisfied across autopilot profiles, writer-friendly state management, and session continuity
+- [x] `CHAR-*` and `STRUCT-*` requirements were satisfied across character, world, outline, and restructuring tools
+- [x] `QUAL-*` and `PUB-*` requirements were satisfied across editorial workflows and publication-supporting content generation
+- [x] `EXP-*`, `ILL-*`, `TRANS-*`, `COLLAB-*`, `RUNTIME-*`, and `SACRED-*` roadmap requirements were shipped in phases 5 through 8
 
 Audit verdict: no standalone archived milestone audit is retained for `v1.0` in this workspace, so this section is based on the shipped roadmap and the validated product surface recorded in [PROJECT.md](/Users/hprincivil/Projects/scriveno/.planning/PROJECT.md).
 
@@ -66,7 +66,7 @@ Audit verdict: no standalone archived milestone audit is retained for `v1.0` in 
 
 ## 7. Getting Started
 
-- **Run the project:** `npx scriveno-cli@latest`
+- **Run the project:** `npx scriveno@latest`
 - **Key directories:** `commands/scr/`, `agents/`, `templates/`, `data/`, `docs/`, `test/`
 - **Tests:** `npm test`
 - **Where to look first:** [README.md](/Users/hprincivil/Projects/scriveno/README.md), [docs/getting-started.md](/Users/hprincivil/Projects/scriveno/docs/getting-started.md), and [docs/architecture.md](/Users/hprincivil/Projects/scriveno/docs/architecture.md)

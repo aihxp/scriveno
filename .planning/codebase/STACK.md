@@ -2,7 +2,7 @@
 
 ## Core Runtime Model
 
-- Primary package: `scriveno-cli` (`package.json`)
+- Primary package: `scriveno` (`package.json`)
 - Installer/runtime shim: Node.js with a minimum engine of `>=20.0.0`
 - Delivery model: npm package with a single CLI entrypoint at `bin/install.js`
 - Application model: pure markdown skill/command system interpreted by AI coding agents at runtime

@@ -28,7 +28,7 @@ metrics:
 
 # Phase 30 Plan 01: Phase 30 Regression Test Suite (RED Phase) Summary
 
-TDD RED phase — 15 machine-executable assertions covering all Phase 30 requirements written before any command files are created. Tests fail cleanly on missing files; no crashes; prior 1132 tests unaffected.
+TDD RED phase - 15 machine-executable assertions covering all Phase 30 requirements written before any command files are created. Tests fail cleanly on missing files; no crashes; prior 1132 tests unaffected.
 
 ## Tasks Completed
 
@@ -58,26 +58,26 @@ TDD RED phase — 15 machine-executable assertions covering all Phase 30 require
 
 ## Verification Results
 
-- `node --test test/phase30-export-cleanup-validation-gate.test.js`: 15 fail, 0 pass (RED — expected)
+- `node --test test/phase30-export-cleanup-validation-gate.test.js`: 15 fail, 0 pass (RED - expected)
 - `npm test`: 1132 pass, 15 fail (only the new Phase 30 assertions fail; prior suite intact)
-- Suite exits non-zero due to missing files, but no uncaught exceptions — process exits cleanly
+- Suite exits non-zero due to missing files, but no uncaught exceptions - process exits cleanly
 
 ## TDD Gate Compliance
 
-- RED gate: commit `bb04763` — `test(30-01): add Phase 30 cleanup+validate regression suite (RED)`
-- GREEN gate: pending — will be satisfied when plans 02 and 03 ship command files
+- RED gate: commit `bb04763` - `test(30-01): add Phase 30 cleanup+validate regression suite (RED)`
+- GREEN gate: pending - will be satisfied when plans 02 and 03 ship command files
 
 ## Deviations from Plan
 
-None — plan executed exactly as written.
+None - plan executed exactly as written.
 
 ## Known Stubs
 
-None — this plan creates only the test file. No command files created yet.
+None - this plan creates only the test file. No command files created yet.
 
 ## Threat Flags
 
-None — test file reads local files only; no new network surfaces introduced.
+None - test file reads local files only; no new network surfaces introduced.
 
 ## Self-Check: PASSED
 

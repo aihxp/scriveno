@@ -23,7 +23,7 @@
 
 **Analogs:** `commands/scr/manuscript-stats.md` (scan loop + summary output), `commands/scr/health.md` (dry-run default + `--repair` opt-in apply)
 
-**Imports pattern — frontmatter block** (copy from `commands/scr/health.md` lines 1-3):
+**Imports pattern - frontmatter block** (copy from `commands/scr/health.md` lines 1-3):
 ```markdown
 ---
 description: Diagnose and repair common project state issues.
@@ -41,7 +41,7 @@ argument-hint: "[--apply]"
 
 **H1 heading pattern** (copy from `commands/scr/manuscript-stats.md` line 8):
 ```markdown
-# /scr:manuscript-stats — Manuscript Statistics
+# /scr:manuscript-stats - Manuscript Statistics
 ```
 
 Adapt to `# /scr:cleanup -- Scaffold Cleanup` (note: newer commands use ` -- ` with double-dash; match the export.md convention for consistency within this phase).
@@ -54,13 +54,13 @@ Adapt to `# /scr:cleanup -- Scaffold Cleanup` (note: newer commands use ` -- ` w
 ```
 
 **Flags:**
-- `--detail` — Show per-unit breakdown (word count and page estimate per chapter/scene)
+- `--detail` - Show per-unit breakdown (word count and page estimate per chapter/scene)
 ```
 
 Adapt flags to:
 ```markdown
 **Flags:**
-- `--apply` — Modify files in place and show diff summary. Default: dry-run only.
+- `--apply` - Modify files in place and show diff summary. Default: dry-run only.
 ```
 
 **STEP 1: LOAD CONTEXT pattern** (copy from `commands/scr/manuscript-stats.md` lines 23-28):
@@ -68,9 +68,9 @@ Adapt flags to:
 ### STEP 1: LOAD CONTEXT
 
 1. Read `.manuscript/config.json` to get:
-   - `title` — the manuscript title
-   - `author` — the author name
-   - `work_type` — the work type (novel, memoir, screenplay, etc.)
+   - `title` - the manuscript title
+   - `author` - the author name
+   - `work_type` - the work type (novel, memoir, screenplay, etc.)
 2. Read Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) to get the structural hierarchy names for this work type (e.g., "chapter", "scene").
 ```
 
@@ -137,13 +137,13 @@ description: Compare drafted prose against STYLE-GUIDE.md to detect voice drift.
 ---
 ```
 
-Note: `voice-check.md` has no `argument-hint:` — but `validate.md` needs one for `--skip-validate` flag awareness (though `--skip-validate` is for export/publish, not validate itself). Follow `manuscript-stats.md` pattern which uses `argument-hint:`. No flags needed on the standalone validate command; omit `argument-hint:` or set it to `""`.
+Note: `voice-check.md` has no `argument-hint:` - but `validate.md` needs one for `--skip-validate` flag awareness (though `--skip-validate` is for export/publish, not validate itself). Follow `manuscript-stats.md` pattern which uses `argument-hint:`. No flags needed on the standalone validate command; omit `argument-hint:` or set it to `""`.
 
 **STEP 1: LOAD CONTEXT + prerequisite guard pattern** (copy from `commands/scr/voice-check.md` lines 23-35):
 ```markdown
 ### STEP 1: LOAD CONTEXT AND VALIDATE
 
-1. Load `config.json` — determine work type and structural hierarchy
+1. Load `config.json` - determine work type and structural hierarchy
 2. Load Scriveno's installed/shared `CONSTRAINTS.json` ...
 3. Check for `STYLE-GUIDE.md`:
    - **If STYLE-GUIDE.md exists:** Load it. Proceed.
@@ -168,16 +168,16 @@ Adapt: no sub-agent spawn needed for validate (simpler). Agent reads `.manuscrip
 
 **Pass/fail output pattern** (copy from `commands/scr/voice-check.md` lines 57-61):
 ```markdown
-- **80-100 — PASS**: Voice is consistent with STYLE-GUIDE.md. Minor issues noted but not actionable.
-- **60-79 — WARNING**: Noticeable voice drift detected. Issues flagged for writer review.
-- **Below 60 — FAIL**: Significant voice drift. ...
+- **80-100 - PASS**: Voice is consistent with STYLE-GUIDE.md. Minor issues noted but not actionable.
+- **60-79 - WARNING**: Noticeable voice drift detected. Issues flagged for writer review.
+- **Below 60 - FAIL**: Significant voice drift. ...
 ```
 
 Adapt to binary pass/fail (no score needed):
 ```markdown
-- **PASS**: No scaffold markers found. Emit: "✓ Manuscript clean — no scaffold markers found (N files checked)"
+- **PASS**: No scaffold markers found. Emit: "[x] Manuscript clean - no scaffold markers found (N files checked)"
 - **FAIL**: Markers found. Emit file:line list + "Run /scr:cleanup --apply to remove scaffold markers."
-  Then **stop** — do not proceed.
+  Then **stop** - do not proceed.
 ```
 
 **Per-issue report format** (copy from `commands/scr/continuity-check.md` lines 84-93):
@@ -197,7 +197,7 @@ Adapt to scaffold marker report:
 
 ---
 
-### `commands/scr/export.md` — STEP 1.5 inject (command modification)
+### `commands/scr/export.md` - STEP 1.5 inject (command modification)
 
 **Current state** (lines 84-86, the injection boundary):
 ```markdown
@@ -210,7 +210,7 @@ Then **stop**.
 
 **Injection point:** Insert the new STEP 1.5 block between line 84 (`Then **stop**.`) and line 86 (`---`) above STEP 2. Specifically, insert after line 84 and before the `---` separator that precedes `### STEP 2`.
 
-**Pattern for the gate block** — copy the existing prerequisite gate shape from `export.md` lines 98-110:
+**Pattern for the gate block** - copy the existing prerequisite gate shape from `export.md` lines 98-110:
 ```markdown
 **For docx, epub, latex, query-package:** Check for Pandoc:
 
@@ -229,7 +229,7 @@ If Pandoc is not found:
 Then **stop** -- do not attempt export without the required tool.
 ```
 
-The validate gate follows the identical "scan condition → if found: blockquote error message → stop / else: proceed" shape.
+The validate gate follows the identical "scan condition -> if found: blockquote error message -> stop / else: proceed" shape.
 
 **New STEP 1.5 block to insert** (derived from RESEARCH.md Pattern 2 + existing gate shape):
 ```markdown
@@ -270,7 +270,7 @@ If no markers found: proceed to STEP 2.
 
 ---
 
-### `commands/scr/publish.md` — STEP 1 inject (command modification)
+### `commands/scr/publish.md` - STEP 1 inject (command modification)
 
 **Current state of STEP 1** (lines 24-34):
 ```markdown
@@ -355,10 +355,10 @@ Brief description paragraph.
 ```
 
 **Flags:**
-- `--flag` — description
+- `--flag` - description
 ```
 
-The `argument-hint:` field is present in `manuscript-stats.md`, `export.md`, `health.md`, and `editor-review.md` (newer commands). Use it. `copy-edit.md`, `line-edit.md`, and `continuity-check.md` (older commands) omit it — this is acceptable per test suite (only `description:` is required), but the newer pattern is preferred.
+The `argument-hint:` field is present in `manuscript-stats.md`, `export.md`, `health.md`, and `editor-review.md` (newer commands). Use it. `copy-edit.md`, `line-edit.md`, and `continuity-check.md` (older commands) omit it - this is acceptable per test suite (only `description:` is required), but the newer pattern is preferred.
 
 ### STEP Separator Pattern
 **Source:** `commands/scr/export.md` (throughout)

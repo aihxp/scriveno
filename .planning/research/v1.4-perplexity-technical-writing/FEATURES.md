@@ -1,4 +1,4 @@
-# v1.4 Research — Features
+# v1.4 Research - Features
 
 ## Scope
 
@@ -91,10 +91,10 @@ These cover the largest share of practical technical-writing work without needin
 
 ## Sources
 
-- Diataxis — Start here: <https://diataxis.fr/start-here/>
-- Diataxis — Applying Diataxis: <https://diataxis.fr/application/>
-- Google Technical Writing — Audience: <https://developers.google.com/tech-writing/one/audience>
-- Google Technical Writing — Organizing large documents: <https://developers.google.com/tech-writing/two/large-docs>
+- Diataxis - Start here: <https://diataxis.fr/start-here/>
+- Diataxis - Applying Diataxis: <https://diataxis.fr/application/>
+- Google Technical Writing - Audience: <https://developers.google.com/tech-writing/one/audience>
+- Google Technical Writing - Organizing large documents: <https://developers.google.com/tech-writing/two/large-docs>
 
 ## Bottom Line
 

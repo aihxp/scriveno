@@ -21,13 +21,13 @@ re_verification: false
 
 | # | Truth | Status | Evidence |
 |---|-------|--------|----------|
-| 1 | Help now explains that command visibility depends on both broad availability and narrower command-level constraints | ✓ VERIFIED | `commands/scr/help.md` now names `nonfiction_only` and `comic_only` explicitly |
-| 2 | Help no longer implies broad group membership alone is enough to surface a command | ✓ VERIFIED | `help.md` now documents the narrower filter and hidden-command replacement behavior |
-| 3 | Work-type docs no longer imply subgroup-only commands belong to every member of the parent group | ✓ VERIFIED | `docs/work-types.md` now scopes `/scr:panel-layout` to comics and graphic novels within visual work |
-| 4 | Unsupported adapted labels are no longer described as surfaced command behavior | ✓ VERIFIED | `plot-graph.md`, `theme-tracker.md`, `timeline.md`, `subplot-map.md`, and `discussion-questions.md` now stop or reroute instead of pretending hidden adaptations are runnable |
-| 5 | Constrained user-facing reference surfaces remain honest for narrower gates | ✓ VERIFIED | `docs/command-reference.md` still marks book proposals as nonfiction-only and panel layouts as comics-only |
-| 6 | New regression coverage derives unsupported adaptations from `CONSTRAINTS.json` | ✓ VERIFIED | `test/phase41-availability-truthfulness.test.js` scans for unsupported surfaced-label promises automatically |
-| 7 | The repaired availability contract passes focused and full-suite verification | ✓ VERIFIED | Targeted availability tests passed and `npm test` passed at 1550/1550 |
+| 1 | Help now explains that command visibility depends on both broad availability and narrower command-level constraints | [x] VERIFIED | `commands/scr/help.md` now names `nonfiction_only` and `comic_only` explicitly |
+| 2 | Help no longer implies broad group membership alone is enough to surface a command | [x] VERIFIED | `help.md` now documents the narrower filter and hidden-command replacement behavior |
+| 3 | Work-type docs no longer imply subgroup-only commands belong to every member of the parent group | [x] VERIFIED | `docs/work-types.md` now scopes `/scr:panel-layout` to comics and graphic novels within visual work |
+| 4 | Unsupported adapted labels are no longer described as surfaced command behavior | [x] VERIFIED | `plot-graph.md`, `theme-tracker.md`, `timeline.md`, `subplot-map.md`, and `discussion-questions.md` now stop or reroute instead of pretending hidden adaptations are runnable |
+| 5 | Constrained user-facing reference surfaces remain honest for narrower gates | [x] VERIFIED | `docs/command-reference.md` still marks book proposals as nonfiction-only and panel layouts as comics-only |
+| 6 | New regression coverage derives unsupported adaptations from `CONSTRAINTS.json` | [x] VERIFIED | `test/phase41-availability-truthfulness.test.js` scans for unsupported surfaced-label promises automatically |
+| 7 | The repaired availability contract passes focused and full-suite verification | [x] VERIFIED | Targeted availability tests passed and `npm test` passed at 1550/1550 |
 
 **Score:** 7/7 truths verified
 
@@ -35,18 +35,18 @@ re_verification: false
 
 | Artifact | Expected | Status | Details |
 |----------|----------|--------|---------|
-| `commands/scr/help.md` | Truthful availability filtering contract | ✓ VERIFIED | Documents group eligibility plus narrower constraints |
-| `docs/work-types.md` | Honest subgroup and adaptation guidance | ✓ VERIFIED | Clarifies panel-layout scope and adapted-label visibility rule |
-| `test/phase41-availability-truthfulness.test.js` | Regression suite for unsupported adaptations and narrower gates | ✓ VERIFIED | Fails on surfaced unsupported labels and missing constraint language |
+| `commands/scr/help.md` | Truthful availability filtering contract | [x] VERIFIED | Documents group eligibility plus narrower constraints |
+| `docs/work-types.md` | Honest subgroup and adaptation guidance | [x] VERIFIED | Clarifies panel-layout scope and adapted-label visibility rule |
+| `test/phase41-availability-truthfulness.test.js` | Regression suite for unsupported adaptations and narrower gates | [x] VERIFIED | Fails on surfaced unsupported labels and missing constraint language |
 
 ### Requirements Coverage
 
 | Requirement | Source Plan | Description | Status | Evidence |
 |-------------|------------|-------------|--------|----------|
-| WCI-07 | 41-02 | `/scr:help` filters commands using both group availability and narrower constraints | ✓ SATISFIED | Help now names and applies `nonfiction_only` / `comic_only` alongside broad availability |
-| WCI-08 | 41-02 | User-facing command references stay aligned with the same availability rules | ✓ SATISFIED | Work-types and command prose no longer promise hidden subgroup/adapted commands |
-| WCI-09 | 41-03 | Regression tests cover canonical draft-path consistency across producer and consumer commands | ✓ SATISFIED | Phase 39 regression coverage remains in place and continues to pass |
-| WCI-10 | 41-03 | Regression tests cover save/undo sequencing and constrained-command filtering | ✓ SATISFIED | Phase 40 and Phase 41 regression suites now lock those workflow contracts |
+| WCI-07 | 41-02 | `/scr:help` filters commands using both group availability and narrower constraints | [x] SATISFIED | Help now names and applies `nonfiction_only` / `comic_only` alongside broad availability |
+| WCI-08 | 41-02 | User-facing command references stay aligned with the same availability rules | [x] SATISFIED | Work-types and command prose no longer promise hidden subgroup/adapted commands |
+| WCI-09 | 41-03 | Regression tests cover canonical draft-path consistency across producer and consumer commands | [x] SATISFIED | Phase 39 regression coverage remains in place and continues to pass |
+| WCI-10 | 41-03 | Regression tests cover save/undo sequencing and constrained-command filtering | [x] SATISFIED | Phase 40 and Phase 41 regression suites now lock those workflow contracts |
 
 ### Human Verification Required
 

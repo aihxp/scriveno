@@ -21,13 +21,13 @@ re_verification: false
 
 | # | Truth | Status | Evidence |
 |---|-------|--------|----------|
-| 1 | Ebook guidance now locks to a front-only RGB raster asset | ✓ VERIFIED | `cover-art.md` and `docs/publishing.md` specify `1600 x 2560`, RGB, front cover only |
-| 2 | Paperback guidance now locks to the real print production requirements | ✓ VERIFIED | Docs now require PDF/X-1a:2001, CMYK, 300 DPI, embedded fonts, flattened transparency, and `0.125"` bleed |
-| 3 | Hardcover guidance now locks to the real case-wrap production requirements | ✓ VERIFIED | Docs now require PDF/X-1a:2001, CMYK, 300 DPI, and `0.75"` board-wrap allowance |
-| 4 | Print-cover geometry is now explicitly template-driven | ✓ VERIFIED | `cover-art.md`, `export.md`, and `docs/publishing.md` point at the current platform template generator |
-| 5 | Legacy hard-coded cover-math language is removed from the phase scope | ✓ VERIFIED | Phase-scoped docs no longer use `0.002252`, `paper_factor`, or `spine_width =` formulas |
-| 6 | Focused regression coverage now fails if spec truth drifts | ✓ VERIFIED | `test/phase43-print-template-truth.test.js` locks the required spec language and bans stale math |
-| 7 | The repaired print-truth contract passes both targeted and full-suite verification | ✓ VERIFIED | Focused `node --test ...` slice passed, and `npm test` passed at 1590/1590 |
+| 1 | Ebook guidance now locks to a front-only RGB raster asset | [x] VERIFIED | `cover-art.md` and `docs/publishing.md` specify `1600 x 2560`, RGB, front cover only |
+| 2 | Paperback guidance now locks to the real print production requirements | [x] VERIFIED | Docs now require PDF/X-1a:2001, CMYK, 300 DPI, embedded fonts, flattened transparency, and `0.125"` bleed |
+| 3 | Hardcover guidance now locks to the real case-wrap production requirements | [x] VERIFIED | Docs now require PDF/X-1a:2001, CMYK, 300 DPI, and `0.75"` board-wrap allowance |
+| 4 | Print-cover geometry is now explicitly template-driven | [x] VERIFIED | `cover-art.md`, `export.md`, and `docs/publishing.md` point at the current platform template generator |
+| 5 | Legacy hard-coded cover-math language is removed from the phase scope | [x] VERIFIED | Phase-scoped docs no longer use `0.002252`, `paper_factor`, or `spine_width =` formulas |
+| 6 | Focused regression coverage now fails if spec truth drifts | [x] VERIFIED | `test/phase43-print-template-truth.test.js` locks the required spec language and bans stale math |
+| 7 | The repaired print-truth contract passes both targeted and full-suite verification | [x] VERIFIED | Focused `node --test ...` slice passed, and `npm test` passed at 1590/1590 |
 
 **Score:** 7/7 truths verified
 
@@ -35,19 +35,19 @@ re_verification: false
 
 | Artifact | Expected | Status | Details |
 |----------|----------|--------|---------|
-| `commands/scr/cover-art.md` | Canonical cover spec truth | ✓ VERIFIED | Captures the real ebook, paperback, and hardcover deliverable specs |
-| `commands/scr/export.md` | Packaging guidance tied to live print truth | ✓ VERIFIED | Uses template-driven geometry and canonical cover file references |
-| `docs/publishing.md` | Public print-cover truth surface | ✓ VERIFIED | Teaches the same production requirements and template-driven geometry |
-| `test/phase43-print-template-truth.test.js` | Regression coverage for format-truth drift | ✓ VERIFIED | Asserts specs and bans hard-coded math |
+| `commands/scr/cover-art.md` | Canonical cover spec truth | [x] VERIFIED | Captures the real ebook, paperback, and hardcover deliverable specs |
+| `commands/scr/export.md` | Packaging guidance tied to live print truth | [x] VERIFIED | Uses template-driven geometry and canonical cover file references |
+| `docs/publishing.md` | Public print-cover truth surface | [x] VERIFIED | Teaches the same production requirements and template-driven geometry |
+| `test/phase43-print-template-truth.test.js` | Regression coverage for format-truth drift | [x] VERIFIED | Asserts specs and bans hard-coded math |
 
 ### Requirements Coverage
 
 | Requirement | Source Plan | Description | Status | Evidence |
 |-------------|------------|-------------|--------|----------|
-| COV-04 | 43-01, 43-02 | Ebook front-cover contract locked to `1600x2560`, RGB, JPG/PNG | ✓ SATISFIED | Ebook cover guidance now states front-only RGB raster output |
-| COV-05 | 43-01, 43-02 | Paperback guidance locked to PDF/X-1a, CMYK, 300 DPI, embedded fonts, flattened transparency, `0.125"` bleed | ✓ SATISFIED | Paperback rows and packaging docs now teach the full production contract |
-| COV-06 | 43-01, 43-02 | Hardcover guidance locked to PDF/X-1a, CMYK, 300 DPI, embedded fonts, flattened transparency, board-wrap allowances | ✓ SATISFIED | Hardcover docs now teach the separate case-wrap contract |
-| COV-07 | 43-01, 43-03 | Spine width and wrap dimensions are template-driven rather than hard-coded constants | ✓ SATISFIED | Template-generator language replaces legacy static math and is locked by tests |
+| COV-04 | 43-01, 43-02 | Ebook front-cover contract locked to `1600x2560`, RGB, JPG/PNG | [x] SATISFIED | Ebook cover guidance now states front-only RGB raster output |
+| COV-05 | 43-01, 43-02 | Paperback guidance locked to PDF/X-1a, CMYK, 300 DPI, embedded fonts, flattened transparency, `0.125"` bleed | [x] SATISFIED | Paperback rows and packaging docs now teach the full production contract |
+| COV-06 | 43-01, 43-02 | Hardcover guidance locked to PDF/X-1a, CMYK, 300 DPI, embedded fonts, flattened transparency, board-wrap allowances | [x] SATISFIED | Hardcover docs now teach the separate case-wrap contract |
+| COV-07 | 43-01, 43-03 | Spine width and wrap dimensions are template-driven rather than hard-coded constants | [x] SATISFIED | Template-generator language replaces legacy static math and is locked by tests |
 
 ### Human Verification Required
 

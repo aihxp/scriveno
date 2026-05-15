@@ -53,7 +53,7 @@ Adapt to:
 # /scr:build-ebook -- EPUB Build Pipeline
 ```
 
-**STEP 1 — Load context + CONSTRAINTS check pattern** (export.md lines 50-84):
+**STEP 1 - Load context + CONSTRAINTS check pattern** (export.md lines 50-84):
 ```markdown
 ### STEP 1: LOAD CONTEXT
 
@@ -73,9 +73,9 @@ If the format is **not available** for the current work type:
 
 Then **stop**.
 ```
-For build-ebook, the constraint key is `epub` — available for `["prose", "visual", "poetry", "interactive", "sacred"]`.
+For build-ebook, the constraint key is `epub` - available for `["prose", "visual", "poetry", "interactive", "sacred"]`.
 
-**STEP 1.5 — Validate gate pattern** (export.md lines 87-115 and publish.md lines 36-65):
+**STEP 1.5 - Validate gate pattern** (export.md lines 87-115 and publish.md lines 36-65):
 This block is IDENTICAL in export.md and publish.md. Copy verbatim:
 ```markdown
 ### STEP 1.5: VALIDATE MANUSCRIPT
@@ -111,10 +111,10 @@ Then **stop** -- do not proceed to STEP 2.
 If no markers found: proceed to STEP 2.
 ```
 
-**STEP 1.6 — Front-matter gate pattern** (export.md lines 118-164 and publish.md lines 68-114):
+**STEP 1.6 - Front-matter gate pattern** (export.md lines 118-164 and publish.md lines 68-114):
 This block is IDENTICAL in export.md and publish.md. Copy verbatim into build-ebook.md and build-print.md.
 
-**STEP 2 — Prerequisite detection pattern** (export.md lines 167-222):
+**STEP 2 - Prerequisite detection pattern** (export.md lines 167-222):
 ```markdown
 ### STEP 2: CHECK PREREQUISITES
 
@@ -153,15 +153,15 @@ pandoc .manuscript/output/assembled-manuscript.md \
 ```
 For build-ebook.md, the output filename changes to `ebook.epub` per CONTEXT.md decision.
 
-**Success output pattern** — CONTEXT.md specifies:
+**Success output pattern** - CONTEXT.md specifies:
 ```
-> ✓ EPUB built → .manuscript/output/ebook.epub (1.2 MB)
+> [x] EPUB built -> .manuscript/output/ebook.epub (1.2 MB)
 ```
 This is a condensed version of export.md's STEP 5 report (lines 842-880). For build commands, report in a single completion line rather than a multi-section report.
 
-**Page-count guardrail placement** — runs alongside STEP 2 prerequisite checks, before any build. Warning format from CONTEXT.md:
+**Page-count guardrail placement** - runs alongside STEP 2 prerequisite checks, before any build. Warning format from CONTEXT.md:
 ```
-⚠ Estimated {N} pages at {trim} ({PLATFORM} limit: {MAX}pp). Consider {ALT_PLATFORM} ({ALT_MAX}pp). Building anyway...
+WARNING Estimated {N} pages at {trim} ({PLATFORM} limit: {MAX}pp). Consider {ALT_PLATFORM} ({ALT_MAX}pp). Building anyway...
 ```
 Only fires when `--platform` is specified and the platform has a `max_pages` value in its manifest.
 
@@ -181,9 +181,9 @@ argument-hint: "[--platform <platform>] [--trim <size>] [--strict] [--skip-valid
 ---
 ```
 
-**STEP 1 constraint key:** `pdf_print_ready` — available for `["prose", "visual", "poetry", "sacred"]`.
+**STEP 1 constraint key:** `pdf_print_ready` - available for `["prose", "visual", "poetry", "sacred"]`.
 
-**STEP 2 prerequisite detection** — check Pandoc AND Typst. Ghostscript check is conditional on `--platform ingram` (export.md lines 660-678):
+**STEP 2 prerequisite detection** - check Pandoc AND Typst. Ghostscript check is conditional on `--platform ingram` (export.md lines 660-678):
 ```bash
 command -v pandoc >/dev/null 2>&1
 command -v typst >/dev/null 2>&1
@@ -191,13 +191,13 @@ command -v typst >/dev/null 2>&1
 command -v gs >/dev/null 2>&1
 ```
 
-**Platform flag validation pattern** — after prerequisite checks, validate `--platform` against `lib/architectural-profiles.js`:
+**Platform flag validation pattern** - after prerequisite checks, validate `--platform` against `lib/architectural-profiles.js`:
 ```
 Use validatePlatform(slug) from lib/architectural-profiles.js.
 If invalid: list available platforms from listPlatforms() and stop.
 ```
 
-**Trim size lookup pattern** — read from manifest `trim_sizes` table after validating platform:
+**Trim size lookup pattern** - read from manifest `trim_sizes` table after validating platform:
 ```
 1. Read --trim flag value (default: 6x9 from CONTEXT.md decisions)
 2. Load templates/platforms/{platform}/manifest.yaml
@@ -231,10 +231,10 @@ Output filename: `.manuscript/output/print-{platform}.pdf` per CONTEXT.md decisi
 
 **Placeholder structure to preserve and expand** (all manifests lines 1-13):
 ```yaml
-# Publishing platform profile — placeholder manifest.
+# Publishing platform profile - placeholder manifest.
 # Real content (trim_sizes, max_pages, epub_variant, metadata_shape, formats_accepted)
 # lands in Phase 32 (Build Pipelines & Platform Awareness).
-# DO NOT remove this file — Phase 29's validator (Plan 03) reads the
+# DO NOT remove this file - Phase 29's validator (Plan 03) reads the
 # directory listing to populate the allowed platform values.
 platform: kdp
 label: "Amazon KDP"
@@ -304,7 +304,7 @@ metadata_shape:
 
 **EPUB-only platforms** (apple, bn, d2d, kobo, google, smashwords). Per CONTEXT.md: no print, no page limit guardrail.
 
-**Shared structure** — same header comment block, `status: active`, but:
+**Shared structure** - same header comment block, `status: active`, but:
 - `formats_accepted: [epub]` only
 - `trim_sizes: null` (not applicable)
 - `max_pages: null` (no guardrail)
@@ -329,7 +329,7 @@ Each platform gets platform-specific `epub_variant` and `metadata_shape` values 
 }
 ```
 
-**New entries to add** — follow identical shape. Insert after `submission_package` entry, before `apa_mla_chicago`:
+**New entries to add** - follow identical shape. Insert after `submission_package` entry, before `apa_mla_chicago`:
 ```json
 "build_ebook": {
   "available": ["prose", "visual", "poetry", "interactive", "sacred"],
@@ -388,7 +388,7 @@ describe('Phase 32: BUILD-01 build-ebook.md exists and is structurally valid', (
   it('build-ebook.md exists at commands/scr/build-ebook.md', () => {
     assert.ok(
       fs.existsSync(BUILD_EBOOK_PATH),
-      'commands/scr/build-ebook.md must exist — BUILD-01'
+      'commands/scr/build-ebook.md must exist - BUILD-01'
     );
   });
 
@@ -417,7 +417,7 @@ it('build-ebook.md contains STEP 1.5 validate gate and it appears before STEP 2'
   assert.ok(content !== null, 'commands/scr/build-ebook.md could not be read');
   const step15Pos = content.indexOf('STEP 1.5');
   const step2Pos = content.indexOf('STEP 2');
-  assert.ok(step15Pos !== -1, 'build-ebook.md must contain STEP 1.5 validate gate — BUILD-01');
+  assert.ok(step15Pos !== -1, 'build-ebook.md must contain STEP 1.5 validate gate - BUILD-01');
   assert.ok(step2Pos !== -1, 'build-ebook.md must contain STEP 2 (CHECK PREREQUISITES)');
   assert.ok(
     step15Pos < step2Pos,
@@ -438,7 +438,7 @@ describe('Phase 32: PLATFORM-01 platform manifests are populated (status: active
       assert.ok(content !== null, `${platform}/manifest.yaml could not be read`);
       assert.ok(
         !content.includes('status: placeholder'),
-        `${platform}/manifest.yaml must have status: active, not status: placeholder — PLATFORM-01`
+        `${platform}/manifest.yaml must have status: active, not status: placeholder - PLATFORM-01`
       );
     });
   }
@@ -452,7 +452,7 @@ describe('Phase 32: PLATFORM-03 CONSTRAINTS.json has build_ebook and build_print
     const constraints = JSON.parse(fs.readFileSync(CONSTRAINTS_PATH, 'utf8'));
     assert.ok(
       constraints.exports.build_ebook,
-      'CONSTRAINTS.json exports section must have build_ebook entry — PLATFORM-03'
+      'CONSTRAINTS.json exports section must have build_ebook entry - PLATFORM-03'
     );
     assert.ok(
       Array.isArray(constraints.exports.build_ebook.available),
@@ -470,7 +470,7 @@ describe('Phase 32: PLATFORM-03 CONSTRAINTS.json has build_ebook and build_print
 **Source:** `commands/scr/export.md` lines 87-115 and `commands/scr/publish.md` lines 36-65
 **Apply to:** `build-ebook.md`, `build-print.md`
 
-The STEP 1.5 block is identical in both export.md and publish.md. Copy verbatim — only the command name in the blocked message differs (`Export blocked` becomes `Build blocked`). The `--skip-validate` escape hatch and the warning format must be preserved exactly. Tests in phase30 and phase31 suites verify this pattern exists in commands by content string search for `'STEP 1.5'` and `'--skip-validate'`.
+The STEP 1.5 block is identical in both export.md and publish.md. Copy verbatim - only the command name in the blocked message differs (`Export blocked` becomes `Build blocked`). The `--skip-validate` escape hatch and the warning format must be preserved exactly. Tests in phase30 and phase31 suites verify this pattern exists in commands by content string search for `'STEP 1.5'` and `'--skip-validate'`.
 
 ### Front-matter Gate (STEP 1.6)
 **Source:** `commands/scr/export.md` lines 118-164 and `commands/scr/publish.md` lines 68-114
@@ -494,19 +494,19 @@ All output goes to `.manuscript/output/`. New filenames per CONTEXT.md decision:
 **Source:** `data/CONSTRAINTS.json` lines 1222-1238 (`exports` section)
 **Apply to:** New `build_ebook` and `build_print` entries in CONSTRAINTS.json
 
-New entries must mirror the `available` arrays of `epub` and `pdf_print_ready` respectively. The `available` array values must be group names from `work_type_groups` keys (e.g., `"prose"`, `"visual"` — not individual work type names). Using `"all"` is valid if universally available (it is not for these build commands).
+New entries must mirror the `available` arrays of `epub` and `pdf_print_ready` respectively. The `available` array values must be group names from `work_type_groups` keys (e.g., `"prose"`, `"visual"` - not individual work type names). Using `"all"` is valid if universally available (it is not for these build commands).
 
 ### Manifest YAML Schema
 **Source:** All 8 existing placeholder manifests in `templates/platforms/*/manifest.yaml`
 **Apply to:** All 8 platform manifest files being populated
 
-Top-level keys to retain: `platform`, `label`, `status`, `formats_accepted`, `trim_sizes`, `max_pages`, `epub_variant`, `metadata_shape`. Do not remove or rename existing keys — the Phase 29 validator reads directory presence only (not manifest content), but the build commands in Phase 32 will read `trim_sizes`, `max_pages`, `epub_variant`, and `formats_accepted` at runtime. The comment block at the top (lines 1-5) should be updated to remove the "placeholder" notice once populated.
+Top-level keys to retain: `platform`, `label`, `status`, `formats_accepted`, `trim_sizes`, `max_pages`, `epub_variant`, `metadata_shape`. Do not remove or rename existing keys - the Phase 29 validator reads directory presence only (not manifest content), but the build commands in Phase 32 will read `trim_sizes`, `max_pages`, `epub_variant`, and `formats_accepted` at runtime. The comment block at the top (lines 1-5) should be updated to remove the "placeholder" notice once populated.
 
 ### Test File Structure
 **Source:** `test/phase31-staged-front-matter-generation.test.js` (entire file)
 **Apply to:** `test/phase32-build-pipelines-platform-awareness.test.js`
 
-Test IDs follow `PHASE-NN` naming convention (e.g., `BUILD-01`, `BUILD-02`, `PLATFORM-01`). Each `describe` block title starts with `Phase 32:` followed by the test ID and short description. Each `it` block appends ` — {TEST-ID}` to the assertion message so failures self-identify. The `readFile()` helper is always defined and used instead of `fs.readFileSync` directly — this prevents crashes when files don't yet exist (TDD RED wave). Use `node:test` and `node:assert/strict` — no third-party test runner.
+Test IDs follow `PHASE-NN` naming convention (e.g., `BUILD-01`, `BUILD-02`, `PLATFORM-01`). Each `describe` block title starts with `Phase 32:` followed by the test ID and short description. Each `it` block appends ` - {TEST-ID}` to the assertion message so failures self-identify. The `readFile()` helper is always defined and used instead of `fs.readFileSync` directly - this prevents crashes when files don't yet exist (TDD RED wave). Use `node:test` and `node:assert/strict` - no third-party test runner.
 
 ---
 

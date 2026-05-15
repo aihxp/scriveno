@@ -18,7 +18,7 @@ tech-stack:
   added: []
   patterns:
     - "Ephemeral fixture pattern: scaffoldTempProfile() creates a temp manifest dir and returns a cleanup function; tests wrap assertions in try/finally so cleanup runs on both pass and failure paths"
-    - "Parameterized test cases: ARCH-04 and ARCH-05 iterate over authoritative CONSTRAINTS.json data to generate one `it()` per work-type mapping — 36 generated assertions"
+    - "Parameterized test cases: ARCH-04 and ARCH-05 iterate over authoritative CONSTRAINTS.json data to generate one `it()` per work-type mapping - 36 generated assertions"
     - "Dual-import verification: the suite requires both lib/architectural-profiles.js directly AND bin/install.js, asserting both surfaces return the same function references"
 key-files:
   created:
@@ -26,7 +26,7 @@ key-files:
   modified: []
 decisions:
   - "Ephemeral fixture slugs use the prefix 'zzz-test-' (zzz-test-zoroastrian, zzz-test-lulu) rather than the plan-spec'd '__test-...__' names. Rationale: lib/architectural-profiles.js SLUG_PATTERN = /^[a-z][a-z0-9-]*$/ intentionally rejects slugs starting with underscore (Plan 03 key-decision #5). The zzz- prefix preserves every intent of the original names (collision-free, visually unmistakable as test-only, sorts last so any leak is conspicuous) while satisfying the runtime validator. Documented inline with a comment explaining the constraint."
-  - "Kept the full 54-test surface despite the plan's 25-test minimum target. Every additional case is a sub-assertion on a scripture work type or a book-shaped work type pulled from CONSTRAINTS.work_type_groups — it costs nothing to enumerate them, and Phase 32/33 refactors can then trip one specific mapping instead of one umbrella assertion."
+  - "Kept the full 54-test surface despite the plan's 25-test minimum target. Every additional case is a sub-assertion on a scripture work type or a book-shaped work type pulled from CONSTRAINTS.work_type_groups - it costs nothing to enumerate them, and Phase 32/33 refactors can then trip one specific mapping instead of one umbrella assertion."
   - "Removed the unused `after` import from the plan's action-block spec. The try/finally cleanup pattern replaces any after-hook need, and shipping a used-for-nothing import would distract future readers."
 requirements-completed:
   - ARCH-01
@@ -41,7 +41,7 @@ metrics:
 
 # Phase 29 Plan 04: ARCH Regression Test Suite Summary
 
-Phase 29 locked — `test/phase29-architectural-foundation.test.js` ships 54 passing tests across 6 describe blocks that turn each ARCH-01..ARCH-05 ROADMAP success criterion into concrete node:test assertions. Full `npm test` is green: 1132/1132 across 283 suites. Zero new dependencies; only Node built-ins (node:test, node:assert/strict, fs, path).
+Phase 29 locked - `test/phase29-architectural-foundation.test.js` ships 54 passing tests across 6 describe blocks that turn each ARCH-01..ARCH-05 ROADMAP success criterion into concrete node:test assertions. Full `npm test` is green: 1132/1132 across 283 suites. Zero new dependencies; only Node built-ins (node:test, node:assert/strict, fs, path).
 
 ## Performance
 
@@ -64,7 +64,7 @@ Phase 29 locked — `test/phase29-architectural-foundation.test.js` ships 54 pas
 | 6 | Phase 29: bin/install.js re-exports architectural-profiles | 7 (6 function-export asserts + 1 pre-existing-export regression) | cross-cut (all 5 ARCH via re-export surface) |
 | **Total** | | **55 described / 54 run** | |
 
-> Note: one `it()` in ARCH-04 is the null-case (novel/screenplay/research_paper → null), which contains three assertions inside a single test. The runner reports 54 tests; 55 is the raw describe-count.
+> Note: one `it()` in ARCH-04 is the null-case (novel/screenplay/research_paper -> null), which contains three assertions inside a single test. The runner reports 54 tests; 55 is the raw describe-count.
 
 Actual runner output:
 
@@ -81,17 +81,17 @@ Actual runner output:
 
 ## Per-Requirement Coverage
 
-### ARCH-01: Drop-in sacred tradition — ✓ covered
+### ARCH-01: Drop-in sacred tradition - [x] covered
 
 - One test creates `templates/sacred/zzz-test-zoroastrian/manifest.yaml` ephemerally, asserts `listTraditions()` picks it up AND `validateTradition('zzz-test-zoroastrian').valid === true`, then cleans up in a `finally` block, then asserts the slug is gone.
 - Proves: new manifest drop-ins are accepted at runtime with zero code edit, and removal takes effect on next call (no cache).
 
-### ARCH-02: Drop-in publishing platform — ✓ covered
+### ARCH-02: Drop-in publishing platform - [x] covered
 
 - Symmetric to ARCH-01 but for `templates/platforms/zzz-test-lulu/manifest.yaml`.
 - Proves: the platform surface has the same drop-in semantics as the tradition surface.
 
-### ARCH-03: CONSTRAINTS.json architectural_profiles shape + validator — ✓ covered (7 tests)
+### ARCH-03: CONSTRAINTS.json architectural_profiles shape + validator - [x] covered (7 tests)
 
 - `architectural_profiles` top-level key exists
 - `traditions._seeded` has exactly 10 entries AND each has a shipped `manifest.yaml` on disk
@@ -101,24 +101,24 @@ Actual runner output:
 - `validatePlatform('bogus')` returns error naming `kdp` AND `ingram`
 - `templates/WORK.md` contains both `## Profile` section and `{{PROFILE_BLOCK}}` placeholder
 
-### ARCH-04: Sacred work types → tradition defaults — ✓ covered (6 tests)
+### ARCH-04: Sacred work types -> tradition defaults - [x] covered (6 tests)
 
-- `scripture_biblical → catholic`
-- `scripture_quranic → islamic-hafs`
-- `scripture_torah → jewish`
-- `scripture_buddhist → pali`
-- `scripture_vedic → sanskrit`
-- Non-sacred work types (`novel`, `screenplay`, `research_paper`) → `null`
+- `scripture_biblical -> catholic`
+- `scripture_quranic -> islamic-hafs`
+- `scripture_torah -> jewish`
+- `scripture_buddhist -> pali`
+- `scripture_vedic -> sanskrit`
+- Non-sacred work types (`novel`, `screenplay`, `research_paper`) -> `null`
 
-### ARCH-05: Book-shaped work types → `kdp` platform default — ✓ covered (33 tests)
+### ARCH-05: Book-shaped work types -> `kdp` platform default - [x] covered (33 tests)
 
-- Parameterized iteration over every member of `CONSTRAINTS.work_type_groups.prose.members` (9), `.visual.members` (4), `.poetry.members` (3), `.sacred.members` (16) — a total of **32 per-work-type assertions** — each asserts `inferPlatform(slug) === 'kdp'`.
+- Parameterized iteration over every member of `CONSTRAINTS.work_type_groups.prose.members` (9), `.visual.members` (4), `.poetry.members` (3), `.sacred.members` (16) - a total of **32 per-work-type assertions** - each asserts `inferPlatform(slug) === 'kdp'`.
 - One additional test confirms non-book groups (`screenplay`, `research_paper`, `technical_guide`) return `null`.
 
-### Cross-cut: bin/install.js re-export surface — ✓ covered (7 tests)
+### Cross-cut: bin/install.js re-export surface - [x] covered (7 tests)
 
 - Each of the 6 Plan-03 functions (`listTraditions`, `listPlatforms`, `validateTradition`, `validatePlatform`, `inferTradition`, `inferPlatform`) is typeof 'function' on the installer export.
-- Pre-existing `validateSettings` AND `readSettings` still typeof 'function' — catches any future re-export-collision regression.
+- Pre-existing `validateSettings` AND `readSettings` still typeof 'function' - catches any future re-export-collision regression.
 
 ## Cleanup and No-Leak Guarantee
 
@@ -167,7 +167,7 @@ All 1078 pre-existing tests continue to pass alongside the 54 new Phase 29 tests
 
 ```bash
 $ git diff --stat package.json
-# (no output — package.json unchanged)
+# (no output - package.json unchanged)
 
 $ grep -nE "^const.*require\(" test/phase29-architectural-foundation.test.js
 1:const { describe, it } = require('node:test');
@@ -187,11 +187,11 @@ Six requires. Four Node built-ins (`node:test`, `node:assert/strict`, `fs`, `pat
 **1. [Rule 1 - Bug] Fixture slug chosen in plan spec is rejected by SLUG_PATTERN**
 
 - **Found during:** Task 1 test run
-- **Issue:** The plan's `<behavior>` and `<action>` specified ephemeral fixture slugs `__test-zoroastrian__` and `__test-lulu__`, but `lib/architectural-profiles.js` defines `SLUG_PATTERN = /^[a-z][a-z0-9-]*$/` — the leading underscore is intentionally rejected (Plan 03 decision: "filter contributor typos at validation time with a predictable rule"). As a result the first two tests failed with `listTraditions()`/`listPlatforms()` not returning the drop-in slug.
+- **Issue:** The plan's `<behavior>` and `<action>` specified ephemeral fixture slugs `__test-zoroastrian__` and `__test-lulu__`, but `lib/architectural-profiles.js` defines `SLUG_PATTERN = /^[a-z][a-z0-9-]*$/` - the leading underscore is intentionally rejected (Plan 03 decision: "filter contributor typos at validation time with a predictable rule"). As a result the first two tests failed with `listTraditions()`/`listPlatforms()` not returning the drop-in slug.
 - **Fix:** Replaced the slugs with pattern-valid `zzz-test-zoroastrian` and `zzz-test-lulu`. The `zzz-` prefix preserves every practical quality of the original: collision-free (no plausible real tradition/platform starts with `zzz`), visually unmistakable as test-only, and sorts last in directory listings so any leak would be the most conspicuous file in the directory. Added an inline comment above each assignment explaining the SLUG_PATTERN constraint.
 - **Files modified:** test/phase29-architectural-foundation.test.js
 - **Commit:** 74c6bd0 (folded into the same task 1 commit since it was caught pre-commit during the verify step)
-- **Why this is not a Plan 01-03 bug:** Plan 03 explicitly documents SLUG_PATTERN as an intentional filter. The correct remedy per the plan's `<action>` ("If any test fails, the failure must indicate a genuine gap in Plans 01-03 — NOT a test bug") is to confirm Plans 01-03 are correct, which they are. The fix belongs in the test, not in the module.
+- **Why this is not a Plan 01-03 bug:** Plan 03 explicitly documents SLUG_PATTERN as an intentional filter. The correct remedy per the plan's `<action>` ("If any test fails, the failure must indicate a genuine gap in Plans 01-03 - NOT a test bug") is to confirm Plans 01-03 are correct, which they are. The fix belongs in the test, not in the module.
 
 **2. [Rule 1 - Cleanup] Removed unused `after` import**
 
@@ -209,7 +209,7 @@ None. No external services or APIs touched.
 - [x] File `test/phase29-architectural-foundation.test.js` exists (182 lines)
 - [x] `node --test test/phase29-architectural-foundation.test.js` reports `# fail 0` (54 pass, 0 fail)
 - [x] Test count ≥ 25 (actual: 54)
-- [x] No `zzz-test-zoroastrian` / `zzz-test-lulu` leak (verified via `ls templates/sacred/zzz-test-* templates/platforms/zzz-test-*` → no matches)
+- [x] No `zzz-test-zoroastrian` / `zzz-test-lulu` leak (verified via `ls templates/sacred/zzz-test-* templates/platforms/zzz-test-*` -> no matches)
 - [x] `ls templates/sacred/*/manifest.yaml | wc -l` = 10 (unchanged)
 - [x] `ls templates/platforms/*/manifest.yaml | wc -l` = 8 (unchanged)
 - [x] Test file uses ONLY Node built-ins for non-relative requires (node:test, node:assert/strict, fs, path)
@@ -231,7 +231,7 @@ One fixture-slug mismatch with SLUG_PATTERN, caught by the first test run and fi
 
 None.
 
-## Phase 29 Complete — Next Milestone Readiness
+## Phase 29 Complete - Next Milestone Readiness
 
 With Plan 04 committed, Phase 29 Architectural Foundation is fully green:
 
@@ -240,7 +240,7 @@ With Plan 04 committed, Phase 29 Architectural Foundation is fully green:
 - **Plan 03:** `lib/architectural-profiles.js` runtime validator + `bin/install.js` re-exports (6 new functions)
 - **Plan 04:** 54-test regression suite locking all of the above (this file)
 
-All five ARCH requirements (ARCH-01..ARCH-05) are now truth-locked by machine-executable contracts. Downstream phases can extend the profile families by dropping manifests into the templates directories — no code edit, no JSON edit, and the regression suite will catch any accidental shape break.
+All five ARCH requirements (ARCH-01..ARCH-05) are now truth-locked by machine-executable contracts. Downstream phases can extend the profile families by dropping manifests into the templates directories - no code edit, no JSON edit, and the regression suite will catch any accidental shape break.
 
 Phases 30-35 can proceed against this foundation:
 - **Phase 32 (Build Pipelines):** populates `trim_sizes`/`max_pages`/`epub_variant`/`metadata_shape`/`formats_accepted` in platform manifests; calls `inferPlatform()` for per-work-type defaults; the `listPlatforms()` contract is locked by this suite.

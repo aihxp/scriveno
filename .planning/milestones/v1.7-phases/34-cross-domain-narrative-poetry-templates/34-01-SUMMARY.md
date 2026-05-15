@@ -42,7 +42,7 @@ metrics:
 All acceptance criteria confirmed:
 
 - `node --test test/phase34-cross-domain-templates.test.js` runs without syntax errors
-- All 38 individual tests fail (RED state — no template files exist yet)
+- All 38 individual tests fail (RED state - no template files exist yet)
 - All 6 describe blocks fail (TPL-01 through TPL-06)
 - `grep -c "TPL-0[1-6]" test/phase34-cross-domain-templates.test.js` returns **119** (>= 30 required)
 - `grep "describe(" test/phase34-cross-domain-templates.test.js | wc -l` returns **6**
@@ -51,13 +51,13 @@ All acceptance criteria confirmed:
 
 ## TDD Gate Compliance
 
-- RED gate: `test(34-01)` commit `6e256e0` — all tests fail before implementation
-- GREEN gate: pending — Plans 34-02 and 34-03 will deliver implementation
+- RED gate: `test(34-01)` commit `6e256e0` - all tests fail before implementation
+- GREEN gate: pending - Plans 34-02 and 34-03 will deliver implementation
 - REFACTOR gate: N/A for this plan
 
 ## Deviations from Plan
 
-None — plan executed exactly as written.
+None - plan executed exactly as written.
 
 ## Known Stubs
 

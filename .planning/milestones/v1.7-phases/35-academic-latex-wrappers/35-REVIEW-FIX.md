@@ -34,7 +34,7 @@ status: all_fixed
 
 **Files modified:** `data/export-templates/scriveno-acm.latex`
 **Commit:** efe5ea6
-**Applied fix:** Removed the `\usepackage{amsmath,amssymb}`, `\usepackage{graphicx}`, `\makeatletter`/`\makeatother` image sizing macros, and `\setkeys{Gin}{...}` block (lines 15–24). Replaced with a comment block explaining that `acmart.cls` already loads those packages internally.
+**Applied fix:** Removed the `\usepackage{amsmath,amssymb}`, `\usepackage{graphicx}`, `\makeatletter`/`\makeatother` image sizing macros, and `\setkeys{Gin}{...}` block (lines 15-24). Replaced with a comment block explaining that `acmart.cls` already loads those packages internally.
 
 ---
 
@@ -54,7 +54,7 @@ status: all_fixed
 
 ---
 
-### WR-05: LNCS template omits `\institute{}` — required for author affiliations
+### WR-05: LNCS template omits `\institute{}` - required for author affiliations
 
 **Files modified:** `data/export-templates/scriveno-lncs.latex`
 **Commit:** 53ac4ac
@@ -74,7 +74,7 @@ status: all_fixed
 
 **Files modified:** `commands/scr/build-print.md`
 **Commit:** 8a714ef
-**Applied fix:** Wrapped the general PDF report block with "**If `--platform` is NOT one of `ieee`, `acm`, `lncs`, `elsevier`, `apa7`:**" and changed the academic block introduction from "For academic platforms... show instead:" to "**If `--platform` IS one of `ieee`, `acm`, `lncs`, `elsevier`, `apa7`, show instead:**" — making both branches explicitly conditional and symmetrical.
+**Applied fix:** Wrapped the general PDF report block with "**If `--platform` is NOT one of `ieee`, `acm`, `lncs`, `elsevier`, `apa7`:**" and changed the academic block introduction from "For academic platforms... show instead:" to "**If `--platform` IS one of `ieee`, `acm`, `lncs`, `elsevier`, `apa7`, show instead:**" - making both branches explicitly conditional and symmetrical.
 
 ---
 

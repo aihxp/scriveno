@@ -1,4 +1,4 @@
-# v1.4 Research — Architecture
+# v1.4 Research - Architecture
 
 ## Integration Surfaces
 

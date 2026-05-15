@@ -1,4 +1,4 @@
-# Historical Validation Notes — Phases 01 to 08
+# Historical Validation Notes - Phases 01 to 08
 
 This report is a historical reconstruction, not a true `/gsd-validate-phase` output.
 
@@ -19,7 +19,7 @@ Phases `01` through `08` do not have local phase directories with retained PLAN/
 
 ## Notes By Phase
 
-### Phase 01 — MVP Polish
+### Phase 01 - MVP Polish
 
 Current evidence still covers the MVP surface broadly:
 
@@ -29,44 +29,44 @@ Current evidence still covers the MVP surface broadly:
 - installer behavior via [installer.test.js](/Users/hprincivil/Projects/scriveno/test/installer.test.js)
 - package safety via [package.test.js](/Users/hprincivil/Projects/scriveno/test/package.test.js)
 
-### Phase 02 — Writer Experience
+### Phase 02 - Writer Experience
 
 Current evidence still covers autopilot, writer-friendly state, and writer-mode behaviors through:
 
 - [phase2-autopilot.test.js](/Users/hprincivil/Projects/scriveno/test/phase2-autopilot.test.js)
 - [phase2-writer-mode.test.js](/Users/hprincivil/Projects/scriveno/test/phase2-writer-mode.test.js)
 
-### Phase 03 — Creative Toolkit
+### Phase 03 - Creative Toolkit
 
 Current evidence still covers character, world-building, structure, and outline-management behavior through:
 
 - [phase3-creative-toolkit.test.js](/Users/hprincivil/Projects/scriveno/test/phase3-creative-toolkit.test.js)
 
-### Phase 04 — Quality & Manuscript Completion
+### Phase 04 - Quality & Manuscript Completion
 
 Current evidence still covers line editing, copy editing, dialogue audit, review workflows, and publication-supporting surfaces through:
 
 - [phase4-quality-publishing.test.js](/Users/hprincivil/Projects/scriveno/test/phase4-quality-publishing.test.js)
 
-### Phase 05 — Export & Publishing
+### Phase 05 - Export & Publishing
 
 Current evidence still covers export templates, export command behavior, and publishing-related command surfaces through:
 
 - [phase5-export-publishing.test.js](/Users/hprincivil/Projects/scriveno/test/phase5-export-publishing.test.js)
 
-### Phase 06 — Illustration
+### Phase 06 - Illustration
 
 Current evidence still covers illustration commands, prompt structure, and layout-specific visual tooling through:
 
 - [phase6-illustration.test.js](/Users/hprincivil/Projects/scriveno/test/phase6-illustration.test.js)
 
-### Phase 07 — Translation & Localization
+### Phase 07 - Translation & Localization
 
 Current evidence still covers translation agents, glossary, translation memory, localization behavior, and export support through:
 
 - [phase7-translation-localization.test.js](/Users/hprincivil/Projects/scriveno/test/phase7-translation-localization.test.js)
 
-### Phase 08 — Collaboration, Platform & Sacred
+### Phase 08 - Collaboration, Platform & Sacred
 
 Current evidence still covers collaboration tracks, multi-runtime installer expansion, utility commands, and sacred features through:
 

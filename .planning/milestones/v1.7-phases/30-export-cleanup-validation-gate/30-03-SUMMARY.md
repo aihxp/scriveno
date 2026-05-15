@@ -59,10 +59,10 @@ npm test totals after plan: 1152 pass, 1 fail (pre-existing CONSTRAINTS registra
 ## Decisions Made
 
 1. **Additive injection only:** Both gate blocks are pure insertions. No existing lines in STEP 1 or STEP 2 were removed or modified. Verified by: `grep "CHECK PREREQUISITES" export.md` and `grep "LOAD CONTEXT\|ROUTE" publish.md` still return hits.
-2. **Gate position in export.md:** STEP 1.5 inserted after the format-availability check (`Then **stop**.` + `---`) and before `### STEP 2: CHECK PREREQUISITES` (now line 118). Gate runs before any `command -v pandoc` probe — dirty manuscript never triggers Pandoc/Typst detection (fail-fast per CONTEXT.md).
+2. **Gate position in export.md:** STEP 1.5 inserted after the format-availability check (`Then **stop**.` + `---`) and before `### STEP 2: CHECK PREREQUISITES` (now line 118). Gate runs before any `command -v pandoc` probe - dirty manuscript never triggers Pandoc/Typst detection (fail-fast per CONTEXT.md).
 3. **Gate position in publish.md:** STEP 1.5 inserted after the closing `---` of `### STEP 1: LOAD CONTEXT` and before `### STEP 2: ROUTE` (now line 68). Context files (config.json, CONSTRAINTS.json, OUTLINE.md) are available to the gate without a separate load step.
 4. **Visible --skip-validate warning in both files:** Both gates emit `> **Warning: Validate gate skipped (--skip-validate)...`** blockquote before proceeding -- unconditional when flag is used. No silent bypass (T-30-09 mitigation, Pitfall 5).
-5. **Command-specific blocked labels:** export.md uses "Export blocked: unresolved scaffold markers found." and publish.md uses "Publishing blocked: unresolved scaffold markers found." — contextually accurate messaging per plan spec.
+5. **Command-specific blocked labels:** export.md uses "Export blocked: unresolved scaffold markers found." and publish.md uses "Publishing blocked: unresolved scaffold markers found." - contextually accurate messaging per plan spec.
 
 ## Deviations from Plan
 

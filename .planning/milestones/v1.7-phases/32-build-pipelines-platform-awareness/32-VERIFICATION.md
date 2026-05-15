@@ -7,10 +7,10 @@ overrides_applied: 0
 human_verification:
   - test: "Run /scr:build-ebook on a manuscript that contains images and verify the EPUB produced opens in an EPUB reader, contains a semantic nav, and passes EPUBCheck"
     expected: "EPUB validates against EPUBCheck with zero errors; lang tag present; images have alt text; semantic nav (epub:type=toc) present"
-    why_human: "EPUBCheck validation requires the tool to be installed and an actual Pandoc invocation on real manuscript content — cannot verify programmatically that the EPUB output is structurally valid without running the build"
+    why_human: "EPUBCheck validation requires the tool to be installed and an actual Pandoc invocation on real manuscript content - cannot verify programmatically that the EPUB output is structurally valid without running the build"
   - test: "Run /scr:build-print --platform kdp on a manuscript and verify the PDF opens correctly at the expected trim size"
     expected: "PDF produced at the selected trim dimensions (e.g. 6x9) with Typst-rendered typography; file at .manuscript/output/print-kdp.pdf"
-    why_human: "Actual Pandoc + Typst invocation required to confirm PDF output is correct — cannot verify without a running build"
+    why_human: "Actual Pandoc + Typst invocation required to confirm PDF output is correct - cannot verify without a running build"
 ---
 
 # Phase 32: Build Pipelines & Platform Awareness Verification Report
@@ -18,7 +18,7 @@ human_verification:
 **Phase Goal:** Writers can produce EPUB and print-ready PDF output from the current manuscript for a selected publishing platform, with guardrails that warn before they build something the platform will reject
 **Verified:** 2026-04-17T00:00:00Z
 **Status:** human_needed
-**Re-verification:** No — initial verification
+**Re-verification:** No - initial verification
 
 ## Goal Achievement
 
@@ -26,17 +26,17 @@ human_verification:
 
 | # | Truth | Status | Evidence |
 |---|-------|--------|----------|
-| 1 | A writer runs `/scr:build-ebook` and gets an EPUB that passes EPUBCheck and includes alt text, `lang` tags, and semantic nav per EU EAA requirements | ? HUMAN NEEDED | `build-ebook.md` contains alt text pre-check, `-V lang={language}`, `epub:type="toc"` via `--toc` flag (lines 228–254). Structural scaffolding verified. Actual EPUB output validation requires human test. |
-| 2 | A writer runs `/scr:build-print --platform kdp` (or ingram / d2d / apple / kobo / google / bn) and gets a PDF produced through Pandoc + Typst, with platform-correct trim size, margins, and metadata | ? HUMAN NEEDED | `build-print.md` contains manifest lookup (line 223), Pandoc `--pdf-engine=typst` invocation (lines 324–337) with `{width_in}in` / `{height_in}in` variables sourced from the manifest. KDP manifest has correct trim dimensions. EPUB-only platform redirect verified at line 214. Actual PDF output requires human test. |
+| 1 | A writer runs `/scr:build-ebook` and gets an EPUB that passes EPUBCheck and includes alt text, `lang` tags, and semantic nav per EU EAA requirements | ? HUMAN NEEDED | `build-ebook.md` contains alt text pre-check, `-V lang={language}`, `epub:type="toc"` via `--toc` flag (lines 228-254). Structural scaffolding verified. Actual EPUB output validation requires human test. |
+| 2 | A writer runs `/scr:build-print --platform kdp` (or ingram / d2d / apple / kobo / google / bn) and gets a PDF produced through Pandoc + Typst, with platform-correct trim size, margins, and metadata | ? HUMAN NEEDED | `build-print.md` contains manifest lookup (line 223), Pandoc `--pdf-engine=typst` invocation (lines 324-337) with `{width_in}in` / `{height_in}in` variables sourced from the manifest. KDP manifest has correct trim dimensions. EPUB-only platform redirect verified at line 214. Actual PDF output requires human test. |
 | 3 | A writer missing Pandoc, Typst, or Ghostscript sees an install-guidance message before the build attempts to run, not a cryptic downstream failure | VERIFIED | `build-ebook.md` line 131: `command -v pandoc >/dev/null 2>&1` with install guidance. `build-print.md` lines 135, 155, 175: `command -v pandoc`, `command -v typst`, `command -v gs` (conditional on `--platform ingram`) each with multi-platform install hints. Test suite BUILD-04 confirms all patterns (90/90 GREEN). |
-| 4 | A writer whose manuscript word count projects to 900 pages on 6×9 sees a warning that it exceeds KDP paperback (828pp) and is offered IngramSpark (1200pp) as a viable path | VERIFIED | `build-print.md` line 258: `⚠ Estimated {estimated_pages} pages at {trim} ({PLATFORM} paperback limit: {MAX}pp). Consider IngramSpark (1200pp). Building anyway...`. KDP manifest `max_pages.paperback: 828`. Ingram manifest `max_pages.paperback: 1200`. `--strict` hard block also present (line 260). Test suite PLATFORM-02 confirms (90/90 GREEN). |
+| 4 | A writer whose manuscript word count projects to 900 pages on 6×9 sees a warning that it exceeds KDP paperback (828pp) and is offered IngramSpark (1200pp) as a viable path | VERIFIED | `build-print.md` line 258: `WARNING Estimated {estimated_pages} pages at {trim} ({PLATFORM} paperback limit: {MAX}pp). Consider IngramSpark (1200pp). Building anyway...`. KDP manifest `max_pages.paperback: 828`. Ingram manifest `max_pages.paperback: 1200`. `--strict` hard block also present (line 260). Test suite PLATFORM-02 confirms (90/90 GREEN). |
 | 5 | A writer selecting an unsupported trim size for their chosen platform is rejected with a clear error and the list of trim sizes that platform accepts | VERIFIED | `build-print.md` line 234: `> **Trim size "{size}" is not supported for {PLATFORM}.** > Supported trim sizes for {PLATFORM}: {list all keys from manifest.trim_sizes}`. All 8 manifests have either `trim_sizes` populated (KDP/Ingram) or `null` (EPUB-only, rejected before trim access). Test suite PLATFORM-03 confirms (90/90 GREEN). |
 
 **Score:** 5/5 truths verified (3 VERIFIED, 2 require human confirmation of actual output quality)
 
 ### Deferred Items
 
-None — all must-haves are within Phase 32 scope and have been implemented or queued for human verification.
+None - all must-haves are within Phase 32 scope and have been implemented or queued for human verification.
 
 ### Required Artifacts
 
@@ -74,10 +74,10 @@ These are agent instruction files (markdown), not code that renders dynamic data
 
 | Artifact | Data Variable | Source | Produces Real Data | Status |
 |----------|--------------|--------|-------------------|--------|
-| `build-ebook.md` STEP 1 | `build_ebook.available` | `data/CONSTRAINTS.json` | Yes — array `["prose","visual","poetry","interactive","sacred"]` | FLOWING |
-| `build-print.md` STEP 2.5 | `manifest.trim_sizes[trim].wpp` | `templates/platforms/kdp/manifest.yaml` | Yes — wpp: 220/230/235/250/300 present | FLOWING |
-| `build-print.md` STEP 2.5 | `manifest.max_pages.paperback` | `templates/platforms/kdp/manifest.yaml` | Yes — paperback: 828 present | FLOWING |
-| `build-print.md` STEP 2.5 | `manifest.max_pages.paperback` | `templates/platforms/ingram/manifest.yaml` | Yes — paperback: 1200 present | FLOWING |
+| `build-ebook.md` STEP 1 | `build_ebook.available` | `data/CONSTRAINTS.json` | Yes - array `["prose","visual","poetry","interactive","sacred"]` | FLOWING |
+| `build-print.md` STEP 2.5 | `manifest.trim_sizes[trim].wpp` | `templates/platforms/kdp/manifest.yaml` | Yes - wpp: 220/230/235/250/300 present | FLOWING |
+| `build-print.md` STEP 2.5 | `manifest.max_pages.paperback` | `templates/platforms/kdp/manifest.yaml` | Yes - paperback: 828 present | FLOWING |
+| `build-print.md` STEP 2.5 | `manifest.max_pages.paperback` | `templates/platforms/ingram/manifest.yaml` | Yes - paperback: 1200 present | FLOWING |
 
 ### Behavioral Spot-Checks
 
@@ -110,8 +110,8 @@ No blockers or warnings found.
 
 | File | Line | Pattern | Severity | Impact |
 |------|------|---------|----------|--------|
-| `build-ebook.md` | 54 | "placeholder" — domain vocabulary (writer content placeholder, not code stub) | Info | None — legitimate instruction text describing `{{VAR}}` tokens |
-| `build-ebook.md` | 232 | "placeholder" — alt text default value pattern | Info | None — instruction to add `![Illustration: [describe the image]]` placeholder for missing alt text is the correct EAA behavior |
+| `build-ebook.md` | 54 | "placeholder" - domain vocabulary (writer content placeholder, not code stub) | Info | None - legitimate instruction text describing `{{VAR}}` tokens |
+| `build-ebook.md` | 232 | "placeholder" - alt text default value pattern | Info | None - instruction to add `![Illustration: [describe the image]]` placeholder for missing alt text is the correct EAA behavior |
 
 ### Human Verification Required
 
@@ -125,11 +125,11 @@ No blockers or warnings found.
 
 **Test:** Run `/scr:build-print --platform kdp --trim 6x9` on a manuscript project and open the resulting `.manuscript/output/print-kdp.pdf`.
 **Expected:** PDF dimensions 6×9 inches (from KDP manifest `width_in: 6`, `height_in: 9`); Typst-rendered typography with correct margins; file exists at reported path.
-**Why human:** Actual Pandoc + Typst invocation required to verify PDF dimensions and rendering quality — cannot verify without running the build against real content.
+**Why human:** Actual Pandoc + Typst invocation required to verify PDF dimensions and rendering quality - cannot verify without running the build against real content.
 
 ### Gaps Summary
 
-No gaps found. All 8 requirement IDs (BUILD-01..BUILD-05, PLATFORM-01..PLATFORM-03) have verified implementations in the codebase. The two human verification items relate to output quality (EPUB validity, PDF dimensions) and require actual build execution — they are not missing implementations.
+No gaps found. All 8 requirement IDs (BUILD-01..BUILD-05, PLATFORM-01..PLATFORM-03) have verified implementations in the codebase. The two human verification items relate to output quality (EPUB validity, PDF dimensions) and require actual build execution - they are not missing implementations.
 
 ---
 

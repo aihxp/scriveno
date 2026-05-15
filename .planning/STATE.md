@@ -26,9 +26,8 @@ See: .planning/PROJECT.md (updated 2026-04-18)
 ## Current Position
 
 Phase: None (milestone shipped)
-Plan: —
-Status: Awaiting next milestone
-Last activity: 2026-04-18 — v2.0 Publishing Cover Packaging shipped and archived
+Plan: - Status: Awaiting next milestone
+Last activity: 2026-04-18 - v2.0 Publishing Cover Packaging shipped and archived
 
 Progress: [##########] 100%
 
@@ -56,8 +55,8 @@ Recent decisions affecting current work:
 - [v1.9 Phase 41]: Adapted labels never override real availability; help and trust docs must respect narrower command constraints and dedicated replacement command families
 - [post-v1.9 session boundaries]: `pause-work` and `resume-work` must record explicit Last actions markers, and `resume-work` resets `Session metrics` so `session-report` can isolate the current session truthfully
 - [post-v1.9 save-history trust]: Public command references must describe save history as save history only, never as archived drafts or other broader versioning models
-- [post-v1.9 destructive flags]: Trust-facing docs for `/scr:undo --force` must match the command contract exactly — skip the unsaved-changes warning, but still require confirmation
-- [v2.0 framing]: Treat cover packaging as a production-contract milestone, not just a doc pass — asset paths, platform specs, and build integration must agree
+- [post-v1.9 destructive flags]: Trust-facing docs for `/scr:undo --force` must match the command contract exactly - skip the unsaved-changes warning, but still require confirmation
+- [v2.0 framing]: Treat cover packaging as a production-contract milestone, not just a doc pass - asset paths, platform specs, and build integration must agree
 - [v2.0 print truth]: Paperback and hardcover wrap dimensions must stay template-driven from IngramSpark inputs instead of being hard-coded as universal constants
 - [v2.0 build contract]: Cover deliverables live under `.manuscript/build/` as manuscript assets, not as bundled export templates
 - [v2.0 trust surface]: Build/export/publish docs and release-facing trust docs must describe the same cover workflow contract and external-template boundary

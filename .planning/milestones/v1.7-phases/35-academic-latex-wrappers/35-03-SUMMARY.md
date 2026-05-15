@@ -5,8 +5,8 @@ subsystem: commands/publishing
 tags: [academic, latex, build-print, constraints, kpsewhich]
 dependency-graph:
   requires:
-    - 35-01-PLAN (regression test suite — defines what must go GREEN)
-    - 35-02-PLAN (five LaTeX wrapper templates — consumed by STEP 1.8 LATEX_TEMPLATE path)
+    - 35-01-PLAN (regression test suite - defines what must go GREEN)
+    - 35-02-PLAN (five LaTeX wrapper templates - consumed by STEP 1.8 LATEX_TEMPLATE path)
   provides:
     - commands/scr/build-print.md with academic LaTeX route (STEP 1.8, STEP 2, STEP 2.5, STEP 4, STEP 5)
     - data/CONSTRAINTS.json with academic in both build_print availability arrays
@@ -29,7 +29,7 @@ decisions:
   - "STEP 2 per-class error messages list individual tlmgr install commands (5 separate bullet points) to satisfy >=5 tlmgr install acceptance criterion"
   - "llncs error includes Springer download page URL as fallback per RESEARCH.md Pitfall 5"
   - "Academic platforms early-exit STEP 2.5 before manifest load to avoid missing manifest.yaml crash (RESEARCH.md Pitfall 2)"
-  - "No --pdf-engine flag in academic STEP 4 pandoc invocation — produces .tex source, writer compiles with own TeX distribution"
+  - "No --pdf-engine flag in academic STEP 4 pandoc invocation - produces .tex source, writer compiles with own TeX distribution"
 metrics:
   duration: 3 min
   completed: 2026-04-17
@@ -53,23 +53,23 @@ metrics:
 
 ### Task 1: build-print.md academic LaTeX route
 
-Seven targeted edits were applied to `commands/scr/build-print.md` (original 424 lines → 564 lines):
+Seven targeted edits were applied to `commands/scr/build-print.md` (original 424 lines -> 564 lines):
 
-**Edit 1 — Header:** Added `ieee | acm | lncs | elsevier | apa7` to platform values list with academic platforms note.
+**Edit 1 - Header:** Added `ieee | acm | lncs | elsevier | apa7` to platform values list with academic platforms note.
 
-**Edit 2 — STEP 1:** Updated availability from `["prose", "visual", "poetry", "sacred"]` to include `"academic"`, and updated the error message to list "sacred, and academic work types."
+**Edit 2 - STEP 1:** Updated availability from `["prose", "visual", "poetry", "sacred"]` to include `"academic"`, and updated the error message to list "sacred, and academic work types."
 
-**Edit 3 — STEP 1.8:** Inserted academic platform branch BEFORE the existing Typst work_type map. Includes an explicit platform-to-template table (scriveno-ieee.latex through scriveno-apa7.latex) so test grep assertions can find each by name. Sets LATEX_TEMPLATE, validates file existence, sets TYPST_TEMPLATE to null, then proceeds to STEP 2.
+**Edit 3 - STEP 1.8:** Inserted academic platform branch BEFORE the existing Typst work_type map. Includes an explicit platform-to-template table (scriveno-ieee.latex through scriveno-apa7.latex) so test grep assertions can find each by name. Sets LATEX_TEMPLATE, validates file existence, sets TYPST_TEMPLATE to null, then proceeds to STEP 2.
 
-**Edit 4 — STEP 2:** Appended two-level kpsewhich detection AFTER the Ghostscript check. First checks `command -v kpsewhich` — if absent, shows "No TeX distribution found" error with brew/apt/MiKTeX install guidance and tug.org URL. Then maps each platform to its class file and shows individual per-class error with `tlmgr install ieeetran` (ieee), `tlmgr install acmart` (acm), `tlmgr install llncs` + Springer download URL (lncs), `tlmgr install elsarticle` (elsevier), `tlmgr install apa7` (apa7).
+**Edit 4 - STEP 2:** Appended two-level kpsewhich detection AFTER the Ghostscript check. First checks `command -v kpsewhich` - if absent, shows "No TeX distribution found" error with brew/apt/MiKTeX install guidance and tug.org URL. Then maps each platform to its class file and shows individual per-class error with `tlmgr install ieeetran` (ieee), `tlmgr install acmart` (acm), `tlmgr install llncs` + Springer download URL (lncs), `tlmgr install elsarticle` (elsevier), `tlmgr install apa7` (apa7).
 
-**Edit 5 — STEP 2.5:** Extended allowed platform slug list to include all five academic slugs. Updated the invalid-platform error message.
+**Edit 5 - STEP 2.5:** Extended allowed platform slug list to include all five academic slugs. Updated the invalid-platform error message.
 
-**Edit 6 — STEP 2.5 (academic early-exit):** Inserted "if platform is an academic publisher platform" early-exit AFTER the EPUB-only check and BEFORE the "Load manifest" line. Academic platforms skip trim-size validation and page-count guardrail — they have no trim size or page limit — and proceed directly to STEP 3.
+**Edit 6 - STEP 2.5 (academic early-exit):** Inserted "if platform is an academic publisher platform" early-exit AFTER the EPUB-only check and BEFORE the "Load manifest" line. Academic platforms skip trim-size validation and page-count guardrail - they have no trim size or page limit - and proceed directly to STEP 3.
 
-**Edit 7 — STEP 4:** Inserted academic LaTeX route BEFORE the existing Typst pandoc block. Uses `pandoc ... -o .manuscript/output/paper-{platform}.tex --template=data/export-templates/scriveno-{platform}.latex --metadata-file=...` with no `--pdf-engine` flag. Includes pdflatex compilation example for writer reference.
+**Edit 7 - STEP 4:** Inserted academic LaTeX route BEFORE the existing Typst pandoc block. Uses `pandoc ... -o .manuscript/output/paper-{platform}.tex --template=data/export-templates/scriveno-{platform}.latex --metadata-file=...` with no `--pdf-engine` flag. Includes pdflatex compilation example for writer reference.
 
-**Edit 8 — STEP 5:** Added academic success report variant: `✓ LaTeX source built → .manuscript/output/paper-{platform}.tex` with `ls -lh` size command.
+**Edit 8 - STEP 5:** Added academic success report variant: `[x] LaTeX source built -> .manuscript/output/paper-{platform}.tex` with `ls -lh` size command.
 
 ### Task 2: CONSTRAINTS.json update
 
@@ -83,9 +83,9 @@ Two targeted edits:
 **Phase 35 tests:** 9/39 pass (all 9 that this plan owns)
 - All 8 build-print.md describe tests: PASS (kpsewhich, ieee/acm/lncs/elsevier/apa7 platforms, paper- naming, tlmgr install guidance)
 - CONSTRAINTS.json test: PASS (exports.build_print.available includes "academic")
-- 30 LaTeX template tests: FAIL — expected; these are Plan 35-02's deliverables (scriveno-ieee.latex etc. not in this worktree)
+- 30 LaTeX template tests: FAIL - expected; these are Plan 35-02's deliverables (scriveno-ieee.latex etc. not in this worktree)
 
-**Full npm test suite:** 1480/1510 pass — 30 failures are all Phase 35 template tests (Plan 35-02 scope); no regressions introduced by this plan.
+**Full npm test suite:** 1480/1510 pass - 30 failures are all Phase 35 template tests (Plan 35-02 scope); no regressions introduced by this plan.
 
 ## Deviations from Plan
 
@@ -103,7 +103,7 @@ Two targeted edits:
 
 ## Known Stubs
 
-None — CONSTRAINTS.json and build-print.md are fully wired. The academic LaTeX route is complete. Template files (Plan 35-02) are the remaining integration point; once those are merged, all 39 tests will be GREEN.
+None - CONSTRAINTS.json and build-print.md are fully wired. The academic LaTeX route is complete. Template files (Plan 35-02) are the remaining integration point; once those are merged, all 39 tests will be GREEN.
 
 ## Threat Flags
 

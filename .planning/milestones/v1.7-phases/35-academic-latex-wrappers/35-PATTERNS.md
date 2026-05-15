@@ -15,8 +15,8 @@
 | `data/export-templates/scriveno-lncs.latex` | config/template | transform | `data/export-templates/scriveno-academic.latex` | exact |
 | `data/export-templates/scriveno-elsevier.latex` | config/template | transform | `data/export-templates/scriveno-academic.latex` | exact |
 | `data/export-templates/scriveno-apa7.latex` | config/template | transform | `data/export-templates/scriveno-academic.latex` | exact |
-| `commands/scr/build-print.md` | middleware/command | request-response | `commands/scr/build-print.md` (self — extension) | self-extension |
-| `data/CONSTRAINTS.json` | config | CRUD | `data/CONSTRAINTS.json` (self — extension) | self-extension |
+| `commands/scr/build-print.md` | middleware/command | request-response | `commands/scr/build-print.md` (self - extension) | self-extension |
+| `data/CONSTRAINTS.json` | config | CRUD | `data/CONSTRAINTS.json` (self - extension) | self-extension |
 | `test/phase35-academic-latex-wrappers.test.js` | test | batch | `test/phase34-cross-domain-templates.test.js` | exact |
 
 ---
@@ -27,7 +27,7 @@
 
 **Analog:** `data/export-templates/scriveno-academic.latex`
 
-**Critical design constraint:** The new wrappers are STRIPPED-DOWN versions of the analog. The analog includes geometry, fancyhdr, setspace, lmodern, babel, hyperref, longtable, enumitem, xcolor, biblatex. ALL of these must be OMITTED from publisher wrappers — publisher classes own their own layout. Copying the analog wholesale will cause compilation errors.
+**Critical design constraint:** The new wrappers are STRIPPED-DOWN versions of the analog. The analog includes geometry, fancyhdr, setspace, lmodern, babel, hyperref, longtable, enumitem, xcolor, biblatex. ALL of these must be OMITTED from publisher wrappers - publisher classes own their own layout. Copying the analog wholesale will cause compilation errors.
 
 **What to KEEP from the analog (copy these sections verbatim):**
 
@@ -38,7 +38,7 @@ Header comment pattern (analog lines 1-5):
 % Usage: pandoc ... --template=data/export-templates/scriveno-<platform>.latex
 ```
 
-Encoding block — safe universal addition (analog lines 13-14; keep, drop lmodern):
+Encoding block - safe universal addition (analog lines 13-14; keep, drop lmodern):
 ```latex
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -72,7 +72,7 @@ Pandoc tightlist (analog lines 91-92):
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 ```
 
-CSL references block (analog lines 95-108) — copy VERBATIM:
+CSL references block (analog lines 95-108) - copy VERBATIM:
 ```latex
 $if(csl-refs)$
 \newlength{\cslhangindent}
@@ -90,7 +90,7 @@ $if(csl-refs)$
 $endif$
 ```
 
-Metadata bridge (analog lines 127-131) — title/author/date, drop subtitle for wrappers:
+Metadata bridge (analog lines 127-131) - title/author/date, drop subtitle for wrappers:
 ```latex
 \title{$if(title)$$title$$else$Untitled$endif$}
 \author{$if(author)$$for(author)$$if(it.name)$$it.name$$else$$it$$endif$$sep$ \and $endfor$$else$~$endif$}
@@ -115,23 +115,23 @@ $body$
 
 **What to OMIT (present in analog, must NOT appear in publisher wrappers):**
 
-- `\usepackage{lmodern}` — analog line 15
-- `\usepackage[...]{geometry}` — analog line 23
-- `\usepackage[...]{babel}` — analog lines 26-29
-- `\usepackage{setspace}` + `\setstretch` — analog lines 32-37
-- `\usepackage{fancyhdr}` + `\pagestyle{fancy}` block — analog lines 40-45
-- `\setcounter{secnumdepth}` — analog lines 48-52
-- `\usepackage{longtable,booktabs,array}` — analog line 63
-- `\usepackage{enumitem}` — analog line 66
-- `\usepackage[usenames,dvipsnames]{xcolor}` — analog line 69
-- `\usepackage[...]{hyperref}` block — analog lines 72-80
-- `\usepackage[backend=biber,...]{biblatex}` block — analog lines 112-123
-- `\printbibliography` — analog line 175
-- TOC, LOF, LOT conditionals — analog lines 153-167
-- Appendix conditional — analog lines 179-182
-- `$if(fontsize)$` and `$if(documentclass)$` variable in `\documentclass` — NOT used; each wrapper hardcodes its publisher class
+- `\usepackage{lmodern}` - analog line 15
+- `\usepackage[...]{geometry}` - analog line 23
+- `\usepackage[...]{babel}` - analog lines 26-29
+- `\usepackage{setspace}` + `\setstretch` - analog lines 32-37
+- `\usepackage{fancyhdr}` + `\pagestyle{fancy}` block - analog lines 40-45
+- `\setcounter{secnumdepth}` - analog lines 48-52
+- `\usepackage{longtable,booktabs,array}` - analog line 63
+- `\usepackage{enumitem}` - analog line 66
+- `\usepackage[usenames,dvipsnames]{xcolor}` - analog line 69
+- `\usepackage[...]{hyperref}` block - analog lines 72-80
+- `\usepackage[backend=biber,...]{biblatex}` block - analog lines 112-123
+- `\printbibliography` - analog line 175
+- TOC, LOF, LOT conditionals - analog lines 153-167
+- Appendix conditional - analog lines 179-182
+- `$if(fontsize)$` and `$if(documentclass)$` variable in `\documentclass` - NOT used; each wrapper hardcodes its publisher class
 
-**`\documentclass` line — per-class pattern:**
+**`\documentclass` line - per-class pattern:**
 
 The analog uses a variable documentclass (line 8). Publisher wrappers hardcode the class with a `classoption` pass-through:
 ```latex
@@ -148,9 +148,9 @@ The analog uses a variable documentclass (line 8). Publisher wrappers hardcode t
 | `scriveno-elsevier.latex` | `elsarticle` | `[preprint,12pt]` | `elsarticle-num` |
 | `scriveno-apa7.latex` | `apa7` | `[jou,longtable]` or `[man]` | biblatex-apa |
 
-**llncs-specific bibliography note** (LNCS only — add as comment in `scriveno-lncs.latex`):
+**llncs-specific bibliography note** (LNCS only - add as comment in `scriveno-lncs.latex`):
 ```latex
-% Bibliography: use splncs04 bib style (not llncs — that style is deprecated)
+% Bibliography: use splncs04 bib style (not llncs - that style is deprecated)
 % \bibliographystyle{splncs04}
 % Note: llncs.cls may also be obtained from Springer's author resources page
 % if tlmgr install llncs is unavailable on your TeX distribution:
@@ -159,11 +159,11 @@ The analog uses a variable documentclass (line 8). Publisher wrappers hardcode t
 
 ---
 
-### `commands/scr/build-print.md` (command, request-response — self-extension)
+### `commands/scr/build-print.md` (command, request-response - self-extension)
 
 **Analog:** `commands/scr/build-print.md` itself (extending existing STEPS)
 
-**STEP 2 prerequisite check pattern** (analog lines 197-214 — Pandoc check; lines 218-234 — Typst check; lines 236-254 — Ghostscript conditional check). New kpsewhich checks follow EXACTLY this pattern and are inserted at the end of STEP 2:
+**STEP 2 prerequisite check pattern** (analog lines 197-214 - Pandoc check; lines 218-234 - Typst check; lines 236-254 - Ghostscript conditional check). New kpsewhich checks follow EXACTLY this pattern and are inserted at the end of STEP 2:
 
 ```markdown
 If platform is one of `ieee`, `acm`, `lncs`, `elsevier`, `apa7`:
@@ -188,11 +188,11 @@ If kpsewhich is not found:
 Then **stop**.
 
 Map platform to class file:
-- `ieee` → `IEEEtran.cls`, install: `tlmgr install ieeetran`
-- `acm` → `acmart.cls`, install: `tlmgr install acmart`
-- `lncs` → `llncs.cls`, install: `tlmgr install llncs` (or Springer download page)
-- `elsevier` → `elsarticle.cls`, install: `tlmgr install elsarticle`
-- `apa7` → `apa7.cls`, install: `tlmgr install apa7`
+- `ieee` -> `IEEEtran.cls`, install: `tlmgr install ieeetran`
+- `acm` -> `acmart.cls`, install: `tlmgr install acmart`
+- `lncs` -> `llncs.cls`, install: `tlmgr install llncs` (or Springer download page)
+- `elsevier` -> `elsarticle.cls`, install: `tlmgr install elsarticle`
+- `apa7` -> `apa7.cls`, install: `tlmgr install apa7`
 
 Check for the publisher class:
 
@@ -236,7 +236,7 @@ New early-exit branch BEFORE trim-size logic (insert after EPUB-only check block
 ```markdown
 **If platform is an academic publisher platform** (`ieee`, `acm`, `lncs`, `elsevier`, `apa7`):
 
-Skip trim-size validation and page-count guardrail — these are not applicable to `.tex` output.
+Skip trim-size validation and page-count guardrail - these are not applicable to `.tex` output.
 
 Proceed directly to STEP 3.
 ```
@@ -258,7 +258,7 @@ Then **stop**.
 Skip Typst template selection (set `TYPST_TEMPLATE` to null). Proceed to STEP 2.
 ```
 
-**STEP 4 academic route** (analog lines 384-414 — Pandoc + Typst invocation):
+**STEP 4 academic route** (analog lines 384-414 - Pandoc + Typst invocation):
 
 Insert new branch BEFORE the existing `pandoc` invocation block:
 ```markdown
@@ -289,14 +289,14 @@ Add academic variant of success report:
 ```markdown
 For academic platforms, show:
 ```
-✓ LaTeX source built → .manuscript/output/paper-{platform}.tex ({file_size})
+[x] LaTeX source built -> .manuscript/output/paper-{platform}.tex ({file_size})
   Compile with pdflatex or xelatex using your TeX distribution.
 ```
 ```
 
 ---
 
-### `data/CONSTRAINTS.json` (config — self-extension)
+### `data/CONSTRAINTS.json` (config - self-extension)
 
 **Analog:** `data/CONSTRAINTS.json` itself
 
@@ -319,7 +319,7 @@ For academic platforms, show:
 }
 ```
 
-The `work_type_groups.academic` key (CONSTRAINTS.json lines 15-18) already exists with correct members — no change needed:
+The `work_type_groups.academic` key (CONSTRAINTS.json lines 15-18) already exists with correct members - no change needed:
 ```json
 "academic": {
   "label": "Academic",
@@ -333,7 +333,7 @@ The `work_type_groups.academic` key (CONSTRAINTS.json lines 15-18) already exist
 
 **Analog:** `test/phase34-cross-domain-templates.test.js`
 
-**File header pattern** (analog lines 1-11) — copy VERBATIM, update paths:
+**File header pattern** (analog lines 1-11) - copy VERBATIM, update paths:
 ```javascript
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
@@ -346,7 +346,7 @@ const BUILD_PRINT_PATH  = path.join(ROOT, 'commands', 'scr', 'build-print.md');
 const CONSTRAINTS_PATH  = path.join(ROOT, 'data', 'CONSTRAINTS.json');
 ```
 
-**readFile helper** (analog lines 14-21) — copy VERBATIM:
+**readFile helper** (analog lines 14-21) - copy VERBATIM:
 ```javascript
 function readFile(filePath) {
   try { return fs.readFileSync(filePath, 'utf8'); }
@@ -354,22 +354,22 @@ function readFile(filePath) {
 }
 ```
 
-**describe/it block pattern** (analog lines 27-101) — each describe block covers one TPL requirement, it-blocks test one assertion:
+**describe/it block pattern** (analog lines 27-101) - each describe block covers one TPL requirement, it-blocks test one assertion:
 ```javascript
 describe('Phase 35: TPL-07 scriveno-ieee.latex exists with IEEEtran class', () => {
   const IEEE = path.join(TEMPLATES_DIR, 'scriveno-ieee.latex');
 
-  it('scriveno-ieee.latex exists — TPL-07', () => {
+  it('scriveno-ieee.latex exists - TPL-07', () => {
     const content = readFile(IEEE);
-    assert.ok(content !== null, 'data/export-templates/scriveno-ieee.latex must exist — TPL-07');
+    assert.ok(content !== null, 'data/export-templates/scriveno-ieee.latex must exist - TPL-07');
   });
 
-  it('scriveno-ieee.latex contains \\documentclass{IEEEtran} — TPL-07', () => {
+  it('scriveno-ieee.latex contains \\documentclass{IEEEtran} - TPL-07', () => {
     const content = readFile(IEEE);
-    assert.ok(content !== null, 'scriveno-ieee.latex must exist — TPL-07');
+    assert.ok(content !== null, 'scriveno-ieee.latex must exist - TPL-07');
     assert.ok(
       content.includes('\\documentclass') && content.includes('IEEEtran'),
-      'scriveno-ieee.latex must contain \\documentclass with IEEEtran — TPL-07'
+      'scriveno-ieee.latex must contain \\documentclass with IEEEtran - TPL-07'
     );
   });
   // ... pattern repeats per assertion
@@ -380,28 +380,28 @@ describe('Phase 35: TPL-07 scriveno-ieee.latex exists with IEEEtran class', () =
 
 **CONSTRAINTS.json test pattern** (analog lines 260-268):
 ```javascript
-it('data/CONSTRAINTS.json exports.build_print.available includes "academic" — TPL-07', () => {
+it('data/CONSTRAINTS.json exports.build_print.available includes "academic" - TPL-07', () => {
   const raw = readFile(CONSTRAINTS_PATH);
-  assert.ok(raw !== null, 'data/CONSTRAINTS.json must be readable — TPL-07');
+  assert.ok(raw !== null, 'data/CONSTRAINTS.json must be readable - TPL-07');
   const constraints = JSON.parse(raw);
   assert.ok(
     Array.isArray(constraints.exports.build_print.available) &&
     constraints.exports.build_print.available.includes('academic'),
-    'CONSTRAINTS.json exports.build_print.available must include "academic" — TPL-07'
+    'CONSTRAINTS.json exports.build_print.available must include "academic" - TPL-07'
   );
 });
 ```
 
-Note: Phase 34 uses `content.includes('"build-smashwords"')` (string search) for CONSTRAINTS checks. For Phase 35 the planner may use either string search or JSON.parse — both are valid. JSON.parse is more precise for the nested `exports.build_print.available` path.
+Note: Phase 34 uses `content.includes('"build-smashwords"')` (string search) for CONSTRAINTS checks. For Phase 35 the planner may use either string search or JSON.parse - both are valid. JSON.parse is more precise for the nested `exports.build_print.available` path.
 
 **build-print.md content-search pattern** (analog lines 80-100):
 ```javascript
-it('build-print.md references kpsewhich — TPL-07', () => {
+it('build-print.md references kpsewhich - TPL-07', () => {
   const content = readFile(BUILD_PRINT_PATH);
-  assert.ok(content !== null, 'commands/scr/build-print.md must be readable — TPL-07');
+  assert.ok(content !== null, 'commands/scr/build-print.md must be readable - TPL-07');
   assert.ok(
     content.includes('kpsewhich'),
-    'build-print.md must reference kpsewhich — TPL-07'
+    'build-print.md must reference kpsewhich - TPL-07'
   );
 });
 ```
@@ -416,7 +416,7 @@ it('build-print.md references kpsewhich — TPL-07', () => {
 **Apply to:** kpsewhich detection block (two-level: kpsewhich presence, then class presence)
 
 The pattern is always:
-1. `command -v <tool> >/dev/null 2>&1` — detect tool existence
+1. `command -v <tool> >/dev/null 2>&1` - detect tool existence
 2. If not found: blockquote error with per-OS install commands, then `Then **stop**.`
 3. If platform-conditional: wrap the entire check in `If --platform <value> was passed`
 
@@ -448,10 +448,10 @@ Then **stop**.
 **Apply to:** All 5 new `.latex` wrapper templates
 
 Standard Pandoc template variable forms used in the analog:
-- `$if(varname)$ ... $endif$` — conditional block
-- `$for(varname)$ ... $sep$ ... $endfor$` — loop with separator
-- `$varname$` — simple substitution
-- `$if(it.name)$$it.name$$else$$it$$endif$` — object vs scalar author
+- `$if(varname)$ ... $endif$` - conditional block
+- `$for(varname)$ ... $sep$ ... $endfor$` - loop with separator
+- `$varname$` - simple substitution
+- `$if(it.name)$$it.name$$else$$it$$endif$` - object vs scalar author
 
 These are Pandoc-native and must NOT be changed. The wrappers use exactly the same variable names as the analog (`$title$`, `$author$`, `$abstract$`, `$keywords$`, `$date$`, `$body$`, `$bibliography$`, `$if(csl-refs)$`, `$if(highlighting-macros)$`).
 
@@ -460,7 +460,7 @@ These are Pandoc-native and must NOT be changed. The wrappers use exactly the sa
 **Source:** `test/phase34-cross-domain-templates.test.js`
 **Apply to:** `test/phase35-academic-latex-wrappers.test.js`
 
-All test assertions must end with `— TPL-07` (the phase requirement ID). This is the convention across all phase test files — the requirement ID tags every assertion message for traceability.
+All test assertions must end with ` -  TPL-07` (the phase requirement ID). This is the convention across all phase test files - the requirement ID tags every assertion message for traceability.
 
 ---
 
@@ -470,7 +470,7 @@ All files have close analogs. No file in this phase requires a completely novel 
 
 ---
 
-## Anti-Patterns (from RESEARCH.md — do not copy from analog)
+## Anti-Patterns (from RESEARCH.md - do not copy from analog)
 
 These patterns exist in `scriveno-academic.latex` but must NOT be copied into the 5 publisher wrappers:
 

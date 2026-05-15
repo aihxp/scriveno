@@ -14,16 +14,16 @@ provides:
   - Phase 33 regression test suite (TRAD-01..TRAD-05 + behavioral checks)
   - Machine-executable contracts for all 5 TRAD requirements in RED state
 affects:
-  - 33-02 (manifest population — turns TRAD-01/02/03/04 GREEN)
-  - 33-03 (build command STEP 1.7 — turns TRAD-05 GREEN)
-  - 33-04 (front-matter.md + sacred-verse-numbering.md — turns behavioral blocks GREEN)
+  - 33-02 (manifest population - turns TRAD-01/02/03/04 GREEN)
+  - 33-03 (build command STEP 1.7 - turns TRAD-05 GREEN)
+  - 33-04 (front-matter.md + sacred-verse-numbering.md - turns behavioral blocks GREEN)
 
 # Tech tracking
 tech-stack:
   added: []
   patterns:
     - "Per-slug test loop with Set for exception groups (nullOrderSlugs)"
-    - "Raw string includes() for YAML field presence — no js-yaml parser"
+    - "Raw string includes() for YAML field presence - no js-yaml parser"
     - "Null-safe readFile() returning null on missing file (established in phase32)"
 
 key-files:
@@ -32,7 +32,7 @@ key-files:
   modified: []
 
 key-decisions:
-  - "All YAML assertions use raw string includes() — no js-yaml dependency, consistent with zero-dependency architecture"
+  - "All YAML assertions use raw string includes() - no js-yaml dependency, consistent with zero-dependency architecture"
   - "book_order null-check uses a Set (nullOrderSlugs) to skip the non-null assertion for pali/sanskrit/tibetan"
   - "TRAD-03-behavioral and TRAD-04-behavioral blocks added as forward-looking tests for Plans 33-04"
   - "284 failing tests at RED state (10 'exists' tests pass because placeholder files do exist)"
@@ -69,12 +69,12 @@ completed: 2026-04-17
 
 - Created `test/phase33-sacred-tradition-profiles.test.js` with 7 describe blocks covering all 5 TRAD requirements plus 2 behavioral presence checks
 - Confirmed RED state: 284 tests failing, exit code 1, 0 tests passing (only the 10 "exists" tests pass because placeholder files genuinely exist)
-- No js-yaml dependency — all YAML field validation uses raw `content.includes()` string checks
+- No js-yaml dependency - all YAML field validation uses raw `content.includes()` string checks
 - All 10 tradition slugs covered: catholic, islamic-hafs, islamic-warsh, jewish, orthodox, pali, protestant, sanskrit, tewahedo, tibetan
 
 ## Task Commits
 
-1. **Task 1: Write phase33 test suite — TDD RED** - `217b854` (test)
+1. **Task 1: Write phase33 test suite - TDD RED** - `217b854` (test)
 
 **Plan metadata:** (committed with SUMMARY in final docs commit)
 
@@ -84,9 +84,9 @@ completed: 2026-04-17
 
 ## Decisions Made
 
-- Used raw `content.includes()` for all YAML field checks rather than js-yaml — preserves zero-dependency architecture and is sufficient for non-null assertions
+- Used raw `content.includes()` for all YAML field checks rather than js-yaml - preserves zero-dependency architecture and is sufficient for non-null assertions
 - Set-based exception group for book_order: `nullOrderSlugs = new Set(['pali', 'sanskrit', 'tibetan'])` to skip the non-null book_order assertion for variable-order traditions while asserting the positive null in TRAD-03
-- TRAD-04-behavioral targets `commands/scr/sacred-verse-numbering.md` (not `commands/scr/sacred/verse-numbering.md`) — this matches the plan's specified path for the new command file to be created in Plan 33-04
+- TRAD-04-behavioral targets `commands/scr/sacred-verse-numbering.md` (not `commands/scr/sacred/verse-numbering.md`) - this matches the plan's specified path for the new command file to be created in Plan 33-04
 
 ## Deviations from Plan
 
@@ -94,11 +94,11 @@ None - plan executed exactly as written.
 
 ## Issues Encountered
 
-None. Syntax OK on first write. RED state confirmed immediately — 284 failing, 10 passing ("exists" checks for placeholder files that legitimately exist).
+None. Syntax OK on first write. RED state confirmed immediately - 284 failing, 10 passing ("exists" checks for placeholder files that legitimately exist).
 
 ## Stub Tracking
 
-None — this plan creates only a test file with no production stubs.
+None - this plan creates only a test file with no production stubs.
 
 ## Threat Surface Scan
 

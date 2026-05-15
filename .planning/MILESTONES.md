@@ -70,7 +70,7 @@
 
 ## v1.7 Last Mile (Shipped: 2026-04-17)
 
-**Delivered:** Closed the production edge — shipped real build pipelines, cross-domain templates, sacred tradition profiles, and academic LaTeX wrappers so Scriveno reaches publication-ready output for any supported work type, not just book prose.
+**Delivered:** Closed the production edge - shipped real build pipelines, cross-domain templates, sacred tradition profiles, and academic LaTeX wrappers so Scriveno reaches publication-ready output for any supported work type, not just book prose.
 
 **Phases completed:** 29-35 (7 phases, 23 plans)
 
@@ -95,17 +95,17 @@
 
 ## v1.6 Installer Hardening (Shipped: 2026-04-16)
 
-**Delivered:** Correctness pass on the Scriveno installer based on cross-referencing GSD releases v1.33–v1.36. Fixed frontmatter parsing fragility, non-atomic writes, destructive reinstall behavior, incomplete command-ref rewriting, and lack of settings validation — all while preserving the zero-dependency architecture.
+**Delivered:** Correctness pass on the Scriveno installer based on cross-referencing GSD releases v1.33-v1.36. Fixed frontmatter parsing fragility, non-atomic writes, destructive reinstall behavior, incomplete command-ref rewriting, and lack of settings validation - all while preserving the zero-dependency architecture.
 
 **Phases completed:** 23-28 (6 plans total)
 
 **Key accomplishments:**
 
-- Shipped `atomicWriteFileSync` + `cleanOrphanedTempFiles` with fsync durability — no more truncated files on SIGKILL
+- Shipped `atomicWriteFileSync` + `cleanOrphanedTempFiles` with fsync durability - no more truncated files on SIGKILL
 - Rewrote `readFrontmatterValue` as a line-based parser scoped to the `---` block with first-colon splitting
 - Built settings schema infrastructure (`SETTINGS_SCHEMA`, `validateSettings`, `migrateSettings`, `readSettings`) with migration-before-validation ordering
-- Replaced destructive template/settings wipe with `sha256File` + `copyDirWithPreservation` + `mergeSettings` — user customizations survive reinstall
-- Added code-block-aware rewriter and `generateCodexCommandContent` — Codex command files now use `$scr-*` with code blocks preserved
+- Replaced destructive template/settings wipe with `sha256File` + `copyDirWithPreservation` + `mergeSettings` - user customizations survive reinstall
+- Added code-block-aware rewriter and `generateCodexCommandContent` - Codex command files now use `$scr-*` with code blocks preserved
 - Locked all hardening behaviors with 88 new regression tests + end-to-end smoke test + 12-row traceability matrix
 
 **Stats:**
@@ -115,7 +115,7 @@
 - Full test suite: 1067/1067 passing
 - Zero new npm dependencies
 
-**Git range:** `55caac8` → `3f4daff`
+**Git range:** `55caac8` -> `3f4daff`
 
 **What's next:** No new milestone is defined yet. The next step is to choose the next product focus and start a fresh milestone.
 
@@ -142,7 +142,7 @@
 - 3 phases, 7 plans, 9 milestone requirements
 - Milestone work landed on 2026-04-09
 
-**Git range:** `5385856` → `3b514c4`
+**Git range:** `5385856` -> `3b514c4`
 
 **What's next:** No new milestone is defined yet. The next step is to choose the next product focus and start a fresh milestone.
 
@@ -168,9 +168,9 @@
 
 - 265 files changed, 5993 insertions, 22680 deletions
 - 4 phases, 9 plans, 21 tasks
-- Milestone work and closeout landed across 2026-04-07 → 2026-04-09
+- Milestone work and closeout landed across 2026-04-07 -> 2026-04-09
 
-**Git range:** `b3ca8ca` → `d0f93d1`
+**Git range:** `b3ca8ca` -> `d0f93d1`
 
 **What's next:** No new milestone is defined yet. The next step is to choose the next product focus and start a fresh milestone.
 

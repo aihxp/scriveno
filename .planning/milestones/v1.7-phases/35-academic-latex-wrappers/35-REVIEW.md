@@ -33,13 +33,13 @@ This is iteration 2 of the auto-fix loop for Phase 35 (academic LaTeX wrappers).
 
 **Verification of the 7 previous warnings:**
 
-- **WR-01** (Typst check gated behind non-academic condition): `build-print.md` line 242 now conditions the Typst prerequisite check on `--platform` not being one of the five academic platforms — confirmed fixed.
-- **WR-02** (ACM no longer loads amsmath/amssymb/graphicx): `scriveno-acm.latex` lines 15–17 replace the duplicate `\usepackage` calls with a comment explaining acmart.cls loads these internally — confirmed fixed.
-- **WR-03** (APA7 has `$for(header-includes)$` block and commented biblatex hint): `scriveno-apa7.latex` lines 32–38 contain both — confirmed fixed.
-- **WR-04** (IEEE keywords use `\begin{IEEEkeywords}...\end{IEEEkeywords}`): `scriveno-ieee.latex` lines 66–68 — confirmed fixed.
-- **WR-05** (LNCS has `\institute{}` block mapping `it.affiliation`): `scriveno-lncs.latex` line 53 — confirmed fixed.
-- **WR-06** (Elsevier has `\address{$it.affiliation$}` block after `\author{}`): `scriveno-elsevier.latex` lines 53–55 — confirmed fixed.
-- **WR-07** (STEP 5 PDF report block explicitly conditional on non-academic platforms): `build-print.md` line 543 — confirmed fixed.
+- **WR-01** (Typst check gated behind non-academic condition): `build-print.md` line 242 now conditions the Typst prerequisite check on `--platform` not being one of the five academic platforms - confirmed fixed.
+- **WR-02** (ACM no longer loads amsmath/amssymb/graphicx): `scriveno-acm.latex` lines 15-17 replace the duplicate `\usepackage` calls with a comment explaining acmart.cls loads these internally - confirmed fixed.
+- **WR-03** (APA7 has `$for(header-includes)$` block and commented biblatex hint): `scriveno-apa7.latex` lines 32-38 contain both - confirmed fixed.
+- **WR-04** (IEEE keywords use `\begin{IEEEkeywords}...\end{IEEEkeywords}`): `scriveno-ieee.latex` lines 66-68 - confirmed fixed.
+- **WR-05** (LNCS has `\institute{}` block mapping `it.affiliation`): `scriveno-lncs.latex` line 53 - confirmed fixed.
+- **WR-06** (Elsevier has `\address{$it.affiliation$}` block after `\author{}`): `scriveno-elsevier.latex` lines 53-55 - confirmed fixed.
+- **WR-07** (STEP 5 PDF report block explicitly conditional on non-academic platforms): `build-print.md` line 543 - confirmed fixed.
 
 One informational observation is noted below; it does not affect correctness and was not introduced by the iteration 2 fixes.
 

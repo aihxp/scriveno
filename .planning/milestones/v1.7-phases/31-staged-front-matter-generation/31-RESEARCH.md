@@ -1,8 +1,8 @@
-# Phase 31: Staged Front-Matter Generation — Research
+# Phase 31: Staged Front-Matter Generation - Research
 
 **Researched:** 2026-04-17
 **Domain:** Markdown command authoring, YAML frontmatter conventions, AI agent instruction patterns
-**Confidence:** HIGH — all findings derived from direct codebase inspection
+**Confidence:** HIGH - all findings derived from direct codebase inspection
 
 ---
 
@@ -31,13 +31,13 @@
   ```
 - GENERATE element files get no YAML frontmatter (absence of frontmatter = included by default in assembly)
 
-**Export Gate — Scaffold Exclusion**
-- Scaffold exclusion is NOT blocking — writer can export normally even with scaffold: true files
+**Export Gate - Scaffold Exclusion**
+- Scaffold exclusion is NOT blocking - writer can export normally even with scaffold: true files
 - Behavior: silently exclude `scaffold: true` front-matter files from assembly, then show a summary note
 - Exclusion step added as STEP 1.6 in export.md and publish.md (after Phase 30's STEP 1.5 validate gate, before STEP 2 prerequisites check)
 - If all front-matter files pass (no scaffold: true), no note is shown
 
-**Export Gate — Auto-Refresh**
+**Export Gate - Auto-Refresh**
 - Compare modification timestamp of `.manuscript/WORK.md` against the 4 GENERATE front-matter files: `01-half-title.md`, `03-title-page.md`, `04-copyright.md`, `07-toc.md`
 - If WORK.md is newer than ANY of those files (or if any don't exist), regenerate all 4 GENERATE elements from current WORK.md before proceeding to assembly
 - If WORK.md is not newer than all 4 files: skip regeneration silently
@@ -46,7 +46,7 @@
 
 **STEP 1.6 placement:** After STEP 1.5 (validate gate), before STEP 2 (prerequisites check / route)
 
-**Error handling if directory missing:** Show "No front matter generated — run /scr:front-matter first" and continue (do not block export)
+**Error handling if directory missing:** Show "No front matter generated - run /scr:front-matter first" and continue (do not block export)
 
 **`scaffold: false` opt-in:** Writer edits the file, changes `scaffold: true` to `scaffold: false`, file is included on next export
 
@@ -59,8 +59,8 @@
 ### Deferred Ideas (OUT OF SCOPE)
 
 - `scaffold: true` on Introduction, Prologue, Maps, Note-to-Reader
-- Sacred tradition front matter (approval blocks, imprimatur) — Phase 33
-- Persistent report of excluded scaffold files — in-session output only, no persistent file
+- Sacred tradition front matter (approval blocks, imprimatur) - Phase 33
+- Persistent report of excluded scaffold files - in-session output only, no persistent file
 - `--force-scaffold` flag to include all scaffold: true elements for review
 </user_constraints>
 
@@ -87,7 +87,7 @@ The core work is: (1) prepend `scaffold: true` YAML to 5 personalization element
 
 A new test file `test/phase31-staged-front-matter-generation.test.js` must be created following the Phase 30 test pattern: read the command files as text, assert structural properties with `node:test` + `node:assert`.
 
-The key complexity is STEP 1.6 covering both FM-03 (scaffold exclusion from assembly) and FM-04 (auto-refresh of GENERATE elements). The planner must decide whether to implement these as one combined STEP 1.6 block or split into STEP 1.6 and STEP 1.7 — the CONTEXT marks this as Claude's Discretion.
+The key complexity is STEP 1.6 covering both FM-03 (scaffold exclusion from assembly) and FM-04 (auto-refresh of GENERATE elements). The planner must decide whether to implement these as one combined STEP 1.6 block or split into STEP 1.6 and STEP 1.7 - the CONTEXT marks this as Claude's Discretion.
 
 **Primary recommendation:** Implement as a single STEP 1.6 with two clearly labeled sub-steps (1.6a: scaffold exclusion scan; 1.6b: GENERATE auto-refresh). This mirrors the STEP 3b pattern in export.md where assembly has labelled sub-steps (3a through 3g).
 
@@ -97,11 +97,11 @@ The key complexity is STEP 1.6 covering both FM-03 (scaffold exclusion from asse
 
 | Capability | Primary Tier | Secondary Tier | Rationale |
 |------------|-------------|----------------|-----------|
-| Scaffold YAML header generation | Agent instruction (front-matter.md) | — | Agent writes the files; the instruction tells it to prepend YAML |
-| Scaffold exclusion at export | Agent instruction (export.md + publish.md) | — | Assembly happens inside the agent following STEP 3b; exclusion list built before STEP 3 runs |
-| GENERATE element auto-refresh | Agent instruction (export.md + publish.md) | — | Timestamp comparison and conditional regeneration are agent instructions, not code |
-| Writer opt-in (scaffold: false) | Writer action | — | Pure convention: writer edits YAML in file, no tooling change needed |
-| Test coverage | test/phase31-*.test.js | — | Static text assertions on command file content, same pattern as Phase 30 |
+| Scaffold YAML header generation | Agent instruction (front-matter.md) | - | Agent writes the files; the instruction tells it to prepend YAML |
+| Scaffold exclusion at export | Agent instruction (export.md + publish.md) | - | Assembly happens inside the agent following STEP 3b; exclusion list built before STEP 3 runs |
+| GENERATE element auto-refresh | Agent instruction (export.md + publish.md) | - | Timestamp comparison and conditional regeneration are agent instructions, not code |
+| Writer opt-in (scaffold: false) | Writer action | - | Pure convention: writer edits YAML in file, no tooling change needed |
+| Test coverage | test/phase31-*.test.js | - | Static text assertions on command file content, same pattern as Phase 30 |
 
 ---
 
@@ -116,7 +116,7 @@ This phase has no library dependencies. All work is markdown text editing.
 | `commands/scr/publish.md` | 258 lines | Inject STEP 1.6 after line 66, before line 70 |
 | `test/phase31-staged-front-matter-generation.test.js` | new file | ~150 lines, FM-01 through FM-04 assertions |
 
-**Installation:** None required. [VERIFIED: codebase — zero npm runtime dependencies, architecture constraint in CLAUDE.md]
+**Installation:** None required. [VERIFIED: codebase - zero npm runtime dependencies, architecture constraint in CLAUDE.md]
 
 ---
 
@@ -202,11 +202,11 @@ element: preface
 **Source:** [VERIFIED: 31-CONTEXT.md `<decisions>` section]
 
 The element names for the 5 scaffold files:
-- `05-dedication.md` → `element: dedication`
-- `06-epigraph.md` → `element: epigraph`
-- `11-foreword.md` → `element: foreword`
-- `12-preface.md` → `element: preface`
-- `13-acknowledgments.md` → `element: acknowledgments`
+- `05-dedication.md` -> `element: dedication`
+- `06-epigraph.md` -> `element: epigraph`
+- `11-foreword.md` -> `element: foreword`
+- `12-preface.md` -> `element: preface`
+- `13-acknowledgments.md` -> `element: acknowledgments`
 
 [VERIFIED: front-matter.md element table lines 17-37, confirmed file paths at lines 175, 211, 283, 306, 331]
 
@@ -233,13 +233,13 @@ Scan all .md files in `.manuscript/drafts/` for:
 If no markers found: proceed to STEP 2.
 ```
 
-**STEP 1.6 follows the same pattern but is non-blocking:** no `stop` — always proceeds, just shows a note if files were excluded.
+**STEP 1.6 follows the same pattern but is non-blocking:** no `stop` - always proceeds, just shows a note if files were excluded.
 
 [VERIFIED: export.md lines 86-116 direct inspection]
 
 ### Pattern 3: STEP 3b Front-Matter Assembly (Where Exclusion List Is Applied)
 
-**What:** STEP 3b in export.md (lines 186-199) reads all files in `.manuscript/front-matter/`, sorts by numeric prefix. This is where STEP 1.6's exclusion list must be applied — 3b must skip files whose path is in the exclusion list.
+**What:** STEP 3b in export.md (lines 186-199) reads all files in `.manuscript/front-matter/`, sorts by numeric prefix. This is where STEP 1.6's exclusion list must be applied - 3b must skip files whose path is in the exclusion list.
 
 **Current 3b text (lines 186-199):**
 
@@ -257,11 +257,11 @@ Proceed with body content only.
 
 [VERIFIED: export.md lines 185-200 direct inspection]
 
-**IMPORTANT:** publish.md does NOT have its own STEP 3b — it chains to export.md by calling the preset export commands. Therefore, the scaffold exclusion logic in publish.md's STEP 1.6 informs the export commands it dispatches, not a separate 3b. The planner must confirm whether the STEP 1.6 in publish.md + STEP 3b edit in export.md is sufficient coverage, or if publish.md's preset chains need a note.
+**IMPORTANT:** publish.md does NOT have its own STEP 3b - it chains to export.md by calling the preset export commands. Therefore, the scaffold exclusion logic in publish.md's STEP 1.6 informs the export commands it dispatches, not a separate 3b. The planner must confirm whether the STEP 1.6 in publish.md + STEP 3b edit in export.md is sufficient coverage, or if publish.md's preset chains need a note.
 
-[VERIFIED: publish.md STEP 4 preset tables lines 152-217 — all steps call /scr:export or /scr:front-matter; no own assembly step]
+[VERIFIED: publish.md STEP 4 preset tables lines 152-217 - all steps call /scr:export or /scr:front-matter; no own assembly step]
 
-### Pattern 4: Timestamp Comparison — Platform-Agnostic Instruction
+### Pattern 4: Timestamp Comparison - Platform-Agnostic Instruction
 
 **What:** FM-04 requires comparing modification timestamps. Since Scriveno commands are instructions to an AI agent (not shell scripts), the instruction must tell the agent how to check timestamps in a way that works across macOS, Linux, and Windows.
 
@@ -280,17 +280,17 @@ To compare timestamps, use the appropriate tool for the current platform:
 - Fallback: Ask the agent's file system tools if available; if not, assume WORK.md is newer and regenerate.
 
 If WORK.md is newer than ANY of those files, or if ANY of those files do not exist:
-  → Regenerate all 4 GENERATE elements [...]
+  -> Regenerate all 4 GENERATE elements [...]
 ```
 
-[ASSUMED: agent instruction phrasing — no prior art for this in the codebase. The planner should verify the wording is idiomatic for Scriveno's command style.]
+[ASSUMED: agent instruction phrasing - no prior art for this in the codebase. The planner should verify the wording is idiomatic for Scriveno's command style.]
 
 ### Anti-Patterns to Avoid
 
-- **Blocking export on scaffold presence:** CONTEXT.md is explicit — scaffold exclusion is non-blocking. Do not add `stop` language after the scaffold note.
+- **Blocking export on scaffold presence:** CONTEXT.md is explicit - scaffold exclusion is non-blocking. Do not add `stop` language after the scaffold note.
 - **Modifying STEP 3b to scan YAML:** Instead, STEP 1.6 builds the exclusion list and passes it forward. STEP 3b references the list. Putting YAML-scan logic inside STEP 3b would be wrong; the gate step is the right place.
 - **Regenerating all 19 elements on WORK.md change:** Only the 4 GENERATE elements (01, 03, 04, 07) are auto-refreshed. The CONTEXT decision scopes this precisely.
-- **Running /scr:front-matter with no modification:** The regeneration instruction in STEP 1.6 must direct the agent to re-run ONLY the GENERATE step for elements 1, 3, 4, 7 — not trigger a full front-matter run (which would overwrite the writer's personalized scaffold files).
+- **Running /scr:front-matter with no modification:** The regeneration instruction in STEP 1.6 must direct the agent to re-run ONLY the GENERATE step for elements 1, 3, 4, 7 - not trigger a full front-matter run (which would overwrite the writer's personalized scaffold files).
 
 ---
 
@@ -313,7 +313,7 @@ If WORK.md is newer than ANY of those files, or if ANY of those files do not exi
 - `front-matter.md` line 308: `#### Element 13: Acknowledgments (Recto) -- GENERATE DRAFT`
 - `31-CONTEXT.md` decisions: "Element 13: Acknowledgments" in the 5-element scaffold list
 
-**Resolution:** The CONTEXT.md is the locked decision source. Element 13 gets `scaffold: true` prepended — this is user-confirmed. The element type label in the table (`GENERATE DRAFT`) describes how content is generated (AI generates a draft), not the publication-readiness gate. The `scaffold: true` flag serves the FM-03 gate independently of the generation approach.
+**Resolution:** The CONTEXT.md is the locked decision source. Element 13 gets `scaffold: true` prepended - this is user-confirmed. The element type label in the table (`GENERATE DRAFT`) describes how content is generated (AI generates a draft), not the publication-readiness gate. The `scaffold: true` flag serves the FM-03 gate independently of the generation approach.
 
 **Plan action required:** Do NOT change the `GENERATE DRAFT` label in the element table or section header (out of scope). DO prepend `scaffold: true` YAML to the element 13 output per the locked decision.
 
@@ -325,7 +325,7 @@ If WORK.md is newer than ANY of those files, or if ANY of those files do not exi
 
 **Finding:** Element 6 (Epigraph) is typed `SUGGEST` in front-matter.md (line 24), not `SCAFFOLD`. However CONTEXT.md includes it in the 5-element scaffold list.
 
-**Resolution:** Same as acknowledgments — the `SUGGEST` label describes how the AI contributes (it offers suggestions), not the gate behavior. The `scaffold: true` YAML gate is an independent mechanism. The element type label stays unchanged; the YAML header is prepended.
+**Resolution:** Same as acknowledgments - the `SUGGEST` label describes how the AI contributes (it offers suggestions), not the gate behavior. The `scaffold: true` YAML gate is an independent mechanism. The element type label stays unchanged; the YAML header is prepended.
 
 [VERIFIED: front-matter.md line 24, 31-CONTEXT.md decisions section]
 
@@ -363,21 +363,21 @@ If WORK.md is newer than ANY of those files, or if ANY of those files do not exi
 
 **What goes wrong:** If `.manuscript/front-matter/` doesn't exist, the agent tries to scan it and errors or shows a confusing message.
 
-**How to avoid:** STEP 1.6 must check for directory existence first. If missing: show "No front matter generated — run /scr:front-matter first" and proceed (from CONTEXT.md).
+**How to avoid:** STEP 1.6 must check for directory existence first. If missing: show "No front matter generated - run /scr:front-matter first" and proceed (from CONTEXT.md).
 
 ### Pitfall 5: STEP 1.6 in publish.md Redundant With STEP 1.6 in export.md
 
-**What goes wrong:** Writer runs `/scr:publish --preset kdp-paperback`. Publish's STEP 1.6 excludes scaffold files and does auto-refresh. Then publish calls `/scr:export --format pdf --print-ready`, which runs export's own STEP 1.6 again — double execution.
+**What goes wrong:** Writer runs `/scr:publish --preset kdp-paperback`. Publish's STEP 1.6 excludes scaffold files and does auto-refresh. Then publish calls `/scr:export --format pdf --print-ready`, which runs export's own STEP 1.6 again - double execution.
 
-**Resolution:** This is acceptable — the second execution of STEP 1.6 in export.md will find nothing to regenerate (WORK.md not newer than the files that were just regenerated) and no exclusion list items to show (same result). The redundancy is harmless. No special deduplication logic needed.
+**Resolution:** This is acceptable - the second execution of STEP 1.6 in export.md will find nothing to regenerate (WORK.md not newer than the files that were just regenerated) and no exclusion list items to show (same result). The redundancy is harmless. No special deduplication logic needed.
 
-[ASSUMED: Analysis of execution flow — the agent is stateless between command invocations, so double-running STEP 1.6 is idempotent for auto-refresh and produces at most two summary notes. The planner may choose to add a note acknowledging this.]
+[ASSUMED: Analysis of execution flow - the agent is stateless between command invocations, so double-running STEP 1.6 is idempotent for auto-refresh and produces at most two summary notes. The planner may choose to add a note acknowledging this.]
 
 ### Pitfall 6: version bump in CONSTRAINTS.json
 
 **What goes wrong:** The test `constraints.test.js` asserts `constraints.version === pkg.version`. If CONSTRAINTS.json is modified (it is not in Phase 31), the version must match package.json. If package.json is bumped, CONSTRAINTS.json must be bumped too.
 
-**Phase 31 status:** No CONSTRAINTS.json changes needed — the `front-matter` command is already registered (line 989 CONSTRAINTS.json) and Phase 31 does not add/remove commands. No version bump required.
+**Phase 31 status:** No CONSTRAINTS.json changes needed - the `front-matter` command is already registered (line 989 CONSTRAINTS.json) and Phase 31 does not add/remove commands. No version bump required.
 
 [VERIFIED: CONSTRAINTS.json line 989-998; constraints.test.js line 22-25]
 
@@ -411,7 +411,7 @@ Source: [VERIFIED: 31-CONTEXT.md `<decisions>` + `<specifics>` sections]
 ```markdown
 ### STEP 1.6: FRONT-MATTER GATE
 
-**1.6a — Scaffold exclusion**
+**1.6a - Scaffold exclusion**
 
 Check if `.manuscript/front-matter/` exists. If it does not exist:
 > **Note:** No front matter found. Run `/scr:front-matter` first if you want publication front matter included.
@@ -422,12 +422,12 @@ If the directory exists, scan all `.md` files in `.manuscript/front-matter/` for
 
 If any scaffold files were found, note them for the assembly step (STEP 3b) and show:
 > **Note:** [N] scaffold front-matter element(s) will be excluded from this export:
->   - .manuscript/front-matter/12-preface.md (scaffold: true — edit and set scaffold: false to include)
->   - .manuscript/front-matter/05-dedication.md (scaffold: true — edit and set scaffold: false to include)
+>   - .manuscript/front-matter/12-preface.md (scaffold: true - edit and set scaffold: false to include)
+>   - .manuscript/front-matter/05-dedication.md (scaffold: true - edit and set scaffold: false to include)
 
 If no scaffold files found, show no note. Proceed to 1.6b.
 
-**1.6b — GENERATE element auto-refresh**
+**1.6b - GENERATE element auto-refresh**
 
 Compare the modification timestamp of `.manuscript/WORK.md` against the 4 GENERATE front-matter files:
 - `.manuscript/front-matter/01-half-title.md`
@@ -511,7 +511,7 @@ Source: [VERIFIED: test/phase30-export-cleanup-validation-gate.test.js pattern; 
 | Before STEP 2 header | Line 120 | `### STEP 2: CHECK PREREQUISITES` | STEP 1.6 must land before this |
 | STEP 3b body | Lines 186-199 | "Read all files in `.manuscript/front-matter/`..." | Add exclusion list application sentence |
 
-[VERIFIED: export.md direct inspection — grep output confirmed line numbers 116, 120 for STEP 1.5 end and STEP 2 start]
+[VERIFIED: export.md direct inspection - grep output confirmed line numbers 116, 120 for STEP 1.5 end and STEP 2 start]
 
 ### publish.md
 
@@ -520,7 +520,7 @@ Source: [VERIFIED: test/phase30-export-cleanup-validation-gate.test.js pattern; 
 | After STEP 1.5 ends | Line 66 | `If no markers found: proceed to STEP 2.` | Inject STEP 1.6 block AFTER this line |
 | Before STEP 2 header | Line 70 | `### STEP 2: ROUTE` | STEP 1.6 must land before this |
 
-[VERIFIED: publish.md direct inspection — grep output confirmed line numbers 66 and 70]
+[VERIFIED: publish.md direct inspection - grep output confirmed line numbers 66 and 70]
 
 ### front-matter.md
 
@@ -532,7 +532,7 @@ Source: [VERIFIED: test/phase30-export-cleanup-validation-gate.test.js pattern; 
 | Element 12: Preface | Line 306 | Before `Save to .../12-preface.md` | Prepend YAML to the markdown block being saved |
 | Element 13: Acknowledgments | Line 331 | Before `Save to .../13-acknowledgments.md` | Prepend YAML to the markdown block being saved |
 
-[VERIFIED: front-matter.md direct inspection — lines 175, 211, 283, 306, 331 confirmed as Save-to lines]
+[VERIFIED: front-matter.md direct inspection - lines 175, 211, 283, 306, 331 confirmed as Save-to lines]
 
 ---
 
@@ -542,8 +542,8 @@ Source: [VERIFIED: test/phase30-export-cleanup-validation-gate.test.js pattern; 
 
 - **Title:** H1 heading in WORK.md (e.g., `# The Watchmaker's Daughter`)
 - **Author:** `"author"` field in `.manuscript/config.json`
-- **Copyright year:** Not explicitly stored — the front-matter command uses the current year or a year the agent infers
-- **ISBN:** Not present in templates — optional field the writer would add manually
+- **Copyright year:** Not explicitly stored - the front-matter command uses the current year or a year the agent infers
+- **ISBN:** Not present in templates - optional field the writer would add manually
 
 **Impact on FM-04:** The auto-refresh trigger is purely based on file modification timestamps, not field-level change detection. If the writer changes the WORK.md H1 title, `WORK.md`'s mtime becomes newer than the GENERATE files, and regeneration fires. This is correct and sufficient.
 
@@ -558,7 +558,7 @@ Source: [VERIFIED: test/phase30-export-cleanup-validation-gate.test.js pattern; 
 | Property | Value |
 |----------|-------|
 | Framework | Node.js built-in `node:test` + `node:assert/strict` |
-| Config file | none — run via `npm test` which calls `node --test test/*.test.js` |
+| Config file | none - run via `npm test` which calls `node --test test/*.test.js` |
 | Quick run command | `node --test test/phase31-staged-front-matter-generation.test.js` |
 | Full suite command | `npm test` |
 
@@ -576,15 +576,15 @@ Source: [VERIFIED: test/phase30-export-cleanup-validation-gate.test.js pattern; 
 
 ### Wave 0 Gaps
 
-- [ ] `test/phase31-staged-front-matter-generation.test.js` — covers FM-01 through FM-04
+- [ ] `test/phase31-staged-front-matter-generation.test.js` - covers FM-01 through FM-04
 
-*(No framework gaps — Node.js built-in test runner already used by all Phase 29-30 tests)*
+*(No framework gaps - Node.js built-in test runner already used by all Phase 29-30 tests)*
 
 ---
 
 ## Environment Availability
 
-Step 2.6 SKIPPED — this phase makes no external tool calls. It edits three markdown files and creates one test file. No external dependencies required.
+Step 2.6 SKIPPED - this phase makes no external tool calls. It edits three markdown files and creates one test file. No external dependencies required.
 
 ---
 
@@ -598,17 +598,17 @@ Step 2.6 SKIPPED — this phase makes no external tool calls. It edits three mar
 2. **Scaffold: true detection method in STEP 1.6**
    - What we know: Files may or may not have YAML frontmatter; the agent needs to detect presence
    - What's unclear: Should the instruction say "check if the file begins with `---`" or use a simpler grep-like scan of the first few lines?
-   - Recommendation: "Scan the first 10 lines of each file for a YAML block containing `scaffold: true`" — simple, unambiguous, works across any parser.
+   - Recommendation: "Scan the first 10 lines of each file for a YAML block containing `scaffold: true`" - simple, unambiguous, works across any parser.
 
 3. **Do STEP 3b changes apply to publish.md as well?**
-   - What we know: publish.md chains to export.md for all assembly — it has no own STEP 3b
+   - What we know: publish.md chains to export.md for all assembly - it has no own STEP 3b
    - What's unclear: Whether publish.md needs any 3b-equivalent edit
    - Recommendation: No. publish.md's STEP 1.6 builds the exclusion list; when it dispatches to `/scr:export`, export.md's STEP 1.6 re-executes and its STEP 3b applies the exclusion. The chain is sufficient.
 
 4. **FM-01 test: how to assert "no [Fill in] in GENERATE elements"**
    - What we know: The 4 GENERATE elements (01,03,04,07) must have no `[Fill in]` tokens in their output templates in front-matter.md
    - What's unclear: A static text scan of front-matter.md for `[Fill in` near the GENERATE element sections may produce false positives if the word "fill in" appears in explanatory prose
-   - Recommendation: The test can look for `[Fill in` appearing within the code blocks for elements 1, 3, 4, 7 — or simply assert that after Phase 31 changes the file does not introduce `[Fill in` into those sections. Since the existing GENERATE elements already produce clean output per CONTEXT.md, this test mainly verifies no regression was introduced. A simpler test: assert that the file does NOT contain `[Fill in` inside the GENERATE element sections specifically (use a regex that captures lines between the section header and `Save to`).
+   - Recommendation: The test can look for `[Fill in` appearing within the code blocks for elements 1, 3, 4, 7 - or simply assert that after Phase 31 changes the file does not introduce `[Fill in` into those sections. Since the existing GENERATE elements already produce clean output per CONTEXT.md, this test mainly verifies no regression was introduced. A simpler test: assert that the file does NOT contain `[Fill in` inside the GENERATE element sections specifically (use a regex that captures lines between the section header and `Save to`).
 
 ---
 
@@ -616,7 +616,7 @@ Step 2.6 SKIPPED — this phase makes no external tool calls. It edits three mar
 
 | # | Claim | Section | Risk if Wrong |
 |---|-------|---------|---------------|
-| A1 | Running STEP 1.6 in both export.md and publish.md with overlapping auto-refresh is idempotent and harmless (second invocation finds no work to do) | Pitfall 5 | If second auto-refresh triggers an unintended regeneration cycle, scaffold files could be overwritten — but this is prevented by the explicit "ONLY elements 1,3,4,7" scoping |
+| A1 | Running STEP 1.6 in both export.md and publish.md with overlapping auto-refresh is idempotent and harmless (second invocation finds no work to do) | Pitfall 5 | If second auto-refresh triggers an unintended regeneration cycle, scaffold files could be overwritten - but this is prevented by the explicit "ONLY elements 1,3,4,7" scoping |
 | A2 | Agent phrasing for timestamp comparison (stat -f vs stat -c vs PowerShell) is the correct platform-agnostic approach | Pattern 4 / Code Examples | If Scriveno develops a canonical cross-platform timestamp convention, this phrasing should align with it. Currently no convention exists. |
 
 ---
@@ -625,28 +625,28 @@ Step 2.6 SKIPPED — this phase makes no external tool calls. It edits three mar
 
 ### Primary (HIGH confidence)
 
-- `commands/scr/front-matter.md` — 526 lines, all 19 elements, file paths, element types confirmed
-- `commands/scr/export.md` — 831 lines, STEP 1.5 at line 86-116, STEP 2 at line 120, STEP 3b at 186-199 confirmed
-- `commands/scr/publish.md` — 258 lines, STEP 1.5 at line 36-66, STEP 2 at line 70 confirmed
-- `data/CONSTRAINTS.json` — `front-matter` command registered at line 989, already covers prose/script/academic/visual/sacred
-- `test/phase30-export-cleanup-validation-gate.test.js` — test pattern for command content assertions
-- `.planning/phases/31-staged-front-matter-generation/31-CONTEXT.md` — all locked decisions
-- `.planning/REQUIREMENTS.md` — FM-01 through FM-04 definitions
+- `commands/scr/front-matter.md` - 526 lines, all 19 elements, file paths, element types confirmed
+- `commands/scr/export.md` - 831 lines, STEP 1.5 at line 86-116, STEP 2 at line 120, STEP 3b at 186-199 confirmed
+- `commands/scr/publish.md` - 258 lines, STEP 1.5 at line 36-66, STEP 2 at line 70 confirmed
+- `data/CONSTRAINTS.json` - `front-matter` command registered at line 989, already covers prose/script/academic/visual/sacred
+- `test/phase30-export-cleanup-validation-gate.test.js` - test pattern for command content assertions
+- `.planning/phases/31-staged-front-matter-generation/31-CONTEXT.md` - all locked decisions
+- `.planning/REQUIREMENTS.md` - FM-01 through FM-04 definitions
 
 ### Secondary (MEDIUM confidence)
 
-- `templates/WORK.md` — confirms no YAML frontmatter fields for title/author/ISBN; H1 heading is title source
-- `data/demo/.manuscript/config.json` — confirms title/author live in config.json, not WORK.md
+- `templates/WORK.md` - confirms no YAML frontmatter fields for title/author/ISBN; H1 heading is title source
+- `data/demo/.manuscript/config.json` - confirms title/author live in config.json, not WORK.md
 
 ---
 
 ## Metadata
 
 **Confidence breakdown:**
-- Injection points (line numbers): HIGH — direct grep + file read confirmed
-- YAML frontmatter format: HIGH — from locked CONTEXT.md decisions
-- Test pattern: HIGH — from Phase 30 test direct inspection
-- Timestamp comparison phrasing: LOW (A2) — no prior art in codebase; marked ASSUMED
+- Injection points (line numbers): HIGH - direct grep + file read confirmed
+- YAML frontmatter format: HIGH - from locked CONTEXT.md decisions
+- Test pattern: HIGH - from Phase 30 test direct inspection
+- Timestamp comparison phrasing: LOW (A2) - no prior art in codebase; marked ASSUMED
 
 **Research date:** 2026-04-17
 **Valid until:** 60 days (stable markdown file system; no dependency drift risk)

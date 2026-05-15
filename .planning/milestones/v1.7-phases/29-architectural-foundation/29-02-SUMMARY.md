@@ -24,8 +24,8 @@ key-files:
     - templates/WORK.md
     - data/CONSTRAINTS.json
 decisions:
-  - "OLD sacred_config_schema.tradition.values taxonomy (christian, jewish, ...) preserved byte-identical — it answers 'which religion?' while the NEW architectural_profiles.traditions answers 'which lineage profile?'. They coexist; any collapse is deferred."
-  - "No version bump in CONSTRAINTS.json — test/constraints.test.js version-match stays aligned with package.json 1.5.2."
+  - "OLD sacred_config_schema.tradition.values taxonomy (christian, jewish, ...) preserved byte-identical - it answers 'which religion?' while the NEW architectural_profiles.traditions answers 'which lineage profile?'. They coexist; any collapse is deferred."
+  - "No version bump in CONSTRAINTS.json - test/constraints.test.js version-match stays aligned with package.json 1.5.2."
   - "/scr:new-work wiring to actually substitute {{PROFILE_BLOCK}} per group is deferred to a later phase (out-of-scope per 29-CONTEXT.md line 24)."
   - "Seeded-values pattern used for enums: CONSTRAINTS.json declares _seeded arrays, runtime validator (Plan 03) intersects with on-disk templates/{sacred,platforms}/ directory listings so contributor-dropped manifests extend the accepted set without editing JSON."
 metrics:
@@ -35,7 +35,7 @@ metrics:
 
 # Phase 29 Plan 02: Project Spec Keys Summary
 
-ARCH-03 — declared `tradition:` + `platform:` project-spec keys in `templates/WORK.md` and the authoritative schema + inference maps in `data/CONSTRAINTS.json`, with zero code, zero dependencies, and no regression in existing tests.
+ARCH-03 - declared `tradition:` + `platform:` project-spec keys in `templates/WORK.md` and the authoritative schema + inference maps in `data/CONSTRAINTS.json`, with zero code, zero dependencies, and no regression in existing tests.
 
 ## What Changed
 
@@ -66,18 +66,18 @@ New top-level key `architectural_profiles` inserted between `sacred_config_schem
 | Key | Shape | Content |
 | --- | ----- | ------- |
 | `_description` | string | Phase 29 v1.7 overview + extension semantics |
-| `_render_variants` | object | Per-group render fragments for `{{PROFILE_BLOCK}}` (sacred → tradition+platform, prose/visual/poetry → platform only, script/academic/technical/interactive/speech_song → "Not applicable") |
+| `_render_variants` | object | Per-group render fragments for `{{PROFILE_BLOCK}}` (sacred -> tradition+platform, prose/visual/poetry -> platform only, script/academic/technical/interactive/speech_song -> "Not applicable") |
 | `traditions._seeded` | array | 10 entries: catholic, orthodox, tewahedo, protestant, jewish, islamic-hafs, islamic-warsh, pali, tibetan, sanskrit |
 | `platforms._seeded` | array | 8 entries: kdp, ingram, d2d, apple, kobo, google, bn, smashwords |
 | `applies_to_groups.tradition` | array | `["sacred"]` |
 | `applies_to_groups.platform` | array | `["prose", "visual", "poetry", "sacred"]` |
-| `defaults_by_work_type.tradition` | object | 15 keys — `scripture_biblical → catholic`, `scripture_quranic → islamic-hafs`, `scripture_torah → jewish`, `scripture_buddhist → pali`, `scripture_vedic → sanskrit`; commentary/devotional/liturgical/historical/etc. → null |
-| `defaults_by_work_type.platform` | object | 31 keys — all book-shaped work types default to `"kdp"` |
+| `defaults_by_work_type.tradition` | object | 15 keys - `scripture_biblical -> catholic`, `scripture_quranic -> islamic-hafs`, `scripture_torah -> jewish`, `scripture_buddhist -> pali`, `scripture_vedic -> sanskrit`; commentary/devotional/liturgical/historical/etc. -> null |
+| `defaults_by_work_type.platform` | object | 31 keys - all book-shaped work types default to `"kdp"` |
 
 ### What Was NOT Changed
 
-- `sacred_config_schema.tradition.values` at line 1380 remains `["christian", "jewish", "islamic", "buddhist", "hindu", "interfaith", "historical_secular", "custom"]` — this is the OLD taxonomy used by per-project `.manuscript/config.json` blocks and coexists with the new lineage profile taxonomy.
-- `version` field in CONSTRAINTS.json is untouched at `1.5.2` — aligns with `package.json.version` so `test/constraints.test.js` version-match test still passes.
+- `sacred_config_schema.tradition.values` at line 1380 remains `["christian", "jewish", "islamic", "buddhist", "hindu", "interfaith", "historical_secular", "custom"]` - this is the OLD taxonomy used by per-project `.manuscript/config.json` blocks and coexists with the new lineage profile taxonomy.
+- `version` field in CONSTRAINTS.json is untouched at `1.5.2` - aligns with `package.json.version` so `test/constraints.test.js` version-match test still passes.
 - Every other top-level key (`work_type_groups`, `work_types`, `commands`, `exports`, `dependencies`, `command_adaptations`, `file_adaptations`, `sacred_config_schema`, `messages`) is byte-identical.
 - `templates/WORK.md` 16 pre-existing placeholders are byte-identical; only addition is the new `## Profile` section with `{{PROFILE_BLOCK}}`.
 
@@ -95,7 +95,7 @@ New top-level key `architectural_profiles` inserted between `sacred_config_schem
 $ grep -c "## Profile" templates/WORK.md
 1
 $ awk '/## Work type/{wt=NR} /## Profile/{pf=NR} /## Elevator pitch/{ep=NR} END{exit !(wt>0 && pf>wt && ep>pf)}' templates/WORK.md
-# (exit 0 — ordering correct)
+# (exit 0 - ordering correct)
 
 # Task 2 automated verify
 $ node -e "…" # structural check
@@ -103,13 +103,13 @@ OK
 
 $ node --test test/constraints.test.js
 # 7/7 tests pass
-✔ has version matching package.json
-✔ has required top-level keys
-✔ every work_type references a valid group
-✔ every group member exists in work_types
-✔ every command references valid availability groups
-✔ every command file on disk is referenced in CONSTRAINTS.json
-✔ CONSTRAINTS.json schema integrity
+[x] has version matching package.json
+[x] has required top-level keys
+[x] every work_type references a valid group
+[x] every group member exists in work_types
+[x] every command references valid availability groups
+[x] every command file on disk is referenced in CONSTRAINTS.json
+[x] CONSTRAINTS.json schema integrity
 ```
 
 Plan-level verification:
@@ -129,7 +129,7 @@ $ grep "PROFILE_BLOCK" templates/WORK.md
 
 ## Deviations from Plan
 
-None — plan executed exactly as written.
+None - plan executed exactly as written.
 
 ## Acceptance Criteria
 

@@ -36,9 +36,9 @@ status: issues_found
 
 ## Summary
 
-Phase 33 adds ten sacred tradition manifests, a new `sacred-verse-numbering` command, and integrates tradition-loading (STEP 1.7) into `build-ebook.md` and `build-print.md`, plus a tradition approval block step (STEP 3.5) into `front-matter.md`. No critical security issues were found — specifically, the slug injection threat (T-33-10) is correctly mitigated in all three command files by validating the tradition slug against a hard-coded allowlist before constructing the manifest path. The approval block scaffold (T-33-11) correctly emits YAML `scaffold: true` and adds a prominent "AUTHORIZATION REQUIRED" comment (T-33-12). The YAML manifests are well-formed and consistent across all ten traditions.
+Phase 33 adds ten sacred tradition manifests, a new `sacred-verse-numbering` command, and integrates tradition-loading (STEP 1.7) into `build-ebook.md` and `build-print.md`, plus a tradition approval block step (STEP 3.5) into `front-matter.md`. No critical security issues were found - specifically, the slug injection threat (T-33-10) is correctly mitigated in all three command files by validating the tradition slug against a hard-coded allowlist before constructing the manifest path. The approval block scaffold (T-33-11) correctly emits YAML `scaffold: true` and adds a prominent "AUTHORIZATION REQUIRED" comment (T-33-12). The YAML manifests are well-formed and consistent across all ten traditions.
 
-Four warnings were found: a path-read mismatch in `front-matter.md` (reads `config.json` `sacred.tradition` but Step 1 elsewhere reads the top-level `tradition:` key — these need to resolve to the same field), a cross-tradition type inconsistency for `approval_block.label` when `required: false` (`"none"` string vs a proper label), the Tibetan Buddhist tradition using a generic `chapter:verse` numbering format instead of a tradition-appropriate one, and the `sacred-verse-numbering` CONSTRAINTS.json entry omitting `"requires"` despite the command requiring a tradition to be configured. Three info items cover the Islamic sura transliteration variation between Hafs and Warsh, the `orthodox` manifest using `script: latin` despite the Eastern Orthodox tradition's primary liturgical texts being in Greek, and a slight inconsistency in how the Sacred Adaptation section of `front-matter.md` maps tradition slugs to element sets.
+Four warnings were found: a path-read mismatch in `front-matter.md` (reads `config.json` `sacred.tradition` but Step 1 elsewhere reads the top-level `tradition:` key - these need to resolve to the same field), a cross-tradition type inconsistency for `approval_block.label` when `required: false` (`"none"` string vs a proper label), the Tibetan Buddhist tradition using a generic `chapter:verse` numbering format instead of a tradition-appropriate one, and the `sacred-verse-numbering` CONSTRAINTS.json entry omitting `"requires"` despite the command requiring a tradition to be configured. Three info items cover the Islamic sura transliteration variation between Hafs and Warsh, the `orthodox` manifest using `script: latin` despite the Eastern Orthodox tradition's primary liturgical texts being in Greek, and a slight inconsistency in how the Sacred Adaptation section of `front-matter.md` maps tradition slugs to element sets.
 
 ---
 
@@ -58,14 +58,14 @@ Four warnings were found: a path-read mismatch in `front-matter.md` (reads `conf
 ### WR-02: `approval_block.label` value `"none"` used as a string sentinel for non-required traditions
 
 **File:** `templates/sacred/protestant/manifest.yaml:76`, `templates/sacred/pali/manifest.yaml:10`, `templates/sacred/tibetan/manifest.yaml:9`, `templates/sacred/sanskrit/manifest.yaml:9`
-**Issue:** For traditions where approval is not required, `approval_block.label` is set to the string `"none"` rather than `null` or an empty string. STEP 3.5 in `front-matter.md` and the approval block reminder in `sacred-verse-numbering.md` both gate on `approval_block.required: false`, so these paths are safe. However, if any consumer formats the label string (e.g., `"{{approval_block.label}}"`) before first checking `required`, it will emit the literal text "none" in the output — for example, the approval block notice template in `front-matter.md` line 541 reads `The **{approval_block.label}** (tradition approval) is required`. If `required` is somehow misread as `true` for these traditions, the output would read "The **none** (tradition approval) is required", which is confusing user-facing text.
+**Issue:** For traditions where approval is not required, `approval_block.label` is set to the string `"none"` rather than `null` or an empty string. STEP 3.5 in `front-matter.md` and the approval block reminder in `sacred-verse-numbering.md` both gate on `approval_block.required: false`, so these paths are safe. However, if any consumer formats the label string (e.g., `"{{approval_block.label}}"`) before first checking `required`, it will emit the literal text "none" in the output - for example, the approval block notice template in `front-matter.md` line 541 reads `The **{approval_block.label}** (tradition approval) is required`. If `required` is somehow misread as `true` for these traditions, the output would read "The **none** (tradition approval) is required", which is confusing user-facing text.
 
 The Catholic and Orthodox traditions set a meaningful label (`"Nihil Obstat"`, `"Patriarchal blessing"`) alongside `required: true`, so the pattern is clear. The mismatch is that non-required traditions have a string sentinel instead of a null value, creating a latent label-display bug if the gate fails.
 
 **Fix:** Change `label: "none"` to `label: null` in all four manifests where `required: false`. This makes the absence of a label explicit and prevents accidental string interpolation.
 
 ```yaml
-# protestant, pali, tibetan, sanskrit — change:
+# protestant, pali, tibetan, sanskrit - change:
 approval_block:
   label: null
   required: false
@@ -74,7 +74,7 @@ approval_block:
 
 ---
 
-### WR-03: Tibetan Buddhist numbering format is `chapter:verse` — no Tibetan Buddhist canon has that structure
+### WR-03: Tibetan Buddhist numbering format is `chapter:verse` - no Tibetan Buddhist canon has that structure
 
 **File:** `templates/sacred/tibetan/manifest.yaml:17-19`
 **Issue:** The Tibetan Buddhist manifest uses:
@@ -83,7 +83,7 @@ numbering:
   format: "chapter:verse"
   separator: "."
 ```
-The Tibetan Buddhist canon (Kangyur/Tengyur) does not use chapter:verse citation. Standard Tibetan citation uses volume (Toh number) and folio/page references (e.g., `Toh 1`, `D 1`, or `Peking 1`). The `sacred-verse-numbering.md` command (STEP 2) provides example citations `1:1`, `2:3`, `5:12` for Tibetan — these are structurally identical to the generic `chapter:verse` pattern and give no tradition-appropriate guidance. This is a data correctness bug: an agent using this manifest to format citations will produce incorrect, non-standard Tibetan references that cannot be verified against any real edition.
+The Tibetan Buddhist canon (Kangyur/Tengyur) does not use chapter:verse citation. Standard Tibetan citation uses volume (Toh number) and folio/page references (e.g., `Toh 1`, `D 1`, or `Peking 1`). The `sacred-verse-numbering.md` command (STEP 2) provides example citations `1:1`, `2:3`, `5:12` for Tibetan - these are structurally identical to the generic `chapter:verse` pattern and give no tradition-appropriate guidance. This is a data correctness bug: an agent using this manifest to format citations will produce incorrect, non-standard Tibetan references that cannot be verified against any real edition.
 
 **Fix:** Update the Tibetan manifest numbering block to reflect actual Tibetan citation convention:
 ```yaml
@@ -123,7 +123,7 @@ If `config.tradition` is not a valid requires token in the existing prerequisite
 
 ## Info
 
-### IN-01: Islamic Hafs and Warsh manifests are identical — no Warsh-specific differentiation
+### IN-01: Islamic Hafs and Warsh manifests are identical - no Warsh-specific differentiation
 
 **File:** `templates/sacred/islamic-warsh/manifest.yaml:1-134`
 **Issue:** The Warsh and Hafs manifests are byte-for-byte identical except for `tradition: islamic-warsh` vs `tradition: islamic-hafs` on line 6, and the comment on line 2. The Warsh tradition has some verse boundary differences from Hafs (notably Al-Anfal/At-Tawbah division, and a handful of differing verse counts in several surahs). The current manifests share the same `book_order` and numbering scheme, meaning agents will not be able to distinguish between the two for any tradition-specific behavior beyond the slug itself. This is not a bug in isolation (the manifests are data-correct for the common case), but it means the two-tradition split delivers no functional differentiation today and may mislead contributors into thinking Warsh-specific handling is already present.
@@ -136,12 +136,12 @@ If `config.tradition` is not a valid requires token in the existing prerequisite
 
 ---
 
-### IN-02: `orthodox/manifest.yaml` uses `script: latin` — primary liturgical script is Greek
+### IN-02: `orthodox/manifest.yaml` uses `script: latin` - primary liturgical script is Greek
 
 **File:** `templates/sacred/orthodox/manifest.yaml:98`
-**Issue:** The Eastern Orthodox tradition's primary liturgical language and original biblical text language is Greek (and Church Slavonic in some jurisdictions). The manifest sets `script: latin`, which causes `build-ebook.md` and `build-print.md` STEP 1.7 to fall through to the `latin` script branch and use the project's `config.json` language (likely `en`) rather than emitting a Greek-appropriate language tag. For commentaries and devotionals written in English, `latin → en` is probably correct. For works that handle Greek source text, the `script: latin` field silently suppresses Greek font and lang tag selection.
+**Issue:** The Eastern Orthodox tradition's primary liturgical language and original biblical text language is Greek (and Church Slavonic in some jurisdictions). The manifest sets `script: latin`, which causes `build-ebook.md` and `build-print.md` STEP 1.7 to fall through to the `latin` script branch and use the project's `config.json` language (likely `en`) rather than emitting a Greek-appropriate language tag. For commentaries and devotionals written in English, `latin -> en` is probably correct. For works that handle Greek source text, the `script: latin` field silently suppresses Greek font and lang tag selection.
 
-This is an info-level finding because the `script` field's mapping to `lang:` tags in STEP 1.7 only handles `arabic`, `hebrew`, `ethiopic`, `tibetan`, and `devanagari` — Greek is not in the switch at all, so `latin` is the correct fallback for English-language Orthodox works. However, it should be documented.
+This is an info-level finding because the `script` field's mapping to `lang:` tags in STEP 1.7 only handles `arabic`, `hebrew`, `ethiopic`, `tibetan`, and `devanagari` - Greek is not in the switch at all, so `latin` is the correct fallback for English-language Orthodox works. However, it should be documented.
 
 **Fix (info-level):** Add an inline comment to the manifest:
 ```yaml
@@ -153,13 +153,13 @@ script: latin  # English-language Orthodox commentary; Greek source editions sho
 ### IN-03: `front-matter.md` Sacred Adaptation tradition-to-element mapping uses coarse tradition groups, not the 10 slugs
 
 **File:** `commands/scr/front-matter.md:513-524`
-**Issue:** The tradition-specific element selection table in the Sacred Adaptation section maps broad groupings (`christian`, `jewish`, `islamic`, `buddhist`, `hindu`, `interfaith`) to element sets. But the 10 manifest slugs established in Phase 33 are fine-grained: `catholic`, `orthodox`, `tewahedo`, `protestant`, `islamic-hafs`, `islamic-warsh`, `pali`, `tibetan`, `sanskrit`. An agent reading STEP 3.5 reads the `tradition:` slug from config.json (e.g., `"catholic"`) but then tries to match it against the element selection table which lists `"christian"` — not `"catholic"`. The agent must infer the mapping.
+**Issue:** The tradition-specific element selection table in the Sacred Adaptation section maps broad groupings (`christian`, `jewish`, `islamic`, `buddhist`, `hindu`, `interfaith`) to element sets. But the 10 manifest slugs established in Phase 33 are fine-grained: `catholic`, `orthodox`, `tewahedo`, `protestant`, `islamic-hafs`, `islamic-warsh`, `pali`, `tibetan`, `sanskrit`. An agent reading STEP 3.5 reads the `tradition:` slug from config.json (e.g., `"catholic"`) but then tries to match it against the element selection table which lists `"christian"` - not `"catholic"`. The agent must infer the mapping.
 
 This is an info-level finding because an AI agent will likely resolve the mapping correctly by context, but it creates ambiguity: `tewahedo` does not map cleanly to `christian` (it could be argued as a distinct non-Western Christian tradition), and the table gives no guidance for `tibetan` or `sanskrit` beyond "All others."
 
 **Fix (info-level):** Expand the element selection table to use the actual slugs, or add a slug-to-group mapping note above the table:
 ```
-Slug-to-group: catholic/orthodox/tewahedo/protestant → christian | jewish → jewish | islamic-hafs/islamic-warsh → islamic | pali/tibetan → buddhist | sanskrit → hindu
+Slug-to-group: catholic/orthodox/tewahedo/protestant -> christian | jewish -> jewish | islamic-hafs/islamic-warsh -> islamic | pali/tibetan -> buddhist | sanskrit -> hindu
 ```
 
 ---

@@ -29,7 +29,7 @@ tech-stack:
   added: []
   patterns:
     - "Platform manifest YAML: status active, formats_accepted list, trim_sizes map with wpp density, max_pages map, epub_variant, epub_notes, metadata_shape"
-    - "EPUB-only manifest pattern: trim_sizes null, default_trim null, max_pages null — signals to build-print.md to reject these platforms before any null access"
+    - "EPUB-only manifest pattern: trim_sizes null, default_trim null, max_pages null - signals to build-print.md to reject these platforms before any null access"
     - "CONSTRAINTS.json commands section: every command file on disk must have a corresponding entry (enforced by constraints.test.js)"
 
 key-files:
@@ -46,8 +46,8 @@ key-files:
     - data/CONSTRAINTS.json
 
 key-decisions:
-  - "CONSTRAINTS.json commands section required build-ebook and build-print entries — constraints.test.js enforces that every .md in commands/scr/ has a commands entry (Rule 2 auto-fix)"
-  - "EPUB-only manifests retain trim_sizes null and max_pages null exactly as specified — build-print.md STEP 2.5 checks formats_accepted before reading trim_sizes so null is never accessed"
+  - "CONSTRAINTS.json commands section required build-ebook and build-print entries - constraints.test.js enforces that every .md in commands/scr/ has a commands entry (Rule 2 auto-fix)"
+  - "EPUB-only manifests retain trim_sizes null and max_pages null exactly as specified - build-print.md STEP 2.5 checks formats_accepted before reading trim_sizes so null is never accessed"
   - "Smashwords Nuclear Option compliance note added as epub_notes YAML block scalar"
 
 requirements-completed:
@@ -59,7 +59,7 @@ duration: 3min
 completed: 2026-04-17
 ---
 
-# Phase 32 Plan 03: Platform Awareness — Manifests and Constraints Summary
+# Phase 32 Plan 03: Platform Awareness - Manifests and Constraints Summary
 
 **8 platform manifests populated (status active, real content) and CONSTRAINTS.json commands section extended to register build-ebook and build-print, turning the Phase 32 test suite fully GREEN (90/90) with no regressions (1266/1266)**
 
@@ -79,7 +79,7 @@ completed: 2026-04-17
 - 6 EPUB-only manifests (Apple, B&N, D2D, Kobo, Google Play, Smashwords): trim_sizes null, default_trim null, max_pages null, formats_accepted [epub], epub3, platform-specific epub_notes
 - Smashwords manifest includes Nuclear Option compliance note as epub_notes block scalar
 - CONSTRAINTS.json exports section already had build_ebook and build_print entries (added in Wave 2, plan 32-02)
-- CONSTRAINTS.json commands section: added build-ebook and build-print entries (Rule 2 auto-fix — constraints.test.js requires all command files registered)
+- CONSTRAINTS.json commands section: added build-ebook and build-print entries (Rule 2 auto-fix - constraints.test.js requires all command files registered)
 - Phase 32 test suite: 90/90 GREEN; full npm test suite: 1266/1266 GREEN
 
 ## Task Commits
@@ -89,20 +89,20 @@ completed: 2026-04-17
 
 ## Files Created/Modified
 
-- `templates/platforms/kdp/manifest.yaml` — KDP trim sizes, wpp densities, page limits, epub variant
-- `templates/platforms/ingram/manifest.yaml` — IngramSpark trim sizes, wpp densities, paperback page limit, PDF/X-1a note
-- `templates/platforms/apple/manifest.yaml` — Apple Books EPUB-only profile, epub:type semantic markup note
-- `templates/platforms/bn/manifest.yaml` — B&N Press EPUB-only profile, NCX nav note
-- `templates/platforms/d2d/manifest.yaml` — Draft2Digital EPUB-only profile, D2D validator note
-- `templates/platforms/kobo/manifest.yaml` — Kobo Writing Life EPUB-only profile
-- `templates/platforms/google/manifest.yaml` — Google Play Books EPUB-only profile
-- `templates/platforms/smashwords/manifest.yaml` — Smashwords EPUB-only profile with Nuclear Option compliance note
-- `data/CONSTRAINTS.json` — build-ebook and build-print added to commands section
+- `templates/platforms/kdp/manifest.yaml` - KDP trim sizes, wpp densities, page limits, epub variant
+- `templates/platforms/ingram/manifest.yaml` - IngramSpark trim sizes, wpp densities, paperback page limit, PDF/X-1a note
+- `templates/platforms/apple/manifest.yaml` - Apple Books EPUB-only profile, epub:type semantic markup note
+- `templates/platforms/bn/manifest.yaml` - B&N Press EPUB-only profile, NCX nav note
+- `templates/platforms/d2d/manifest.yaml` - Draft2Digital EPUB-only profile, D2D validator note
+- `templates/platforms/kobo/manifest.yaml` - Kobo Writing Life EPUB-only profile
+- `templates/platforms/google/manifest.yaml` - Google Play Books EPUB-only profile
+- `templates/platforms/smashwords/manifest.yaml` - Smashwords EPUB-only profile with Nuclear Option compliance note
+- `data/CONSTRAINTS.json` - build-ebook and build-print added to commands section
 
 ## Decisions Made
 
-- EPUB-only platforms keep trim_sizes: null and max_pages: null exactly as specified — this signals build-print.md to reject these platforms at STEP 2.5 before any null property access (T-32-03-04 mitigation confirmed)
-- CONSTRAINTS.json commands section required new entries for build-ebook and build-print to satisfy constraints.test.js (which enforces that every .md in commands/scr/ has a corresponding commands entry) — added as a Rule 2 auto-fix alongside the exports entries
+- EPUB-only platforms keep trim_sizes: null and max_pages: null exactly as specified - this signals build-print.md to reject these platforms at STEP 2.5 before any null property access (T-32-03-04 mitigation confirmed)
+- CONSTRAINTS.json commands section required new entries for build-ebook and build-print to satisfy constraints.test.js (which enforces that every .md in commands/scr/ has a corresponding commands entry) - added as a Rule 2 auto-fix alongside the exports entries
 - Smashwords epub_notes uses YAML block scalar (>) to accommodate the multi-sentence Nuclear Option compliance guidance without escaping
 
 ## Deviations from Plan
@@ -118,11 +118,11 @@ completed: 2026-04-17
 
 ## Known Stubs
 
-None — all 8 manifests are fully populated with real content. No placeholder values remain.
+None - all 8 manifests are fully populated with real content. No placeholder values remain.
 
 ## Threat Flags
 
-None — no new network endpoints, auth paths, or trust boundary changes introduced. JSON validity verified before commit (T-32-03-01 mitigated). EPUB-only null trim_sizes protected by formats_accepted check in build-print.md (T-32-03-04 mitigated).
+None - no new network endpoints, auth paths, or trust boundary changes introduced. JSON validity verified before commit (T-32-03-01 mitigated). EPUB-only null trim_sizes protected by formats_accepted check in build-print.md (T-32-03-04 mitigated).
 
 ---
 *Phase: 32-build-pipelines-platform-awareness*

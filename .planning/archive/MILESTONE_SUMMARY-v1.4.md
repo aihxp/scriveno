@@ -1,4 +1,4 @@
-# Milestone v1.4 — Project Summary
+# Milestone v1.4 - Project Summary
 
 **Generated:** 2026-04-09  
 **Purpose:** Team onboarding and project review
@@ -38,9 +38,9 @@ This milestone shipped phases `17` through `19`, passed its archived milestone a
 
 Archived requirement and audit artifacts show full coverage:
 
-- ✅ `RUNTIME-05` to `RUNTIME-07` satisfied in Phase `17`
-- ✅ `TECHDOC-01` to `TECHDOC-04` satisfied in Phase `18`
-- ✅ `QA-03` and `TRUST-04` satisfied in Phase `19`
+- [x] `RUNTIME-05` to `RUNTIME-07` satisfied in Phase `17`
+- [x] `TECHDOC-01` to `TECHDOC-04` satisfied in Phase `18`
+- [x] `QA-03` and `TRUST-04` satisfied in Phase `19`
 
 Audit verdict: `passed` in [v1.4-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/scriveno/.planning/v1.4-MILESTONE-AUDIT.md), with `9/9` requirements satisfied and all three phases marked Nyquist-compliant.
 
@@ -60,7 +60,7 @@ Audit verdict: `passed` in [v1.4-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/
 
 ## 7. Getting Started
 
-- **Run the project:** `npx scriveno-cli@latest`
+- **Run the project:** `npx scriveno@latest`
 - **Key directories:** [bin/install.js](/Users/hprincivil/Projects/scriveno/bin/install.js), [templates/technical](/Users/hprincivil/Projects/scriveno/templates/technical), [docs/runtime-support.md](/Users/hprincivil/Projects/scriveno/docs/runtime-support.md), [docs/work-types.md](/Users/hprincivil/Projects/scriveno/docs/work-types.md), `test/`
 - **Tests:** `npm test`
 - **Where to look first:** [v1.4-ROADMAP.md](/Users/hprincivil/Projects/scriveno/.planning/milestones/v1.4-ROADMAP.md), [v1.4-REQUIREMENTS.md](/Users/hprincivil/Projects/scriveno/.planning/milestones/v1.4-REQUIREMENTS.md), and the phase artifacts under `.planning/phases/17-*` through `.planning/phases/19-*`
@@ -74,7 +74,7 @@ Audit verdict: `passed` in [v1.4-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/
 - **Tag:** `v1.4`
 - **Requirements:** 9 / 9 satisfied
 - **Commits:** 252 reachable at the archived tag
-- **Files changed / diff stats:** see the archived milestone record in [MILESTONES.md](/Users/hprincivil/Projects/scriveno/.planning/MILESTONES.md) for the tracked `5385856` → `3b514c4` range
+- **Files changed / diff stats:** see the archived milestone record in [MILESTONES.md](/Users/hprincivil/Projects/scriveno/.planning/MILESTONES.md) for the tracked `5385856` -> `3b514c4` range
 
 ---
 

@@ -35,7 +35,7 @@ key_files:
 decisions:
   - "Used pandoc --print-default-data-file reference.docx to seed both DOCX reference docs since pandoc 3.9.0.2 was available in the environment"
   - "Chapbook template uses no first-line indent (justify: false) since poetry relies on stanza breaks, not paragraph indent"
-  - "build-smashwords available for prose+visual only; build-poetry-submission for poetry only — enforced in STEP 1 availability check"
+  - "build-smashwords available for prose+visual only; build-poetry-submission for poetry only - enforced in STEP 1 availability check"
   - "CONSTRAINTS.json new entries inserted between build-print and translate to maintain publish category grouping"
 metrics:
   duration: "~8 minutes"
@@ -48,7 +48,7 @@ metrics:
 
 # Phase 34 Plan 03: Chapbook Typst + Smashwords/Poetry-Submission DOCX Templates Summary
 
-**One-liner:** 5.5x8.5 saddle-stitch chapbook Typst template, Pandoc-seeded Smashwords and poetry-submission DOCX reference docs, companion style guides, and two new build commands (build-smashwords, build-poetry-submission) registered in CONSTRAINTS.json — all TPL-04/05/06 regression tests pass.
+**One-liner:** 5.5x8.5 saddle-stitch chapbook Typst template, Pandoc-seeded Smashwords and poetry-submission DOCX reference docs, companion style guides, and two new build commands (build-smashwords, build-poetry-submission) registered in CONSTRAINTS.json - all TPL-04/05/06 regression tests pass.
 
 ## Tasks Completed
 
@@ -78,7 +78,7 @@ Build command registry: `build-world, build-ebook, build-print, build-smashwords
 
 ## Deviations from Plan
 
-None — plan executed exactly as written.
+None - plan executed exactly as written.
 
 ## Known Stubs
 

@@ -2,12 +2,12 @@
 
 **Gathered:** 2026-04-17
 **Status:** Ready for planning
-**Mode:** Smart discuss (autonomous run — grey areas auto-answered with user review)
+**Mode:** Smart discuss (autonomous run - grey areas auto-answered with user review)
 
 <domain>
 ## Phase Boundary
 
-Cross-domain work types (stage play, picture book, illustrated book, Smashwords, chapbook, poetry submission) need dedicated export templates so writers in these domains can produce publication-ready output through the existing build pipeline — not just book prose.
+Cross-domain work types (stage play, picture book, illustrated book, Smashwords, chapbook, poetry submission) need dedicated export templates so writers in these domains can produce publication-ready output through the existing build pipeline - not just book prose.
 
 **In scope:**
 - 3 Typst templates: `scriveno-stageplay.typst`, `scriveno-picturebook.typst`, `scriveno-chapbook.typst` in `data/export-templates/`
@@ -31,21 +31,21 @@ Cross-domain work types (stage play, picture book, illustrated book, Smashwords,
 ## Implementation Decisions
 
 ### Build Command Integration
-- STEP 1.8 in `build-print.md` auto-detects work_type from config.json and maps to the correct Typst template: `stage-play → scriveno-stageplay.typst`, `picture-book → scriveno-picturebook.typst`, `chapbook → scriveno-chapbook.typst`. Falls back to `scriveno-book.typst` for all other work types. Placement: between STEP 1.7 (tradition loading) and STEP 2 (prerequisites).
-- Fixed-layout EPUB uses `--fixed-layout` flag on existing `build-ebook.md` — adds an OPF generation step and uses the fixed-layout CSS/template. Auto-detects from picture-book work type when no flag given.
-- Smashwords DOCX output is a new `/scr:build-smashwords` command — distinct format (DOCX via Pandoc `--reference-doc`), distinct platform (D2D/Smashwords Style Guide compliance), distinct tool chain from EPUB/PDF.
-- Poetry submission DOCX is a new `/scr:build-poetry-submission` command — unique layout rules (1 poem per page, 12pt Times/Garamond, title page, TOC) distinct from any other build output.
+- STEP 1.8 in `build-print.md` auto-detects work_type from config.json and maps to the correct Typst template: `stage-play -> scriveno-stageplay.typst`, `picture-book -> scriveno-picturebook.typst`, `chapbook -> scriveno-chapbook.typst`. Falls back to `scriveno-book.typst` for all other work types. Placement: between STEP 1.7 (tradition loading) and STEP 2 (prerequisites).
+- Fixed-layout EPUB uses `--fixed-layout` flag on existing `build-ebook.md` - adds an OPF generation step and uses the fixed-layout CSS/template. Auto-detects from picture-book work type when no flag given.
+- Smashwords DOCX output is a new `/scr:build-smashwords` command - distinct format (DOCX via Pandoc `--reference-doc`), distinct platform (D2D/Smashwords Style Guide compliance), distinct tool chain from EPUB/PDF.
+- Poetry submission DOCX is a new `/scr:build-poetry-submission` command - unique layout rules (1 poem per page, 12pt Times/Garamond, title page, TOC) distinct from any other build output.
 
 ### DOCX Reference Doc Approach
 - Both DOCX reference docs created via `pandoc --print-default-data-file reference.docx` then committed as binary files to `data/export-templates/`. This provides real Pandoc reference docs with correct style slots that can be used directly with `--reference-doc`.
 - Both committed binaries live in `data/export-templates/` alongside all other export templates.
-- Companion spec files (`scriveno-smashwords-styles.md`, `scriveno-poetry-submission-styles.md`) document the paragraph style names and formatting rules inline — helps agents customize when needed.
+- Companion spec files (`scriveno-smashwords-styles.md`, `scriveno-poetry-submission-styles.md`) document the paragraph style names and formatting rules inline - helps agents customize when needed.
 
 ### Regression Test Strategy
-- Tests are static file checks only — no build execution required (consistent with Phase 32/33 approach).
+- Tests are static file checks only - no build execution required (consistent with Phase 32/33 approach).
 - Typst templates: grep for key content markers (dimensions: `8.5in`, `5.5in`, `bleed`; formatting: character name patterns, stage direction italics, page count logic).
-- DOCX binaries: `fs.existsSync` only — no content parsing.
-- Build command integration: positional checks (STEP 1.8 present and between STEP 1.7 and STEP 2 in build-print.md; `--fixed-layout` reference in build-ebook.md; new command files exist) — consistent with TRAD-05 approach.
+- DOCX binaries: `fs.existsSync` only - no content parsing.
+- Build command integration: positional checks (STEP 1.8 present and between STEP 1.7 and STEP 2 in build-print.md; `--fixed-layout` reference in build-ebook.md; new command files exist) - consistent with TRAD-05 approach.
 - All Phase 34 tests in a single file: `test/phase34-cross-domain-templates.test.js` (node:test + assert/strict, no new dependencies).
 
 ### Claude's Discretion
@@ -61,11 +61,11 @@ Cross-domain work types (stage play, picture book, illustrated book, Smashwords,
 ## Existing Code Insights
 
 ### Reusable Assets
-- `data/export-templates/scriveno-book.typst` — analog for all 3 new Typst templates (structure, Pandoc variable placeholders, page layout approach)
-- `data/export-templates/scriveno-epub.css` — analog for fixed-layout EPUB CSS
-- `commands/scr/build-print.md` — STEP 1.7 insertion pattern to replicate for STEP 1.8
-- `commands/scr/build-ebook.md` — flag addition pattern (`--skip-validate` precedent for `--fixed-layout`)
-- `test/phase33-sacred-tradition-profiles.test.js` — test structure analog (node:test, describe/it, readFile helper, positional index checks)
+- `data/export-templates/scriveno-book.typst` - analog for all 3 new Typst templates (structure, Pandoc variable placeholders, page layout approach)
+- `data/export-templates/scriveno-epub.css` - analog for fixed-layout EPUB CSS
+- `commands/scr/build-print.md` - STEP 1.7 insertion pattern to replicate for STEP 1.8
+- `commands/scr/build-ebook.md` - flag addition pattern (`--skip-validate` precedent for `--fixed-layout`)
+- `test/phase33-sacred-tradition-profiles.test.js` - test structure analog (node:test, describe/it, readFile helper, positional index checks)
 
 ### Established Patterns
 - Export templates: all in `data/export-templates/`, named `scriveno-{type}.{ext}`
@@ -74,9 +74,9 @@ Cross-domain work types (stage play, picture book, illustrated book, Smashwords,
 - CONSTRAINTS.json: new command files require an entry in the `commands` section
 
 ### Integration Points
-- `commands/scr/build-print.md` STEP 1.7 close → insert STEP 1.8 before STEP 2
-- `commands/scr/build-ebook.md` STEP 4b Pandoc invocation → add `--fixed-layout` branch
-- `data/CONSTRAINTS.json` commands section → add `build-smashwords` and `build-poetry-submission`
+- `commands/scr/build-print.md` STEP 1.7 close -> insert STEP 1.8 before STEP 2
+- `commands/scr/build-ebook.md` STEP 4b Pandoc invocation -> add `--fixed-layout` branch
+- `data/CONSTRAINTS.json` commands section -> add `build-smashwords` and `build-poetry-submission`
 
 </code_context>
 
@@ -84,10 +84,10 @@ Cross-domain work types (stage play, picture book, illustrated book, Smashwords,
 ## Specific Ideas
 
 - The 3 plans from ROADMAP are:
-  1. Phase 34 regression test suite (TPL-01..TPL-06) — TDD RED wave
+  1. Phase 34 regression test suite (TPL-01..TPL-06) - TDD RED wave
   2. Stage play, picture book, fixed-layout EPUB templates (TPL-01, TPL-02, TPL-03)
   3. Smashwords DOCX, chapbook, poetry-submission templates (TPL-04, TPL-05, TPL-06)
-- Stage play: Samuel French format — character names in ALL CAPS centered block, stage directions in *(italics in parentheses)*, act/scene headings as H1/H2
+- Stage play: Samuel French format - character names in ALL CAPS centered block, stage directions in *(italics in parentheses)*, act/scene headings as H1/H2
 - Picture book: 8.5×8.5 PDF, 0.125" bleed (total 8.75×8.75), 0.25" safe zone, spreads as 2-page groups
 - Chapbook: 5.5×8.5, saddle-stitch (page count must be a multiple of 4), standard poetry layout (poem title as H2, stanza breaks as blank lines)
 - Smashwords: no tabs anywhere, no blank lines between paragraphs for indented styles, first-line indent via paragraph style only, no headers/footers except auto-TOC

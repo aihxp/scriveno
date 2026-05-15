@@ -33,7 +33,7 @@ The implementation is largely correct. Two concerns need attention before the ph
 
 ## Warnings
 
-### WR-01: Alternate block boundary in cleanup.md deviates from spec — risks eating legitimate prose
+### WR-01: Alternate block boundary in cleanup.md deviates from spec - risks eating legitimate prose
 
 **File:** `commands/scr/cleanup.md:47-50`
 
@@ -59,7 +59,7 @@ Replace lines 47-50 of `commands/scr/cleanup.md`:
 
 ```markdown
 - Record the full block extent: from the `Alternate N:` line through the first of:
-  - (a) the next blank line (standalone blank line — regardless of what follows), or
+  - (a) the next blank line (standalone blank line - regardless of what follows), or
   - (b) the next line containing `Alternate M:` (another Alternate header), or
   - (c) a line starting with `## ` or `# ` (section heading boundary), or
   - (d) end of file
@@ -69,7 +69,7 @@ This matches the primary spec and aligns with the documented Pitfall 3 mitigatio
 
 ---
 
-### WR-02: Export and publish gate blocks missing `{{VAR}}` exclusion note — inconsistency with standalone commands
+### WR-02: Export and publish gate blocks missing `{{VAR}}` exclusion note - inconsistency with standalone commands
 
 **File:** `commands/scr/export.md:88-114` and `commands/scr/publish.md:36-64`
 
@@ -77,7 +77,7 @@ This matches the primary spec and aligns with the documented Pitfall 3 mitigatio
 
 > `{{VAR}}` tokens are NOT scaffold markers. Do not flag them.
 
-The gate scan instruction lists what to look for but gives no guidance about what NOT to flag. An agent reading only the gate block — without prior context from the standalone commands — has no explicit instruction to ignore `{{VAR}}` tokens. If the agent applies a broad "scaffold marker" mental model, it could flag `{{VAR}}` tokens in the gate context and block export unnecessarily.
+The gate scan instruction lists what to look for but gives no guidance about what NOT to flag. An agent reading only the gate block - without prior context from the standalone commands - has no explicit instruction to ignore `{{VAR}}` tokens. If the agent applies a broad "scaffold marker" mental model, it could flag `{{VAR}}` tokens in the gate context and block export unnecessarily.
 
 The risk is low because agents reading the full command context will encounter the scan list and may not pattern-match `{{VAR}}` on their own. But the standalone commands treat this as important enough to call out with an `**IMPORTANT:**` banner, and the gates should be consistent.
 
@@ -102,11 +102,11 @@ Apply the same addition at the equivalent location in `commands/scr/publish.md` 
 
 **Issue:** The `--skip-validate` escape hatch is introduced in STEP 1.5 of both commands but does not appear in either command's Usage section or Flags list. Writers who haven't read the full instruction text have no discoverability path for the flag. The argument-hint fields (`"--format <format> [--formatted] [--print-ready]"` and `"[--preset <preset>] [--all]"`) also don't mention it.
 
-This is consistent with how Scriveno commands generally handle instruction-level flags, and it doesn't break any functionality. However, when the gate blocks export, the writer is presented with a stop message that mentions no bypass option — the only way to discover `--skip-validate` is to re-read the command documentation or use `/scr:validate` first.
+This is consistent with how Scriveno commands generally handle instruction-level flags, and it doesn't break any functionality. However, when the gate blocks export, the writer is presented with a stop message that mentions no bypass option - the only way to discover `--skip-validate` is to re-read the command documentation or use `/scr:validate` first.
 
 **Fix (optional):** Add `--skip-validate` to the Flags section of each command's Usage block:
 
-In `export.md` — add to the flags area after the format/option flags:
+In `export.md` - add to the flags area after the format/option flags:
 ```markdown
 - `--skip-validate` -- Skip the scaffold validation gate. Emits a visible warning. Use only if you are certain the manuscript is ready.
 ```
@@ -123,7 +123,7 @@ Apply the same in `publish.md`.
 
 The `cleanup.md` is more explicit (lines 53-55: "All subsequent `# ` heading lines are duplicates and are flagged for removal") which implies per-duplicate-line reporting. The validate commands and gate blocks don't carry this guidance.
 
-The FAIL output example in `validate.md` (lines 73-75) shows only bracket and Alternate block entries — no duplicate H1 example is shown, so the format remains undemonstrated.
+The FAIL output example in `validate.md` (lines 73-75) shows only bracket and Alternate block entries - no duplicate H1 example is shown, so the format remains undemonstrated.
 
 **Fix (optional):** Add a note to `validate.md` STEP 2 below the "Duplicate H1 headings" bullet:
 

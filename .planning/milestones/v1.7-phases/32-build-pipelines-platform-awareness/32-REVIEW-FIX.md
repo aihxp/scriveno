@@ -20,19 +20,19 @@ status: all_fixed
 
 ## Fixes Applied
 
-### CR-01 — FIXED
+### CR-01 - FIXED
 **File:** `commands/scr/build-print.md:201`
 Replaced `validatePlatform(slug)` JS function reference with an inline plain-English slug list check. No JS file reference remains.
 
-### WR-01 — FIXED
+### WR-01 - FIXED
 **File:** `commands/scr/build-print.md:4,13`
 Added `--hardcover` to the frontmatter `argument-hint` and to the Usage code block. Added a Flags section explaining its effect (KDP hardcover 550pp limit).
 
-### WR-02 — FIXED
+### WR-02 - FIXED
 **File:** `commands/scr/build-ebook.md:215,246`
-Renamed `language:` key to `lang:` in the metadata.yaml template (Pandoc's EPUB key). Removed `-V lang={language}` from the Pandoc invocation — lang is now set exclusively via the metadata file.
+Renamed `language:` key to `lang:` in the metadata.yaml template (Pandoc's EPUB key). Removed `-V lang={language}` from the Pandoc invocation - lang is now set exclusively via the metadata file.
 
-### WR-03 — FIXED
+### WR-03 - FIXED
 **File:** `commands/scr/build-ebook.md` (STEP 2)
 Added `scriveno-epub.css` existence check immediately after the Pandoc binary check. If the file is missing, the build stops with a clear re-install message.
 
@@ -42,6 +42,6 @@ Added `scriveno-epub.css` existence check immediately after the Pandoc binary ch
 
 ## Info Findings (not in scope)
 
-- IN-01: readFile helper catches all errors silently — deferred
-- IN-02: No test for EPUB-only platform rejection message — deferred
-- IN-03: Cover image check only handles .jpg — deferred
+- IN-01: readFile helper catches all errors silently - deferred
+- IN-02: No test for EPUB-only platform rejection message - deferred
+- IN-03: Cover image check only handles .jpg - deferred

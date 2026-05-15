@@ -34,7 +34,7 @@ status: all_fixed
 
 **Files modified:** `commands/scr/build-smashwords.md`
 **Commit:** d58b548
-**Applied fix:** Added a new STEP 1.6 section between STEP 1.5 and STEP 2, delegating to `/scr:build-ebook` STEP 1.6a–1.6b for scaffold exclusion and GENERATE auto-refresh, and explicitly threading the resulting exclusion list into STEP 3 assembly. This matches the pattern used by `build-ebook.md` and `build-print.md`.
+**Applied fix:** Added a new STEP 1.6 section between STEP 1.5 and STEP 2, delegating to `/scr:build-ebook` STEP 1.6a-1.6b for scaffold exclusion and GENERATE auto-refresh, and explicitly threading the resulting exclusion list into STEP 3 assembly. This matches the pattern used by `build-ebook.md` and `build-print.md`.
 
 ---
 

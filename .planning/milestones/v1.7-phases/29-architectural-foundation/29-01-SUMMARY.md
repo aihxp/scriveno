@@ -51,12 +51,12 @@ key-files:
 
 key-decisions:
   - "Ship placeholder manifests with status: placeholder rather than empty files, so validator in Plan 03 can be written against the final schema shape without flipping between formats."
-  - "Legacy sacred-scaffold markdown files (COSMOLOGY.md, DOCTRINES.md, FIGURES.md, FRAMEWORK.md, LINEAGES.md, THEOLOGICAL-ARC.md) coexist with new tradition subdirectories — they serve different purposes (project-scaffold templates vs. tradition profiles) and must not be conflated."
+  - "Legacy sacred-scaffold markdown files (COSMOLOGY.md, DOCTRINES.md, FIGURES.md, FRAMEWORK.md, LINEAGES.md, THEOLOGICAL-ARC.md) coexist with new tradition subdirectories - they serve different purposes (project-scaffold templates vs. tradition profiles) and must not be conflated."
   - "Schema declared once per family (tradition schema for sacred, platform schema for platforms) so downstream phases populate fields without adding new keys."
 
 patterns-established:
-  - "Drop-in directory extension: add templates/<family>/<slug>/manifest.yaml, runtime picks it up via directory listing — no core edits."
-  - "Placeholder lifecycle: status: placeholder → downstream phase populates content → status: active."
+  - "Drop-in directory extension: add templates/<family>/<slug>/manifest.yaml, runtime picks it up via directory listing - no core edits."
+  - "Placeholder lifecycle: status: placeholder -> downstream phase populates content -> status: active."
   - "Schema-first contribution: manifest.yaml must declare all keys (even as null) so validator sees a stable shape."
 
 requirements-completed:
@@ -84,15 +84,15 @@ completed: 2026-04-17
 - `templates/sacred/` now hosts 10 tradition subdirectories (catholic, orthodox, tewahedo, protestant, jewish, islamic-hafs, islamic-warsh, pali, tibetan, sanskrit), each with a `manifest.yaml` declaring the full schema (`tradition`, `label`, `book_order`, `approval_block`, `font_stack`, `rtl`, `numbering`, `script`, `status`).
 - `templates/platforms/` is a brand-new directory hosting 8 platform subdirectories (kdp, ingram, d2d, apple, kobo, google, bn, smashwords), each with a `manifest.yaml` declaring the full schema (`platform`, `label`, `trim_sizes`, `max_pages`, `epub_variant`, `metadata_shape`, `formats_accepted`, `status`).
 - Both families have a `README.md` at the directory root documenting the drop-in contribution convention and the placeholder-to-active lifecycle.
-- All 18 manifests ship with `status: placeholder` and all schema fields set to `null` (except `tradition`/`platform`, `label`, and `status`) — ready for Plan 03's validator to target a stable shape.
+- All 18 manifests ship with `status: placeholder` and all schema fields set to `null` (except `tradition`/`platform`, `label`, and `status`) - ready for Plan 03's validator to target a stable shape.
 - Legacy sacred-scaffold files (COSMOLOGY.md, DOCTRINES.md, FIGURES.md, FRAMEWORK.md, LINEAGES.md, THEOLOGICAL-ARC.md) were preserved untouched; the README explicitly documents their distinct role.
 
 ## Task Commits
 
 Each task was committed atomically:
 
-1. **Task 1: Seed 10 sacred tradition placeholder manifests + README** — `2cd4316` (feat)
-2. **Task 2: Seed 8 publishing platform placeholder manifests + README** — `fb5e9f7` (feat)
+1. **Task 1: Seed 10 sacred tradition placeholder manifests + README** - `2cd4316` (feat)
+2. **Task 2: Seed 8 publishing platform placeholder manifests + README** - `fb5e9f7` (feat)
 
 ## Schema Shape Reference
 
@@ -101,12 +101,12 @@ Each task was committed atomically:
 ```yaml
 tradition: <slug>            # e.g. catholic, islamic-hafs
 label: "<Human-readable>"    # e.g. "Roman Catholic", "Islamic (Hafs ʿan ʿĀsim)"
-book_order: null             # populated Phase 33 — canonical book list
-approval_block: null         # populated Phase 33 — imprimatur/mushaf_cert/etc.
-font_stack: null             # populated Phase 33 — font fallback list
-rtl: null                    # populated Phase 33 — boolean
-numbering: null              # populated Phase 33 — verse numbering macro id
-script: null                 # populated Phase 33 — script/unicode range
+book_order: null             # populated Phase 33 - canonical book list
+approval_block: null         # populated Phase 33 - imprimatur/mushaf_cert/etc.
+font_stack: null             # populated Phase 33 - font fallback list
+rtl: null                    # populated Phase 33 - boolean
+numbering: null              # populated Phase 33 - verse numbering macro id
+script: null                 # populated Phase 33 - script/unicode range
 status: placeholder          # flipped to "active" by Phase 33
 ```
 
@@ -115,11 +115,11 @@ status: placeholder          # flipped to "active" by Phase 33
 ```yaml
 platform: <slug>             # e.g. kdp, ingram, smashwords
 label: "<Human-readable>"    # e.g. "Amazon KDP", "IngramSpark"
-trim_sizes: null             # populated Phase 32 — supported trim size list
-max_pages: null              # populated Phase 32 — int or per-binding object
-epub_variant: null           # populated Phase 32 — "reflowable"/"fixed-layout"/list
-metadata_shape: null         # populated Phase 32 — required metadata fields
-formats_accepted: null       # populated Phase 32 — format list (epub/pdf/docx)
+trim_sizes: null             # populated Phase 32 - supported trim size list
+max_pages: null              # populated Phase 32 - int or per-binding object
+epub_variant: null           # populated Phase 32 - "reflowable"/"fixed-layout"/list
+metadata_shape: null         # populated Phase 32 - required metadata fields
+formats_accepted: null       # populated Phase 32 - format list (epub/pdf/docx)
 status: placeholder          # flipped to "active" by Phase 32
 ```
 
@@ -127,29 +127,29 @@ status: placeholder          # flipped to "active" by Phase 32
 
 **Sacred (11 files):**
 
-- `templates/sacred/catholic/manifest.yaml` — Roman Catholic placeholder
-- `templates/sacred/orthodox/manifest.yaml` — Eastern Orthodox placeholder
-- `templates/sacred/tewahedo/manifest.yaml` — Ethiopian Orthodox Tewahedo placeholder
-- `templates/sacred/protestant/manifest.yaml` — Protestant placeholder
-- `templates/sacred/jewish/manifest.yaml` — Jewish (Tanakh) placeholder
-- `templates/sacred/islamic-hafs/manifest.yaml` — Islamic (Hafs ʿan ʿĀsim) placeholder
-- `templates/sacred/islamic-warsh/manifest.yaml` — Islamic (Warsh ʿan Nāfiʿ) placeholder
-- `templates/sacred/pali/manifest.yaml` — Buddhist (Pali Canon) placeholder
-- `templates/sacred/tibetan/manifest.yaml` — Buddhist (Tibetan Canon) placeholder
-- `templates/sacred/sanskrit/manifest.yaml` — Hindu (Sanskrit/Devanagari) placeholder
-- `templates/sacred/README.md` — drop-in contribution guide, preserves legacy-file note
+- `templates/sacred/catholic/manifest.yaml` - Roman Catholic placeholder
+- `templates/sacred/orthodox/manifest.yaml` - Eastern Orthodox placeholder
+- `templates/sacred/tewahedo/manifest.yaml` - Ethiopian Orthodox Tewahedo placeholder
+- `templates/sacred/protestant/manifest.yaml` - Protestant placeholder
+- `templates/sacred/jewish/manifest.yaml` - Jewish (Tanakh) placeholder
+- `templates/sacred/islamic-hafs/manifest.yaml` - Islamic (Hafs ʿan ʿĀsim) placeholder
+- `templates/sacred/islamic-warsh/manifest.yaml` - Islamic (Warsh ʿan Nāfiʿ) placeholder
+- `templates/sacred/pali/manifest.yaml` - Buddhist (Pali Canon) placeholder
+- `templates/sacred/tibetan/manifest.yaml` - Buddhist (Tibetan Canon) placeholder
+- `templates/sacred/sanskrit/manifest.yaml` - Hindu (Sanskrit/Devanagari) placeholder
+- `templates/sacred/README.md` - drop-in contribution guide, preserves legacy-file note
 
 **Platforms (9 files):**
 
-- `templates/platforms/kdp/manifest.yaml` — Amazon KDP placeholder
-- `templates/platforms/ingram/manifest.yaml` — IngramSpark placeholder
-- `templates/platforms/d2d/manifest.yaml` — Draft2Digital placeholder
-- `templates/platforms/apple/manifest.yaml` — Apple Books placeholder
-- `templates/platforms/kobo/manifest.yaml` — Kobo Writing Life placeholder
-- `templates/platforms/google/manifest.yaml` — Google Play Books placeholder
-- `templates/platforms/bn/manifest.yaml` — Barnes & Noble Press placeholder
-- `templates/platforms/smashwords/manifest.yaml` — Smashwords placeholder
-- `templates/platforms/README.md` — drop-in contribution guide
+- `templates/platforms/kdp/manifest.yaml` - Amazon KDP placeholder
+- `templates/platforms/ingram/manifest.yaml` - IngramSpark placeholder
+- `templates/platforms/d2d/manifest.yaml` - Draft2Digital placeholder
+- `templates/platforms/apple/manifest.yaml` - Apple Books placeholder
+- `templates/platforms/kobo/manifest.yaml` - Kobo Writing Life placeholder
+- `templates/platforms/google/manifest.yaml` - Google Play Books placeholder
+- `templates/platforms/bn/manifest.yaml` - Barnes & Noble Press placeholder
+- `templates/platforms/smashwords/manifest.yaml` - Smashwords placeholder
+- `templates/platforms/README.md` - drop-in contribution guide
 
 ## Downstream Phase Hand-offs
 
@@ -165,7 +165,7 @@ status: placeholder          # flipped to "active" by Phase 32
 
 ## Deviations from Plan
 
-None — plan executed exactly as written. All 20 files created with the exact content specified in the plan's action steps. Zero new dependencies, zero installer changes, zero legacy-file modifications.
+None - plan executed exactly as written. All 20 files created with the exact content specified in the plan's action steps. Zero new dependencies, zero installer changes, zero legacy-file modifications.
 
 ## Issues Encountered
 
@@ -173,7 +173,7 @@ None.
 
 ## User Setup Required
 
-None — no external service configuration required.
+None - no external service configuration required.
 
 ## Next Phase Readiness
 

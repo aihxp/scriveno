@@ -59,29 +59,29 @@ metrics:
 
 All TPL-01, TPL-02, and TPL-03 regression tests pass (19/19 assertions green):
 
-- TPL-01 (8 tests): scriveno-stageplay.typst — 8.5in, upper(), emph, heading.where(level:1/2), STEP 1.8 positioning
-- TPL-02 (5 tests): scriveno-picturebook.typst — 8.75in, 0.125in bleed, 0.25in safe zone, spread marker
-- TPL-03 (6 tests): fixed-layout CSS + OPF — -epub-layout, rendition:layout, rendition:spread, --fixed-layout in build-ebook
+- TPL-01 (8 tests): scriveno-stageplay.typst - 8.5in, upper(), emph, heading.where(level:1/2), STEP 1.8 positioning
+- TPL-02 (5 tests): scriveno-picturebook.typst - 8.75in, 0.125in bleed, 0.25in safe zone, spread marker
+- TPL-03 (6 tests): fixed-layout CSS + OPF - -epub-layout, rendition:layout, rendition:spread, --fixed-layout in build-ebook
 
 TPL-04, TPL-05, TPL-06 remain RED (those are for plans 34-03 and 34-04).
 
 ## Deviations from Plan
 
-None — plan executed exactly as written.
+None - plan executed exactly as written.
 
 The checkpoint task (Task 3, type="checkpoint:human-verify") was reached after all auto tasks completed with passing tests. No issues were found requiring human intervention.
 
 ## Known Stubs
 
-None. All 4 template files contain complete, functional content. The OPF stub uses placeholder tokens (TITLE, AUTHOR, BOOK-UUID) by design — these are documented in the file as writer-replaceable values, not accidental stubs.
+None. All 4 template files contain complete, functional content. The OPF stub uses placeholder tokens (TITLE, AUTHOR, BOOK-UUID) by design - these are documented in the file as writer-replaceable values, not accidental stubs.
 
 ## Threat Flags
 
 None. The 4 new template files are read-only reference assets. No new network endpoints, auth paths, or file access patterns were introduced.
 
-- T-34-03 (Tampering: STEP 1.8 template path) — mitigated per plan: template existence check blocks build with clear re-install error if file is missing.
-- T-34-04 (DoS: --fixed-layout OPF copy) — accepted per plan: cp is non-destructive; OPF is read-only stub.
-- T-34-05 (Info Disclosure: OPF in output/) — accepted per plan: only placeholder tokens, no user secrets.
+- T-34-03 (Tampering: STEP 1.8 template path) - mitigated per plan: template existence check blocks build with clear re-install error if file is missing.
+- T-34-04 (DoS: --fixed-layout OPF copy) - accepted per plan: cp is non-destructive; OPF is read-only stub.
+- T-34-05 (Info Disclosure: OPF in output/) - accepted per plan: only placeholder tokens, no user secrets.
 
 ## Self-Check: PASSED
 

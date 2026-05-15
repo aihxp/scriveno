@@ -198,7 +198,7 @@ function writeSharedAssets(dataDir, runtimeKeys, isGlobal, developerMode, instal
   fs.mkdirSync(path.join(dataDir, 'data'), { recursive: true });
   const templateCount = copyDir(path.join(PKG_ROOT, 'templates'), path.join(dataDir, 'templates'));
   const dataCount = copyDir(path.join(PKG_ROOT, 'data'), path.join(dataDir, 'data'));
-  log(`  ${c('green', '✓')} ${templateCount} templates + ${dataCount} data files → ${c('dim', dataDir)}`);
+  log(`  ${c('green', '[x]')} ${templateCount} templates + ${dataCount} data files -> ${c('dim', dataDir)}`);
 
   // Merge settings: installer-managed fields are overwritten, user fields are preserved
   const installerFields = {
@@ -216,7 +216,7 @@ function writeSharedAssets(dataDir, runtimeKeys, isGlobal, developerMode, instal
     : installerFields;
   
   atomicWriteFileSync(settingsPath, JSON.stringify(mergedSettings, null, 2));
-  log(`  ${c('green', '✓')} settings.json → ${c('dim', settingsPath)}`);
+  log(`  ${c('green', '[x]')} settings.json -> ${c('dim', settingsPath)}`);
 }
 ```
 

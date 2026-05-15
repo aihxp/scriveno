@@ -1,4 +1,4 @@
-# Milestone v1.5 — Project Summary
+# Milestone v1.5 - Project Summary
 
 **Generated:** 2026-04-09
 **Purpose:** Team onboarding and project review
@@ -44,11 +44,11 @@ This milestone shipped phases `20` through `22`, passed milestone audit in [v1.5
 
 Current requirement and audit artifacts show full milestone coverage:
 
-- ✅ `RUNTIME-08` satisfied in Phase `20`
-- ✅ `RUNTIME-09` satisfied in Phase `21`
-- ✅ `RUNTIME-10` satisfied in Phase `20`
-- ✅ `RUNTIME-11` satisfied across Phases `20` and `21`
-- ✅ `QA-04` satisfied in Phase `22`
+- [x] `RUNTIME-08` satisfied in Phase `20`
+- [x] `RUNTIME-09` satisfied in Phase `21`
+- [x] `RUNTIME-10` satisfied in Phase `20`
+- [x] `RUNTIME-11` satisfied across Phases `20` and `21`
+- [x] `QA-04` satisfied in Phase `22`
 
 Audit verdict: `passed` in [v1.5-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/scriveno/.planning/v1.5-MILESTONE-AUDIT.md), with `5/5` requirements satisfied and all milestone flows verified.
 
@@ -72,7 +72,7 @@ Audit verdict: `passed` in [v1.5-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/
 
 ## 7. Getting Started
 
-- **Run the project:** `npx scriveno-cli@latest`
+- **Run the project:** `npx scriveno@latest`
 - **Key directories:** [bin/install.js](/Users/hprincivil/Projects/scriveno/bin/install.js), [README.md](/Users/hprincivil/Projects/scriveno/README.md), [docs/runtime-support.md](/Users/hprincivil/Projects/scriveno/docs/runtime-support.md), [docs/getting-started.md](/Users/hprincivil/Projects/scriveno/docs/getting-started.md), [test/installer.test.js](/Users/hprincivil/Projects/scriveno/test/installer.test.js), [.planning/phases/20-silent-multi-runtime-installer](/Users/hprincivil/Projects/scriveno/.planning/phases/20-silent-multi-runtime-installer), [.planning/phases/21-codex-skill-native-surface](/Users/hprincivil/Projects/scriveno/.planning/phases/21-codex-skill-native-surface), and [.planning/phases/22-runtime-docs-verification](/Users/hprincivil/Projects/scriveno/.planning/phases/22-runtime-docs-verification)
 - **Tests:** `npm test`
 - **Where to look first:** [ROADMAP.md](/Users/hprincivil/Projects/scriveno/.planning/ROADMAP.md), [REQUIREMENTS.md](/Users/hprincivil/Projects/scriveno/.planning/REQUIREMENTS.md), [v1.5-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/scriveno/.planning/v1.5-MILESTONE-AUDIT.md), then the phase summaries and verification reports for phases `20` through `22`

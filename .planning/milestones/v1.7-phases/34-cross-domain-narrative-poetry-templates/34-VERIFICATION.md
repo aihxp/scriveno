@@ -7,12 +7,12 @@ overrides_applied: 0
 re_verification: false
 ---
 
-# Phase 34: Cross-Domain Narrative & Poetry Templates — Verification Report
+# Phase 34: Cross-Domain Narrative & Poetry Templates - Verification Report
 
-**Phase Goal:** Playwrights, picture-book authors, illustrated-book authors, Smashwords publishers, and poets can produce publication-ready output — not just book prose — through dedicated templates wired into the existing build pipeline.
+**Phase Goal:** Playwrights, picture-book authors, illustrated-book authors, Smashwords publishers, and poets can produce publication-ready output - not just book prose - through dedicated templates wired into the existing build pipeline.
 **Verified:** 2026-04-17T18:30:00Z
 **Status:** PASSED
-**Re-verification:** No — initial verification
+**Re-verification:** No - initial verification
 
 ## Goal Achievement
 
@@ -23,7 +23,7 @@ re_verification: false
 | 1 | A playwright exporting a stage-play work gets a Samuel French-format PDF via `scriveno-stageplay.typst` (character names centered, stage directions italicized in parens, proper act/scene numbering) | VERIFIED | `scriveno-stageplay.typst` exists (8.5in page width, `upper()` centering, `emph` italic stage directions, `heading.where(level: 1)` acts, `heading.where(level: 2)` scenes); STEP 1.8 routes `stage_play` work type to this template |
 | 2 | A picture-book author exports to an 8.5×8.5 PDF via `scriveno-picturebook.typst` with 0.125" bleed, 0.25" safe zone, and spread-aware pagination | VERIFIED | `scriveno-picturebook.typst` exists with `8.75in` (bleed dimensions), `0.125in` bleed constant, `0.25in` safe-zone constant, and spread/facing layout comment; STEP 1.8 routes `picture_book` to this template |
 | 3 | An illustrated or picture-book author can export a fixed-layout EPUB (with new template + OPF stub) that Apple Books accepts without manual post-processing | VERIFIED | `scriveno-fixed-layout-epub.css` contains `-epub-layout: pre-paginated`; `scriveno-fixed-layout.opf` contains `rendition:layout` and `rendition:spread`; `build-ebook.md` has `--fixed-layout` flag with auto-enable for `picture_book` work type and OPF copy step |
-| 4 | A writer using D2D/Smashwords gets a `scriveno-smashwords.docx` output compliant with the Style Guide — first-line indents via paragraph style, no tabs, no banned formatting | VERIFIED | `scriveno-smashwords.docx` exists (10954 bytes, real pandoc-generated reference doc); `scriveno-smashwords-styles.md` documents "no tabs" and "FirstLineIndent" rules; `build-smashwords.md` invokes `pandoc --reference-doc=data/export-templates/scriveno-smashwords.docx` |
+| 4 | A writer using D2D/Smashwords gets a `scriveno-smashwords.docx` output compliant with the Style Guide - first-line indents via paragraph style, no tabs, no banned formatting | VERIFIED | `scriveno-smashwords.docx` exists (10954 bytes, real pandoc-generated reference doc); `scriveno-smashwords-styles.md` documents "no tabs" and "FirstLineIndent" rules; `build-smashwords.md` invokes `pandoc --reference-doc=data/export-templates/scriveno-smashwords.docx` |
 | 5 | A poet exporting a chapbook gets a 5.5×8.5 saddle-stitch PDF via `scriveno-chapbook.typst` with page count constrained to multiples of 4; exporting a submission manuscript gets a DOCX with one poem per page, 12pt Times/Garamond, title page, and TOC | VERIFIED | `scriveno-chapbook.typst` exists (5.5in width, 8.5in height, "multiple of 4" and "saddle" and "mod 4" comments); `scriveno-poetry-submission.docx` exists (10954 bytes); `scriveno-poetry-submission-styles.md` specifies "page break", "Times New Roman"; `build-poetry-submission.md` generates title page (STEP 3a) and conditional TOC |
 
 **Score:** 5/5 truths verified
@@ -32,7 +32,7 @@ re_verification: false
 
 | Artifact | Expected | Status | Details |
 |----------|----------|--------|---------|
-| `test/phase34-cross-domain-templates.test.js` | Phase 34 regression test suite | VERIFIED | 380 lines, 6 describe blocks, 119 TPL references, 38 tests — all pass |
+| `test/phase34-cross-domain-templates.test.js` | Phase 34 regression test suite | VERIFIED | 380 lines, 6 describe blocks, 119 TPL references, 38 tests - all pass |
 | `data/export-templates/scriveno-stageplay.typst` | Samuel French-format stage play PDF template | VERIFIED | Contains "8.5in", "upper(", "emph", "heading.where(level: 1)", "heading.where(level: 2)" |
 | `data/export-templates/scriveno-picturebook.typst` | 8.5x8.5 picture book PDF template with bleed | VERIFIED | Contains "8.75in", "0.125in", "0.25in", "spread" |
 | `data/export-templates/scriveno-fixed-layout-epub.css` | Fixed-layout EPUB CSS for Apple Books | VERIFIED | Contains "-epub-layout" |
@@ -44,7 +44,7 @@ re_verification: false
 | `data/export-templates/scriveno-poetry-submission-styles.md` | Style guide for poetry submission DOCX styles | VERIFIED | Contains "page break" and "Times New Roman" |
 | `commands/scr/build-smashwords.md` | /scr:build-smashwords command | VERIFIED | Contains "--reference-doc" and "scriveno-smashwords.docx"; available for prose+visual in CONSTRAINTS.json |
 | `commands/scr/build-poetry-submission.md` | /scr:build-poetry-submission command | VERIFIED | Contains "title page", "TOC", "scriveno-poetry-submission.docx"; available for poetry in CONSTRAINTS.json |
-| `commands/scr/build-print.md` (STEP 1.8) | STEP 1.8 work_type template selection | VERIFIED | STEP 1.8 present at index 6952 — after STEP 1.7 (5522) and before ### STEP 2: (7806) |
+| `commands/scr/build-print.md` (STEP 1.8) | STEP 1.8 work_type template selection | VERIFIED | STEP 1.8 present at index 6952 - after STEP 1.7 (5522) and before ### STEP 2: (7806) |
 | `commands/scr/build-ebook.md` (--fixed-layout) | --fixed-layout flag support | VERIFIED | Flag present in frontmatter hint, Usage block, auto-detect section, STEP 2 prereq check, and STEP 4b branch |
 | `data/CONSTRAINTS.json` | command registry with new entries | VERIFIED | `build-smashwords` (prose+visual) and `build-poetry-submission` (poetry) entries present; JSON valid |
 
@@ -52,18 +52,18 @@ re_verification: false
 
 | From | To | Via | Status | Details |
 |------|----|-----|--------|---------|
-| `commands/scr/build-print.md` STEP 1.8 | `data/export-templates/scriveno-stageplay.typst` | `stage_play` work_type → `TYPST_TEMPLATE` routing table | VERIFIED | Line 176: `| stage_play | data/export-templates/scriveno-stageplay.typst |`; STEP 4 uses `--template={TYPST_TEMPLATE}` |
+| `commands/scr/build-print.md` STEP 1.8 | `data/export-templates/scriveno-stageplay.typst` | `stage_play` work_type -> `TYPST_TEMPLATE` routing table | VERIFIED | Line 176: `| stage_play | data/export-templates/scriveno-stageplay.typst |`; STEP 4 uses `--template={TYPST_TEMPLATE}` |
 | `commands/scr/build-ebook.md` | `data/export-templates/scriveno-fixed-layout.opf` | `--fixed-layout` flag triggers `cp data/export-templates/scriveno-fixed-layout.opf` | VERIFIED | Line 306 copies OPF stub; lines 199-324 define full --fixed-layout EPUB branch |
 | `commands/scr/build-smashwords.md` | `data/export-templates/scriveno-smashwords.docx` | `pandoc --reference-doc=data/export-templates/scriveno-smashwords.docx` | VERIFIED | Line 118: `--reference-doc=data/export-templates/scriveno-smashwords.docx` |
 | `commands/scr/build-poetry-submission.md` | `data/export-templates/scriveno-poetry-submission.docx` | `pandoc --reference-doc=data/export-templates/scriveno-poetry-submission.docx` | VERIFIED | Lines 146 and 157 reference the DOCX (conditional and unconditional TOC paths) |
 | `test/phase34-cross-domain-templates.test.js` | `data/export-templates/scriveno-stageplay.typst` | `fs.readFileSync` content check for "scriveno-stageplay" | VERIFIED | 38/38 tests pass |
-| `test/phase34-cross-domain-templates.test.js` | `commands/scr/build-print.md` | positional indexOf check for STEP 1.8 | VERIFIED | Test asserts STEP 1.7 < STEP 1.8 < ### STEP 2: — passes |
+| `test/phase34-cross-domain-templates.test.js` | `commands/scr/build-print.md` | positional indexOf check for STEP 1.8 | VERIFIED | Test asserts STEP 1.7 < STEP 1.8 < ### STEP 2: - passes |
 
 ### Data-Flow Trace (Level 4)
 
 These are command/template files (not components that render dynamic data). The data flow is instruction-driven: the AI agent reads the command file, applies the template path resolution logic, and invokes Pandoc. No React/stateful rendering patterns apply.
 
-Key data path verified: `config.json work_type` → STEP 1.8 routing table → `TYPST_TEMPLATE` variable → `--template={TYPST_TEMPLATE}` in STEP 4 Pandoc invocation. This chain is present and complete in `build-print.md`.
+Key data path verified: `config.json work_type` -> STEP 1.8 routing table -> `TYPST_TEMPLATE` variable -> `--template={TYPST_TEMPLATE}` in STEP 4 Pandoc invocation. This chain is present and complete in `build-print.md`.
 
 ### Behavioral Spot-Checks
 
@@ -91,11 +91,11 @@ Key data path verified: `config.json work_type` → STEP 1.8 routing table → `
 
 None. Scan of all 12 Phase 34 deliverable files found no TODO/FIXME/PLACEHOLDER markers, no return null stubs, no empty handlers.
 
-The OPF stub contains `TITLE`, `AUTHOR`, `BOOK-UUID` placeholder tokens — these are intentional, design-documented fill-in values for writers, not implementation stubs.
+The OPF stub contains `TITLE`, `AUTHOR`, `BOOK-UUID` placeholder tokens - these are intentional, design-documented fill-in values for writers, not implementation stubs.
 
 ### Human Verification Required
 
-None. All success criteria are verifiable programmatically via the regression test suite (38/38 green) and file content checks. Visual PDF rendering quality and Apple Books EPUB acceptance are beyond CLI testing scope but are not required to satisfy the stated success criteria — the templates and wiring are complete.
+None. All success criteria are verifiable programmatically via the regression test suite (38/38 green) and file content checks. Visual PDF rendering quality and Apple Books EPUB acceptance are beyond CLI testing scope but are not required to satisfy the stated success criteria - the templates and wiring are complete.
 
 ### Gaps Summary
 

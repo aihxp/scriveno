@@ -10,10 +10,10 @@
 
 | New/Modified File | Role | Data Flow | Closest Analog | Match Quality |
 |-------------------|------|-----------|----------------|---------------|
-| `commands/scr/front-matter.md` | command (agent instructions) | transform (YAML prepend to 5 element output blocks) | `commands/scr/front-matter.md` lines 158-175 (existing SCAFFOLD element) | self-analog — modify existing pattern |
-| `commands/scr/export.md` | command (pipeline orchestrator) | request-response (step injection) | `commands/scr/export.md` lines 86-116 (STEP 1.5 validate gate) | exact — same structure, same injection site pattern |
-| `commands/scr/publish.md` | command (pipeline orchestrator) | request-response (step injection) | `commands/scr/publish.md` lines 36-66 (STEP 1.5 validate gate) | exact — same structure, same injection site pattern |
-| `test/phase31-staged-front-matter-generation.test.js` | test | CRUD (static text assertions on command files) | `test/phase30-export-cleanup-validation-gate.test.js` | exact — same framework, same assertion style |
+| `commands/scr/front-matter.md` | command (agent instructions) | transform (YAML prepend to 5 element output blocks) | `commands/scr/front-matter.md` lines 158-175 (existing SCAFFOLD element) | self-analog - modify existing pattern |
+| `commands/scr/export.md` | command (pipeline orchestrator) | request-response (step injection) | `commands/scr/export.md` lines 86-116 (STEP 1.5 validate gate) | exact - same structure, same injection site pattern |
+| `commands/scr/publish.md` | command (pipeline orchestrator) | request-response (step injection) | `commands/scr/publish.md` lines 36-66 (STEP 1.5 validate gate) | exact - same structure, same injection site pattern |
+| `test/phase31-staged-front-matter-generation.test.js` | test | CRUD (static text assertions on command files) | `test/phase30-export-cleanup-validation-gate.test.js` | exact - same framework, same assertion style |
 
 ---
 
@@ -21,9 +21,9 @@
 
 ### `commands/scr/front-matter.md` (command, transform)
 
-**Analog:** `commands/scr/front-matter.md` — self-analog, the existing SCAFFOLD element blocks for Dedication (lines 158-175) and Preface (lines 285-306) define the before-state; the YAML header is prepended to their output markdown block.
+**Analog:** `commands/scr/front-matter.md` - self-analog, the existing SCAFFOLD element blocks for Dedication (lines 158-175) and Preface (lines 285-306) define the before-state; the YAML header is prepended to their output markdown block.
 
-**Existing scaffold element structure** (lines 158-175 — Dedication, the simplest case):
+**Existing scaffold element structure** (lines 158-175 - Dedication, the simplest case):
 ```markdown
 #### Element 5: Dedication (Recto) -- SCAFFOLD
 
@@ -45,7 +45,7 @@ Provide a dedication template with guidance:
 Save to `.manuscript/front-matter/05-dedication.md`
 ```
 
-**YAML header to prepend — target output format** (from 31-CONTEXT.md `<decisions>`):
+**YAML header to prepend - target output format** (from 31-CONTEXT.md `<decisions>`):
 ```markdown
 ---
 scaffold: true
@@ -61,9 +61,9 @@ element: dedication
 **Pattern rule for all 5 scaffold elements:**
 - Prepend the 3-line YAML block (`---` / `scaffold: true` / `element: <name>`) plus a blank separator line BEFORE the opening `# Heading` line of the markdown block that is saved to disk.
 - The `element:` value is the lowercase element name (no spaces, no hyphens): `dedication`, `epigraph`, `foreword`, `preface`, `acknowledgments`.
-- GENERATE element files (01, 03, 04, 07 and all others) get NO YAML frontmatter — absence of frontmatter means included by default in assembly.
+- GENERATE element files (01, 03, 04, 07 and all others) get NO YAML frontmatter - absence of frontmatter means included by default in assembly.
 
-**5 scaffold element save lines** (verified by direct file inspection — these are the lines immediately before which the YAML header instruction must appear):
+**5 scaffold element save lines** (verified by direct file inspection - these are the lines immediately before which the YAML header instruction must appear):
 | Element | Save line | element: value |
 |---------|-----------|----------------|
 | Element 5: Dedication | Line 175 | `dedication` |
@@ -78,9 +78,9 @@ element: dedication
 
 ### `commands/scr/export.md` (command, request-response)
 
-**Analog:** `commands/scr/export.md` lines 86-116 — STEP 1.5 VALIDATE MANUSCRIPT (Phase 30 injection). STEP 1.6 follows the identical structure.
+**Analog:** `commands/scr/export.md` lines 86-116 - STEP 1.5 VALIDATE MANUSCRIPT (Phase 30 injection). STEP 1.6 follows the identical structure.
 
-**STEP 1.5 structure** (lines 86-116 — copy this structure exactly):
+**STEP 1.5 structure** (lines 86-116 - copy this structure exactly):
 ```markdown
 ### STEP 1.5: VALIDATE MANUSCRIPT
 
@@ -127,7 +127,7 @@ If no markers found: proceed to STEP 2.
 ```markdown
 ### STEP 1.6: FRONT-MATTER GATE
 
-**1.6a — Scaffold exclusion**
+**1.6a - Scaffold exclusion**
 
 Check if `.manuscript/front-matter/` exists.
 
@@ -140,12 +140,12 @@ If the directory exists, scan the first 10 lines of each `.md` file in `.manuscr
 
 If any scaffold files were found, note them for the assembly step (STEP 3b) and show:
 > **Note:** [N] scaffold front-matter element(s) will be excluded from this export:
->   - `.manuscript/front-matter/12-preface.md` (scaffold: true — edit and set scaffold: false to include)
->   - `.manuscript/front-matter/05-dedication.md` (scaffold: true — edit and set scaffold: false to include)
+>   - `.manuscript/front-matter/12-preface.md` (scaffold: true - edit and set scaffold: false to include)
+>   - `.manuscript/front-matter/05-dedication.md` (scaffold: true - edit and set scaffold: false to include)
 
 If no scaffold files found, show no note. Proceed to 1.6b.
 
-**1.6b — GENERATE element auto-refresh**
+**1.6b - GENERATE element auto-refresh**
 
 Compare the modification timestamp of `.manuscript/WORK.md` against the 4 GENERATE front-matter files:
 - `.manuscript/front-matter/01-half-title.md`
@@ -169,7 +169,7 @@ If WORK.md is not newer than all 4 files: skip regeneration silently.
 Proceed to STEP 2.
 ```
 
-**STEP 3b addition** (lines 186-199 — assembly step must reference STEP 1.6a exclusion list):
+**STEP 3b addition** (lines 186-199 - assembly step must reference STEP 1.6a exclusion list):
 
 Current STEP 3b text (lines 186-199):
 ```markdown
@@ -200,9 +200,9 @@ Add this sentence after the sort instruction block, before the "If no front matt
 
 ### `commands/scr/publish.md` (command, request-response)
 
-**Analog:** `commands/scr/publish.md` lines 36-66 — STEP 1.5 VALIDATE MANUSCRIPT (identical structure to export.md STEP 1.5, with "Publishing blocked" substituted for "Export blocked").
+**Analog:** `commands/scr/publish.md` lines 36-66 - STEP 1.5 VALIDATE MANUSCRIPT (identical structure to export.md STEP 1.5, with "Publishing blocked" substituted for "Export blocked").
 
-**STEP 1.5 structure** (lines 36-66 — the exact existing text):
+**STEP 1.5 structure** (lines 36-66 - the exact existing text):
 ```markdown
 ### STEP 1.5: VALIDATE MANUSCRIPT
 
@@ -245,17 +245,17 @@ If no markers found: proceed to STEP 2.
 - Line 70: `### STEP 2: ROUTE`
 - STEP 1.6 block is inserted AFTER line 66 (after the `---` separator), BEFORE line 70.
 
-**STEP 1.6 block for publish.md:** Identical text to export.md's STEP 1.6 (copy verbatim). The wording is command-agnostic — it references `/scr:front-matter` for regeneration, not `/scr:export`.
+**STEP 1.6 block for publish.md:** Identical text to export.md's STEP 1.6 (copy verbatim). The wording is command-agnostic - it references `/scr:front-matter` for regeneration, not `/scr:export`.
 
-**No STEP 3b equivalent in publish.md** (verified: publish.md chains to `/scr:export` for all assembly via STEP 4 presets — it has no own assembly step). The STEP 3b edit is export.md only.
+**No STEP 3b equivalent in publish.md** (verified: publish.md chains to `/scr:export` for all assembly via STEP 4 presets - it has no own assembly step). The STEP 3b edit is export.md only.
 
 ---
 
 ### `test/phase31-staged-front-matter-generation.test.js` (test, static text assertions)
 
-**Analog:** `test/phase30-export-cleanup-validation-gate.test.js` — exact match. Same framework (`node:test` + `node:assert/strict`), same `readFile()` helper, same `describe`/`it` structure, same positional assertion pattern.
+**Analog:** `test/phase30-export-cleanup-validation-gate.test.js` - exact match. Same framework (`node:test` + `node:assert/strict`), same `readFile()` helper, same `describe`/`it` structure, same positional assertion pattern.
 
-**File header pattern** (lines 1-23 of phase30 test — copy verbatim, updating paths):
+**File header pattern** (lines 1-23 of phase30 test - copy verbatim, updating paths):
 ```javascript
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
@@ -281,14 +281,14 @@ function readFile(filePath) {
 }
 ```
 
-**Section separator pattern** (lines 25-27 of phase30 test — copy format):
+**Section separator pattern** (lines 25-27 of phase30 test - copy format):
 ```javascript
 // ─────────────────────────────────────────────────────────────────────────────
 // FM-02: front-matter.md prepends scaffold: true YAML to 5 scaffold elements
 // ─────────────────────────────────────────────────────────────────────────────
 ```
 
-**Positional assertion pattern** (lines 192-202 of phase30 test — VALID-03 block, exact idiom for STEP ordering):
+**Positional assertion pattern** (lines 192-202 of phase30 test - VALID-03 block, exact idiom for STEP ordering):
 ```javascript
 describe('Phase 30: VALID-03 export.md has validate gate before prerequisites step', () => {
   it('export.md contains STEP 1.5 validate gate and it appears before STEP 2', () => {
@@ -296,11 +296,11 @@ describe('Phase 30: VALID-03 export.md has validate gate before prerequisites st
     assert.ok(content !== null, 'commands/scr/export.md could not be read');
     const step15Pos = content.indexOf('STEP 1.5');
     const step2Pos = content.indexOf('STEP 2');
-    assert.ok(step15Pos !== -1, 'export.md must contain STEP 1.5 validate gate — VALID-03');
+    assert.ok(step15Pos !== -1, 'export.md must contain STEP 1.5 validate gate - VALID-03');
     assert.ok(step2Pos !== -1, 'export.md must contain STEP 2 (CHECK PREREQUISITES)');
     assert.ok(
       step15Pos < step2Pos,
-      'STEP 1.5 must appear before STEP 2 in export.md — gate must run before tool detection (Pitfall 1)'
+      'STEP 1.5 must appear before STEP 2 in export.md - gate must run before tool detection (Pitfall 1)'
     );
   });
 ```
@@ -312,7 +312,7 @@ describe('Phase 30: VALID-03 export.md has validate gate before prerequisites st
     assert.ok(content !== null, 'commands/scr/export.md could not be read');
     assert.ok(
       content.includes('--skip-validate'),
-      'export.md gate must mention --skip-validate bypass flag — VALID-03 escape hatch'
+      'export.md gate must mention --skip-validate bypass flag - VALID-03 escape hatch'
     );
   });
 ```
@@ -321,13 +321,13 @@ describe('Phase 30: VALID-03 export.md has validate gate before prerequisites st
 
 | Req ID | describe label | it cases |
 |--------|---------------|----------|
-| FM-01 | `FM-01 front-matter.md GENERATE elements have no [Fill in] placeholders` | Assert `[Fill in` does not appear within GENERATE element sections (01, 03, 04, 07) — use indexOf on the section header text then slice to the next `Save to` to scope the check |
+| FM-01 | `FM-01 front-matter.md GENERATE elements have no [Fill in] placeholders` | Assert `[Fill in` does not appear within GENERATE element sections (01, 03, 04, 07) - use indexOf on the section header text then slice to the next `Save to` to scope the check |
 | FM-02 | `FM-02 front-matter.md adds scaffold: true to exactly 5 scaffold elements` | One `it` per element: assert `scaffold: true` appears in the file near `05-dedication.md`, `06-epigraph.md`, `11-foreword.md`, `12-preface.md`, `13-acknowledgments.md` |
 | FM-03 export | `FM-03 export.md has STEP 1.6 scaffold exclusion after STEP 1.5 and before STEP 2` | STEP 1.6 exists; positional: 1.5 < 1.6 < STEP 2; `scaffold: true` appears in STEP 1.6 section; `scaffold: false` mentioned as opt-in |
 | FM-03 publish | `FM-03 publish.md has STEP 1.6 scaffold exclusion after STEP 1.5 and before STEP 2` | Same positional assertions for publish.md |
 | FM-04 | `FM-04 export.md STEP 1.6 references WORK.md timestamp and 4 GENERATE files` | `WORK.md` appears in STEP 1.6 section; `01-half-title.md`, `03-title-page.md`, `04-copyright.md`, `07-toc.md` all appear in STEP 1.6 section |
 
-**FM-02 per-element assertion approach** — scope each check to the text between the element's section header and its `Save to` line to avoid false positives from other sections:
+**FM-02 per-element assertion approach** - scope each check to the text between the element's section header and its `Save to` line to avoid false positives from other sections:
 ```javascript
 it('05-dedication.md write includes scaffold: true in YAML header', () => {
   const content = readFile(FRONT_MATTER_PATH);
@@ -340,7 +340,7 @@ it('05-dedication.md write includes scaffold: true in YAML header', () => {
   const section = content.slice(sectionStart, saveLine);
   assert.ok(
     section.includes('scaffold: true'),
-    'front-matter.md dedication section must include scaffold: true in YAML header — FM-02'
+    'front-matter.md dedication section must include scaffold: true in YAML header - FM-02'
   );
 });
 ```
@@ -361,7 +361,7 @@ The established injection pattern for both files:
 5. Closing phrase: `Proceed to STEP N.` (non-blocking) or `Then **stop**.` (blocking)
 6. Separator `---` before the next step heading
 
-STEP 1.6 is non-blocking — it uses `Proceed to STEP 2.` not `Then **stop**`.
+STEP 1.6 is non-blocking - it uses `Proceed to STEP 2.` not `Then **stop**`.
 
 ### Null Guard Before Directory Scan
 **Source:** `commands/scr/export.md` lines 198-201 (STEP 3b missing directory handling)
@@ -383,7 +383,7 @@ Proceed [to next sub-step].
 - `readFile()` helper returns `null` on missing file, never throws
 - Each `describe` maps to one requirement ID (e.g. FM-01, FM-02)
 - Each `it` asserts a single behavioral property
-- Error messages in `assert.ok()` third argument always include the requirement ID (e.g. `— FM-02`)
+- Error messages in `assert.ok()` third argument always include the requirement ID (e.g. ` -  FM-02`)
 - `content.indexOf()` for positional tests; `content.includes()` for presence tests
 - `content !== null` guard as the first assertion in every `it` that reads a file
 

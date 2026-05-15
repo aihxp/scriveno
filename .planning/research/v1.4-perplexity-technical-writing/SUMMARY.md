@@ -1,4 +1,4 @@
-# v1.4 Research Summary — Perplexity & Technical Writing
+# v1.4 Research Summary - Perplexity & Technical Writing
 
 ## Stack Additions
 

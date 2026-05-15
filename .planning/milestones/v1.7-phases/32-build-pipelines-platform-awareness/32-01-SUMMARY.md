@@ -33,15 +33,15 @@ key-files:
   modified: []
 
 key-decisions:
-  - "EPUB-only platforms (apple, bn, d2d, kobo, google, smashwords) assert trim_sizes: null and max_pages: null — not just status: active"
+  - "EPUB-only platforms (apple, bn, d2d, kobo, google, smashwords) assert trim_sizes: null and max_pages: null - not just status: active"
   - "EPUB-only platform tests also assert absence of pdf_print_ready in formats_accepted for completeness"
   - "Both 'Estimated' and 'pages' asserted separately for PLATFORM-02 warning format (more resilient to exact phrasing)"
-  - "BUILD-05 accessibility check matches on epub:type OR semantic nav OR nav (flexible — implementation may use any of these)"
+  - "BUILD-05 accessibility check matches on epub:type OR semantic nav OR nav (flexible - implementation may use any of these)"
   - "accessibility metadata flag check matches --epub-metadata OR accessibility OR epub-css OR scriveno-epub.css (covers multiple valid implementations)"
 
 patterns-established:
   - "Phase 32 test structure: 8 describe blocks with require IDs, loop-generated platform manifest tests, null-safe readFile"
-  - "RED state suite pattern: all tests fail because files don't exist yet — confirmed by exit code 1, 66 failures, 0 crashes"
+  - "RED state suite pattern: all tests fail because files don't exist yet - confirmed by exit code 1, 66 failures, 0 crashes"
 
 requirements-completed:
   - BUILD-01
@@ -74,7 +74,7 @@ completed: 2026-04-17
 - Created `test/phase32-build-pipelines-platform-awareness.test.js` with 90 tests across 8 requirement-aligned describe blocks
 - Confirmed RED state: 66 failures, 24 passes (structural checks), exit code 1, zero ReferenceError/SyntaxError
 - All 8 requirement IDs (BUILD-01..BUILD-05, PLATFORM-01..PLATFORM-03) present in describe titles
-- Suite does not crash on missing files — null-safe readFile() returns null and test assertions produce descriptive failures
+- Suite does not crash on missing files - null-safe readFile() returns null and test assertions produce descriptive failures
 
 ## Task Commits
 
@@ -82,7 +82,7 @@ completed: 2026-04-17
 
 ## Files Created/Modified
 
-- `test/phase32-build-pipelines-platform-awareness.test.js` — 90-test RED-state suite for Phase 32 build pipeline and platform awareness requirements
+- `test/phase32-build-pipelines-platform-awareness.test.js` - 90-test RED-state suite for Phase 32 build pipeline and platform awareness requirements
 
 ## Decisions Made
 
@@ -93,21 +93,21 @@ completed: 2026-04-17
 
 ## Deviations from Plan
 
-None — plan executed exactly as written. The PATTERNS.md file referenced in `read_first` did not exist (32-PATTERNS.md), but all required patterns were available in the plan's `<interfaces>` section and from reading the Phase 31 test file directly.
+None - plan executed exactly as written. The PATTERNS.md file referenced in `read_first` did not exist (32-PATTERNS.md), but all required patterns were available in the plan's `<interfaces>` section and from reading the Phase 31 test file directly.
 
 ## Issues Encountered
 
-- `32-PATTERNS.md` file listed in `read_first` did not exist at `.planning/phases/32-build-pipelines-platform-awareness/32-PATTERNS.md`. All pattern information was sourced directly from the plan's `<interfaces>` block and from reading `test/phase31-staged-front-matter-generation.test.js` — no impact on output.
+- `32-PATTERNS.md` file listed in `read_first` did not exist at `.planning/phases/32-build-pipelines-platform-awareness/32-PATTERNS.md`. All pattern information was sourced directly from the plan's `<interfaces>` block and from reading `test/phase31-staged-front-matter-generation.test.js` - no impact on output.
 
 ## User Setup Required
 
-None — no external service configuration required.
+None - no external service configuration required.
 
 ## Next Phase Readiness
 
 - Phase 32 Wave 2 (32-02) can now create `commands/scr/build-ebook.md` and `commands/scr/build-print.md` against machine-executable contracts
 - Phase 32 Wave 3 (32-03) can populate the 8 platform manifests and add `exports.build_ebook` / `exports.build_print` to CONSTRAINTS.json
-- Running `npm test` will fail until 32-02 and 32-03 land — this is the expected RED state
+- Running `npm test` will fail until 32-02 and 32-03 land - this is the expected RED state
 
 ---
 *Phase: 32-build-pipelines-platform-awareness*

@@ -1,4 +1,4 @@
-# Milestone v1.1 — Project Summary
+# Milestone v1.1 - Project Summary
 
 **Generated:** 2026-04-09  
 **Purpose:** Team onboarding and project review
@@ -33,9 +33,9 @@ This milestone contains only `Phase 9`, but it matters disproportionately becaus
 
 The roadmap records all `PLAT-01` through `PLAT-06` requirements as shipped in Phase `9`.
 
-- ✅ Skill-file platforms can install Scriveno through a generated `SKILL.md` manifest
-- ✅ The installer routes between command-directory and skill-file strategies
-- ✅ Tests were added for the generic installer path
+- [x] Skill-file platforms can install Scriveno through a generated `SKILL.md` manifest
+- [x] The installer routes between command-directory and skill-file strategies
+- [x] Tests were added for the generic installer path
 
 Audit verdict: no standalone archived milestone audit is retained for `v1.1` in this workspace. The phase directory for `09-generic-platform-support` is an archive stub, so this summary is based on the shipped roadmap plus [PROJECT.md](/Users/hprincivil/Projects/scriveno/.planning/PROJECT.md).
 
@@ -52,7 +52,7 @@ Audit verdict: no standalone archived milestone audit is retained for `v1.1` in 
 
 ## 7. Getting Started
 
-- **Run the project:** `npx scriveno-cli@latest`
+- **Run the project:** `npx scriveno@latest`
 - **Key directories:** [bin/install.js](/Users/hprincivil/Projects/scriveno/bin/install.js), [data/CONSTRAINTS.json](/Users/hprincivil/Projects/scriveno/data/CONSTRAINTS.json), [docs/runtime-support.md](/Users/hprincivil/Projects/scriveno/docs/runtime-support.md)
 - **Tests:** `npm test`
 - **Where to look first:** the Phase `9` section in [ROADMAP.md](/Users/hprincivil/Projects/scriveno/.planning/ROADMAP.md) and the runtime installer registry in [install.js](/Users/hprincivil/Projects/scriveno/bin/install.js)

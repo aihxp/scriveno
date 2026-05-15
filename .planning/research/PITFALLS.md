@@ -64,7 +64,7 @@ The current installer treats every install as a clean install. There is no conce
 3. **Defensive merge**: Use a whitelist of Scriveno-owned keys rather than a blacklist of user keys. New Scriveno keys get added; unknown keys pass through untouched.
 
 **Warning signs:**
-- Users reporting lost customizations after running `npx scriveno-cli@latest`
+- Users reporting lost customizations after running `npx scriveno@latest`
 - Settings reverting to defaults after upgrade
 - Custom templates disappearing after reinstall
 

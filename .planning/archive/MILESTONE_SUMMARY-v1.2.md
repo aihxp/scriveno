@@ -1,4 +1,4 @@
-# Milestone v1.2 — Project Summary
+# Milestone v1.2 - Project Summary
 
 **Generated:** 2026-04-09  
 **Purpose:** Team onboarding and project review
@@ -35,9 +35,9 @@ This milestone shipped phases `10` through `12` and made documentation part of t
 
 The roadmap records all `DOC-01` through `DOC-11` requirements as shipped:
 
-- ✅ `DOC-01` to `DOC-03` covered README, getting-started, and command reference
-- ✅ `DOC-04` to `DOC-08` covered feature and domain guides
-- ✅ `DOC-09` to `DOC-11` covered contributor docs, architecture, and live-codebase verification
+- [x] `DOC-01` to `DOC-03` covered README, getting-started, and command reference
+- [x] `DOC-04` to `DOC-08` covered feature and domain guides
+- [x] `DOC-09` to `DOC-11` covered contributor docs, architecture, and live-codebase verification
 
 Audit verdict: no standalone archived milestone audit is retained for `v1.2` in this workspace. Phases `10` through `12` are represented by archive stubs plus roadmap and state history, so this summary is derived from those artifacts.
 
@@ -55,7 +55,7 @@ Audit verdict: no standalone archived milestone audit is retained for `v1.2` in 
 
 ## 7. Getting Started
 
-- **Run the project:** `npx scriveno-cli@latest`
+- **Run the project:** `npx scriveno@latest`
 - **Key directories:** `docs/`, `commands/scr/`, `agents/`, `templates/`, `data/`
 - **Tests:** `npm test`
 - **Where to look first:** [README.md](/Users/hprincivil/Projects/scriveno/README.md), [docs/getting-started.md](/Users/hprincivil/Projects/scriveno/docs/getting-started.md), [docs/command-reference.md](/Users/hprincivil/Projects/scriveno/docs/command-reference.md), [docs/contributing.md](/Users/hprincivil/Projects/scriveno/docs/contributing.md)

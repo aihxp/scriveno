@@ -17,6 +17,7 @@ const SCAN_ROOTS = [
   'lib',
   'templates',
   'test',
+  '.planning',
   'package.json',
 ];
 

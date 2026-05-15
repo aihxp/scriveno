@@ -1,4 +1,4 @@
-# Milestone v1.3 — Project Summary
+# Milestone v1.3 - Project Summary
 
 **Generated:** 2026-04-09  
 **Purpose:** Team onboarding and project review
@@ -39,10 +39,10 @@ This milestone shipped phases `13` through `16`, passed its archived milestone a
 
 Archived requirement and audit artifacts show full coverage:
 
-- ✅ `TRUST-01` to `TRUST-03` satisfied in Phase `13`
-- ✅ `RUNTIME-01` to `RUNTIME-03` satisfied in Phase `14`
-- ✅ `PROOF-01` to `PROOF-03` satisfied in Phase `15`
-- ✅ `QA-01` and `QA-02` satisfied in Phase `16`
+- [x] `TRUST-01` to `TRUST-03` satisfied in Phase `13`
+- [x] `RUNTIME-01` to `RUNTIME-03` satisfied in Phase `14`
+- [x] `PROOF-01` to `PROOF-03` satisfied in Phase `15`
+- [x] `QA-01` and `QA-02` satisfied in Phase `16`
 
 Audit verdict: `passed` in [v1.3-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/scriveno/.planning/v1.3-MILESTONE-AUDIT.md), with `11/11` requirements satisfied and all four phases marked Nyquist-compliant after closeout.
 
@@ -61,7 +61,7 @@ Audit verdict: `passed` in [v1.3-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/
 
 ## 7. Getting Started
 
-- **Run the project:** `npx scriveno-cli@latest`
+- **Run the project:** `npx scriveno@latest`
 - **Key directories:** `docs/`, `data/proof/`, `test/`, `bin/`, `.planning/phases/13-*` through `16-*`
 - **Tests:** `npm test`
 - **Where to look first:** [docs/shipped-assets.md](/Users/hprincivil/Projects/scriveno/docs/shipped-assets.md), [docs/runtime-support.md](/Users/hprincivil/Projects/scriveno/docs/runtime-support.md), [docs/proof-artifacts.md](/Users/hprincivil/Projects/scriveno/docs/proof-artifacts.md), and the archived roadmap at [v1.3-ROADMAP.md](/Users/hprincivil/Projects/scriveno/.planning/milestones/v1.3-ROADMAP.md)
@@ -70,12 +70,12 @@ Audit verdict: `passed` in [v1.3-MILESTONE-AUDIT.md](/Users/hprincivil/Projects/
 
 ## Stats
 
-- **Timeline:** 2026-04-07 → 2026-04-09
+- **Timeline:** 2026-04-07 -> 2026-04-09
 - **Phases:** 4 / 4 complete
 - **Tag:** `v1.3`
 - **Requirements:** 11 / 11 satisfied
 - **Commits:** 244 reachable at the archived tag
-- **Files changed / diff stats:** see the archived milestone record in [MILESTONES.md](/Users/hprincivil/Projects/scriveno/.planning/MILESTONES.md) for the tracked `b3ca8ca` → `d0f93d1` range
+- **Files changed / diff stats:** see the archived milestone record in [MILESTONES.md](/Users/hprincivil/Projects/scriveno/.planning/MILESTONES.md) for the tracked `b3ca8ca` -> `d0f93d1` range
 
 ---
 

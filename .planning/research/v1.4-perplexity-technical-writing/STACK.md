@@ -1,6 +1,6 @@
 # Technology Stack
 
-**Project:** Scriveno v1.4 — Perplexity runtimes and technical-writing support
+**Project:** Scriveno v1.4 - Perplexity runtimes and technical-writing support
 **Researched:** 2026-04-09
 
 ## Recommendation

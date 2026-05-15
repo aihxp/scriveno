@@ -31,12 +31,12 @@
 **Analog (populated, structured):** `templates/platforms/kdp/manifest.yaml`
 **Analog (populated, simpler):** `templates/platforms/apple/manifest.yaml`
 
-**Existing placeholder shape** (all 10 manifests, lines 1-14 — copy header comment style):
+**Existing placeholder shape** (all 10 manifests, lines 1-14 - copy header comment style):
 ```yaml
-# Sacred tradition profile — placeholder manifest.
+# Sacred tradition profile - placeholder manifest.
 # Real content (book_order, approval_block, font_stack, rtl, numbering, script)
 # lands in Phase 33 (Sacred Tradition Profiles).
-# DO NOT remove this file — Phase 29's validator (Plan 03) reads the
+# DO NOT remove this file - Phase 29's validator (Plan 03) reads the
 # directory listing to populate the allowed tradition values.
 tradition: catholic
 label: "Roman Catholic"
@@ -51,9 +51,9 @@ status: placeholder
 
 **Populated manifest shape** (modeled on `templates/platforms/kdp/manifest.yaml` lines 1-43, adapted for sacred schema):
 ```yaml
-# Sacred tradition profile — <label>.
+# Sacred tradition profile - <label>.
 # Populated in Phase 33 (Sacred Tradition Profiles).
-# DO NOT remove this file — Phase 29's validator (Plan 03) reads the
+# DO NOT remove this file - Phase 29's validator (Plan 03) reads the
 # directory listing to populate the allowed tradition values.
 tradition: <slug>
 label: "<Human label>"
@@ -116,13 +116,13 @@ script: latin
 
 ---
 
-### `commands/scr/build-ebook.md` — add STEP 1.7 (command, request-response)
+### `commands/scr/build-ebook.md` - add STEP 1.7 (command, request-response)
 
 **Analog:** `commands/scr/build-ebook.md` existing STEP 1.6 block (lines 78-124), STEP 2 header at line 126
 
 **Insertion point:** Between end of STEP 1.6 (`Proceed to STEP 2.` at line 122) and `### STEP 2:` heading (line 126)
 
-**STEP 1.6 end pattern** (lines 120-124 — the step closes with "Proceed to STEP 2." then a horizontal rule):
+**STEP 1.6 end pattern** (lines 120-124 - the step closes with "Proceed to STEP 2." then a horizontal rule):
 ```markdown
 If WORK.md is not newer than all 4 files and all 4 files exist: skip regeneration silently.
 
@@ -131,7 +131,7 @@ Proceed to STEP 2.
 ---
 ```
 
-**STEP 1.7 block to insert** (modeled on STEP 1.6 style — heading, condition-first, silent-skip-if-absent, then action):
+**STEP 1.7 block to insert** (modeled on STEP 1.6 style - heading, condition-first, silent-skip-if-absent, then action):
 ```markdown
 ### STEP 1.7: TRADITION LOADING
 
@@ -160,7 +160,7 @@ Proceed to STEP 2.
 
 ---
 
-### `commands/scr/build-print.md` — add STEP 1.7 (command, request-response)
+### `commands/scr/build-print.md` - add STEP 1.7 (command, request-response)
 
 **Analog:** `commands/scr/build-print.md` existing STEP 1.6 block (lines 85-130), STEP 2 header at line 132
 
@@ -174,9 +174,9 @@ Proceed to STEP 2.
 
 **Analog:** `test/phase32-build-pipelines-platform-awareness.test.js` (lines 1-545)
 
-**CRITICAL: No js-yaml.** Package.json has zero runtime or dev dependencies. All existing tests (`phase29`, `phase31`, `phase32`) inspect YAML files using raw string `includes()` checks on `fs.readFileSync` output — never by parsing YAML. Phase33 tests must follow the same pattern.
+**CRITICAL: No js-yaml.** Package.json has zero runtime or dev dependencies. All existing tests (`phase29`, `phase31`, `phase32`) inspect YAML files using raw string `includes()` checks on `fs.readFileSync` output - never by parsing YAML. Phase33 tests must follow the same pattern.
 
-**File header pattern** (lines 1-9 of phase32 test — copy exactly, changing paths and phase number):
+**File header pattern** (lines 1-9 of phase32 test - copy exactly, changing paths and phase number):
 ```javascript
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
@@ -189,7 +189,7 @@ const BUILD_EBOOK_PATH = path.join(ROOT, 'commands', 'scr', 'build-ebook.md');
 const BUILD_PRINT_PATH = path.join(ROOT, 'commands', 'scr', 'build-print.md');
 ```
 
-**`readFile` null-safe helper** (lines 16-20 of phase32 test — copy verbatim):
+**`readFile` null-safe helper** (lines 16-20 of phase32 test - copy verbatim):
 ```javascript
 function readFile(filePath) {
   try { return fs.readFileSync(filePath, 'utf8'); }
@@ -204,7 +204,7 @@ function readFile(filePath) {
 // ─────────────────────────────────────────────────────────────────────────────
 ```
 
-**Loop-over-traditions describe block pattern** (modeled on phase32 lines 431-445 — loop `for (const platform of allPlatforms)`):
+**Loop-over-traditions describe block pattern** (modeled on phase32 lines 431-445 - loop `for (const platform of allPlatforms)`):
 ```javascript
 describe('Phase 33: TRAD-01 all 10 tradition manifests are complete and active', () => {
   const allTraditions = [
@@ -213,49 +213,49 @@ describe('Phase 33: TRAD-01 all 10 tradition manifests are complete and active',
   ];
 
   for (const slug of allTraditions) {
-    it(`${slug}/manifest.yaml has status: active (not placeholder) — TRAD-01`, () => {
+    it(`${slug}/manifest.yaml has status: active (not placeholder) - TRAD-01`, () => {
       const content = readFile(path.join(SACRED_DIR, slug, 'manifest.yaml'));
-      assert.ok(content !== null, `templates/sacred/${slug}/manifest.yaml could not be read — TRAD-01`);
+      assert.ok(content !== null, `templates/sacred/${slug}/manifest.yaml could not be read - TRAD-01`);
       assert.ok(
         !content.includes('status: placeholder'),
-        `${slug}/manifest.yaml must not have status: placeholder — must be status: active — TRAD-01`
+        `${slug}/manifest.yaml must not have status: placeholder - must be status: active - TRAD-01`
       );
     });
   }
 });
 ```
 
-**Field presence via string check pattern** (modeled on phase32 lines 436-444 — checking `content.includes('someValue')`):
+**Field presence via string check pattern** (modeled on phase32 lines 436-444 - checking `content.includes('someValue')`):
 ```javascript
-it(`${slug}/manifest.yaml has non-null script field — TRAD-01`, () => {
+it(`${slug}/manifest.yaml has non-null script field - TRAD-01`, () => {
   const content = readFile(path.join(SACRED_DIR, slug, 'manifest.yaml'));
   assert.ok(content !== null, `templates/sacred/${slug}/manifest.yaml could not be read`);
   assert.ok(
     !content.includes('script: null'),
-    `${slug}/manifest.yaml must have non-null script: field — TRAD-01`
+    `${slug}/manifest.yaml must have non-null script: field - TRAD-01`
   );
 });
 ```
 
-**RTL boolean check pattern** (for TRAD-02 — check specific values by slug):
+**RTL boolean check pattern** (for TRAD-02 - check specific values by slug):
 ```javascript
 describe('Phase 33: TRAD-02 rtl field is boolean and correct per tradition', () => {
   const rtlTraditions = ['islamic-hafs', 'islamic-warsh', 'jewish'];
   const ltrTraditions = ['catholic', 'orthodox', 'pali', 'protestant', 'sanskrit', 'tewahedo', 'tibetan'];
 
   for (const slug of rtlTraditions) {
-    it(`${slug}/manifest.yaml has rtl: true — TRAD-02`, () => {
+    it(`${slug}/manifest.yaml has rtl: true - TRAD-02`, () => {
       const content = readFile(path.join(SACRED_DIR, slug, 'manifest.yaml'));
-      assert.ok(content !== null, `templates/sacred/${slug}/manifest.yaml could not be read — TRAD-02`);
-      assert.ok(content.includes('rtl: true'), `${slug}/manifest.yaml must have rtl: true — TRAD-02`);
+      assert.ok(content !== null, `templates/sacred/${slug}/manifest.yaml could not be read - TRAD-02`);
+      assert.ok(content.includes('rtl: true'), `${slug}/manifest.yaml must have rtl: true - TRAD-02`);
     });
   }
 
   for (const slug of ltrTraditions) {
-    it(`${slug}/manifest.yaml has rtl: false — TRAD-02`, () => {
+    it(`${slug}/manifest.yaml has rtl: false - TRAD-02`, () => {
       const content = readFile(path.join(SACRED_DIR, slug, 'manifest.yaml'));
-      assert.ok(content !== null, `templates/sacred/${slug}/manifest.yaml could not be read — TRAD-02`);
-      assert.ok(content.includes('rtl: false'), `${slug}/manifest.yaml must have rtl: false — TRAD-02`);
+      assert.ok(content !== null, `templates/sacred/${slug}/manifest.yaml could not be read - TRAD-02`);
+      assert.ok(content.includes('rtl: false'), `${slug}/manifest.yaml must have rtl: false - TRAD-02`);
     });
   }
 });
@@ -273,17 +273,17 @@ describe('Phase 33: TRAD-02 rtl field is boolean and correct per tradition', () 
 
 **TRAD-05 positional test pattern** (exact copy from phase32 lines 61-79, adjusted for STEP 1.7):
 ```javascript
-it('STEP 1.7 appears before ### STEP 2: in build-ebook.md — TRAD-05', () => {
+it('STEP 1.7 appears before ### STEP 2: in build-ebook.md - TRAD-05', () => {
   const content = readFile(BUILD_EBOOK_PATH);
   assert.ok(content !== null, 'commands/scr/build-ebook.md could not be read');
   const s16 = content.indexOf('STEP 1.6');
   const s17 = content.indexOf('STEP 1.7');
   const s2  = content.indexOf('### STEP 2:');
-  assert.ok(s16 !== -1, 'build-ebook.md must contain STEP 1.6 — TRAD-05');
-  assert.ok(s17 !== -1, 'build-ebook.md must contain STEP 1.7 — TRAD-05');
-  assert.ok(s2  !== -1, 'build-ebook.md must contain ### STEP 2: — TRAD-05');
-  assert.ok(s16 < s17, 'STEP 1.6 must appear before STEP 1.7 in build-ebook.md — TRAD-05');
-  assert.ok(s17 < s2,  'STEP 1.7 must appear before ### STEP 2: in build-ebook.md — TRAD-05');
+  assert.ok(s16 !== -1, 'build-ebook.md must contain STEP 1.6 - TRAD-05');
+  assert.ok(s17 !== -1, 'build-ebook.md must contain STEP 1.7 - TRAD-05');
+  assert.ok(s2  !== -1, 'build-ebook.md must contain ### STEP 2: - TRAD-05');
+  assert.ok(s16 < s17, 'STEP 1.6 must appear before STEP 1.7 in build-ebook.md - TRAD-05');
+  assert.ok(s17 < s2,  'STEP 1.7 must appear before ### STEP 2: in build-ebook.md - TRAD-05');
 });
 ```
 
@@ -293,21 +293,21 @@ it('STEP 1.7 appears before ### STEP 2: in build-ebook.md — TRAD-05', () => {
 
 ### YAML manifest header comment block
 **Source:** All 10 placeholder manifests (`templates/sacred/*/manifest.yaml` lines 1-5) + `templates/platforms/kdp/manifest.yaml` lines 1-4
-**Apply to:** All 10 sacred manifests when populating — update first two comment lines, keep the DO NOT REMOVE line
+**Apply to:** All 10 sacred manifests when populating - update first two comment lines, keep the DO NOT REMOVE line
 ```yaml
-# Sacred tradition profile — <label>.
+# Sacred tradition profile - <label>.
 # Populated in Phase 33 (Sacred Tradition Profiles).
-# DO NOT remove this file — Phase 29's validator (Plan 03) reads the
+# DO NOT remove this file - Phase 29's validator (Plan 03) reads the
 # directory listing to populate the allowed tradition values.
 ```
 
 ### `status: active` pattern
 **Source:** `templates/platforms/kdp/manifest.yaml` line 7, `templates/platforms/apple/manifest.yaml` line 7
-**Apply to:** All 10 sacred manifests — replace `status: placeholder` with `status: active` when populating
+**Apply to:** All 10 sacred manifests - replace `status: placeholder` with `status: active` when populating
 
 ### No js-yaml constraint
 **Source:** `package.json` (zero dependencies), all existing test files (phase29, phase31, phase32 use only `fs` + `path`)
-**Apply to:** `test/phase33-sacred-tradition-profiles.test.js` — all YAML field checks must use `content.includes('fieldname: value')` string matching, never `require('js-yaml')`
+**Apply to:** `test/phase33-sacred-tradition-profiles.test.js` - all YAML field checks must use `content.includes('fieldname: value')` string matching, never `require('js-yaml')`
 
 ### `readFile` null-safe helper
 **Source:** `test/phase32-build-pipelines-platform-awareness.test.js` lines 16-20
@@ -321,11 +321,11 @@ function readFile(filePath) {
 
 ### Loop-over-all test generation
 **Source:** `test/phase32-build-pipelines-platform-awareness.test.js` lines 431-529 (looping `for (const platform of allPlatforms)`)
-**Apply to:** TRAD-01, TRAD-02, TRAD-03, TRAD-04 — loop over the 10 tradition slugs
+**Apply to:** TRAD-01, TRAD-02, TRAD-03, TRAD-04 - loop over the 10 tradition slugs
 
 ### Step ordering assertion pattern
 **Source:** `test/phase32-build-pipelines-platform-awareness.test.js` lines 61-79 (STEP 1.5 before STEP 1.6 before `### STEP 2:`)
-**Apply to:** TRAD-05 — asserts STEP 1.6 before STEP 1.7 before `### STEP 2:` in both build commands
+**Apply to:** TRAD-05 - asserts STEP 1.6 before STEP 1.7 before `### STEP 2:` in both build commands
 
 ### STEP heading format
 **Source:** `commands/scr/build-ebook.md` lines 44, 78, 126 (STEP 1.5, STEP 1.6, STEP 2 headings use `### STEP N:`)

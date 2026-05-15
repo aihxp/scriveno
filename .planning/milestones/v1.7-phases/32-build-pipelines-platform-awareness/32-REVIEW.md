@@ -44,7 +44,7 @@ One critical architectural violation was found in `build-print.md`: the command 
 ### CR-01: build-print.md references a non-existent JS file, violating the pure skill architecture
 
 **File:** `commands/scr/build-print.md:201`
-**Issue:** STEP 2.5 instructs the agent to validate the platform slug by calling `validatePlatform(slug)` from `lib/architectural-profiles.js`. This is a direct architectural violation: `CLAUDE.md` explicitly requires "Must remain a pure skill/command system — no compiled code, no runtime dependencies beyond Node.js for the installer." The file `lib/architectural-profiles.js` does not exist in the codebase, and agent instruction files in this system are executed by an LLM that reads markdown — they do not invoke JavaScript functions. The validation logic should be expressed as a plain list check inside the markdown itself.
+**Issue:** STEP 2.5 instructs the agent to validate the platform slug by calling `validatePlatform(slug)` from `lib/architectural-profiles.js`. This is a direct architectural violation: `CLAUDE.md` explicitly requires "Must remain a pure skill/command system - no compiled code, no runtime dependencies beyond Node.js for the installer." The file `lib/architectural-profiles.js` does not exist in the codebase, and agent instruction files in this system are executed by an LLM that reads markdown - they do not invoke JavaScript functions. The validation logic should be expressed as a plain list check inside the markdown itself.
 
 **Fix:** Replace the JS-function reference with an inline description of the validation rule:
 
@@ -84,7 +84,7 @@ Also add a line in the `## Usage` section explaining its effect:
 ### WR-02: Duplicate and potentially conflicting language metadata in build-ebook.md
 
 **File:** `commands/scr/build-ebook.md:213-219` and `commands/scr/build-ebook.md:246`
-**Issue:** The generated `metadata.yaml` already includes `language: "[language from config.json, default en-US]"` (line 216), which Pandoc reads via `--metadata-file`. The Pandoc invocation then also appends `-V lang={language}` (line 246). Pandoc's `-V` sets a template variable; `--metadata-file` sets a metadata field. For EPUB output, Pandoc uses the `lang` metadata key for the `xml:lang` and `dc:language` attributes. When both are present with different values (e.g., `language: en-US` in the YAML vs `-V lang=en`), the `-V` value can override or conflict with the metadata file value depending on Pandoc version. Additionally, `{language}` is a literal substitution token the agent must resolve — if the agent does not perform the substitution, the literal string `{language}` is emitted as the lang value, producing an invalid EPUB.
+**Issue:** The generated `metadata.yaml` already includes `language: "[language from config.json, default en-US]"` (line 216), which Pandoc reads via `--metadata-file`. The Pandoc invocation then also appends `-V lang={language}` (line 246). Pandoc's `-V` sets a template variable; `--metadata-file` sets a metadata field. For EPUB output, Pandoc uses the `lang` metadata key for the `xml:lang` and `dc:language` attributes. When both are present with different values (e.g., `language: en-US` in the YAML vs `-V lang=en`), the `-V` value can override or conflict with the metadata file value depending on Pandoc version. Additionally, `{language}` is a literal substitution token the agent must resolve - if the agent does not perform the substitution, the literal string `{language}` is emitted as the lang value, producing an invalid EPUB.
 
 **Fix:** Remove the `-V lang={language}` flag from the Pandoc invocation and rely solely on the `metadata.yaml` file. Rename the `language` key in metadata.yaml to `lang` (which is what Pandoc uses for the EPUB `xml:lang` attribute):
 
@@ -113,7 +113,7 @@ If `data/export-templates/scriveno-epub.css` does not exist:
 > This file is required for properly styled EPUB output.
 > Re-install Scriveno or restore the file from the repository.
 
-Then **stop** — do not attempt the build without the stylesheet.
+Then **stop** - do not attempt the build without the stylesheet.
 ```
 
 ---
@@ -145,12 +145,12 @@ function readFile(filePath) {
 
 **Fix:** Add to the PLATFORM-03 describe block:
 ```js
-it('build-print.md contains EPUB-only platform rejection message — PLATFORM-03', () => {
+it('build-print.md contains EPUB-only platform rejection message - PLATFORM-03', () => {
   const content = readFile(BUILD_PRINT_PATH);
   assert.ok(content !== null, 'commands/scr/build-print.md could not be read');
   assert.ok(
     content.includes('EPUB-only platform'),
-    'build-print.md must contain EPUB-only platform rejection message — PLATFORM-03'
+    'build-print.md must contain EPUB-only platform rejection message - PLATFORM-03'
   );
 });
 ```

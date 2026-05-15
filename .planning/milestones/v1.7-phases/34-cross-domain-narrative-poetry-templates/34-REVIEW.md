@@ -49,10 +49,10 @@ Four warnings were found across the command files: a wrong output path in the fi
 **Fix:** Parameterize STEP 5 on whether `--fixed-layout` is active:
 ```
 If --fixed-layout is active:
-  ✓ EPUB built → .manuscript/output/ebook-fixed-layout.epub ({file_size})
+  [x] EPUB built -> .manuscript/output/ebook-fixed-layout.epub ({file_size})
   ls -lh .manuscript/output/ebook-fixed-layout.epub | awk '{print $5}'
 Else:
-  ✓ EPUB built → .manuscript/output/ebook.epub ({file_size})
+  [x] EPUB built -> .manuscript/output/ebook.epub ({file_size})
   ls -lh .manuscript/output/ebook.epub | awk '{print $5}'
 ```
 
@@ -61,12 +61,12 @@ Else:
 ### WR-02: build-smashwords skips scaffold front-matter exclusion (STEP 1.6 not run)
 
 **File:** `commands/scr/build-smashwords.md:94-104`
-**Issue:** STEP 3 delegates to "/scr:build-ebook STEP 3a–3e" for assembly, but `build-smashwords` never runs STEP 1.6 (scaffold exclusion gate). Without STEP 1.6, the scaffold exclusion list is never populated, so any front-matter file with `scaffold: true` will be included in the DOCX output. Both `build-ebook.md` and `build-print.md` include STEP 1.6 between STEP 1.5 and STEP 2. `build-smashwords` omits it entirely.
+**Issue:** STEP 3 delegates to "/scr:build-ebook STEP 3a-3e" for assembly, but `build-smashwords` never runs STEP 1.6 (scaffold exclusion gate). Without STEP 1.6, the scaffold exclusion list is never populated, so any front-matter file with `scaffold: true` will be included in the DOCX output. Both `build-ebook.md` and `build-print.md` include STEP 1.6 between STEP 1.5 and STEP 2. `build-smashwords` omits it entirely.
 **Fix:** Add STEP 1.6 to `build-smashwords.md` between STEP 1.5 and STEP 2, identical to the one in `build-ebook.md`. The scaffold exclusion list it populates must then be passed into the STEP 3 assembly logic:
 ```markdown
 ### STEP 1.6: FRONT-MATTER GATE
 
-Follow /scr:build-ebook STEP 1.6a–1.6b (scaffold exclusion and GENERATE auto-refresh).
+Follow /scr:build-ebook STEP 1.6a-1.6b (scaffold exclusion and GENERATE auto-refresh).
 Use the resulting scaffold exclusion list in STEP 3 assembly.
 ```
 
@@ -104,7 +104,7 @@ pandoc .manuscript/output/assembled-poetry.md \
 ### IN-01: scriveno-picturebook.typst applies only `margin-top` override to all four margins
 
 **File:** `data/export-templates/scriveno-picturebook.typst:21`
-**Issue:** `margin-all` is set from `$if(margin-top)$$margin-top$$else$0.375in$endif$`. All four page margins then use this single value. Passing `-V margin-bottom=1in` via Pandoc has no effect — only `margin-top` is read. The uniform-margin intent for bleed consistency is valid, but it is undocumented and differs from the chapbook and stageplay templates which each accept independent per-side overrides. A user following the chapbook pattern will be confused when per-side overrides are silently ignored.
+**Issue:** `margin-all` is set from `$if(margin-top)$$margin-top$$else$0.375in$endif$`. All four page margins then use this single value. Passing `-V margin-bottom=1in` via Pandoc has no effect - only `margin-top` is read. The uniform-margin intent for bleed consistency is valid, but it is undocumented and differs from the chapbook and stageplay templates which each accept independent per-side overrides. A user following the chapbook pattern will be confused when per-side overrides are silently ignored.
 **Fix:** Add a comment in the template header explaining the single-variable design:
 ```
 // Margins: all four sides use a single override (-V margin-top=X).
@@ -119,9 +119,9 @@ pandoc .manuscript/output/assembled-poetry.md \
 **Issue:** The TPL-04 test at line 217 and the TPL-06 test at line 319 use `fs.existsSync(SW_DOCX)` directly inside `assert.ok(...)`. Every other file-existence test in this suite uses `readFile()` followed by `assert.ok(content !== null, 'descriptive message')`. The `fs.existsSync` path produces a bare `false` assertion failure with no file-path hint, making CI failures harder to diagnose quickly.
 **Fix:** Use `readFile` with a descriptive message for consistency:
 ```js
-it('scriveno-smashwords.docx exists — TPL-04', () => {
+it('scriveno-smashwords.docx exists - TPL-04', () => {
   const content = readFile(SW_DOCX);
-  assert.ok(content !== null, 'data/export-templates/scriveno-smashwords.docx must exist — TPL-04');
+  assert.ok(content !== null, 'data/export-templates/scriveno-smashwords.docx must exist - TPL-04');
 });
 ```
 
@@ -142,7 +142,7 @@ it('scriveno-smashwords.docx exists — TPL-04', () => {
 ### IN-04: scriveno-stageplay.typst has no comment explaining the absence of an auto-TOC
 
 **File:** `data/export-templates/scriveno-stageplay.typst:126-129`
-**Issue:** `scriveno-chapbook.typst` includes an optional auto-generated TOC block (lines 111–118) before `$body$`. `scriveno-stageplay.typst` has no TOC block. This is correct — stage plays use an author-written Dramatis Personae page, not an auto-generated TOC. However, the template header says nothing about this omission. A user familiar with the chapbook template may expect `--toc` to work the same way and be confused when it silently produces nothing in the stage play layout.
+**Issue:** `scriveno-chapbook.typst` includes an optional auto-generated TOC block (lines 111-118) before `$body$`. `scriveno-stageplay.typst` has no TOC block. This is correct - stage plays use an author-written Dramatis Personae page, not an auto-generated TOC. However, the template header says nothing about this omission. A user familiar with the chapbook template may expect `--toc` to work the same way and be confused when it silently produces nothing in the stage play layout.
 **Fix:** Add a comment after the title page block in `scriveno-stageplay.typst`:
 ```
 // No auto-TOC block: stage plays use a Dramatis Personae page (author-written prose),
