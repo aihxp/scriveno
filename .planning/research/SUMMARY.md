@@ -17,16 +17,16 @@ The top risks are: (1) broken first-run `npx` experience killing adoption before
 
 ### Recommended Stack
 
-Scriveno invokes external CLI tools via the AI agent's Bash capability -- it does not `npm install` anything. Pandoc is the backbone for all document conversion. Typst replaces LaTeX for PDF generation. Image generation uses OpenAI GPT Image 1.5 API (via curl). Translation uses DeepL + Google Cloud Translation APIs for machine passes, with the AI agent itself for literary-quality translation.
+Scriveno invokes external CLI tools via the AI agent's Bash capability -- it does not `npm install` anything. Pandoc is the backbone for all document conversion. Typst replaces LaTeX for PDF generation. Illustration workflows generate prompts for current image APIs rather than hard-coding one provider call into Scriveno. Translation uses DeepL + Google Cloud Translation APIs for machine passes, with the AI agent itself for literary-quality translation.
 
 **Core technologies:**
-- **Pandoc 3.9.x**: Universal document converter (EPUB, DOCX, PDF, LaTeX) -- de facto standard, production-quality output, massive ecosystem
-- **Typst 0.14.x**: PDF engine -- 27x faster than XeLaTeX, 30MB binary, accessible PDF/UA-1, native Pandoc support via `--pdf-engine=typst`
-- **OpenAI GPT Image 1.5 API**: Primary illustration engine -- best text instruction following, $0.02-0.08/image, available via existing API key
+- **Pandoc 3.x**: Universal document converter (EPUB, DOCX, PDF, LaTeX) -- de facto standard, production-quality output, massive ecosystem
+- **Typst current stable**: PDF engine with a smaller install footprint than TeX Live and native Pandoc support via `--pdf-engine=typst`
+- **OpenAI GPT Image 1.5 API**: Primary image-model reference for prompt structure. Current OpenAI docs describe it as the latest GPT Image model, but Scriveno should keep provider calls external and verify current pricing before release work.
 - **DeepL API Pro + Google Cloud Translation v3**: Translation engines -- DeepL for European language quality, Google for 130+ language coverage
 - **Afterwriting CLI + Screenplain**: Screenplay tools -- Fountain-to-PDF and Fountain-to-FDX respectively (MEDIUM confidence, sporadic maintenance)
 
-**Critical version note:** Scriveno's installer baseline should be `>=20.0.0` / Node.js 20+. DALL-E 2/3 APIs sunset May 2026 -- use GPT Image 1.5 only. npm classic tokens were revoked Feb 2026 -- use granular access tokens.
+**Critical version note:** Scriveno's installer baseline should be `>=20.0.0` / Node.js 20+. For illustration, prefer the current GPT Image docs for new work and treat DALL-E-first workflows as legacy-supported fallback paths. For npm publishing, avoid classic tokens and use scoped granular credentials or a future trusted-publishing release workflow.
 
 ### Expected Features
 
@@ -100,7 +100,7 @@ Based on combined research, the following phase structure aligns with dependency
 ### Phase 5: Export and Publishing Pipeline
 **Rationale:** Export is the foundation for everything downstream (illustration packages, translation multi-publish, collaboration version comparison). Requires Pandoc + Typst decisions upfront. Must account for RTL/CJK needs of Phase 7.
 **Delivers:** DOCX, PDF, EPUB, markdown export; front/back matter; blurb/synopsis; KDP and submission packages
-**Uses:** Pandoc 3.9.x, Typst 0.14.x, custom reference.docx and Typst templates
+**Uses:** Pandoc 3.x, current stable Typst, custom reference.docx and Typst templates
 **Implements:** Export pipeline (router pattern with format-specific sub-commands), assembly command, metadata generation
 **Avoids:** Platform validation failures (EPUBCheck, KDP spine formula); Pandoc as hidden dependency (detect and guide installation); publishing wizard overwhelm (presets as primary interface)
 
@@ -157,7 +157,7 @@ Phases with standard patterns (skip research-phase):
 | Stack | HIGH | Pandoc and Typst are well-documented, actively maintained, and verified with official sources. Screenplay tools (Afterwriting, Screenplain) are MEDIUM due to sporadic maintenance. |
 | Features | HIGH | Competitor analysis is thorough. Table stakes vs. differentiators clearly delineated. Feature dependency chain is well-mapped. |
 | Architecture | HIGH | Extends existing patterns (fresh-context-per-unit, orchestrator-delegate). No novel architecture required. Pandoc integration is well-documented. |
-| Pitfalls | HIGH | Platform-specific pitfalls (KDP, EPUBCheck) verified against official specs. npm publishing pitfalls verified against 2026 token deprecation timeline. RTL concerns verified against open issues. |
+| Pitfalls | HIGH | Platform-specific pitfalls (KDP, EPUBCheck) verified against official specs. npm publishing guidance should use scoped credentials or a future trusted-publishing workflow. RTL concerns need real-content checks. |
 
 **Overall confidence:** HIGH
 
@@ -165,7 +165,7 @@ Phases with standard patterns (skip research-phase):
 
 - **IngramSpark PDF/X-1a CMYK conversion:** Ghostscript can do it but the pipeline needs real-world testing. MEDIUM confidence -- validate during Phase 5 implementation.
 - **Screenplay tool longevity:** Afterwriting (last npm publish 2020) and Screenplain may break. Plan fallback Pandoc Lua filters for basic screenplay formatting.
-- **Typst RTL/BiDi support:** Typst 0.14 added accessibility but RTL support depth needs verification with real Arabic/Hebrew content before committing to it for sacred text PDFs.
+- **Typst RTL/BiDi support:** RTL support depth needs verification with real Arabic/Hebrew content before committing to it for sacred text PDFs.
 - **AI literary translation quality:** Research says 47% contextual meaning loss in machine translation. The two-step process (AI draft + human review) is the mitigation, but actual quality for literary fiction needs empirical testing during Phase 7.
 - **Multi-runtime compatibility:** Each new runtime (Codex, OpenCode, Copilot, Windsurf, Antigravity) may have different Bash tool names or agent invocation patterns. Needs per-runtime compatibility testing.
 
@@ -173,14 +173,14 @@ Phases with standard patterns (skip research-phase):
 
 ### Primary (HIGH confidence)
 - [Pandoc Official Site](https://pandoc.org/) -- Version 3.9.0.2, EPUB, DOCX, PDF capabilities
-- [Typst Blog: Typst 0.14](https://typst.app/blog/2025/typst-0.14) -- Accessibility features, performance
-- [Pandoc + Typst Tutorial](https://slhck.info/software/2025/10/25/typst-pdf-generation-xelatex-alternative.html) -- 27x speed improvement
-- [OpenAI API Pricing](https://platform.openai.com/docs/pricing) -- GPT Image 1.5 pricing verified
+- [Typst Documentation](https://typst.app/docs/) -- PDF engine reference
+- [Pandoc Typst PDF Engine](https://pandoc.org/MANUAL.html#creating-a-pdf) -- Pandoc PDF engine guidance
+- [OpenAI API Pricing](https://platform.openai.com/docs/pricing) -- GPT Image pricing reference
 - [KDP Formatting Requirements](https://kdp.amazon.com/en_US/help/topic/G201857950) -- Print submission specs
 - [npm Trusted Publishing](https://docs.npmjs.com/trusted-publishers/) -- Token deprecation timeline
 
 ### Secondary (MEDIUM confidence)
-- [DeepL vs Google vs Microsoft 2026](https://taia.io/resources/blog/deepl-vs-google-translate-vs-microsoft-translator/) -- Translation API comparison
+- Translation API pricing and quality should be refreshed against provider docs before implementation.
 - [Afterwriting GitHub](https://github.com/ifrost/afterwriting-labs) -- Fountain CLI tool (sporadic maintenance)
 - [Screenplain GitHub](https://github.com/vilcans/screenplain) -- Fountain to FDX (sporadic maintenance)
 - [IngramSpark File Requirements](https://www.ingramspark.com/blog/file-requirements-for-print-books) -- PDF/X-1a specs

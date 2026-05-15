@@ -25,11 +25,11 @@ Scriveno is a spec-driven writing, publishing, and translation pipeline that run
 ### Document Conversion Engine
 | Technology | Version | Purpose | Why | Confidence |
 |------------|---------|---------|-----|------------|
-| **Pandoc** | 3.9.x (current: 3.9.0.2) | Universal document converter | De facto standard for markdown-to-anything. Handles EPUB, DOCX, PDF, LaTeX, Typst, HTML. One tool covers 80% of export needs. Actively maintained, massive ecosystem of filters and templates. | HIGH |
+| **Pandoc** | Current stable 3.x | Universal document converter | De facto standard for markdown-to-anything. Handles EPUB, DOCX, PDF, LaTeX, Typst, HTML. One tool covers most export needs and has a large ecosystem of filters and templates. | HIGH |
 ### PDF Generation
 | Technology | Version | Purpose | Why | Confidence |
 |------------|---------|---------|-----|------------|
-| **Typst** | 0.14.x | PDF engine for Pandoc | 27x faster than XeLaTeX. Clean syntax. Generates accessible PDF/UA-1 by default (critical for 2025 EAA and 2026 ADA compliance). No massive TeX Live installation required. Pandoc supports `--pdf-engine=typst` natively. | HIGH |
+| **Typst** | Current stable | PDF engine for Pandoc | Clean syntax, smaller install footprint than TeX Live, and native Pandoc support through `--pdf-engine=typst`. Use for general book interiors; reserve LaTeX for academic class requirements. | HIGH |
 | **XeLaTeX** (fallback) | TeX Live 2025 | Academic/math-heavy PDF | Only needed if Typst cannot handle specialized mathematical notation or journal-specific LaTeX templates. Most creative writing does not need this. | MEDIUM |
 ### EPUB Generation
 | Technology | Version | Purpose | Why | Confidence |
@@ -58,8 +58,8 @@ Scriveno is a spec-driven writing, publishing, and translation pipeline that run
 ## Illustration Generation (AI Image APIs)
 | Technology | Purpose | Why | Confidence |
 |------------|---------|-----|------------|
-| **OpenAI GPT Image 1.5 API** | Primary illustration engine | Best text instruction following of any image API. Natively multimodal (understands story context). $0.02-0.08 per image at medium quality. Available via standard OpenAI API key that Codex users likely already have. | HIGH |
-| **GPT Image 1 Mini** | Budget/draft illustrations | $0.005/image. Good for concept art, character reference sheets, storyboard thumbnails. Use for iteration before final quality. | HIGH |
+| **OpenAI GPT Image 1.5 API** | Primary illustration engine | Current OpenAI image-generation docs describe it as the latest GPT Image model. It supports context-aware generation and editing through the Image API and Responses API. Check official pricing before release work because image costs depend on model, quality, size, and token use. | HIGH |
+| **GPT Image 1 Mini** | Budget/draft illustrations | Current OpenAI docs list it as a cost-efficient GPT Image option. Use for concept art, character reference sheets, and storyboard thumbnails when final-quality image cost is not needed. | HIGH |
 | **Stable Diffusion (via API)** | Style-consistent illustration sets | Open-source. LoRA fine-tuning allows training on a specific art style for consistent illustration across a book. Best for children's books / comics needing visual consistency. Requires more setup. | MEDIUM |
 ### Illustration Pipeline Architecture
 ## Translation Pipeline
@@ -76,11 +76,11 @@ Scriveno is a spec-driven writing, publishing, and translation pipeline that run
 ## npm Publishing Configuration
 | Concern | Recommendation | Why | Confidence |
 |---------|---------------|-----|------------|
-| **Authentication** | Granular Access Tokens (not classic) | Classic tokens deprecated; all classic tokens revoked by Feb 2026. Write-access tokens now max 90-day lifespan. | HIGH |
-| **Publishing method** | `npm publish` with 2FA from local machine | Most secure for small-team projects. Trusted publishing (OIDC via GitHub Actions) is overkill until Scriveno has CI/CD. | HIGH |
+| **Authentication** | Granular Access Tokens (not classic) | Avoid classic tokens for project publishing. Use scoped, short-lived credentials and keep token access narrower than the repo. | HIGH |
+| **Publishing method** | `npm publish` with 2FA from local machine | CI runs release checks, but publishing is still manual. Trusted publishing belongs in a future release workflow, not the current local-publish path. | HIGH |
 | **Prepublish check** | `npm pack --dry-run` before every publish | Verify no secrets, no unnecessary files leaked. The `"files"` field in package.json already scopes what's included. | HIGH |
 | **Versioning** | `npm version patch/minor/major` with git tags | Auto-creates git tag, bumps version. Pair with GitHub releases for changelog. | HIGH |
-| **npx support** | Already configured (`"bin": {"scriveno": "./bin/install.js"}`) | `npx scriveno-cli@latest` will download and run the installer. Current setup is correct. | HIGH |
+| **npx support** | Already configured (`"bin": {"scriveno": "bin/install.js"}`) | `npx scriveno@latest` downloads and runs the installer from the active npm package. Legacy names are historical only. | HIGH |
 | **Lockfile** | Commit `package-lock.json` but since there are zero dependencies, it's effectively empty | Standard practice. Will matter when/if dev dependencies are added for testing. | HIGH |
 | **Node version** | `"engines": {"node": ">=20.0.0"}` | Scriveno's installer compatibility floor is `>=20.0.0`; new installs should use a currently supported LTS such as Node.js 24. This keeps package metadata, installer guidance, and runtime docs aligned on one minimum without presenting Node 20 as the fresh-install target. | HIGH |
 See `docs/runtime-support.md` for the canonical runtime matrix, support levels, and host-runtime parity status.
@@ -104,7 +104,7 @@ See `docs/runtime-support.md` for the canonical runtime matrix, support levels, 
 | EPUB | Pandoc | Calibre CLI | Calibre is massive (200+ MB). Pandoc is lighter and sufficient. |
 | Document conversion | Pandoc | Asciidoctor | Scriveno manuscripts are markdown. Asciidoctor is AsciiDoc-native. Adding a format is unnecessary complexity. |
 | Illustration | OpenAI GPT Image 1.5 | Midjourney | No API. Cannot automate from CLI. |
-| Illustration | OpenAI GPT Image 1.5 | DALL-E 3 | Sunset May 2026. Dead end. |
+| Illustration | OpenAI GPT Image 1.5 | DALL-E 3 | DALL-E remains a legacy-supported path in the Image API, but GPT Image is the current new-work default in OpenAI's image-generation docs. |
 | Illustration | OpenAI GPT Image 1.5 | Replicate (Flux/SD) | Additional API signup. OpenAI key is already likely available to users of AI coding agents. |
 | Translation | DeepL + Google + AI agent | Amazon Translate | Lower quality for literary content. No advantage over Google for broad coverage. |
 | Translation | DeepL + Google + AI agent | LibreTranslate | Self-hosted, lower quality, limited languages. Not practical for a CLI tool. |
@@ -115,11 +115,11 @@ See `docs/runtime-support.md` for the canonical runtime matrix, support levels, 
 |------------|---------|
 | **npm runtime dependencies** | Scriveno is a pure skill system. Adding npm deps means adding a build step, version conflicts, and breaking the zero-dependency architecture. |
 | **Calibre** | 200+ MB desktop app. Pandoc does everything Scriveno needs at 1/10th the size. |
-| **DALL-E 2/3 API** | Sunset May 2026. Use GPT Image 1.5 instead. |
+| **DALL-E-first workflows** | Prefer the current GPT Image docs for new Scriveno illustration workflows. Treat DALL-E as a legacy-supported fallback, not the default design target. |
 | **Midjourney** | No API. Cannot be automated. |
 | **wkhtmltopdf** | Deprecated, security issues, poor print quality. |
-| **Classic npm tokens** | Revoked Feb 2026. Use granular access tokens only. |
-| **Node.js < 20** | Node 18 EOL April 2025. Node 20 LTS until April 2026. Bump minimum. |
+| **Classic npm tokens** | Do not use them for project publishing. Use granular access tokens or a future trusted-publishing release workflow. |
+| **Node.js < 20** | Node versions below 20 are unsupported by the installer. Node 20 is a compatibility floor; use a current LTS for new installs. |
 | **WeasyPrint for books** | Fine for reports, not for book typesetting. No proper ligatures, optical margins, or page-level layout control. |
 | **Custom EPUB generator** | Reinventing what Pandoc already does well. Waste of effort. |
 See `docs/shipped-assets.md` for the canonical inventory of bundled export templates and launch-critical files.
@@ -141,20 +141,19 @@ Load-bearing baseline. Files live in `data/export-templates/`. See `docs/shipped
 | `scriveno-kdp-cover.typst` | Typst template | KDP cover with calculated spine width |
 | `scriveno-ingram-cover.typst` | Typst template | IngramSpark full-wrap cover |
 ## Sources
-- [Pandoc Official Site](https://pandoc.org/) -- Version 3.9.0.2 confirmed
-- [Typst Blog: Typst 0.14](https://typst.app/blog/2025/typst-0.14) -- Accessibility features confirmed
-- [Pandoc + Typst Tutorial](https://slhck.info/software/2025/10/25/typst-pdf-generation-xelatex-alternative.html) -- 27x speed improvement verified
+- [Pandoc Official Site](https://pandoc.org/) -- Document conversion reference
+- [Typst Documentation](https://typst.app/docs/) -- PDF engine reference
+- [Pandoc Typst PDF Engine](https://pandoc.org/MANUAL.html#creating-a-pdf) -- Pandoc PDF engine guidance
 - [Afterwriting GitHub](https://github.com/ifrost/afterwriting-labs) -- Fountain CLI tool
 - [Screenplain GitHub](https://github.com/vilcans/screenplain) -- Fountain to FDX converter
-- [OpenAI API Pricing](https://platform.openai.com/docs/pricing) -- GPT Image 1.5 pricing
-- [GPT Image 1.5 Pricing Analysis](https://www.aifreeapi.com/en/posts/openai-image-generation-api-pricing) -- Model comparison
-- [DeepL vs Google vs Microsoft 2026](https://taia.io/resources/blog/deepl-vs-google-translate-vs-microsoft-translator/) -- Translation API comparison
-- [Translation API Pricing 2026](https://www.buildmvpfast.com/api-costs/translation) -- Cost comparison
+- [OpenAI Image Generation Guide](https://platform.openai.com/docs/guides/image-generation) -- GPT Image and DALL-E support
+- [OpenAI API Pricing](https://platform.openai.com/docs/pricing) -- GPT Image pricing
+- Translation API pricing and quality should be refreshed against provider docs before implementation.
 - [npm Trusted Publishing](https://docs.npmjs.com/trusted-publishers/) -- Token deprecation timeline
 - [Snyk npm Best Practices](https://snyk.io/blog/best-practices-create-modern-npm-package/) -- Security guidance
 - [KDP Formatting Requirements](https://kdp.amazon.com/en_US/help/topic/G201857950) -- Print submission specs
 - [IngramSpark File Requirements](https://www.ingramspark.com/blog/file-requirements-for-print-books) -- PDF/X-1a specs
-- [Best AI Image Generation APIs 2026](https://crazyrouter.com/en/blog/best-ai-image-generation-apis-2026) -- Midjourney no-API confirmed
+- Image-provider capability checks should be refreshed against provider docs before implementation.
 ## Conventions
 
 Conventions not yet established. Will populate as patterns emerge during development.

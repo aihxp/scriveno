@@ -4,6 +4,10 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const ROOT = path.join(__dirname, '..');
+const constraints = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'CONSTRAINTS.json'), 'utf8'));
+const liveWorkTypeCount = Object.keys(constraints.work_types).length;
+const liveWorkTypeGroupCount = Object.keys(constraints.work_type_groups).length;
+const liveCommandCount = Object.keys(constraints.commands).length;
 
 function read(relativePath) {
   return fs.readFileSync(path.join(ROOT, relativePath), 'utf8');
@@ -27,15 +31,19 @@ describe('phase 19 technical-writing trust surfaces', () => {
       ['AGENTS.md', agentsDoc],
       ['CLAUDE.md', claudeDoc],
     ]) {
-      assert.match(doc, /50 work types/, `${name} should keep the 50 work-type count`);
+      assert.match(
+        doc,
+        new RegExp(`${liveWorkTypeCount} work types`),
+        `${name} should keep the live work-type count`
+      );
     }
 
-    assert.match(workTypes, /9 groups/);
-    assert.match(architecture, /9 groups/);
+    assert.match(workTypes, new RegExp(`${liveWorkTypeGroupCount} groups`));
+    assert.match(architecture, new RegExp(`${liveWorkTypeGroupCount} groups`));
   });
 
   it('keeps secondary trust docs aligned on the live command inventory count', () => {
-    assert.match(architecture, /consistency across 112 commands/i);
+    assert.match(architecture, new RegExp(`consistency across ${liveCommandCount} commands`, 'i'));
     assert.doesNotMatch(architecture, /consistency across 101 commands/i);
   });
 

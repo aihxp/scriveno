@@ -114,4 +114,19 @@ describe('phase 13 contributor and root-doc alignment', () => {
       assert.doesNotMatch(doc, /Template Files Scriveno Should Ship/, `${name} should not use the retired heading`);
     }
   });
+
+  it('keeps root instruction docs aligned to the active npm package and publish model', () => {
+    for (const [name, doc] of [['AGENTS.md', agentsDoc], ['CLAUDE.md', claudeDoc]]) {
+      assert.match(doc, /npx scriveno@latest/, `${name} should use the active npm package name`);
+      assert.match(doc, /CI runs release checks, but publishing is still manual/, `${name} should describe the current publish model`);
+      assert.match(doc, /Node 20 is a compatibility floor/, `${name} should not present Node 20 as the fresh-install target`);
+      assert.doesNotMatch(doc, /npx scriveno-cli@latest/, `${name} should not use the unpublished legacy package`);
+      assert.doesNotMatch(doc, /until Scriveno has CI\/CD/, `${name} should not claim CI is absent`);
+      assert.doesNotMatch(doc, /Node 20 LTS until April 2026/, `${name} should not carry stale Node lifecycle wording`);
+      assert.doesNotMatch(doc, /Revoked Feb 2026/, `${name} should not carry stale npm-token lifecycle wording`);
+      assert.doesNotMatch(doc, /Sunset May 2026/, `${name} should not carry stale image API sunset wording`);
+      assert.doesNotMatch(doc, /\$0\.02-0\.08 per image/, `${name} should avoid stale hard-coded image pricing`);
+      assert.doesNotMatch(doc, /\$0\.005\/image/, `${name} should avoid stale hard-coded image pricing`);
+    }
+  });
 });
