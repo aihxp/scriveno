@@ -2,6 +2,26 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 2.0.6 - 2026-05-15
+
+Patch release focused on finishing the package rename cleanup in newly installed runtime metadata.
+
+**Installer metadata**
+
+- New installed command files now use the `scriveno-installed-command` ownership marker instead of the legacy `scriveno-cli-installed-command` marker.
+- New `.scriveno-installed.json` manifests now record `installer: "scriveno"`.
+- Cleanup and sync detection still recognize older `scriveno-cli-installed-command` markers as legacy input, so existing installs remain removable and refreshable.
+- `/scr:sync` now documents the new marker while explicitly naming the old marker as compatibility-only input.
+
+**Regression coverage**
+
+- Updated installer tests to assert that new installs no longer emit the legacy marker.
+- Added documentation guardrails so legacy package names only appear in historical or compatibility contexts, never as active install guidance.
+
+**Release alignment**
+
+- Bumped package, constraints, generated config, README badge/status, and documentation references to `2.0.6`.
+
 ## 2.0.5 - 2026-05-15
 
 Patch release focused on moving the public npm package name from `scriveno-cli` to `scriveno`.

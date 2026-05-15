@@ -2,6 +2,34 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.0.6 - 2026-05-15
+
+### What changed
+
+- New installed command files now use the `scriveno-installed-command` ownership marker.
+- New installed manifests now record `installer: "scriveno"`.
+- Existing installs that still contain the older `scriveno-cli-installed-command` marker remain supported for cleanup and sync detection.
+- `/scr:sync` now documents the current marker and treats the older marker as compatibility-only input.
+- Package and shipped metadata are aligned on `2.0.6`.
+
+### Why it matters
+
+This finishes the visible package rename for new runtime installs. Writers still install with `npx scriveno@latest`, and freshly generated local metadata now matches that package name without breaking older installed command surfaces.
+
+### Affected areas
+
+- installer-generated command markers
+- installed runtime manifests
+- `/scr:sync` guidance
+- README, changelog, release notes, and version metadata
+- regression tests for package-name compatibility
+
+### Verification
+
+- `npm test`
+- `npm run pack:check`
+- `git diff --check`
+
 ## 2.0.5 - 2026-05-15
 
 ### What changed
