@@ -32,12 +32,15 @@ Ships as `templates/WRITING-RULES.md` and lands in every new project's `.manuscr
 - Durable-doc wording that describes what is true now
 - Show-don't-tell triggers
 - Punctuation defaults (no em/en dashes, no emojis)
+- Diagnostic discipline (honest read): how the same rules read from the other side when prose is being evaluated rather than written
 
 The drafter, voice-checker, and originality-check all reference this as the canonical universal rulebook. If a writer's STYLE-GUIDE.md says they hedge, fragment, moralize, use period diction, or keep a formal register deliberately, that voice choice wins.
 
 The human-first additions are especially important for revision. They tell Scriveno to look for clusters before flagging AI-like prose, preserve mixed feelings and uneven rhythm, keep every required beat, avoid making unsupported details more specific just because the sentence would sound smoother, and avoid installing a new "humanized" signature.
 
 Editing commands should also report restraint. A good line-edit or polish pass can say what it deliberately left alone: a formal register, an earned list, a rough sentence that carries voice, or a loaded hedge that changes the claim if removed.
+
+The diagnostic layer is the evaluative counterpart and is deliberately separate from rewriting. `/scr:voice-check` and `/scr:originality-check` (and the voice-checker agent behind them) diagnose: they report an authenticity band (Reads human / Mixed signals / Reads AI-generated) first, then a 0-100 score, then flagged spans with reasons, and they never hand back a rewritten span. They run a scrutiny pre-check that matches scrutiny to evidence density (low density biases hard toward a high score, because over-flagging genuine human prose is the worst error a diagnostic can make), a false-positive audit with veto power that turns strong false positives into score-raising human markers, and an internal-consistency check for unearned register or sophistication seams. Every report carries a required "Reads as human (deliberately not flagged)" section and a caveat that the score is a heuristic read, not proof. The loop is diagnose, decide, transform (`/scr:line-edit`, `/scr:polish`, re-draft), re-verify; keeping diagnosis and rewriting in separate steps with the writer between them is what prevents a score-then-rewrite gaming loop, so the drafter self-check stays a write-to-the-voice judgement rather than a score chase, and no diagnostic carries a target score into a rewrite.
 
 ## Pitfall packs
 

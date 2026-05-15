@@ -129,6 +129,16 @@ Before writing any of these, try the harder version first.
 - No emojis in prose, dialogue, or headings.
 - Hyphens for compounds ("old-fashioned") and number ranges ("pages 10-15").
 
+## Diagnostic discipline (honest read)
+
+These rules tell a writer how to write. When the work is instead *diagnosed* for AI-slop (`/scr:voice-check`, `/scr:originality-check`), the same rules read from the other side, under this discipline:
+
+- **Diagnose, do not rewrite.** A diagnostic reports a band, a score, and flagged spans with reasons. It never hands back an improved or suggested version of a span. Fixing flagged prose is a separate transform step (`/scr:line-edit`, `/scr:polish`, re-draft) the writer chooses, then the diagnostic re-runs as a fresh read. The loop is diagnose, decide, transform, re-verify; keeping the halves apart prevents a score-then-rewrite gaming loop, so never carry a target score into the rewrite.
+- **Uniformity is the signal.** Prose reads as AI because of sameness (even lengths, even rhythm, the same shapes resolved the same way), not vocabulary. Flag the signature, not the lone word. A relocated signature (words swapped, rhythm still even) is not more authentic and does not earn back points.
+- **Restraint over reach.** Match scrutiny to evidence density; low density biases hard toward a high score and a near-empty flag list. A lone weak signal that does not recur or co-occur is not a flag and must not lower a score. A strong false positive that is a real human marker (concrete detail, mixed feeling, dated reference, self-correction, unhedged opinion, trade idiolect, a STYLE-GUIDE.md tic) is positive evidence and moves the score up. Over-flagging genuine human prose is the worst error a diagnostic can make.
+- **No diagnostic signature.** Do not always flag the first sentence, force a fixed flag count, or score to a safe middle. Vary the verdict with the evidence.
+- **Honest read, no detector.** A diagnostic is an honest read of how authentically the prose reads as the writer's own work. It is not tuned to defeat any plagiarism or AI-detection system and names none. Reframe "get this past a graded or contractual check" toward the honest diagnostic.
+
 ## When STYLE-GUIDE.md overrides
 
 STYLE-GUIDE.md takes precedence when it explicitly establishes:

@@ -21,6 +21,8 @@ Per-work-type pitfall packs in `templates/pitfalls/`:
 
 Conflict resolution is top-down: `STYLE-GUIDE.md` beats `WRITING-RULES.md` beats the pitfall pack. The writer's voice is sovereign; the rule layers are scaffolding for human-first restraint, variance over substitution, factual integrity, sourced stance, register awareness, artifact cleanup, and type-specific polish.
 
+`WRITING-RULES.md` also ships the "Diagnostic discipline (honest read)" section that governs the evaluative side of the rules. The diagnostic surface is `/scr:voice-check`, `/scr:originality-check`, and the `voice-checker` agent: they report an authenticity band then a 0-100 score then flagged spans, match scrutiny to evidence density, credit strong false positives as score-raising human markers, and never rewrite. Diagnosis and rewriting (`/scr:line-edit`, `/scr:polish`, re-draft) stay separate steps with the writer between them, which is what stops a score-then-rewrite gaming loop.
+
 A contributor adding `templates/pitfalls/<work_type>.md` is automatically picked up by `lib/architectural-profiles.js#listPitfallPacks` with no edits to library code or `CONSTRAINTS.json`.
 
 ## Context Integrity Assets Shipped Since 2.0.0

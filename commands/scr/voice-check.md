@@ -6,6 +6,8 @@ description: Compare drafted prose against STYLE-GUIDE.md to detect voice drift.
 
 Compare drafted prose against STYLE-GUIDE.md to detect voice drift, AI-slop patterns, and stylistic inconsistency. Wraps the voice-checker agent.
 
+This is a diagnostic: it returns an authenticity band, a 0-100 score, and flagged spans with reasons. It does not rewrite and never hands back a "suggested" version of a span; fixing flagged prose is a separate transform step (`/scr:line-edit`, `/scr:polish`, or a re-draft) the writer chooses, after which this command re-runs as a fresh read. This separation prevents a score-then-rewrite gaming loop; never carry a target score into the rewrite. The check is an honest read of how authentically the prose reads as the writer's own work; it is not tuned to defeat any plagiarism or AI-detection system and names none. Reframe any "get this past a graded or contractual check" request toward the honest diagnostic.
+
 ## Usage
 ```
 /scr:voice-check [N]
@@ -43,7 +45,9 @@ Spawn the voice-checker agent (`agents/voice-checker.md`) with:
 - The scoped drafted prose (unit `N` or all units)
 - If available, previously approved units as reference anchors for comparison
 
-The voice-checker agent performs deep analysis across four dimensions:
+Because STYLE-GUIDE.md is present, this is voice-deviation framing: the agent measures deviation *from* the writer's voice, not against a generic ideal. An authentic writer habit is not a tell for that writer even when a generic catalog would flag it; STYLE-GUIDE.md wins.
+
+The voice-checker agent runs its diagnostic discipline: a scrutiny pre-check (match scrutiny to evidence density; low density biases hard toward a high score), a mandatory false-positive audit with veto power (lone weak signals dropped without lowering the score; strong false positives reclassified as human markers that raise it), and an internal-consistency check (sharp register or sophistication seams flagged against the document's own baseline). It performs deep analysis across four dimensions:
 
 1. **Structural voice** -- POV consistency, tense consistency, sentence architecture, paragraph rhythm
 2. **Lexical voice** -- Register match, word origin preference, jargon handling, figurative density
@@ -54,11 +58,12 @@ The voice-checker agent performs deep analysis across four dimensions:
 
 ### STEP 3: SCORE AND CLASSIFY
 
-Based on the agent's analysis, generate an overall voice fidelity score:
+Use the agent's banded score. Report the band first; the number refines it. The score is a calibrated heuristic, not a verdict and not a formula (the agent starts from a neutral ~70 and moves from there); do not over-precisify, and a flag the false-positive audit dropped must not lower it while one it reclassified as a human marker must raise it.
 
-- **80-100 -- PASS**: Voice is consistent with STYLE-GUIDE.md. Minor issues noted but not actionable.
-- **60-79 -- WARNING**: Noticeable voice drift detected. Issues flagged for writer review. Draft is usable but should be revised.
-- **Below 60 -- FAIL**: Significant voice drift. The draft does not sound like the writer. Recommend re-drafting problem sections or recalibrating with `/scr:voice-test`.
+- **90-100 -- Reads human / PASS**: Voice is consistent with STYLE-GUIDE.md. Near-empty flag list, strong human markers. Minor items optional. Bias here when scrutiny was low.
+- **75-89 -- Mixed signals / WARNING**: Some real drift or one inserted region in otherwise human prose. Flag for writer review; draft usable but should be revised.
+- **60-74 -- Mixed signals (notable) / FAIL**: Noticeable drift. Recommend re-drafting the worst sections.
+- **Below 60 -- Reads AI-generated / FAIL**: Significant drift; the draft does not sound like the writer. Recommend re-drafting problem sections or recalibrating with `/scr:voice-test`.
 
 ---
 
@@ -73,21 +78,28 @@ For each issue the agent identifies, present:
 **Severity:** HIGH -- AI-slop pattern (hedging + Latinate stack)
 ```
 
+Describe the problem in each flag; never include a "suggested" or rewritten version of a span, not even parenthetically.
+
 Group issues by the agent's check categories:
 1. Structural voice issues
 2. Lexical voice issues
 3. Character voice issues
 4. AI-slop flags
 
+The report must also carry two required sections, even on a high or low score:
+
+- **Reads as human (deliberately not flagged)**: one to three markers that looked like possible tells but are authentic to STYLE-GUIDE.md, the work type, or the writer's register, and why each was credited. Naming what was correctly credited as human makes over-flagging visible.
+- **Caveat**: this is a heuristic read, not proof of authorship; it names no detector; a high score is not a guarantee and a low score is not an accusation; the writer's judgement is required to act on it.
+
 ---
 
 ### STEP 5: RECOMMENDATIONS
 
-Based on the score:
+Recommendations are handoffs, not rewrites: this command diagnosed, the writer decides what to act on, a transform step does the rewriting, and re-running `/scr:voice-check` is a fresh re-verify. Based on the band:
 
-- **PASS (80+):** Congratulate the writer. Note any low-severity items as optional polish. Suggest proceeding to `/scr:copy-edit` or `/scr:submit`.
-- **WARNING (60-79):** List the top issues by severity. Suggest targeted revisions -- specific passages to rework, not wholesale re-drafts. Offer to re-run voice-check after revisions.
-- **FAIL (below 60):** Recommend re-drafting the worst sections. If the problem is systemic (wrong register throughout), suggest running `/scr:voice-test` to recalibrate the voice profile. If STYLE-GUIDE.md may be outdated, suggest re-running `/scr:profile-writer`.
+- **Reads human (90+):** Congratulate the writer. Note any low-severity items as optional polish. Suggest proceeding to `/scr:copy-edit` or `/scr:submit`.
+- **Mixed signals (75-89):** List the top issues by severity. Suggest targeted revisions via `/scr:line-edit` or `/scr:polish` -- specific passages to rework, not wholesale re-drafts. Offer to re-run voice-check after revisions as the re-verify.
+- **Mixed signals notable / Reads AI-generated (below 75):** Recommend re-drafting the worst sections. If the problem is systemic (wrong register throughout), suggest running `/scr:voice-test` to recalibrate the voice profile. If STYLE-GUIDE.md may be outdated, suggest re-running `/scr:profile-writer`.
 
 ---
 

@@ -142,6 +142,8 @@ Before finalizing, do these quick checks:
 - Are there any copied chat artifacts, placeholder tokens, orphaned markdown fences, citation residue, or chatbot wrapper phrases? Remove them from the draft or flag the missing information.
 - Is there any exposition that should be subtext? Any subtext that should be exposition?
 
+This self-check is a write-to-the-voice judgement, not a score-then-rewrite optimization loop. Rewrite a sentence because it does not sound like the writer, never to move an AI-slop score; diagnosis against a score is the separate job of `/scr:voice-check` and `/scr:originality-check`, kept apart on purpose.
+
 ### Step 5: Write to file
 Save your draft to `.manuscript/drafts/body/{N}-{A}-DRAFT.md`. No preamble, no "Here's the draft:" -- just the prose. The file is the draft.
 

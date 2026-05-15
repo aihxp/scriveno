@@ -2,11 +2,43 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.0.3 - 2026-05-15
+
+### What changed
+
+- Integrated `authenticity-check` principles into Scriveno's Voice DNA diagnostic layer (the evaluative counterpart to the [`humanizer`](https://github.com/aihxp/humanizer) transform principles added in `2.0.2`).
+- The voice-checker agent now runs a scrutiny pre-check (matching scrutiny to evidence density), a mandatory false-positive audit with veto power that converts strong false positives into score-raising human markers, and an internal-consistency check for register or sophistication seams.
+- `/scr:voice-check` and `/scr:originality-check` now report an authenticity band (Reads human / Mixed signals / Reads AI-generated) first, then a 0-100 score, with required "Reads as human (deliberately not flagged)" and "Caveat" sections.
+- `/scr:originality-check` no longer suggests rewritten spans; the diagnostic is now strictly diagnose, decide, transform, re-verify, with the rewrite handed to `/scr:line-edit` or `/scr:polish`.
+- `WRITING-RULES.md` gained a "Diagnostic discipline (honest read)" section, and the drafter self-check is explicitly a write-to-the-voice judgement, not a score-then-rewrite loop.
+- Package and shipped metadata are aligned on `2.0.3`.
+
+### Why it matters
+
+`2.0.2` taught Scriveno to *fix* AI-sounding prose without installing a new uniform style. `2.0.3` adds the missing other half: an honest *read* of how authentically prose sounds like the writer, kept deliberately separate from rewriting so it cannot become a score-then-rewrite gaming loop. The diagnostic now defaults to restraint (over-flagging genuine human prose is its worst error) and always names what it credited as human.
+
+Voice DNA remains the top authority. The diagnostic measures deviation from the writer's voice, never against a generic ideal, and names no detector.
+
+### Affected areas
+
+- quality agent (`voice-checker`) and the diagnostic-only guard on the `drafter`
+- diagnostic commands (`/scr:voice-check`, `/scr:originality-check`)
+- Voice DNA support rules (`templates/WRITING-RULES.md`)
+- Voice DNA, drafter-quality, and shipped-assets docs
+- package metadata, README status, release notes
+- regression tests for the diagnostic discipline
+
+### Verification
+
+- `npm test`
+- `npm run pack:check`
+- `git diff --check`
+
 ## 2.0.2 - 2026-05-15
 
 ### What changed
 
-- Integrated additional `scriveno-humanizer` principles into the universal Voice DNA support layer.
+- Integrated additional `humanizer` principles into the universal Voice DNA support layer.
 - `WRITING-RULES.md` now includes variance over substitution, sourced stance discipline, soft-inference checks, and anti-signature guidance.
 - The drafter now checks that added stance stays tied to supplied material and that prose does not gain a new repetitive "humanized" rhythm.
 - The voice-checker now flags humanizer signatures, soft-inference drift, and unsupported stance.

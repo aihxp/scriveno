@@ -247,6 +247,8 @@ Three knobs in `.manuscript/config.json` tune the system:
 - `draft.context_profile`: `minimal`, `standard`, or `full` (controls how much context the drafter loads per unit; `minimal` saves tokens on weaker models)
 - `draft.pitfalls_enabled`: `true` (default) or `false` (skip the pitfall pack when the writer's voice deliberately leans into a trap)
 
+The same rule layer also has a diagnostic side. When you ask "is this AI" or "does this still sound like me," `/scr:voice-check` and `/scr:originality-check` read the rules from the other side: they report an authenticity band (Reads human / Mixed signals / Reads AI-generated) first, then a 0-100 score, then flagged spans with reasons, and they never rewrite. They match scrutiny to evidence (low density biases hard toward a high score, because over-flagging genuine human prose is the worst error here), credit strong false positives as score-raising human markers, and always name what they deliberately did not flag. Fixing flagged prose is a separate step (`/scr:line-edit`, `/scr:polish`, or a re-draft) you choose, after which the check re-runs as a fresh read. Diagnosis and rewriting stay apart on purpose, with you between them.
+
 See [docs/drafter-quality.md](drafter-quality.md) for the full system, including model-tier recommendations.
 
 ## Troubleshooting
@@ -280,6 +282,11 @@ See [docs/drafter-quality.md](drafter-quality.md) for the full system, including
 
 **Symptom:** Phrases like "perhaps," "it could be argued," "in a sense" appearing in drafted prose.
 **Fix:** Two complementary remedies. (1) Add to your "Never" list: "Never use hedging language (perhaps, it could be argued, in a sense, to some degree)." The drafter respects Never rules absolutely. (2) Confirm `WRITING-RULES.md` is present in `.manuscript/`; its "Hedging and qualifiers" subsection is loaded by the drafter and voice-checker as the canonical AI-tell list. If voice-check reports keep flagging hedges, set `draft.rigor` to `strict` in `config.json` to enforce per-sentence checks.
+
+### Is this draft AI, or does it still sound like me?
+
+**Symptom:** You want an honest read of how authentically a draft reads as your own work, or which spans sound machine-written.
+**Fix:** Run `/scr:voice-check` (with STYLE-GUIDE.md present it measures deviation from your voice) or `/scr:originality-check`. You get a band, a 0-100 score, flagged spans with reasons, and a "Reads as human" section naming what was deliberately not flagged. These commands diagnose only; they never rewrite and never carry a target score into a fix. If you want flagged prose improved, run `/scr:line-edit` or `/scr:polish`, then re-run the check as a fresh re-verify. This is an honest read, not a detector-beating tool, and it names no detector.
 
 ## See Also
 

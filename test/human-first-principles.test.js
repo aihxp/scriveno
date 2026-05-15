@@ -32,7 +32,7 @@ describe('human-first prose principles', () => {
     assert.match(rules, /describe what is true now, not what changed from an older version/);
   });
 
-  it('WRITING-RULES captures scriveno-humanizer variance and stance principles', () => {
+  it('WRITING-RULES captures humanizer variance and stance principles', () => {
     const rules = read('templates/WRITING-RULES.md');
 
     assert.match(rules, /### Variance over substitution/);
@@ -102,5 +102,80 @@ describe('human-first prose principles', () => {
     assert.match(copyEdit, /\*\*Dash policy\*\*/);
     assert.match(copyEdit, /Flag em dashes and en dashes as prohibited by Scriveno writing policy/);
     assert.doesNotMatch(copyEdit, /Check consistency of em-dash style/);
+  });
+});
+
+describe('authenticity-check diagnostic discipline', () => {
+  it('WRITING-RULES carries a diagnostic-discipline section', () => {
+    const rules = read('templates/WRITING-RULES.md');
+
+    assert.match(rules, /## Diagnostic discipline \(honest read\)/);
+    assert.match(rules, /\*\*Diagnose, do not rewrite\.\*\*/);
+    assert.match(rules, /\*\*Uniformity is the signal\.\*\*/);
+    assert.match(rules, /\*\*Restraint over reach\.\*\*/);
+    assert.match(rules, /Over-flagging genuine human prose is the worst error a diagnostic can make/);
+    assert.match(rules, /\*\*No diagnostic signature\.\*\*/);
+    assert.match(rules, /not tuned to defeat any plagiarism or AI-detection system and names none/);
+    assert.match(rules, /never carry a target score into the rewrite/);
+  });
+
+  it('voice-checker runs the diagnostic discipline and reports a band', () => {
+    const checker = read('agents/voice-checker.md');
+
+    assert.match(checker, /## Diagnostic discipline/);
+    assert.match(checker, /You diagnose\. You do not rewrite\./);
+    assert.match(checker, /\*\*Uniformity is the signal\.\*\*/);
+    assert.match(checker, /\*\*Scrutiny pre-check\.\*\*/);
+    assert.match(checker, /\*\*False-positive audit has veto power\.\*\*/);
+    assert.match(checker, /\*\*Internal-consistency check\.\*\*/);
+    assert.match(checker, /\*\*Anti-signature in your own diagnosis\.\*\*/);
+    assert.match(checker, /Authenticity: Reads human/);
+    assert.match(checker, /READS AS HUMAN \(deliberately not flagged\)/);
+    assert.match(checker, /CAVEAT/);
+    assert.match(checker, /Start from a neutral ~70/);
+  });
+
+  it('originality-check is diagnose-only with a band, passes, and required sections', () => {
+    const orig = read('commands/scr/originality-check.md');
+
+    assert.match(orig, /### SCRUTINY PRE-CHECK \(do this first, every run\)/);
+    assert.match(orig, /### PASS 2: False-positive audit \(has veto power over Pass 1\)/);
+    assert.match(orig, /### PASS 3: Internal-consistency \(read-only, no lookups\)/);
+    assert.match(orig, /Authenticity: Reads human \| Mixed signals \| Reads AI-generated/);
+    assert.match(orig, /## Reads as human \(deliberately not flagged\)/);
+    assert.match(orig, /## Caveats/);
+    assert.match(orig, /diagnose -> decide -> transform -> re-verify/);
+    assert.match(orig, /not tuned to defeat any plagiarism or AI-detection system and names none/);
+    assert.doesNotMatch(orig, /Suggested revision/);
+  });
+
+  it('voice-check aligns to the authenticity bands and stays diagnose-only', () => {
+    const vc = read('commands/scr/voice-check.md');
+
+    assert.match(vc, /90-100 -- Reads human/);
+    assert.match(vc, /75-89 -- Mixed signals/);
+    assert.match(vc, /this is voice-deviation framing/);
+    assert.match(vc, /Reads as human \(deliberately not flagged\)/);
+    assert.match(vc, /\*\*Caveat\*\*/);
+    assert.match(vc, /Recommendations are handoffs, not rewrites/);
+    assert.match(vc, /names none/);
+  });
+
+  it('drafter self-check is not a score-then-rewrite loop', () => {
+    const drafter = read('agents/drafter.md');
+
+    assert.match(drafter, /This self-check is a write-to-the-voice judgement, not a score-then-rewrite optimization loop/);
+  });
+
+  it('release metadata is aligned on 2.0.3', () => {
+    const pkg = JSON.parse(read('package.json'));
+    const cfg = JSON.parse(read('templates/config.json'));
+    const constraints = JSON.parse(read('data/CONSTRAINTS.json'));
+
+    assert.equal(pkg.version, '2.0.3');
+    assert.equal(cfg.scriveno_version, '2.0.3');
+    assert.equal(constraints.version, '2.0.3');
+    assert.match(read('CHANGELOG.md'), /## 2\.0\.3 - /);
+    assert.match(read('docs/release-notes.md'), /## 2\.0\.3 - /);
   });
 });

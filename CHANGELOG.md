@@ -2,9 +2,31 @@
 
 All notable package-level changes to `scriveno-cli` are documented here.
 
+## 2.0.3 - 2026-05-15
+
+Patch release focused on integrating `authenticity-check` principles into Scriveno's Voice DNA diagnostic layer. This is the evaluative counterpart to the [`humanizer`](https://github.com/aihxp/humanizer) transform principles added in `2.0.2`: it diagnoses how authentically prose reads as the writer's own work and never rewrites.
+
+**Authenticity-check principle integration**
+
+- Added a scrutiny pre-check to the voice-checker agent so scrutiny matches evidence density; low density biases hard toward a high score because over-flagging genuine human prose is the worst error a diagnostic can make.
+- Added a mandatory false-positive audit with veto power: lone weak signals are dropped and must not lower the score, while strong false positives are reclassified as score-raising human markers.
+- Added an internal-consistency check that flags unearned register or sophistication seams against the document's own baseline, reported as its own flag.
+- Added an authenticity band (Reads human / Mixed signals / Reads AI-generated) reported before the 0-100 score, plus required "Reads as human (deliberately not flagged)" and caveat sections, to `/scr:voice-check` and `/scr:originality-check`.
+- Removed the rewrite suggestion from `/scr:originality-check`; the diagnostic is now strictly diagnose, decide, transform, re-verify, with the rewrite handed to `/scr:line-edit` or `/scr:polish` and no target score carried into it.
+- Added a "Diagnostic discipline (honest read)" section to `WRITING-RULES.md` and a diagnostic-only guard to the drafter self-check, plus a scope guarantee that the diagnostic names no detector.
+
+**Docs and tests**
+
+- Updated Voice DNA, drafter-quality, release-notes, and shipped-assets docs to describe the diagnostic layer and the diagnose-decide-transform-re-verify pairing.
+- Expanded regression coverage for the scrutiny pre-check, false-positive veto, authenticity bands, required Reads-as-human and caveat sections, removal of the rewrite suggestion, and the diagnostic-discipline rule section.
+
+**Release alignment**
+
+- Bumped package, constraints, generated config, README badge/status, and documentation references to `2.0.3`.
+
 ## 2.0.2 - 2026-05-15
 
-Patch release focused on integrating `scriveno-humanizer` principles into Scriveno's Voice DNA quality layer.
+Patch release focused on integrating `humanizer` principles into Scriveno's Voice DNA quality layer.
 
 **Humanizer principle integration**
 
