@@ -8,6 +8,22 @@ The engine reports candidates instead of silently acting. It can identify planne
 
 The same file exports `getCommandAutomationPolicy()`, which classifies every command registry route into an automation lane. Tests assert that every command category is covered, so newly added routes cannot sit outside the proactive policy by accident.
 
+## Safe Apply and Audit Commands
+
+Scriveno now exposes the proactive layer as executable checks instead of documentation-only guidance:
+
+```bash
+scriveno status --project . --apply-safe
+scriveno sync --check
+scriveno smoke --json
+scriveno agents --json
+scriveno routes --json
+```
+
+`--apply-safe` runs the read-only status sweep, reports safe local helpers that are ready, lists agent candidates, and marks writer-owned or write-gated helpers as skipped instead of mutating files. It is intentionally conservative: `/scr:save`, `/scr:scan`, `/scr:sync --apply`, publish packaging, export overwrites, track merges, and undo remain explicit actions.
+
+`sync --check` combines four reports: project status, safe apply, agent availability, and runtime smoke. `smoke` checks installed commands, skills, prompts, Codex metadata, and the shared engine path. `agents` checks prompt fallback readiness and Codex metadata readiness. `routes` builds a route graph from `data/CONSTRAINTS.json` and the automation policy so disconnected command flows are visible in one audit.
+
 ## Cross-Platform Agent Rules
 
 Scriveno agent prompts live in `agents/*.md`. Each host runtime exposes them differently:

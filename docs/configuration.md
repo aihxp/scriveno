@@ -57,7 +57,7 @@ When a writer runs `/scr:new-work`, Scriveno creates `.manuscript/config.json`. 
 
 ```json
 {
-  "scriveno_version": "2.0.9",
+  "scriveno_version": "2.0.10",
   "work_type": "<chosen>",
   "group": "<group>",
   "command_unit": "<unit>",

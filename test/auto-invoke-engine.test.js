@@ -9,12 +9,19 @@ const {
   AGENT_ROUTE_POLICIES,
   CATEGORY_ROUTE_POLICIES,
   analyzeProject,
+  buildRouteGraph,
+  collectSafeApplyActions,
   formatReport,
+  formatRuntimeSmokeReport,
+  formatSafeApplyReport,
   getCommandAutomationPolicy,
+  inspectAgentAvailability,
+  inspectRuntimeSmoke,
   getRuntimeAgentSupport,
   LOCAL_ROUTE_POLICIES,
   MANUAL_ROUTE_POLICIES,
   listRuntimeAgentSupport,
+  ROUTE_PRIORITY_FIXTURES,
 } = require('../lib/auto-invoke-engine.js');
 
 const ROOT = path.resolve(__dirname, '..');
@@ -205,6 +212,91 @@ describe('auto-invoke engine', () => {
     assert.ok(lanes.has('read-only'));
   });
 
+  it('exposes a route graph audit and priority fixtures', () => {
+    const graph = buildRouteGraph({ constraintsPath: path.join(ROOT, 'data', 'CONSTRAINTS.json') });
+    const commandNames = new Set(Object.keys(JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'CONSTRAINTS.json'), 'utf8')).commands));
+
+    assert.equal(graph.commandCount, commandNames.size);
+    assert.ok(graph.edgeCount > 0);
+    assert.ok(graph.lanes['agent-ready'] > 0);
+    assert.ok(graph.lanes['local-helper'] > 0);
+    assert.ok(graph.lanes['manual-gated'] > 0);
+    for (const fixture of ROUTE_PRIORITY_FIXTURES) {
+      assert.ok(fixture.expectedCommand.startsWith('/scr:'));
+      const commandName = fixture.expectedCommand.replace(/^\/scr:/, '').split(/\s+/)[0];
+      assert.ok(commandNames.has(commandName), `${fixture.name} should point at a known command`);
+    }
+  });
+
+  it('reports safe apply without mutating writer-owned paths', () => {
+    const project = mkProject('safe-apply');
+    try {
+      const manuscript = path.join(project, '.manuscript');
+      write(path.join(manuscript, 'STATE.md'), 'Current unit: 1\n');
+      write(path.join(manuscript, 'CONTEXT.md'), 'Suggested next step: notes\n');
+      write(path.join(manuscript, 'config.json'), '{"work_type":"novel","command_unit":"chapter"}\n');
+      write(path.join(manuscript, 'drafts', 'body', '1-DRAFT.md'), 'Draft text\n');
+      write(path.join(manuscript, 'notes', 'todo.md'), 'TODO: resolve this\n');
+      touchTime(path.join(manuscript, 'STATE.md'), 10);
+      touchTime(path.join(manuscript, 'drafts', 'body', '1-DRAFT.md'), 5);
+      touchTime(path.join(manuscript, 'CONTEXT.md'), 1);
+
+      const result = collectSafeApplyActions(project);
+      const report = formatSafeApplyReport(result);
+
+      assert.equal(result.appliedCount, 1);
+      assert.ok(result.safeToRunCount >= 1);
+      assert.ok(result.agentCandidateCount >= 1);
+      assert.ok(result.actions.some((action) => action.command === '/scr:check-notes' && action.status === 'ready'));
+      assert.ok(result.actions.some((action) => action.command === '/scr:editor-review' && action.status === 'agent-candidate'));
+      assert.match(report, /Safe apply status:/);
+      assert.match(report, /read-only/);
+    } finally {
+      fs.rmSync(project, { recursive: true, force: true });
+    }
+  });
+
+  it('checks agent availability and runtime smoke across runtime surfaces', () => {
+    const homeDir = mkProject('runtime-home');
+    try {
+      const agentNames = ['drafter', 'voice-checker'];
+      for (const name of agentNames) {
+        write(path.join(homeDir, '.claude', 'agents', `${name}.md`), `# ${name}\n`);
+        write(path.join(homeDir, '.codex', 'agents', `${name}.md`), `# ${name}\n`);
+        write(path.join(homeDir, '.codex', 'agents', `${name}.toml`), `name = "${name}"\n`);
+      }
+      for (const command of ['scr-next.md', 'scr-sync.md']) {
+        write(path.join(homeDir, '.claude', 'commands', command), '# command\n');
+      }
+      for (const command of ['next.md', 'sync.md']) {
+        write(path.join(homeDir, '.codex', 'commands', 'scr', command), '# command\n');
+      }
+      for (const skill of ['scr-next', 'scr-sync']) {
+        write(path.join(homeDir, '.codex', 'skills', skill, 'SKILL.md'), '# skill\n');
+      }
+      write(path.join(homeDir, '.scriveno', 'lib', 'auto-invoke-engine.js'), 'module.exports = {};\n');
+
+      const availability = inspectAgentAvailability({
+        homeDir,
+        agentNames,
+        runtimeKeys: ['claude-code', 'codex'],
+      });
+      const smoke = inspectRuntimeSmoke({
+        homeDir,
+        agentNames,
+        expectedCommands: 2,
+        runtimeKeys: ['claude-code', 'codex'],
+      });
+
+      assert.equal(availability.runtimes.find((runtime) => runtime.runtime === 'claude-code').status, 'prompt-fallback-ready');
+      assert.equal(availability.runtimes.find((runtime) => runtime.runtime === 'codex').status, 'metadata-ready');
+      assert.equal(smoke.ok, true);
+      assert.match(formatRuntimeSmokeReport(smoke), /Runtime smoke status:/);
+    } finally {
+      fs.rmSync(homeDir, { recursive: true, force: true });
+    }
+  });
+
   it('exposes runtime support for Codex, Claude Code, and every installer runtime', () => {
     const runtimes = listRuntimeAgentSupport();
     const keys = runtimes.map((runtime) => runtime.key).sort();
@@ -289,6 +381,33 @@ describe('auto-invoke engine', () => {
         '/scr:import',
         '/scr:profile-writer',
       ]);
+    } finally {
+      fs.rmSync(project, { recursive: true, force: true });
+    }
+  });
+
+  it('runs public proactive audit commands in JSON mode', () => {
+    const project = mkProject('bin-audit');
+    try {
+      const statusOut = execFileSync(
+        process.execPath,
+        [path.join(ROOT, 'bin', 'install.js'), 'status', project, '--apply-safe', '--json'],
+        { encoding: 'utf8' }
+      );
+      const syncOut = execFileSync(
+        process.execPath,
+        [path.join(ROOT, 'bin', 'install.js'), 'sync', '--check', '--project', project, '--json'],
+        { encoding: 'utf8' }
+      );
+      const routesOut = execFileSync(
+        process.execPath,
+        [path.join(ROOT, 'bin', 'install.js'), 'routes', '--json'],
+        { encoding: 'utf8' }
+      );
+
+      assert.equal(JSON.parse(statusOut).safeApply.appliedCount, 1);
+      assert.equal(JSON.parse(syncOut).analysis.projectRoot, project);
+      assert.equal(JSON.parse(routesOut).commandCount, 112);
     } finally {
       fs.rmSync(project, { recursive: true, force: true });
     }

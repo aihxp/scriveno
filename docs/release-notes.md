@@ -2,6 +2,40 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.0.10 - 2026-05-16
+
+### What changed
+
+- `scriveno status --project . --apply-safe` now runs the read-only proactive checks and reports safe helpers, agent candidates, and write-gated actions.
+- `scriveno sync --check` now produces a read-only sync transcript with project status, safe apply, agent availability, and runtime smoke.
+- `scriveno smoke`, `scriveno agents`, and `scriveno routes` expose installed-surface checks, agent prompt and metadata checks, and generated route graph audits.
+- Runtime checks cover Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic skill fallback through the shared engine.
+- README badges, Runtime Support, Auto-Invoke Policy, Architecture, Getting Started, Testing, sync command docs, Route Graph Audit, changelog, and package metadata are aligned on `2.0.10`.
+
+### Why it matters
+
+The previous releases made proactive routing visible. This release makes the support tooling executable. Users can now ask Scriveno what is safe to run, whether installed agent surfaces are present, whether Codex metadata is ready, and how every route fits into the automation graph without relying on a hidden host-specific behavior.
+
+### Affected areas
+
+- shared auto-invoke engine
+- public CLI audit commands
+- runtime smoke and agent availability checks
+- route graph audit docs
+- README badges and launch copy
+- architecture, runtime support, auto-invoke policy, getting started, testing, and sync command docs
+- package metadata and generated project examples
+- regression tests for safe apply, runtime smoke, agent availability, and route graph coverage
+
+### Verification
+
+- `node --test test/auto-invoke-engine.test.js`
+- `node --test test/installer.test.js`
+- `npm test`
+- `npm run release:check`
+- `npm pack --json`
+- `git diff --check`
+
 ## 2.0.9 - 2026-05-16
 
 ### What changed

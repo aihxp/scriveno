@@ -136,6 +136,16 @@ For the standard release gate, prefer:
 npm run release:check
 ```
 
+When changing proactive routing, runtime install paths, or agent surfaces, also run:
+
+```bash
+scriveno status --project . --apply-safe
+scriveno sync --check
+scriveno smoke --json
+scriveno agents --json
+scriveno routes --json
+```
+
 Use those for release prep so you can inspect what would ship without mutating the registry.
 
 ## Practical workflow

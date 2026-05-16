@@ -11,6 +11,8 @@ Node is required for:
 - running `npx scriveno@latest`
 - executing `bin/install.js`
 - running `scriveno status --project .`
+- running `scriveno status --project . --apply-safe`
+- running `scriveno sync --check`, `scriveno smoke`, `scriveno agents`, and `scriveno routes`
 - executing the shared auto-invoke status engine at `lib/auto-invoke-engine.js`
 - running the repo's JavaScript test suite
 
@@ -78,11 +80,29 @@ The public CLI entrypoint is:
 ```bash
 scriveno status --project .
 scriveno status . --json
+scriveno status --project . --apply-safe
 ```
 
 The JSON form is intended for CI, host adapters, and future runtime smoke tests.
 
 Status output uses the same route-intelligence shape across runtimes: `Candidate agents`, `Candidate local helpers`, and `Manual gates`. That keeps Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and generic skill installs aligned even when their native spawning mechanisms differ.
+
+## Runtime Smoke and Agent Checks
+
+The package now exposes cross-runtime checks through the public CLI:
+
+```bash
+scriveno sync --check
+scriveno smoke --json
+scriveno agents --json
+scriveno routes --json
+```
+
+`scriveno smoke` checks installed command surfaces, Codex skill directories, bundled skill manifests, agent prompt counts, Codex `.toml` metadata, guided Perplexity setup assets, and the shared engine under `~/.scriveno/lib/auto-invoke-engine.js`.
+
+`scriveno agents` checks whether each runtime has the expected Scriveno agent prompts and reports the correct fallback: prompt-run fallback for Claude Code and standard command runtimes, metadata-ready for Codex when `.toml` files are present, guided setup for Perplexity Desktop, and bundled skill prompts for Manus or generic skill installs.
+
+`scriveno routes` audits the command graph and automation lanes from `data/CONSTRAINTS.json`. It is useful when adding commands because it surfaces whether a route is read-only, local-helper, agent-ready, agent-or-local, mixed, or manual-gated.
 
 ## What Scriveno Proves Today
 

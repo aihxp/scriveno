@@ -2,6 +2,27 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 2.0.10 - 2026-05-16
+
+Patch release focused on making proactive automation executable across runtime surfaces, not only described in policy docs.
+
+**Executable automation checks**
+
+- Added `scriveno status --project . --apply-safe` so the shared engine runs read-only checks, lists safe helpers, shows agent candidates, and marks write-gated actions as skipped.
+- Added `scriveno sync --check` to combine project status, safe apply, agent availability, and runtime smoke into one read-only sync transcript.
+- Added `scriveno smoke`, `scriveno agents`, and `scriveno routes` for installed-surface checks, agent prompt and metadata readiness, and generated route graph auditing.
+
+**Cross-runtime support**
+
+- Runtime smoke now checks Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic skill fallback through one shared engine path.
+- Agent availability now distinguishes prompt fallback readiness from Codex metadata readiness and guided Perplexity setup.
+- Route graph auditing derives nodes and edges from `data/CONSTRAINTS.json`, command intents, dependency chains, and automation lanes.
+
+**Documentation and release alignment**
+
+- Updated README badges, proactive status docs, runtime support, architecture, getting started, testing docs, sync command docs, route graph docs, release notes, changelog, package metadata, constraints, and generated config metadata.
+- Bumped package, lockfile, constraints, generated config, README badge/status, and documentation references to `2.0.10`.
+
 ## 2.0.9 - 2026-05-16
 
 Patch release focused on turning proactive status into route intelligence that connects side flows, agent routes, local helpers, and manual gates.

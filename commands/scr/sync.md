@@ -14,13 +14,15 @@ This is not a package upgrade command. Do not fetch a newer Scriveno release, do
 The auto-invoke status engine is a shared runtime asset. It is copied for every install target and can be checked with one of these paths:
 
 ```bash
+scriveno sync --check
 scriveno status --project "$PWD" --trigger /scr:sync
+scriveno status --project "$PWD" --apply-safe --trigger /scr:sync
 node lib/auto-invoke-engine.js --project "$PWD" --trigger /scr:sync
 node "$HOME/.scriveno/lib/auto-invoke-engine.js" --project "$PWD" --trigger /scr:sync
 node .scriveno/lib/auto-invoke-engine.js --project "$PWD" --trigger /scr:sync
 ```
 
-Use it for read-only project status and next-command reasoning. Use `bin/install.js` for runtime file synchronization.
+Use `scriveno sync --check` for the full read-only sync audit: project status, safe apply, agent availability, and runtime smoke. Use `scriveno status --project "$PWD" --apply-safe` when you only need project routing and safe-helper reporting. Use `bin/install.js` for runtime file synchronization.
 
 ## Prerequisites
 
@@ -70,7 +72,7 @@ If you cannot find a Scriveno source root, stop and explain that `/scr:sync` nee
    - Check that installed Codex commands include current response-contract and source-marker behavior after reinstall.
    - Report each runtime as `current`, `stale`, `missing`, or `unknown`.
 5. Decide mode:
-   - `--check`: report only. Do not write files.
+   - `--check`: report only. Run `scriveno sync --check` when available. Do not write files.
    - `--apply`: run the installer.
    - No flag: if stale installed Scriveno-owned files are detected, ask the writer before applying. If everything is current, report that no sync is needed.
 6. When applying, run from the source root:

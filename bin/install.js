@@ -823,6 +823,11 @@ function printHelp() {
   scriveno
   scriveno status --project .
   scriveno status . --json
+  scriveno status --project . --apply-safe
+  scriveno sync --check
+  scriveno smoke --json
+  scriveno agents --json
+  scriveno routes --json
   scriveno --runtimes codex,claude-code --global --writer --silent
 
 Options:
@@ -841,7 +846,14 @@ Status options:
   status              Inspect a project and recommend the next command
   --project <path>    Project root to inspect (default: current directory)
   --trigger <name>    Status trigger label (default: scriveno status)
+  --apply-safe        Run read-only checks and report write-gated helpers
   --json              Print machine-readable status JSON
+
+Audit commands:
+  sync --check        Check shared sync, runtime, and agent surfaces
+  smoke               Smoke-test installed runtime surfaces
+  agents              Inspect installed agent prompts and metadata
+  routes              Audit route graph and automation lanes
 
 Runtime keys:
   ${Object.keys(RUNTIMES).join(', ')}
@@ -861,6 +873,9 @@ function parseArgs(argv) {
     statusProjectRoot: process.cwd(),
     statusTrigger: 'scriveno status',
     statusJson: false,
+    statusApplySafe: false,
+    auditJson: false,
+    syncCheck: false,
   };
 
   if (argv[0] === 'status') {
@@ -873,6 +888,8 @@ function parseArgs(argv) {
         options.showVersion = true;
       } else if (arg === '--json') {
         options.statusJson = true;
+      } else if (arg === '--apply-safe') {
+        options.statusApplySafe = true;
       } else if (arg === '--project') {
         const value = argv[i + 1];
         if (!value) throw new Error('--project requires a value for status');
@@ -891,6 +908,36 @@ function parseArgs(argv) {
         throw new Error(`Unknown status argument "${arg}"`);
       } else {
         options.statusProjectRoot = arg;
+      }
+    }
+    return options;
+  }
+
+  if (['sync', 'smoke', 'agents', 'routes'].includes(argv[0])) {
+    options.command = argv[0];
+    for (let i = 1; i < argv.length; i++) {
+      const arg = argv[i];
+      if (arg === '--help' || arg === '-h') {
+        options.showHelp = true;
+      } else if (arg === '--version' || arg === '-v') {
+        options.showVersion = true;
+      } else if (arg === '--json') {
+        options.auditJson = true;
+      } else if (arg === '--check' && argv[0] === 'sync') {
+        options.syncCheck = true;
+      } else if (arg === '--project') {
+        const value = argv[i + 1];
+        if (!value) throw new Error('--project requires a value');
+        options.statusProjectRoot = value;
+        i++;
+      } else if (arg.startsWith('--project=')) {
+        options.statusProjectRoot = arg.slice('--project='.length);
+      } else if (arg.startsWith('-')) {
+        throw new Error(`Unknown ${argv[0]} argument "${arg}"`);
+      } else if (argv[0] === 'sync') {
+        options.statusProjectRoot = arg;
+      } else {
+        throw new Error(`Unknown ${argv[0]} argument "${arg}"`);
       }
     }
     return options;
@@ -947,14 +994,73 @@ function parseArgs(argv) {
   return options;
 }
 
-function runStatus({ projectRoot, trigger, json }) {
+function runStatus({ projectRoot, trigger, json, applySafe }) {
   const analysis = autoInvokeEngine.analyzeProject(projectRoot);
+  const safeApply = applySafe
+    ? autoInvokeEngine.collectSafeApplyActions(projectRoot, { analysis, trigger })
+    : null;
   if (json) {
-    console.log(JSON.stringify(analysis, null, 2));
+    console.log(JSON.stringify(safeApply ? { analysis, safeApply } : analysis, null, 2));
   } else {
     console.log(autoInvokeEngine.formatReport(analysis, { trigger }));
+    if (safeApply) {
+      console.log('');
+      console.log(autoInvokeEngine.formatSafeApplyReport(safeApply));
+    }
   }
-  return analysis;
+  return safeApply ? { analysis, safeApply } : analysis;
+}
+
+function runSyncCheck({ projectRoot, json }) {
+  const analysis = autoInvokeEngine.analyzeProject(projectRoot);
+  const safeApply = autoInvokeEngine.collectSafeApplyActions(projectRoot, { analysis, trigger: 'scriveno sync --check' });
+  const agents = autoInvokeEngine.inspectAgentAvailability();
+  const smoke = autoInvokeEngine.inspectRuntimeSmoke();
+  const result = { analysis, safeApply, agents, smoke };
+  if (json) {
+    console.log(JSON.stringify(result, null, 2));
+  } else {
+    console.log('Sync status:');
+    console.log(`Project: ${analysis.projectRoot}`);
+    console.log(`Recommendation: ${analysis.recommendation.command}`);
+    console.log('');
+    console.log(autoInvokeEngine.formatSafeApplyReport(safeApply));
+    console.log('');
+    console.log(autoInvokeEngine.formatAgentAvailabilityReport(agents));
+    console.log('');
+    console.log(autoInvokeEngine.formatRuntimeSmokeReport(smoke));
+  }
+  return result;
+}
+
+function runRuntimeSmoke({ json }) {
+  const result = autoInvokeEngine.inspectRuntimeSmoke();
+  if (json) {
+    console.log(JSON.stringify(result, null, 2));
+  } else {
+    console.log(autoInvokeEngine.formatRuntimeSmokeReport(result));
+  }
+  return result;
+}
+
+function runAgentAvailability({ json }) {
+  const result = autoInvokeEngine.inspectAgentAvailability();
+  if (json) {
+    console.log(JSON.stringify(result, null, 2));
+  } else {
+    console.log(autoInvokeEngine.formatAgentAvailabilityReport(result));
+  }
+  return result;
+}
+
+function runRouteAudit({ json }) {
+  const result = autoInvokeEngine.buildRouteGraph();
+  if (json) {
+    console.log(JSON.stringify(result, null, 2));
+  } else {
+    console.log(autoInvokeEngine.formatRouteGraphReport(result));
+  }
+  return result;
 }
 
 function resolveInstallRequest(parsed, detectedRuntimeKeys, { isTTY }) {
@@ -1385,7 +1491,31 @@ async function main() {
       projectRoot: parsed.statusProjectRoot,
       trigger: parsed.statusTrigger,
       json: parsed.statusJson,
+      applySafe: parsed.statusApplySafe,
     });
+    return;
+  }
+
+  if (parsed.command === 'sync') {
+    runSyncCheck({
+      projectRoot: parsed.statusProjectRoot,
+      json: parsed.auditJson,
+    });
+    return;
+  }
+
+  if (parsed.command === 'smoke') {
+    runRuntimeSmoke({ json: parsed.auditJson });
+    return;
+  }
+
+  if (parsed.command === 'agents') {
+    runAgentAvailability({ json: parsed.auditJson });
+    return;
+  }
+
+  if (parsed.command === 'routes') {
+    runRouteAudit({ json: parsed.auditJson });
     return;
   }
 
@@ -1774,6 +1904,10 @@ module.exports = {
   parseArgs,
   resolveInstallRequest,
   runStatus,
+  runSyncCheck,
+  runRuntimeSmoke,
+  runAgentAvailability,
+  runRouteAudit,
   collectCommandEntries,
   collectAgentEntries,
   assertNoSkillNameCollisions,

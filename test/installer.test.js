@@ -400,6 +400,7 @@ describe('parseArgs', () => {
       '/tmp/scriveno-work',
       '--trigger',
       '/scr:next',
+      '--apply-safe',
       '--json',
     ]);
 
@@ -407,6 +408,23 @@ describe('parseArgs', () => {
     assert.equal(parsed.statusProjectRoot, '/tmp/scriveno-work');
     assert.equal(parsed.statusTrigger, '/scr:next');
     assert.equal(parsed.statusJson, true);
+    assert.equal(parsed.statusApplySafe, true);
+  });
+
+  it('parses proactive audit commands', () => {
+    const sync = parseArgs(['sync', '--check', '--json', '--project', '/tmp/scriveno-work']);
+    const smoke = parseArgs(['smoke', '--json']);
+    const agents = parseArgs(['agents', '--json']);
+    const routes = parseArgs(['routes', '--json']);
+
+    assert.equal(sync.command, 'sync');
+    assert.equal(sync.syncCheck, true);
+    assert.equal(sync.auditJson, true);
+    assert.equal(sync.statusProjectRoot, '/tmp/scriveno-work');
+    assert.equal(smoke.command, 'smoke');
+    assert.equal(smoke.auditJson, true);
+    assert.equal(agents.command, 'agents');
+    assert.equal(routes.command, 'routes');
   });
 
   it('parses a bare status project path', () => {

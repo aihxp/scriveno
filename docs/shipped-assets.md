@@ -39,6 +39,7 @@ These files ship in `templates/` and `docs/` and provide the trust trio for sess
 ## Runtime Sync Asset Shipped Today
 
 - `commands/scr/sync.md` -- local runtime-surface synchronization command. It compares and refreshes installed Scriveno commands, Codex skills, command mirrors, and agent prompts from the current source tree by delegating to `bin/install.js`.
+- `lib/auto-invoke-engine.js` -- shared project status, safe apply, runtime smoke, agent availability, and route graph audit engine used by `scriveno status`, `scriveno sync --check`, `scriveno smoke`, `scriveno agents`, and `scriveno routes`.
 
 ## Export Templates Shipped Today
 

@@ -351,7 +351,7 @@ Codex uses a skill-native variation of this strategy. The installer generates on
 
 ### Shared status engine
 
-Scriveno also ships `lib/auto-invoke-engine.js`, exposed through `scriveno status --project .` and `scriveno status . --json`. The installer copies this library into the shared Scriveno asset directory for global and project installs, so command surfaces can call a single read-only status engine before falling back to embedded markdown logic.
+Scriveno also ships `lib/auto-invoke-engine.js`, exposed through `scriveno status --project .`, `scriveno status . --json`, `scriveno status --project . --apply-safe`, `scriveno sync --check`, `scriveno smoke`, `scriveno agents`, and `scriveno routes`. The installer copies this library into the shared Scriveno asset directory for global and project installs, so command surfaces can call a single status and audit engine before falling back to embedded markdown logic.
 
 The engine checks disk evidence only: project presence, required project files, STATE.md, CONTEXT.md freshness, plan files, draft files, review coverage, unresolved notes, revision-track proposals, translation work, publishing prerequisites, exports, history, and save signals. It recommends the next command, but it does not mutate files and does not spawn agents by itself. That boundary keeps proactive behavior portable across Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic fallback.
 
@@ -365,6 +365,14 @@ Every command registry category has an automation lane through `getCommandAutoma
 
 This turns disconnected side features into visible routes. A plan without a draft recommends `/scr:draft` and lists the drafter route as a candidate agent path. Drafts without reviews recommend `/scr:editor-review` before export. Notes route to `/scr:check-notes`. Revision proposals route to `/scr:editor-review --proposal` or `/scr:track`. Publishing gaps route to `/scr:front-matter`, `/scr:back-matter`, `/scr:blurb`, `/scr:cover-art`, or `/scr:publish` depending on disk evidence.
 
+The same engine now exposes:
+
+- **Safe apply reporting**: `status --apply-safe` runs read-only checks, identifies safe helpers, lists agent candidates, and marks write-gated actions as skipped.
+- **Sync check**: `sync --check` combines project status, safe apply, agent availability, and runtime smoke into one transcript.
+- **Agent availability**: `agents` verifies prompt fallback readiness for non-Codex runtimes and metadata readiness for Codex.
+- **Runtime smoke**: `smoke` checks installed command, skill, guide, agent, metadata, and shared-engine surfaces.
+- **Route graph audit**: `routes` derives a command graph from constraints, command intents, dependencies, and automation lanes.
+
 ### Installation modes
 
 The installer supports two scopes:
@@ -376,7 +384,7 @@ The user chooses during installation. Guided local-MCP targets still write their
 
 ### Runtime credibility
 
-Scriveno's installer compatibility floor is `Node.js >=20.0.0`. For new installs, prefer a currently supported LTS such as Node.js 24. The compatibility floor applies to `npx scriveno@latest`, `bin/install.js`, `scriveno status --project .`, the shared status engine, and the repo's JavaScript test suite, not to the markdown command system once files are installed.
+Scriveno's installer compatibility floor is `Node.js >=20.0.0`. For new installs, prefer a currently supported LTS such as Node.js 24. The compatibility floor applies to `npx scriveno@latest`, `bin/install.js`, `scriveno status --project .`, the proactive audit commands, the shared status engine, and the repo's JavaScript test suite, not to the markdown command system once files are installed.
 
 This architecture doc is intentionally about mechanics: detection rules, install path shapes, `commands` versus `skills` versus `guided-mcp`, and global versus project scope. For the authoritative runtime matrix, support levels, and verification status, see [`docs/runtime-support.md`](runtime-support.md).
 
