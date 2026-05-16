@@ -31,7 +31,7 @@ scriveno status --project .
 scriveno status . --json
 ```
 
-That status command is the same shared auto-invoke engine used by `/scr-next`, `/scr:next`, `/scr:progress`, `/scr:session-report`, and `/scr:sync` when local command execution is available. It recommends the next safest command, but does not mutate files or spawn agents by itself.
+That status command is the same shared auto-invoke engine used by `/scr-next`, `/scr:next`, `/scr:progress`, `/scr:session-report`, and `/scr:sync` when local command execution is available. It recommends the next safest command, but does not mutate files or spawn agents by itself. Current status output separates candidate agents, candidate local helpers, and manual gates so you can tell whether Scriveno is pointing at a specialist route, a deterministic file helper, or a writer-owned decision.
 
 ## Step 2: Explore the Demo (Optional)
 

@@ -4,7 +4,7 @@ How Scriveno works under the hood -- for developers who want to understand the s
 
 ## Overview
 
-Scriveno is a pure skill system. There is no compiled code, no runtime library, no framework. AI coding agents (Claude Code, Cursor, Gemini CLI, and others) read markdown command files and follow their instructions using their built-in tools (Read, Write, Bash).
+Scriveno is a markdown-first skill system with a small Node.js support layer. AI coding agents (Claude Code, Cursor, Gemini CLI, and others) read markdown command files and follow their instructions using their built-in tools (Read, Write, Bash). Node.js handles installation, packaging, runtime synchronization, and the shared read-only status engine.
 
 The entire system is a collection of files:
 
@@ -13,7 +13,7 @@ The entire system is a collection of files:
 - **CONSTRAINTS.json** is the central registry that controls which commands are available for which work types
 - **Templates** provide starting content for new projects
 
-Nothing compiles. Nothing bundles. Changes take effect immediately because the agent reads files at runtime.
+Nothing compiles for the command layer. Changes to markdown commands take effect immediately because the agent reads files at runtime. Changes to the installer or shared status engine are tested and shipped through the npm package.
 
 ## Skill System Design
 
@@ -353,7 +353,17 @@ Codex uses a skill-native variation of this strategy. The installer generates on
 
 Scriveno also ships `lib/auto-invoke-engine.js`, exposed through `scriveno status --project .` and `scriveno status . --json`. The installer copies this library into the shared Scriveno asset directory for global and project installs, so command surfaces can call a single read-only status engine before falling back to embedded markdown logic.
 
-The engine checks disk evidence only: project presence, STATE.md, CONTEXT.md freshness, review files, translation work, exports, history, and save signals. It recommends the next command, but it does not mutate files and does not spawn agents by itself. That boundary keeps proactive behavior portable across Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic fallback.
+The engine checks disk evidence only: project presence, required project files, STATE.md, CONTEXT.md freshness, plan files, draft files, review coverage, unresolved notes, revision-track proposals, translation work, publishing prerequisites, exports, history, and save signals. It recommends the next command, but it does not mutate files and does not spawn agents by itself. That boundary keeps proactive behavior portable across Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic fallback.
+
+The engine now reports three automation lanes:
+
+- **Candidate agents**: bounded specialist routes that may spawn when the host supports it, such as `drafter`, `voice-checker`, `continuity-checker`, `translator`, `plan-checker`, beta-reader workers, and import analysis workers.
+- **Candidate local helpers**: deterministic file or status helpers such as `/scr:save`, `/scr:scan`, `/scr:check-notes`, `/scr:progress`, `/scr:session-report`, and `/scr:sync`.
+- **Manual gates**: writer-owned routes that need explicit confirmation, including publishing packages, export overwrites, and revision-track merge or proposal decisions.
+
+Every command registry category has an automation lane through `getCommandAutomationPolicy()`. This makes route coverage testable: core routes are mixed, navigation routes are read-only, quality and review routes are agent-or-local, publishing and collaboration routes are manual-gated, utility and session routes are local-helper, and structure-management routes stay manual because they can rename or remove manuscript units.
+
+This turns disconnected side features into visible routes. A plan without a draft recommends `/scr:draft` and lists the drafter route as a candidate agent path. Drafts without reviews recommend `/scr:editor-review` before export. Notes route to `/scr:check-notes`. Revision proposals route to `/scr:editor-review --proposal` or `/scr:track`. Publishing gaps route to `/scr:front-matter`, `/scr:back-matter`, `/scr:blurb`, `/scr:cover-art`, or `/scr:publish` depending on disk evidence.
 
 ### Installation modes
 

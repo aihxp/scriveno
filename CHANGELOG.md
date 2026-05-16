@@ -2,6 +2,27 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 2.0.9 - 2026-05-16
+
+Patch release focused on turning proactive status into route intelligence that connects side flows, agent routes, local helpers, and manual gates.
+
+**Route intelligence**
+
+- Expanded `lib/auto-invoke-engine.js` so `scriveno status --project .` detects plan files without drafts, drafts without review coverage, unresolved notes, revision proposals, translation follow-ups, publishing prerequisite gaps, stale exports, stale context, and save needs.
+- Status output now separates `Candidate agents`, `Candidate local helpers`, and `Manual gates` so users can see what could spawn, what could run locally, and what needs explicit writer approval.
+- Added route policies for drafter, voice-checker, continuity-checker, translator, plan-checker, beta-reader, import-analysis, save, scan, sync, validation, notes, publishing, export, track merge, and undo paths.
+
+**Cross-runtime command contracts**
+
+- Updated `/scr:next`, `/scr:progress`, `/scr:session-report`, `/scr:save`, `/scr:scan`, and `/scr:health` fallback status blocks to show candidate agents, candidate local helpers, and manual gates even when a host cannot execute the shared Node engine.
+- Added `getCommandAutomationPolicy()` so every command registry route is classified into an automation lane.
+- Covered the registry-level policy with tests so newly added commands cannot sit outside the proactive automation map by accident.
+
+**Documentation and release alignment**
+
+- Updated README badges, proactive status docs, public status text, Architecture, Auto-Invoke Policy, Configuration, release notes, changelog, package metadata, constraints, templates, and generated project examples.
+- Bumped package, lockfile, constraints, generated config, README badge/status, and documentation references to `2.0.9`.
+
 ## 2.0.8 - 2026-05-16
 
 Patch release focused on turning proactive status from command guidance into a package-level, cross-runtime CLI surface.

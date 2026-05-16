@@ -1,30 +1,26 @@
 {
-  "scriveno_version": "2.0.8",
+  "scriveno_version": "2.0.9",
   "work_type": "",
   "group": "",
   "command_unit": "",
   "developer_mode": false,
   "created_at": "",
   "updated_at": "",
-
   "autopilot": {
     "enabled": false,
     "profile": "guided",
     "custom_checkpoints": []
   },
-
   "voice": {
     "calibrated": false,
     "last_calibration": null,
     "drift_threshold": 0.3
   },
-
   "draft": {
     "rigor": "standard",
     "context_profile": "standard",
     "pitfalls_enabled": true
   },
-
   "export": {
     "default_format": "docx_manuscript",
     "include_front_matter": true,
@@ -36,14 +32,12 @@
       "margins": "1in"
     }
   },
-
   "translation": {
     "source_language": "en",
     "target_languages": [],
     "name_handling": "keep_original",
     "measurement_system": "source"
   },
-
   "technical": {
     "audience_level": "mixed",
     "prerequisite_knowledge": [],
@@ -52,18 +46,15 @@
     "source_of_truth": [],
     "review_mode": "accuracy_first"
   },
-
   "collaboration": {
     "tracks_enabled": false,
     "default_track": "canon"
   },
-
   "illustration": {
     "style": null,
     "cover_enabled": false,
     "interior_enabled": false
   },
-
   "git": {
     "auto_commit": true,
     "commit_message_style": "descriptive",

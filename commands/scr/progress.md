@@ -51,9 +51,15 @@ Automation status:
 Trigger: /scr:progress
 Spawned agents:
 - none
+Candidate agents:
+- <recommended agent route or none>
 Local operations:
 - progress counts computed: yes/no
 - proactive sweep: read-only
+Candidate local helpers:
+- <recommended helper or none>
+Manual gates:
+- <writer-owned route or none>
 Auto-invoked:
 - none
 Why: progress is read-only; it recommends next commands without mutating files

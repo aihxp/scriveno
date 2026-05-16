@@ -66,9 +66,15 @@ Automation status:
 Trigger: /scr:session-report
 Spawned agents:
 - none
+Candidate agents:
+- <recommended agent route or none>
 Local operations:
 - session metrics computed: yes/no
 - quality pass summary computed: yes/no
+Candidate local helpers:
+- <recommended helper or none>
+Manual gates:
+- <writer-owned route or none>
 Auto-invoked:
 - none
 Why: session-report summarizes disk state without mutating files

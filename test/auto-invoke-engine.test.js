@@ -6,9 +6,14 @@ const { execFileSync } = require('node:child_process');
 const { describe, it } = require('node:test');
 
 const {
+  AGENT_ROUTE_POLICIES,
+  CATEGORY_ROUTE_POLICIES,
   analyzeProject,
   formatReport,
+  getCommandAutomationPolicy,
   getRuntimeAgentSupport,
+  LOCAL_ROUTE_POLICIES,
+  MANUAL_ROUTE_POLICIES,
   listRuntimeAgentSupport,
 } = require('../lib/auto-invoke-engine.js');
 
@@ -93,6 +98,111 @@ describe('auto-invoke engine', () => {
     } finally {
       fs.rmSync(project, { recursive: true, force: true });
     }
+  });
+
+  it('routes planned-but-undrafted work to the drafter path', () => {
+    const project = mkProject('planned-draft');
+    try {
+      const manuscript = path.join(project, '.manuscript');
+      write(path.join(manuscript, 'STATE.md'), 'Current unit: 1\n');
+      write(path.join(manuscript, 'CONTEXT.md'), 'Suggested next step: draft\n');
+      write(path.join(manuscript, 'config.json'), '{"work_type":"novel","command_unit":"chapter"}\n');
+      write(path.join(manuscript, 'plans', '1-1-PLAN.md'), 'Plan\n');
+
+      const analysis = analyzeProject(project);
+      const report = formatReport(analysis, { trigger: '/scr:next' });
+
+      assert.equal(analysis.signals.plan.state, 'ready-to-draft');
+      assert.equal(analysis.recommendation.command, '/scr:draft');
+      assert.equal(analysis.automation.mode, 'agent-ready');
+      assert.deepEqual(analysis.automation.spawnCandidates[0].agents, ['drafter', 'voice-checker']);
+      assert.match(report, /Candidate agents:/);
+      assert.match(report, /\/scr:draft: drafter, voice-checker/);
+    } finally {
+      fs.rmSync(project, { recursive: true, force: true });
+    }
+  });
+
+  it('routes drafted work without reviews to editor review before export', () => {
+    const project = mkProject('review-gap');
+    try {
+      const manuscript = path.join(project, '.manuscript');
+      write(path.join(manuscript, 'STATE.md'), 'Current unit: 1\n');
+      write(path.join(manuscript, 'CONTEXT.md'), 'Suggested next step: review\n');
+      write(path.join(manuscript, 'config.json'), '{"work_type":"novel","command_unit":"chapter"}\n');
+      write(path.join(manuscript, 'plans', '1-1-PLAN.md'), 'Plan\n');
+      write(path.join(manuscript, 'drafts', 'body', '1-1-DRAFT.md'), 'Draft text\n');
+      touchTime(path.join(manuscript, 'STATE.md'), 10);
+      touchTime(path.join(manuscript, 'drafts', 'body', '1-1-DRAFT.md'), 5);
+      touchTime(path.join(manuscript, 'CONTEXT.md'), 1);
+
+      const analysis = analyzeProject(project);
+
+      assert.equal(analysis.signals.reviewCoverage.state, 'missing');
+      assert.equal(analysis.recommendation.command, '/scr:editor-review');
+      assert.equal(analysis.automation.mode, 'agent-ready');
+      assert.equal(analysis.automation.spawnCandidates[0].command, '/scr:editor-review');
+      assert.ok(analysis.automation.manualGates.some((gate) => gate.command === '/scr:publish'));
+    } finally {
+      fs.rmSync(project, { recursive: true, force: true });
+    }
+  });
+
+  it('surfaces notes, revision proposals, and publishing gaps as connected routes', () => {
+    const project = mkProject('side-flows');
+    try {
+      const manuscript = path.join(project, '.manuscript');
+      write(path.join(manuscript, 'STATE.md'), 'Current unit: 1\n');
+      write(path.join(manuscript, 'CONTEXT.md'), 'Suggested next step: review proposal\n');
+      write(path.join(manuscript, 'config.json'), '{"work_type":"novel","command_unit":"chapter"}\n');
+      write(path.join(manuscript, 'plans', '1-1-PLAN.md'), 'Plan\n');
+      write(path.join(manuscript, 'drafts', 'body', '1-1-DRAFT.md'), 'Draft text\n');
+      write(path.join(manuscript, 'reviews', '1-REVIEW.md'), 'Review passed\n');
+      write(path.join(manuscript, 'notes', 'open.md'), 'TODO: tighten ending\n');
+      write(path.join(manuscript, 'tracks.json'), JSON.stringify({ tracks: [{ label: 'Alt ending', status: 'active' }] }, null, 2));
+      write(path.join(manuscript, 'proposals', 'alt-ending-proposal.md'), 'Proposal\n');
+      write(path.join(manuscript, 'HISTORY.log'), '2026-05-16T12:00:00Z | scr:draft | outcome=ok\n');
+      touchTime(path.join(manuscript, 'STATE.md'), 10);
+      touchTime(path.join(manuscript, 'drafts', 'body', '1-1-DRAFT.md'), 5);
+      touchTime(path.join(manuscript, 'CONTEXT.md'), 1);
+
+      const analysis = analyzeProject(project);
+
+      assert.equal(analysis.signals.notes.count, 1);
+      assert.equal(analysis.signals.tracks.state, 'proposal-ready');
+      assert.deepEqual(analysis.signals.publishing.gaps, ['front-matter', 'back-matter', 'blurb', 'cover-art']);
+      assert.equal(analysis.recommendation.command, '/scr:editor-review --proposal');
+      assert.ok(analysis.automation.localCandidates.some((candidate) => candidate.command === '/scr:check-notes'));
+      assert.ok(analysis.automation.manualGates.some((gate) => gate.command === '/scr:editor-review --proposal'));
+    } finally {
+      fs.rmSync(project, { recursive: true, force: true });
+    }
+  });
+
+  it('exports route policies for docs and coverage checks', () => {
+    assert.ok(AGENT_ROUTE_POLICIES['/scr:draft']);
+    assert.ok(LOCAL_ROUTE_POLICIES['/scr:save']);
+    assert.ok(MANUAL_ROUTE_POLICIES['/scr:publish']);
+    assert.ok(CATEGORY_ROUTE_POLICIES.publishing);
+  });
+
+  it('classifies every command registry route into an automation lane', () => {
+    const constraints = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'CONSTRAINTS.json'), 'utf8'));
+    const lanes = new Set();
+
+    for (const [name, command] of Object.entries(constraints.commands)) {
+      const policy = getCommandAutomationPolicy(name, command);
+
+      assert.ok(policy.ref.startsWith('/scr:'), `${name} should have a runnable ref`);
+      assert.ok(policy.lane, `${name} should have an automation lane`);
+      assert.ok(policy.reason, `${name} should explain its automation lane`);
+      lanes.add(policy.lane);
+    }
+
+    assert.ok(lanes.has('agent-ready'));
+    assert.ok(lanes.has('local-helper'));
+    assert.ok(lanes.has('manual-gated'));
+    assert.ok(lanes.has('read-only'));
   });
 
   it('exposes runtime support for Codex, Claude Code, and every installer runtime', () => {

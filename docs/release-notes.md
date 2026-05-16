@@ -2,6 +2,39 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.0.9 - 2026-05-16
+
+### What changed
+
+- `scriveno status --project .` now detects connected workflow gaps instead of only broad project state.
+- The shared engine can route planned-but-undrafted work to `/scr:draft`, drafts without review coverage to `/scr:editor-review`, unresolved notes to `/scr:check-notes`, revision proposals to `/scr:editor-review --proposal`, translation work to verification follow-ups, and publishing gaps to the specific missing prerequisite.
+- Status output now separates `Candidate agents`, `Candidate local helpers`, and `Manual gates`.
+- Every command registry category now has an automation lane through `getCommandAutomationPolicy()`.
+- Markdown fallback contracts for `/scr:next`, `/scr:progress`, `/scr:session-report`, `/scr:save`, `/scr:scan`, and `/scr:health` now show the same route-intelligence shape when a host cannot call the Node engine.
+- README badges, README status copy, Architecture, Auto-Invoke Policy, Configuration, changelog, and package metadata are aligned on `2.0.9`.
+
+### Why it matters
+
+The status engine now connects previously separate flows. A writer can see whether Scriveno is recommending an agent-backed route, a deterministic local helper, or a writer-owned manual action. That makes automation more proactive without making it mysterious or pushy.
+
+### Affected areas
+
+- shared auto-invoke engine
+- public status CLI output
+- route automation policy
+- command fallback status blocks
+- README badges and launch copy
+- architecture and auto-invoke documentation
+- package metadata and generated project examples
+- regression tests for route intelligence and command policy coverage
+
+### Verification
+
+- `npm test`
+- `npm run release:check`
+- `npm pack --json`
+- `git diff --check`
+
 ## 2.0.8 - 2026-05-16
 
 ### What changed

@@ -4,6 +4,10 @@ Scriveno can be proactive, but it must be proactive from disk evidence. Commands
 
 The executable policy lives in `lib/auto-invoke-engine.js` and is exposed through `scriveno status --project .`. The installer copies it to `.scriveno/lib/auto-invoke-engine.js` for project installs and `~/.scriveno/lib/auto-invoke-engine.js` for global installs, so every runtime can use the same read-only status logic.
 
+The engine reports candidates instead of silently acting. It can identify planned-but-undrafted work, drafts without review coverage, unresolved note files, revision proposals, translation follow-ups, publishing prerequisite gaps, stale exports, and stale session context. It then separates what could spawn an agent, what could run as a local helper, and what must stay behind a manual gate.
+
+The same file exports `getCommandAutomationPolicy()`, which classifies every command registry route into an automation lane. Tests assert that every command category is covered, so newly added routes cannot sit outside the proactive policy by accident.
+
 ## Cross-Platform Agent Rules
 
 Scriveno agent prompts live in `agents/*.md`. Each host runtime exposes them differently:
@@ -23,8 +27,14 @@ Agent status:
 Trigger: <command or state condition>
 Spawned agents:
 - <agent-name>: <count, none, or prompt-run fallback used>
+Candidate agents:
+- <command>: <agent names or none>
 Local operations:
 - <operation>: <result>
+Candidate local helpers:
+- <command>: <reason or none>
+Manual gates:
+- <command>: <reason or none>
 Auto-invoked:
 - <command or helper>: yes/no
 Why: <one sentence tied to disk state>
@@ -47,8 +57,12 @@ Run these read-only checks in `/scr:next`, `/scr:progress`, and closeouts for ma
 
 - If `STATE.md`, `CONTEXT.md`, `HISTORY.log`, or draft mtimes disagree, suggest `/scr:scan`.
 - If voice or continuity reports have unresolved issues, suggest `/scr:voice-check`, `/scr:continuity-check`, or `/scr:editor-review`.
+- If plan files exist with no corresponding drafts, suggest `/scr:draft` before reopening planning.
+- If drafts exist without review coverage, suggest `/scr:editor-review` before export.
 - If editor notes or track proposals exist, suggest `/scr:editor-review --notes`, `/scr:editor-review --respond`, or `/scr:track`.
+- If note files contain unresolved items, suggest `/scr:check-notes`.
 - If translation folders exist or config lists target languages, suggest translation follow-ups.
+- If front matter, back matter, blurb, or cover handoff assets are missing, surface the specific publishing prerequisite before packaging.
 - If export outputs are older than source files, suggest `/scr:export` or `/scr:publish`.
 - If no save exists after recent manuscript changes, suggest `/scr:save`.
 

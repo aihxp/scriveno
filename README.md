@@ -2,10 +2,11 @@
 
 [![CI](https://github.com/aihxp/scriveno/actions/workflows/ci.yml/badge.svg)](https://github.com/aihxp/scriveno/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.0.8-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.0.9-blue)](CHANGELOG.md)
 [![npm](https://img.shields.io/npm/v/scriveno.svg)](https://www.npmjs.com/package/scriveno)
 [![Downloads](https://img.shields.io/npm/dm/scriveno.svg)](https://www.npmjs.com/package/scriveno)
 [![Status CLI](https://img.shields.io/badge/status%20CLI-scriveno%20status-blue)](docs/runtime-support.md#shared-auto-invoke-engine)
+[![Route Intelligence](https://img.shields.io/badge/route%20intelligence-agent%20lanes-blue)](docs/auto-invoke-policy.md)
 
 **[scriveno on npm](https://www.npmjs.com/package/scriveno)**
 
@@ -81,7 +82,9 @@ scriveno status --project .
 scriveno status . --json
 ```
 
-It inspects disk evidence such as `.manuscript/`, `STATE.md`, `CONTEXT.md`, review files, translation work, exports, and history, then recommends the safest next command. The engine does not mutate files and does not spawn agents by itself. Command surfaces such as `/scr-next`, `/scr:next`, `/scr:progress`, `/scr:session-report`, and `/scr:sync` call it when local command execution is available, then fall back to embedded markdown logic when a host cannot run Node. See [Auto-Invoke Policy](docs/auto-invoke-policy.md) and [Runtime Support](docs/runtime-support.md#shared-auto-invoke-engine).
+It inspects disk evidence such as `.manuscript/`, `STATE.md`, `CONTEXT.md`, plan files, drafts, review coverage, notes, revision proposals, translation work, publishing prerequisites, exports, and history, then recommends the safest next command. The engine does not mutate files and does not spawn agents by itself. Command surfaces such as `/scr-next`, `/scr:next`, `/scr:progress`, `/scr:session-report`, and `/scr:sync` call it when local command execution is available, then fall back to embedded markdown logic when a host cannot run Node. See [Auto-Invoke Policy](docs/auto-invoke-policy.md) and [Runtime Support](docs/runtime-support.md#shared-auto-invoke-engine).
+
+The status report separates `Candidate agents`, `Candidate local helpers`, and `Manual gates`. That means Scriveno can say when a route is ready for a drafter, voice-checker, translator, continuity-checker, or review worker, when a deterministic helper such as save or scan is enough, and when writer approval is required for publishing, export overwrites, track merges, or undo.
 
 ---
 
@@ -188,7 +191,7 @@ Scriveno is built on five principles:
 - [Contributing](docs/contributing.md) -- How to add commands, agents, work types, and templates
 - [Architecture](docs/architecture.md) -- How Scriveno works under the hood
 - [Configuration](docs/configuration.md) -- Package, installer, constraints, and `.manuscript/config.json` surfaces
-- [Auto-Invoke Policy](docs/auto-invoke-policy.md) -- Shared status engine, visible automation status, and agent-spawn boundaries
+- [Auto-Invoke Policy](docs/auto-invoke-policy.md) -- Shared status engine, route intelligence lanes, visible automation status, and agent-spawn boundaries
 - [Development](docs/development.md) -- Contributor workflow for changing commands, templates, installer logic, and docs
 - [Testing](docs/testing.md) -- What the test suite covers and which checks to run before shipping
 - [Release Notes](docs/release-notes.md) -- Public summary of what changed between package releases
@@ -221,11 +224,11 @@ Scriveno currently ships installer targets for these AI tooling environments:
 
 ## Status
 
-**Version:** 2.0.8
+**Version:** 2.0.9
 
- Scriveno's core command surface is stable across 112 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, plus the creative-context, record-store, branching-next, runtime-sync, adaptive concierge, human-first writing-safeguard, authenticity-diagnostic, domain-grilling, installer-marker cleanup, cross-runtime agent metadata, visible automation status, and the shared `scriveno status --project .` auto-invoke engine through `2.0.8`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
+ Scriveno's core command surface is stable across 112 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, plus the creative-context, record-store, branching-next, runtime-sync, adaptive concierge, human-first writing-safeguard, authenticity-diagnostic, domain-grilling, installer-marker cleanup, cross-runtime agent metadata, visible automation status, the shared `scriveno status --project .` auto-invoke engine, and route-intelligence lanes through `2.0.9`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
 
- Version `2.0.8` publishes Scriveno under the package name `scriveno`, so the current install command is `npx scriveno@latest`. The older `scriveno-cli` package name is historical and was unpublished during the rename, so npm cannot attach a deprecation notice to it while it has no active registry record. The older `scriven-cli` package remains on npm only as a deprecated legacy name that points users to `scriveno`. Do not treat either legacy package name as active unless a deliberate compatibility shim is republished. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
+ Version `2.0.9` publishes Scriveno under the package name `scriveno`, so the current install command is `npx scriveno@latest`. The older `scriveno-cli` package name is historical and was unpublished during the rename, so npm cannot attach a deprecation notice to it while it has no active registry record. The older `scriven-cli` package remains on npm only as a deprecated legacy name that points users to `scriveno`. Do not treat either legacy package name as active unless a deliberate compatibility shim is republished. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
 
 Package history is tracked in [CHANGELOG.md](CHANGELOG.md), and the public-facing summary for this release is in [docs/release-notes.md](docs/release-notes.md).
 

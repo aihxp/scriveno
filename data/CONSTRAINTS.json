@@ -1,308 +1,836 @@
 {
   "$schema": "./constraints.schema.json",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "Scriveno constraint system: work types, command availability, exports, and dependencies. Every command checks this file at runtime.",
   "_notes": {
     "sacred_keys": "Sacred subcommands live at commands/scr/sacred/<name>.md and run as /scr:sacred:<name>. Their CONSTRAINTS keys use the sacred:<name> form so /scr:help can render the runnable slash-command path directly. The sacred-numbering-format entry is a separate flat command (commands/scr/sacred-numbering-format.md) that surfaces the active tradition's numbering format. It used to be named sacred-verse-numbering, which collided with sacred:verse-numbering at install time -- both flattened to scr-sacred-verse-numbering. Renamed in v1.6.x; the installer now refuses to install when two sources share a flat skill name."
   },
   "command_intents": {
-    "start": ["new-work", "demo", "import", "profile-writer", "manager"],
-    "draft": ["next", "discuss", "plan", "draft", "quick-write", "voice-test"],
-    "revise": ["editor-review", "voice-check", "continuity-check", "line-edit", "copy-edit", "polish", "beta-reader"],
-    "navigate": ["next", "progress", "manuscript-stats", "map-manuscript", "pause-work", "resume-work"],
-    "publish": ["complete-draft", "front-matter", "back-matter", "blurb", "publish", "export", "build-ebook", "build-print"],
-    "translate": ["translate", "translation-glossary", "translation-memory", "back-translate", "cultural-adaptation", "multi-publish"],
-    "collaborate": ["track", "editor-review", "compare", "history", "versions", "save"],
-    "repair": ["scan", "health", "sync", "validate", "cleanup", "troubleshoot", "undo"]
+    "start": [
+      "new-work",
+      "demo",
+      "import",
+      "profile-writer",
+      "manager"
+    ],
+    "draft": [
+      "next",
+      "discuss",
+      "plan",
+      "draft",
+      "quick-write",
+      "voice-test"
+    ],
+    "revise": [
+      "editor-review",
+      "voice-check",
+      "continuity-check",
+      "line-edit",
+      "copy-edit",
+      "polish",
+      "beta-reader"
+    ],
+    "navigate": [
+      "next",
+      "progress",
+      "manuscript-stats",
+      "map-manuscript",
+      "pause-work",
+      "resume-work"
+    ],
+    "publish": [
+      "complete-draft",
+      "front-matter",
+      "back-matter",
+      "blurb",
+      "publish",
+      "export",
+      "build-ebook",
+      "build-print"
+    ],
+    "translate": [
+      "translate",
+      "translation-glossary",
+      "translation-memory",
+      "back-translate",
+      "cultural-adaptation",
+      "multi-publish"
+    ],
+    "collaborate": [
+      "track",
+      "editor-review",
+      "compare",
+      "history",
+      "versions",
+      "save"
+    ],
+    "repair": [
+      "scan",
+      "health",
+      "sync",
+      "validate",
+      "cleanup",
+      "troubleshoot",
+      "undo"
+    ]
   },
-
   "work_type_groups": {
     "prose": {
       "label": "Prose",
-      "members": ["novel", "novella", "short_story", "flash_fiction", "memoir", "creative_nonfiction", "biography", "essay", "essay_collection"]
+      "members": [
+        "novel",
+        "novella",
+        "short_story",
+        "flash_fiction",
+        "memoir",
+        "creative_nonfiction",
+        "biography",
+        "essay",
+        "essay_collection"
+      ]
     },
     "script": {
       "label": "Script",
-      "members": ["screenplay", "stage_play", "tv_pilot", "tv_series_bible", "audio_drama", "libretto"]
+      "members": [
+        "screenplay",
+        "stage_play",
+        "tv_pilot",
+        "tv_series_bible",
+        "audio_drama",
+        "libretto"
+      ]
     },
     "academic": {
       "label": "Academic",
-      "members": ["research_paper", "thesis", "journal_article", "white_paper", "literature_review", "monograph"]
+      "members": [
+        "research_paper",
+        "thesis",
+        "journal_article",
+        "white_paper",
+        "literature_review",
+        "monograph"
+      ]
     },
     "technical": {
       "label": "Technical Writing",
-      "members": ["technical_guide", "runbook", "api_reference", "design_spec"]
+      "members": [
+        "technical_guide",
+        "runbook",
+        "api_reference",
+        "design_spec"
+      ]
     },
     "visual": {
       "label": "Visual",
-      "members": ["comic", "graphic_novel", "childrens_book", "picture_book"]
+      "members": [
+        "comic",
+        "graphic_novel",
+        "childrens_book",
+        "picture_book"
+      ]
     },
     "poetry": {
       "label": "Poetry",
-      "members": ["poetry_collection", "single_poem", "song_lyric"]
+      "members": [
+        "poetry_collection",
+        "single_poem",
+        "song_lyric"
+      ]
     },
     "interactive": {
       "label": "Interactive",
-      "members": ["interactive_fiction", "game_narrative"]
+      "members": [
+        "interactive_fiction",
+        "game_narrative"
+      ]
     },
     "speech_song": {
       "label": "Speech & Song",
-      "members": ["speech"]
+      "members": [
+        "speech"
+      ]
     },
     "sacred": {
       "label": "Sacred & Historical",
       "members": [
-        "scripture_biblical", "scripture_quranic", "scripture_torah",
-        "scripture_vedic", "scripture_buddhist", "scripture_generic",
-        "commentary", "devotional", "liturgical",
-        "historical_chronicle", "historical_account", "mythological_collection",
-        "religious_epic", "sermon", "homiletic_collection"
+        "scripture_biblical",
+        "scripture_quranic",
+        "scripture_torah",
+        "scripture_vedic",
+        "scripture_buddhist",
+        "scripture_generic",
+        "commentary",
+        "devotional",
+        "liturgical",
+        "historical_chronicle",
+        "historical_account",
+        "mythological_collection",
+        "religious_epic",
+        "sermon",
+        "homiletic_collection"
       ]
     }
   },
-
   "work_types": {
     "novel": {
       "label": "Novel",
       "group": "prose",
-      "hierarchy": { "top": "part", "mid": "chapter", "atomic": "scene" },
+      "hierarchy": {
+        "top": "part",
+        "mid": "chapter",
+        "atomic": "scene"
+      },
       "command_unit": "chapter",
-      "word_count_range": [70000, 100000],
-      "page_range": [280, 400],
-      "unit_count_range": [20, 35],
-      "unit_word_range": [2500, 5000],
-      "unit_page_range": [10, 20]
+      "word_count_range": [
+        70000,
+        100000
+      ],
+      "page_range": [
+        280,
+        400
+      ],
+      "unit_count_range": [
+        20,
+        35
+      ],
+      "unit_word_range": [
+        2500,
+        5000
+      ],
+      "unit_page_range": [
+        10,
+        20
+      ]
     },
     "novella": {
       "label": "Novella",
       "group": "prose",
-      "hierarchy": { "top": null, "mid": "chapter", "atomic": "scene" },
+      "hierarchy": {
+        "top": null,
+        "mid": "chapter",
+        "atomic": "scene"
+      },
       "command_unit": "chapter",
-      "word_count_range": [17500, 40000],
-      "page_range": [70, 160],
-      "unit_count_range": [5, 15],
-      "unit_word_range": [2000, 4000],
-      "unit_page_range": [8, 16]
+      "word_count_range": [
+        17500,
+        40000
+      ],
+      "page_range": [
+        70,
+        160
+      ],
+      "unit_count_range": [
+        5,
+        15
+      ],
+      "unit_word_range": [
+        2000,
+        4000
+      ],
+      "unit_page_range": [
+        8,
+        16
+      ]
     },
     "short_story": {
       "label": "Short Story",
       "group": "prose",
-      "hierarchy": { "top": null, "mid": "section", "atomic": "beat" },
+      "hierarchy": {
+        "top": null,
+        "mid": "section",
+        "atomic": "beat"
+      },
       "command_unit": "section",
-      "word_count_range": [1000, 7500],
-      "page_range": [4, 30],
-      "unit_count_range": [1, 5],
-      "unit_word_range": [500, 2500],
-      "unit_page_range": [2, 10]
+      "word_count_range": [
+        1000,
+        7500
+      ],
+      "page_range": [
+        4,
+        30
+      ],
+      "unit_count_range": [
+        1,
+        5
+      ],
+      "unit_word_range": [
+        500,
+        2500
+      ],
+      "unit_page_range": [
+        2,
+        10
+      ]
     },
     "flash_fiction": {
       "label": "Flash Fiction",
       "group": "prose",
-      "hierarchy": { "top": null, "mid": null, "atomic": "beat" },
+      "hierarchy": {
+        "top": null,
+        "mid": null,
+        "atomic": "beat"
+      },
       "command_unit": "beat",
-      "word_count_range": [100, 1000],
-      "page_range": [1, 4],
-      "unit_count_range": [1, 3],
-      "unit_word_range": [100, 500],
-      "unit_page_range": [1, 2]
+      "word_count_range": [
+        100,
+        1000
+      ],
+      "page_range": [
+        1,
+        4
+      ],
+      "unit_count_range": [
+        1,
+        3
+      ],
+      "unit_word_range": [
+        100,
+        500
+      ],
+      "unit_page_range": [
+        1,
+        2
+      ]
     },
     "memoir": {
       "label": "Memoir",
       "group": "prose",
-      "hierarchy": { "top": "part", "mid": "chapter", "atomic": "vignette" },
+      "hierarchy": {
+        "top": "part",
+        "mid": "chapter",
+        "atomic": "vignette"
+      },
       "command_unit": "chapter",
-      "word_count_range": [60000, 90000],
-      "page_range": [240, 360],
-      "unit_count_range": [15, 30],
-      "unit_word_range": [2500, 5000],
-      "unit_page_range": [10, 20]
+      "word_count_range": [
+        60000,
+        90000
+      ],
+      "page_range": [
+        240,
+        360
+      ],
+      "unit_count_range": [
+        15,
+        30
+      ],
+      "unit_word_range": [
+        2500,
+        5000
+      ],
+      "unit_page_range": [
+        10,
+        20
+      ]
     },
     "creative_nonfiction": {
       "label": "Creative Nonfiction",
       "group": "prose",
-      "hierarchy": { "top": "part", "mid": "chapter", "atomic": "scene" },
+      "hierarchy": {
+        "top": "part",
+        "mid": "chapter",
+        "atomic": "scene"
+      },
       "command_unit": "chapter",
-      "word_count_range": [50000, 90000],
-      "page_range": [200, 360],
-      "unit_count_range": [12, 25],
-      "unit_word_range": [2500, 5000],
-      "unit_page_range": [10, 20]
+      "word_count_range": [
+        50000,
+        90000
+      ],
+      "page_range": [
+        200,
+        360
+      ],
+      "unit_count_range": [
+        12,
+        25
+      ],
+      "unit_word_range": [
+        2500,
+        5000
+      ],
+      "unit_page_range": [
+        10,
+        20
+      ]
     },
     "biography": {
       "label": "Biography",
       "group": "prose",
-      "hierarchy": { "top": "part", "mid": "chapter", "atomic": "scene" },
+      "hierarchy": {
+        "top": "part",
+        "mid": "chapter",
+        "atomic": "scene"
+      },
       "command_unit": "chapter",
-      "word_count_range": [70000, 120000],
-      "page_range": [280, 480],
-      "unit_count_range": [15, 35],
-      "unit_word_range": [3000, 5000],
-      "unit_page_range": [12, 20]
+      "word_count_range": [
+        70000,
+        120000
+      ],
+      "page_range": [
+        280,
+        480
+      ],
+      "unit_count_range": [
+        15,
+        35
+      ],
+      "unit_word_range": [
+        3000,
+        5000
+      ],
+      "unit_page_range": [
+        12,
+        20
+      ]
     },
     "essay": {
       "label": "Essay",
       "group": "prose",
-      "hierarchy": { "top": null, "mid": "section", "atomic": "paragraph_block" },
+      "hierarchy": {
+        "top": null,
+        "mid": "section",
+        "atomic": "paragraph_block"
+      },
       "command_unit": "section",
-      "word_count_range": [1500, 10000],
-      "page_range": [6, 40],
-      "unit_count_range": [3, 8],
-      "unit_word_range": [500, 2000],
-      "unit_page_range": [2, 8]
+      "word_count_range": [
+        1500,
+        10000
+      ],
+      "page_range": [
+        6,
+        40
+      ],
+      "unit_count_range": [
+        3,
+        8
+      ],
+      "unit_word_range": [
+        500,
+        2000
+      ],
+      "unit_page_range": [
+        2,
+        8
+      ]
     },
     "essay_collection": {
       "label": "Essay Collection",
       "group": "prose",
-      "hierarchy": { "top": "part", "mid": null, "atomic": "essay" },
+      "hierarchy": {
+        "top": "part",
+        "mid": null,
+        "atomic": "essay"
+      },
       "command_unit": "essay",
-      "word_count_range": [40000, 80000],
-      "page_range": [160, 320],
-      "unit_count_range": [10, 25],
-      "unit_word_range": [2000, 6000],
-      "unit_page_range": [8, 24]
+      "word_count_range": [
+        40000,
+        80000
+      ],
+      "page_range": [
+        160,
+        320
+      ],
+      "unit_count_range": [
+        10,
+        25
+      ],
+      "unit_word_range": [
+        2000,
+        6000
+      ],
+      "unit_page_range": [
+        8,
+        24
+      ]
     },
     "screenplay": {
       "label": "Screenplay",
       "group": "script",
-      "hierarchy": { "top": "act", "mid": "sequence", "atomic": "scene" },
+      "hierarchy": {
+        "top": "act",
+        "mid": "sequence",
+        "atomic": "scene"
+      },
       "command_unit": "act",
-      "word_count_range": [7500, 12500],
-      "page_range": [90, 120],
-      "unit_count_range": [3, 5],
-      "unit_word_range": [2000, 4000],
-      "unit_page_range": [25, 35]
+      "word_count_range": [
+        7500,
+        12500
+      ],
+      "page_range": [
+        90,
+        120
+      ],
+      "unit_count_range": [
+        3,
+        5
+      ],
+      "unit_word_range": [
+        2000,
+        4000
+      ],
+      "unit_page_range": [
+        25,
+        35
+      ]
     },
     "stage_play": {
       "label": "Stage Play",
       "group": "script",
-      "hierarchy": { "top": "act", "mid": "scene", "atomic": "beat" },
+      "hierarchy": {
+        "top": "act",
+        "mid": "scene",
+        "atomic": "beat"
+      },
       "command_unit": "act",
-      "word_count_range": [10000, 15000],
-      "page_range": [60, 120],
-      "unit_count_range": [1, 5],
-      "unit_word_range": [3000, 7000],
-      "unit_page_range": [15, 40]
+      "word_count_range": [
+        10000,
+        15000
+      ],
+      "page_range": [
+        60,
+        120
+      ],
+      "unit_count_range": [
+        1,
+        5
+      ],
+      "unit_word_range": [
+        3000,
+        7000
+      ],
+      "unit_page_range": [
+        15,
+        40
+      ]
     },
     "tv_pilot": {
       "label": "TV Pilot",
       "group": "script",
-      "hierarchy": { "top": "act", "mid": "scene", "atomic": "beat" },
+      "hierarchy": {
+        "top": "act",
+        "mid": "scene",
+        "atomic": "beat"
+      },
       "command_unit": "act",
-      "word_count_range": [5000, 10000],
-      "page_range": [30, 60],
-      "unit_count_range": [4, 6],
-      "unit_word_range": [1000, 2500],
-      "unit_page_range": [6, 12]
+      "word_count_range": [
+        5000,
+        10000
+      ],
+      "page_range": [
+        30,
+        60
+      ],
+      "unit_count_range": [
+        4,
+        6
+      ],
+      "unit_word_range": [
+        1000,
+        2500
+      ],
+      "unit_page_range": [
+        6,
+        12
+      ]
     },
     "tv_series_bible": {
       "label": "TV Series Bible",
       "group": "script",
-      "hierarchy": { "top": "season", "mid": "episode", "atomic": "scene" },
+      "hierarchy": {
+        "top": "season",
+        "mid": "episode",
+        "atomic": "scene"
+      },
       "command_unit": "episode",
-      "word_count_range": [15000, 40000],
-      "page_range": [60, 160],
-      "unit_count_range": [6, 13],
-      "unit_word_range": [1500, 3000],
-      "unit_page_range": [6, 12]
+      "word_count_range": [
+        15000,
+        40000
+      ],
+      "page_range": [
+        60,
+        160
+      ],
+      "unit_count_range": [
+        6,
+        13
+      ],
+      "unit_word_range": [
+        1500,
+        3000
+      ],
+      "unit_page_range": [
+        6,
+        12
+      ]
     },
     "audio_drama": {
       "label": "Audio Drama / Podcast Script",
       "group": "script",
-      "hierarchy": { "top": "season", "mid": "episode", "atomic": "scene" },
+      "hierarchy": {
+        "top": "season",
+        "mid": "episode",
+        "atomic": "scene"
+      },
       "command_unit": "episode",
-      "word_count_range": [3000, 8000],
-      "page_range": [12, 32],
-      "unit_count_range": [1, 10],
-      "unit_word_range": [2000, 5000],
-      "unit_page_range": [8, 20]
+      "word_count_range": [
+        3000,
+        8000
+      ],
+      "page_range": [
+        12,
+        32
+      ],
+      "unit_count_range": [
+        1,
+        10
+      ],
+      "unit_word_range": [
+        2000,
+        5000
+      ],
+      "unit_page_range": [
+        8,
+        20
+      ]
     },
     "libretto": {
       "label": "Libretto / Musical",
       "group": "script",
-      "hierarchy": { "top": "act", "mid": "scene", "atomic": "number" },
+      "hierarchy": {
+        "top": "act",
+        "mid": "scene",
+        "atomic": "number"
+      },
       "command_unit": "act",
-      "word_count_range": [5000, 12000],
-      "page_range": [20, 48],
-      "unit_count_range": [2, 3],
-      "unit_word_range": [2000, 5000],
-      "unit_page_range": [8, 20]
+      "word_count_range": [
+        5000,
+        12000
+      ],
+      "page_range": [
+        20,
+        48
+      ],
+      "unit_count_range": [
+        2,
+        3
+      ],
+      "unit_word_range": [
+        2000,
+        5000
+      ],
+      "unit_page_range": [
+        8,
+        20
+      ]
     },
     "research_paper": {
       "label": "Research Paper",
       "group": "academic",
-      "hierarchy": { "top": null, "mid": "section", "atomic": "subsection" },
+      "hierarchy": {
+        "top": null,
+        "mid": "section",
+        "atomic": "subsection"
+      },
       "command_unit": "section",
-      "word_count_range": [5000, 15000],
-      "page_range": [20, 60],
-      "unit_count_range": [4, 8],
-      "unit_word_range": [1000, 3000],
-      "unit_page_range": [4, 12]
+      "word_count_range": [
+        5000,
+        15000
+      ],
+      "page_range": [
+        20,
+        60
+      ],
+      "unit_count_range": [
+        4,
+        8
+      ],
+      "unit_word_range": [
+        1000,
+        3000
+      ],
+      "unit_page_range": [
+        4,
+        12
+      ]
     },
     "thesis": {
       "label": "Thesis / Dissertation",
       "group": "academic",
-      "hierarchy": { "top": "part", "mid": "chapter", "atomic": "section" },
+      "hierarchy": {
+        "top": "part",
+        "mid": "chapter",
+        "atomic": "section"
+      },
       "command_unit": "chapter",
-      "word_count_range": [40000, 100000],
-      "page_range": [160, 400],
-      "unit_count_range": [5, 10],
-      "unit_word_range": [5000, 15000],
-      "unit_page_range": [20, 60]
+      "word_count_range": [
+        40000,
+        100000
+      ],
+      "page_range": [
+        160,
+        400
+      ],
+      "unit_count_range": [
+        5,
+        10
+      ],
+      "unit_word_range": [
+        5000,
+        15000
+      ],
+      "unit_page_range": [
+        20,
+        60
+      ]
     },
     "journal_article": {
       "label": "Journal Article",
       "group": "academic",
-      "hierarchy": { "top": null, "mid": "section", "atomic": "subsection" },
+      "hierarchy": {
+        "top": null,
+        "mid": "section",
+        "atomic": "subsection"
+      },
       "command_unit": "section",
-      "word_count_range": [3000, 8000],
-      "page_range": [12, 32],
-      "unit_count_range": [4, 7],
-      "unit_word_range": [500, 2000],
-      "unit_page_range": [2, 8]
+      "word_count_range": [
+        3000,
+        8000
+      ],
+      "page_range": [
+        12,
+        32
+      ],
+      "unit_count_range": [
+        4,
+        7
+      ],
+      "unit_word_range": [
+        500,
+        2000
+      ],
+      "unit_page_range": [
+        2,
+        8
+      ]
     },
     "white_paper": {
       "label": "White Paper",
       "group": "academic",
-      "hierarchy": { "top": null, "mid": "section", "atomic": "subsection" },
+      "hierarchy": {
+        "top": null,
+        "mid": "section",
+        "atomic": "subsection"
+      },
       "command_unit": "section",
-      "word_count_range": [3000, 10000],
-      "page_range": [12, 40],
-      "unit_count_range": [4, 8],
-      "unit_word_range": [500, 2000],
-      "unit_page_range": [2, 8]
+      "word_count_range": [
+        3000,
+        10000
+      ],
+      "page_range": [
+        12,
+        40
+      ],
+      "unit_count_range": [
+        4,
+        8
+      ],
+      "unit_word_range": [
+        500,
+        2000
+      ],
+      "unit_page_range": [
+        2,
+        8
+      ]
     },
     "literature_review": {
       "label": "Literature Review",
       "group": "academic",
-      "hierarchy": { "top": null, "mid": "section", "atomic": "subsection" },
+      "hierarchy": {
+        "top": null,
+        "mid": "section",
+        "atomic": "subsection"
+      },
       "command_unit": "section",
-      "word_count_range": [5000, 15000],
-      "page_range": [20, 60],
-      "unit_count_range": [4, 8],
-      "unit_word_range": [1000, 3000],
-      "unit_page_range": [4, 12]
+      "word_count_range": [
+        5000,
+        15000
+      ],
+      "page_range": [
+        20,
+        60
+      ],
+      "unit_count_range": [
+        4,
+        8
+      ],
+      "unit_word_range": [
+        1000,
+        3000
+      ],
+      "unit_page_range": [
+        4,
+        12
+      ]
     },
     "monograph": {
       "label": "Monograph",
       "group": "academic",
-      "hierarchy": { "top": "part", "mid": "chapter", "atomic": "section" },
+      "hierarchy": {
+        "top": "part",
+        "mid": "chapter",
+        "atomic": "section"
+      },
       "command_unit": "chapter",
-      "word_count_range": [50000, 100000],
-      "page_range": [200, 400],
-      "unit_count_range": [8, 15],
-      "unit_word_range": [4000, 8000],
-      "unit_page_range": [16, 32]
+      "word_count_range": [
+        50000,
+        100000
+      ],
+      "page_range": [
+        200,
+        400
+      ],
+      "unit_count_range": [
+        8,
+        15
+      ],
+      "unit_word_range": [
+        4000,
+        8000
+      ],
+      "unit_page_range": [
+        16,
+        32
+      ]
     },
     "technical_guide": {
       "label": "Technical Guide / User Guide",
       "group": "technical",
-      "hierarchy": { "top": null, "mid": "section", "atomic": "procedure" },
+      "hierarchy": {
+        "top": null,
+        "mid": "section",
+        "atomic": "procedure"
+      },
       "command_unit": "section",
-      "word_count_range": [3000, 25000],
-      "page_range": [12, 100],
-      "unit_count_range": [4, 12],
-      "unit_word_range": [500, 2500],
-      "unit_page_range": [2, 10],
+      "word_count_range": [
+        3000,
+        25000
+      ],
+      "page_range": [
+        12,
+        100
+      ],
+      "unit_count_range": [
+        4,
+        12
+      ],
+      "unit_word_range": [
+        500,
+        2500
+      ],
+      "unit_page_range": [
+        2,
+        10
+      ],
       "config_defaults": {
         "audience_level": "mixed",
         "review_mode": "accuracy_first"
@@ -311,13 +839,32 @@
     "runbook": {
       "label": "Runbook / SOP",
       "group": "technical",
-      "hierarchy": { "top": null, "mid": "procedure", "atomic": "step" },
+      "hierarchy": {
+        "top": null,
+        "mid": "procedure",
+        "atomic": "step"
+      },
       "command_unit": "procedure",
-      "word_count_range": [1500, 12000],
-      "page_range": [6, 48],
-      "unit_count_range": [3, 10],
-      "unit_word_range": [300, 1500],
-      "unit_page_range": [1, 6],
+      "word_count_range": [
+        1500,
+        12000
+      ],
+      "page_range": [
+        6,
+        48
+      ],
+      "unit_count_range": [
+        3,
+        10
+      ],
+      "unit_word_range": [
+        300,
+        1500
+      ],
+      "unit_page_range": [
+        1,
+        6
+      ],
       "config_defaults": {
         "audience_level": "operator",
         "review_mode": "accuracy_first"
@@ -326,13 +873,32 @@
     "api_reference": {
       "label": "API or CLI Reference",
       "group": "technical",
-      "hierarchy": { "top": null, "mid": "resource", "atomic": "endpoint" },
+      "hierarchy": {
+        "top": null,
+        "mid": "resource",
+        "atomic": "endpoint"
+      },
       "command_unit": "resource",
-      "word_count_range": [2000, 30000],
-      "page_range": [8, 120],
-      "unit_count_range": [5, 40],
-      "unit_word_range": [150, 1000],
-      "unit_page_range": [1, 4],
+      "word_count_range": [
+        2000,
+        30000
+      ],
+      "page_range": [
+        8,
+        120
+      ],
+      "unit_count_range": [
+        5,
+        40
+      ],
+      "unit_word_range": [
+        150,
+        1000
+      ],
+      "unit_page_range": [
+        1,
+        4
+      ],
       "config_defaults": {
         "audience_level": "developer",
         "review_mode": "accuracy_first"
@@ -341,13 +907,32 @@
     "design_spec": {
       "label": "Design Spec / Architecture Doc",
       "group": "technical",
-      "hierarchy": { "top": "system", "mid": "section", "atomic": "decision" },
+      "hierarchy": {
+        "top": "system",
+        "mid": "section",
+        "atomic": "decision"
+      },
       "command_unit": "section",
-      "word_count_range": [2000, 15000],
-      "page_range": [8, 60],
-      "unit_count_range": [4, 12],
-      "unit_word_range": [500, 2000],
-      "unit_page_range": [2, 8],
+      "word_count_range": [
+        2000,
+        15000
+      ],
+      "page_range": [
+        8,
+        60
+      ],
+      "unit_count_range": [
+        4,
+        12
+      ],
+      "unit_word_range": [
+        500,
+        2000
+      ],
+      "unit_page_range": [
+        2,
+        8
+      ],
       "config_defaults": {
         "audience_level": "mixed",
         "review_mode": "accuracy_first"
@@ -356,1077 +941,2795 @@
     "poetry_collection": {
       "label": "Poetry Collection",
       "group": "poetry",
-      "hierarchy": { "top": "section", "mid": null, "atomic": "poem" },
+      "hierarchy": {
+        "top": "section",
+        "mid": null,
+        "atomic": "poem"
+      },
       "command_unit": "section",
-      "word_count_range": [5000, 15000],
-      "page_range": [48, 120],
-      "unit_count_range": [3, 8],
-      "unit_word_range": [1000, 3000],
-      "unit_page_range": [8, 20]
+      "word_count_range": [
+        5000,
+        15000
+      ],
+      "page_range": [
+        48,
+        120
+      ],
+      "unit_count_range": [
+        3,
+        8
+      ],
+      "unit_word_range": [
+        1000,
+        3000
+      ],
+      "unit_page_range": [
+        8,
+        20
+      ]
     },
     "single_poem": {
       "label": "Single Poem",
       "group": "poetry",
-      "hierarchy": { "top": null, "mid": "stanza", "atomic": "line" },
+      "hierarchy": {
+        "top": null,
+        "mid": "stanza",
+        "atomic": "line"
+      },
       "command_unit": "stanza",
-      "word_count_range": [20, 2000],
-      "page_range": [1, 8],
-      "unit_count_range": [1, 20],
-      "unit_word_range": [10, 200],
-      "unit_page_range": [1, 1]
+      "word_count_range": [
+        20,
+        2000
+      ],
+      "page_range": [
+        1,
+        8
+      ],
+      "unit_count_range": [
+        1,
+        20
+      ],
+      "unit_word_range": [
+        10,
+        200
+      ],
+      "unit_page_range": [
+        1,
+        1
+      ]
     },
     "song_lyric": {
       "label": "Lyric / Song",
       "group": "poetry",
-      "hierarchy": { "top": null, "mid": "section", "atomic": "line" },
+      "hierarchy": {
+        "top": null,
+        "mid": "section",
+        "atomic": "line"
+      },
       "command_unit": "section",
-      "word_count_range": [100, 600],
-      "page_range": [1, 3],
-      "unit_count_range": [3, 6],
-      "unit_word_range": [20, 150],
-      "unit_page_range": [1, 1]
+      "word_count_range": [
+        100,
+        600
+      ],
+      "page_range": [
+        1,
+        3
+      ],
+      "unit_count_range": [
+        3,
+        6
+      ],
+      "unit_word_range": [
+        20,
+        150
+      ],
+      "unit_page_range": [
+        1,
+        1
+      ]
     },
     "comic": {
       "label": "Comic / Graphic Novel",
       "group": "visual",
-      "hierarchy": { "top": "volume", "mid": "issue", "atomic": "panel" },
+      "hierarchy": {
+        "top": "volume",
+        "mid": "issue",
+        "atomic": "panel"
+      },
       "command_unit": "issue",
-      "word_count_range": [2000, 5000],
-      "page_range": [22, 32],
-      "unit_count_range": [1, 6],
-      "unit_word_range": [500, 1500],
-      "unit_page_range": [22, 32]
+      "word_count_range": [
+        2000,
+        5000
+      ],
+      "page_range": [
+        22,
+        32
+      ],
+      "unit_count_range": [
+        1,
+        6
+      ],
+      "unit_word_range": [
+        500,
+        1500
+      ],
+      "unit_page_range": [
+        22,
+        32
+      ]
     },
     "graphic_novel": {
       "label": "Graphic Novel",
       "group": "visual",
-      "hierarchy": { "top": "volume", "mid": "chapter", "atomic": "panel" },
+      "hierarchy": {
+        "top": "volume",
+        "mid": "chapter",
+        "atomic": "panel"
+      },
       "command_unit": "chapter",
-      "word_count_range": [5000, 20000],
-      "page_range": [80, 200],
-      "unit_count_range": [5, 12],
-      "unit_word_range": [500, 2500],
-      "unit_page_range": [10, 25]
+      "word_count_range": [
+        5000,
+        20000
+      ],
+      "page_range": [
+        80,
+        200
+      ],
+      "unit_count_range": [
+        5,
+        12
+      ],
+      "unit_word_range": [
+        500,
+        2500
+      ],
+      "unit_page_range": [
+        10,
+        25
+      ]
     },
     "childrens_book": {
       "label": "Children's Book",
       "group": "visual",
-      "hierarchy": { "top": null, "mid": "spread", "atomic": "page" },
+      "hierarchy": {
+        "top": null,
+        "mid": "spread",
+        "atomic": "page"
+      },
       "command_unit": "spread",
-      "word_count_range": [500, 5000],
-      "page_range": [24, 48],
-      "unit_count_range": [12, 24],
-      "unit_word_range": [20, 200],
-      "unit_page_range": [2, 2]
+      "word_count_range": [
+        500,
+        5000
+      ],
+      "page_range": [
+        24,
+        48
+      ],
+      "unit_count_range": [
+        12,
+        24
+      ],
+      "unit_word_range": [
+        20,
+        200
+      ],
+      "unit_page_range": [
+        2,
+        2
+      ]
     },
     "picture_book": {
       "label": "Picture Book",
       "group": "visual",
-      "hierarchy": { "top": null, "mid": "spread", "atomic": "illustration_text" },
+      "hierarchy": {
+        "top": null,
+        "mid": "spread",
+        "atomic": "illustration_text"
+      },
       "command_unit": "spread",
-      "word_count_range": [200, 1000],
-      "page_range": [24, 40],
-      "unit_count_range": [12, 20],
-      "unit_word_range": [10, 60],
-      "unit_page_range": [2, 2]
+      "word_count_range": [
+        200,
+        1000
+      ],
+      "page_range": [
+        24,
+        40
+      ],
+      "unit_count_range": [
+        12,
+        20
+      ],
+      "unit_word_range": [
+        10,
+        60
+      ],
+      "unit_page_range": [
+        2,
+        2
+      ]
     },
     "interactive_fiction": {
       "label": "Interactive Fiction",
       "group": "interactive",
-      "hierarchy": { "top": null, "mid": "node", "atomic": "choice_branch" },
+      "hierarchy": {
+        "top": null,
+        "mid": "node",
+        "atomic": "choice_branch"
+      },
       "command_unit": "node",
-      "word_count_range": [20000, 100000],
-      "page_range": [80, 400],
-      "unit_count_range": [20, 100],
-      "unit_word_range": [500, 2000],
-      "unit_page_range": [2, 8]
+      "word_count_range": [
+        20000,
+        100000
+      ],
+      "page_range": [
+        80,
+        400
+      ],
+      "unit_count_range": [
+        20,
+        100
+      ],
+      "unit_word_range": [
+        500,
+        2000
+      ],
+      "unit_page_range": [
+        2,
+        8
+      ]
     },
     "game_narrative": {
       "label": "Game Narrative",
       "group": "interactive",
-      "hierarchy": { "top": "act", "mid": "quest", "atomic": "dialogue_tree" },
+      "hierarchy": {
+        "top": "act",
+        "mid": "quest",
+        "atomic": "dialogue_tree"
+      },
       "command_unit": "quest",
-      "word_count_range": [30000, 150000],
-      "page_range": [120, 600],
-      "unit_count_range": [10, 40],
-      "unit_word_range": [2000, 5000],
-      "unit_page_range": [8, 20]
+      "word_count_range": [
+        30000,
+        150000
+      ],
+      "page_range": [
+        120,
+        600
+      ],
+      "unit_count_range": [
+        10,
+        40
+      ],
+      "unit_word_range": [
+        2000,
+        5000
+      ],
+      "unit_page_range": [
+        8,
+        20
+      ]
     },
     "speech": {
       "label": "Speech",
       "group": "speech_song",
-      "hierarchy": { "top": null, "mid": "section", "atomic": "beat" },
+      "hierarchy": {
+        "top": null,
+        "mid": "section",
+        "atomic": "beat"
+      },
       "command_unit": "section",
-      "word_count_range": [500, 5000],
-      "page_range": [2, 20],
-      "unit_count_range": [3, 6],
-      "unit_word_range": [150, 1000],
-      "unit_page_range": [1, 4]
+      "word_count_range": [
+        500,
+        5000
+      ],
+      "page_range": [
+        2,
+        20
+      ],
+      "unit_count_range": [
+        3,
+        6
+      ],
+      "unit_word_range": [
+        150,
+        1000
+      ],
+      "unit_page_range": [
+        1,
+        4
+      ]
     },
     "scripture_biblical": {
       "label": "Scripture (Biblical)",
       "group": "sacred",
-      "hierarchy": { "top": "testament", "mid": "book", "atomic": "verse" },
+      "hierarchy": {
+        "top": "testament",
+        "mid": "book",
+        "atomic": "verse"
+      },
       "command_unit": "book",
-      "config_defaults": { "verse_numbering_system": "masoretic", "calendar_system": "gregorian" },
+      "config_defaults": {
+        "verse_numbering_system": "masoretic",
+        "calendar_system": "gregorian"
+      },
       "word_count_range": null,
       "page_range": null,
-      "unit_count_range": [39, 66],
-      "unit_word_range": [1000, 50000],
-      "unit_page_range": [4, 200],
+      "unit_count_range": [
+        39,
+        66
+      ],
+      "unit_word_range": [
+        1000,
+        50000
+      ],
+      "unit_page_range": [
+        4,
+        200
+      ],
       "_note": "Varies by scope -- full Bible vs single book. No meaningful total range."
     },
     "scripture_quranic": {
       "label": "Scripture (Quranic)",
       "group": "sacred",
-      "hierarchy": { "top": null, "mid": "surah", "atomic": "ayah" },
+      "hierarchy": {
+        "top": null,
+        "mid": "surah",
+        "atomic": "ayah"
+      },
       "command_unit": "surah",
-      "config_defaults": { "verse_numbering_system": "quranic_hafs", "calendar_system": "hijri" },
+      "config_defaults": {
+        "verse_numbering_system": "quranic_hafs",
+        "calendar_system": "hijri"
+      },
       "word_count_range": null,
       "page_range": null,
-      "unit_count_range": [1, 114],
-      "unit_word_range": [50, 12000],
-      "unit_page_range": [1, 48],
+      "unit_count_range": [
+        1,
+        114
+      ],
+      "unit_word_range": [
+        50,
+        12000
+      ],
+      "unit_page_range": [
+        1,
+        48
+      ],
       "_note": "Varies by scope -- full Quran vs single surah. No meaningful total range."
     },
     "scripture_torah": {
       "label": "Scripture (Torah)",
       "group": "sacred",
-      "hierarchy": { "top": "chumash", "mid": "parashah", "atomic": "pasuk" },
+      "hierarchy": {
+        "top": "chumash",
+        "mid": "parashah",
+        "atomic": "pasuk"
+      },
       "command_unit": "parashah",
-      "config_defaults": { "verse_numbering_system": "masoretic", "calendar_system": "hebrew" },
+      "config_defaults": {
+        "verse_numbering_system": "masoretic",
+        "calendar_system": "hebrew"
+      },
       "word_count_range": null,
       "page_range": null,
-      "unit_count_range": [1, 54],
-      "unit_word_range": [1000, 8000],
-      "unit_page_range": [4, 32],
+      "unit_count_range": [
+        1,
+        54
+      ],
+      "unit_word_range": [
+        1000,
+        8000
+      ],
+      "unit_page_range": [
+        4,
+        32
+      ],
       "_note": "Varies by scope -- full Torah vs single parashah."
     },
     "scripture_vedic": {
       "label": "Scripture (Vedic)",
       "group": "sacred",
-      "hierarchy": { "top": "veda", "mid": "mandala", "atomic": "sukta" },
+      "hierarchy": {
+        "top": "veda",
+        "mid": "mandala",
+        "atomic": "sukta"
+      },
       "command_unit": "mandala",
-      "config_defaults": { "calendar_system": "vikram_samvat" },
+      "config_defaults": {
+        "calendar_system": "vikram_samvat"
+      },
       "word_count_range": null,
       "page_range": null,
-      "unit_count_range": [1, 10],
-      "unit_word_range": [2000, 20000],
-      "unit_page_range": [8, 80],
+      "unit_count_range": [
+        1,
+        10
+      ],
+      "unit_word_range": [
+        2000,
+        20000
+      ],
+      "unit_page_range": [
+        8,
+        80
+      ],
       "_note": "Varies by scope -- single Veda vs collection."
     },
     "scripture_buddhist": {
       "label": "Scripture (Buddhist)",
       "group": "sacred",
-      "hierarchy": { "top": "pitaka", "mid": "nikaya", "atomic": "sutta" },
+      "hierarchy": {
+        "top": "pitaka",
+        "mid": "nikaya",
+        "atomic": "sutta"
+      },
       "command_unit": "sutta",
-      "config_defaults": { "calendar_system": "buddhist_era" },
+      "config_defaults": {
+        "calendar_system": "buddhist_era"
+      },
       "word_count_range": null,
       "page_range": null,
-      "unit_count_range": [1, 50],
-      "unit_word_range": [500, 10000],
-      "unit_page_range": [2, 40],
+      "unit_count_range": [
+        1,
+        50
+      ],
+      "unit_word_range": [
+        500,
+        10000
+      ],
+      "unit_page_range": [
+        2,
+        40
+      ],
       "_note": "Varies by scope -- single sutta vs full nikaya."
     },
     "scripture_generic": {
       "label": "Scripture (Generic)",
       "group": "sacred",
-      "hierarchy": { "top": "testament", "mid": "book", "atomic": "verse" },
+      "hierarchy": {
+        "top": "testament",
+        "mid": "book",
+        "atomic": "verse"
+      },
       "command_unit": "book",
       "word_count_range": null,
       "page_range": null,
-      "unit_count_range": [1, 100],
-      "unit_word_range": [500, 30000],
-      "unit_page_range": [2, 120],
+      "unit_count_range": [
+        1,
+        100
+      ],
+      "unit_word_range": [
+        500,
+        30000
+      ],
+      "unit_page_range": [
+        2,
+        120
+      ],
       "_note": "Varies by tradition and scope."
     },
     "commentary": {
       "label": "Commentary / Exegesis",
       "group": "sacred",
-      "hierarchy": { "top": null, "mid": "section", "atomic": "annotation_block" },
+      "hierarchy": {
+        "top": null,
+        "mid": "section",
+        "atomic": "annotation_block"
+      },
       "command_unit": "section",
-      "word_count_range": [20000, 150000],
-      "page_range": [80, 600],
-      "unit_count_range": [5, 30],
-      "unit_word_range": [2000, 8000],
-      "unit_page_range": [8, 32]
+      "word_count_range": [
+        20000,
+        150000
+      ],
+      "page_range": [
+        80,
+        600
+      ],
+      "unit_count_range": [
+        5,
+        30
+      ],
+      "unit_word_range": [
+        2000,
+        8000
+      ],
+      "unit_page_range": [
+        8,
+        32
+      ]
     },
     "devotional": {
       "label": "Devotional",
       "group": "sacred",
-      "hierarchy": { "top": null, "mid": "theme", "atomic": "entry" },
+      "hierarchy": {
+        "top": null,
+        "mid": "theme",
+        "atomic": "entry"
+      },
       "command_unit": "entry",
-      "word_count_range": [15000, 50000],
-      "page_range": [60, 200],
-      "unit_count_range": [30, 366],
-      "unit_word_range": [200, 800],
-      "unit_page_range": [1, 3]
+      "word_count_range": [
+        15000,
+        50000
+      ],
+      "page_range": [
+        60,
+        200
+      ],
+      "unit_count_range": [
+        30,
+        366
+      ],
+      "unit_word_range": [
+        200,
+        800
+      ],
+      "unit_page_range": [
+        1,
+        3
+      ]
     },
     "liturgical": {
       "label": "Liturgical Text",
       "group": "sacred",
-      "hierarchy": { "top": "rite", "mid": "section", "atomic": "rubric" },
+      "hierarchy": {
+        "top": "rite",
+        "mid": "section",
+        "atomic": "rubric"
+      },
       "command_unit": "section",
-      "word_count_range": [5000, 30000],
-      "page_range": [20, 120],
-      "unit_count_range": [5, 20],
-      "unit_word_range": [500, 3000],
-      "unit_page_range": [2, 12]
+      "word_count_range": [
+        5000,
+        30000
+      ],
+      "page_range": [
+        20,
+        120
+      ],
+      "unit_count_range": [
+        5,
+        20
+      ],
+      "unit_word_range": [
+        500,
+        3000
+      ],
+      "unit_page_range": [
+        2,
+        12
+      ]
     },
     "historical_chronicle": {
       "label": "Historical Chronicle",
       "group": "sacred",
-      "hierarchy": { "top": "era", "mid": "chapter", "atomic": "event" },
+      "hierarchy": {
+        "top": "era",
+        "mid": "chapter",
+        "atomic": "event"
+      },
       "command_unit": "chapter",
-      "word_count_range": [50000, 150000],
-      "page_range": [200, 600],
-      "unit_count_range": [10, 40],
-      "unit_word_range": [3000, 6000],
-      "unit_page_range": [12, 24]
+      "word_count_range": [
+        50000,
+        150000
+      ],
+      "page_range": [
+        200,
+        600
+      ],
+      "unit_count_range": [
+        10,
+        40
+      ],
+      "unit_word_range": [
+        3000,
+        6000
+      ],
+      "unit_page_range": [
+        12,
+        24
+      ]
     },
     "historical_account": {
       "label": "Historical Account",
       "group": "sacred",
-      "hierarchy": { "top": "part", "mid": "chapter", "atomic": "scene" },
+      "hierarchy": {
+        "top": "part",
+        "mid": "chapter",
+        "atomic": "scene"
+      },
       "command_unit": "chapter",
-      "word_count_range": [40000, 100000],
-      "page_range": [160, 400],
-      "unit_count_range": [10, 30],
-      "unit_word_range": [3000, 5000],
-      "unit_page_range": [12, 20]
+      "word_count_range": [
+        40000,
+        100000
+      ],
+      "page_range": [
+        160,
+        400
+      ],
+      "unit_count_range": [
+        10,
+        30
+      ],
+      "unit_word_range": [
+        3000,
+        5000
+      ],
+      "unit_page_range": [
+        12,
+        20
+      ]
     },
     "mythological_collection": {
       "label": "Mythological Collection",
       "group": "sacred",
-      "hierarchy": { "top": "cycle", "mid": null, "atomic": "tale" },
+      "hierarchy": {
+        "top": "cycle",
+        "mid": null,
+        "atomic": "tale"
+      },
       "command_unit": "tale",
-      "word_count_range": [30000, 100000],
-      "page_range": [120, 400],
-      "unit_count_range": [10, 50],
-      "unit_word_range": [1500, 5000],
-      "unit_page_range": [6, 20]
+      "word_count_range": [
+        30000,
+        100000
+      ],
+      "page_range": [
+        120,
+        400
+      ],
+      "unit_count_range": [
+        10,
+        50
+      ],
+      "unit_word_range": [
+        1500,
+        5000
+      ],
+      "unit_page_range": [
+        6,
+        20
+      ]
     },
     "religious_epic": {
       "label": "Religious Epic",
       "group": "sacred",
-      "hierarchy": { "top": "book", "mid": "canto", "atomic": "verse" },
+      "hierarchy": {
+        "top": "book",
+        "mid": "canto",
+        "atomic": "verse"
+      },
       "command_unit": "canto",
-      "word_count_range": [50000, 300000],
-      "page_range": [200, 1200],
-      "unit_count_range": [10, 100],
-      "unit_word_range": [2000, 8000],
-      "unit_page_range": [8, 32]
+      "word_count_range": [
+        50000,
+        300000
+      ],
+      "page_range": [
+        200,
+        1200
+      ],
+      "unit_count_range": [
+        10,
+        100
+      ],
+      "unit_word_range": [
+        2000,
+        8000
+      ],
+      "unit_page_range": [
+        8,
+        32
+      ]
     },
     "sermon": {
       "label": "Sermon / Homily",
       "group": "sacred",
-      "hierarchy": { "top": null, "mid": "movement", "atomic": "beat" },
+      "hierarchy": {
+        "top": null,
+        "mid": "movement",
+        "atomic": "beat"
+      },
       "command_unit": "sermon",
-      "word_count_range": [1500, 4000],
-      "page_range": [6, 16],
-      "unit_count_range": [3, 5],
-      "unit_word_range": [400, 1000],
-      "unit_page_range": [2, 4]
+      "word_count_range": [
+        1500,
+        4000
+      ],
+      "page_range": [
+        6,
+        16
+      ],
+      "unit_count_range": [
+        3,
+        5
+      ],
+      "unit_word_range": [
+        400,
+        1000
+      ],
+      "unit_page_range": [
+        2,
+        4
+      ]
     },
     "homiletic_collection": {
       "label": "Homiletic Collection",
       "group": "sacred",
-      "hierarchy": { "top": "liturgical_year", "mid": null, "atomic": "sermon" },
+      "hierarchy": {
+        "top": "liturgical_year",
+        "mid": null,
+        "atomic": "sermon"
+      },
       "command_unit": "sermon",
-      "word_count_range": [50000, 150000],
-      "page_range": [200, 600],
-      "unit_count_range": [30, 60],
-      "unit_word_range": [1500, 4000],
-      "unit_page_range": [6, 16]
+      "word_count_range": [
+        50000,
+        150000
+      ],
+      "page_range": [
+        200,
+        600
+      ],
+      "unit_count_range": [
+        30,
+        60
+      ],
+      "unit_word_range": [
+        1500,
+        4000
+      ],
+      "unit_page_range": [
+        6,
+        16
+      ]
     }
   },
-
   "commands": {
     "new-work": {
       "category": "core",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Initialize a new creative work"
     },
     "discuss": {
       "category": "core",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "renames_by_unit": true,
       "description": "Shape the next unit before planning"
     },
     "plan": {
       "category": "core",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "renames_by_unit": true,
       "description": "Research and plan the next unit"
     },
     "draft": {
       "category": "core",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "renames_by_unit": true,
       "description": "Draft the planned unit"
     },
     "editor-review": {
       "category": "core",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "adapted": {
-        "academic": { "rename": "peer-review" },
-        "technical": { "rename": "technical-review" },
-        "sacred": { "rename": "scholarly-review" }
+        "academic": {
+          "rename": "peer-review"
+        },
+        "technical": {
+          "rename": "technical-review"
+        },
+        "sacred": {
+          "rename": "scholarly-review"
+        }
       },
       "description": "Manual review of drafted unit and editor-writer collaboration workflow",
-      "collaboration_flags": ["--proposal", "--notes", "--respond"],
-      "collaboration_artifacts": ["proposals/", "editor-notes/", "decisions.json"]
+      "collaboration_flags": [
+        "--proposal",
+        "--notes",
+        "--respond"
+      ],
+      "collaboration_artifacts": [
+        "proposals/",
+        "editor-notes/",
+        "decisions.json"
+      ]
     },
     "submit": {
       "category": "core",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "renames_by_unit": true,
       "description": "Package and finalize unit"
     },
     "next": {
       "category": "navigation",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Auto-detect and run the next workflow step"
     },
     "do": {
       "category": "navigation",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Natural language router for free-text commands"
     },
     "help": {
       "category": "navigation",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Show available commands grouped by stage"
     },
     "progress": {
       "category": "navigation",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Show current state and next step"
     },
     "demo": {
       "category": "navigation",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Launch pre-built sample project sandbox"
     },
     "import": {
       "category": "navigation",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Import existing manuscript into Scriveno structure"
     },
     "map-manuscript": {
       "category": "navigation",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Analyze existing manuscript structure, voice, characters, and themes"
     },
     "voice-test": {
       "category": "quality",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Voice calibration before first draft"
     },
     "new-character": {
       "category": "character_world",
-      "available": ["prose", "script", "visual", "interactive"],
+      "available": [
+        "prose",
+        "script",
+        "visual",
+        "interactive"
+      ],
       "adapted": {
-        "academic": { "rename": "new-concept", "behavior": "academic_concept" },
-        "sacred": { "rename": "new-figure", "behavior": "sacred_figure" }
+        "academic": {
+          "rename": "new-concept",
+          "behavior": "academic_concept"
+        },
+        "sacred": {
+          "rename": "new-figure",
+          "behavior": "sacred_figure"
+        }
       },
-      "hidden": ["poetry", "speech_song"],
-      "requires": ["WORK.md"]
+      "hidden": [
+        "poetry",
+        "speech_song"
+      ],
+      "requires": [
+        "WORK.md"
+      ]
     },
     "character-sheet": {
       "category": "character_world",
-      "available": ["prose", "script", "visual", "interactive"],
+      "available": [
+        "prose",
+        "script",
+        "visual",
+        "interactive"
+      ],
       "adapted": {
-        "academic": { "rename": "concept-sheet" },
-        "sacred": { "rename": "figure-sheet" }
+        "academic": {
+          "rename": "concept-sheet"
+        },
+        "sacred": {
+          "rename": "figure-sheet"
+        }
       },
-      "hidden": ["poetry", "speech_song"],
-      "requires": ["CHARACTERS.md"]
+      "hidden": [
+        "poetry",
+        "speech_song"
+      ],
+      "requires": [
+        "CHARACTERS.md"
+      ]
     },
     "character-touch": {
       "category": "character_world",
-      "available": ["prose", "script", "visual", "interactive", "sacred"],
+      "available": [
+        "prose",
+        "script",
+        "visual",
+        "interactive",
+        "sacred"
+      ],
       "adapted": {
-        "sacred": { "rename": "figure-touch" }
+        "sacred": {
+          "rename": "figure-touch"
+        }
       },
-      "hidden": ["academic", "poetry", "speech_song"],
-      "requires": ["CHARACTERS.md", "draft_exists"]
+      "hidden": [
+        "academic",
+        "poetry",
+        "speech_song"
+      ],
+      "requires": [
+        "CHARACTERS.md",
+        "draft_exists"
+      ]
     },
     "relationship-map": {
       "category": "character_world",
-      "available": ["prose", "script", "visual", "interactive"],
+      "available": [
+        "prose",
+        "script",
+        "visual",
+        "interactive"
+      ],
       "adapted": {
-        "sacred": { "rename": "lineage-map" }
+        "sacred": {
+          "rename": "lineage-map"
+        }
       },
-      "hidden": ["academic", "poetry", "speech_song"],
-      "requires": ["CHARACTERS.md", { "min_characters": 2 }]
+      "hidden": [
+        "academic",
+        "poetry",
+        "speech_song"
+      ],
+      "requires": [
+        "CHARACTERS.md",
+        {
+          "min_characters": 2
+        }
+      ]
     },
     "build-world": {
       "category": "character_world",
-      "available": ["prose", "script", "technical", "visual", "interactive"],
+      "available": [
+        "prose",
+        "script",
+        "technical",
+        "visual",
+        "interactive"
+      ],
       "adapted": {
-        "technical": { "rename": "map-system" },
-        "sacred": { "rename": "build-cosmology" }
+        "technical": {
+          "rename": "map-system"
+        },
+        "sacred": {
+          "rename": "build-cosmology"
+        }
       },
-      "hidden": ["academic", "poetry", "speech_song"]
+      "hidden": [
+        "academic",
+        "poetry",
+        "speech_song"
+      ]
     },
     "cast-list": {
       "category": "character_world",
-      "available": ["prose", "script", "visual", "interactive"],
+      "available": [
+        "prose",
+        "script",
+        "visual",
+        "interactive"
+      ],
       "adapted": {
-        "sacred": { "rename": "figures-list" }
+        "sacred": {
+          "rename": "figures-list"
+        }
       },
-      "hidden": ["academic", "poetry", "speech_song"]
+      "hidden": [
+        "academic",
+        "poetry",
+        "speech_song"
+      ]
     },
     "character-arc": {
       "category": "character_world",
-      "available": ["prose", "script", "visual", "interactive"],
+      "available": [
+        "prose",
+        "script",
+        "visual",
+        "interactive"
+      ],
       "adapted": {
-        "sacred": { "rename": "figure-arc" }
+        "sacred": {
+          "rename": "figure-arc"
+        }
       },
-      "hidden": ["academic", "poetry", "speech_song"]
+      "hidden": [
+        "academic",
+        "poetry",
+        "speech_song"
+      ]
     },
     "character-voice-sample": {
       "category": "character_world",
-      "available": ["prose", "script", "visual", "interactive"],
+      "available": [
+        "prose",
+        "script",
+        "visual",
+        "interactive"
+      ],
       "adapted": {
-        "sacred": { "rename": "register-sample" }
+        "sacred": {
+          "rename": "register-sample"
+        }
       },
-      "hidden": ["academic", "poetry", "speech_song"]
+      "hidden": [
+        "academic",
+        "poetry",
+        "speech_song"
+      ]
     },
     "plot-graph": {
       "category": "structure",
-      "available": ["prose", "script", "technical", "visual", "interactive"],
+      "available": [
+        "prose",
+        "script",
+        "technical",
+        "visual",
+        "interactive"
+      ],
       "adapted": {
-        "academic": { "rename": "argument-map" },
-        "technical": { "rename": "procedure-map" },
-        "sacred": { "rename": "theological-arc" }
+        "academic": {
+          "rename": "argument-map"
+        },
+        "technical": {
+          "rename": "procedure-map"
+        },
+        "sacred": {
+          "rename": "theological-arc"
+        }
       },
-      "hidden": ["poetry", "speech_song"],
-      "requires": ["OUTLINE.md"]
+      "hidden": [
+        "poetry",
+        "speech_song"
+      ],
+      "requires": [
+        "OUTLINE.md"
+      ]
     },
     "timeline": {
       "category": "structure",
-      "available": ["prose", "script", "academic", "visual", "interactive"],
+      "available": [
+        "prose",
+        "script",
+        "academic",
+        "visual",
+        "interactive"
+      ],
       "adapted": {
-        "sacred": { "rename": "chronology" }
+        "sacred": {
+          "rename": "chronology"
+        }
       },
-      "hidden": ["poetry", "speech_song"]
+      "hidden": [
+        "poetry",
+        "speech_song"
+      ]
     },
     "theme-tracker": {
       "category": "structure",
-      "available": ["prose", "script", "visual", "poetry", "interactive"],
+      "available": [
+        "prose",
+        "script",
+        "visual",
+        "poetry",
+        "interactive"
+      ],
       "adapted": {
-        "academic": { "rename": "research-questions" },
-        "sacred": { "rename": "doctrine-tracker" }
+        "academic": {
+          "rename": "research-questions"
+        },
+        "sacred": {
+          "rename": "doctrine-tracker"
+        }
       },
-      "hidden": ["speech_song"]
+      "hidden": [
+        "speech_song"
+      ]
     },
     "subject-touch": {
       "category": "structure",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "adapted": {
-        "academic": { "rename": "concept-touch" },
-        "technical": { "rename": "procedure-touch" },
-        "sacred": { "rename": "doctrine-touch" }
+        "academic": {
+          "rename": "concept-touch"
+        },
+        "technical": {
+          "rename": "procedure-touch"
+        },
+        "sacred": {
+          "rename": "doctrine-touch"
+        }
       },
       "description": "Update evolving subject, concept, procedure, doctrine, object, image, or reader-state movement",
-      "requires": ["THEMES.md", "draft_exists"]
+      "requires": [
+        "THEMES.md",
+        "draft_exists"
+      ]
     },
     "subplot-map": {
       "category": "structure",
-      "available": ["prose", "script", "interactive"],
+      "available": [
+        "prose",
+        "script",
+        "interactive"
+      ],
       "adapted": {
-        "sacred": { "rename": "narrative-threads" }
+        "sacred": {
+          "rename": "narrative-threads"
+        }
       },
-      "hidden": ["academic", "visual", "poetry", "speech_song"]
+      "hidden": [
+        "academic",
+        "visual",
+        "poetry",
+        "speech_song"
+      ]
     },
     "outline": {
       "category": "structure",
-      "available": ["prose", "script", "academic", "technical", "visual", "interactive", "sacred"],
+      "available": [
+        "prose",
+        "script",
+        "academic",
+        "technical",
+        "visual",
+        "interactive",
+        "sacred"
+      ],
       "adapted": {},
-      "hidden": ["poetry", "speech_song"],
-      "requires": ["OUTLINE.md"]
+      "hidden": [
+        "poetry",
+        "speech_song"
+      ],
+      "requires": [
+        "OUTLINE.md"
+      ]
     },
     "add-unit": {
       "category": "structure_management",
-      "available": ["prose", "script", "academic", "technical", "visual", "interactive", "sacred"],
+      "available": [
+        "prose",
+        "script",
+        "academic",
+        "technical",
+        "visual",
+        "interactive",
+        "sacred"
+      ],
       "adapted": {},
-      "hidden": ["poetry", "speech_song"],
-      "requires": ["OUTLINE.md"]
+      "hidden": [
+        "poetry",
+        "speech_song"
+      ],
+      "requires": [
+        "OUTLINE.md"
+      ]
     },
     "insert-unit": {
       "category": "structure_management",
-      "available": ["prose", "script", "academic", "technical", "visual", "interactive", "sacred"],
+      "available": [
+        "prose",
+        "script",
+        "academic",
+        "technical",
+        "visual",
+        "interactive",
+        "sacred"
+      ],
       "adapted": {},
-      "hidden": ["poetry", "speech_song"],
-      "requires": ["OUTLINE.md"]
+      "hidden": [
+        "poetry",
+        "speech_song"
+      ],
+      "requires": [
+        "OUTLINE.md"
+      ]
     },
     "remove-unit": {
       "category": "structure_management",
-      "available": ["prose", "script", "academic", "technical", "visual", "interactive", "sacred"],
+      "available": [
+        "prose",
+        "script",
+        "academic",
+        "technical",
+        "visual",
+        "interactive",
+        "sacred"
+      ],
       "adapted": {},
-      "hidden": ["poetry", "speech_song"],
-      "requires": ["OUTLINE.md"]
+      "hidden": [
+        "poetry",
+        "speech_song"
+      ],
+      "requires": [
+        "OUTLINE.md"
+      ]
     },
     "split-unit": {
       "category": "structure_management",
-      "available": ["prose", "script", "academic", "technical", "visual", "interactive", "sacred"],
+      "available": [
+        "prose",
+        "script",
+        "academic",
+        "technical",
+        "visual",
+        "interactive",
+        "sacred"
+      ],
       "adapted": {},
-      "hidden": ["poetry", "speech_song"],
-      "requires": ["OUTLINE.md"]
+      "hidden": [
+        "poetry",
+        "speech_song"
+      ],
+      "requires": [
+        "OUTLINE.md"
+      ]
     },
     "merge-units": {
       "category": "structure_management",
-      "available": ["prose", "script", "academic", "technical", "visual", "interactive", "sacred"],
+      "available": [
+        "prose",
+        "script",
+        "academic",
+        "technical",
+        "visual",
+        "interactive",
+        "sacred"
+      ],
       "adapted": {},
-      "hidden": ["poetry", "speech_song"],
-      "requires": ["OUTLINE.md"]
+      "hidden": [
+        "poetry",
+        "speech_song"
+      ],
+      "requires": [
+        "OUTLINE.md"
+      ]
     },
     "reorder-units": {
       "category": "structure_management",
-      "available": ["prose", "script", "academic", "technical", "visual", "interactive", "sacred"],
+      "available": [
+        "prose",
+        "script",
+        "academic",
+        "technical",
+        "visual",
+        "interactive",
+        "sacred"
+      ],
       "adapted": {},
-      "hidden": ["poetry", "speech_song"],
-      "requires": ["OUTLINE.md"]
+      "hidden": [
+        "poetry",
+        "speech_song"
+      ],
+      "requires": [
+        "OUTLINE.md"
+      ]
     },
     "continuity-check": {
       "category": "review",
-      "available": ["prose", "script", "technical", "visual", "interactive"],
+      "available": [
+        "prose",
+        "script",
+        "technical",
+        "visual",
+        "interactive"
+      ],
       "adapted": {
-        "academic": { "rename": "citation-check" },
-        "technical": { "rename": "consistency-check" },
-        "sacred": { "rename": "doctrinal-check" }
+        "academic": {
+          "rename": "citation-check"
+        },
+        "technical": {
+          "rename": "consistency-check"
+        },
+        "sacred": {
+          "rename": "doctrinal-check"
+        }
       },
-      "hidden": ["poetry", "speech_song"],
-      "requires": ["draft_exists"]
+      "hidden": [
+        "poetry",
+        "speech_song"
+      ],
+      "requires": [
+        "draft_exists"
+      ]
     },
     "voice-check": {
       "category": "review",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "adapted": {
-        "sacred": { "rename": "register-check" }
+        "sacred": {
+          "rename": "register-check"
+        }
       },
-      "requires": ["draft_exists", "STYLE-GUIDE.md"]
+      "requires": [
+        "draft_exists",
+        "STYLE-GUIDE.md"
+      ]
     },
     "sensitivity-review": {
       "category": "review",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "adapted": {
-        "academic": { "rename": "ethics-review" },
-        "sacred": { "rename": "interfaith-review" }
+        "academic": {
+          "rename": "ethics-review"
+        },
+        "sacred": {
+          "rename": "interfaith-review"
+        }
       },
-      "requires": ["draft_exists"]
+      "requires": [
+        "draft_exists"
+      ]
     },
     "pacing-analysis": {
       "category": "review",
-      "available": ["prose", "script", "academic", "visual", "interactive", "sacred"],
-      "hidden": ["poetry", "speech_song"],
-      "requires": ["draft_exists"]
+      "available": [
+        "prose",
+        "script",
+        "academic",
+        "visual",
+        "interactive",
+        "sacred"
+      ],
+      "hidden": [
+        "poetry",
+        "speech_song"
+      ],
+      "requires": [
+        "draft_exists"
+      ]
     },
     "dialogue-audit": {
       "category": "review",
-      "available": ["prose", "script", "interactive"],
+      "available": [
+        "prose",
+        "script",
+        "interactive"
+      ],
       "adapted": {
-        "visual": { "behavior": "balloon_text" }
+        "visual": {
+          "behavior": "balloon_text"
+        }
       },
-      "hidden": ["academic", "poetry", "speech_song", "sacred"],
-      "requires": ["draft_exists"]
+      "hidden": [
+        "academic",
+        "poetry",
+        "speech_song",
+        "sacred"
+      ],
+      "requires": [
+        "draft_exists"
+      ]
     },
     "beta-reader": {
       "category": "review",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "adapted": {
-        "academic": { "rename": "reviewer-simulation" },
-        "technical": { "rename": "usability-review" },
-        "sacred": { "rename": "theological-review" }
+        "academic": {
+          "rename": "reviewer-simulation"
+        },
+        "technical": {
+          "rename": "usability-review"
+        },
+        "sacred": {
+          "rename": "theological-review"
+        }
       },
-      "requires": ["draft_exists"]
+      "requires": [
+        "draft_exists"
+      ]
     },
     "originality-check": {
       "category": "review",
-      "available": ["all"],
-      "requires": ["draft_exists"]
+      "available": [
+        "all"
+      ],
+      "requires": [
+        "draft_exists"
+      ]
     },
     "line-edit": {
       "category": "quality",
-      "available": ["all"],
-      "requires": ["draft_exists"]
+      "available": [
+        "all"
+      ],
+      "requires": [
+        "draft_exists"
+      ]
     },
     "copy-edit": {
       "category": "quality",
-      "available": ["all"],
-      "requires": ["draft_exists"]
+      "available": [
+        "all"
+      ],
+      "requires": [
+        "draft_exists"
+      ]
     },
     "polish": {
       "category": "quality",
-      "available": ["all"],
-      "requires": ["draft_exists", "STYLE-GUIDE.md"]
+      "available": [
+        "all"
+      ],
+      "requires": [
+        "draft_exists",
+        "STYLE-GUIDE.md"
+      ]
     },
     "quick-write": {
       "category": "quality",
-      "available": ["all"]
+      "available": [
+        "all"
+      ]
     },
     "cover-art": {
       "category": "illustration",
-      "available": ["prose", "visual", "poetry", "sacred"],
-      "hidden": ["script", "academic", "interactive", "speech_song"],
-      "requires": ["WORK.md"]
+      "available": [
+        "prose",
+        "visual",
+        "poetry",
+        "sacred"
+      ],
+      "hidden": [
+        "script",
+        "academic",
+        "interactive",
+        "speech_song"
+      ],
+      "requires": [
+        "WORK.md"
+      ]
     },
     "illustrate-scene": {
       "category": "illustration",
-      "available": ["prose", "visual", "interactive", "sacred"],
-      "hidden": ["script", "academic", "poetry", "speech_song"],
-      "requires": ["ART-DIRECTION.md", "draft_exists"]
+      "available": [
+        "prose",
+        "visual",
+        "interactive",
+        "sacred"
+      ],
+      "hidden": [
+        "script",
+        "academic",
+        "poetry",
+        "speech_song"
+      ],
+      "requires": [
+        "ART-DIRECTION.md",
+        "draft_exists"
+      ]
     },
     "character-ref": {
       "category": "illustration",
-      "available": ["prose", "script", "visual", "interactive"],
+      "available": [
+        "prose",
+        "script",
+        "visual",
+        "interactive"
+      ],
       "adapted": {
-        "sacred": { "rename": "figure-ref" }
+        "sacred": {
+          "rename": "figure-ref"
+        }
       },
-      "hidden": ["academic", "poetry", "speech_song"]
+      "hidden": [
+        "academic",
+        "poetry",
+        "speech_song"
+      ]
     },
     "art-direction": {
       "category": "illustration",
-      "available": ["prose", "visual", "interactive", "sacred"],
-      "hidden": ["script", "academic", "poetry", "speech_song"]
+      "available": [
+        "prose",
+        "visual",
+        "interactive",
+        "sacred"
+      ],
+      "hidden": [
+        "script",
+        "academic",
+        "poetry",
+        "speech_song"
+      ]
     },
     "chapter-header": {
       "category": "illustration",
-      "available": ["prose", "sacred"],
-      "hidden": ["script", "academic", "visual", "poetry", "interactive", "speech_song"]
+      "available": [
+        "prose",
+        "sacred"
+      ],
+      "hidden": [
+        "script",
+        "academic",
+        "visual",
+        "poetry",
+        "interactive",
+        "speech_song"
+      ]
     },
     "map-illustration": {
       "category": "illustration",
-      "available": ["prose", "visual", "interactive", "sacred"],
-      "hidden": ["script", "academic", "poetry", "speech_song"],
-      "requires": ["WORLD.md"]
+      "available": [
+        "prose",
+        "visual",
+        "interactive",
+        "sacred"
+      ],
+      "hidden": [
+        "script",
+        "academic",
+        "poetry",
+        "speech_song"
+      ],
+      "requires": [
+        "WORLD.md"
+      ]
     },
     "spread-layout": {
       "category": "illustration",
-      "available": ["visual"],
-      "hidden": ["prose", "script", "academic", "poetry", "interactive", "speech_song", "sacred"]
+      "available": [
+        "visual"
+      ],
+      "hidden": [
+        "prose",
+        "script",
+        "academic",
+        "poetry",
+        "interactive",
+        "speech_song",
+        "sacred"
+      ]
     },
     "panel-layout": {
       "category": "illustration",
-      "available": ["visual"],
+      "available": [
+        "visual"
+      ],
       "constraint": "comic_only",
-      "hidden": ["prose", "script", "academic", "poetry", "interactive", "speech_song", "sacred"]
+      "hidden": [
+        "prose",
+        "script",
+        "academic",
+        "poetry",
+        "interactive",
+        "speech_song",
+        "sacred"
+      ]
     },
     "storyboard": {
       "category": "illustration",
-      "available": ["script", "visual"],
-      "hidden": ["prose", "academic", "poetry", "interactive", "speech_song", "sacred"]
+      "available": [
+        "script",
+        "visual"
+      ],
+      "hidden": [
+        "prose",
+        "academic",
+        "poetry",
+        "interactive",
+        "speech_song",
+        "sacred"
+      ]
     },
     "front-matter": {
       "category": "publishing",
-      "available": ["prose", "script", "academic", "visual", "sacred"],
+      "available": [
+        "prose",
+        "script",
+        "academic",
+        "visual",
+        "sacred"
+      ],
       "adapted": {
-        "academic": { "behavior": "academic_front_matter" },
-        "sacred": { "behavior": "sacred_front_matter" }
+        "academic": {
+          "behavior": "academic_front_matter"
+        },
+        "sacred": {
+          "behavior": "sacred_front_matter"
+        }
       },
-      "hidden": ["poetry", "interactive", "speech_song"],
-      "requires": ["complete-draft"]
+      "hidden": [
+        "poetry",
+        "interactive",
+        "speech_song"
+      ],
+      "requires": [
+        "complete-draft"
+      ]
     },
     "back-matter": {
       "category": "publishing",
-      "available": ["prose", "script", "academic", "visual", "sacred"],
+      "available": [
+        "prose",
+        "script",
+        "academic",
+        "visual",
+        "sacred"
+      ],
       "adapted": {
-        "academic": { "behavior": "academic_back_matter" },
-        "sacred": { "behavior": "sacred_back_matter" }
+        "academic": {
+          "behavior": "academic_back_matter"
+        },
+        "sacred": {
+          "behavior": "sacred_back_matter"
+        }
       },
-      "hidden": ["poetry", "interactive", "speech_song"],
-      "requires": ["complete-draft"]
+      "hidden": [
+        "poetry",
+        "interactive",
+        "speech_song"
+      ],
+      "requires": [
+        "complete-draft"
+      ]
     },
     "blurb": {
       "category": "publishing",
-      "available": ["prose", "script", "visual", "poetry", "interactive", "sacred"],
-      "hidden": ["academic", "speech_song"],
-      "requires": ["complete-draft"]
+      "available": [
+        "prose",
+        "script",
+        "visual",
+        "poetry",
+        "interactive",
+        "sacred"
+      ],
+      "hidden": [
+        "academic",
+        "speech_song"
+      ],
+      "requires": [
+        "complete-draft"
+      ]
     },
     "synopsis": {
       "category": "publishing",
-      "available": ["prose", "script", "visual"],
-      "hidden": ["academic", "poetry", "interactive", "speech_song", "sacred"],
-      "requires": ["complete-draft"]
+      "available": [
+        "prose",
+        "script",
+        "visual"
+      ],
+      "hidden": [
+        "academic",
+        "poetry",
+        "interactive",
+        "speech_song",
+        "sacred"
+      ],
+      "requires": [
+        "complete-draft"
+      ]
     },
     "query-letter": {
       "category": "publishing",
-      "available": ["prose", "script", "sacred"],
-      "hidden": ["academic", "visual", "poetry", "interactive", "speech_song"],
-      "requires": ["blurb", "synopsis"]
+      "available": [
+        "prose",
+        "script",
+        "sacred"
+      ],
+      "hidden": [
+        "academic",
+        "visual",
+        "poetry",
+        "interactive",
+        "speech_song"
+      ],
+      "requires": [
+        "blurb",
+        "synopsis"
+      ]
     },
     "book-proposal": {
       "category": "publishing",
-      "available": ["prose", "sacred"],
+      "available": [
+        "prose",
+        "sacred"
+      ],
       "constraint": "nonfiction_only",
-      "hidden": ["script", "academic", "visual", "poetry", "interactive", "speech_song"],
-      "requires": ["synopsis"]
+      "hidden": [
+        "script",
+        "academic",
+        "visual",
+        "poetry",
+        "interactive",
+        "speech_song"
+      ],
+      "requires": [
+        "synopsis"
+      ]
     },
     "discussion-questions": {
       "category": "publishing",
-      "available": ["prose"],
+      "available": [
+        "prose"
+      ],
       "adapted": {
-        "sacred": { "rename": "study-questions" }
+        "sacred": {
+          "rename": "study-questions"
+        }
       },
-      "hidden": ["script", "academic", "visual", "poetry", "interactive", "speech_song"],
-      "requires": ["complete-draft"]
+      "hidden": [
+        "script",
+        "academic",
+        "visual",
+        "poetry",
+        "interactive",
+        "speech_song"
+      ],
+      "requires": [
+        "complete-draft"
+      ]
     },
     "publish": {
       "category": "publishing",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Publishing wizard or preset-driven pipeline (wraps export commands)"
     },
     "export": {
       "category": "publishing",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Compile and export manuscript to publication-ready formats (markdown, docx, pdf, epub, fountain, fdx, latex, packages)",
-      "requires": ["complete-draft"]
+      "requires": [
+        "complete-draft"
+      ]
     },
     "autopilot-publish": {
       "category": "publishing",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Run full publishing pipeline unattended with quality gate",
-      "requires": ["complete-draft"]
+      "requires": [
+        "complete-draft"
+      ]
     },
     "build-ebook": {
       "category": "publishing",
-      "available": ["prose", "visual", "poetry", "interactive", "sacred"],
+      "available": [
+        "prose",
+        "visual",
+        "poetry",
+        "interactive",
+        "sacred"
+      ],
       "description": "Build EPUB with platform-aware accessibility guardrails (Pandoc + EAA compliance)",
-      "requires": ["complete-draft"]
+      "requires": [
+        "complete-draft"
+      ]
     },
     "build-print": {
       "category": "publishing",
-      "available": ["prose", "visual", "poetry", "sacred", "academic", "script"],
+      "available": [
+        "prose",
+        "visual",
+        "poetry",
+        "sacred",
+        "academic",
+        "script"
+      ],
       "description": "Build print-ready PDF with platform trim sizes and page-count guardrails (Pandoc + Typst), and academic publisher class wrappers for IEEE, ACM, Springer LNCS, Elsevier, and APA7 (Pandoc + LaTeX).",
-      "requires": ["complete-draft"]
+      "requires": [
+        "complete-draft"
+      ]
     },
     "build-smashwords": {
       "category": "publishing",
-      "available": ["prose", "visual"],
+      "available": [
+        "prose",
+        "visual"
+      ],
       "description": "Build Smashwords/D2D-compliant DOCX via Pandoc --reference-doc (no tabs, first-line indent via style, auto-TOC)",
-      "requires": ["complete-draft"]
+      "requires": [
+        "complete-draft"
+      ]
     },
     "build-poetry-submission": {
       "category": "publishing",
-      "available": ["poetry"],
+      "available": [
+        "poetry"
+      ],
       "description": "Build poetry submission manuscript DOCX (one poem per page, 12pt Times/Garamond, title page, TOC)",
-      "requires": ["complete-draft"]
+      "requires": [
+        "complete-draft"
+      ]
     },
     "translate": {
       "category": "translation",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Translate manuscript per-unit using fresh-context-per-unit pattern with glossary and translation memory",
-      "requires": ["complete-draft"]
+      "requires": [
+        "complete-draft"
+      ]
     },
     "translation-glossary": {
       "category": "translation",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Create and manage bilingual term glossary for consistent translation"
     },
     "translation-memory": {
       "category": "translation",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Build and manage translation memory from completed translations"
     },
     "cultural-adaptation": {
       "category": "translation",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Flag idioms, humor, customs, and cultural references that need localization",
-      "requires": ["translate"]
+      "requires": [
+        "translate"
+      ]
     },
     "back-translate": {
       "category": "translation",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Translate translation back to source language for side-by-side verification",
-      "requires": ["translate"]
+      "requires": [
+        "translate"
+      ]
     },
     "multi-publish": {
       "category": "translation",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Export translated editions in all target formats with localized front/back matter",
-      "requires": ["translate"]
+      "requires": [
+        "translate"
+      ]
     },
     "autopilot-translate": {
       "category": "translation",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Run multi-language translation pipeline unattended with glossary, translation, and publishing",
-      "requires": ["complete-draft"]
+      "requires": [
+        "complete-draft"
+      ]
     },
     "sacred:concordance": {
       "category": "sacred_exclusive",
-      "available": ["sacred"],
-      "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"],
-      "requires": ["draft_exists"]
+      "available": [
+        "sacred"
+      ],
+      "hidden": [
+        "prose",
+        "script",
+        "academic",
+        "visual",
+        "poetry",
+        "interactive",
+        "speech_song"
+      ],
+      "requires": [
+        "draft_exists"
+      ]
     },
     "sacred:cross-reference": {
       "category": "sacred_exclusive",
-      "available": ["sacred"],
-      "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"],
-      "requires": ["draft_exists"]
+      "available": [
+        "sacred"
+      ],
+      "hidden": [
+        "prose",
+        "script",
+        "academic",
+        "visual",
+        "poetry",
+        "interactive",
+        "speech_song"
+      ],
+      "requires": [
+        "draft_exists"
+      ]
     },
     "sacred:genealogy": {
       "category": "sacred_exclusive",
-      "available": ["sacred"],
-      "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"],
-      "requires": ["FIGURES.md", { "min_figures": 2 }]
+      "available": [
+        "sacred"
+      ],
+      "hidden": [
+        "prose",
+        "script",
+        "academic",
+        "visual",
+        "poetry",
+        "interactive",
+        "speech_song"
+      ],
+      "requires": [
+        "FIGURES.md",
+        {
+          "min_figures": 2
+        }
+      ]
     },
     "sacred:chronology": {
       "category": "sacred_exclusive",
-      "available": ["sacred"],
-      "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"]
+      "available": [
+        "sacred"
+      ],
+      "hidden": [
+        "prose",
+        "script",
+        "academic",
+        "visual",
+        "poetry",
+        "interactive",
+        "speech_song"
+      ]
     },
     "sacred:annotation-layer": {
       "category": "sacred_exclusive",
-      "available": ["sacred"],
-      "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"],
-      "requires": ["draft_exists"]
+      "available": [
+        "sacred"
+      ],
+      "hidden": [
+        "prose",
+        "script",
+        "academic",
+        "visual",
+        "poetry",
+        "interactive",
+        "speech_song"
+      ],
+      "requires": [
+        "draft_exists"
+      ]
     },
     "sacred:verse-numbering": {
       "category": "sacred_exclusive",
-      "available": ["sacred"],
-      "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"],
-      "requires": ["draft_exists"]
+      "available": [
+        "sacred"
+      ],
+      "hidden": [
+        "prose",
+        "script",
+        "academic",
+        "visual",
+        "poetry",
+        "interactive",
+        "speech_song"
+      ],
+      "requires": [
+        "draft_exists"
+      ]
     },
     "sacred-numbering-format": {
       "category": "sacred_exclusive",
-      "available": ["sacred"],
-      "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"],
-      "requires": ["config.tradition"]
+      "available": [
+        "sacred"
+      ],
+      "hidden": [
+        "prose",
+        "script",
+        "academic",
+        "visual",
+        "poetry",
+        "interactive",
+        "speech_song"
+      ],
+      "requires": [
+        "config.tradition"
+      ]
     },
     "sacred:source-tracking": {
       "category": "sacred_exclusive",
-      "available": ["sacred"],
-      "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"]
+      "available": [
+        "sacred"
+      ],
+      "hidden": [
+        "prose",
+        "script",
+        "academic",
+        "visual",
+        "poetry",
+        "interactive",
+        "speech_song"
+      ]
     },
     "sacred:doctrinal-check": {
       "category": "sacred_exclusive",
-      "available": ["sacred"],
-      "hidden": ["prose", "script", "academic", "visual", "poetry", "interactive", "speech_song"],
-      "requires": ["draft_exists", "DOCTRINES.md"]
+      "available": [
+        "sacred"
+      ],
+      "hidden": [
+        "prose",
+        "script",
+        "academic",
+        "visual",
+        "poetry",
+        "interactive",
+        "speech_song"
+      ],
+      "requires": [
+        "draft_exists",
+        "DOCTRINES.md"
+      ]
     },
     "manager": {
       "category": "utility",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Interactive command center for managing multiple writing projects"
     },
     "health": {
       "category": "utility",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Diagnose and repair common project state issues"
     },
     "scan": {
       "category": "utility",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Detect drift between recorded state (STATE.md, OUTLINE.md, config.json) and what is on disk"
     },
     "sync": {
       "category": "utility",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Synchronize installed Scriveno runtime commands, skills, and agents with the current source"
     },
     "cleanup": {
       "category": "utility",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Strip template scaffold markers from draft files"
     },
     "validate": {
       "category": "utility",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Scan manuscript for unresolved scaffold markers before export"
     },
     "fast": {
       "category": "utility",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Make a quick inline edit without full planning overhead"
     },
     "add-note": {
       "category": "utility",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Add a quick note or reminder to the project notes file"
     },
     "check-notes": {
       "category": "utility",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Review all project notes"
     },
     "plant-seed": {
       "category": "utility",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Plant a creative seed -- an idea, image, or fragment for future use"
     },
     "troubleshoot": {
       "category": "utility",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Diagnose why something isn't working and suggest fixes"
     },
     "thread": {
       "category": "utility",
-      "available": ["all"],
+      "available": [
+        "all"
+      ],
       "description": "Start or continue a focused conversation thread on a specific topic"
     },
-    "settings": { "category": "utility", "available": ["all"] },
-    "profile-writer": { "category": "utility", "available": ["all"] },
-    "save": { "category": "session", "available": ["all"] },
-    "history": { "category": "session", "available": ["all"] },
-    "compare": { "category": "session", "available": ["all"] },
-    "versions": { "category": "session", "available": ["all"] },
-    "undo": { "category": "session", "available": ["all"] },
-    "pause-work": { "category": "session", "available": ["all"] },
-    "resume-work": { "category": "session", "available": ["all"] },
-    "session-report": { "category": "session", "available": ["all"] },
+    "settings": {
+      "category": "utility",
+      "available": [
+        "all"
+      ]
+    },
+    "profile-writer": {
+      "category": "utility",
+      "available": [
+        "all"
+      ]
+    },
+    "save": {
+      "category": "session",
+      "available": [
+        "all"
+      ]
+    },
+    "history": {
+      "category": "session",
+      "available": [
+        "all"
+      ]
+    },
+    "compare": {
+      "category": "session",
+      "available": [
+        "all"
+      ]
+    },
+    "versions": {
+      "category": "session",
+      "available": [
+        "all"
+      ]
+    },
+    "undo": {
+      "category": "session",
+      "available": [
+        "all"
+      ]
+    },
+    "pause-work": {
+      "category": "session",
+      "available": [
+        "all"
+      ]
+    },
+    "resume-work": {
+      "category": "session",
+      "available": [
+        "all"
+      ]
+    },
+    "session-report": {
+      "category": "session",
+      "available": [
+        "all"
+      ]
+    },
     "track": {
       "category": "collaboration",
       "description": "Manage revision tracks -- create, switch, compare, merge, and propose changes",
-      "subcommands": ["create", "list", "switch", "compare", "merge", "propose"],
-      "available": ["prose", "script", "academic", "technical", "visual", "sacred", "poetry", "interactive", "speech_song"],
+      "subcommands": [
+        "create",
+        "list",
+        "switch",
+        "compare",
+        "merge",
+        "propose"
+      ],
+      "available": [
+        "prose",
+        "script",
+        "academic",
+        "technical",
+        "visual",
+        "sacred",
+        "poetry",
+        "interactive",
+        "speech_song"
+      ],
       "hidden": [],
       "requires": [],
       "co_writing": true
     },
-    "manuscript-stats": { "category": "navigation", "available": ["all"] },
-    "complete-draft": { "category": "core", "available": ["all"] },
-    "new-revision": { "category": "core", "available": ["all"] },
-    "autopilot": { "category": "core", "available": ["all"] },
-    "series-bible": { "category": "core", "available": ["all"] }
+    "manuscript-stats": {
+      "category": "navigation",
+      "available": [
+        "all"
+      ]
+    },
+    "complete-draft": {
+      "category": "core",
+      "available": [
+        "all"
+      ]
+    },
+    "new-revision": {
+      "category": "core",
+      "available": [
+        "all"
+      ]
+    },
+    "autopilot": {
+      "category": "core",
+      "available": [
+        "all"
+      ]
+    },
+    "series-bible": {
+      "category": "core",
+      "available": [
+        "all"
+      ]
+    }
   },
-
   "exports": {
-    "markdown": { "available": ["all"] },
-    "docx_manuscript": { "available": ["prose", "script", "academic", "technical", "poetry", "speech_song", "sacred"] },
-    "docx_formatted": { "available": ["prose", "academic", "technical", "poetry", "speech_song", "sacred"] },
-    "pdf_manuscript": { "available": ["prose", "script", "academic", "technical", "visual", "poetry", "speech_song", "sacred"] },
-    "pdf_print_ready": { "available": ["prose", "visual", "poetry", "sacred"] },
-    "fountain": { "available": ["script"] },
-    "fdx": { "available": ["script"], "constraint": "screenplay_or_tv_only" },
-    "latex": { "available": ["academic", "sacred"], "note_for_sacred": "critical editions" },
-    "epub": { "available": ["prose", "visual", "poetry", "interactive", "sacred"] },
-    "build_ebook": { "available": ["prose", "visual", "poetry", "interactive", "sacred"] },
-    "build_print": { "available": ["prose", "visual", "poetry", "sacred", "academic", "script"] },
-    "mobi": { "available": ["prose", "visual", "sacred"] },
-    "kdp_package": { "available": ["prose", "visual", "poetry", "sacred"] },
-    "ingram_package": { "available": ["prose", "visual", "poetry", "sacred"] },
-    "query_package": { "available": ["prose", "script", "sacred"] },
-    "submission_package": { "available": ["prose", "script", "sacred"] },
-    "apa_mla_chicago": { "available": ["academic"] },
-    "bibtex": { "available": ["academic"] }
+    "markdown": {
+      "available": [
+        "all"
+      ]
+    },
+    "docx_manuscript": {
+      "available": [
+        "prose",
+        "script",
+        "academic",
+        "technical",
+        "poetry",
+        "speech_song",
+        "sacred"
+      ]
+    },
+    "docx_formatted": {
+      "available": [
+        "prose",
+        "academic",
+        "technical",
+        "poetry",
+        "speech_song",
+        "sacred"
+      ]
+    },
+    "pdf_manuscript": {
+      "available": [
+        "prose",
+        "script",
+        "academic",
+        "technical",
+        "visual",
+        "poetry",
+        "speech_song",
+        "sacred"
+      ]
+    },
+    "pdf_print_ready": {
+      "available": [
+        "prose",
+        "visual",
+        "poetry",
+        "sacred"
+      ]
+    },
+    "fountain": {
+      "available": [
+        "script"
+      ]
+    },
+    "fdx": {
+      "available": [
+        "script"
+      ],
+      "constraint": "screenplay_or_tv_only"
+    },
+    "latex": {
+      "available": [
+        "academic",
+        "sacred"
+      ],
+      "note_for_sacred": "critical editions"
+    },
+    "epub": {
+      "available": [
+        "prose",
+        "visual",
+        "poetry",
+        "interactive",
+        "sacred"
+      ]
+    },
+    "build_ebook": {
+      "available": [
+        "prose",
+        "visual",
+        "poetry",
+        "interactive",
+        "sacred"
+      ]
+    },
+    "build_print": {
+      "available": [
+        "prose",
+        "visual",
+        "poetry",
+        "sacred",
+        "academic",
+        "script"
+      ]
+    },
+    "mobi": {
+      "available": [
+        "prose",
+        "visual",
+        "sacred"
+      ]
+    },
+    "kdp_package": {
+      "available": [
+        "prose",
+        "visual",
+        "poetry",
+        "sacred"
+      ]
+    },
+    "ingram_package": {
+      "available": [
+        "prose",
+        "visual",
+        "poetry",
+        "sacred"
+      ]
+    },
+    "query_package": {
+      "available": [
+        "prose",
+        "script",
+        "sacred"
+      ]
+    },
+    "submission_package": {
+      "available": [
+        "prose",
+        "script",
+        "sacred"
+      ]
+    },
+    "apa_mla_chicago": {
+      "available": [
+        "academic"
+      ]
+    },
+    "bibtex": {
+      "available": [
+        "academic"
+      ]
+    }
   },
-
   "dependencies": {
     "core_chain": [
-      { "command": "new-work", "requires": [] },
-      { "command": "discuss", "requires": ["OUTLINE.md"] },
-      { "command": "plan", "requires": ["{N}-CONTEXT.md"] },
-      { "command": "draft", "requires": [".manuscript/plans/{N}-*-PLAN.md"] },
-      { "command": "editor-review", "requires": [".manuscript/drafts/body/{N}-*-DRAFT.md"] },
-      { "command": "submit", "requires": [".manuscript/reviews/{N}-REVIEW.md"] },
-      { "command": "complete-draft", "requires": ["all_units_submitted"] },
-      { "command": "new-revision", "requires": ["archived_draft"] }
+      {
+        "command": "new-work",
+        "requires": []
+      },
+      {
+        "command": "discuss",
+        "requires": [
+          "OUTLINE.md"
+        ]
+      },
+      {
+        "command": "plan",
+        "requires": [
+          "{N}-CONTEXT.md"
+        ]
+      },
+      {
+        "command": "draft",
+        "requires": [
+          ".manuscript/plans/{N}-*-PLAN.md"
+        ]
+      },
+      {
+        "command": "editor-review",
+        "requires": [
+          ".manuscript/drafts/body/{N}-*-DRAFT.md"
+        ]
+      },
+      {
+        "command": "submit",
+        "requires": [
+          ".manuscript/reviews/{N}-REVIEW.md"
+        ]
+      },
+      {
+        "command": "complete-draft",
+        "requires": [
+          "all_units_submitted"
+        ]
+      },
+      {
+        "command": "new-revision",
+        "requires": [
+          "archived_draft"
+        ]
+      }
     ],
     "feature_prerequisites": {
-      "relationship-map": ["CHARACTERS.md", { "min_characters": 2 }],
-      "subplot-map": ["OUTLINE.md", { "min_threads": 2 }],
-      "character-arc": ["CHARACTERS.md"],
-      "character-voice-sample": ["CHARACTERS.md", "STYLE-GUIDE.md"],
-      "plot-graph": ["OUTLINE.md"],
-      "timeline": ["OUTLINE.md"],
-      "theme-tracker": ["THEMES.md"],
-      "subject-touch": ["THEMES.md", "draft_exists"],
-      "continuity-check": ["draft_exists"],
-      "voice-check": ["draft_exists", "STYLE-GUIDE.md"],
-      "pacing-analysis": ["draft_exists"],
-      "dialogue-audit": ["draft_exists_with_dialogue"],
-      "beta-reader": ["draft_exists"],
-      "line-edit": ["draft_exists"],
-      "copy-edit": ["draft_exists"],
-      "sensitivity-review": ["draft_exists"],
-      "originality-check": ["draft_exists"],
-      "polish": ["draft_exists", "STYLE-GUIDE.md"],
-      "illustrate-scene": ["ART-DIRECTION.md", "scene_drafted"],
-      "character-ref": ["CHARACTERS.md"],
-      "cover-art": ["WORK.md"],
-      "map-illustration": ["WORLD.md"],
-      "sacred:concordance": ["draft_exists"],
-      "sacred:cross-reference": ["draft_exists"],
-      "sacred:genealogy": ["FIGURES.md", { "min_figures": 2 }],
-      "sacred:chronology": ["OUTLINE.md"],
-      "sacred:annotation-layer": ["draft_exists"],
-      "sacred:verse-numbering": ["draft_exists"],
-      "sacred:source-tracking": ["WORK.md"],
-      "sacred:doctrinal-check": ["draft_exists", "DOCTRINES.md"],
-      "outline": ["OUTLINE.md"],
-      "add-unit": ["OUTLINE.md"],
-      "insert-unit": ["OUTLINE.md"],
-      "remove-unit": ["OUTLINE.md"],
-      "split-unit": ["OUTLINE.md"],
-      "merge-units": ["OUTLINE.md"],
-      "reorder-units": ["OUTLINE.md"]
+      "relationship-map": [
+        "CHARACTERS.md",
+        {
+          "min_characters": 2
+        }
+      ],
+      "subplot-map": [
+        "OUTLINE.md",
+        {
+          "min_threads": 2
+        }
+      ],
+      "character-arc": [
+        "CHARACTERS.md"
+      ],
+      "character-voice-sample": [
+        "CHARACTERS.md",
+        "STYLE-GUIDE.md"
+      ],
+      "plot-graph": [
+        "OUTLINE.md"
+      ],
+      "timeline": [
+        "OUTLINE.md"
+      ],
+      "theme-tracker": [
+        "THEMES.md"
+      ],
+      "subject-touch": [
+        "THEMES.md",
+        "draft_exists"
+      ],
+      "continuity-check": [
+        "draft_exists"
+      ],
+      "voice-check": [
+        "draft_exists",
+        "STYLE-GUIDE.md"
+      ],
+      "pacing-analysis": [
+        "draft_exists"
+      ],
+      "dialogue-audit": [
+        "draft_exists_with_dialogue"
+      ],
+      "beta-reader": [
+        "draft_exists"
+      ],
+      "line-edit": [
+        "draft_exists"
+      ],
+      "copy-edit": [
+        "draft_exists"
+      ],
+      "sensitivity-review": [
+        "draft_exists"
+      ],
+      "originality-check": [
+        "draft_exists"
+      ],
+      "polish": [
+        "draft_exists",
+        "STYLE-GUIDE.md"
+      ],
+      "illustrate-scene": [
+        "ART-DIRECTION.md",
+        "scene_drafted"
+      ],
+      "character-ref": [
+        "CHARACTERS.md"
+      ],
+      "cover-art": [
+        "WORK.md"
+      ],
+      "map-illustration": [
+        "WORLD.md"
+      ],
+      "sacred:concordance": [
+        "draft_exists"
+      ],
+      "sacred:cross-reference": [
+        "draft_exists"
+      ],
+      "sacred:genealogy": [
+        "FIGURES.md",
+        {
+          "min_figures": 2
+        }
+      ],
+      "sacred:chronology": [
+        "OUTLINE.md"
+      ],
+      "sacred:annotation-layer": [
+        "draft_exists"
+      ],
+      "sacred:verse-numbering": [
+        "draft_exists"
+      ],
+      "sacred:source-tracking": [
+        "WORK.md"
+      ],
+      "sacred:doctrinal-check": [
+        "draft_exists",
+        "DOCTRINES.md"
+      ],
+      "outline": [
+        "OUTLINE.md"
+      ],
+      "add-unit": [
+        "OUTLINE.md"
+      ],
+      "insert-unit": [
+        "OUTLINE.md"
+      ],
+      "remove-unit": [
+        "OUTLINE.md"
+      ],
+      "split-unit": [
+        "OUTLINE.md"
+      ],
+      "merge-units": [
+        "OUTLINE.md"
+      ],
+      "reorder-units": [
+        "OUTLINE.md"
+      ]
     },
     "publishing_prerequisites": {
-      "front-matter": ["complete-draft"],
-      "back-matter": ["complete-draft"],
-      "blurb": ["complete-draft"],
-      "synopsis": ["complete-draft"],
-      "query-letter": ["blurb", "synopsis"],
-      "book-proposal": ["synopsis", "sample_chapter"],
-      "discussion-questions": ["complete-draft"],
-      "export": ["complete-draft"],
-      "kdp-package": ["front-matter", "back-matter", "export"],
-      "translate": ["complete-draft"],
+      "front-matter": [
+        "complete-draft"
+      ],
+      "back-matter": [
+        "complete-draft"
+      ],
+      "blurb": [
+        "complete-draft"
+      ],
+      "synopsis": [
+        "complete-draft"
+      ],
+      "query-letter": [
+        "blurb",
+        "synopsis"
+      ],
+      "book-proposal": [
+        "synopsis",
+        "sample_chapter"
+      ],
+      "discussion-questions": [
+        "complete-draft"
+      ],
+      "export": [
+        "complete-draft"
+      ],
+      "kdp-package": [
+        "front-matter",
+        "back-matter",
+        "export"
+      ],
+      "translate": [
+        "complete-draft"
+      ],
       "translation-glossary": [],
-      "translation-memory": ["translate"],
-      "cultural-adaptation": ["translate"],
-      "back-translate": ["translate"],
-      "multi-publish": ["translate", "kdp-package"],
-      "autopilot-translate": ["complete-draft"]
+      "translation-memory": [
+        "translate"
+      ],
+      "cultural-adaptation": [
+        "translate"
+      ],
+      "back-translate": [
+        "translate"
+      ],
+      "multi-publish": [
+        "translate",
+        "kdp-package"
+      ],
+      "autopilot-translate": [
+        "complete-draft"
+      ]
     },
     "soft_prerequisites": {
-      "draft": { "recommended": ["discuss"], "without_it": "Uses defaults from STYLE-GUIDE.md" },
-      "plan": { "recommended": ["research_enabled"], "without_it": "Plans without genre research" },
-      "cover-art": { "recommended": ["CHARACTERS.md", "ART-DIRECTION.md"], "without_it": "Generates from WORK.md alone" },
-      "translate": { "recommended": ["translation-glossary"], "without_it": "Translates without term consistency" },
-      "cultural-adaptation": { "recommended": ["translation-glossary"], "without_it": "Flags issues without glossary context" },
-      "back-translate": { "recommended": ["cultural-adaptation"], "without_it": "Verifies without cultural adaptation context" },
-      "multi-publish": { "recommended": ["back-translate", "cultural-adaptation"], "without_it": "Publishes without quality verification" },
-      "autopilot-translate": { "recommended": ["translation-glossary"], "without_it": "Creates glossary automatically during pipeline" },
-      "autopilot": { "recommended": ["profile-writer"], "without_it": "Uses config defaults" }
+      "draft": {
+        "recommended": [
+          "discuss"
+        ],
+        "without_it": "Uses defaults from STYLE-GUIDE.md"
+      },
+      "plan": {
+        "recommended": [
+          "research_enabled"
+        ],
+        "without_it": "Plans without genre research"
+      },
+      "cover-art": {
+        "recommended": [
+          "CHARACTERS.md",
+          "ART-DIRECTION.md"
+        ],
+        "without_it": "Generates from WORK.md alone"
+      },
+      "translate": {
+        "recommended": [
+          "translation-glossary"
+        ],
+        "without_it": "Translates without term consistency"
+      },
+      "cultural-adaptation": {
+        "recommended": [
+          "translation-glossary"
+        ],
+        "without_it": "Flags issues without glossary context"
+      },
+      "back-translate": {
+        "recommended": [
+          "cultural-adaptation"
+        ],
+        "without_it": "Verifies without cultural adaptation context"
+      },
+      "multi-publish": {
+        "recommended": [
+          "back-translate",
+          "cultural-adaptation"
+        ],
+        "without_it": "Publishes without quality verification"
+      },
+      "autopilot-translate": {
+        "recommended": [
+          "translation-glossary"
+        ],
+        "without_it": "Creates glossary automatically during pipeline"
+      },
+      "autopilot": {
+        "recommended": [
+          "profile-writer"
+        ],
+        "without_it": "Uses config defaults"
+      }
     }
   },
-
   "command_adaptations": {
     "academic": {
-      "copy-edit": { "adapted_name": "citation-check", "additional_focus": "citation format, bibliography consistency" },
-      "beta-reader": { "adapted_name": "peer-review", "additional_focus": "methodology critique, argument strength" },
-      "export": { "adapted_name": "journal-submit", "additional_presets": ["apa", "mla", "chicago"] }
+      "copy-edit": {
+        "adapted_name": "citation-check",
+        "additional_focus": "citation format, bibliography consistency"
+      },
+      "beta-reader": {
+        "adapted_name": "peer-review",
+        "additional_focus": "methodology critique, argument strength"
+      },
+      "export": {
+        "adapted_name": "journal-submit",
+        "additional_presets": [
+          "apa",
+          "mla",
+          "chicago"
+        ]
+      }
     },
     "technical": {
-      "build-world": { "adapted_name": "map-system", "description": "System boundaries, environments, and operating context" },
-      "plot-graph": { "adapted_name": "procedure-map", "description": "Procedure flow, escalation path, and task sequence" },
-      "editor-review": { "adapted_name": "technical-review", "description": "Accuracy, clarity, and audience-fit review" },
-      "beta-reader": { "adapted_name": "usability-review", "description": "Operator or reader trial for task completion" },
-      "continuity-check": { "adapted_name": "consistency-check", "description": "Terminology, procedure, and version consistency" }
+      "build-world": {
+        "adapted_name": "map-system",
+        "description": "System boundaries, environments, and operating context"
+      },
+      "plot-graph": {
+        "adapted_name": "procedure-map",
+        "description": "Procedure flow, escalation path, and task sequence"
+      },
+      "editor-review": {
+        "adapted_name": "technical-review",
+        "description": "Accuracy, clarity, and audience-fit review"
+      },
+      "beta-reader": {
+        "adapted_name": "usability-review",
+        "description": "Operator or reader trial for task completion"
+      },
+      "continuity-check": {
+        "adapted_name": "consistency-check",
+        "description": "Terminology, procedure, and version consistency"
+      }
     },
     "sacred": {
-      "new-character": { "adapted_name": "new-figure", "description": "Create figure profile" },
-      "character-sheet": { "adapted_name": "figure-sheet", "description": "View/edit figure profile" },
-      "character-arc": { "adapted_name": "figure-arc", "description": "Spiritual/historical arc" },
-      "cast-list": { "adapted_name": "figures-list", "description": "Roster of all figures" },
-      "relationship-map": { "adapted_name": "lineage-map", "description": "Genealogical/covenantal relationships" },
-      "build-world": { "adapted_name": "build-cosmology", "description": "Sacred geography, cosmological framework" },
-      "character-voice-sample": { "adapted_name": "register-sample", "description": "Voice register sample" },
-      "voice-check": { "adapted_name": "register-check", "description": "Voice register consistency" },
-      "plot-graph": { "adapted_name": "theological-arc", "description": "Salvation history or dharmic cycle" },
-      "theme-tracker": { "adapted_name": "doctrine-tracker", "description": "Doctrinal threads" },
-      "subplot-map": { "adapted_name": "narrative-threads", "description": "Narrative threads across text" },
-      "character-ref": { "adapted_name": "figure-ref", "description": "Visual figure reference for sacred art" },
-      "discussion-questions": { "adapted_name": "study-questions", "description": "Study/reflection questions" },
-      "editor-review": { "adapted_name": "scholarly-review", "description": "Academic review" },
-      "beta-reader": { "adapted_name": "theological-review", "description": "Doctrinal/pastoral review" },
-      "sensitivity-review": { "adapted_name": "interfaith-review", "description": "Sensitivity across traditions" }
+      "new-character": {
+        "adapted_name": "new-figure",
+        "description": "Create figure profile"
+      },
+      "character-sheet": {
+        "adapted_name": "figure-sheet",
+        "description": "View/edit figure profile"
+      },
+      "character-arc": {
+        "adapted_name": "figure-arc",
+        "description": "Spiritual/historical arc"
+      },
+      "cast-list": {
+        "adapted_name": "figures-list",
+        "description": "Roster of all figures"
+      },
+      "relationship-map": {
+        "adapted_name": "lineage-map",
+        "description": "Genealogical/covenantal relationships"
+      },
+      "build-world": {
+        "adapted_name": "build-cosmology",
+        "description": "Sacred geography, cosmological framework"
+      },
+      "character-voice-sample": {
+        "adapted_name": "register-sample",
+        "description": "Voice register sample"
+      },
+      "voice-check": {
+        "adapted_name": "register-check",
+        "description": "Voice register consistency"
+      },
+      "plot-graph": {
+        "adapted_name": "theological-arc",
+        "description": "Salvation history or dharmic cycle"
+      },
+      "theme-tracker": {
+        "adapted_name": "doctrine-tracker",
+        "description": "Doctrinal threads"
+      },
+      "subplot-map": {
+        "adapted_name": "narrative-threads",
+        "description": "Narrative threads across text"
+      },
+      "character-ref": {
+        "adapted_name": "figure-ref",
+        "description": "Visual figure reference for sacred art"
+      },
+      "discussion-questions": {
+        "adapted_name": "study-questions",
+        "description": "Study/reflection questions"
+      },
+      "editor-review": {
+        "adapted_name": "scholarly-review",
+        "description": "Academic review"
+      },
+      "beta-reader": {
+        "adapted_name": "theological-review",
+        "description": "Doctrinal/pastoral review"
+      },
+      "sensitivity-review": {
+        "adapted_name": "interfaith-review",
+        "description": "Sensitivity across traditions"
+      }
     }
   },
-
   "file_adaptations": {
     "default": {
       "BRIEF.md": "BRIEF.md",
@@ -1464,43 +3767,92 @@
       "THEMES.md": "DOCTRINES.md"
     }
   },
-
   "sacred_config_schema": {
     "tradition": {
-      "values": ["catholic", "orthodox", "tewahedo", "protestant", "jewish", "islamic-hafs", "islamic-warsh", "pali", "tibetan", "sanskrit"],
+      "values": [
+        "catholic",
+        "orthodox",
+        "tewahedo",
+        "protestant",
+        "jewish",
+        "islamic-hafs",
+        "islamic-warsh",
+        "pali",
+        "tibetan",
+        "sanskrit"
+      ],
       "required_when": "work_type.group == sacred",
       "description": "The specific sacred tradition profile slug for the work"
     },
     "verse_numbering_system": {
-      "values": ["masoretic", "septuagint", "quranic_hafs", "quranic_warsh", "pali_canon", "custom"],
+      "values": [
+        "masoretic",
+        "septuagint",
+        "quranic_hafs",
+        "quranic_warsh",
+        "pali_canon",
+        "custom"
+      ],
       "default": null,
       "description": "Verse/passage numbering convention for the tradition"
     },
     "calendar_system": {
-      "values": ["gregorian", "hebrew", "hijri", "vikram_samvat", "buddhist_era", "regnal", "multiple"],
+      "values": [
+        "gregorian",
+        "hebrew",
+        "hijri",
+        "vikram_samvat",
+        "buddhist_era",
+        "regnal",
+        "multiple"
+      ],
       "default": "gregorian",
       "description": "Calendar system used for dates and chronology"
     },
     "translation_philosophy": {
-      "values": ["formal_equivalence", "dynamic_equivalence", "paraphrase", "interlinear"],
+      "values": [
+        "formal_equivalence",
+        "dynamic_equivalence",
+        "paraphrase",
+        "interlinear"
+      ],
       "default": "formal_equivalence",
       "description": "Approach to sacred text translation"
     },
     "canonical_alignment": {
       "type": "string",
-      "examples": ["kjv", "nrsv", "niv", "sahih_international", "yusuf_ali"],
+      "examples": [
+        "kjv",
+        "nrsv",
+        "niv",
+        "sahih_international",
+        "yusuf_ali"
+      ],
       "default": null,
       "description": "Canonical translation to align vocabulary and phrasing with"
     },
     "annotation_traditions": {
       "type": "array",
-      "examples": ["catholic", "reformed", "orthodox", "sunni", "shia", "theravada", "mahayana"],
+      "examples": [
+        "catholic",
+        "reformed",
+        "orthodox",
+        "sunni",
+        "shia",
+        "theravada",
+        "mahayana"
+      ],
       "default": [],
       "description": "Annotation traditions to apply or reference"
     },
     "doctrinal_framework": {
       "type": "string",
-      "examples": ["nicene_creed", "westminster_confession", "augsburg_confession", "aqidah_tahawiyya"],
+      "examples": [
+        "nicene_creed",
+        "westminster_confession",
+        "augsburg_confession",
+        "aqidah_tahawiyya"
+      ],
       "default": null,
       "description": "Doctrinal framework guiding interpretation"
     },
@@ -1510,12 +3862,15 @@
       "description": "Terms that should never be translated, kept in source language with transliteration"
     },
     "transliteration_style": {
-      "values": ["academic", "popular", "tradition_standard"],
+      "values": [
+        "academic",
+        "popular",
+        "tradition_standard"
+      ],
       "default": "popular",
       "description": "Style of transliteration for non-Latin script terms"
     }
   },
-
   "architectural_profiles": {
     "_description": "Phase 29 v1.7: valid values + work-type defaults for the project-spec tradition and platform keys. The runtime validator cross-checks these values against the templates/sacred/ and templates/platforms/ directory listings -- the intersection is the accepted set, so new contributor-dropped manifests are picked up at load time without editing this file.",
     "_render_variants": {
@@ -1531,16 +3886,43 @@
       "speech_song": "Not applicable for this work type."
     },
     "traditions": {
-      "_seeded": ["catholic", "orthodox", "tewahedo", "protestant", "jewish", "islamic-hafs", "islamic-warsh", "pali", "tibetan", "sanskrit"],
+      "_seeded": [
+        "catholic",
+        "orthodox",
+        "tewahedo",
+        "protestant",
+        "jewish",
+        "islamic-hafs",
+        "islamic-warsh",
+        "pali",
+        "tibetan",
+        "sanskrit"
+      ],
       "_note": "This array seeds the initial set. The authoritative runtime value list is the intersection of _seeded with directory names under templates/sacred/ that contain a manifest.yaml. A contributor dropping templates/sacred/<new-tradition>/manifest.yaml extends the accepted set without editing this file."
     },
     "platforms": {
-      "_seeded": ["kdp", "ingram", "d2d", "apple", "kobo", "google", "bn", "smashwords"],
+      "_seeded": [
+        "kdp",
+        "ingram",
+        "d2d",
+        "apple",
+        "kobo",
+        "google",
+        "bn",
+        "smashwords"
+      ],
       "_note": "This array seeds the initial set. The authoritative runtime value list is the intersection of _seeded with directory names under templates/platforms/ that contain a manifest.yaml. A contributor dropping templates/platforms/<new-platform>/manifest.yaml extends the accepted set without editing this file."
     },
     "applies_to_groups": {
-      "tradition": ["sacred"],
-      "platform": ["prose", "visual", "poetry", "sacred"]
+      "tradition": [
+        "sacred"
+      ],
+      "platform": [
+        "prose",
+        "visual",
+        "poetry",
+        "sacred"
+      ]
     },
     "defaults_by_work_type": {
       "_description": "Per-work-type defaults applied by the runtime when the project spec omits the key. The value MUST be one of the seeded traditions/platforms above. An unlisted work type MUST NOT receive a default (runtime returns null).",
@@ -1596,7 +3978,6 @@
       }
     }
   },
-
   "messages": {
     "command_hidden": "The `{command}` command is designed for {available_groups}. Your {work_type} uses `{alternative}` instead.",
     "prerequisite_missing": "You need to run `{prerequisite}` before `{command}`. Want me to run it now?",

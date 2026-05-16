@@ -134,9 +134,15 @@ Automation status:
 Trigger: /scr:next
 Spawned agents:
 - none
+Candidate agents:
+- <recommended agent route or none>
 Local operations:
 - proactive sweep: read-only
 - state route computed: yes/no
+Candidate local helpers:
+- <recommended helper or none>
+Manual gates:
+- <writer-owned route or none>
 Auto-invoked:
 - <recommended command>: yes/no
 Why: /scr:next routes from disk state; it only runs follow-up commands under autopilot or explicit writer intent

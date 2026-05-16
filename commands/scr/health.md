@@ -96,9 +96,15 @@ Automation status:
 Trigger: /scr:health {flags}
 Spawned agents:
 - none
+Candidate agents:
+- none
 Local operations:
 - health checks run: {count}
 - repairs applied: {count}
+Candidate local helpers:
+- /scr:scan or /scr:save when health detects repairable drift
+Manual gates:
+- repairs that require writer confirmation
 Auto-invoked:
 - none
 Why: health uses deterministic local checks; non-deterministic repairs stay manual

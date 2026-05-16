@@ -71,7 +71,7 @@ Every install target receives the same read-only status engine through Scriveno'
 - project installs: `.scriveno/lib/auto-invoke-engine.js`
 - source checkouts: `lib/auto-invoke-engine.js`
 
-The engine computes proactive state from disk evidence: missing or stale context, unresolved review files, translation work, stale exports, missing history, and the recommended next command. It does not mutate manuscript files and does not spawn agents. Host commands such as `/scr:next`, `/scr:progress`, `/scr:session-report`, and `/scr:sync` should call it first when local command execution is available, then fall back to their embedded markdown logic when the host cannot run Node.
+The engine computes proactive state from disk evidence: missing or stale context, plan and draft coverage, unresolved review files, unresolved notes, revision proposals, translation work, publishing prerequisites, stale exports, missing history, and the recommended next command. It does not mutate manuscript files and does not spawn agents. Host commands such as `/scr:next`, `/scr:progress`, `/scr:session-report`, and `/scr:sync` should call it first when local command execution is available, then fall back to their embedded markdown logic when the host cannot run Node.
 
 The public CLI entrypoint is:
 
@@ -81,6 +81,8 @@ scriveno status . --json
 ```
 
 The JSON form is intended for CI, host adapters, and future runtime smoke tests.
+
+Status output uses the same route-intelligence shape across runtimes: `Candidate agents`, `Candidate local helpers`, and `Manual gates`. That keeps Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and generic skill installs aligned even when their native spawning mechanisms differ.
 
 ## What Scriveno Proves Today
 

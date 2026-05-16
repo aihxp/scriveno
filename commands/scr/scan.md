@@ -272,10 +272,16 @@ Automation status:
 Trigger: /scr:scan {flags}
 Spawned agents:
 - none
+Candidate agents:
+- none
 Local operations:
 - drift checks run: {count}
 - auto-fixes applied: {count}
 - HISTORY.log appended: yes/no
+Candidate local helpers:
+- /scr:save if scan repairs changed state
+Manual gates:
+- fixes that require writer confirmation
 Auto-invoked:
 - none
 Why: scan compares disk state locally; fixes require writer confirmation

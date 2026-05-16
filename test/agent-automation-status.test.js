@@ -93,6 +93,8 @@ describe('agent and automation status contracts', () => {
     assert.match(content, /Cursor, Gemini CLI, OpenCode, Copilot, Windsurf, and Antigravity/);
     assert.match(content, /Manus and the generic skill runtime/);
     assert.match(content, /Agent: none/);
+    assert.match(content, /Candidate agents:/);
+    assert.match(content, /getCommandAutomationPolicy/);
     assert.match(content, /Level 4: Manual Only/);
   });
 
@@ -100,9 +102,11 @@ describe('agent and automation status contracts', () => {
     const content = read('README.md');
 
     assert.match(content, /Status CLI/);
+    assert.match(content, /Route Intelligence/);
     assert.match(content, /docs\/runtime-support\.md#shared-auto-invoke-engine/);
     assert.match(content, /scriveno status --project \./);
     assert.match(content, /\[Auto-Invoke Policy\]\(docs\/auto-invoke-policy\.md\)/);
+    assert.match(content, /Candidate agents/);
     assert.match(content, /does not mutate files and does not spawn agents by itself/);
   });
 
@@ -112,11 +116,13 @@ describe('agent and automation status contracts', () => {
 
     assert.match(gettingStarted, /scriveno status --project \./);
     assert.match(gettingStarted, /\[Auto-Invoke Policy\]\(auto-invoke-policy\.md\)/);
+    assert.match(gettingStarted, /candidate agents, candidate local helpers, and manual gates/);
     assert.match(gettingStarted, /does not mutate files or spawn agents by itself/);
     assert.match(architecture, /## Installer Architecture/);
     assert.match(architecture, /### Shared status engine/);
     assert.match(architecture, /lib\/auto-invoke-engine\.js/);
     assert.match(architecture, /scriveno status --project \./);
+    assert.match(architecture, /Every command registry category has an automation lane/);
     assert.match(architecture, /does not mutate files and does not spawn agents by itself/);
   });
 

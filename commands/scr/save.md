@@ -80,11 +80,17 @@ Automation status:
 Trigger: /scr:save
 Spawned agents:
 - none
+Candidate agents:
+- none
 Local operations:
 - STATE.md updated: yes/no
 - CONTEXT.md regenerated: yes/no
 - HISTORY.log appended: yes/no
 - manuscript files saved: yes/no
+Candidate local helpers:
+- /scr:scan if saved state and disk still disagree
+Manual gates:
+- none
 Auto-invoked:
 - /scr:next route computed for CONTEXT.md: yes/no
 Why: save uses deterministic local bookkeeping, not a spawned agent
