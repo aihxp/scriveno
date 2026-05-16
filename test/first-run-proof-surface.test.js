@@ -28,6 +28,8 @@ describe('first-run proof surface', () => {
   const quickProof = read('docs/quick-proof.md');
   const starterSets = read('docs/starter-sets.md');
   const releaseChecklist = read('docs/release-checklist.md');
+  const firstRunProof = read('data/proof/first-run/README.md');
+  const runtimeParity = read('data/proof/runtime-parity/README.md');
 
   it('keeps the first-run documents linked from README', () => {
     assert.match(readme, /\[Quick Proof\]\(docs\/quick-proof\.md\)/);
@@ -41,6 +43,8 @@ describe('first-run proof surface', () => {
       'data/demo/.manuscript/plans/5-the-reunion-PLAN.md',
       'data/proof/watchmaker-flow/README.md',
       'data/proof/voice-dna/README.md',
+      'data/proof/first-run/README.md',
+      'data/proof/runtime-parity/README.md',
       'data/proof/voice-dna/UNGUIDED-SAMPLE.md',
       'data/proof/voice-dna/GUIDED-SAMPLE.md',
     ];
@@ -54,11 +58,24 @@ describe('first-run proof surface', () => {
     }
 
     assert.match(quickProof, /\/scr-draft 5/);
+    assert.match(quickProof, /\/scr:first-run/);
     assert.match(quickProof, /\/scr:draft 5/);
     assert.match(quickProof, /\$scr-draft 5/);
+    assert.match(quickProof, /scriveno first-run --project \./);
     assert.match(quickProof, /scriveno smoke --json/);
     assert.match(quickProof, /Claude Code is the primary reference runtime/);
     assert.match(quickProof, /host-runtime parity proof/);
+  });
+
+  it('keeps first-run proof and runtime parity evidence concrete', () => {
+    assert.match(firstRunProof, /scriveno first-run --project \./);
+    assert.match(firstRunProof, /scriveno smoke --json/);
+    assert.match(firstRunProof, /\/scr:draft 5/);
+    assert.match(firstRunProof, /"expectedCommands": 113/);
+    assert.match(runtimeParity, /Claude Code/);
+    assert.match(runtimeParity, /Codex/);
+    assert.match(runtimeParity, /Remaining Host-In-The-Loop Gap/);
+    assert.match(runtimeParity, /install-surface proof and host-runtime parity proof/);
   });
 
   it('keeps starter set command references mapped to real commands', () => {
@@ -72,6 +89,7 @@ describe('first-run proof surface', () => {
     }
 
     const expectedSections = [
+      '## First 10 Minutes',
       '## Draft A Book',
       '## Polish A Manuscript',
       '## Publish An Ebook',

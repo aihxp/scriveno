@@ -22,12 +22,13 @@ npx scriveno@latest
 
 This installs Scriveno into the runtime you choose. Command-directory and skills targets place files where the runtime expects them. Guided targets like Perplexity Desktop instead write setup assets and show the exact connector steps you need. Takes about 30 seconds.
 
-Once installed, Claude Code uses flat `/scr-*` commands such as `/scr-help` and `/scr-new-work`. Other command-directory runtimes currently keep `/scr:*`. Codex uses generated `$scr-*` skills such as `$scr-help` and `$scr-new-work`. Guided targets explain their supported setup path directly in the generated setup files.
+Once installed, Claude Code uses flat `/scr-*` commands such as `/scr-help`, `/scr-first-run`, and `/scr-new-work`. Other command-directory runtimes currently keep `/scr:*`. Codex uses generated `$scr-*` skills such as `$scr-help`, `$scr-first-run`, and `$scr-new-work`. Guided targets explain their supported setup path directly in the generated setup files.
 
 You can also ask Scriveno for a read-only project status from any terminal:
 
 ```
 scriveno status --project .
+scriveno first-run --project .
 scriveno status . --json
 scriveno status --project . --apply-safe
 scriveno sync --check
@@ -36,6 +37,8 @@ scriveno sync --check
 That status command is the same shared auto-invoke engine used by `/scr-next`, `/scr:next`, `/scr:progress`, `/scr:session-report`, and `/scr:sync` when local command execution is available. It recommends the next safest command, but does not mutate files or spawn agents by itself. Current status output separates candidate agents, candidate local helpers, and manual gates so you can tell whether Scriveno is pointing at a specialist route, a deterministic file helper, or a writer-owned decision.
 
 Use `--apply-safe` when you want Scriveno to run the read-only checks and show which helpers are safe, skipped, or agent-ready. Use `sync --check` when you want the installed runtime surfaces checked too.
+
+If you want one guided proof path instead of separate checks, start with `scriveno first-run --project .`.
 
 ## Step 2: Explore the Demo (Optional)
 

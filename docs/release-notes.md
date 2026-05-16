@@ -2,6 +2,42 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.5.0 - 2026-05-16
+
+### What changed
+
+- Scriveno now ships `/scr:first-run`, an executable first-run path through install checks, demo proof, starter choices, and next commands.
+- The public CLI now supports `scriveno first-run --project .`, giving terminal users the same proof path without relying on host-specific slash-command behavior.
+- First-run guidance is connected to `/scr:help`, `/scr:demo`, Quick Proof, Starter Sets, Runtime Support, Shipped Assets, Command Reference, README launch copy, and architecture docs.
+- Scriveno now includes committed first-run and runtime-parity proof bundles under `data/proof/`.
+- Runtime smoke now validates the 113-command installed surface across Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic fallback.
+- README badges, package metadata, constraints metadata, generated config metadata, changelog, release notes, configuration docs, route graph docs, architecture docs, proof docs, and release tests are aligned on `2.5.0`.
+
+### Why it matters
+
+The previous release documented a stronger proof path. This release makes that path executable. A new writer can install Scriveno, run one first-run command, inspect proof artifacts, create the demo, and move into drafting without having to assemble the path from documentation.
+
+### Affected areas
+
+- first-run command surface
+- public CLI installer and smoke checks
+- proof artifact bundles
+- README badges and launch copy
+- runtime support matrix
+- command reference and route graph docs
+- package metadata and generated project examples
+- release-alignment tests
+
+### Verification
+
+- `npm run policy:check`
+- `node --test test/first-run-proof-surface.test.js test/adaptive-concierge.test.js test/auto-invoke-engine.test.js test/command-surface-coherence.test.js test/collaboration-trust-surface.test.js test/package.test.js test/phase15-proof-artifacts-positioning.test.js`
+- `npm test`
+- `npm run release:check`
+- `git diff --check`
+- `scriveno first-run --project .`
+- `scriveno smoke --json`
+
 ## 2.0.12 - 2026-05-16
 
 ### What changed

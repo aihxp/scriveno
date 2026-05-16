@@ -4,6 +4,14 @@ Scriveno has a large command surface because it covers many kinds of writing. St
 
 Each set is intentionally small. Use `/scr-next`, `/scr:next`, or `$scr-next` whenever you are unsure which command should come next.
 
+## First 10 Minutes
+
+- `/scr:first-run` runs the guided proof path and shows runtime-specific command shapes.
+- `/scr:demo` creates the isolated watchmaker demo.
+- `/scr:next` inspects the demo state and recommends the next move.
+- `/scr:draft` drafts the planned fifth unit.
+- `/scr:editor-review` reviews the new draft.
+
 ## Draft A Book
 
 - `/scr:new-work` creates the project and work-type context.

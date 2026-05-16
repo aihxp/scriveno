@@ -102,6 +102,8 @@ describe('npm pack dry-run', () => {
   it('includes proof artifact bundles', () => {
     const expectedEntries = [
       'data/proof/watchmaker-flow/README.md',
+      'data/proof/first-run/README.md',
+      'data/proof/runtime-parity/README.md',
       'data/proof/voice-dna/README.md',
       'data/proof/voice-dna/STYLE-GUIDE-EXCERPT.md',
       'data/proof/voice-dna/UNGUIDED-SAMPLE.md',

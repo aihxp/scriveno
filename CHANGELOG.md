@@ -2,6 +2,27 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 2.5.0 - 2026-05-16
+
+Major release focused on making the first 10 minutes executable and proving the installed runtime surface across the supported host targets.
+
+**Executable first-run path**
+
+- Added `/scr:first-run`, a guided route through install checks, demo proof, starter choices, and next commands.
+- Added `scriveno first-run --project .` so the same proof path is available from the public CLI.
+- Wired first-run guidance into `/scr:help`, `/scr:demo`, Quick Proof, Starter Sets, Runtime Support, Shipped Assets, Command Reference, and README launch copy.
+
+**Runtime parity proof**
+
+- Added committed first-run and runtime-parity proof bundles under `data/proof/`.
+- Refreshed runtime smoke expectations for the 113-command surface across Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic fallback.
+- Kept Codex skill metadata, Claude Code command surfaces, guided local-MCP targets, and generic skill bundles aligned through the shared installer path.
+
+**Release alignment**
+
+- Updated package metadata, lockfile metadata, constraints metadata, generated config metadata, README badge/status copy, architecture docs, route graph docs, configuration docs, changelog, release notes, and release-alignment tests to `2.5.0`.
+- Verified the package with the full release gate before publishing.
+
 ## 2.0.12 - 2026-05-16
 
 Patch release focused on turning the strongest proof and release-verification paths into first-class shipped surfaces.

@@ -199,6 +199,7 @@ scriveno/
     install.js             Multi-platform installer (Node.js)
   docs/
     proof-artifacts.md     Canonical proof layer and artifact index
+    quick-proof.md         Executable first-run proof path and command shapes
     getting-started.md     Install to first draft in 10 minutes
     command-reference.md   Full command listing with usage
     work-types.md          50 work types and how they adapt Scriveno
@@ -372,6 +373,7 @@ The same engine now exposes:
 - **Agent availability**: `agents` verifies prompt fallback readiness for non-Codex runtimes and metadata readiness for Codex.
 - **Runtime smoke**: `smoke` checks installed command, skill, guide, agent, metadata, and shared-engine surfaces.
 - **Route graph audit**: `routes` derives a command graph from constraints, command intents, dependencies, and automation lanes.
+- **First-run guide**: `first-run` prints the guided proof path, runtime command shapes, proof artifacts, demo sequence, and next commands.
 
 ### Installation modes
 
@@ -434,7 +436,7 @@ Scriveno's `package.json` has no runtime dependencies. The installer is pure Nod
 
 ### Plan is canonical
 
-The product plan is the source of truth. If a command file contradicts the plan, the command file is wrong. This ensures consistency across 112 commands and prevents drift as multiple contributors work on the system.
+The product plan is the source of truth. If a command file contradicts the plan, the command file is wrong. This ensures consistency across 113 commands and prevents drift as multiple contributors work on the system.
 
 ### Backward compatibility
 

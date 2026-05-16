@@ -40,6 +40,7 @@ Ask the user what they want to do. Don't list 170 commands -- show them this:
 Scriveno -- ready to start.
 
 What do you want to do?
+  /scr:first-run       Run the guided first-run proof path
   /scr:new-work        Start a new project (novel, runbook, screenplay, paper, etc.)
   /scr:demo            Explore a pre-built sample project first
   /scr:import <file>   Bring in an existing manuscript

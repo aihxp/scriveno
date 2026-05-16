@@ -123,6 +123,8 @@ Sacred commands read top-level sacred profile keys in new projects and preserve 
 - `docs/configuration.md` -- canonical project config and package metadata reference
 - `data/proof/watchmaker-flow/README.md` -- canonical sample-flow proof bundle rooted in shipped demo files
 - `data/proof/voice-dna/README.md` -- canonical Voice DNA proof bundle
+- `data/proof/first-run/README.md` -- committed transcript artifact for the executable first-run path
+- `data/proof/runtime-parity/README.md` -- runtime install-surface evidence and host-parity boundary
 - `commands/scr/export.md` -- source of truth for export command behavior
 - `docs/publishing.md` -- user-facing explanation of export formats and publishing packages
 - `docs/contributing.md` -- contributor-facing guidance for extending export support

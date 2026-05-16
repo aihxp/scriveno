@@ -1,6 +1,6 @@
 # Command Reference
 
-Scriveno has **112 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
+Scriveno has **113 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
 
 Commands marked with **adaptive terminology** change how Scriveno talks about your work type's `command_unit` in `.manuscript/config.json`, while keeping the runnable command id stable. Commands marked with **group adaptation** have different labels for specific work type groups (academic, sacred, etc.).
 
@@ -226,6 +226,22 @@ Start a series bible for a trilogy. Track characters, world details, and timelin
 ## Navigation
 
 Commands for finding your way through the workflow and understanding your manuscript.
+
+### `/scr:first-run`
+
+**Description:** Run the guided first-run path through install checks, demo proof, starter choices, and next commands.
+
+**Usage:** `/scr:first-run [--proof] [--runtime <runtime>]`
+
+**Prerequisites:** None
+
+**Example:**
+```
+/scr:first-run
+```
+Show the proof-first path, runtime command shapes, demo sequence, proof artifacts, and the first safe command to try.
+
+---
 
 ### `/scr:next`
 

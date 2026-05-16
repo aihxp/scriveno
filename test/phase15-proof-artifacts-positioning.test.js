@@ -87,6 +87,6 @@ describe('phase 15 proof routing', () => {
     assert.match(proofArtifacts, /data\/proof\/voice-dna\/GUIDED-SAMPLE\.md/);
     assert.match(voiceDnaGuide, /data\/proof\/voice-dna\/README\.md/);
     assert.match(voiceDnaGuide, /fixed brief/i);
-    assert.match(voiceDnaGuide, /Full list of all 112 commands/i);
+    assert.match(voiceDnaGuide, /Full list of all 113 commands/i);
   });
 });

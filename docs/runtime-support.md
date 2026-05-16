@@ -69,12 +69,13 @@ Node is not a runtime dependency for Scriveno's markdown command system itself. 
 
 Scriveno docs use `/scr:*` as the shared command id format unless a host-specific example is needed. Installed command surfaces differ by runtime:
 
-- Claude Code: `/scr-demo`, `/scr-new-work`, `/scr-next`
-- Standard command-directory runtimes: `/scr:demo`, `/scr:new-work`, `/scr:next`
-- Codex: `$scr-demo`, `$scr-new-work`, `$scr-next`
+- Claude Code: `/scr-first-run`, `/scr-demo`, `/scr-new-work`, `/scr-next`
+- Standard command-directory runtimes: `/scr:first-run`, `/scr:demo`, `/scr:new-work`, `/scr:next`
+- Codex: `$scr-first-run`, `$scr-demo`, `$scr-new-work`, `$scr-next`
 - Guided targets: follow the generated setup instructions and connector recipe
 
 Use [Quick Proof](quick-proof.md) for the 10-minute proof route and [Starter Sets](starter-sets.md) for goal-based command paths.
+Use [Runtime Parity Evidence](../data/proof/runtime-parity/README.md) for the committed boundary between install-surface proof and host-runtime parity proof.
 
 ## Shared Auto-Invoke Engine
 

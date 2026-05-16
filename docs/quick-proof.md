@@ -1,10 +1,11 @@
 # Quick Proof
 
-This is the shortest proof-first path through Scriveno. It is meant for a fresh user who wants to see real shipped artifacts, a demo manuscript, runtime expectations, and the first practical commands before reading the full manual.
+This is the shortest proof-first path through Scriveno. It is meant for a fresh user who wants to see real shipped artifacts, a demo manuscript, runtime expectations, and the first practical commands before reading the full manual. If your runtime supports Scriveno commands, the executable version of this page is `/scr:first-run`.
 
 ## What This Proves
 
 - Scriveno ships inspectable proof bundles, not only feature claims.
+- Scriveno ships `/scr:first-run` and `scriveno first-run --project .` as guided first-run surfaces.
 - The watchmaker demo includes real manuscript state, drafts, review notes, and a planned next unit.
 - Voice DNA changes output on the same brief, with guided and unguided samples side by side.
 - Runtime behavior is explicit: Claude Code is the primary reference runtime, Codex uses generated `$scr-*` skills, standard slash-command targets use `/scr:*`, and guided targets document their local setup path.
@@ -27,31 +28,35 @@ node bin/install.js --runtimes claude-code,cursor,gemini-cli,codex,opencode,copi
 ### 2. Check The Installed Surface
 
 ```bash
+scriveno first-run --project .
 scriveno status --project .
 scriveno smoke --json
 scriveno agents --json
 scriveno routes --json
 ```
 
-Expected result: the commands report installed surfaces, agent prompt availability, route lanes, and any manual gates. They do not mutate manuscript files.
+Expected result: the commands report the recommended first path, installed surfaces, agent prompt availability, route lanes, and any manual gates. They do not mutate manuscript files.
 
 ### 3. Open The Demo
 
 Claude Code:
 
 ```text
+/scr-first-run
 /scr-demo
 ```
 
 Standard slash-command runtimes:
 
 ```text
+/scr:first-run
 /scr:demo
 ```
 
 Codex:
 
 ```text
+$scr-first-run
 $scr-demo
 ```
 
@@ -72,6 +77,8 @@ Start here:
 - [data/proof/watchmaker-flow/README.md](../data/proof/watchmaker-flow/README.md)
 - [data/proof/voice-dna/README.md](../data/proof/voice-dna/README.md)
 - [data/proof/creative-context/README.md](../data/proof/creative-context/README.md)
+- [data/proof/first-run/README.md](../data/proof/first-run/README.md)
+- [data/proof/runtime-parity/README.md](../data/proof/runtime-parity/README.md)
 
 The fastest comparison is the Voice DNA pair:
 
@@ -148,6 +155,18 @@ Manual gates: writer approval before publishing or overwriting exports
 ```
 
 ```text
+> scriveno first-run --project .
+Scriveno first-run guide
+Current recommendation: /scr:new-work
+Recommended first path:
+1. /scr:demo
+2. cd scriveno-demo
+3. /scr:next
+4. /scr:draft 5
+5. /scr:editor-review 5
+```
+
+```text
 > /scr:draft 5
 Loaded STYLE-GUIDE.md and the plan for unit 5.
 Drafted the next atomic unit in fresh context.
@@ -169,6 +188,8 @@ No runtime claim here should be read as host-runtime parity proof. The repo prov
 ## Where To Go Next
 
 - [Starter Sets](starter-sets.md) for small command paths by writing goal
+- [data/proof/first-run/README.md](../data/proof/first-run/README.md) for committed first-run transcripts
+- [data/proof/runtime-parity/README.md](../data/proof/runtime-parity/README.md) for runtime parity evidence
 - [Getting Started](getting-started.md) for the complete first-project walkthrough
 - [Proof Artifacts](proof-artifacts.md) for the proof hub
 - [Runtime Support](runtime-support.md) for installation and support levels

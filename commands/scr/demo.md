@@ -31,6 +31,7 @@ Demo project created at ./scriveno-demo/
 
 Try any of these to see Scriveno in action:
   cd scriveno-demo
+  /scr:first-run             See the guided proof path and runtime-specific command shapes
   /scr:progress              See where the project is
   /scr:next                  Let Scriveno pick your next move
   /scr:draft 5               Watch the drafter produce scene 5 in the established voice

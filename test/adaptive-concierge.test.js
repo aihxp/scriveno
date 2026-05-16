@@ -14,8 +14,8 @@ function scenarioRecommendation(state) {
   if (!state.hasProject) {
     return {
       intent: 'start',
-      recommended: 'new-work',
-      alternatives: ['demo', 'import', 'profile-writer']
+      recommended: 'first-run',
+      alternatives: ['new-work', 'demo', 'import']
     };
   }
 
@@ -78,7 +78,7 @@ const SCENARIOS = [
   {
     name: 'no project',
     state: { hasProject: false },
-    expected: { intent: 'start', recommended: 'new-work' },
+    expected: { intent: 'start', recommended: 'first-run' },
     forbiddenPrimary: ['publish', 'export', 'translate', 'multi-publish']
   },
   {
@@ -160,7 +160,7 @@ describe('adaptive concierge command surfacing', () => {
     const commandRefs = Array.from(match[1].matchAll(/\/scr:[a-z-]+/g), (m) => m[0]);
     assert.deepStrictEqual(
       commandRefs,
-      ['/scr:new-work', '/scr:demo', '/scr:import', '/scr:profile-writer', '/scr:next'],
+      ['/scr:first-run', '/scr:new-work', '/scr:demo', '/scr:import', '/scr:profile-writer', '/scr:next'],
       'no-project help should expose only start commands plus the universal next fallback'
     );
   });

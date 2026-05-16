@@ -386,6 +386,33 @@ describe('auto-invoke engine', () => {
     }
   });
 
+  it('runs through the public scriveno first-run command', () => {
+    const project = mkProject('bin-first-run');
+    try {
+      const textOut = execFileSync(
+        process.execPath,
+        [path.join(ROOT, 'bin', 'install.js'), 'first-run', '--project', project],
+        { encoding: 'utf8' }
+      );
+      const jsonOut = execFileSync(
+        process.execPath,
+        [path.join(ROOT, 'bin', 'install.js'), 'first-run', '--project', project, '--json'],
+        { encoding: 'utf8' }
+      );
+      const parsed = JSON.parse(jsonOut);
+
+      assert.match(textOut, /Scriveno first-run guide/);
+      assert.match(textOut, /Runtime command shapes:/);
+      assert.match(textOut, /\/scr:demo/);
+      assert.equal(parsed.projectRoot, project);
+      assert.equal(parsed.recommendation.command, '/scr:new-work');
+      assert.ok(parsed.firstPath.includes('/scr:draft 5'));
+      assert.equal(parsed.checks.commandCount, 113);
+    } finally {
+      fs.rmSync(project, { recursive: true, force: true });
+    }
+  });
+
   it('runs public proactive audit commands in JSON mode', () => {
     const project = mkProject('bin-audit');
     try {
@@ -407,7 +434,7 @@ describe('auto-invoke engine', () => {
 
       assert.equal(JSON.parse(statusOut).safeApply.appliedCount, 1);
       assert.equal(JSON.parse(syncOut).analysis.projectRoot, project);
-      assert.equal(JSON.parse(routesOut).commandCount, 112);
+      assert.equal(JSON.parse(routesOut).commandCount, 113);
     } finally {
       fs.rmSync(project, { recursive: true, force: true });
     }

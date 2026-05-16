@@ -335,5 +335,5 @@ Your work type is stored in `.manuscript/config.json` and can be changed later b
 ## See Also
 
 - [Getting Started](getting-started.md) -- Install Scriveno and write your first draft
-- [Command Reference](command-reference.md) -- Full list of all 112 commands with usage and examples
+- [Command Reference](command-reference.md) -- Full list of all 113 commands with usage and examples
 - [Voice DNA Guide](voice-dna.md) -- How Scriveno profiles and preserves your writing voice

@@ -821,6 +821,7 @@ function printHelp() {
   console.log(BANNER);
   console.log(`Usage:
   scriveno
+  scriveno first-run --project .
   scriveno status --project .
   scriveno status . --json
   scriveno status --project . --apply-safe
@@ -843,6 +844,7 @@ Options:
   --version           Show the Scriveno package version
 
 Status options:
+  first-run           Print the guided first-run path and proof checklist
   status              Inspect a project and recommend the next command
   --project <path>    Project root to inspect (default: current directory)
   --trigger <name>    Status trigger label (default: scriveno status)
@@ -878,8 +880,11 @@ function parseArgs(argv) {
     syncCheck: false,
   };
 
-  if (argv[0] === 'status') {
-    options.command = 'status';
+  if (argv[0] === 'status' || argv[0] === 'first-run') {
+    options.command = argv[0];
+    if (argv[0] === 'first-run') {
+      options.statusTrigger = 'scriveno first-run';
+    }
     for (let i = 1; i < argv.length; i++) {
       const arg = argv[i];
       if (arg === '--help' || arg === '-h') {
@@ -1009,6 +1014,82 @@ function runStatus({ projectRoot, trigger, json, applySafe }) {
     }
   }
   return safeApply ? { analysis, safeApply } : analysis;
+}
+
+function buildFirstRunGuide({ projectRoot }) {
+  const analysis = autoInvokeEngine.analyzeProject(projectRoot);
+  const smoke = autoInvokeEngine.inspectRuntimeSmoke();
+  const routes = autoInvokeEngine.buildRouteGraph();
+  return {
+    projectRoot,
+    recommendation: analysis.recommendation,
+    commandShapes: {
+      claudeCode: ['/scr-first-run', '/scr-demo', '/scr-next'],
+      standardSlash: ['/scr:first-run', '/scr:demo', '/scr:next'],
+      codex: ['$scr-first-run', '$scr-demo', '$scr-next'],
+      guided: ['Follow the generated local-MCP setup notes'],
+    },
+    firstPath: [
+      '/scr:demo',
+      'cd scriveno-demo',
+      '/scr:next',
+      '/scr:draft 5',
+      '/scr:editor-review 5',
+    ],
+    proofArtifacts: [
+      'docs/quick-proof.md',
+      'docs/starter-sets.md',
+      'data/proof/first-run/README.md',
+      'data/proof/runtime-parity/README.md',
+      'data/proof/watchmaker-flow/README.md',
+      'data/proof/voice-dna/README.md',
+    ],
+    checks: {
+      smokeOk: smoke.ok,
+      commandCount: routes.commandCount,
+      expectedAgents: smoke.expectedAgents,
+    },
+  };
+}
+
+function formatFirstRunGuide(guide) {
+  return [
+    'Scriveno first-run guide',
+    `Project: ${guide.projectRoot}`,
+    `Current recommendation: ${guide.recommendation.command}`,
+    '',
+    'Runtime command shapes:',
+    `- Claude Code: ${guide.commandShapes.claudeCode.join(', ')}`,
+    `- Standard slash-command runtimes: ${guide.commandShapes.standardSlash.join(', ')}`,
+    `- Codex: ${guide.commandShapes.codex.join(', ')}`,
+    `- Guided targets: ${guide.commandShapes.guided.join(', ')}`,
+    '',
+    'Recommended first path:',
+    ...guide.firstPath.map((step, index) => `${index + 1}. ${step}`),
+    '',
+    'Proof artifacts:',
+    ...guide.proofArtifacts.map((artifact) => `- ${artifact}`),
+    '',
+    'Checks:',
+    `- runtime smoke: ${guide.checks.smokeOk ? 'ok' : 'needs install refresh'}`,
+    `- command count: ${guide.checks.commandCount}`,
+    `- expected agents: ${guide.checks.expectedAgents.join(', ')}`,
+    '',
+    'Next commands:',
+    '- /scr:demo: Create the isolated watchmaker demo project.',
+    '- /scr:next: Let Scriveno inspect the current project state.',
+    '- /scr:new-work: Start a real project instead of using the demo.',
+  ].join('\n');
+}
+
+function runFirstRun({ projectRoot, json }) {
+  const guide = buildFirstRunGuide({ projectRoot });
+  if (json) {
+    console.log(JSON.stringify(guide, null, 2));
+  } else {
+    console.log(formatFirstRunGuide(guide));
+  }
+  return guide;
 }
 
 function runSyncCheck({ projectRoot, json }) {
@@ -1492,6 +1573,14 @@ async function main() {
       trigger: parsed.statusTrigger,
       json: parsed.statusJson,
       applySafe: parsed.statusApplySafe,
+    });
+    return;
+  }
+
+  if (parsed.command === 'first-run') {
+    runFirstRun({
+      projectRoot: parsed.statusProjectRoot,
+      json: parsed.statusJson,
     });
     return;
   }
