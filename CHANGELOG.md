@@ -2,6 +2,27 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 2.0.11 - 2026-05-16
+
+Patch release focused on a full repository audit and repair pass before publishing the repaired runtime surfaces.
+
+**Repository audit repairs**
+
+- Corrected the public `/scr:sacred-numbering-format` command identity in command and sacred-text documentation, with regression coverage to prevent the old `/scr:sacred-verse-numbering` reference from returning.
+- Updated sacred templates so doctrine and lineage checks point to `/scr:sacred:doctrinal-check`, matching the shipped namespaced command.
+- Updated the demo manuscript plan to use `/scr:draft 5` instead of the stale `/scr:draft-scene 5` instruction.
+- Refreshed current planning state for the v2.0.11 baseline and normalized old archived test-output markers to plain text.
+
+**Release and install verification**
+
+- Re-ran full release validation, route graph auditing, agent availability checks, sync checks, smoke checks, npm audit, package dry-run, and repository policy scans.
+- Cleared and refreshed installed Scriveno runtime surfaces for Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic skill fallback.
+- Verified installed Claude, Codex, generic, shared template, and demo-plan copies after reinstall.
+
+**Documentation and release alignment**
+
+- Updated README badge/status, route graph docs, configuration docs, release notes, changelog, package metadata, constraints metadata, generated config metadata, and release-alignment tests to `2.0.11`.
+
 ## 2.0.10 - 2026-05-16
 
 Patch release focused on making proactive automation executable across runtime surfaces, not only described in policy docs.

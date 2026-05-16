@@ -42,4 +42,4 @@
 
 ---
 
-*Drafter agents check this file to avoid contradicting established doctrines when drafting passages. `/scr:doctrinal-check` flags any unit that contradicts or undermines an affirmed doctrine without explicit intent.*
+*Drafter agents check this file to avoid contradicting established doctrines when drafting passages. `/scr:sacred:doctrinal-check` flags any unit that contradicts or undermines an affirmed doctrine without explicit intent.*

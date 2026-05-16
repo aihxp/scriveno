@@ -3,14 +3,14 @@ description: "Show verse numbering format for the active sacred tradition."
 argument-hint: "[--example <text>]"
 ---
 
-# /scr:sacred-verse-numbering -- Tradition Verse Numbering Reference
+# /scr:sacred-numbering-format -- Tradition Verse Numbering Reference
 
 Show the verse numbering format for the active sacred tradition. Reads the tradition profile from the project's config and displays the numbering system with example citations.
 
 ## Usage
 
 ```
-/scr:sacred-verse-numbering [--example <text>]
+/scr:sacred-numbering-format [--example <text>]
 ```
 
 If `--example <text>` is provided, format the given text as a citation in the tradition's numbering system.

@@ -83,5 +83,5 @@ None - test file reads local files only; no new network surfaces introduced.
 
 - test/phase30-export-cleanup-validation-gate.test.js: FOUND
 - Commit bb04763: FOUND (git log confirms)
-- 15 assertions: CONFIRMED (ℹ tests 15, ℹ fail 15 in test output)
-- Prior 1132 tests: CONFIRMED (ℹ pass 1132 in npm test output)
+- 15 assertions: CONFIRMED (Info tests 15, Info fail 15 in test output)
+- Prior 1132 tests: CONFIRMED (Info pass 1132 in npm test output)

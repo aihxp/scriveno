@@ -120,6 +120,21 @@ node bin/install.js --runtime codex --global --developer --silent
 
 The writer-facing form of this maintenance operation is `/scr:sync`.
 
+For a full cross-runtime refresh from this checkout, use:
+
+```bash
+node bin/install.js --runtimes claude-code,cursor,gemini-cli,codex,opencode,copilot,windsurf,antigravity,manus,perplexity-desktop,generic --global --developer --silent
+```
+
+After installation, the shared audit commands should pass:
+
+```bash
+scriveno sync --check
+scriveno smoke --json
+scriveno agents --json
+scriveno routes --json
+```
+
 ## Docs and release workflow
 
 Docs are part of the shipped product. If you change visible behavior, update every affected documentation surface in the same pass: root docs, files under `docs/`, proof READMEs, template READMEs, and command markdown that exposes user-facing contracts.
@@ -131,6 +146,9 @@ For release-oriented documentation surfaces, the main files are:
 - `docs/release-notes.md`
 - `docs/shipped-assets.md`
 - `docs/command-reference.md`
+- `docs/auto-invoke-policy.md`
+- `docs/runtime-support.md`
+- `docs/route-graph.md`
 - `templates/*/README.md` when shipped profiles or templates change
 - `.planning/` milestone summaries when you are still using the GSD planning layer
 
@@ -141,7 +159,8 @@ A good pre-ship pass for Scriveno changes is:
 1. run the targeted tests for the touched surface
 2. run `npm test`
 3. run `npm run release:check` for package-facing changes
-4. review trust-sensitive docs for runtime, asset, and support claims
+4. run the proactive audit commands when routing, runtime, installer, or agent surfaces changed
+5. review trust-sensitive docs for runtime, asset, and support claims
 
 ## Related docs
 
@@ -149,4 +168,7 @@ A good pre-ship pass for Scriveno changes is:
 - [Configuration](configuration.md)
 - [Testing](testing.md)
 - [Contributing](contributing.md)
+- [Auto-Invoke Policy](auto-invoke-policy.md)
+- [Runtime Support](runtime-support.md)
+- [Route Graph Audit](route-graph.md)
 - [Release Notes](release-notes.md)

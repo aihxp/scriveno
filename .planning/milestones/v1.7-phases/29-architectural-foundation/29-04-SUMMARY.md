@@ -69,14 +69,14 @@ Phase 29 locked - `test/phase29-architectural-foundation.test.js` ships 54 passi
 Actual runner output:
 
 ```
-ℹ tests 54
-ℹ suites 6
-ℹ pass 54
-ℹ fail 0
-ℹ cancelled 0
-ℹ skipped 0
-ℹ todo 0
-ℹ duration_ms 82.33
+Info tests 54
+Info suites 6
+Info pass 54
+Info fail 0
+Info cancelled 0
+Info skipped 0
+Info todo 0
+Info duration_ms 82.33
 ```
 
 ## Per-Requirement Coverage
@@ -155,10 +155,10 @@ $ ls templates/platforms/*/manifest.yaml | wc -l
 ```bash
 $ npm test
 ...
-ℹ tests 1132
-ℹ suites 283
-ℹ pass 1132
-ℹ fail 0
+Info tests 1132
+Info suites 283
+Info pass 1132
+Info fail 0
 ```
 
 All 1078 pre-existing tests continue to pass alongside the 54 new Phase 29 tests. Zero regressions.

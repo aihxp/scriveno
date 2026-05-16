@@ -8,9 +8,9 @@ const SACRED_DIR        = path.join(ROOT, 'templates', 'sacred');
 const BUILD_EBOOK_PATH  = path.join(ROOT, 'commands', 'scr', 'build-ebook.md');
 const BUILD_PRINT_PATH  = path.join(ROOT, 'commands', 'scr', 'build-print.md');
 const FRONT_MATTER_PATH = path.join(ROOT, 'commands', 'scr', 'front-matter.md');
-// Was sacred-numbering-format.md until v1.6.x; renamed to resolve a flat-skill-name
-// collision with commands/scr/sacred/verse-numbering.md (both flattened to
-// scr-sacred-numbering-format.md at install time, silently dropping one).
+const SACRED_DOCS_PATH  = path.join(ROOT, 'docs', 'sacred-texts.md');
+// Was sacred-verse-numbering.md until v1.6.x; renamed to resolve a flat skill
+// name collision with commands/scr/sacred/verse-numbering.md.
 const VERSE_NUM_PATH    = path.join(ROOT, 'commands', 'scr', 'sacred-numbering-format.md');
 
 /**
@@ -328,5 +328,19 @@ describe('TRAD-04-behavioral: sacred-numbering-format.md command file', () => {
       content.includes('numbering.format') || content.includes('chapter:verse'),
       'sacred-numbering-format.md must reference numbering.format or chapter:verse -- TRAD-04'
     );
+  });
+
+  it('sacred-numbering-format.md advertises its current command id -- TRAD-04', () => {
+    const content = readFile(VERSE_NUM_PATH);
+    assert.ok(content !== null, 'commands/scr/sacred-numbering-format.md must exist -- TRAD-04');
+    assert.match(content, /\/scr:sacred-numbering-format/);
+    assert.doesNotMatch(content, /\/scr:sacred-verse-numbering/);
+  });
+
+  it('sacred docs advertise the current numbering-format command id -- TRAD-04', () => {
+    const content = readFile(SACRED_DOCS_PATH);
+    assert.ok(content !== null, 'docs/sacred-texts.md must exist -- TRAD-04');
+    assert.match(content, /\/scr:sacred-numbering-format/);
+    assert.doesNotMatch(content, /\/scr:sacred-verse-numbering/);
   });
 });

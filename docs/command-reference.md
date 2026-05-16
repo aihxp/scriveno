@@ -4,6 +4,8 @@ Scriveno has **112 commands** organized into **14 categories**. Commands adapt a
 
 Commands marked with **adaptive terminology** change how Scriveno talks about your work type's `command_unit` in `.manuscript/config.json`, while keeping the runnable command id stable. Commands marked with **group adaptation** have different labels for specific work type groups (academic, sacred, etc.).
 
+This page covers writer-facing `/scr:*` commands. Package-level audit commands live in the `scriveno` CLI: `scriveno status --project . --apply-safe`, `scriveno sync --check`, `scriveno smoke`, `scriveno agents`, and `scriveno routes`. See [Auto-Invoke Policy](auto-invoke-policy.md), [Runtime Support](runtime-support.md), and [Route Graph Audit](route-graph.md) for those surfaces.
+
 ## Table of Contents
 
 1. [Core](#core) -- The main workflow: create, discuss, plan, draft, review, submit

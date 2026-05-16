@@ -57,7 +57,7 @@ When a writer runs `/scr:new-work`, Scriveno creates `.manuscript/config.json`. 
 
 ```json
 {
-  "scriveno_version": "2.0.10",
+  "scriveno_version": "2.0.11",
   "work_type": "<chosen>",
   "group": "<group>",
   "command_unit": "<unit>",
@@ -215,6 +215,15 @@ And for release-facing changes, also run:
 
 ```bash
 npm run release:check
+```
+
+When configuration changes touch runtime paths, route logic, agent prompts, sync behavior, or installed audit surfaces, also run:
+
+```bash
+scriveno sync --check
+scriveno smoke --json
+scriveno agents --json
+scriveno routes --json
 ```
 
 ## Related docs

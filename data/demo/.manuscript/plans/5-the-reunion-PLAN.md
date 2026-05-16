@@ -49,4 +49,4 @@ Close third (Elias), past tense. Intimate distance. The narrator stays inside El
 - Elias's established speech patterns from previous scenes
 
 ---
-*This is a planning document. Draft with /scr:draft-scene 5.*
+*This is a planning document. Draft with /scr:draft 5.*

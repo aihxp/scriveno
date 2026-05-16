@@ -118,7 +118,7 @@ None - no external service configuration required. Publisher classes (IEEEtran.c
 - `test -f data/export-templates/scriveno-apa7.latex` - FOUND
 - Task 1 commit `8672a85` - FOUND
 - Task 2 commit `1e238bd` - FOUND
-- 30/39 phase35 tests GREEN - CONFIRMED (ℹ pass 30, ℹ fail 9)
+- 30/39 phase35 tests GREEN - CONFIRMED (Info pass 30, Info fail 9)
 
 ## Self-Check: PASSED
 

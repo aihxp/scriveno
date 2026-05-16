@@ -76,7 +76,7 @@ Scriveno is a spec-driven writing, publishing, and translation pipeline that run
 - [x] All 10 sacred tradition manifests populated with book_order, approval_block, font_stack, rtl, numbering, script - v1.7 Phase 33 (TRAD-01..TRAD-04)
 - [x] STEP 1.7 (TRADITION LOADING) added to build-ebook.md and build-print.md - v1.7 Phase 33 (TRAD-05)
 - [x] front-matter.md STEP 3.5 approval block scaffold for traditions requiring ecclesiastical approval - v1.7 Phase 33 (TRAD-03-behavioral)
-- [x] `/scr:sacred-verse-numbering` command for tradition verse citation reference - v1.7 Phase 33 (TRAD-04-behavioral)
+- [x] `/scr:sacred-numbering-format` command for tradition verse citation reference - v1.7 Phase 33 (TRAD-04-behavioral)
 - [x] Phase 33 locked by 161 regression tests (1427 total) - zero new dependencies
 - [x] Stage play Typst template (Samuel French format, 8.5×11, centered ALLCAPS character names, italic stage directions) - v1.7 Phase 34 (TPL-01)
 - [x] Picture book Typst template (8.75×8.75 with 0.125" bleed + 0.25" safe zone, spread pagination) - v1.7 Phase 34 (TPL-02)
@@ -118,7 +118,7 @@ The most visible gaps were in the export stack and launch proof layer. Phase 13 
 ## Current State
 
 **Latest shipped milestone:** v2.0 Publishing Cover Packaging (complete 2026-04-18)
-**Status:** No active milestone. Scriveno's current shipped baseline includes the v2.0 cover-packaging contract and is locked by 1590 passing regression tests.
+**Status:** No active milestone. Scriveno's current shipped baseline includes the v2.0 cover-packaging contract plus the v2.0.11 audit repair release and is locked by 1876 passing regression tests.
 
 **Current product surface:**
 - Installer writes are crash-safe via atomic temp-file-then-rename with orphan cleanup on startup
@@ -141,9 +141,10 @@ The most visible gaps were in the export stack and launch proof layer. Phase 13 
 - Canonical cover build contract now lives under `.manuscript/build/` with separate ebook, paperback, and hardcover deliverables
 - Publishing/build docs now treat print-cover geometry as template-driven from live platform tools rather than hard-coded spine math
 - Build, export, publish, command-reference, and shipped-asset surfaces now agree on the same cover workflow contract
+- Shared proactive automation checks now expose status, safe apply reporting, runtime smoke checks, agent availability checks, and route graph audits across installer runtimes
 - Sacred tradition profiles for 10 traditions with book-order, approval-block, font stack, RTL, numbering
 - Cross-domain templates: stage play, picture book, fixed-layout EPUB, chapbook, poetry submission, academic (IEEE/ACM/LNCS/Elsevier/APA7)
-- 1590 regression tests lock all behavior with requirement-to-test traceability
+- 1876 regression tests lock all behavior with requirement-to-test traceability
 
 ## Latest Milestone: v2.0 Publishing Cover Packaging
 
@@ -156,7 +157,7 @@ The most visible gaps were in the export stack and launch proof layer. Phase 13 
 - Release-facing trust docs now distinguish bundled export templates from project-specific cover assets
 - New regression suites now lock cover asset paths, print spec truth, and build/trust-surface alignment
 
-**Stats:** 3 phases, 9 plans, 1590 regression tests in the current repo state, zero new dependencies
+**Stats:** 3 phases, 9 plans, later hardened through v2.0.11 with 1876 regression tests in the current repo state, zero new dependencies
 
 ## Previous Milestone: v1.9 Workflow Contract Integrity
 

@@ -53,4 +53,6 @@ Read the bundle in order if you want to inspect sentence rhythm, metaphor select
 
 - [Shipped Assets](shipped-assets.md) -- canonical inventory of the trust-critical files Scriveno actually bundles
 - [Runtime Support](runtime-support.md) -- canonical runtime matrix and installer-baseline framing
+- [Auto-Invoke Policy](auto-invoke-policy.md) -- proactive status, safe apply, local-helper, and agent-spawn boundaries
+- [Route Graph Audit](route-graph.md) -- generated route graph, automation lanes, and priority fixtures
 - [Release Notes](release-notes.md) -- summary of what changed in the latest package release

@@ -210,5 +210,6 @@ If you want the trust surfaces around installation and shipping details, continu
 
 - [Runtime Support](runtime-support.md) -- installer targets, support levels, and verification status
 - [Auto-Invoke Policy](auto-invoke-policy.md) -- status engine, visible automation, and agent-spawn boundaries
+- [Route Graph Audit](route-graph.md) -- generated route graph, automation lanes, and priority fixtures
 - [Shipped Assets](shipped-assets.md) -- what the npm package actually includes on the trust-critical surface
 - [Release Notes](release-notes.md) -- what changed in the latest package release

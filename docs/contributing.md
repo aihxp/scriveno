@@ -381,6 +381,9 @@ When a package release changes the public story, update the release docs alongsi
 - `README.md` -- current version/status blurb when the release changes the headline positioning
 - `docs/shipped-assets.md` -- canonical inventory when bundled docs, templates, proof assets, or trust-critical files change
 - `docs/command-reference.md` -- command contract reference when command behavior or flags change
+- `docs/auto-invoke-policy.md` -- proactive routing, safe apply, local-helper, and agent-spawn policy
+- `docs/runtime-support.md` -- runtime matrix, install-surface checks, and agent availability claims
+- `docs/route-graph.md` -- route graph, automation lanes, and priority fixtures when route logic changes
 - `templates/*/README.md` and `data/proof/*/README.md` -- shipped profile and proof documentation when those assets change
 - `.planning/` milestone summary files -- only when the release closes out milestone work or changes the archive story
 
@@ -391,7 +394,8 @@ When a package release changes the public story, update the release docs alongsi
 3. Update `docs/release-notes.md` with a concise explanation of what changed, why, and how it was verified
 4. Run `npm test`
 5. Run `npm run release:check`
-6. Publish only after the docs and package metadata tell the same story
+6. For runtime, installer, agent, sync, or route-intelligence changes, run `scriveno sync --check`, `scriveno smoke --json`, `scriveno agents --json`, and `scriveno routes --json`
+7. Publish only after the docs and package metadata tell the same story
 
 ## Code Style
 

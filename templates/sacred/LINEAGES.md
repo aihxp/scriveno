@@ -49,4 +49,4 @@
 
 ---
 
-*When drafting any unit involving figures, the drafter agent checks this file to verify lineage claims, covenant references, and relationships. Contradictions are flagged by `/scr:doctrinal-check`.*
+*When drafting any unit involving figures, the drafter agent checks this file to verify lineage claims, covenant references, and relationships. Contradictions are flagged by `/scr:sacred:doctrinal-check`.*

@@ -2,6 +2,44 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.0.11 - 2026-05-16
+
+### What changed
+
+- Scriveno received a full repo audit across 500 tracked files and the latest 242-file package surface.
+- The sacred numbering command now consistently advertises `/scr:sacred-numbering-format` instead of the stale `/scr:sacred-verse-numbering` name.
+- Sacred doctrine and lineage templates now point to `/scr:sacred:doctrinal-check`, matching the shipped command surface.
+- The demo manuscript plan now tells users to run `/scr:draft 5` instead of the removed `/scr:draft-scene 5` command.
+- Archived planning summaries no longer use decorative test-output markers that violate the repository writing policy.
+- README badges, Route Graph, Configuration, changelog, package metadata, constraints metadata, generated config metadata, and release tests are aligned on `2.0.11`.
+
+### Why it matters
+
+This release tightens the shipped surface after the automation releases. Writers should see current command names in docs, templates, demo files, and installed runtime copies. Developers now have a cleaner package baseline before the next milestone begins.
+
+### Affected areas
+
+- command documentation
+- sacred project templates
+- demo manuscript assets
+- release metadata
+- planning state
+- README badge and status copy
+- cross-runtime installed surfaces
+- regression tests for release metadata and sacred command naming
+
+### Verification
+
+- `npm run release:check`
+- `node bin/install.js routes --json`
+- `node bin/install.js agents --json`
+- `node bin/install.js sync --check --json`
+- `node bin/install.js smoke --json`
+- `npm audit --omit=dev --json`
+- `npm pack --dry-run`
+- `git diff --check`
+- repository policy scan for em dashes, en dashes, and decorative emoji-style markers
+
 ## 2.0.10 - 2026-05-16
 
 ### What changed

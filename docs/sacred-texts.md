@@ -182,7 +182,7 @@ Apply or adjust verse numbering systems to your drafted text. Supports tradition
 
 **Requires:** At least one drafted unit.
 
-The top-level `/scr:sacred-verse-numbering` compatibility command is read-only: it shows the active tradition's numbering format and can render example citations. The nested `/scr:sacred:verse-numbering` command changes or verifies the project's numbering system.
+The top-level `/scr:sacred-numbering-format` compatibility command is read-only: it shows the active tradition's numbering format and can render example citations. The nested `/scr:sacred:verse-numbering` command changes or verifies the project's numbering system.
 
 ### `/scr:sacred:source-tracking`
 
