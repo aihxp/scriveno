@@ -3,9 +3,9 @@
 ## Current Status
 
 - Active milestone: **None**
-- Latest shipped package: **v2.0.11 Audit Repair Release** (released 2026-05-16)
+- Latest shipped package: **v2.0.12 First-Run Proof Release** (released 2026-05-16)
 - Latest shipped milestone: **v2.0 Publishing Cover Packaging** (completed 2026-04-18)
-- Current repo state: **v2.0.11 shipped, 1876/1876 tests passing**
+- Current repo state: **v2.0.12 shipped, first-run proof and release verification surfaces locked by regression tests**
 - Next step: define the next milestone
 
 ## Milestones
@@ -27,8 +27,8 @@
 - Detailed milestone summaries live in [MILESTONES.md](MILESTONES.md).
 - Detailed archived roadmap snapshots live under `.planning/milestones/`.
 - Archived phase artifacts now live under `.planning/milestones/v1.7-phases/`, `.planning/milestones/v1.8-phases/`, `.planning/milestones/v1.9-phases/`, and `.planning/milestones/v2.0-phases/`.
-- The current shipped baseline includes truthful cover asset contracts, template-driven print-cover guidance, proactive automation checks, runtime smoke checks, agent availability checks, route graph audits, and integrated regression locks at 1876 passing tests.
+- The current shipped baseline includes truthful cover asset contracts, template-driven print-cover guidance, proactive automation checks, runtime smoke checks, agent availability checks, route graph audits, first-run proof docs, release checklist coverage, and integrated regression locks.
 
 ## No Active Milestone
 
-v2.0.11 is shipped. The next step is to choose the next milestone and start a new planning cycle from the current proactive automation and audit-repair baseline.
+v2.0.12 is shipped. The next step is to choose the next milestone and start a new planning cycle from the current proactive automation, audit-repair, first-run proof, and release-verification baseline.

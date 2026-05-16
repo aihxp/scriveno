@@ -2,13 +2,15 @@
 
 [![CI](https://github.com/aihxp/scriveno/actions/workflows/ci.yml/badge.svg)](https://github.com/aihxp/scriveno/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.0.11-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.0.12-blue)](CHANGELOG.md)
 [![npm](https://img.shields.io/npm/v/scriveno.svg)](https://www.npmjs.com/package/scriveno)
 [![Downloads](https://img.shields.io/npm/dm/scriveno.svg)](https://www.npmjs.com/package/scriveno)
 [![Status CLI](https://img.shields.io/badge/status%20CLI-scriveno%20status-blue)](docs/runtime-support.md#shared-auto-invoke-engine)
 [![Route Intelligence](https://img.shields.io/badge/route%20intelligence-agent%20lanes-blue)](docs/auto-invoke-policy.md)
 [![Runtime Smoke](https://img.shields.io/badge/runtime%20smoke-install%20checks-blue)](docs/runtime-support.md#runtime-smoke-and-agent-checks)
 [![Safe Apply](https://img.shields.io/badge/safe%20apply-visible%20gates-blue)](docs/auto-invoke-policy.md#safe-apply-and-audit-commands)
+[![Quick Proof](https://img.shields.io/badge/quick%20proof-10%20minute%20path-blue)](docs/quick-proof.md)
+[![Starter Sets](https://img.shields.io/badge/starter%20sets-goal%20paths-blue)](docs/starter-sets.md)
 
 **[scriveno on npm](https://www.npmjs.com/package/scriveno)**
 
@@ -18,7 +20,7 @@
 
 Scriveno brings spec-driven workflows to longform writing. It runs inside your AI coding agent (Claude Code, Cursor, Gemini CLI, and more) and also ships a guided Perplexity Desktop setup path for file-aware support without overstating parity.
 
-Scriveno is best understood as **AI-native longform writing software built around voice preservation**. Its core promise is narrow and high-stakes: drafted prose should sound like the writer, not like AI. If you want evidence before features, start with the [Proof Artifacts](docs/proof-artifacts.md).
+Scriveno is best understood as **AI-native longform writing software built around voice preservation**. Its core promise is narrow and high-stakes: drafted prose should sound like the writer, not like AI. If you want evidence before features, start with the [Quick Proof](docs/quick-proof.md), then inspect the [Proof Artifacts](docs/proof-artifacts.md).
 
 ```bash
 npx scriveno@latest
@@ -72,7 +74,7 @@ $scr-help
 
 If you only ever type `/scr-next` in Claude Code, you can complete an entire novel. It always knows what's next.
 
-If you want the shortest proof-first route, read [Proof Artifacts](docs/proof-artifacts.md) before exploring the rest of the docs.
+If you want the shortest proof-first route, read [Quick Proof](docs/quick-proof.md) before exploring the rest of the docs. If you want a small command path for your goal, use [Starter Sets](docs/starter-sets.md).
 
 ---
 
@@ -190,6 +192,8 @@ Scriveno is built on five principles:
 ## Documentation
 
 - [Proof Artifacts](docs/proof-artifacts.md) -- Canonical proof hub for the watchmaker sample flow and Voice DNA before/after bundle
+- [Quick Proof](docs/quick-proof.md) -- 10-minute proof-first route through install checks, the demo, and the next draft
+- [Starter Sets](docs/starter-sets.md) -- Small command paths for drafting, polishing, publishing, translation, sacred commentary, and repair
 - [Getting Started](docs/getting-started.md) -- Install to first draft in 10 minutes
 - [Command Reference](docs/command-reference.md) -- All 112 commands with usage, flags, and examples
 - [Work Types Guide](docs/work-types.md) -- How 50 work types adapt Scriveno's vocabulary
@@ -205,6 +209,7 @@ Scriveno is built on five principles:
 - [Route Graph Audit](docs/route-graph.md) -- Generated route graph, automation lanes, and priority fixtures
 - [Development](docs/development.md) -- Contributor workflow for changing commands, templates, installer logic, and docs
 - [Testing](docs/testing.md) -- What the test suite covers and which checks to run before shipping
+- [Release Checklist](docs/release-checklist.md) -- Local, npm, GitHub, and fresh-install release verification
 - [Release Notes](docs/release-notes.md) -- Public summary of what changed between package releases
 - [Shipped Assets](docs/shipped-assets.md) -- Canonical inventory of bundled export templates and launch-critical files
 - [Runtime Support](docs/runtime-support.md) -- Canonical runtime matrix, Node baseline, and verification-status framing
@@ -235,11 +240,11 @@ Scriveno currently ships installer targets for these AI tooling environments:
 
 ## Status
 
-**Version:** 2.0.11
+**Version:** 2.0.12
 
-Scriveno's core command surface is stable across 112 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, plus the creative-context, record-store, branching-next, runtime-sync, adaptive concierge, human-first writing-safeguard, authenticity-diagnostic, domain-grilling, installer-marker cleanup, cross-runtime agent metadata, visible automation status, the shared `scriveno status --project .` auto-invoke engine, route-intelligence lanes, safe apply reporting, runtime smoke checks, agent availability checks, route graph audits, and the full audit repair pass through `2.0.11`. See [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
+Scriveno's core command surface is stable across 112 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, plus the creative-context, record-store, branching-next, runtime-sync, adaptive concierge, human-first writing-safeguard, authenticity-diagnostic, domain-grilling, installer-marker cleanup, cross-runtime agent metadata, visible automation status, the shared `scriveno status --project .` auto-invoke engine, route-intelligence lanes, safe apply reporting, runtime smoke checks, agent availability checks, route graph audits, the full audit repair pass through `2.0.11`, and the first-run proof surface in `2.0.12`. See [Quick Proof](docs/quick-proof.md) for the fastest proof path, [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory, and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
 
-Version `2.0.11` publishes Scriveno under the package name `scriveno`, so the current install command is `npx scriveno@latest`. The older `scriveno-cli` package name is historical and was unpublished during the rename, so npm cannot attach a deprecation notice to it while it has no active registry record. The older `scriven-cli` package remains on npm only as a deprecated legacy name that points users to `scriveno`. Do not treat either legacy package name as active unless a deliberate compatibility shim is republished. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
+Version `2.0.12` publishes Scriveno under the package name `scriveno`, so the current install command is `npx scriveno@latest`. The older `scriveno-cli` package name is historical and was unpublished during the rename, so npm cannot attach a deprecation notice to it while it has no active registry record. The older `scriven-cli` package remains on npm only as a deprecated legacy name that points users to `scriveno`. Do not treat either legacy package name as active unless a deliberate compatibility shim is republished. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
 
 Package history is tracked in [CHANGELOG.md](CHANGELOG.md), and the public-facing summary for this release is in [docs/release-notes.md](docs/release-notes.md).
 

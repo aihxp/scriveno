@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: none
 milestone_name: none
 status: milestone_shipped
-stopped_at: v2.0.11 audit repair release shipped; awaiting next milestone
-last_updated: "2026-05-16T18:15:00Z"
+stopped_at: v2.0.12 first-run proof release shipped; awaiting next milestone
+last_updated: "2026-05-16T18:45:00Z"
 last_activity: 2026-05-16
 progress:
   total_phases: 3
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-16)
 
 **Core value:** Drafted prose sounds like the writer, not like AI -- Voice DNA system loaded into every agent invocation.
-**Current focus:** No active milestone (v2.0.11 shipped)
+**Current focus:** No active milestone (v2.0.12 shipped)
 
 ## Current Position
 
 Phase: None (milestone shipped)
 Plan: - Status: Awaiting next milestone
-Last activity: 2026-05-16 - v2.0.11 audit repair release shipped
+Last activity: 2026-05-16 - v2.0.12 first-run proof release shipped
 
 Progress: [##########] 100%
 
@@ -36,7 +36,7 @@ Progress: [##########] 100%
 **Velocity:**
 
 - Total plans completed: 122 (through v2.0), plus post-milestone 2.0.x release hardening
-- Latest package release v2.0.11: 1876 regression tests in the current repo state, zero new dependencies
+- Latest package release v2.0.12: first-run proof surface, release checklist, and writing-policy gate added with regression coverage and zero new dependencies
 
 *Updated after each plan completion*
 
@@ -72,6 +72,6 @@ Recent decisions affecting current work:
 
 ## Session Continuity
 
-Last session: 2026-05-16T18:15:00Z
-Stopped at: v2.0.11 shipped; no active milestone
+Last session: 2026-05-16T18:45:00Z
+Stopped at: v2.0.12 shipped; no active milestone
 Resume file: None

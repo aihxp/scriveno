@@ -115,6 +115,9 @@ Sacred commands read top-level sacred profile keys in new projects and preserve 
 - `CHANGELOG.md` -- package-level release history
 - `docs/release-notes.md` -- public-facing release summary
 - `docs/proof-artifacts.md` -- canonical proof hub for sample-flow and voice-preservation evidence
+- `docs/quick-proof.md` -- proof-first first-run route through install checks, demo inspection, and next-draft commands
+- `docs/starter-sets.md` -- small command paths for common writing goals
+- `docs/release-checklist.md` -- release validation path for source, npm, GitHub, and fresh installs
 - `docs/runtime-support.md` -- canonical runtime matrix, Node baseline, and support-confidence framing
 - `docs/command-reference.md` -- canonical command surface reference
 - `docs/configuration.md` -- canonical project config and package metadata reference

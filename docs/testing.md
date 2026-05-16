@@ -10,7 +10,8 @@ The root `package.json` defines:
 "scripts": {
   "test": "node --test test/*.test.js",
   "pack:check": "npm pack --dry-run",
-  "release:check": "npm test && npm run pack:check",
+  "policy:check": "node scripts/check-writing-policy.js",
+  "release:check": "npm test && npm run policy:check && npm run pack:check",
   "prepublishOnly": "npm run release:check"
 }
 ```
@@ -19,7 +20,8 @@ That means:
 
 - `npm test` runs the whole test suite
 - `npm run pack:check` verifies the package contents that would ship
-- `npm run release:check` runs both test and package checks
+- `npm run policy:check` scans tracked text files for the repo writing policy
+- `npm run release:check` runs tests, policy checks, and package checks
 - publishing is guarded by `release:check` through `prepublishOnly`
 
 ## Run the suite
@@ -95,8 +97,10 @@ Use these when changing README, docs, shipped-assets claims, or milestone trust 
 
 - `test/phase13-launch-surface-integrity.test.js`
 - `test/phase15-proof-artifacts-positioning.test.js`
+- `test/first-run-proof-surface.test.js`
 - `test/phase19-verification-trust-surface-updates.test.js`
 - `test/repository-policy.test.js`
+- `npm run policy:check`
 
 ### Feature-family regression tests
 
@@ -136,6 +140,12 @@ For the standard release gate, prefer:
 npm run release:check
 ```
 
+For docs, prompt, command markdown, and release-note changes, run:
+
+```bash
+npm run policy:check
+```
+
 When changing proactive routing, runtime install paths, or agent surfaces, also run:
 
 ```bash
@@ -148,6 +158,8 @@ scriveno routes --json
 
 Use those for release prep so you can inspect what would ship without mutating the registry.
 
+For the full publish path, including clearing local installs, packing, publishing, pushing, creating the GitHub release, and verifying `scriveno@latest`, use [Release Checklist](release-checklist.md).
+
 ## Practical workflow
 
 For most changes:
@@ -156,11 +168,14 @@ For most changes:
 2. make the fix
 3. rerun the targeted files
 4. run `npm test`
-5. if packaging or release docs changed, run `npm run release:check`
+5. if docs, prompts, commands, or release notes changed, run `npm run policy:check`
+6. if packaging or release docs changed, run `npm run release:check`
 
 ## Related docs
 
 - [Development](development.md)
 - [Configuration](configuration.md)
 - [Contributing](contributing.md)
+- [Quick Proof](quick-proof.md)
+- [Release Checklist](release-checklist.md)
 - [Release Notes](release-notes.md)

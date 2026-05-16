@@ -2,6 +2,42 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.0.12 - 2026-05-16
+
+### What changed
+
+- Scriveno now ships [Quick Proof](quick-proof.md), a 10-minute route through install checks, the watchmaker demo, Voice DNA samples, runtime command shapes, and the next draft command.
+- Scriveno now ships [Starter Sets](starter-sets.md), goal-based command paths for drafting, polishing, publishing, translation, sacred commentary, and repair.
+- Scriveno now ships [Release Checklist](release-checklist.md), a maintainer path for local gates, stale install cleanup, packing, npm publishing, GitHub release creation, and fresh `scriveno@latest` verification.
+- `npm run release:check` now includes `npm run policy:check`, which scans tracked text files for the repository writing policy before packaging.
+- README badges, Getting Started, Proof Artifacts, Runtime Support, Development, Contributing, Testing, Shipped Assets, Route Graph, Configuration, changelog, package metadata, constraints metadata, generated config metadata, and release tests are aligned on `2.0.12`.
+
+### Why it matters
+
+The product already had proof artifacts, but the shortest path through them was too implicit. This release makes the first 10 minutes clearer for a new writer and makes the release process harder to drift by documenting and testing the local, npm, GitHub, and fresh-install verification path.
+
+### Affected areas
+
+- README badges and launch copy
+- proof-first documentation
+- starter command guidance
+- release checklist and testing docs
+- writing-policy release gate
+- package metadata and generated project examples
+- planning state and release-alignment tests
+
+### Verification
+
+- `node --test test/first-run-proof-surface.test.js test/package.test.js test/phase16-trust-regression.test.js test/phase14-runtime-credibility.test.js`
+- `npm run policy:check`
+- `npm run release:check`
+- `node bin/install.js routes --json`
+- `node bin/install.js agents --json`
+- `node bin/install.js sync --check --json`
+- `node bin/install.js smoke --json`
+- `npm audit --omit=dev --json`
+- `git diff --check`
+
 ## 2.0.11 - 2026-05-16
 
 ### What changed

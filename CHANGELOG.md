@@ -2,6 +2,26 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 2.0.12 - 2026-05-16
+
+Patch release focused on turning the strongest proof and release-verification paths into first-class shipped surfaces.
+
+**First-run proof surface**
+
+- Added [Quick Proof](docs/quick-proof.md), a 10-minute proof-first route through install checks, runtime command shapes, the watchmaker demo, Voice DNA samples, and the next draft command.
+- Added [Starter Sets](docs/starter-sets.md), small command paths for drafting, polishing, publishing, translation, sacred commentary, and repair.
+- Added README badges and documentation links for the proof-first route and starter sets.
+
+**Release verification**
+
+- Added [Release Checklist](docs/release-checklist.md), covering clean baseline checks, local gates, stale install cleanup, package packing, npm publish, GitHub release creation, and fresh install verification from `scriveno@latest`.
+- Added `npm run policy:check` and `scripts/check-writing-policy.js` so release checks include the repository writing policy before package dry-run.
+- Updated release and testing docs so maintainers have one documented path from local validation to published npm verification.
+
+**Documentation and release alignment**
+
+- Updated Getting Started, Proof Artifacts, Runtime Support, Development, Contributing, Testing, Shipped Assets, README status, route graph docs, configuration docs, package metadata, constraints metadata, generated config metadata, and release-alignment tests to `2.0.12`.
+
 ## 2.0.11 - 2026-05-16
 
 Patch release focused on a full repository audit and repair pass before publishing the repaired runtime surfaces.

@@ -118,7 +118,7 @@ The most visible gaps were in the export stack and launch proof layer. Phase 13 
 ## Current State
 
 **Latest shipped milestone:** v2.0 Publishing Cover Packaging (complete 2026-04-18)
-**Status:** No active milestone. Scriveno's current shipped baseline includes the v2.0 cover-packaging contract plus the v2.0.11 audit repair release and is locked by 1876 passing regression tests.
+**Status:** No active milestone. Scriveno's current shipped baseline includes the v2.0 cover-packaging contract plus the v2.0.12 first-run proof release and is locked by regression tests.
 
 **Current product surface:**
 - Installer writes are crash-safe via atomic temp-file-then-rename with orphan cleanup on startup
@@ -144,7 +144,7 @@ The most visible gaps were in the export stack and launch proof layer. Phase 13 
 - Shared proactive automation checks now expose status, safe apply reporting, runtime smoke checks, agent availability checks, and route graph audits across installer runtimes
 - Sacred tradition profiles for 10 traditions with book-order, approval-block, font stack, RTL, numbering
 - Cross-domain templates: stage play, picture book, fixed-layout EPUB, chapbook, poetry submission, academic (IEEE/ACM/LNCS/Elsevier/APA7)
-- 1876 regression tests lock all behavior with requirement-to-test traceability
+- Regression tests lock shipped behavior with requirement-to-test traceability
 
 ## Latest Milestone: v2.0 Publishing Cover Packaging
 
@@ -157,7 +157,7 @@ The most visible gaps were in the export stack and launch proof layer. Phase 13 
 - Release-facing trust docs now distinguish bundled export templates from project-specific cover assets
 - New regression suites now lock cover asset paths, print spec truth, and build/trust-surface alignment
 
-**Stats:** 3 phases, 9 plans, later hardened through v2.0.11 with 1876 regression tests in the current repo state, zero new dependencies
+**Stats:** 3 phases, 9 plans, later hardened through v2.0.12 with first-run proof and release-verification regression coverage, zero new dependencies
 
 ## Previous Milestone: v1.9 Workflow Contract Integrity
 

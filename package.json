@@ -1,6 +1,6 @@
 {
   "name": "scriveno",
-  "version": "2.0.11",
+  "version": "2.0.12",
   "description": "Spec-driven creative writing, publishing, and translation pipeline for AI coding agents. From blank page to published book.",
   "bin": {
     "scriveno": "bin/install.js"
@@ -9,7 +9,8 @@
     "start": "node bin/install.js",
     "test": "node --test test/*.test.js",
     "pack:check": "npm pack --dry-run",
-    "release:check": "npm test && npm run pack:check",
+    "policy:check": "node scripts/check-writing-policy.js",
+    "release:check": "npm test && npm run policy:check && npm run pack:check",
     "prepublishOnly": "npm run release:check"
   },
   "publishConfig": {
@@ -47,6 +48,7 @@
     "commands/",
     "agents/",
     "templates/",
+    "scripts/",
     "docs/",
     "README.md",
     "LICENSE"

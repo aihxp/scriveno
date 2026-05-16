@@ -18,7 +18,7 @@
 **Stats:**
 
 - 3 phases, 9 plans, 1590 regression tests at milestone closeout
-- Current post-release baseline: 1876 regression tests through v2.0.11 audit repair release
+- Current post-release baseline: first-run proof, release checklist, runtime smoke, and audit repair surfaces through v2.0.12
 - Zero new npm dependencies
 - Milestone completed 2026-04-18
 

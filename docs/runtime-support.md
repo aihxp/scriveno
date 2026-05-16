@@ -65,6 +65,17 @@ Node is not a runtime dependency for Scriveno's markdown command system itself. 
 - Manus Desktop and the generic skills fallback install a manifest `SKILL.md`, mirrored command files, and agent prompts inside the skill bundle.
 - Perplexity Desktop receives setup assets for a local-MCP connector. It does not receive writable command or agent prompt directories from the installer.
 
+## First-Run Command Shapes
+
+Scriveno docs use `/scr:*` as the shared command id format unless a host-specific example is needed. Installed command surfaces differ by runtime:
+
+- Claude Code: `/scr-demo`, `/scr-new-work`, `/scr-next`
+- Standard command-directory runtimes: `/scr:demo`, `/scr:new-work`, `/scr:next`
+- Codex: `$scr-demo`, `$scr-new-work`, `$scr-next`
+- Guided targets: follow the generated setup instructions and connector recipe
+
+Use [Quick Proof](quick-proof.md) for the 10-minute proof route and [Starter Sets](starter-sets.md) for goal-based command paths.
+
 ## Shared Auto-Invoke Engine
 
 Every install target receives the same read-only status engine through Scriveno's shared asset directory:
@@ -126,5 +137,7 @@ That distinction is intentional. Installer-path coverage and guided setup assets
 ## See Also
 
 - [Getting Started](getting-started.md) -- install flow and first-run expectations
+- [Quick Proof](quick-proof.md) -- first-run proof path and runtime command shapes
+- [Starter Sets](starter-sets.md) -- small command sets by writing goal
 - [Shipped Assets](shipped-assets.md) -- trust-critical files that ship with the package
 - [Release Notes](release-notes.md) -- latest package-level summary

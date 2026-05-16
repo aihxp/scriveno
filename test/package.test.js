@@ -42,7 +42,8 @@ describe('package.json fields', () => {
 
   it('has prepublishOnly script', () => {
     assert.equal(pkg.scripts.prepublishOnly, 'npm run release:check');
-    assert.equal(pkg.scripts['release:check'], 'npm test && npm run pack:check');
+    assert.equal(pkg.scripts['release:check'], 'npm test && npm run policy:check && npm run pack:check');
+    assert.equal(pkg.scripts['policy:check'], 'node scripts/check-writing-policy.js');
     assert.equal(pkg.scripts['pack:check'], 'npm pack --dry-run');
   });
 });
@@ -73,6 +74,7 @@ describe('npm pack dry-run', () => {
       'bin/install.js',
       'lib/auto-invoke-engine.js',
       'data/CONSTRAINTS.json',
+      'scripts/check-writing-policy.js',
       'commands/scr/demo.md',
       'templates/STYLE-GUIDE.md',
       'templates/technical/DOC-BRIEF.md',

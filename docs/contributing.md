@@ -2,7 +2,7 @@
 
 Scriveno is a pure skill system -- markdown files that AI agents read and execute. There is no compiled code, no build step, no runtime dependencies. Contributing means adding or editing markdown files and updating the central constraint registry.
 
-This guide walks you through extending Scriveno: adding commands, agents, work types, templates, and export formats. Each section is self-contained -- jump to what you need.
+This guide walks you through extending Scriveno: adding commands, agents, work types, templates, and export formats. Each section is self-contained -- jump to what you need. For release operations, use [Release Checklist](release-checklist.md).
 
 ## File Structure Overview
 
@@ -379,6 +379,9 @@ When a package release changes the public story, update the release docs alongsi
 - `CHANGELOG.md` -- package-level release history
 - `docs/release-notes.md` -- public-facing summary of what changed and why it matters
 - `README.md` -- current version/status blurb when the release changes the headline positioning
+- `docs/quick-proof.md` -- proof-first first-run route when install, demo, or proof expectations change
+- `docs/starter-sets.md` -- goal-based command paths when command positioning changes
+- `docs/release-checklist.md` -- publish workflow when release validation changes
 - `docs/shipped-assets.md` -- canonical inventory when bundled docs, templates, proof assets, or trust-critical files change
 - `docs/command-reference.md` -- command contract reference when command behavior or flags change
 - `docs/auto-invoke-policy.md` -- proactive routing, safe apply, local-helper, and agent-spawn policy
@@ -395,7 +398,9 @@ When a package release changes the public story, update the release docs alongsi
 4. Run `npm test`
 5. Run `npm run release:check`
 6. For runtime, installer, agent, sync, or route-intelligence changes, run `scriveno sync --check`, `scriveno smoke --json`, `scriveno agents --json`, and `scriveno routes --json`
-7. Publish only after the docs and package metadata tell the same story
+7. For docs, prompts, command markdown, release notes, and README changes, run `npm run policy:check`
+8. Follow [Release Checklist](release-checklist.md) before publishing
+9. Publish only after the docs and package metadata tell the same story
 
 ## Code Style
 

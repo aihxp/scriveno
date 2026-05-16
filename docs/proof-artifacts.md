@@ -4,9 +4,12 @@ This document is the canonical index of Scriveno's proof layer. It points to con
 
 ## Start Here
 
+- Read **Quick Proof** if you want one 10-minute route through installation checks, demo inspection, runtime command shapes, and the next draft command.
 - Read the **Watchmaker Sample Flow** if you want one end-to-end writing workflow from setup through drafts, review, and next step.
 - Read **Voice DNA** if you want the shortest possible proof of how style guidance changes output on the same brief.
 - Read **Creative Context** if you want to see one craft choice travel through discuss, plan, draft, and review artifacts.
+
+**Fast path:** [Quick Proof](quick-proof.md)
 
 ## Watchmaker Sample Flow
 
@@ -52,6 +55,8 @@ Read the bundle in order if you want to inspect sentence rhythm, metaphor select
 ## Related Trust Docs
 
 - [Shipped Assets](shipped-assets.md) -- canonical inventory of the trust-critical files Scriveno actually bundles
+- [Quick Proof](quick-proof.md) -- 10-minute proof-first path through install checks, the demo, and the next draft
+- [Starter Sets](starter-sets.md) -- small command sets by writing goal
 - [Runtime Support](runtime-support.md) -- canonical runtime matrix and installer-baseline framing
 - [Auto-Invoke Policy](auto-invoke-policy.md) -- proactive status, safe apply, local-helper, and agent-spawn boundaries
 - [Route Graph Audit](route-graph.md) -- generated route graph, automation lanes, and priority fixtures

@@ -106,6 +106,12 @@ Run the release gate before publishing:
 npm run release:check
 ```
 
+Run the writing-policy gate directly when changing docs, prompts, commands, release notes, or public copy:
+
+```bash
+npm run policy:check
+```
+
 Start the installer locally:
 
 ```bash
@@ -143,6 +149,9 @@ For release-oriented documentation surfaces, the main files are:
 
 - `README.md`
 - `CHANGELOG.md`
+- `docs/quick-proof.md`
+- `docs/starter-sets.md`
+- `docs/release-checklist.md`
 - `docs/release-notes.md`
 - `docs/shipped-assets.md`
 - `docs/command-reference.md`
@@ -158,9 +167,10 @@ A good pre-ship pass for Scriveno changes is:
 
 1. run the targeted tests for the touched surface
 2. run `npm test`
-3. run `npm run release:check` for package-facing changes
-4. run the proactive audit commands when routing, runtime, installer, or agent surfaces changed
-5. review trust-sensitive docs for runtime, asset, and support claims
+3. run `npm run policy:check` for docs, command, agent, prompt, and release-note changes
+4. run `npm run release:check` for package-facing changes
+5. run the proactive audit commands when routing, runtime, installer, or agent surfaces changed
+6. review trust-sensitive docs for runtime, asset, and support claims
 
 ## Related docs
 
@@ -168,6 +178,8 @@ A good pre-ship pass for Scriveno changes is:
 - [Configuration](configuration.md)
 - [Testing](testing.md)
 - [Contributing](contributing.md)
+- [Quick Proof](quick-proof.md)
+- [Release Checklist](release-checklist.md)
 - [Auto-Invoke Policy](auto-invoke-policy.md)
 - [Runtime Support](runtime-support.md)
 - [Route Graph Audit](route-graph.md)

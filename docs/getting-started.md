@@ -2,7 +2,7 @@
 
 Go from zero to a drafted scene in under 10 minutes. This guide walks you through installation, project setup, and your first draft.
 
-Want evidence first? Start with [Proof Artifacts](proof-artifacts.md). The watchmaker sample flow and the Voice DNA before/after bundle give you the fastest way to inspect what Scriveno actually proves today.
+Want evidence first? Start with [Quick Proof](quick-proof.md), then continue to [Proof Artifacts](proof-artifacts.md). The watchmaker sample flow and the Voice DNA before/after bundle give you the fastest way to inspect what Scriveno actually proves today.
 
 ## Prerequisites
 
@@ -63,7 +63,7 @@ This creates a pre-built short story project -- a retired watchmaker who receive
 
 Explore at your own pace. When you're ready to start your own work, run `/scr-demo --clear` to clean up.
 
-If you want a curated reading path instead of jumping straight into the demo files, open [Proof Artifacts](proof-artifacts.md) first. It maps the watchmaker sample to the exact files worth inspecting.
+If you want a curated reading path instead of jumping straight into the demo files, open [Quick Proof](quick-proof.md) first. It maps the install checks, runtime command shapes, watchmaker demo, and next draft into one 10-minute path.
 
 ## Step 3: Start Your Project
 
@@ -204,11 +204,13 @@ Beyond the core workflow, Scriveno offers:
 - **Versions** -- `/scr-save`, `/scr-history`, `/scr-versions`, `/scr-compare`
 - **Navigation** -- `/scr-help`, `/scr-next`, `/scr-pause-work`
 
-For the full command list, see [Command Reference](command-reference.md).
+For small goal-based paths, use [Starter Sets](starter-sets.md). For the full command list, see [Command Reference](command-reference.md).
 
 If you want the trust surfaces around installation and shipping details, continue with:
 
 - [Runtime Support](runtime-support.md) -- installer targets, support levels, and verification status
+- [Quick Proof](quick-proof.md) -- proof-first first-run path through install, demo, and next draft
+- [Starter Sets](starter-sets.md) -- small command sets by writing goal
 - [Auto-Invoke Policy](auto-invoke-policy.md) -- status engine, visible automation, and agent-spawn boundaries
 - [Route Graph Audit](route-graph.md) -- generated route graph, automation lanes, and priority fixtures
 - [Shipped Assets](shipped-assets.md) -- what the npm package actually includes on the trust-critical surface
