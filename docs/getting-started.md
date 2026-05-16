@@ -24,6 +24,15 @@ This installs Scriveno into the runtime you choose. Command-directory and skills
 
 Once installed, Claude Code uses flat `/scr-*` commands such as `/scr-help` and `/scr-new-work`. Other command-directory runtimes currently keep `/scr:*`. Codex uses generated `$scr-*` skills such as `$scr-help` and `$scr-new-work`. Guided targets explain their supported setup path directly in the generated setup files.
 
+You can also ask Scriveno for a read-only project status from any terminal:
+
+```
+scriveno status --project .
+scriveno status . --json
+```
+
+That status command is the same shared auto-invoke engine used by `/scr-next`, `/scr:next`, `/scr:progress`, `/scr:session-report`, and `/scr:sync` when local command execution is available. It recommends the next safest command, but does not mutate files or spawn agents by itself.
+
 ## Step 2: Explore the Demo (Optional)
 
 Not sure what Scriveno does? Try the demo before starting your own project:
@@ -181,6 +190,8 @@ $scr-next
 
 `/scr-next` reads your project state and runs the right next step automatically. A writer who only ever types `/scr-next` in Claude Code can complete an entire manuscript from start to finish.
 
+For a terminal-readable version of the same project-state reasoning, run `scriveno status --project .`.
+
 Beyond the core workflow, Scriveno offers:
 
 - **Revision** -- `/scr-editor-review`, `/scr-line-edit`, `/scr-continuity-check`
@@ -194,5 +205,6 @@ For the full command list, see [Command Reference](command-reference.md).
 If you want the trust surfaces around installation and shipping details, continue with:
 
 - [Runtime Support](runtime-support.md) -- installer targets, support levels, and verification status
+- [Auto-Invoke Policy](auto-invoke-policy.md) -- status engine, visible automation, and agent-spawn boundaries
 - [Shipped Assets](shipped-assets.md) -- what the npm package actually includes on the trust-critical surface
 - [Release Notes](release-notes.md) -- what changed in the latest package release

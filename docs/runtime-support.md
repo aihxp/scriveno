@@ -10,9 +10,11 @@ Node is required for:
 
 - running `npx scriveno@latest`
 - executing `bin/install.js`
+- running `scriveno status --project .`
+- executing the shared auto-invoke status engine at `lib/auto-invoke-engine.js`
 - running the repo's JavaScript test suite
 
-Node is not a runtime dependency for Scriveno's markdown command system itself. Once installed, Scriveno's command files, agent prompts, templates, and constraints are read by the host AI coding agent.
+Node is not a runtime dependency for Scriveno's markdown command system itself. Once installed, Scriveno's command files, agent prompts, templates, constraints, and shared auto-invoke engine are read by the host AI coding agent. Runtimes that can run local shell commands can call the engine directly; runtimes that cannot should use the same command text as a fallback contract.
 
 ## Evidence Levels
 
@@ -60,6 +62,25 @@ Node is not a runtime dependency for Scriveno's markdown command system itself. 
 - Codex installs per-command skills, mirrored command files, agent prompts, and `.toml` metadata because Codex uses that metadata to expose agents.
 - Manus Desktop and the generic skills fallback install a manifest `SKILL.md`, mirrored command files, and agent prompts inside the skill bundle.
 - Perplexity Desktop receives setup assets for a local-MCP connector. It does not receive writable command or agent prompt directories from the installer.
+
+## Shared Auto-Invoke Engine
+
+Every install target receives the same read-only status engine through Scriveno's shared asset directory:
+
+- global installs: `~/.scriveno/lib/auto-invoke-engine.js`
+- project installs: `.scriveno/lib/auto-invoke-engine.js`
+- source checkouts: `lib/auto-invoke-engine.js`
+
+The engine computes proactive state from disk evidence: missing or stale context, unresolved review files, translation work, stale exports, missing history, and the recommended next command. It does not mutate manuscript files and does not spawn agents. Host commands such as `/scr:next`, `/scr:progress`, `/scr:session-report`, and `/scr:sync` should call it first when local command execution is available, then fall back to their embedded markdown logic when the host cannot run Node.
+
+The public CLI entrypoint is:
+
+```bash
+scriveno status --project .
+scriveno status . --json
+```
+
+The JSON form is intended for CI, host adapters, and future runtime smoke tests.
 
 ## What Scriveno Proves Today
 

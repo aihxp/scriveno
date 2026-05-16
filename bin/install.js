@@ -6,6 +6,7 @@ const os = require('os');
 const readline = require('readline');
 const crypto = require('crypto');
 const architecturalProfiles = require('../lib/architectural-profiles.js');
+const autoInvokeEngine = require('../lib/auto-invoke-engine.js');
 
 const PKG_ROOT = path.join(__dirname, '..');
 const PKG = require('../package.json');
@@ -820,6 +821,8 @@ function printHelp() {
   console.log(BANNER);
   console.log(`Usage:
   scriveno
+  scriveno status --project .
+  scriveno status . --json
   scriveno --runtimes codex,claude-code --global --writer --silent
 
 Options:
@@ -834,6 +837,12 @@ Options:
   --help              Show this help text
   --version           Show the Scriveno package version
 
+Status options:
+  status              Inspect a project and recommend the next command
+  --project <path>    Project root to inspect (default: current directory)
+  --trigger <name>    Status trigger label (default: scriveno status)
+  --json              Print machine-readable status JSON
+
 Runtime keys:
   ${Object.keys(RUNTIMES).join(', ')}
 `);
@@ -841,6 +850,7 @@ Runtime keys:
 
 function parseArgs(argv) {
   const options = {
+    command: 'install',
     runtimeKeys: [],
     installDetected: false,
     isGlobal: null,
@@ -848,7 +858,43 @@ function parseArgs(argv) {
     silent: false,
     showHelp: false,
     showVersion: false,
+    statusProjectRoot: process.cwd(),
+    statusTrigger: 'scriveno status',
+    statusJson: false,
   };
+
+  if (argv[0] === 'status') {
+    options.command = 'status';
+    for (let i = 1; i < argv.length; i++) {
+      const arg = argv[i];
+      if (arg === '--help' || arg === '-h') {
+        options.showHelp = true;
+      } else if (arg === '--version' || arg === '-v') {
+        options.showVersion = true;
+      } else if (arg === '--json') {
+        options.statusJson = true;
+      } else if (arg === '--project') {
+        const value = argv[i + 1];
+        if (!value) throw new Error('--project requires a value for status');
+        options.statusProjectRoot = value;
+        i++;
+      } else if (arg.startsWith('--project=')) {
+        options.statusProjectRoot = arg.slice('--project='.length);
+      } else if (arg === '--trigger') {
+        const value = argv[i + 1];
+        if (!value) throw new Error('--trigger requires a value');
+        options.statusTrigger = value;
+        i++;
+      } else if (arg.startsWith('--trigger=')) {
+        options.statusTrigger = arg.slice('--trigger='.length);
+      } else if (arg.startsWith('-')) {
+        throw new Error(`Unknown status argument "${arg}"`);
+      } else {
+        options.statusProjectRoot = arg;
+      }
+    }
+    return options;
+  }
 
   function addRuntimeList(value) {
     for (const key of String(value).split(',').map((item) => item.trim()).filter(Boolean)) {
@@ -899,6 +945,16 @@ function parseArgs(argv) {
   }
 
   return options;
+}
+
+function runStatus({ projectRoot, trigger, json }) {
+  const analysis = autoInvokeEngine.analyzeProject(projectRoot);
+  if (json) {
+    console.log(JSON.stringify(analysis, null, 2));
+  } else {
+    console.log(autoInvokeEngine.formatReport(analysis, { trigger }));
+  }
+  return analysis;
 }
 
 function resolveInstallRequest(parsed, detectedRuntimeKeys, { isTTY }) {
@@ -1324,6 +1380,15 @@ async function main() {
     return;
   }
 
+  if (parsed.command === 'status') {
+    runStatus({
+      projectRoot: parsed.statusProjectRoot,
+      trigger: parsed.statusTrigger,
+      json: parsed.statusJson,
+    });
+    return;
+  }
+
   const detectedRuntimeKeys = Object.entries(RUNTIMES).filter(([, runtime]) => runtime.detect()).map(([key]) => key);
   const installRequest = resolveInstallRequest(parsed, detectedRuntimeKeys, { isTTY: Boolean(process.stdin.isTTY) });
 
@@ -1545,11 +1610,13 @@ function installGuidedRuntime(runtime, isGlobal, dataDir, log) {
 function writeSharedAssets(dataDir, runtimeKeys, isGlobal, developerMode, installMode, log) {
   fs.mkdirSync(path.join(dataDir, 'templates'), { recursive: true });
   fs.mkdirSync(path.join(dataDir, 'data'), { recursive: true });
+  fs.mkdirSync(path.join(dataDir, 'lib'), { recursive: true });
   const templateResult = copyDirWithPreservation(path.join(PKG_ROOT, 'templates'), path.join(dataDir, 'templates'));
   const dataResult = copyDirWithPreservation(path.join(PKG_ROOT, 'data'), path.join(dataDir, 'data'));
+  const libResult = copyDirWithPreservation(path.join(PKG_ROOT, 'lib'), path.join(dataDir, 'lib'));
   const sum = (r) => r.fresh + r.replaced + r.backedUp;
-  log(`  ${c('green', 'OK')} ${sum(templateResult)} templates + ${sum(dataResult)} data files -> ${c('dim', dataDir)}`);
-  const totalBackedUp = templateResult.backedUp + dataResult.backedUp;
+  log(`  ${c('green', 'OK')} ${sum(templateResult)} templates + ${sum(dataResult)} data files + ${sum(libResult)} lib files -> ${c('dim', dataDir)}`);
+  const totalBackedUp = templateResult.backedUp + dataResult.backedUp + libResult.backedUp;
   if (totalBackedUp > 0) {
     log(`  ${c('yellow', 'i')} Preserved ${totalBackedUp} user-modified file(s) as .backup.<timestamp>`);
   }
@@ -1706,6 +1773,7 @@ module.exports = {
   RUNTIMES,
   parseArgs,
   resolveInstallRequest,
+  runStatus,
   collectCommandEntries,
   collectAgentEntries,
   assertNoSkillNameCollisions,
@@ -1754,4 +1822,10 @@ module.exports = {
   // Per-work-type pitfall packs
   listPitfallPacks: architecturalProfiles.listPitfallPacks,
   getPitfallPackPath: architecturalProfiles.getPitfallPackPath,
+  // Shared proactive status engine
+  autoInvokeEngine,
+  analyzeProject: autoInvokeEngine.analyzeProject,
+  formatAutoInvokeReport: autoInvokeEngine.formatReport,
+  getRuntimeAgentSupport: autoInvokeEngine.getRuntimeAgentSupport,
+  listRuntimeAgentSupport: autoInvokeEngine.listRuntimeAgentSupport,
 };

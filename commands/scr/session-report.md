@@ -9,6 +9,17 @@ You are summarizing the writer's current session. Your job is to compute actiona
 
 Follow the auto-invoke policy. In the source repository it is documented at `docs/auto-invoke-policy.md`. `/scr:session-report` is read-only and does not spawn agents.
 
+Use the shared executable engine for the read-only status portion before computing session-specific metrics. Try the first available path:
+
+```bash
+scriveno status --project "$PWD" --trigger /scr:session-report
+node lib/auto-invoke-engine.js --project "$PWD" --trigger /scr:session-report
+node "$HOME/.scriveno/lib/auto-invoke-engine.js" --project "$PWD" --trigger /scr:session-report
+node .scriveno/lib/auto-invoke-engine.js --project "$PWD" --trigger /scr:session-report
+```
+
+This engine is installed into Scriveno shared assets for every runtime, including Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic skill fallback. If the engine is not present, continue with the read-only report logic below.
+
 ## What to do
 
 1. **Read STATE.md "Last actions" table** to get the full history of actions.

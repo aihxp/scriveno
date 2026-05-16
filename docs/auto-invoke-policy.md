@@ -2,6 +2,8 @@
 
 Scriveno can be proactive, but it must be proactive from disk evidence. Commands should inspect `.manuscript/`, reports, timestamps, config, and installed runtime surfaces before choosing an automatic helper.
 
+The executable policy lives in `lib/auto-invoke-engine.js` and is exposed through `scriveno status --project .`. The installer copies it to `.scriveno/lib/auto-invoke-engine.js` for project installs and `~/.scriveno/lib/auto-invoke-engine.js` for global installs, so every runtime can use the same read-only status logic.
+
 ## Cross-Platform Agent Rules
 
 Scriveno agent prompts live in `agents/*.md`. Each host runtime exposes them differently:
@@ -10,6 +12,7 @@ Scriveno agent prompts live in `agents/*.md`. Each host runtime exposes them dif
 - Codex installs `$scr-*` skills, mirrored command files, agent prompts, and `.toml` metadata so Codex can expose agent types.
 - Cursor, Gemini CLI, OpenCode, Copilot, Windsurf, and Antigravity install nested command directories and agent prompts in their runtime-specific agent directories.
 - Manus and the generic skill runtime bundle `SKILL.md`, commands, and agents inside the skill directory.
+- All runtimes share the same installed auto-invoke engine under the Scriveno shared asset directory.
 
 When a host supports native fresh-context spawning, use the native agent or subagent mechanism. When it does not, load the installed agent prompt from the active runtime and run it in an isolated fresh context. When the action is only a file operation, report `Agent: none`.
 

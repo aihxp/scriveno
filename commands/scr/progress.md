@@ -9,6 +9,17 @@ You are showing the writer their current project progress.
 
 Follow the auto-invoke policy. In the source repository it is documented at `docs/auto-invoke-policy.md`. `/scr:progress` is read-only: it can count, compare, and recommend, but it must not spawn agents or write files.
 
+Use the shared executable engine before falling back to manual counts. Try the first available path:
+
+```bash
+scriveno status --project "$PWD" --trigger /scr:progress
+node lib/auto-invoke-engine.js --project "$PWD" --trigger /scr:progress
+node "$HOME/.scriveno/lib/auto-invoke-engine.js" --project "$PWD" --trigger /scr:progress
+node .scriveno/lib/auto-invoke-engine.js --project "$PWD" --trigger /scr:progress
+```
+
+This engine is installed into Scriveno shared assets for every runtime, including Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic skill fallback. If the engine is not present, perform the read-only progress logic below.
+
 ## Prerequisites
 
 - `.manuscript/STATE.md` must exist

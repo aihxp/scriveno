@@ -71,6 +71,7 @@ describe('npm pack dry-run', () => {
   it('includes all critical directories', () => {
     const expectedEntries = [
       'bin/install.js',
+      'lib/auto-invoke-engine.js',
       'data/CONSTRAINTS.json',
       'commands/scr/demo.md',
       'templates/STYLE-GUIDE.md',

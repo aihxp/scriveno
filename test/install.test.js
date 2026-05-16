@@ -1046,4 +1046,32 @@ describe('M-04: writeSharedAssets migrate+validate existing settings', () => {
       fs.rmSync(tmpDir, { recursive: true, force: true });
     }
   });
+
+  it('copies the shared auto-invoke engine for every runtime surface', () => {
+    const tmpDir = mkTmp('auto-engine');
+    const origCwd = process.cwd();
+    try {
+      process.chdir(tmpDir);
+      const dataDir = path.join(tmpDir, '.scriveno');
+
+      install.writeSharedAssets(
+        dataDir,
+        ['claude-code', 'codex', 'cursor', 'gemini-cli', 'opencode', 'copilot', 'windsurf', 'antigravity', 'manus', 'perplexity-desktop', 'generic'],
+        false,
+        true,
+        'interactive',
+        () => {}
+      );
+
+      const enginePath = path.join(dataDir, 'lib', 'auto-invoke-engine.js');
+      assert.ok(fs.existsSync(enginePath), 'shared auto-invoke engine should be copied to .scriveno/lib');
+      const engine = require(enginePath);
+      assert.equal(typeof engine.analyzeProject, 'function');
+      assert.equal(engine.getRuntimeAgentSupport('codex').metadata, 'toml');
+      assert.equal(engine.getRuntimeAgentSupport('claude-code').surface, 'flat commands plus agent prompts');
+    } finally {
+      process.chdir(origCwd);
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    }
+  });
 });

@@ -11,6 +11,17 @@ This command is for local runtime drift: Codex skills, Codex command mirrors, Cl
 
 This is not a package upgrade command. Do not fetch a newer Scriveno release, do not change npm dependencies, and do not modify manuscript content. If the writer wants a newer published package version, that belongs to a future `/scr:update` command.
 
+The auto-invoke status engine is a shared runtime asset. It is copied for every install target and can be checked with one of these paths:
+
+```bash
+scriveno status --project "$PWD" --trigger /scr:sync
+node lib/auto-invoke-engine.js --project "$PWD" --trigger /scr:sync
+node "$HOME/.scriveno/lib/auto-invoke-engine.js" --project "$PWD" --trigger /scr:sync
+node .scriveno/lib/auto-invoke-engine.js --project "$PWD" --trigger /scr:sync
+```
+
+Use it for read-only project status and next-command reasoning. Use `bin/install.js` for runtime file synchronization.
+
 ## Prerequisites
 
 - Node.js >=20.0.0

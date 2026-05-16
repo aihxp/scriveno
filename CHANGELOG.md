@@ -2,6 +2,32 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 2.0.8 - 2026-05-16
+
+Patch release focused on turning proactive status from command guidance into a package-level, cross-runtime CLI surface.
+
+**Status CLI and shared engine**
+
+- Added `scriveno status --project .` and `scriveno status . --json` as first-class CLI entrypoints.
+- Added `lib/auto-invoke-engine.js`, a shared read-only status engine that inspects `.manuscript/`, project state, context freshness, unresolved review files, translation work, exports, history, and save signals before recommending the next command.
+- The installer now copies `lib/` into `.scriveno/lib` or `~/.scriveno/lib` so installed runtimes can use the same status engine without depending on source-checkout paths.
+
+**Runtime command integration**
+
+- `/scr:next`, `/scr:progress`, `/scr:session-report`, and `/scr:sync` now try the public `scriveno status --project "$PWD"` CLI before falling back to source, global, or project engine paths.
+- Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic skill fallback now share the same status contract.
+- Codex keeps `.toml` agent metadata; non-Codex runtimes keep their own command, skill, guide, and prompt-agent surfaces.
+
+**Documentation and packaging**
+
+- Added a README status CLI badge, quick-start status command, and proactive status section.
+- Updated Runtime Support, Auto-Invoke Policy, Getting Started, Architecture, Configuration, release notes, README status, and package metadata.
+- Added regression tests for the public CLI, JSON output, shared install assets, README badge, status docs, package inclusion, and argument parsing.
+
+**Release alignment**
+
+- Bumped package, lockfile, constraints, generated config, README badge/status, changelog, release notes, and documentation references to `2.0.8`.
+
 ## 2.0.7 - 2026-05-16
 
 Patch release focused on making Scriveno's agent and automation behavior visible across installed runtimes.

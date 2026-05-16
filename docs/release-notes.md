@@ -2,6 +2,41 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.0.8 - 2026-05-16
+
+### What changed
+
+- Scriveno now exposes proactive project status through `scriveno status --project .` and `scriveno status . --json`.
+- A shared read-only engine at `lib/auto-invoke-engine.js` computes status from disk evidence and recommends the safest next command.
+- The installer copies the engine into Scriveno shared assets for global and project installs, so Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic fallback can share the same status contract.
+- `/scr:next`, `/scr:progress`, `/scr:session-report`, and `/scr:sync` now try the public status CLI first, then fall back to source, global, or project engine paths.
+- The README now includes a status CLI badge, quick-start status command, proactive status section, and a direct Auto-Invoke Policy link.
+- Package and shipped metadata are aligned on `2.0.8`.
+
+### Why it matters
+
+The previous release made automation visible. This release makes the safest read-only part executable as a real package surface. Users and host runtimes can now ask Scriveno what the project needs next without relying on a hidden background process or a Codex-only path.
+
+The engine still does not mutate files or spawn agents by itself. It gives a consistent, inspectable status answer; command workflows decide what to run next.
+
+### Affected areas
+
+- public CLI
+- shared auto-invoke engine
+- installer shared assets
+- `/scr:next`, `/scr:progress`, `/scr:session-report`, and `/scr:sync`
+- README badges and launch copy
+- runtime support and auto-invoke documentation
+- release metadata and package contents
+- regression tests for CLI output, JSON output, install assets, and package inclusion
+
+### Verification
+
+- `node --test`
+- `npm run release:check`
+- `npm pack --dry-run --json`
+- `git diff --check`
+
 ## 2.0.7 - 2026-05-16
 
 ### What changed

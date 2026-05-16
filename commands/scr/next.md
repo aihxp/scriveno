@@ -8,6 +8,17 @@ You are routing the writer to the right next step in their workflow. This comman
 
 Follow the auto-invoke policy. In the source repository it is documented at `docs/auto-invoke-policy.md`. `/scr:next` is Level 1 only by default: it may inspect disk state and suggest the safest next command, but it does not spawn agents or mutate files unless autopilot mode explicitly routes into another command.
 
+Use the shared executable engine before falling back to manual inspection. Try the first available path:
+
+```bash
+scriveno status --project "$PWD" --trigger /scr:next
+node lib/auto-invoke-engine.js --project "$PWD" --trigger /scr:next
+node "$HOME/.scriveno/lib/auto-invoke-engine.js" --project "$PWD" --trigger /scr:next
+node .scriveno/lib/auto-invoke-engine.js --project "$PWD" --trigger /scr:next
+```
+
+This engine is installed into Scriveno shared assets for every runtime, including Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic skill fallback. If the engine is not present, perform the read-only sweep below.
+
 ## What to do
 
 1. **Check for `.manuscript/` directory.** If none, the writer has no project. Run `/scr:new-work` to start one (or tell them to).

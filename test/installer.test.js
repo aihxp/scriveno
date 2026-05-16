@@ -392,6 +392,35 @@ describe('parseArgs', () => {
   it('rejects unknown runtimes', () => {
     assert.throws(() => parseArgs(['--runtime', 'unknown-runtime']), /Unknown runtime/);
   });
+
+  it('parses status command options', () => {
+    const parsed = parseArgs([
+      'status',
+      '--project',
+      '/tmp/scriveno-work',
+      '--trigger',
+      '/scr:next',
+      '--json',
+    ]);
+
+    assert.equal(parsed.command, 'status');
+    assert.equal(parsed.statusProjectRoot, '/tmp/scriveno-work');
+    assert.equal(parsed.statusTrigger, '/scr:next');
+    assert.equal(parsed.statusJson, true);
+  });
+
+  it('parses a bare status project path', () => {
+    const parsed = parseArgs(['status', '/tmp/scriveno-work']);
+
+    assert.equal(parsed.command, 'status');
+    assert.equal(parsed.statusProjectRoot, '/tmp/scriveno-work');
+    assert.equal(parsed.statusTrigger, 'scriveno status');
+    assert.equal(parsed.statusJson, false);
+  });
+
+  it('rejects install-only flags on status command', () => {
+    assert.throws(() => parseArgs(['status', '--runtime', 'codex']), /Unknown status argument/);
+  });
 });
 
 describe('resolveInstallRequest', () => {

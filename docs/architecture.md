@@ -349,6 +349,12 @@ Codex uses a skill-native variation of this strategy. The installer generates on
 
 **Guided local-MCP (type: `guided-mcp`).** Writes setup assets and connector recipes for runtimes that expose a documented local-MCP surface instead of a writable slash-command directory. Perplexity Desktop currently fits this model: Scriveno writes a setup guide and filesystem-server command recipe under `.scriveno/perplexity/`, and the user adds that command inside Perplexity Desktop's Connectors UI.
 
+### Shared status engine
+
+Scriveno also ships `lib/auto-invoke-engine.js`, exposed through `scriveno status --project .` and `scriveno status . --json`. The installer copies this library into the shared Scriveno asset directory for global and project installs, so command surfaces can call a single read-only status engine before falling back to embedded markdown logic.
+
+The engine checks disk evidence only: project presence, STATE.md, CONTEXT.md freshness, review files, translation work, exports, history, and save signals. It recommends the next command, but it does not mutate files and does not spawn agents by itself. That boundary keeps proactive behavior portable across Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic fallback.
+
 ### Installation modes
 
 The installer supports two scopes:
@@ -360,7 +366,7 @@ The user chooses during installation. Guided local-MCP targets still write their
 
 ### Runtime credibility
 
-Scriveno's installer compatibility floor is `Node.js >=20.0.0`. For new installs, prefer a currently supported LTS such as Node.js 24. The compatibility floor applies to `npx scriveno@latest`, `bin/install.js`, and the repo's JavaScript test suite, not to the markdown command system once files are installed.
+Scriveno's installer compatibility floor is `Node.js >=20.0.0`. For new installs, prefer a currently supported LTS such as Node.js 24. The compatibility floor applies to `npx scriveno@latest`, `bin/install.js`, `scriveno status --project .`, the shared status engine, and the repo's JavaScript test suite, not to the markdown command system once files are installed.
 
 This architecture doc is intentionally about mechanics: detection rules, install path shapes, `commands` versus `skills` versus `guided-mcp`, and global versus project scope. For the authoritative runtime matrix, support levels, and verification status, see [`docs/runtime-support.md`](runtime-support.md).
 
