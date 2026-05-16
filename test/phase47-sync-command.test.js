@@ -46,6 +46,19 @@ describe('Phase 47: runtime sync command', () => {
     assert.match(command, /~\/\.codex\/commands\/scr\/sync\.md/);
     assert.match(command, /~\/\.codex\/skills\/scr-sync\/SKILL\.md/);
     assert.match(command, /generated Codex `SKILL\.md` wrappers/);
+    assert.match(command, /Codex agent metadata/);
+  });
+
+  it('verifies non-Codex runtime command, skill, guide, and agent surfaces', () => {
+    const command = read('commands/scr/sync.md');
+
+    assert.match(command, /Claude Code flat commands/);
+    assert.match(command, /standard command-directory runtimes/);
+    assert.match(command, /skills runtimes/);
+    assert.match(command, /guided setup assets/);
+    assert.match(command, /agent prompts are present/);
+    assert.match(command, /Perplexity Desktop/);
+    assert.match(command, /Generic skills fallback/);
   });
 
   it('documents dry-run and apply modes with runtime targeting', () => {
@@ -56,5 +69,15 @@ describe('Phase 47: runtime sync command', () => {
     assert.match(command, /\/scr:sync --apply --detected --global --writer/);
     assert.match(command, /`--check`: report only/);
     assert.match(command, /`--apply`: run the installer/);
+  });
+
+  it('requires a visible sync status trail instead of implying a background agent', () => {
+    const command = read('commands/scr/sync.md');
+
+    assert.match(command, /Sync status:/);
+    assert.match(command, /Agent: none/);
+    assert.match(command, /runtime sync is installer-driven/);
+    assert.match(command, /Engine: bin\/install\.js/);
+    assert.match(command, /Updated: none/);
   });
 });

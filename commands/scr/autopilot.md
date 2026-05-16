@@ -147,6 +147,35 @@ On pause or stop:
 2. Include what was just completed and what the next action would be
 3. Record the writer's notes if they provide any
 
+## Automation Status
+
+Every progress update and final response must include a compact status trail. This is how the writer can tell whether Scriveno auto-chained commands, spawned agents, or only updated local files.
+
+```text
+Automation status:
+Trigger: /scr:autopilot --profile {profile}
+Profile: guided/supervised/full-auto
+Auto-invoked commands:
+- /scr:discuss N: yes/no
+- /scr:plan N: yes/no
+- /scr:draft N: yes/no
+- /scr:editor-review N: yes/no
+- /scr:submit N: yes/no
+Spawned agents:
+- plan-checker: {count}
+- drafter: {count}
+- voice-checker: {count}
+- continuity-checker: {count}
+Local operations:
+- STATE.md updated: yes/no
+- HISTORY.log updated: yes/no
+Pause:
+- status: none/guided/supervised/quality-gate/blocker
+- reason: {one sentence}
+```
+
+If a command in the chain runs local file operations only, say so under `Local operations` rather than listing it as a spawned agent. If a native agent type is unavailable and an installed prompt-run fallback is used, include that in `Spawned agents`.
+
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.

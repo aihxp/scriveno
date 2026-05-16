@@ -53,6 +53,27 @@ Require `.manuscript/plans/{N}-*-PLAN.md` files to exist. If none exist, also ch
 
 8. **Tell the writer:** "Drafted {unit} {N}: X words across Y {atomic_units}. Voice consistency: Z%. Updated RECORD.md with what the draft established. Ready for editor review? Run `/scr:editor-review N` or `/scr:next`."
 
+## Agent and Automation Status
+
+Every response must include a short status block that makes invocation visible:
+
+```text
+Agent status:
+Trigger: /scr:draft N
+Spawned agents:
+- drafter: {count} fresh-context invocation(s)
+- voice-checker: 1 diagnostic pass, or none if no draft was produced
+Local operations:
+- draft files written: {count}
+- RECORD.md updated: yes/no
+- STATE.md updated: yes/no
+Auto-invoked:
+- /scr:editor-review N: yes/no
+Why: {autopilot.enabled true, full-auto profile, supervised pause, or writer-facing manual mode}
+```
+
+If the host runtime cannot spawn a native `drafter` or `voice-checker` agent type, load the installed agent prompt from the active runtime's `agents/` directory and run it in an isolated fresh context. In the status block, write `Spawned agents: native unavailable; prompt-run fallback used` so the writer can see what happened.
+
 ## History log
 
 After all atomic units in this invocation are drafted, append one line to `.manuscript/HISTORY.log` per `docs/history-protocol.md`:

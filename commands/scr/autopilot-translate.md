@@ -213,6 +213,35 @@ Next Steps:
 - **NEVER** continue past a blocking error without logging it -- all errors must appear in the completion summary
 - **NEVER** modify the source manuscript -- translation works on copies in `.manuscript/translation/{lang}/`
 
+## Automation Status
+
+Every progress update and final response must include a compact status trail. This is how the writer can tell whether Scriveno auto-chained commands, spawned agents, or only updated local files.
+
+```text
+Automation status:
+Trigger: /scr:autopilot-translate {languages}
+Languages: {count}
+Auto-invoked commands per language:
+- /scr:translation-glossary: yes/no
+- /scr:translate: yes/no
+- /scr:translation-memory --build: yes/no
+- /scr:cultural-adaptation: yes/no
+- /scr:back-translate: yes/no
+- /scr:multi-publish: yes/no
+Spawned agents:
+- translator: {count} fresh-context invocation(s)
+Local operations:
+- glossary files written: {count}
+- translation memory files updated: {count}
+- adaptation reports written: {count}
+- export files written: {count}
+Pause:
+- status: none/blocking-error/writer-requested
+- reason: {one sentence}
+```
+
+If the translator native agent type is unavailable, use the installed `agents/translator.md` prompt in a fresh context per unit and say `prompt-run fallback used` in the status block.
+
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.

@@ -162,13 +162,15 @@ describe('runtime support regression checks', () => {
             ? 'Skills installer target'
             : 'Standard installer target';
       const repoEvidence = runtimeKey === 'generic'
-        ? 'Installer registry, registry-tested'
+        ? 'Installer registry, registry-tested, install-surface tested'
         : installType === 'guided-mcp'
           ? 'Installer registry, registry-tested, guided setup assets, repo-documented'
-        : 'Installer registry, registry-tested, repo-documented';
+        : 'Installer registry, registry-tested, install-surface tested, repo-documented';
       const verificationStatus = runtimeKey === 'generic'
-        ? 'Registry-tested; no host-runtime parity verification yet'
-        : 'Registry-tested; repo-documented; no host-runtime parity verification yet';
+        ? 'Registry-tested; install-surface tested; no host-runtime parity verification yet'
+        : installType === 'guided-mcp'
+          ? 'Registry-tested; repo-documented; no host-runtime parity verification yet'
+        : 'Registry-tested; install-surface tested; repo-documented; no host-runtime parity verification yet';
       const globalPath = toDocPathShape(
         installType === 'skills'
           ? runtime.skills_dir_global

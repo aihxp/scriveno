@@ -6,6 +6,8 @@ description: Auto-detect what to do next in your workflow and run it. The one co
 
 You are routing the writer to the right next step in their workflow. This command is the universal interface -- a writer who only ever types `/scr:next` should be able to complete an entire novel.
 
+Follow the auto-invoke policy. In the source repository it is documented at `docs/auto-invoke-policy.md`. `/scr:next` is Level 1 only by default: it may inspect disk state and suggest the safest next command, but it does not spawn agents or mutate files unless autopilot mode explicitly routes into another command.
+
 ## What to do
 
 1. **Check for `.manuscript/` directory.** If none, the writer has no project. Run `/scr:new-work` to start one (or tell them to).
@@ -31,6 +33,25 @@ You are routing the writer to the right next step in their workflow. This comman
    - "You just finished drafting Chapter 3 -- running editor review now."
    - "Chapter 4 has a plan but no draft yet -- drafting it."
    - "You haven't discussed the next chapter -- shaping Chapter 5."
+
+8. **Run the proactive sweep before choosing the final route.** This is read-only unless autopilot mode has already taken over:
+   - Check whether `CONTEXT.md` is missing, stale, or older than STATE.md or the newest draft.
+   - Check whether `HISTORY.log` is missing or the last command failed.
+   - Check whether voice, continuity, editor-review, beta-reader, or translation reports contain unresolved items.
+   - Check whether translation folders, target language config, editor notes, track proposals, stale exports, or unsaved manuscript changes imply a better next command than the linear lifecycle.
+   - Check whether STATE.md and disk disagree enough that `/scr:scan` should be recommended first.
+
+Display a compact proactive block when any signal changes the recommendation:
+
+```text
+Proactive checks:
+  State: <fresh | stale, suggest /scr:scan>
+  Session: <fresh | context stale, suggest /scr:resume-work>
+  Reviews: <none | N pending, suggest review command>
+  Translation: <none | follow-up available>
+  Export: <fresh | stale, suggest /scr:export>
+  Save: <clean | unsaved manuscript changes, suggest /scr:save>
+```
 
 ## Routing logic
 
@@ -92,6 +113,25 @@ Use progressive surfacing rules:
 - **Blocking craft question** -- If a context or plan file contains `QUESTION: Blocking`, route to `/scr:discuss N` before drafting.
 - **Non-blocking craft question or watchpoint** -- If only `QUESTION: Non-blocking`, `HUNCH`, or `WATCHPOINT` items remain, allow the next draft or review step and mention the watchpoint in one sentence.
 - **Autopilot mode** -- If config has `autopilot.enabled: true`, run multiple steps in sequence without asking, pausing only per the profile's rules (guided, supervised, full-auto).
+
+## Agent and Automation Status
+
+Every `/scr:next` response must include a short status block when it inspected proactive signals or handed off to another command:
+
+```text
+Automation status:
+Trigger: /scr:next
+Spawned agents:
+- none
+Local operations:
+- proactive sweep: read-only
+- state route computed: yes/no
+Auto-invoked:
+- <recommended command>: yes/no
+Why: /scr:next routes from disk state; it only runs follow-up commands under autopilot or explicit writer intent
+```
+
+If autopilot causes `/scr:next` to run another command, the follow-up command must provide its own agent or automation status block.
 
 ## Adaptive naming
 

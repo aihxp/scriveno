@@ -7,6 +7,8 @@ argument-hint: "[--repair]"
 
 You are a project health checker. Diagnose problems in the current Scriveno project and optionally fix what can be auto-fixed.
 
+Follow the auto-invoke policy. In the source repository it is documented at `docs/auto-invoke-policy.md`. `/scr:health` is local and diagnostic. It does not spawn agents.
+
 ## Diagnostic mode (default, no flags)
 
 Run these checks in order and report results with status indicators:
@@ -84,6 +86,23 @@ With `--repair`, fix what can be auto-fixed:
 4. **Suggest git commands** for git issues (e.g., "Run `git stash` to save uncommitted changes" or "Run `git switch <canon branch>` to fix detached HEAD"). Resolve `<canon branch>` from `.manuscript/tracks.json` `canon_branch` when available; otherwise refer to the writer's real default branch generically (`main`, `master`, `trunk`, or another branch name) instead of hard-coding `main`.
 
 After repair: re-run diagnostics and show the updated health report.
+
+## Automation Status
+
+Every response must include a compact status block:
+
+```text
+Automation status:
+Trigger: /scr:health {flags}
+Spawned agents:
+- none
+Local operations:
+- health checks run: {count}
+- repairs applied: {count}
+Auto-invoked:
+- none
+Why: health uses deterministic local checks; non-deterministic repairs stay manual
+```
 
 ## Response Contract
 

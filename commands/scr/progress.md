@@ -7,6 +7,8 @@ argument-hint: ""
 
 You are showing the writer their current project progress.
 
+Follow the auto-invoke policy. In the source repository it is documented at `docs/auto-invoke-policy.md`. `/scr:progress` is read-only: it can count, compare, and recommend, but it must not spawn agents or write files.
+
 ## Prerequisites
 
 - `.manuscript/STATE.md` must exist
@@ -22,6 +24,29 @@ You are showing the writer their current project progress.
    - "{word_count} words so far."
    - "{open_threads} open record threads." (only when RECORD.md exists)
    - "Next: {next_action}"
+6. Run the Level 1 proactive sweep:
+   - If STATE.md counts disagree with draft files, suggest `/scr:scan`.
+   - If reports show unresolved review items, suggest the matching review command.
+   - If exports are stale, suggest `/scr:export` or `/scr:publish`.
+   - If translation work exists and follow-up reports are missing, suggest the next translation check.
+   - If unsaved manuscript changes exist, suggest `/scr:save`.
+
+## Automation Status
+
+Every response must include a compact status block:
+
+```text
+Automation status:
+Trigger: /scr:progress
+Spawned agents:
+- none
+Local operations:
+- progress counts computed: yes/no
+- proactive sweep: read-only
+Auto-invoked:
+- none
+Why: progress is read-only; it recommends next commands without mutating files
+```
 
 ## Response Contract
 

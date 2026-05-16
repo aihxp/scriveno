@@ -2,6 +2,39 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.0.7 - 2026-05-16
+
+### What changed
+
+- Codex installs now generate agent metadata beside Scriveno agent prompts so native agent spawning can work when the host exposes those roles.
+- Non-Codex runtimes keep their own install surfaces: Claude Code flat commands and agents, command-directory runtimes, skill-file runtimes, Manus, guided Perplexity Desktop setup, and the generic fallback.
+- Scriveno now has a shared auto-invoke policy for read-only suggestions, deterministic local helpers, scoped agent spawns, and manual-only writer actions.
+- `/scr:next` and `/scr:progress` now do read-only proactive checks and explain what they found.
+- `/scr:save`, `/scr:scan`, `/scr:health`, `/scr:session-report`, `/scr:sync`, and multi-agent workflows now show visible status blocks that say what spawned, what ran locally, and why.
+- Package and shipped metadata are aligned on `2.0.7`.
+
+### Why it matters
+
+Writers and developers should not have to guess whether Scriveno used a native agent, a prompt fallback, or a local file operation. This release makes those paths visible and keeps runtime behavior honest across Codex, Claude Code, and the other supported install targets.
+
+The practical effect is calmer automation: Scriveno can be more proactive about the next safe move, while still keeping writer-owned actions like publishing, destructive edits, merges, and submissions behind explicit approval.
+
+### Affected areas
+
+- Codex agent metadata generation
+- Claude Code and other runtime install verification
+- proactive command guidance
+- local helper visibility
+- `/scr:sync` status reporting
+- README, changelog, release notes, and version metadata
+- regression tests for agent spawning, prompt fallback, and runtime install surfaces
+
+### Verification
+
+- `node --test`
+- `npm run release:check`
+- `git diff --check`
+
 ## 2.0.6 - 2026-05-15
 
 ### What changed

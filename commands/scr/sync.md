@@ -7,7 +7,7 @@ argument-hint: "[--check] [--apply] [--runtime <key>] [--detected] [--global|--p
 
 You are synchronizing Scriveno's installed agent surfaces with the current Scriveno source tree.
 
-This command is for local runtime drift: Codex skills, Codex command mirrors, Claude command files, Cursor command files, and agent prompts that no longer match the source files in the Scriveno package or repo.
+This command is for local runtime drift: Codex skills, Codex command mirrors, Claude Code command files, command-directory runtimes, skills runtimes, guided setup assets, and agent prompts that no longer match the source files in the Scriveno package or repo.
 
 This is not a package upgrade command. Do not fetch a newer Scriveno release, do not change npm dependencies, and do not modify manuscript content. If the writer wants a newer published package version, that belongs to a future `/scr:update` command.
 
@@ -47,9 +47,15 @@ If you cannot find a Scriveno source root, stop and explain that `/scr:sync` nee
      - GitHub Copilot: `~/.github/commands/scr/`, `~/.github/agents/`
      - Windsurf: `~/.windsurf/commands/scr/`, `~/.windsurf/agents/`
      - Antigravity: `~/.gemini/antigravity/commands/scr/`, `~/.gemini/antigravity/agents/`
+     - Manus Desktop: `~/.manus/skills/scriveno/SKILL.md` plus mirrored `commands/scr/` and `agents/` inside that skill bundle
+     - Perplexity Desktop: `~/.scriveno/perplexity/SETUP.md` and `connector-command.txt`
+     - Generic skills fallback: `~/.scriveno/skills/SKILL.md` plus mirrored `commands/scr/` and `agents/`
 4. Compare source files against installed files:
    - Compare command counts.
    - Compare a representative hash set for `commands/scr/autopilot.md`, `commands/scr/next.md`, `commands/scr/scan.md`, `commands/scr/sync.md`, and all generated Codex `SKILL.md` wrappers when present.
+   - Check that Claude Code flat commands include `/scr-*` invocation rewrites and source-marker behavior after reinstall.
+   - Check that standard command-directory runtimes preserve nested command paths under their `commands/scr/` directory.
+   - Check that skills runtimes include `SKILL.md`, mirrored commands, and mirrored agent prompts inside their skill bundle.
    - Check that installed Codex commands include current response-contract and source-marker behavior after reinstall.
    - Report each runtime as `current`, `stale`, `missing`, or `unknown`.
 5. Decide mode:
@@ -70,14 +76,56 @@ Adjust flags from the command arguments:
 7. After applying, verify:
    - Re-read installed command counts.
    - Confirm `sync.md` is installed for each target runtime.
+   - For Claude Code, confirm `scr-sync.md` exists and installed agent prompts are present in the chosen `agents/` directory.
+   - For standard command-directory runtimes, confirm `commands/scr/sync.md` and installed agent prompts are present.
+   - For skills runtimes, confirm `SKILL.md`, `commands/scr/sync.md`, and bundled agent prompts are present.
+   - For Perplexity Desktop, confirm the setup guide and connector recipe are present.
    - For Codex, confirm both `~/.codex/commands/scr/sync.md` and `~/.codex/skills/scr-sync/SKILL.md` exist in the chosen scope.
+   - For Codex, confirm installed Scriveno agents have matching `.toml` metadata files in the chosen `agents/` directory when the Codex runtime supports agent metadata.
    - Confirm no stale runtime files remain in the checked target set.
-8. Report:
+8. Report a compact sync status trail:
    - Source version
    - Runtime targets checked
    - Runtime targets updated
    - Any skipped targets and why
+   - Trigger: `check`, `apply`, or `prompted apply`
+   - Agent: `none` for this command
+   - Engine: `bin/install.js` when applying, or `hash/count comparison` when checking only
+   - Local operations: command files compared, Claude flat commands checked, standard command directories checked, skills manifests checked, guided setup assets checked, agent prompts checked, Codex skills checked, Codex command mirrors checked, Codex agent metadata checked when applicable
+   - Result counts: commands, skills, agent prompts, metadata files, stale files removed, and skipped targets
    - Suggested project-level follow-up with `/scr:scan`
+
+Use this report shape:
+
+```text
+Sync status:
+Trigger: /scr:sync --apply --detected --global --developer
+Agent: none
+Why: runtime sync is installer-driven, not a writing or review agent task
+Engine: bin/install.js
+Checked:
+- commands: 112 source, 112 installed
+- Claude Code flat commands: 112 installed
+- standard command directories: current
+- skills manifests: current
+- guided setup assets: current
+- Codex skills: 112 installed
+- agent prompts: 6 installed
+- Codex agent metadata: 6 installed
+Updated:
+- Claude Code command files
+- standard command directories
+- skills manifests
+- guided setup assets
+- Codex command mirrors
+- Codex skills
+- Codex agent prompts
+- Codex agent metadata
+Skipped:
+- none
+```
+
+If no files were changed, keep the same shape and set `Updated: none`. If an agent was not spawned, always say `Agent: none` and explain why.
 
 ## Safety Rules
 

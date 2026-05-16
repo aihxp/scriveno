@@ -78,11 +78,33 @@ Require `{N}-CONTEXT.md` to exist (from discuss phase). If it doesn't, offer to 
 
 7. **Update STATE.md** and suggest: "Ready to draft? Run `/scr:draft N`." (Suppress the draft suggestion if any plan came back NEEDS REVISION; suggest addressing the flagged items first.)
 
+   If `.manuscript/config.json` has `autopilot.enabled: true`, all plan checks are READY, and the active profile is `full-auto`, immediately proceed to `/scr:draft N` instead of stopping at a suggestion. In `supervised`, pause here and show the plan-check summary before drafting. In `guided`, ask for approval before drafting.
+
 8. **Append one line to `.manuscript/HISTORY.log`** per `docs/history-protocol.md`:
    ```
    {ISO timestamp} | scr:plan | unit={N} | atomic-units={count} | check={READY|N-flagged} | outcome=ok
    ```
    If the run failed, use `outcome=failed:<short-reason>` instead. Create HISTORY.log if it does not exist.
+
+## Agent and Automation Status
+
+Every response must include a short status block that makes invocation visible:
+
+```text
+Agent status:
+Trigger: /scr:plan N
+Spawned agents:
+- plan-checker: {count} fresh-context invocation(s)
+Local operations:
+- plan files written: {count}
+- STATE.md updated: yes/no
+- HISTORY.log updated: yes/no
+Auto-invoked:
+- /scr:draft N: yes/no
+Why: {all plans READY plus full-auto, supervised pause, guided approval needed, or plan check blocked}
+```
+
+If the host runtime cannot spawn a native `plan-checker` agent type, load the installed `agents/plan-checker.md` prompt from the active runtime and run it in an isolated fresh context. In the status block, write `Spawned agents: native unavailable; prompt-run fallback used`.
 
 ## Response Contract
 

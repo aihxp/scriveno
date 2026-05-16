@@ -182,6 +182,34 @@ If any steps failed, show them in the "Errors" section with actionable fix instr
 
 ---
 
+## Automation Status
+
+Every progress update and final response must include a compact status trail. This is how the writer can tell whether Scriveno auto-chained commands, spawned agents, or only updated local files.
+
+```text
+Automation status:
+Trigger: /scr:autopilot-publish --preset {preset}
+Auto-invoked commands:
+- /scr:voice-check: yes/no
+- /scr:continuity-check: yes/no
+- /scr:front-matter: yes/no
+- /scr:back-matter: yes/no
+- /scr:cover-art: yes/no
+- /scr:export: {count} run(s)
+Spawned agents:
+- voice-checker: {count}
+- continuity-checker: {count}
+Local operations:
+- prerequisite scan: yes/no
+- quality report files written: yes/no
+- export package files written: {count}
+Quality gate:
+- status: warn-only
+- reason: autopilot-publish reports quality findings but continues to export
+```
+
+If a quality command cannot spawn its native agent type, use the installed agent prompt in a fresh context and say `prompt-run fallback used` in the status block.
+
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.

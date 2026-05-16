@@ -67,11 +67,33 @@ Load `.manuscript/config.json` to get `work_type`. Load Scriveno's installed/sha
   </task>
 </beta_reader_agent>
 
+If the host runtime cannot spawn a beta reader worker, run the beta reader persona in an isolated fresh context. Report that fallback in the status block.
+
 ### OUTPUT
 
 Save to `.manuscript/{act_num}-BETA-READER-NOTES.md`
 
 Present findings conversationally to the writer -- this should feel like getting feedback from a trusted reader, not a technical report.
+
+## Agent Status
+
+Every response must include a short status block that makes invocation visible:
+
+```text
+Agent status:
+Trigger: /scr:beta-reader {scope}
+Spawned agents:
+- beta-reader: 1 fresh-context reader invocation
+Local operations:
+- drafted files checked: {count}
+- focus area applied: yes/no
+- report written: yes/no
+Auto-invoked:
+- none
+Why: beta-reader is experiential feedback only; revision remains a writer decision
+```
+
+If native worker spawning is unavailable, say `prompt-run fallback used` in the status block.
 
 ## Response Contract
 

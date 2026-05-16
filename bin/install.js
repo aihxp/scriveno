@@ -155,6 +155,7 @@ const RUNTIMES = {
     agents_dir_global: path.join(os.homedir(), '.codex', 'agents'),
     agents_dir_project: '.codex/agents',
     skill_style: 'per-command',
+    agent_metadata: 'toml',
     detect: () => fs.existsSync(path.join(os.homedir(), '.codex')),
   },
   'opencode': {
@@ -412,6 +413,58 @@ function collectCommandEntries(commandsRoot) {
   entries.sort((a, b) => a.commandRef.localeCompare(b.commandRef));
   assertNoSkillNameCollisions(entries);
   return entries;
+}
+
+function stripMarkdownFrontmatter(content) {
+  if (typeof content !== 'string' || content.length === 0) return '';
+  const stripped = content.charCodeAt(0) === 0xFEFF ? content.slice(1) : content;
+  const lines = stripped.split(/\r?\n/);
+  if (lines[0] !== '---') return stripped;
+  for (let i = 1; i < lines.length; i++) {
+    if (lines[i] === '---' || lines[i] === '...') {
+      return lines.slice(i + 1).join('\n').replace(/^\n/, '');
+    }
+  }
+  return stripped;
+}
+
+function collectAgentEntries(agentsRoot = path.join(PKG_ROOT, 'agents')) {
+  if (!fs.existsSync(agentsRoot)) return [];
+  const entries = [];
+  for (const entry of fs.readdirSync(agentsRoot, { withFileTypes: true })) {
+    if (!entry.isFile() || !entry.name.endsWith('.md')) continue;
+    const relativePath = entry.name;
+    const filePath = path.join(agentsRoot, relativePath);
+    const content = fs.readFileSync(filePath, 'utf8');
+    const stem = entry.name.replace(/\.md$/, '');
+    const frontmatter = readFrontmatterValues(content);
+    const name = frontmatter.name || stem;
+    const description = frontmatter.description || `${stem.replace(/-/g, ' ')} agent`;
+    entries.push({
+      name,
+      description,
+      relativePath,
+      metadataFileName: `${name}.toml`,
+      content,
+      body: stripMarkdownFrontmatter(content),
+    });
+  }
+  entries.sort((a, b) => a.name.localeCompare(b.name));
+  return entries;
+}
+
+function tomlString(value) {
+  return JSON.stringify(String(value));
+}
+
+function generateCodexAgentMetadata(entry) {
+  return [
+    `name = ${tomlString(entry.name)}`,
+    `description = ${tomlString(entry.description)}`,
+    'sandbox_mode = "workspace-write"',
+    `developer_instructions = ${tomlString(entry.body)}`,
+    '',
+  ].join('\n');
 }
 
 // Both Claude (flat scr-foo.md filename) and Codex (per-command skill dir
@@ -1202,6 +1255,64 @@ function writeCodexSkillManifest(skillsDir, skillNames) {
   atomicWriteFileSync(manifestPath, JSON.stringify(manifest, null, 2));
 }
 
+function isScrivenoCodexAgentMetadataFile(filePath) {
+  if (!fs.existsSync(filePath)) return false;
+  const content = fs.readFileSync(filePath, 'utf8');
+  return content.includes('developer_instructions = ') && (
+    content.includes('# Drafter agent')
+    || content.includes('# Voice checker agent')
+    || content.includes('# Continuity checker agent')
+    || content.includes('# Plan checker agent')
+    || content.includes('# Researcher agent')
+    || content.includes('# Translator agent')
+  );
+}
+
+function cleanCodexAgentFiles(agentsDir, currentFileNames) {
+  if (!fs.existsSync(agentsDir)) return 0;
+
+  const manifestPath = path.join(agentsDir, '.scriveno-agents-installed.json');
+  const manifest = readJsonIfExists(manifestPath);
+  const currentFileSet = new Set(currentFileNames);
+  const knownFileNames = new Set(Array.isArray(manifest?.files) ? manifest.files : []);
+
+  for (const entry of fs.readdirSync(agentsDir, { withFileTypes: true })) {
+    if (!entry.isFile() || !entry.name.endsWith('.toml')) continue;
+    const filePath = path.join(agentsDir, entry.name);
+    if (isScrivenoCodexAgentMetadataFile(filePath)) {
+      knownFileNames.add(entry.name);
+    }
+  }
+
+  removePathIfExists(manifestPath);
+
+  let removed = 0;
+  for (const fileName of knownFileNames) {
+    if (!currentFileSet.has(fileName) && removePathIfExists(path.join(agentsDir, fileName))) {
+      removed++;
+    }
+  }
+
+  for (const fileName of currentFileNames) {
+    if (removePathIfExists(path.join(agentsDir, fileName))) {
+      removed++;
+    }
+  }
+
+  return removed;
+}
+
+function writeCodexAgentManifest(agentsDir, fileNames) {
+  const manifestPath = path.join(agentsDir, '.scriveno-agents-installed.json');
+  const manifest = {
+    installer: 'scriveno',
+    version: VERSION,
+    files: fileNames,
+    generated_at: new Date().toISOString(),
+  };
+  atomicWriteFileSync(manifestPath, JSON.stringify(manifest, null, 2));
+}
+
 async function main() {
   const parsed = parseArgs(process.argv.slice(2));
   if (parsed.showHelp) {
@@ -1342,6 +1453,26 @@ function installManifestSkillRuntime(runtime, isGlobal, log) {
   log(`  ${c('green', 'OK')} ${runtime.label}: ${agentCount} agent prompts -> ${c('dim', path.join(skillsDir, 'agents'))}`);
 }
 
+function installCodexAgentsWithMetadata(agentsDir) {
+  const agentEntries = collectAgentEntries(path.join(PKG_ROOT, 'agents'));
+  const currentFileNames = agentEntries.flatMap((entry) => [entry.relativePath, entry.metadataFileName]);
+
+  fs.mkdirSync(agentsDir, { recursive: true });
+  const removed = cleanCodexAgentFiles(agentsDir, currentFileNames);
+
+  for (const entry of agentEntries) {
+    atomicWriteFileSync(path.join(agentsDir, entry.relativePath), entry.content);
+    atomicWriteFileSync(path.join(agentsDir, entry.metadataFileName), generateCodexAgentMetadata(entry));
+  }
+  writeCodexAgentManifest(agentsDir, currentFileNames);
+
+  return {
+    agentCount: agentEntries.length,
+    metadataCount: agentEntries.length,
+    removed,
+  };
+}
+
 function installCodexRuntime(runtime, isGlobal, log) {
   const skillsDir = isGlobal ? runtime.skills_dir_global : path.resolve(runtime.skills_dir_project);
   const commandsDir = isGlobal ? runtime.commands_dir_global : path.resolve(runtime.commands_dir_project);
@@ -1355,7 +1486,6 @@ function installCodexRuntime(runtime, isGlobal, log) {
   removePathIfExists(commandsDir);
   fs.mkdirSync(skillsDir, { recursive: true });
   const removedSkillDirs = cleanCodexSkillDirs(skillsDir, skillNames);
-  const removedAgentFiles = cleanMirroredFiles(path.join(PKG_ROOT, 'agents'), agentsDir);
 
   // NOTE: `collectCommandEntries` returns .md files only, and the authoritative
   // `commands/scr/**` tree is .md-only today. No non-.md assets need mirroring.
@@ -1373,7 +1503,7 @@ function installCodexRuntime(runtime, isGlobal, log) {
     commandCount++;
   }
 
-  const agentCount = copyDir(path.join(PKG_ROOT, 'agents'), agentsDir);
+  const agentInstall = installCodexAgentsWithMetadata(agentsDir);
 
   for (const entry of commandEntries) {
     const skillDir = path.join(skillsDir, entry.skillName);
@@ -1385,7 +1515,7 @@ function installCodexRuntime(runtime, isGlobal, log) {
 
   log(`  ${c('green', 'OK')} ${runtime.label}: ${commandEntries.length} \$scr-* skills -> ${c('dim', skillsDir)}${removedSkillDirs ? c('dim', ` (cleaned ${removedSkillDirs} stale dirs)`) : ''}`);
   log(`  ${c('green', 'OK')} ${runtime.label}: ${commandCount} command files -> ${c('dim', commandsDir)}`);
-  log(`  ${c('green', 'OK')} ${runtime.label}: ${agentCount} agent prompts -> ${c('dim', agentsDir)}${removedAgentFiles ? c('dim', ` (cleaned ${removedAgentFiles} stale files)`) : ''}`);
+  log(`  ${c('green', 'OK')} ${runtime.label}: ${agentInstall.agentCount} agent prompts + ${agentInstall.metadataCount} metadata files -> ${c('dim', agentsDir)}${agentInstall.removed ? c('dim', ` (cleaned ${agentInstall.removed} stale files)`) : ''}`);
 }
 
 function installGuidedRuntime(runtime, isGlobal, dataDir, log) {
@@ -1577,16 +1707,23 @@ module.exports = {
   parseArgs,
   resolveInstallRequest,
   collectCommandEntries,
+  collectAgentEntries,
   assertNoSkillNameCollisions,
   cleanCodexSkillDirs,
+  cleanCodexAgentFiles,
   commandRefToCodexSkillName,
   commandRefToClaudeInvocation,
   commandRefToCodexInvocation,
   commandEntryToFlatCommandFileName,
   generateClaudeCommandContent,
   generateCodexCommandContent,
+  generateCodexAgentMetadata,
   rewriteInstalledCommandRefs,
+  installCommandRuntime,
+  installClaudeCommandRuntime,
+  installManifestSkillRuntime,
   installCodexRuntime,
+  installCodexAgentsWithMetadata,
   cleanFlatCommandFiles,
   generateCodexSkill,
   generateSkillManifest,

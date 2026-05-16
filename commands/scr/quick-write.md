@@ -43,6 +43,8 @@ If `--discuss`: Ask 3-5 targeted questions about tone, pacing, and purpose for t
 
 If `--research`: Spawn a focused researcher for technique guidance.
 
+If the host runtime cannot spawn a focused researcher, run the research pass in an isolated fresh context and report `prompt-run fallback used` in the status block.
+
 ### STEP 3: DRAFT
 
 Write the passage following all established style guide constraints. Target whatever length feels natural unless the writer specified a target.
@@ -57,6 +59,27 @@ Save to `.manuscript/quick/{NNN}-{slug}/DRAFT.md`
 Save plan (if generated) to `.manuscript/quick/{NNN}-{slug}/PLAN.md`
 
 Commit: `quick: {slug}`
+
+## Agent and Automation Status
+
+Every response must include a short status block that makes invocation visible:
+
+```text
+Agent status:
+Trigger: /scr:quick-write {flags}
+Spawned agents:
+- researcher: yes/no
+Local operations:
+- context files loaded: {count}
+- draft file written: yes/no
+- plan file written: yes/no
+Auto-invoked:
+- /scr:continuity-check: yes/no
+- /scr:voice-check: yes/no
+Why: --full runs verification after drafting; --research spawns a focused technique pass
+```
+
+In default mode, report `researcher: none` and both auto-invoked checks as `no`.
 
 ## Response Contract
 

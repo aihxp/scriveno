@@ -98,6 +98,8 @@ Spawn 6 parallel analysis agents:
   </agent>
 </analysis_agents>
 
+If the host runtime cannot spawn these named analysis workers in parallel, run each selected analysis in an isolated fresh context sequentially. Report that fallback clearly. These analysis roles are command-local workers, not installed Scriveno agent prompt files.
+
 ### OUTPUT
 
 Save all analysis files to `.manuscript/analysis/`
@@ -109,6 +111,30 @@ Present a summary to the writer showing:
 - How this analysis will inform future commands
 
 This analysis is automatically loaded by `/scr:new-work` and `/scr:new-revision` when it exists.
+
+## Agent and Automation Status
+
+Every response must include a short status block that makes invocation visible:
+
+```text
+Agent status:
+Trigger: /scr:map-manuscript {area}
+Spawned agents:
+- voice-analyst: yes/no
+- structure-analyst: yes/no
+- character-analyst: yes/no
+- theme-analyst: yes/no
+- world-analyst: yes/no
+- pacing-analyst: yes/no
+Local operations:
+- manuscript files read: {count}
+- analysis files written: {count}
+Auto-invoked:
+- none
+Why: map-manuscript produces analysis artifacts that later commands load when present
+```
+
+If parallel worker spawning is unavailable, say `parallel unavailable; sequential isolated analysis used` in the status block.
 
 ## Response Contract
 

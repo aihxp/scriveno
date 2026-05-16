@@ -16,6 +16,9 @@ const {
   generateClaudeCommandContent,
   commandRefToCodexInvocation,
   commandRefToClaudeInvocation,
+  installCommandRuntime,
+  installClaudeCommandRuntime,
+  installManifestSkillRuntime,
   installCodexRuntime,
   collectCommandEntries,
 } = require('../bin/install.js');
@@ -642,6 +645,40 @@ describe('installCodexRuntime rewrites command files', () => {
     }
   });
 
+  it('writes Codex agent prompts with matching TOML metadata', () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriveno-codex-agent-meta-'));
+    const origCwd = process.cwd();
+    try {
+      process.chdir(tmpDir);
+      const runtime = {
+        ...RUNTIMES.codex,
+        skills_dir_project: '.codex/skills',
+        commands_dir_project: '.codex/commands/scr',
+        agents_dir_project: '.codex/agents',
+      };
+      installCodexRuntime(runtime, false, () => {});
+
+      const agentsDir = path.join(tmpDir, '.codex/agents');
+      const drafterPrompt = path.join(agentsDir, 'drafter.md');
+      const drafterMetadata = path.join(agentsDir, 'drafter.toml');
+      assert.ok(fs.existsSync(drafterPrompt), 'drafter.md should be installed');
+      assert.ok(fs.existsSync(drafterMetadata), 'drafter.toml should be installed');
+
+      const metadata = fs.readFileSync(drafterMetadata, 'utf8');
+      assert.match(metadata, /name = "drafter"/);
+      assert.match(metadata, /developer_instructions = /);
+      assert.doesNotMatch(metadata, /installer = /);
+      assert.doesNotMatch(metadata, /source_file = /);
+
+      const manifest = JSON.parse(fs.readFileSync(path.join(agentsDir, '.scriveno-agents-installed.json'), 'utf8'));
+      assert.ok(manifest.files.includes('drafter.md'));
+      assert.ok(manifest.files.includes('drafter.toml'));
+    } finally {
+      process.chdir(origCwd);
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    }
+  });
+
   it('preserves nested command paths (sacred/concordance.md)', () => {
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriveno-codex-nested-'));
     const origCwd = process.cwd();
@@ -713,6 +750,103 @@ describe('installCodexRuntime rewrites command files', () => {
     } finally {
       process.chdir(origCwd);
       fs.rmSync(tmpDir, { recursive: true, force: true });
+    }
+  });
+});
+
+describe('non-Codex runtime install surfaces', () => {
+  it('writes Claude Code flat commands and agent prompts without Codex metadata', () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriveno-claude-surface-'));
+    const origCwd = process.cwd();
+    try {
+      process.chdir(tmpDir);
+      const runtime = {
+        ...RUNTIMES['claude-code'],
+        commands_dir_project: '.claude/commands',
+        agents_dir_project: '.claude/agents',
+      };
+
+      installClaudeCommandRuntime(runtime, false, () => {});
+
+      const syncPath = path.join(tmpDir, '.claude/commands/scr-sync.md');
+      const drafterPrompt = path.join(tmpDir, '.claude/agents/drafter.md');
+      const drafterMetadata = path.join(tmpDir, '.claude/agents/drafter.toml');
+      assert.ok(fs.existsSync(syncPath), 'scr-sync.md should be installed for Claude Code');
+      assert.ok(fs.existsSync(drafterPrompt), 'drafter.md should be installed for Claude Code');
+      assert.ok(!fs.existsSync(drafterMetadata), 'Claude Code should not receive Codex TOML metadata');
+
+      const syncContent = fs.readFileSync(syncPath, 'utf8');
+      assert.ok(syncContent.includes('runtime:claude-code'));
+      assert.ok(syncContent.includes('command:/scr-sync'));
+    } finally {
+      process.chdir(origCwd);
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    }
+  });
+
+  it('writes commands and agent prompts for every standard command-directory runtime', () => {
+    const commandRuntimes = [
+      'cursor',
+      'gemini-cli',
+      'opencode',
+      'copilot',
+      'windsurf',
+      'antigravity',
+    ];
+
+    for (const key of commandRuntimes) {
+      const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), `scriveno-${key}-surface-`));
+      const origCwd = process.cwd();
+      try {
+        process.chdir(tmpDir);
+        const runtime = {
+          ...RUNTIMES[key],
+          commands_dir_project: path.join('.runtime', key, 'commands', 'scr'),
+          agents_dir_project: path.join('.runtime', key, 'agents'),
+        };
+
+        installCommandRuntime(runtime, false, () => {});
+
+        const syncPath = path.join(tmpDir, '.runtime', key, 'commands', 'scr', 'sync.md');
+        const drafterPrompt = path.join(tmpDir, '.runtime', key, 'agents', 'drafter.md');
+        const drafterMetadata = path.join(tmpDir, '.runtime', key, 'agents', 'drafter.toml');
+        assert.ok(fs.existsSync(syncPath), `${key} should receive sync.md`);
+        assert.ok(fs.existsSync(drafterPrompt), `${key} should receive drafter.md`);
+        assert.ok(!fs.existsSync(drafterMetadata), `${key} should not receive Codex TOML metadata`);
+      } finally {
+        process.chdir(origCwd);
+        fs.rmSync(tmpDir, { recursive: true, force: true });
+      }
+    }
+  });
+
+  it('writes skill manifests, mirrored commands, and agent prompts for non-Codex skill runtimes', () => {
+    const skillRuntimes = ['manus', 'generic'];
+
+    for (const key of skillRuntimes) {
+      const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), `scriveno-${key}-skill-surface-`));
+      const origCwd = process.cwd();
+      try {
+        process.chdir(tmpDir);
+        const runtime = {
+          ...RUNTIMES[key],
+          skills_dir_project: path.join('.skills', key),
+        };
+
+        installManifestSkillRuntime(runtime, false, () => {});
+
+        const manifestPath = path.join(tmpDir, '.skills', key, 'SKILL.md');
+        const syncPath = path.join(tmpDir, '.skills', key, 'commands', 'scr', 'sync.md');
+        const drafterPrompt = path.join(tmpDir, '.skills', key, 'agents', 'drafter.md');
+        const drafterMetadata = path.join(tmpDir, '.skills', key, 'agents', 'drafter.toml');
+        assert.ok(fs.existsSync(manifestPath), `${key} should receive SKILL.md`);
+        assert.ok(fs.existsSync(syncPath), `${key} should receive mirrored sync.md`);
+        assert.ok(fs.existsSync(drafterPrompt), `${key} should receive bundled drafter.md`);
+        assert.ok(!fs.existsSync(drafterMetadata), `${key} should not receive Codex TOML metadata`);
+      } finally {
+        process.chdir(origCwd);
+        fs.rmSync(tmpDir, { recursive: true, force: true });
+      }
     }
   });
 });

@@ -34,23 +34,32 @@ Node is not a runtime dependency for Scriveno's markdown command system itself. 
 
 - **Registry-tested**: installer registry shape is covered by automated tests.
 - **Repo-documented**: detection and install strategy are documented in the repo.
+- **Install-surface tested**: automated tests run the installer logic for representative targets and assert command files, agent prompts, and runtime-specific metadata or manifests are written in the expected place.
 - **No host-runtime parity verification yet**: Scriveno does not currently ship an end-to-end verification artifact for behavior inside the host runtime.
 
 ## Runtime Compatibility Matrix
 
 | Runtime | Install Type | Install Path Shape | Repo Evidence | Support Level | Verification Status |
 |---------|--------------|--------------------|---------------|---------------|---------------------|
-| Claude Code | commands | `~/.claude/commands/scr-*.md` + `~/.claude/agents` or `.claude/commands/scr-*.md` + `.claude/agents` | Installer registry, registry-tested, repo-documented | Primary reference runtime | Registry-tested; repo-documented; no host-runtime parity verification yet |
-| Cursor | commands | `~/.cursor/commands/scr` + `~/.cursor/agents` or `.cursor/commands/scr` + `.cursor/agents` | Installer registry, registry-tested, repo-documented | Standard installer target | Registry-tested; repo-documented; no host-runtime parity verification yet |
-| Gemini CLI | commands | `~/.gemini/commands/scr` + `~/.gemini/agents` or `.gemini/commands/scr` + `.gemini/agents` | Installer registry, registry-tested, repo-documented | Standard installer target | Registry-tested; repo-documented; no host-runtime parity verification yet |
-| Codex | skills | `~/.codex/skills/scr-*` or `.codex/skills/scr-*` (with mirrored command files in `~/.codex/commands/scr` or `.codex/commands/scr`) | Installer registry, registry-tested, repo-documented | Skills installer target | Registry-tested; repo-documented; no host-runtime parity verification yet |
-| OpenCode | commands | `~/.config/opencode/commands/scr` + `~/.config/opencode/agents` or `.config/opencode/commands/scr` + `.config/opencode/agents` | Installer registry, registry-tested, repo-documented | Standard installer target | Registry-tested; repo-documented; no host-runtime parity verification yet |
-| GitHub Copilot | commands | `~/.github/commands/scr` + `~/.github/agents` or `.github/commands/scr` + `.github/agents` | Installer registry, registry-tested, repo-documented | Standard installer target | Registry-tested; repo-documented; no host-runtime parity verification yet |
-| Windsurf | commands | `~/.windsurf/commands/scr` + `~/.windsurf/agents` or `.windsurf/commands/scr` + `.windsurf/agents` | Installer registry, registry-tested, repo-documented | Standard installer target | Registry-tested; repo-documented; no host-runtime parity verification yet |
-| Antigravity | commands | `~/.gemini/antigravity/commands/scr` + `~/.gemini/antigravity/agents` or `.gemini/antigravity/commands/scr` + `.gemini/antigravity/agents` | Installer registry, registry-tested, repo-documented | Standard installer target | Registry-tested; repo-documented; no host-runtime parity verification yet |
-| Manus Desktop | skills | `~/.manus/skills/scriveno/SKILL.md` or `.manus/skills/scriveno/SKILL.md` | Installer registry, registry-tested, repo-documented | Skills installer target | Registry-tested; repo-documented; no host-runtime parity verification yet |
+| Claude Code | commands | `~/.claude/commands/scr-*.md` + `~/.claude/agents` or `.claude/commands/scr-*.md` + `.claude/agents` | Installer registry, registry-tested, install-surface tested, repo-documented | Primary reference runtime | Registry-tested; install-surface tested; repo-documented; no host-runtime parity verification yet |
+| Cursor | commands | `~/.cursor/commands/scr` + `~/.cursor/agents` or `.cursor/commands/scr` + `.cursor/agents` | Installer registry, registry-tested, install-surface tested, repo-documented | Standard installer target | Registry-tested; install-surface tested; repo-documented; no host-runtime parity verification yet |
+| Gemini CLI | commands | `~/.gemini/commands/scr` + `~/.gemini/agents` or `.gemini/commands/scr` + `.gemini/agents` | Installer registry, registry-tested, install-surface tested, repo-documented | Standard installer target | Registry-tested; install-surface tested; repo-documented; no host-runtime parity verification yet |
+| Codex | skills | `~/.codex/skills/scr-*` or `.codex/skills/scr-*` (with mirrored command files in `~/.codex/commands/scr` or `.codex/commands/scr`, plus agent prompts and `.toml` metadata in `~/.codex/agents` or `.codex/agents`) | Installer registry, registry-tested, install-surface tested, repo-documented | Skills installer target | Registry-tested; install-surface tested; repo-documented; no host-runtime parity verification yet |
+| OpenCode | commands | `~/.config/opencode/commands/scr` + `~/.config/opencode/agents` or `.config/opencode/commands/scr` + `.config/opencode/agents` | Installer registry, registry-tested, install-surface tested, repo-documented | Standard installer target | Registry-tested; install-surface tested; repo-documented; no host-runtime parity verification yet |
+| GitHub Copilot | commands | `~/.github/commands/scr` + `~/.github/agents` or `.github/commands/scr` + `.github/agents` | Installer registry, registry-tested, install-surface tested, repo-documented | Standard installer target | Registry-tested; install-surface tested; repo-documented; no host-runtime parity verification yet |
+| Windsurf | commands | `~/.windsurf/commands/scr` + `~/.windsurf/agents` or `.windsurf/commands/scr` + `.windsurf/agents` | Installer registry, registry-tested, install-surface tested, repo-documented | Standard installer target | Registry-tested; install-surface tested; repo-documented; no host-runtime parity verification yet |
+| Antigravity | commands | `~/.gemini/antigravity/commands/scr` + `~/.gemini/antigravity/agents` or `.gemini/antigravity/commands/scr` + `.gemini/antigravity/agents` | Installer registry, registry-tested, install-surface tested, repo-documented | Standard installer target | Registry-tested; install-surface tested; repo-documented; no host-runtime parity verification yet |
+| Manus Desktop | skills | `~/.manus/skills/scriveno/SKILL.md` or `.manus/skills/scriveno/SKILL.md`, with mirrored `commands/scr/` and `agents/` inside the skill bundle | Installer registry, registry-tested, install-surface tested, repo-documented | Skills installer target | Registry-tested; install-surface tested; repo-documented; no host-runtime parity verification yet |
 | Perplexity Desktop | guided-mcp | `~/.scriveno/perplexity/SETUP.md` or `.scriveno/perplexity/SETUP.md` plus Perplexity Desktop Connectors setup | Installer registry, registry-tested, guided setup assets, repo-documented | Guided desktop MCP target | Registry-tested; repo-documented; no host-runtime parity verification yet |
-| Generic (SKILL.md) | skills | `~/.scriveno/skills/SKILL.md` or `.scriveno/skills/SKILL.md` | Installer registry, registry-tested | Generic skills fallback | Registry-tested; no host-runtime parity verification yet |
+| Generic (SKILL.md) | skills | `~/.scriveno/skills/SKILL.md` or `.scriveno/skills/SKILL.md`, with mirrored `commands/scr/` and `agents/` inside the skill bundle | Installer registry, registry-tested, install-surface tested | Generic skills fallback | Registry-tested; install-surface tested; no host-runtime parity verification yet |
+
+## Agent Surface By Runtime
+
+- Claude Code installs flat command files such as `scr-sync.md` plus agent prompts in its `agents` directory. It does not receive Codex `.toml` metadata.
+- Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, and Antigravity install nested command directories plus agent prompts in their runtime-specific `agents` directory. They do not receive Codex `.toml` metadata.
+- Codex installs per-command skills, mirrored command files, agent prompts, and `.toml` metadata because Codex uses that metadata to expose agents.
+- Manus Desktop and the generic skills fallback install a manifest `SKILL.md`, mirrored command files, and agent prompts inside the skill bundle.
+- Perplexity Desktop receives setup assets for a local-MCP connector. It does not receive writable command or agent prompt directories from the installer.
 
 ## What Scriveno Proves Today
 
@@ -60,6 +69,7 @@ Scriveno currently proves all of the following in-repo:
 - each target has a declared install strategy (`commands`, `skills`, or `guided-mcp`)
 - each target has expected install-path properties in the installer registry
 - the runtime registry shape is covered by automated installer tests
+- representative install surfaces are covered for Claude Code, standard command-directory runtimes, Codex, Manus Desktop, and the generic skills fallback
 - the high-level install strategies and detection rules are documented in [Architecture](architecture.md)
 
 Scriveno does not currently prove:

@@ -7,6 +7,8 @@ argument-hint: ""
 
 You are summarizing the writer's current session. Your job is to compute actionable metrics from STATE.md and present them clearly.
 
+Follow the auto-invoke policy. In the source repository it is documented at `docs/auto-invoke-policy.md`. `/scr:session-report` is read-only and does not spawn agents.
+
 ## What to do
 
 1. **Read STATE.md "Last actions" table** to get the full history of actions.
@@ -42,6 +44,23 @@ Present the report in this format:
 | 2:45 PM | Drafted chapter 3 (1,247 words) |
 | 3:00 PM | Voice check passed |
 | 3:15 PM | Editor review complete |
+```
+
+## Automation Status
+
+Every response must include a compact status block:
+
+```text
+Automation status:
+Trigger: /scr:session-report
+Spawned agents:
+- none
+Local operations:
+- session metrics computed: yes/no
+- quality pass summary computed: yes/no
+Auto-invoked:
+- none
+Why: session-report summarizes disk state without mutating files
 ```
 
 ## Edge cases

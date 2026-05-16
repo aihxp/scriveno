@@ -171,6 +171,8 @@ Invoke the translator agent (`agents/translator.md`) with fresh context, providi
 
 **Fresh context per unit is mandatory.** Each translator invocation is independent -- this prevents translation drift, glossary inconsistency, and register collapse across a long manuscript.
 
+If the host runtime cannot spawn a native `translator` agent type, load the installed `agents/translator.md` prompt from the active runtime and run it in an isolated fresh context. Record that fallback in the status block.
+
 **5d. Post-unit processing:**
 
 After each unit translation:
@@ -213,6 +215,29 @@ After all units are translated, show a summary:
 > - Cultural adaptation review: `/scr:cultural-adaptation [lang]`
 > - Back-translate to verify: `/scr:back-translate [lang]`
 > - Export translation: `/scr:export --format [format] --language [lang]`
+
+## Agent and Automation Status
+
+Every response must include a short status block that makes invocation visible:
+
+```text
+Agent status:
+Trigger: /scr:translate {language}
+Spawned agents:
+- translator: {count} fresh-context invocation(s)
+Local operations:
+- glossary loaded: yes/no
+- translation memory loaded: yes/no
+- units written: {count}
+- new glossary terms flagged: {count}
+Auto-invoked:
+- /scr:translation-memory {language} --build: yes/no
+- /scr:cultural-adaptation {language}: yes/no
+- /scr:back-translate {language}: yes/no
+Why: {manual translation mode, autopilot-translate phase, or writer requested chained verification}
+```
+
+Plain `/scr:translate` does not auto-run translation memory, cultural adaptation, or back-translation unless the writer requested a chained verification or the command is being run inside `/scr:autopilot-translate`. Show `Auto-invoked: no` for those follow-up checks in manual mode.
 
 ## Response Contract
 

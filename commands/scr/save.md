@@ -7,6 +7,8 @@ argument-hint: "[optional message]"
 
 You are saving the writer's current work. Your job is to create a git commit with a writer-friendly message, without exposing any git terminology.
 
+Follow the auto-invoke policy. In the source repository it is documented at `docs/auto-invoke-policy.md`. `/scr:save` does not spawn agents. It owns safe local helpers for `STATE.md`, `CONTEXT.md`, and `HISTORY.log`, then saves `.manuscript/`.
+
 ## What to do
 
 1. **Check for `.manuscript/` directory.** If missing: "No manuscript found. Start with `/scr:new-work`."
@@ -68,6 +70,25 @@ You are saving the writer's current work. Your job is to create a git commit wit
    This commit must include the `STATE.md`, `CONTEXT.md`, and `HISTORY.log` updates from steps 6 through 8 so the worktree is clean immediately after a successful save.
 
 10. **Tell the writer** the result (see output section below).
+
+## Automation Status
+
+Every response must include a compact status block:
+
+```text
+Automation status:
+Trigger: /scr:save
+Spawned agents:
+- none
+Local operations:
+- STATE.md updated: yes/no
+- CONTEXT.md regenerated: yes/no
+- HISTORY.log appended: yes/no
+- manuscript files saved: yes/no
+Auto-invoked:
+- /scr:next route computed for CONTEXT.md: yes/no
+Why: save uses deterministic local bookkeeping, not a spawned agent
+```
 
 ## Writer mode output
 

@@ -10,13 +10,16 @@ const {
   parseArgs,
   resolveInstallRequest,
   collectCommandEntries,
+  collectAgentEntries,
   cleanCodexSkillDirs,
+  cleanCodexAgentFiles,
   commandRefToCodexSkillName,
   commandRefToClaudeInvocation,
   commandRefToCodexInvocation,
   commandEntryToFlatCommandFileName,
   generateClaudeCommandContent,
   cleanFlatCommandFiles,
+  generateCodexAgentMetadata,
   generateCodexSkill,
   generateSkillManifest,
   buildFilesystemMcpCommand,
@@ -156,6 +159,17 @@ describe('RUNTIMES type classification', () => {
     assert.ok('agents_dir_global' in RUNTIMES.codex);
     assert.ok('agents_dir_project' in RUNTIMES.codex);
     assert.equal(RUNTIMES.codex.skill_style, 'per-command');
+    assert.equal(RUNTIMES.codex.agent_metadata, 'toml');
+  });
+
+  it('only Codex declares native agent metadata generation', () => {
+    for (const [name, runtime] of Object.entries(RUNTIMES)) {
+      if (name === 'codex') {
+        assert.equal(runtime.agent_metadata, 'toml');
+      } else {
+        assert.ok(!('agent_metadata' in runtime), `runtime "${name}" should not declare Codex agent metadata`);
+      }
+    }
   });
 
   it('guided runtimes have guide_dir properties', () => {
@@ -336,6 +350,30 @@ Run \`/scr:help\`, then \`/scr:new-work\`, and finally \`/scr:sacred:concordance
   });
 });
 
+describe('Codex agent metadata helpers', () => {
+  it('collects Scriveno agent entries from the agent prompt tree', () => {
+    const entries = collectAgentEntries(path.join(ROOT, 'agents'));
+    assert.ok(entries.length >= 6, `expected at least 6 agent entries, got ${entries.length}`);
+    assert.ok(entries.some((entry) => entry.name === 'drafter'));
+    assert.ok(entries.some((entry) => entry.metadataFileName === 'drafter.toml'));
+  });
+
+  it('generates Codex TOML metadata beside an agent prompt', () => {
+    const drafter = collectAgentEntries(path.join(ROOT, 'agents'))
+      .find((entry) => entry.name === 'drafter');
+    assert.ok(drafter, 'drafter agent should exist');
+
+    const metadata = generateCodexAgentMetadata(drafter);
+    assert.match(metadata, /name = "drafter"/);
+    assert.match(metadata, /description = /);
+    assert.match(metadata, /sandbox_mode = "workspace-write"/);
+    assert.match(metadata, /developer_instructions = /);
+    assert.doesNotMatch(metadata, /installer = /);
+    assert.doesNotMatch(metadata, /source_file = /);
+    assert.doesNotMatch(metadata, /tools:/);
+  });
+});
+
 describe('parseArgs', () => {
   it('parses multi-runtime silent install flags', () => {
     const parsed = parseArgs(['--runtimes', 'codex,claude-code', '--project', '--developer', '--silent']);
@@ -426,6 +464,33 @@ Installed command file: /tmp/.codex/commands/scr/removed.md
     const removed = cleanCodexSkillDirs(skillsDir, ['scr-help']);
     assert.equal(removed, 1);
     assert.ok(!fs.existsSync(staleDir));
+  });
+});
+
+describe('cleanCodexAgentFiles', () => {
+  it('removes stale Scriveno-owned Codex agent metadata while preserving unrelated files', () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriveno-codex-agent-clean-'));
+    const agentsDir = path.join(tmpDir, '.codex', 'agents');
+    fs.mkdirSync(agentsDir, { recursive: true });
+
+    fs.writeFileSync(
+      path.join(agentsDir, 'drafter.toml'),
+      'installer = "scriveno"\ndeveloper_instructions = "old"\n'
+    );
+    fs.writeFileSync(
+      path.join(agentsDir, 'old-agent.toml'),
+      'installer = "scriveno"\ndeveloper_instructions = "old"\n'
+    );
+    fs.writeFileSync(path.join(agentsDir, 'custom.toml'), 'name = "custom"\n');
+    fs.writeFileSync(path.join(agentsDir, '.scriveno-agents-installed.json'), JSON.stringify({
+      files: ['drafter.toml', 'old-agent.toml', 'old-agent.md'],
+    }, null, 2));
+
+    const removed = cleanCodexAgentFiles(agentsDir, ['drafter.md', 'drafter.toml']);
+    assert.equal(removed, 2);
+    assert.ok(!fs.existsSync(path.join(agentsDir, 'drafter.toml')));
+    assert.ok(!fs.existsSync(path.join(agentsDir, 'old-agent.toml')));
+    assert.ok(fs.existsSync(path.join(agentsDir, 'custom.toml')));
   });
 });
 

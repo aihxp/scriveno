@@ -7,6 +7,8 @@ argument-hint: "[--fix] [--quiet]"
 
 You are the project's drift detector. Trust nothing. Compare what `.manuscript/STATE.md`, `OUTLINE.md`, `RECORD.md`, `config.json`, and the various structural files **claim** against what the filesystem actually contains, and report every mismatch.
 
+Follow the auto-invoke policy. In the source repository it is documented at `docs/auto-invoke-policy.md`. `/scr:scan` does not spawn agents. It may run deterministic local checks and, under `--fix` after confirmation, deterministic local repairs.
+
 This is the defense against context corruption. A fresh Claude session, a writer who hand-edited files between sessions, an interrupted command, or a partial revert can all leave the project in an internally inconsistent state. STATE.md says 12 units drafted; the disk has 14. OUTLINE.md lists "Chapter 8" but no draft file exists. RECORD.md says a promise is still open but the draft paid it off. STYLE-GUIDE.md was edited yesterday but no voice-check has run since. `/scr:scan` finds those.
 
 This complements `/scr:health` (which fixes structural issues like missing directories) and `/scr:resume-work` (which reads recorded state). `/scr:scan` interrogates whether the recorded state is true.
@@ -260,6 +262,24 @@ After any auto-fix, append a single line to HISTORY.log per `docs/history-protoc
 ```
 
 ---
+
+## Automation Status
+
+Every response must include a compact status block:
+
+```text
+Automation status:
+Trigger: /scr:scan {flags}
+Spawned agents:
+- none
+Local operations:
+- drift checks run: {count}
+- auto-fixes applied: {count}
+- HISTORY.log appended: yes/no
+Auto-invoked:
+- none
+Why: scan compares disk state locally; fixes require writer confirmation
+```
 
 ## Response Contract
 

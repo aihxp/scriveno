@@ -2,6 +2,36 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 2.0.7 - 2026-05-16
+
+Patch release focused on making Scriveno's agent and automation behavior visible across installed runtimes.
+
+**Cross-runtime agent support**
+
+- Codex installs now generate `.toml` metadata beside every Scriveno agent prompt so native agent roles can be exposed when the host supports them.
+- Claude Code, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, and generic skill installs keep their runtime-specific command, skill, guide, and agent surfaces without receiving Codex-only metadata.
+- Runtime support docs now distinguish native host spawning from prompt-run fallback behavior.
+
+**Proactive auto-invoke policy**
+
+- Added a shared auto-invoke policy that classifies read-only suggestions, deterministic local helpers, scoped agent spawns, and manual-only writer-owned actions.
+- `/scr:next` and `/scr:progress` now perform read-only proactive sweeps for state drift, stale context, unresolved review artifacts, translation followups, stale exports, and unsaved manuscript changes.
+- `/scr:save`, `/scr:scan`, `/scr:health`, and `/scr:session-report` now report local helper activity clearly instead of implying a hidden background worker.
+
+**Agent and sync visibility**
+
+- Drafting, planning, review, translation, mapping, beta-reader, autopilot, revision-track, and sync commands now include explicit agent or automation status blocks.
+- `/scr:sync` now shows whether a sync used an agent, local installer operations, or no background process at all.
+
+**Regression coverage**
+
+- Added agent and automation status tests for native spawning, prompt fallback, deterministic local helpers, read-only proactive commands, and sync visibility.
+- Extended installer tests to cover Codex metadata, Claude Code surfaces, skill runtimes, command-directory runtimes, and non-Codex metadata boundaries.
+
+**Release alignment**
+
+- Bumped package, constraints, generated config, README badge/status, and documentation references to `2.0.7`.
+
 ## 2.0.6 - 2026-05-15
 
 Patch release focused on finishing the package rename cleanup in newly installed runtime metadata.

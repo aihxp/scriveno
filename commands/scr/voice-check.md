@@ -45,6 +45,8 @@ Spawn the voice-checker agent (`agents/voice-checker.md`) with:
 - The scoped drafted prose (unit `N` or all units)
 - If available, previously approved units as reference anchors for comparison
 
+If the host runtime cannot spawn a native `voice-checker` agent type, load the installed `agents/voice-checker.md` prompt from the active runtime and run it in an isolated fresh context. Record that fallback in the status block.
+
 Because STYLE-GUIDE.md is present, this is voice-deviation framing: the agent measures deviation *from* the writer's voice, not against a generic ideal. An authentic writer habit is not a tell for that writer even when a generic catalog would flag it; STYLE-GUIDE.md wins.
 
 The voice-checker agent runs its diagnostic discipline: a scrutiny pre-check (match scrutiny to evidence density; low density biases hard toward a high score), a mandatory false-positive audit with veto power (lone weak signals dropped without lowering the score; strong false positives reclassified as human markers that raise it), and an internal-consistency check (sharp register or sophistication seams flagged against the document's own baseline). It performs deep analysis across four dimensions:
@@ -108,6 +110,24 @@ Recommendations are handoffs, not rewrites: this command diagnosed, the writer d
 Save the full report to `.manuscript/{scope}-VOICE-CHECK-REPORT.md` where `{scope}` is the unit identifier (e.g., `act-1`, `chapter-3`) or `full` for the entire manuscript.
 
 Present the score, status, and top issues to the writer. Offer to show the full report.
+
+## Agent Status
+
+Every response must include a short status block that makes invocation visible:
+
+```text
+Agent status:
+Trigger: /scr:voice-check {scope}
+Spawned agents:
+- voice-checker: 1 fresh-context diagnostic invocation
+Local operations:
+- STYLE-GUIDE.md loaded: yes/no
+- drafted files checked: {count}
+- report written: yes/no
+Auto-invoked:
+- none
+Why: voice-check is diagnostic only; fixes are writer-chosen handoffs
+```
 
 ## Response Contract
 

@@ -494,6 +494,26 @@ For standard revision tracks where only the track has changes (canon is unmodifi
 
 The `.manuscript/merge-log.json` file accumulates entries from every co-writing merge. Each entry preserves both versions of contradictory passages, the resolution chosen, and any reconciled text. This provides a history of how parallel work was integrated and supports future continuity auditing.
 
+### Automation Status
+
+Every `track merge` response must include a compact status block:
+
+```text
+Automation status:
+Trigger: /scr:track merge {track}
+Auto-invoked:
+- /scr:continuity-check equivalent: yes/no
+Spawned agents:
+- continuity-checker: yes/no
+Local operations:
+- track metadata checked: yes/no
+- canon and track changes compared: yes/no
+- merge log updated: yes/no
+Why: co-writing or parallel canon changes require continuity verification before accepting revisions
+```
+
+If continuity verification did not run, say why: standard revision track, canon unchanged, or writer cancelled before merge. If native `continuity-checker` spawning is unavailable, use the installed prompt in an isolated fresh context and report `prompt-run fallback used`.
+
 ---
 
 ## Writer-Friendly Language Guide

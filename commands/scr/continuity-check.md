@@ -27,6 +27,8 @@ Invoke the installed `continuity-checker.md` agent for the writer's active Scriv
 - DOCTRINES.md, LINEAGES.md, and CHRONOLOGY.md when present (sacred only)
 - The previous continuity report if one exists, so the agent can verify resolved issues stayed resolved instead of re-flagging them
 
+If the host runtime cannot spawn a native `continuity-checker` agent type, load the installed `agents/continuity-checker.md` prompt from the active runtime and run it in an isolated fresh context. Record that fallback in the status block.
+
 The agent reads all drafted scenes and checks:
 
 If RECORD.md contradicts the drafted text, flag the mismatch as a RECORD drift finding. If the drafted text reveals established facts or open threads that are missing from RECORD.md, list compact suggested updates under a "Record updates" section without rewriting the file unless the writer asked for fixes.
@@ -104,6 +106,25 @@ For each issue:
 - Suggested fix
 
 Save to `.manuscript/{act_num}-CONTINUITY-REPORT.md` or `.manuscript/FULL-CONTINUITY-REPORT.md`. For technical work types, use `CONSISTENCY-REPORT` in the writer-facing title even if the file path stays the same.
+
+## Agent Status
+
+Every response must include a short status block that makes invocation visible:
+
+```text
+Agent status:
+Trigger: /scr:continuity-check {scope}
+Spawned agents:
+- continuity-checker: 1 fresh-context diagnostic invocation
+Local operations:
+- drafted files checked: {count}
+- RECORD.md checked: yes/no
+- prior report checked: yes/no
+- report written: yes/no
+Auto-invoked:
+- none
+Why: continuity-check is diagnostic only; fixes are writer-chosen handoffs
+```
 
 ## Response Contract
 

@@ -101,6 +101,8 @@ For any issues flagged, spawn a diagnostic agent:
   </task>
 </diagnostic_agent>
 
+If the host runtime cannot spawn a dedicated diagnostic worker, run the revision diagnosis in an isolated fresh context for each flagged issue group. Report that fallback in the status block.
+
 ---
 
 ### STEP 4: GENERATE EDITOR NOTES
@@ -405,6 +407,30 @@ The full editor-writer collaboration produces three artifacts per proposal:
 - `{slug}-responses.json` -- The writer's responses (agree/push-back/revise)
 
 Together these form a complete accountability trail. Neither party's work is lost. Rejected changes remain in the revision track. Push-backs are preserved for future discussion. Every decision is timestamped and attributed.
+
+---
+
+## Agent and Automation Status
+
+Every response must include a short status block that makes invocation visible:
+
+```text
+Agent status:
+Trigger: /scr:editor-review {mode}
+Spawned agents:
+- revision-diagnostic: {count} fresh-context invocation(s)
+Local operations:
+- reviewable units checked: {count}
+- review report written: yes/no
+- proposal decisions written: yes/no
+- editor notes written: yes/no
+- writer responses written: yes/no
+Auto-invoked:
+- none
+Why: editor-review surfaces decisions and recommended handoffs; it does not revise prose without writer choice
+```
+
+If there were no flagged issues in standard review mode, report `revision-diagnostic: none`. In collaboration modes, report `revision-diagnostic: none` unless diagnosis was explicitly requested.
 
 ---
 
