@@ -71,7 +71,7 @@ describe('first-run proof surface', () => {
     assert.match(firstRunProof, /scriveno first-run --project \./);
     assert.match(firstRunProof, /scriveno smoke --json/);
     assert.match(firstRunProof, /\/scr:draft 5/);
-    assert.match(firstRunProof, /"expectedCommands": 113/);
+    assert.match(firstRunProof, /"expectedCommands": 115/);
     assert.match(runtimeParity, /Claude Code/);
     assert.match(runtimeParity, /Codex/);
     assert.match(runtimeParity, /Remaining Host-In-The-Loop Gap/);

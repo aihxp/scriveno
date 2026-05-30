@@ -218,9 +218,167 @@ const RUNTIMES = {
   },
 };
 
-function generateSkillManifest(constraintsPath) {
+const SURFACE_PROFILES = {
+  core: {
+    label: 'Core',
+    description: 'Main writing loop and orientation commands.',
+    commands: [
+      'new-work',
+      'profile-writer',
+      'voice-test',
+      'discuss',
+      'plan',
+      'draft',
+      'editor-review',
+      'submit',
+      'progress',
+      'save',
+      'next',
+      'health',
+      'help',
+      'surface',
+      'proof-unit',
+    ],
+  },
+  writing: {
+    label: 'Writing',
+    description: 'Core workflow plus revision, structure, character, and quality commands.',
+    includeProfiles: ['core'],
+    categories: ['structure', 'structure_management', 'character_world', 'quality', 'review', 'session', 'navigation'],
+  },
+  publishing: {
+    label: 'Publishing',
+    description: 'Core workflow plus export, publishing, metadata, and platform packaging commands.',
+    includeProfiles: ['core'],
+    categories: ['publishing'],
+  },
+  translation: {
+    label: 'Translation',
+    description: 'Core workflow plus translation, localization, glossary, and multi-publish commands.',
+    includeProfiles: ['core'],
+    categories: ['translation'],
+  },
+  specialist: {
+    label: 'Specialist',
+    description: 'Core workflow plus sacred, illustration, collaboration, and utility surfaces.',
+    includeProfiles: ['core'],
+    categories: ['sacred_exclusive', 'illustration', 'collaboration', 'utility'],
+  },
+  full: {
+    label: 'Full',
+    description: 'Every Scriveno command.',
+    all: true,
+  },
+};
+
+const DEFAULT_SURFACE_PROFILE = 'full';
+
+function normalizeSurfaceProfile(profile) {
+  const value = String(profile || DEFAULT_SURFACE_PROFILE).trim().toLowerCase();
+  if (!Object.prototype.hasOwnProperty.call(SURFACE_PROFILES, value)) {
+    throw new Error(`Unknown profile "${profile}". Expected one of: ${Object.keys(SURFACE_PROFILES).join(', ')}`);
+  }
+  return value;
+}
+
+function resolveProfileCommandKeys(profile, constraints = loadConstraintsForInstall()) {
+  const resolvedProfile = normalizeSurfaceProfile(profile);
+  const commands = constraints.commands || {};
+  const out = new Set();
+  const visiting = new Set();
+
+  function addProfile(name) {
+    const key = normalizeSurfaceProfile(name);
+    if (visiting.has(key)) {
+      throw new Error(`Profile cycle detected at "${key}"`);
+    }
+    visiting.add(key);
+    const spec = SURFACE_PROFILES[key];
+    if (spec.all) {
+      for (const commandKey of Object.keys(commands)) out.add(commandKey);
+      visiting.delete(key);
+      return;
+    }
+    for (const parent of spec.includeProfiles || []) addProfile(parent);
+    for (const commandKey of spec.commands || []) {
+      if (Object.prototype.hasOwnProperty.call(commands, commandKey)) out.add(commandKey);
+    }
+    const categorySet = new Set(spec.categories || []);
+    if (categorySet.size > 0) {
+      for (const [commandKey, command] of Object.entries(commands)) {
+        if (categorySet.has(command.category)) out.add(commandKey);
+      }
+    }
+    visiting.delete(key);
+  }
+
+  addProfile(resolvedProfile);
+  return out;
+}
+
+function loadConstraintsForInstall(constraintsPath = path.join(PKG_ROOT, 'data', 'CONSTRAINTS.json')) {
+  return JSON.parse(fs.readFileSync(constraintsPath, 'utf8'));
+}
+
+function commandEntryInProfile(entry, commandKeys) {
+  return commandKeys.has(commandRefToConstraintKey(entry.commandRef));
+}
+
+function collectCommandEntriesForProfile(commandsRoot, profile = DEFAULT_SURFACE_PROFILE, constraintsPath = path.join(PKG_ROOT, 'data', 'CONSTRAINTS.json')) {
+  const entries = collectCommandEntries(commandsRoot);
+  const commandKeys = resolveProfileCommandKeys(profile, loadConstraintsForInstall(constraintsPath));
+  return entries.filter((entry) => commandEntryInProfile(entry, commandKeys));
+}
+
+function collectInstallCommandEntries(profile = DEFAULT_SURFACE_PROFILE) {
+  return collectCommandEntriesForProfile(
+    path.join(PKG_ROOT, 'commands', 'scr'),
+    profile,
+    path.join(PKG_ROOT, 'data', 'CONSTRAINTS.json')
+  );
+}
+
+function writeProfileCommandFiles(commandsRoot, commandsDir, commandEntries, transform = null) {
+  let count = 0;
+  for (const entry of commandEntries) {
+    const sourcePath = path.join(commandsRoot, entry.relativePath);
+    const sourceContent = fs.readFileSync(sourcePath, 'utf8');
+    const targetPath = path.join(commandsDir, entry.relativePath);
+    atomicWriteFileSync(targetPath, transform ? transform(entry, sourceContent) : sourceContent);
+    count++;
+  }
+  return count;
+}
+
+function writeSurfaceProfileMarker(targetDir, profile) {
+  if (!targetDir) return;
+  fs.mkdirSync(targetDir, { recursive: true });
+  atomicWriteFileSync(path.join(targetDir, '.scriveno-profile'), `${normalizeSurfaceProfile(profile)}\n`);
+}
+
+function surfaceProfileSummary(profile = DEFAULT_SURFACE_PROFILE, constraintsPath = path.join(PKG_ROOT, 'data', 'CONSTRAINTS.json')) {
+  const resolvedProfile = normalizeSurfaceProfile(profile);
+  const constraints = loadConstraintsForInstall(constraintsPath);
+  const commandKeys = resolveProfileCommandKeys(resolvedProfile, constraints);
+  return {
+    profile: resolvedProfile,
+    label: SURFACE_PROFILES[resolvedProfile].label,
+    description: SURFACE_PROFILES[resolvedProfile].description,
+    commandCount: commandKeys.size,
+    commands: [...commandKeys].sort(),
+  };
+}
+
+function listSurfaceProfiles(constraintsPath = path.join(PKG_ROOT, 'data', 'CONSTRAINTS.json')) {
+  return Object.keys(SURFACE_PROFILES).map((profile) => surfaceProfileSummary(profile, constraintsPath));
+}
+
+function generateSkillManifest(constraintsPath, profile = DEFAULT_SURFACE_PROFILE) {
   const commandsRoot = path.join(PKG_ROOT, 'commands', 'scr');
-  const entries = collectCanonicalCommandInventory(commandsRoot, constraintsPath).map((entry) => ({
+  const profileKeys = resolveProfileCommandKeys(profile, loadConstraintsForInstall(constraintsPath));
+  const entries = collectCanonicalCommandInventory(commandsRoot, constraintsPath)
+    .filter((entry) => commandEntryInProfile(entry, profileKeys))
+    .map((entry) => ({
     name: entry.commandRef,
     category: entry.category,
     description: entry.description,
@@ -239,6 +397,7 @@ function generateSkillManifest(constraintsPath) {
   return `# Scriveno -- AI Creative Writing Skills
 
 Version: ${VERSION}
+Profile: ${normalizeSurfaceProfile(profile)}
 
 Scriveno is a spec-driven creative writing, publishing, and translation pipeline.
 
@@ -829,12 +988,18 @@ function printHelp() {
   scriveno smoke --json
   scriveno agents --json
   scriveno routes --json
+  scriveno surface list
+  scriveno surface status
+  scriveno surface profile core --runtimes codex --project
   scriveno --runtimes codex,claude-code --global --writer --silent
 
 Options:
   --runtimes <list>   Comma-separated runtime keys to install (for example: codex,claude-code)
   --runtime <key>     Repeatable single-runtime selector
   --detected          Install to every detected runtime
+  --profile <name>    Command profile: ${Object.keys(SURFACE_PROFILES).join(', ')}
+  --dry-run           Show planned writes without changing files
+  --json              Print machine-readable output for supported commands
   --global            Install for all projects (default)
   --project           Install only in the current directory
   --writer            Use writer mode (default)
@@ -856,6 +1021,7 @@ Audit commands:
   smoke               Smoke-test installed runtime surfaces
   agents              Inspect installed agent prompts and metadata
   routes              Audit route graph and automation lanes
+  surface             Inspect or change the installed command profile
 
 Runtime keys:
   ${Object.keys(RUNTIMES).join(', ')}
@@ -878,6 +1044,11 @@ function parseArgs(argv) {
     statusApplySafe: false,
     auditJson: false,
     syncCheck: false,
+    installProfile: DEFAULT_SURFACE_PROFILE,
+    installDryRun: false,
+    installJson: false,
+    surfaceAction: 'status',
+    surfaceProfile: DEFAULT_SURFACE_PROFILE,
   };
 
   if (argv[0] === 'status' || argv[0] === 'first-run') {
@@ -959,6 +1130,72 @@ function parseArgs(argv) {
     }
   }
 
+  if (argv[0] === 'surface') {
+    options.command = 'surface';
+    let actionSet = false;
+    for (let i = 1; i < argv.length; i++) {
+      const arg = argv[i];
+      if (arg === '--help' || arg === '-h') {
+        options.showHelp = true;
+      } else if (arg === '--version' || arg === '-v') {
+        options.showVersion = true;
+      } else if (arg === '--json') {
+        options.installJson = true;
+      } else if (arg === '--silent' || arg === '--yes') {
+        options.silent = true;
+      } else if (arg === '--dry-run') {
+        options.installDryRun = true;
+      } else if (arg === '--detected') {
+        options.installDetected = true;
+      } else if (arg === '--global') {
+        options.isGlobal = true;
+      } else if (arg === '--project') {
+        options.isGlobal = false;
+      } else if (arg === '--writer') {
+        options.developerMode = false;
+      } else if (arg === '--developer') {
+        options.developerMode = true;
+      } else if (arg === '--runtime') {
+        const value = argv[i + 1];
+        if (!value) throw new Error('--runtime requires a value');
+        addRuntimeList(value);
+        i++;
+      } else if (arg.startsWith('--runtime=')) {
+        addRuntimeList(arg.slice('--runtime='.length));
+      } else if (arg === '--runtimes') {
+        const value = argv[i + 1];
+        if (!value) throw new Error('--runtimes requires a value');
+        addRuntimeList(value);
+        i++;
+      } else if (arg.startsWith('--runtimes=')) {
+        addRuntimeList(arg.slice('--runtimes='.length));
+      } else if (arg === '--profile') {
+        const value = argv[i + 1];
+        if (!value) throw new Error('--profile requires a value');
+        options.surfaceProfile = normalizeSurfaceProfile(value);
+        options.installProfile = options.surfaceProfile;
+        i++;
+      } else if (arg.startsWith('--profile=')) {
+        options.surfaceProfile = normalizeSurfaceProfile(arg.slice('--profile='.length));
+        options.installProfile = options.surfaceProfile;
+      } else if (arg.startsWith('-')) {
+        throw new Error(`Unknown surface argument "${arg}"`);
+      } else if (!actionSet) {
+        options.surfaceAction = arg;
+        actionSet = true;
+      } else if (options.surfaceAction === 'profile') {
+        options.surfaceProfile = normalizeSurfaceProfile(arg);
+        options.installProfile = options.surfaceProfile;
+      } else {
+        throw new Error(`Unknown surface argument "${arg}"`);
+      }
+    }
+    if (!['status', 'list', 'profile'].includes(options.surfaceAction)) {
+      throw new Error(`Unknown surface action "${options.surfaceAction}". Expected status, list, or profile.`);
+    }
+    return options;
+  }
+
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
     if (arg === '--help' || arg === '-h') {
@@ -967,6 +1204,10 @@ function parseArgs(argv) {
       options.showVersion = true;
     } else if (arg === '--silent' || arg === '--yes') {
       options.silent = true;
+    } else if (arg === '--dry-run') {
+      options.installDryRun = true;
+    } else if (arg === '--json') {
+      options.installJson = true;
     } else if (arg === '--detected') {
       options.installDetected = true;
     } else if (arg === '--global') {
@@ -991,6 +1232,13 @@ function parseArgs(argv) {
       i++;
     } else if (arg.startsWith('--runtimes=')) {
       addRuntimeList(arg.slice('--runtimes='.length));
+    } else if (arg === '--profile') {
+      const value = argv[i + 1];
+      if (!value) throw new Error('--profile requires a value');
+      options.installProfile = normalizeSurfaceProfile(value);
+      i++;
+    } else if (arg.startsWith('--profile=')) {
+      options.installProfile = normalizeSurfaceProfile(arg.slice('--profile='.length));
     } else {
       throw new Error(`Unknown argument "${arg}"`);
     }
@@ -1144,6 +1392,98 @@ function runRouteAudit({ json }) {
   return result;
 }
 
+function resolveSurfaceDataDir(isGlobal) {
+  if (isGlobal === false) return path.resolve('.scriveno');
+  if (isGlobal === true) return path.join(os.homedir(), '.scriveno');
+  const projectDir = path.resolve('.scriveno');
+  const projectSettings = path.join(projectDir, 'settings.json');
+  return fs.existsSync(projectSettings) ? projectDir : path.join(os.homedir(), '.scriveno');
+}
+
+function readSurfaceSettings(isGlobal) {
+  const dataDir = resolveSurfaceDataDir(isGlobal);
+  const settingsPath = path.join(dataDir, 'settings.json');
+  const raw = readJsonIfExists(settingsPath);
+  if (!raw) {
+    return { dataDir, settings: null, settingsPath };
+  }
+  try {
+    const settings = migrateSettings(raw);
+    const validation = validateSettings(settings);
+    return { dataDir, settings, settingsPath, validation };
+  } catch (err) {
+    return { dataDir, settings: null, settingsPath, error: err.message };
+  }
+}
+
+function formatSurfaceList(profiles) {
+  return [
+    'Scriveno command profiles',
+    ...profiles.map((profile) => `- ${profile.profile}: ${profile.commandCount} registered commands, ${profile.description}`),
+  ].join('\n');
+}
+
+function formatSurfaceStatus(status) {
+  const lines = [
+    'Scriveno surface status',
+    `Settings: ${status.settingsPath}`,
+  ];
+  if (!status.settings) {
+    lines.push('Installed profile: not found');
+  } else {
+    lines.push(`Installed profile: ${status.settings.profile || DEFAULT_SURFACE_PROFILE}`);
+    lines.push(`Installed runtimes: ${(status.settings.runtimes || []).join(', ') || 'none recorded'}`);
+    lines.push(`Scope: ${status.settings.scope || 'unknown'}`);
+    lines.push(`Mode: ${status.settings.developer_mode ? 'developer' : 'writer'}`);
+  }
+  lines.push('');
+  lines.push('Available profiles:');
+  for (const profile of listSurfaceProfiles()) {
+    lines.push(`- ${profile.profile}: ${profile.commandCount} registered commands`);
+  }
+  lines.push('');
+  lines.push('Use `scriveno surface profile <name> --runtimes <runtime>` to reinstall a smaller or larger surface.');
+  return lines.join('\n');
+}
+
+function runSurface(parsed, detectedRuntimeKeys) {
+  if (parsed.surfaceAction === 'list') {
+    const profiles = listSurfaceProfiles();
+    console.log(parsed.installJson ? JSON.stringify(profiles, null, 2) : formatSurfaceList(profiles));
+    return profiles;
+  }
+
+  const surfaceState = readSurfaceSettings(parsed.isGlobal);
+
+  if (parsed.surfaceAction === 'status') {
+    console.log(parsed.installJson ? JSON.stringify(surfaceState, null, 2) : formatSurfaceStatus(surfaceState));
+    return surfaceState;
+  }
+
+  const runtimeKeys = parsed.runtimeKeys.length > 0
+    ? parsed.runtimeKeys
+    : parsed.installDetected
+      ? detectedRuntimeKeys
+      : (surfaceState.settings?.runtimes && surfaceState.settings.runtimes.length > 0)
+        ? surfaceState.settings.runtimes
+        : detectedRuntimeKeys;
+
+  if (runtimeKeys.length === 0) {
+    throw new Error('No runtime target found. Re-run with --runtimes <list> or --detected.');
+  }
+
+  return runInstall({
+    runtimeKeys,
+    isGlobal: parsed.isGlobal ?? (surfaceState.settings?.scope !== 'project'),
+    developerMode: parsed.developerMode ?? Boolean(surfaceState.settings?.developer_mode),
+    silent: parsed.silent,
+    installMode: 'non-interactive',
+    profile: parsed.surfaceProfile,
+    dryRun: parsed.installDryRun,
+    json: parsed.installJson,
+  });
+}
+
 function resolveInstallRequest(parsed, detectedRuntimeKeys, { isTTY }) {
   const hasRuntimeDirective = parsed.runtimeKeys.length > 0 || parsed.installDetected;
   const hasModifierOverrides = parsed.isGlobal !== null || parsed.developerMode !== null;
@@ -1172,6 +1512,9 @@ function resolveInstallRequest(parsed, detectedRuntimeKeys, { isTTY }) {
       developerMode: parsed.developerMode ?? false,
       silent: parsed.silent,
       installMode: 'non-interactive',
+      profile: parsed.installProfile,
+      dryRun: parsed.installDryRun,
+      json: parsed.installJson,
     };
   }
 
@@ -1180,6 +1523,9 @@ function resolveInstallRequest(parsed, detectedRuntimeKeys, { isTTY }) {
     isGlobal: parsed.isGlobal,
     developerMode: parsed.developerMode,
     hasModifierOverrides,
+    profile: parsed.installProfile,
+    dryRun: parsed.installDryRun,
+    json: parsed.installJson,
   };
 }
 
@@ -1314,6 +1660,7 @@ const SETTINGS_SCHEMA = [
   { name: 'developer_mode', type: 'boolean', required: true, owned_by: 'user' },
   { name: 'data_dir', type: 'string', required: true, owned_by: 'installer' },
   { name: 'install_mode', type: 'string', required: true, enum: ['interactive', 'non-interactive'], owned_by: 'installer' },
+  { name: 'profile', type: 'string', required: false, enum: Object.keys(SURFACE_PROFILES), owned_by: 'installer' },
   { name: 'installed_at', type: 'string', required: true, owned_by: 'installer' },
 ];
 
@@ -1346,6 +1693,9 @@ function migrateSettings(raw) {
   }
   if (!Object.prototype.hasOwnProperty.call(out, 'install_mode') || out.install_mode === undefined) {
     out.install_mode = 'interactive';
+  }
+  if (!Object.prototype.hasOwnProperty.call(out, 'profile') || out.profile === undefined) {
+    out.profile = DEFAULT_SURFACE_PROFILE;
   }
   return out;
 }
@@ -1609,6 +1959,11 @@ async function main() {
   }
 
   const detectedRuntimeKeys = Object.entries(RUNTIMES).filter(([, runtime]) => runtime.detect()).map(([key]) => key);
+  if (parsed.command === 'surface') {
+    runSurface(parsed, detectedRuntimeKeys);
+    return;
+  }
+
   const installRequest = resolveInstallRequest(parsed, detectedRuntimeKeys, { isTTY: Boolean(process.stdin.isTTY) });
 
   if (installRequest.action === 'usage_error') {
@@ -1684,25 +2039,31 @@ async function main() {
     silent: false,
     detectedRuntimeKeys,
     installMode: 'interactive',
+    profile: installRequest.profile,
+    dryRun: installRequest.dryRun,
+    json: installRequest.json,
   });
 }
 
-function installCommandRuntime(runtime, isGlobal, log) {
-  const commandsDir = isGlobal ? runtime.commands_dir_global : path.resolve(runtime.commands_dir_project);
-  const agentsDir = isGlobal ? runtime.agents_dir_global : path.resolve(runtime.agents_dir_project);
-  removePathIfExists(commandsDir);
-  const removedAgentFiles = cleanMirroredFiles(path.join(PKG_ROOT, 'agents'), agentsDir);
-  const commandCount = copyDir(path.join(PKG_ROOT, 'commands', 'scr'), commandsDir);
-  const agentCount = copyDir(path.join(PKG_ROOT, 'agents'), agentsDir);
-  log(`  ${c('green', 'OK')} ${runtime.label}: ${commandCount} command files -> ${c('dim', commandsDir)}`);
-  log(`  ${c('green', 'OK')} ${runtime.label}: ${agentCount} agent prompts -> ${c('dim', agentsDir)}${removedAgentFiles ? c('dim', ` (cleaned ${removedAgentFiles} stale files)`) : ''}`);
-}
-
-function installClaudeCommandRuntime(runtime, isGlobal, log) {
+function installCommandRuntime(runtime, isGlobal, log, profile = DEFAULT_SURFACE_PROFILE) {
   const commandsDir = isGlobal ? runtime.commands_dir_global : path.resolve(runtime.commands_dir_project);
   const agentsDir = isGlobal ? runtime.agents_dir_global : path.resolve(runtime.agents_dir_project);
   const commandsRoot = path.join(PKG_ROOT, 'commands', 'scr');
-  const commandEntries = collectCommandEntries(commandsRoot);
+  const commandEntries = collectInstallCommandEntries(profile);
+  const removedCommandFiles = cleanMirroredFiles(commandsRoot, commandsDir);
+  const removedAgentFiles = cleanMirroredFiles(path.join(PKG_ROOT, 'agents'), agentsDir);
+  const commandCount = writeProfileCommandFiles(commandsRoot, commandsDir, commandEntries);
+  writeSurfaceProfileMarker(commandsDir, profile);
+  const agentCount = copyDir(path.join(PKG_ROOT, 'agents'), agentsDir);
+  log(`  ${c('green', 'OK')} ${runtime.label}: ${commandCount} command files (${normalizeSurfaceProfile(profile)} profile) -> ${c('dim', commandsDir)}${removedCommandFiles ? c('dim', ` (cleaned ${removedCommandFiles} stale files)`) : ''}`);
+  log(`  ${c('green', 'OK')} ${runtime.label}: ${agentCount} agent prompts -> ${c('dim', agentsDir)}${removedAgentFiles ? c('dim', ` (cleaned ${removedAgentFiles} stale files)`) : ''}`);
+}
+
+function installClaudeCommandRuntime(runtime, isGlobal, log, profile = DEFAULT_SURFACE_PROFILE) {
+  const commandsDir = isGlobal ? runtime.commands_dir_global : path.resolve(runtime.commands_dir_project);
+  const agentsDir = isGlobal ? runtime.agents_dir_global : path.resolve(runtime.agents_dir_project);
+  const commandsRoot = path.join(PKG_ROOT, 'commands', 'scr');
+  const commandEntries = collectInstallCommandEntries(profile);
   const fileNames = commandEntries.map((entry) => commandEntryToFlatCommandFileName(entry));
 
   fs.mkdirSync(commandsDir, { recursive: true });
@@ -1718,23 +2079,31 @@ function installClaudeCommandRuntime(runtime, isGlobal, log) {
   }
 
   writeInstalledCommandManifest(commandsDir, 'claude-code', fileNames);
+  writeSurfaceProfileMarker(commandsDir, profile);
   const agentCount = copyDir(path.join(PKG_ROOT, 'agents'), agentsDir);
 
-  log(`  ${c('green', 'OK')} ${runtime.label}: ${commandEntries.length} /scr-* command files -> ${c('dim', commandsDir)}${removedCommandFiles ? c('dim', ` (cleaned ${removedCommandFiles} stale items)`) : ''}`);
+  log(`  ${c('green', 'OK')} ${runtime.label}: ${commandEntries.length} /scr-* command files (${normalizeSurfaceProfile(profile)} profile) -> ${c('dim', commandsDir)}${removedCommandFiles ? c('dim', ` (cleaned ${removedCommandFiles} stale items)`) : ''}`);
   log(`  ${c('green', 'OK')} ${runtime.label}: ${agentCount} agent prompts -> ${c('dim', agentsDir)}${removedAgentFiles ? c('dim', ` (cleaned ${removedAgentFiles} stale files)`) : ''}`);
 }
 
-function installManifestSkillRuntime(runtime, isGlobal, log) {
+function installManifestSkillRuntime(runtime, isGlobal, log, profile = DEFAULT_SURFACE_PROFILE) {
   const skillsDir = isGlobal ? runtime.skills_dir_global : path.resolve(runtime.skills_dir_project);
-  removePathIfExists(skillsDir);
-  const manifest = generateSkillManifest(path.join(PKG_ROOT, 'data', 'CONSTRAINTS.json'));
+  const commandsRoot = path.join(PKG_ROOT, 'commands', 'scr');
+  const commandEntries = collectInstallCommandEntries(profile);
+  const manifest = generateSkillManifest(path.join(PKG_ROOT, 'data', 'CONSTRAINTS.json'), profile);
   fs.mkdirSync(skillsDir, { recursive: true });
+  removePathIfExists(path.join(skillsDir, 'SKILL.md'));
+  const commandsTarget = path.join(skillsDir, 'commands', 'scr');
+  const agentsTarget = path.join(skillsDir, 'agents');
+  cleanMirroredFiles(commandsRoot, commandsTarget);
+  cleanMirroredFiles(path.join(PKG_ROOT, 'agents'), agentsTarget);
   atomicWriteFileSync(path.join(skillsDir, 'SKILL.md'), manifest);
-  const commandCount = copyDir(path.join(PKG_ROOT, 'commands', 'scr'), path.join(skillsDir, 'commands', 'scr'));
-  const agentCount = copyDir(path.join(PKG_ROOT, 'agents'), path.join(skillsDir, 'agents'));
+  const commandCount = writeProfileCommandFiles(commandsRoot, commandsTarget, commandEntries);
+  writeSurfaceProfileMarker(skillsDir, profile);
+  const agentCount = copyDir(path.join(PKG_ROOT, 'agents'), agentsTarget);
   log(`  ${c('green', 'OK')} ${runtime.label}: SKILL.md manifest -> ${c('dim', path.join(skillsDir, 'SKILL.md'))}`);
-  log(`  ${c('green', 'OK')} ${runtime.label}: ${commandCount} command files -> ${c('dim', path.join(skillsDir, 'commands', 'scr'))}`);
-  log(`  ${c('green', 'OK')} ${runtime.label}: ${agentCount} agent prompts -> ${c('dim', path.join(skillsDir, 'agents'))}`);
+  log(`  ${c('green', 'OK')} ${runtime.label}: ${commandCount} command files (${normalizeSurfaceProfile(profile)} profile) -> ${c('dim', commandsTarget)}`);
+  log(`  ${c('green', 'OK')} ${runtime.label}: ${agentCount} agent prompts -> ${c('dim', agentsTarget)}`);
 }
 
 function installCodexAgentsWithMetadata(agentsDir) {
@@ -1757,17 +2126,15 @@ function installCodexAgentsWithMetadata(agentsDir) {
   };
 }
 
-function installCodexRuntime(runtime, isGlobal, log) {
+function installCodexRuntime(runtime, isGlobal, log, profile = DEFAULT_SURFACE_PROFILE) {
   const skillsDir = isGlobal ? runtime.skills_dir_global : path.resolve(runtime.skills_dir_project);
   const commandsDir = isGlobal ? runtime.commands_dir_global : path.resolve(runtime.commands_dir_project);
   const agentsDir = isGlobal ? runtime.agents_dir_global : path.resolve(runtime.agents_dir_project);
   const sourceCommandsRoot = path.join(PKG_ROOT, 'commands', 'scr');
-  const commandEntries = collectCommandEntries(sourceCommandsRoot);
+  const commandEntries = collectInstallCommandEntries(profile);
   const skillNames = commandEntries.map((entry) => entry.skillName);
 
-  // Wipe the installed commands dir so stale files from previous installs
-  // (removed commands, legacy flat layouts, etc.) do not linger.
-  removePathIfExists(commandsDir);
+  const removedCommandFiles = cleanMirroredFiles(sourceCommandsRoot, commandsDir);
   fs.mkdirSync(skillsDir, { recursive: true });
   const removedSkillDirs = cleanCodexSkillDirs(skillsDir, skillNames);
 
@@ -1779,13 +2146,8 @@ function installCodexRuntime(runtime, isGlobal, log) {
   // clean content -- not on top of a previously-marked installed file -- so
   // re-runs are idempotent (single marker, current prose rewrite).
   let commandCount = 0;
-  for (const entry of commandEntries) {
-    const sourcePath = path.join(sourceCommandsRoot, entry.relativePath);
-    const sourceContent = fs.readFileSync(sourcePath, 'utf8');
-    const targetPath = path.join(commandsDir, entry.relativePath);
-    atomicWriteFileSync(targetPath, generateCodexCommandContent(entry, sourceContent));
-    commandCount++;
-  }
+  commandCount = writeProfileCommandFiles(sourceCommandsRoot, commandsDir, commandEntries, generateCodexCommandContent);
+  writeSurfaceProfileMarker(commandsDir, profile);
 
   const agentInstall = installCodexAgentsWithMetadata(agentsDir);
 
@@ -1796,13 +2158,14 @@ function installCodexRuntime(runtime, isGlobal, log) {
     atomicWriteFileSync(path.join(skillDir, 'SKILL.md'), generateCodexSkill(entry, commandPath));
   }
   writeCodexSkillManifest(skillsDir, skillNames);
+  writeSurfaceProfileMarker(skillsDir, profile);
 
-  log(`  ${c('green', 'OK')} ${runtime.label}: ${commandEntries.length} \$scr-* skills -> ${c('dim', skillsDir)}${removedSkillDirs ? c('dim', ` (cleaned ${removedSkillDirs} stale dirs)`) : ''}`);
-  log(`  ${c('green', 'OK')} ${runtime.label}: ${commandCount} command files -> ${c('dim', commandsDir)}`);
+  log(`  ${c('green', 'OK')} ${runtime.label}: ${commandEntries.length} \$scr-* skills (${normalizeSurfaceProfile(profile)} profile) -> ${c('dim', skillsDir)}${removedSkillDirs ? c('dim', ` (cleaned ${removedSkillDirs} stale dirs)`) : ''}`);
+  log(`  ${c('green', 'OK')} ${runtime.label}: ${commandCount} command files -> ${c('dim', commandsDir)}${removedCommandFiles ? c('dim', ` (cleaned ${removedCommandFiles} stale files)`) : ''}`);
   log(`  ${c('green', 'OK')} ${runtime.label}: ${agentInstall.agentCount} agent prompts + ${agentInstall.metadataCount} metadata files -> ${c('dim', agentsDir)}${agentInstall.removed ? c('dim', ` (cleaned ${agentInstall.removed} stale files)`) : ''}`);
 }
 
-function installGuidedRuntime(runtime, isGlobal, dataDir, log) {
+function installGuidedRuntime(runtime, isGlobal, dataDir, log, profile = DEFAULT_SURFACE_PROFILE) {
   const guideDir = isGlobal ? runtime.guide_dir_global : path.resolve(runtime.guide_dir_project);
   const currentProjectDir = path.resolve('.');
   const setupGuide = generatePerplexitySetupGuide({
@@ -1821,12 +2184,13 @@ function installGuidedRuntime(runtime, isGlobal, dataDir, log) {
   atomicWriteFileSync(path.join(guideDir, 'SETUP.md'), setupGuide);
   atomicWriteFileSync(path.join(guideDir, 'connector-command.txt'), connectorCommand + '\n');
   atomicWriteFileSync(path.join(guideDir, 'connector-command.current-project.txt'), currentProjectCommand + '\n');
+  writeSurfaceProfileMarker(guideDir, profile);
 
   log(`  ${c('green', 'OK')} ${runtime.label}: setup guide -> ${c('dim', path.join(guideDir, 'SETUP.md'))}`);
   log(`  ${c('green', 'OK')} ${runtime.label}: connector recipe -> ${c('dim', path.join(guideDir, 'connector-command.txt'))}`);
 }
 
-function writeSharedAssets(dataDir, runtimeKeys, isGlobal, developerMode, installMode, log) {
+function writeSharedAssets(dataDir, runtimeKeys, isGlobal, developerMode, installMode, log, profile = DEFAULT_SURFACE_PROFILE) {
   fs.mkdirSync(path.join(dataDir, 'templates'), { recursive: true });
   fs.mkdirSync(path.join(dataDir, 'data'), { recursive: true });
   fs.mkdirSync(path.join(dataDir, 'lib'), { recursive: true });
@@ -1873,6 +2237,7 @@ function writeSharedAssets(dataDir, runtimeKeys, isGlobal, developerMode, instal
     developer_mode: developerMode,
     data_dir: dataDir,
     install_mode: installMode,
+    profile: normalizeSurfaceProfile(profile),
     installed_at: new Date().toISOString(),
   };
   const mergedSettings = mergeSettings(existingSettings, incomingSettings);
@@ -1929,12 +2294,99 @@ function collectTargetDirsForSweep(runtimeKeys, isGlobal, dataDir) {
   return Array.from(dirs);
 }
 
-function runInstall({ runtimeKeys, isGlobal, developerMode, silent, installMode }) {
+function runtimeInstallTargets(runtimeKey, runtime, isGlobal) {
+  const resolve = (globalPath, projectPath) => isGlobal ? globalPath : (projectPath ? path.resolve(projectPath) : null);
+  return {
+    runtime: runtimeKey,
+    label: runtime.label,
+    type: runtime.type,
+    commandsDir: resolve(runtime.commands_dir_global, runtime.commands_dir_project),
+    skillsDir: resolve(runtime.skills_dir_global, runtime.skills_dir_project),
+    agentsDir: resolve(runtime.agents_dir_global, runtime.agents_dir_project),
+    guideDir: resolve(runtime.guide_dir_global, runtime.guide_dir_project),
+  };
+}
+
+function buildInstallDryRun({ runtimeKeys, isGlobal, developerMode, installMode, profile = DEFAULT_SURFACE_PROFILE }) {
+  const resolvedProfile = normalizeSurfaceProfile(profile);
   const dataDir = isGlobal ? path.join(os.homedir(), '.scriveno') : path.resolve('.scriveno');
-  const log = silent ? () => {} : (message) => console.log(message);
+  const commandEntries = collectInstallCommandEntries(resolvedProfile);
+  const profileSummary = surfaceProfileSummary(resolvedProfile);
+  const agentCount = collectAgentEntries(path.join(PKG_ROOT, 'agents')).length;
+  const sharedAssets = {
+    templates: listRelativeFiles(path.join(PKG_ROOT, 'templates')).length,
+    data: listRelativeFiles(path.join(PKG_ROOT, 'data')).length,
+    lib: listRelativeFiles(path.join(PKG_ROOT, 'lib')).length,
+  };
+
+  return {
+    version: VERSION,
+    profile: resolvedProfile,
+    profileLabel: profileSummary.label,
+    profileDescription: profileSummary.description,
+    registeredCommands: profileSummary.commandCount,
+    commandFiles: commandEntries.length,
+    agentPrompts: agentCount,
+    scope: isGlobal ? 'global' : 'project',
+    mode: developerMode ? 'developer' : 'writer',
+    installMode,
+    dataDir,
+    sharedAssets,
+    targets: runtimeKeys.map((runtimeKey) => {
+      const runtime = RUNTIMES[runtimeKey];
+      if (!runtime) throw new Error(`Unknown runtime "${runtimeKey}"`);
+      return runtimeInstallTargets(runtimeKey, runtime, isGlobal);
+    }),
+    writes: false,
+  };
+}
+
+function formatInstallDryRunReport(plan) {
+  const lines = [
+    'Scriveno install dry run',
+    `Version: ${plan.version}`,
+    `Profile: ${plan.profile} (${plan.profileLabel})`,
+    `Scope: ${plan.scope}`,
+    `Mode: ${plan.mode}`,
+    `Command files selected: ${plan.commandFiles}`,
+    `Registered command entries selected: ${plan.registeredCommands}`,
+    `Agent prompts selected: ${plan.agentPrompts}`,
+    `Shared assets: ${plan.sharedAssets.templates} templates, ${plan.sharedAssets.data} data files, ${plan.sharedAssets.lib} lib files`,
+    `Data directory: ${plan.dataDir}`,
+    '',
+    'Runtime targets:',
+  ];
+  for (const target of plan.targets) {
+    lines.push(`- ${target.label} (${target.runtime})`);
+    if (target.commandsDir) lines.push(`  commands: ${target.commandsDir}`);
+    if (target.skillsDir) lines.push(`  skills: ${target.skillsDir}`);
+    if (target.agentsDir) lines.push(`  agents: ${target.agentsDir}`);
+    if (target.guideDir) lines.push(`  guide: ${target.guideDir}`);
+  }
+  lines.push('');
+  lines.push('No files were written.');
+  return lines.join('\n');
+}
+
+function runInstall({ runtimeKeys, isGlobal, developerMode, silent, installMode, profile = DEFAULT_SURFACE_PROFILE, dryRun = false, json = false }) {
+  const resolvedProfile = normalizeSurfaceProfile(profile);
+  const dataDir = isGlobal ? path.join(os.homedir(), '.scriveno') : path.resolve('.scriveno');
+  const log = (silent || json || dryRun) ? () => {} : (message) => console.log(message);
 
   if (!runtimeKeys.length) {
     throw new Error('No runtimes selected for installation');
+  }
+
+  if (dryRun) {
+    const plan = buildInstallDryRun({
+      runtimeKeys,
+      isGlobal,
+      developerMode,
+      installMode,
+      profile: resolvedProfile,
+    });
+    console.log(json ? JSON.stringify(plan, null, 2) : formatInstallDryRunReport(plan));
+    return plan;
   }
 
   let totalOrphansRemoved = 0;
@@ -1945,7 +2397,7 @@ function runInstall({ runtimeKeys, isGlobal, developerMode, silent, installMode 
     log(c('dim', `  Cleaned ${totalOrphansRemoved} orphaned temp file(s) from prior interrupted install`));
   }
 
-  if (!silent) {
+  if (!silent && !json) {
     console.log('\n' + c('bold', 'Installing...'));
   }
 
@@ -1955,27 +2407,42 @@ function runInstall({ runtimeKeys, isGlobal, developerMode, silent, installMode 
       throw new Error(`Unknown runtime "${runtimeKey}"`);
     }
     if (runtimeKey === 'codex') {
-      installCodexRuntime(runtime, isGlobal, log);
+      installCodexRuntime(runtime, isGlobal, log, resolvedProfile);
     } else if (runtime.command_layout === 'flat-prefixed') {
-      installClaudeCommandRuntime(runtime, isGlobal, log);
+      installClaudeCommandRuntime(runtime, isGlobal, log, resolvedProfile);
     } else if (runtime.type === 'skills') {
-      installManifestSkillRuntime(runtime, isGlobal, log);
+      installManifestSkillRuntime(runtime, isGlobal, log, resolvedProfile);
     } else if (runtime.type === 'guided-mcp') {
-      installGuidedRuntime(runtime, isGlobal, dataDir, log);
+      installGuidedRuntime(runtime, isGlobal, dataDir, log, resolvedProfile);
     } else {
-      installCommandRuntime(runtime, isGlobal, log);
+      installCommandRuntime(runtime, isGlobal, log, resolvedProfile);
     }
   }
 
-  writeSharedAssets(dataDir, runtimeKeys, isGlobal, developerMode, installMode, log);
+  writeSharedAssets(dataDir, runtimeKeys, isGlobal, developerMode, installMode, log, resolvedProfile);
+
+  const summary = {
+    version: VERSION,
+    runtimes: runtimeKeys,
+    scope: isGlobal ? 'global' : 'project',
+    mode: developerMode ? 'developer' : 'writer',
+    profile: resolvedProfile,
+    dataDir,
+  };
+
+  if (json) {
+    console.log(JSON.stringify(summary, null, 2));
+    return summary;
+  }
 
   if (silent) {
-    console.log(`Installed Scriveno ${VERSION} to ${runtimeKeys.join(', ')} (${isGlobal ? 'global' : 'project'}, ${developerMode ? 'developer' : 'writer'} mode).`);
-    return;
+    console.log(`Installed Scriveno ${VERSION} to ${runtimeKeys.join(', ')} (${isGlobal ? 'global' : 'project'}, ${developerMode ? 'developer' : 'writer'} mode, ${resolvedProfile} profile).`);
+    return summary;
   }
 
   console.log('\n' + c('bold', c('green', 'Installation complete!')));
   printNextSteps(runtimeKeys);
+  return summary;
 }
 
 // Only run interactive installer when executed directly
@@ -1990,14 +2457,19 @@ if (require.main === module) {
 module.exports = {
   copyDir,
   RUNTIMES,
+  SURFACE_PROFILES,
+  DEFAULT_SURFACE_PROFILE,
   parseArgs,
   resolveInstallRequest,
+  runInstall,
   runStatus,
   runSyncCheck,
   runRuntimeSmoke,
   runAgentAvailability,
   runRouteAudit,
   collectCommandEntries,
+  collectCommandEntriesForProfile,
+  collectInstallCommandEntries,
   collectAgentEntries,
   assertNoSkillNameCollisions,
   cleanCodexSkillDirs,
@@ -2015,9 +2487,16 @@ module.exports = {
   installManifestSkillRuntime,
   installCodexRuntime,
   installCodexAgentsWithMetadata,
+  runSurface,
   cleanFlatCommandFiles,
   generateCodexSkill,
   generateSkillManifest,
+  normalizeSurfaceProfile,
+  resolveProfileCommandKeys,
+  surfaceProfileSummary,
+  listSurfaceProfiles,
+  buildInstallDryRun,
+  formatInstallDryRunReport,
   buildFilesystemMcpCommand,
   generatePerplexitySetupGuide,
   atomicWriteFileSync,

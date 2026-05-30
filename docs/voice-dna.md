@@ -293,5 +293,5 @@ See [docs/drafter-quality.md](drafter-quality.md) for the full system, including
 - [Proof Artifacts](proof-artifacts.md) -- inspect the Voice DNA before/after bundle first if you want the fastest concrete evidence
 - [Getting Started](getting-started.md) -- Install Scriveno and write your first draft
 - [Drafter Quality](drafter-quality.md) -- the three rule layers, the `draft` config block, and model-tier recommendations
-- [Command Reference](command-reference.md) -- Full list of all 113 commands with usage and examples
+- [Command Reference](command-reference.md) -- Full list of all 115 commands with usage and examples
 - [Work Types Guide](work-types.md) -- How work types adapt Scriveno's vocabulary and commands

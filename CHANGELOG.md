@@ -2,6 +2,29 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 2.8.0 - 2026-05-30
+
+Feature release focused on command-surface control, one-unit proofing, context-health visibility, and safer release gates.
+
+**Command surface profiles**
+
+- Added installer profiles (`core`, `writing`, `publishing`, `translation`, `specialist`, `full`) so writers can install a focused command set instead of the whole surface.
+- Added `scriveno surface list`, `scriveno surface status`, and `scriveno surface profile <name>` with `--dry-run` support.
+- Added `/scr:surface`, a writer-facing command for inspecting and changing the installed profile without touching manuscript content.
+- Hardened command-runtime installs so Scriveno-owned mirrors are cleaned while unrelated user files are preserved.
+
+**Proof and context health**
+
+- Added `/scr:proof-unit`, a one-unit vertical proof path through voice, plan, draft, review, context health, and optional export-tool checks.
+- Added context-health estimation to the shared auto-invoke engine and `/scr:health --context`, with watch, tight, and critical thresholds.
+- The proactive status report now includes a `Context health:` line so long sessions show context pressure before another large operation.
+
+**Release and publishing gates**
+
+- Added `/scr:export --check` for format availability and external tool readiness without assembling or writing export files.
+- Added `/scr:publish --preflight` so publishing presets can validate manuscript readiness and required tools before generating deliverables.
+- Refreshed command inventory counts to 115 and added regression coverage for profiles, dry-run plans, context-health pressure, proof-unit, and preflight docs.
+
 ## 2.7.2 - 2026-05-30
 
 Correctness follow-up to the 2.7.x progress ledger release.
@@ -78,7 +101,7 @@ Major release focused on making the first 10 minutes executable and proving the 
 **Runtime parity proof**
 
 - Added committed first-run and runtime-parity proof bundles under `data/proof/`.
-- Refreshed runtime smoke expectations for the 113-command surface across Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic fallback.
+- Refreshed runtime smoke expectations for the 115-command surface across Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic fallback.
 - Kept Codex skill metadata, Claude Code command surfaces, guided local-MCP targets, and generic skill bundles aligned through the shared installer path.
 
 **Release alignment**

@@ -2,6 +2,20 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.8.0 - 2026-05-30
+
+### What changed
+
+- Scriveno can now install focused command profiles: `core`, `writing`, `publishing`, `translation`, `specialist`, or `full`. The new `/scr:surface` command and `scriveno surface` CLI helpers let writers inspect, dry-run, and switch profiles.
+- Added `/scr:proof-unit`, a one-unit proof path that checks voice context, plans, drafts, reviews, context health, and optional export-tool readiness.
+- Added context-health estimation to `scriveno status`, `/scr:next`, and `/scr:health --context`, with watch, tight, and critical thresholds.
+- Added `/scr:export --check` and `/scr:publish --preflight` so tool readiness and publishing prerequisites can be verified before writing deliverables.
+- Updated the public command inventory to 115 commands and added regression tests for profiles, dry-run installs, context health, proof-unit, and preflight surfaces.
+
+### Why it matters
+
+Writers can keep Scriveno small when they only need the active workflow, prove the product on one real unit before trusting a larger run, and check export or publishing readiness before generating packages.
+
 ## 2.7.2 - 2026-05-30
 
 ### What changed
@@ -76,7 +90,7 @@ This release closes the gap between what Scriveno documented and what it shipped
 - The public CLI now supports `scriveno first-run --project .`, giving terminal users the same proof path without relying on host-specific slash-command behavior.
 - First-run guidance is connected to `/scr:help`, `/scr:demo`, Quick Proof, Starter Sets, Runtime Support, Shipped Assets, Command Reference, README launch copy, and architecture docs.
 - Scriveno now includes committed first-run and runtime-parity proof bundles under `data/proof/`.
-- Runtime smoke now validates the 113-command installed surface across Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic fallback.
+- Runtime smoke now validates the 115-command installed surface across Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic fallback.
 - README badges, package metadata, constraints metadata, generated config metadata, changelog, release notes, configuration docs, route graph docs, architecture docs, proof docs, and release tests are aligned on `2.5.0`.
 
 ### Why it matters
