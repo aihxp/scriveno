@@ -135,4 +135,12 @@ describe('Phase 48: engine computes the deliverable ledger', () => {
     assert.equal(ledger.untouched, 0);
     assert.equal(ledger.percent, 0);
   });
+
+  it('analyzeProject surfaces the ledger and formatReport renders a Progress line', () => {
+    const analysis = engine.analyzeProject(path.join(ROOT, 'data/demo'));
+    assert.ok(analysis.progress, 'analysis includes a progress ledger');
+    assert.equal(analysis.progress.total, 5);
+    assert.equal(analysis.progress.done, 1);
+    assert.match(engine.formatReport(analysis), /Progress: /);
+  });
 });
