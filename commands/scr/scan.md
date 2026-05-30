@@ -38,8 +38,8 @@ Run every check. Do not stop on first finding. Bundle them all into one report.
 Read `STATE.md` for `Units drafted`, `Units planned`, `Units reviewed`, and `Total words`. Then count what is actually on disk:
 
 - **Units drafted** = files matching `.manuscript/drafts/body/*-DRAFT.md`
-- **Units planned** = files matching `.manuscript/*-*-PLAN.md` (numeric-prefixed plan files)
-- **Units reviewed** = files matching `.manuscript/*-EDITOR-NOTES.md`
+- **Units planned** = files matching `.manuscript/plans/*-PLAN.md`; legacy root-level `.manuscript/*-PLAN.md` also counts
+- **Units reviewed** = files matching `.manuscript/reviews/*-REVIEW.md`; legacy root-level `.manuscript/*-EDITOR-NOTES.md` also counts
 - **Total words** = `wc -w` summed across all `drafts/body/*-DRAFT.md` files
 
 For each metric where STATE.md value != filesystem value, emit:
@@ -67,7 +67,7 @@ For each orphan, emit one finding with the unit identifier and the file path.
 
 ### CHECK 3: Plan vs. draft alignment
 
-For each `*-PLAN.md` file in `.manuscript/`, check whether the corresponding `*-DRAFT.md` exists in `drafts/body/`. If a plan exists but no draft:
+For each `*-PLAN.md` file in `.manuscript/plans/` (and any legacy root-level `*-PLAN.md` file), check whether the corresponding `*-DRAFT.md` exists in `drafts/body/`. If a plan exists but no draft:
 
 ```
 INFO   Unit 8 has a plan ({N}-{A}-PLAN.md) but no draft yet.

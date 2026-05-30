@@ -2,11 +2,23 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.7.2 - 2026-05-30
+
+### What changed
+
+- Progress ledger correctness: reviewed units with open editor notes now stay in progress instead of being counted as done. Submitted units still count as done, and clean reviews count as done when the workflow stops at review.
+- `/scr:scan` now points its plan and review counts at the canonical `.manuscript/plans/` and `.manuscript/reviews/` directories, with legacy root-level fallbacks.
+- The 2.7.1 release text now matches the actual `scriveno status` output.
+
+### Why it matters
+
+The progress bar now reflects the writer's real state of work: review notes still waiting on revision no longer look finished.
+
 ## 2.7.1 - 2026-05-30
 
 ### What changed
 
-- `scriveno status` now prints the progress ledger directly (a `Progress:` line with bar, done / in progress / untouched, and pipeline position), so the deliverable view is visible from the bundled CLI, not only to runtimes that load the engine module.
+- `scriveno status` now prints the progress ledger directly (a `Progress:` line with the bar and done / in progress / untouched counts), so the deliverable view is visible from the bundled CLI, not only to runtimes that load the engine module.
 - Documentation-integrity pass: corrected the context-integrity layer description (now five files), added `PROGRESS.md` to the scan trust-file lists and the architecture template tree, and refreshed stale version and count references across the docs.
 
 ### Why it matters

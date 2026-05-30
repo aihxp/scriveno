@@ -1,12 +1,18 @@
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const os = require('node:os');
 const path = require('node:path');
 
 const ROOT = path.join(__dirname, '..');
 
 function read(relativePath) {
   return fs.readFileSync(path.join(ROOT, relativePath), 'utf8');
+}
+
+function write(filePath, content) {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  fs.writeFileSync(filePath, content);
 }
 
 describe('Phase 48: PROGRESS.md per-unit ledger', () => {
@@ -91,7 +97,10 @@ describe('Phase 48: PROGRESS.md per-unit ledger', () => {
   });
 
   it('scan checks ledger staleness and outline derives status from disk', () => {
-    assert.match(read('commands/scr/scan.md'), /CHECK 12: PROGRESS\.md ledger staleness/);
+    const scan = read('commands/scr/scan.md');
+    assert.match(scan, /CHECK 12: PROGRESS\.md ledger staleness/);
+    assert.match(scan, /\.manuscript\/plans\/\*-PLAN\.md/);
+    assert.match(scan, /\.manuscript\/reviews\/\*-REVIEW\.md/);
     assert.match(read('commands/scr/outline.md'), /docs\/progress-protocol\.md/);
     assert.match(read('commands/scr/outline.md'), /not from STATE\.md aggregates/);
     assert.match(read('commands/scr/manuscript-stats.md'), /docs\/progress-protocol\.md/);
@@ -120,12 +129,50 @@ describe('Phase 48: engine computes the deliverable ledger', () => {
     assert.equal(ledger.drafted, 4, 'demo has 4 drafted units');
     assert.equal(ledger.planned, 1, 'demo keeps one pending plan (unit 5)');
     assert.equal(ledger.reviewed, 1, 'demo has 1 reviewed unit');
-    assert.equal(ledger.done, 1);
-    assert.equal(ledger.inProgress, 4);
+    assert.equal(ledger.done, 0, 'demo review notes are still open, so no unit is done yet');
+    assert.equal(ledger.inProgress, 5);
     assert.equal(ledger.untouched, 0);
-    assert.equal(ledger.percent, 20);
+    assert.equal(ledger.percent, 0);
     assert.equal(typeof ledger.bar, 'string');
     assert.ok(ledger.bar.length >= 10, 'renders a progress bar');
+  });
+
+  it('keeps open reviews in progress while clean reviews and submissions count as done', () => {
+    const project = fs.mkdtempSync(path.join(os.tmpdir(), 'scriveno-ledger-'));
+    try {
+      const manuscript = path.join(project, '.manuscript');
+      write(path.join(manuscript, 'OUTLINE.md'), [
+        '| Scene | Title |',
+        '|-------|-------|',
+        '| 1 | Clean review |',
+        '| 2 | Open review |',
+        '| 3 | Submitted review |',
+      ].join('\n'));
+      write(path.join(manuscript, 'drafts/body/1-DRAFT.md'), 'Draft one\n');
+      write(path.join(manuscript, 'drafts/body/2-DRAFT.md'), 'Draft two\n');
+      write(path.join(manuscript, 'drafts/body/3-DRAFT.md'), 'Draft three\n');
+      write(path.join(manuscript, 'reviews/1-REVIEW.md'), 'Review passed\n');
+      write(path.join(manuscript, 'reviews/2-REVIEW.md'), 'TODO: resolve pacing\n');
+      write(path.join(manuscript, 'reviews/3-REVIEW.md'), 'TODO: older note\n');
+      write(path.join(manuscript, 'STATE.md'), [
+        '# Workflow state',
+        '| Timestamp | Command | Unit | Outcome |',
+        '|-----------|---------|------|---------|',
+        '| 2026-05-30T12:00:00Z | submit | Scene 3 | Submitted |',
+      ].join('\n'));
+
+      const ledger = engine.computeProgressLedger(manuscript);
+
+      assert.equal(ledger.total, 3);
+      assert.equal(ledger.reviewed, 3);
+      assert.equal(ledger.submitted, 1);
+      assert.equal(ledger.done, 2);
+      assert.equal(ledger.inProgress, 1);
+      assert.deepEqual(ledger.units.done, [1, 3]);
+      assert.deepEqual(ledger.units.openReviews, [2]);
+    } finally {
+      fs.rmSync(project, { recursive: true, force: true });
+    }
   });
 
   it('returns zeros for a directory with no units', () => {
@@ -140,7 +187,7 @@ describe('Phase 48: engine computes the deliverable ledger', () => {
     const analysis = engine.analyzeProject(path.join(ROOT, 'data/demo'));
     assert.ok(analysis.progress, 'analysis includes a progress ledger');
     assert.equal(analysis.progress.total, 5);
-    assert.equal(analysis.progress.done, 1);
+    assert.equal(analysis.progress.done, 0);
     assert.match(engine.formatReport(analysis), /Progress: /);
   });
 });

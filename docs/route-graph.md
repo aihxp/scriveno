@@ -13,7 +13,7 @@ The text report summarizes command count, graph edges, agent-capable routes, loc
 
 ## Current Shape
 
-As of `2.7.1`, the route graph contains:
+As of `2.7.2`, the route graph contains:
 
 - 113 commands
 - intent-order edges from `command_intents`

@@ -2,11 +2,19 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 2.7.2 - 2026-05-30
+
+Correctness follow-up to the 2.7.x progress ledger release.
+
+- Fixed `computeProgressLedger` so reviewed units with open editor notes stay in progress instead of being counted as done. Submitted units still count as done, and clean reviews count as done for workflows that stop at review.
+- Updated `/scr:scan` instructions to count canonical `.manuscript/plans/*-PLAN.md` and `.manuscript/reviews/*-REVIEW.md` files, while keeping legacy root-level plan and editor-note files as fallbacks.
+- Aligned 2.7.1 release text with the actual `scriveno status` output, which prints the progress bar and done / in progress / untouched counts.
+
 ## 2.7.1 - 2026-05-30
 
 Polish and documentation-integrity follow-up to 2.7.0.
 
-- `scriveno status` now renders the progress ledger live: `analyzeProject` returns a `progress` object and the report prints a `Progress:` line (bar, done / in progress / untouched, pipeline position). Previously `computeProgressLedger` was only available to runtimes that loaded the module directly.
+- `scriveno status` now renders the progress ledger live: `analyzeProject` returns a `progress` object and the report prints a `Progress:` line with the bar and done / in progress / untouched counts. Previously `computeProgressLedger` was only available to runtimes that loaded the module directly.
 - Documentation drift audit across the Markdown suite: corrected the context-integrity layer description in `docs/history-protocol.md` (five files, not three), added `PROGRESS.md` to the `/scr:scan` trust-file enumerations, listed the derived `CONTEXT.md` and `PROGRESS.md` scaffolds in the `docs/architecture.md` template tree, refreshed the `docs/route-graph.md` version stamp, dropped stale "trust trio" wording, and fixed a stale command count in `.planning/PROJECT.md`.
 
 ## 2.7.0 - 2026-05-30
