@@ -18,7 +18,7 @@ node "$HOME/.scriveno/lib/auto-invoke-engine.js" --project "$PWD" --trigger /scr
 node .scriveno/lib/auto-invoke-engine.js --project "$PWD" --trigger /scr:progress
 ```
 
-This engine is installed into Scriveno shared assets for every runtime, including Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic skill fallback. If the engine is not present, perform the read-only progress logic below.
+This engine is installed into Scriveno shared assets for every runtime, including Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic skill fallback. The engine exposes `computeProgressLedger(manuscriptDir)` (see `lib/auto-invoke-engine.js` and `docs/progress-protocol.md`), which returns the deliverable bar, percent, and the done / in progress / untouched bucket counts deterministically from disk; a runtime that loads the module should prefer it over re-deriving counts by hand. If the engine is not present, perform the read-only progress logic below.
 
 ## Prerequisites
 
