@@ -1,5 +1,6 @@
 ---
 description: Generate plot synopsis at specified length for query and submission packages.
+argument-hint: "[--length <1p|2p|5p>]"
 ---
 
 # /scr:synopsis -- Plot Synopsis Generator

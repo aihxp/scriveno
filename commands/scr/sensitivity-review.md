@@ -1,5 +1,6 @@
 ---
 description: Flag potential sensitivity issues with context, suggest alternatives, and note intentional craft.
+argument-hint: "[N]"
 ---
 
 # /scr:sensitivity-review -- Sensitivity Review with Craft Awareness

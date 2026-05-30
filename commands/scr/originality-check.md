@@ -1,5 +1,6 @@
 ---
 description: Scan drafted prose for AI-generated patterns and unintentional similarity to published works.
+argument-hint: "[N]"
 ---
 
 # /scr:originality-check -- AI Pattern & Similarity Scan

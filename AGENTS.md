@@ -10,7 +10,7 @@ Scriveno is a spec-driven writing, publishing, and translation pipeline that run
 
 - **Architecture**: Must remain a pure skill/command system -- no compiled code, no runtime dependencies beyond Node.js for the installer
 - **Voice fidelity**: Every feature must preserve the Voice DNA pipeline -- fresh context per atomic unit, STYLE-GUIDE.md loaded first
-- **Backward compatibility**: Existing 28 commands and templates must continue working as new features are added
+- **Backward compatibility**: Existing 113 commands and templates must continue working as new features are added
 - **Plan authority**: If a command file contradicts the product plan, fix the command -- plan is canonical (section 15 for command specs)
 - **Progressive disclosure**: Onboarding asks 3 questions max; depth is optional and additive
 - **Runtime credibility**: `>=20.0.0` is the installer compatibility floor. For new installs, prefer a currently supported LTS such as Node.js 24. `docs/runtime-support.md` is the canonical runtime matrix, and installer targets are not interchangeable proof of host-runtime parity.
@@ -56,6 +56,8 @@ Scriveno is a spec-driven writing, publishing, and translation pipeline that run
 | **IngramSpark** | PDF/X-1a (CMYK, bleeds, full-wrap cover) | Pandoc + Typst for interior; cover requires separate full-wrap PDF. CMYK conversion via ImageMagick or Ghostscript. | MEDIUM |
 | **Submission/Query** | DOCX (standard manuscript format) | Pandoc with manuscript reference doc | HIGH |
 ## Illustration Generation (AI Image APIs)
+**Shipped today:** Scriveno does not call an image API. The illustration commands (`commands/scr/cover-art.md`, `commands/scr/illustrate-scene.md`) generate copy-paste prompts that the writer pastes into an external image tool. The engines below are recommended targets for a future automated path, not current behavior.
+
 | Technology | Purpose | Why | Confidence |
 |------------|---------|-----|------------|
 | **OpenAI GPT Image 1.5 API** | Primary illustration engine | Current OpenAI image-generation docs describe it as the latest GPT Image model. It supports context-aware generation and editing through the Image API and Responses API. Check official pricing before release work because image costs depend on model, quality, size, and token use. | HIGH |
@@ -63,6 +65,8 @@ Scriveno is a spec-driven writing, publishing, and translation pipeline that run
 | **Stable Diffusion (via API)** | Style-consistent illustration sets | Open-source. LoRA fine-tuning allows training on a specific art style for consistent illustration across a book. Best for children's books / comics needing visual consistency. Requires more setup. | MEDIUM |
 ### Illustration Pipeline Architecture
 ## Translation Pipeline
+**Shipped today:** Scriveno does not call a translation API. Translation runs through the in-context translator agent (`agents/translator.md`), which applies the voice profile and glossary per unit. The engines below are recommended integration targets for a future automated path, not current behavior.
+
 | Technology | Purpose | Why | Confidence |
 |------------|---------|-----|------------|
 | **DeepL API Pro** | Primary translation engine for European languages | Higher quality than Google for EN/FR/DE/ES/IT/PT/NL/PL/JA/ZH/KO. GDPR-compliant, content not stored or used for training. $5.49/mo + $25/M chars. | HIGH |
@@ -132,6 +136,8 @@ Load-bearing baseline. Files live in `data/export-templates/`. See `docs/shipped
 | `scriveno-book.typst` | Typst template | Book interior PDF (trim sizes, margins, headers, page numbers) |
 | `scriveno-epub.css` | CSS | EPUB styling (clean, readable, KDP-compatible) |
 | `scriveno-academic.latex` | LaTeX template | Academic paper/thesis formatting |
+
+This table is the load-bearing baseline. The full shipped set (verify with `ls data/export-templates/`; 17 files today, including stageplay, chapbook, and picturebook Typst templates, five academic LaTeX wrappers, fixed-layout EPUB assets, and DOCX reference docs) is inventoried in `docs/shipped-assets.md`.
 
 ## Planned Export Templates
 | Template | Format | Purpose |

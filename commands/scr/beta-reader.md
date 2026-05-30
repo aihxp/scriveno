@@ -1,10 +1,13 @@
 ---
-description: Simulate a beta reader's experience of the manuscript with cross-AI peer review.
+description: Simulate a beta reader's experience of the manuscript using a fresh-context reader persona.
+argument-hint: "[N] [--focus <area>]"
 ---
 
-# /scr:beta-reader -- Cross-AI Peer Review
+# /scr:beta-reader -- Reader-Perspective Review
 
-Simulate a beta reader's experience of the manuscript.
+Simulate a beta reader's experience of the manuscript using a fresh-context reader persona.
+
+This command simulates an independent reader in a fresh context using the same model, not a second or external AI. Genuine cross-AI review would require an external CLI call that Scriveno does not currently wire.
 
 ## Usage
 ```

@@ -422,7 +422,7 @@ The voice-checker agent (`agents/voice-checker.md`) compares drafted prose again
 - Specific issues organized by category (structural voice, lexical voice, character voice, AI-slop indicators)
 - Severity ratings (drift vs critical violation)
 
-The voice-checker is invoked after every drafted unit. If drift exceeds the configured threshold (default: 0.3 in `config.json`), the writer is offered a re-draft.
+The voice-checker is invoked after every drafted unit and returns an Overall score (0-100). Normalized drift is `drift = (100 - score) / 100`, so the default `config.json` threshold of 0.3 means the writer is offered a re-draft when the voice score falls below 70. See the "Normalized drift" section of `agents/voice-checker.md` for the single definition callers share.
 
 ### Calibration
 

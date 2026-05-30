@@ -153,7 +153,7 @@ Apply tradition data to `.manuscript/output/metadata.yaml` (before STEP 3f write
   - `tibetan` script -> `bo`
   - `devanagari` script -> `sa` (Sanskrit)
   - `latin` script -> use the project language from config.json (default `en`)
-- Set `font-family:` to the first entry in the manifest's `font_stack`.
+- Set `mainfont:` to the first entry in the manifest's `font_stack`. (For the EPUB itself the non-Latin font is applied through `scriveno-epub.css`; `mainfont` keeps the metadata key aligned with the print build.)
 
 If `rtl: true` in the manifest, add `--metadata dir=rtl` to the Pandoc invocation in STEP 4.
 

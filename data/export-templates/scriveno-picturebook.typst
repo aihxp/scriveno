@@ -20,6 +20,13 @@
 // Override with -V margin-top= etc. if custom margins are needed
 #let margin-all = $if(margin-top)$$margin-top$$else$0.375in$endif$
 
+// Text direction: parameterized for RTL compatibility (set via --metadata dir=rtl).
+// Margins are symmetric and body text is centered, so only the base text
+// direction needs to flip for right-to-left scripts.
+#let text-dir = $if(dir)$$dir$$else$ltr$endif$
+#let is-rtl = text-dir == rtl
+#let lang-code = $if(lang)$"$lang$"$else$"en"$endif$
+
 // Metadata
 #let book-title  = $if(title)$"$title$"$else$"Untitled"$endif$
 #let book-author = $if(author)$"$for(author)$$it.name$$sep$, $endfor$"$else$""$endif$
@@ -46,6 +53,8 @@
 #set text(
   font: $if(mainfont)$"$mainfont$"$else$"Helvetica"$endif$,
   size: $if(fontsize)$$fontsize$$else$16pt$endif$,
+  dir: text-dir,
+  lang: lang-code,
   fallback: true,
 )
 

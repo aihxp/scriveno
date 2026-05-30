@@ -1,5 +1,6 @@
 ---
 description: Audit dialogue for character voice differentiation, attribution clarity, and talking-head detection.
+argument-hint: "[N]"
 ---
 
 # /scr:dialogue-audit -- Character Dialogue Quality Audit

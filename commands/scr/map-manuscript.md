@@ -1,5 +1,6 @@
 ---
 description: Spawn parallel analysis agents to understand an existing manuscript's voice, structure, characters, and themes.
+argument-hint: "[area]"
 ---
 
 # /scr:map-manuscript -- Analyze Existing Manuscript

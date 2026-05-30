@@ -1,5 +1,6 @@
 ---
 description: Write a scene, passage, or chapter outside the full planning workflow.
+argument-hint: "[--discuss] [--research] [--full]"
 ---
 
 # /scr:quick-write -- Ad-Hoc Writing Without Full Planning
@@ -18,7 +19,7 @@ Write a scene, passage, or chapter outside the full planning workflow.
 
 ## Instruction
 
-Quick write gives you Scriveno guarantees (continuity tracking, voice consistency, atomic commits) with a faster path.
+Quick write is the fast path. It loads STYLE-GUIDE.md, drafts in the current conversation context (not a fresh per-unit context), and commits atomically. It runs continuity and voice checks only when you pass `--full`. For voice-critical work, prefer `/scr:draft`, which drafts each unit in a fresh context and always runs a voice-check.
 
 ### STEP 1: GATHER INTENT
 
@@ -48,6 +49,8 @@ If the host runtime cannot spawn a focused researcher, run the research pass in 
 ### STEP 3: DRAFT
 
 Write the passage following all established style guide constraints. Target whatever length feels natural unless the writer specified a target.
+
+Quick-write drafts in the current conversation context rather than spawning the drafter in a fresh per-unit context; this trades some voice isolation for speed. When fresh-context voice fidelity matters, use `/scr:draft` instead.
 
 ### STEP 4: VERIFY (if --full)
 

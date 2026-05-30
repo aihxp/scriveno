@@ -2340,6 +2340,7 @@
     },
     "beta-reader": {
       "category": "review",
+      "description": "Simulate a beta reader's experience of the manuscript using a fresh-context reader persona (same model, not a second or external AI).",
       "available": [
         "all"
       ],

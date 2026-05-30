@@ -1,5 +1,6 @@
 ---
 description: Generate a structure-aware pacing report analyzing scene tempo and narrative flow.
+argument-hint: "[N]"
 ---
 
 # /scr:pacing-analysis -- Structure-Aware Pacing Report

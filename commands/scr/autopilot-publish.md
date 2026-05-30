@@ -1,6 +1,6 @@
 ---
 description: "Run full publishing pipeline unattended with quality gate (voice-check + continuity-check)."
-argument-hint: "--preset <preset> [--front-level <minimum|balanced|maximum|skip>] [--back-level <minimum|balanced|maximum|skip>]"
+argument-hint: "--preset <preset> [--front-level <minimum|balanced|maximum|skip>] [--back-level <minimum|balanced|maximum|skip>] [--force]"
 ---
 
 # /scr:autopilot-publish -- Unattended Publishing Pipeline
@@ -16,6 +16,8 @@ You are running the full publishing pipeline autonomously. Your job is to run qu
 The `--preset` argument is **required**. There is no interactive mode in autopilot -- the writer must specify their destination upfront. Valid presets: `kdp-paperback`, `kdp-ebook`, `query-submission`, `ebook-wide`, `ingram-paperback`, `academic-submission`, `thesis-defense`, `screenplay-query`, `share-pdf`, `share-docx`, `share-epub`, `share-bundle`, `all-formats`, `submission-package`.
 
 `--front-level` and `--back-level` control how much front/back matter is generated when the preset includes those steps. Both default to **balanced** for retail and academic presets, **minimum** for share-* and all-formats, and **skip** for query-submission, screenplay-query, and submission-package (the package itself does not need book front/back matter). Pass `skip` to suppress the corresponding generation step entirely. The default is applied silently per the table below; the writer only needs to pass these flags to override.
+
+`--force` proceeds through the export pipeline even when the voice check returns a severe failure (Overall score below 60). Without it, a severe voice failure stops the run before export so the pipeline does not unattended-publish prose that reads as machine-generated. Continuity warnings and non-severe voice scores (60 and above) never block regardless of this flag.
 
 ---
 
@@ -78,7 +80,7 @@ Continuity check: 1 warning
 Proceeding with export. Review full reports after completion.
 ```
 
-**Quality gate policy (D-09):** Always proceed to the export pipeline regardless of quality gate results. The quality gate is advisory -- it gives the writer information, not a veto. Even if voice check scores FAIL (below 60) or continuity check finds major contradictions, log the warnings and continue.
+**Quality gate policy (D-09):** The quality gate is advisory for a voice score of 60 or above and for all continuity findings -- log the warnings and proceed to export, giving the writer information rather than a veto. The one exception is a **severe voice failure**: if the voice check returns an Overall score below 60 (the voice-checker's "Reads AI-generated / do not proceed" band) and `--force` was not passed, STOP before the export pipeline, write the voice-check report to the output directory, and tell the writer to re-draft the flagged units or re-run with `--force`. This keeps the unattended path fast for acceptable quality while refusing to silently package a manuscript that reads as machine-generated -- the one outcome the Voice DNA pipeline exists to prevent.
 
 ---
 

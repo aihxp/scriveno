@@ -17,6 +17,13 @@
 #let margin-top    = $if(margin-top)$$margin-top$$else$1in$endif$
 #let margin-bottom = $if(margin-bottom)$$margin-bottom$$else$1in$endif$
 
+// Text direction: parameterized for RTL compatibility (set via --metadata dir=rtl).
+// For right-to-left scripts the wider binding margin moves to the right edge and
+// the page number flips to the top-left.
+#let text-dir = $if(dir)$$dir$$else$ltr$endif$
+#let is-rtl = text-dir == rtl
+#let lang-code = $if(lang)$"$lang$"$else$"en"$endif$
+
 // Metadata
 #let play-title  = $if(title)$"$title$"$else$"Untitled"$endif$
 #let play-author = $if(author)$"$for(author)$$it.name$$sep$, $endfor$"$else$""$endif$
@@ -30,16 +37,17 @@
   width: page-width,
   height: page-height,
   margin: (
-    left:   margin-left,
-    right:  margin-right,
+    // The 1.5in binding margin sits on the left for LTR and flips to the right for RTL.
+    left:   if is-rtl { margin-right } else { margin-left },
+    right:  if is-rtl { margin-left } else { margin-right },
     top:    margin-top,
     bottom: margin-bottom,
   ),
-  // Page numbering: top-right, industry standard for scripts
+  // Page numbering: top-right for LTR scripts, top-left for RTL
   header: context {
     let page-num = counter(page).get().first()
     if page-num > 1 {
-      align(right, text(size: 10pt)[#str(page-num).])
+      align(if is-rtl { left } else { right }, text(size: 10pt)[#str(page-num).])
     }
   },
 )
@@ -48,6 +56,8 @@
 #set text(
   font: $if(mainfont)$"$mainfont$"$else$"Courier New"$endif$,
   size: $if(fontsize)$$fontsize$$else$12pt$endif$,
+  dir: text-dir,
+  lang: lang-code,
   fallback: true,
 )
 
