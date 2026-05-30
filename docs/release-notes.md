@@ -2,6 +2,17 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.7.1 - 2026-05-30
+
+### What changed
+
+- `scriveno status` now prints the progress ledger directly (a `Progress:` line with bar, done / in progress / untouched, and pipeline position), so the deliverable view is visible from the bundled CLI, not only to runtimes that load the engine module.
+- Documentation-integrity pass: corrected the context-integrity layer description (now five files), added `PROGRESS.md` to the scan trust-file lists and the architecture template tree, and refreshed stale version and count references across the docs.
+
+### Why it matters
+
+It closes the loop on the 2.7.0 progress ledger: the numbers are surfaced everywhere a writer looks, and the documentation matches the shipped behavior.
+
 ## 2.7.0 - 2026-05-30
 
 ### What changed

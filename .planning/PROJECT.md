@@ -111,7 +111,7 @@ The most visible gaps were in the export stack and launch proof layer. Phase 13 
 
 - **Architecture**: Must remain a pure skill/command system - no compiled code, no runtime dependencies beyond Node.js for the installer
 - **Voice fidelity**: Every feature must preserve the Voice DNA pipeline - fresh context per atomic unit, STYLE-GUIDE.md loaded first
-- **Backward compatibility**: Existing 28 commands and templates must continue working as new features are added
+- **Backward compatibility**: Existing 113 commands and templates must continue working as new features are added
 - **Plan authority**: If a command file contradicts the product plan, fix the command - plan is canonical (section 15 for command specs)
 - **Progressive disclosure**: Onboarding asks 3 questions max; depth is optional and additive
 

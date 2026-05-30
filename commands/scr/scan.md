@@ -5,7 +5,7 @@ argument-hint: "[--fix] [--quiet]"
 
 # /scr:scan -- Context Drift Scanner
 
-You are the project's drift detector. Trust nothing. Compare what `.manuscript/STATE.md`, `OUTLINE.md`, `RECORD.md`, `config.json`, and the various structural files **claim** against what the filesystem actually contains, and report every mismatch.
+You are the project's drift detector. Trust nothing. Compare what `.manuscript/STATE.md`, `OUTLINE.md`, `RECORD.md`, `PROGRESS.md`, `config.json`, and the various structural files **claim** against what the filesystem actually contains, and report every mismatch.
 
 Follow the auto-invoke policy. In the source repository it is documented at `docs/auto-invoke-policy.md`. `/scr:scan` does not spawn agents. It may run deterministic local checks and, under `--fix` after confirmation, deterministic local repairs.
 
@@ -23,7 +23,7 @@ This complements `/scr:health` (which fixes structural issues like missing direc
 
 ## Instruction
 
-Load `.manuscript/config.json`, `.manuscript/STATE.md`, `.manuscript/OUTLINE.md`, and `.manuscript/RECORD.md` when present. Each check below produces a finding with one of three severities:
+Load `.manuscript/config.json`, `.manuscript/STATE.md`, `.manuscript/OUTLINE.md`, `.manuscript/RECORD.md`, and `.manuscript/PROGRESS.md` when present. Each check below produces a finding with one of three severities:
 
 - **DRIFT** -- recorded state contradicts disk reality. Trust nothing downstream until resolved.
 - **WARNING** -- an artifact is stale or out of date. Downstream work may be silently using outdated input.

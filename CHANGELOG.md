@@ -2,6 +2,13 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 2.7.1 - 2026-05-30
+
+Polish and documentation-integrity follow-up to 2.7.0.
+
+- `scriveno status` now renders the progress ledger live: `analyzeProject` returns a `progress` object and the report prints a `Progress:` line (bar, done / in progress / untouched, pipeline position). Previously `computeProgressLedger` was only available to runtimes that loaded the module directly.
+- Documentation drift audit across the Markdown suite: corrected the context-integrity layer description in `docs/history-protocol.md` (five files, not three), added `PROGRESS.md` to the `/scr:scan` trust-file enumerations, listed the derived `CONTEXT.md` and `PROGRESS.md` scaffolds in the `docs/architecture.md` template tree, refreshed the `docs/route-graph.md` version stamp, dropped stale "trust trio" wording, and fixed a stale command count in `.planning/PROJECT.md`.
+
 ## 2.7.0 - 2026-05-30
 
 Adds a per-unit progress ledger so writers can see, at a glance, what is done, in progress, and untouched across their manuscript.

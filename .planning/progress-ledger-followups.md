@@ -12,10 +12,14 @@ See CHANGELOG.md and docs/release-notes.md for the public summary.
 - `lib/auto-invoke-engine.js` exposes `computeProgressLedger(manuscriptDir)` (exported, tested in `test/phase48-progress-ledger.test.js`).
 - Version 2.7.0 aligned across package.json, templates/config.json, new-work.md, data/CONSTRAINTS.json, docs/configuration.md, README badge, CHANGELOG, release-notes, and the release-metadata test.
 
+## Shipped in v2.7.1
+
+- `computeProgressLedger` is now wired into the `scriveno status` text report: `analyzeProject` returns a `progress` object and `formatProactiveChecks` prints a `Progress:` line (bar, done / in progress / untouched, pipeline position). The bundled CLI surfaces the ledger directly, not only when a runtime loads the module. (This closes the formerly-deferred CLI-wiring item.)
+- Documentation-integrity audit across the Markdown suite: history-protocol context-integrity layer description (five files), scan trust-file enumerations, architecture template tree (derived scaffolds), route-graph version stamp, and a stale command count in PROJECT.md.
+
 ## Deferred / optional follow-ups
 
-1. Wire `computeProgressLedger` into the `scriveno status` text report (`formatProactiveChecks` / `formatReport` in `lib/auto-invoke-engine.js`) so the bundled CLI prints a ledger line directly, not only when a runtime requires the module. Additive and low risk; gate on the engine test suite. Guard the no-project branch of `analyzeProject` so it is only computed when `.manuscript` exists.
-2. Optional: a richer README section with an example of the rendered ledger output.
+- Optional: a richer README section with a rendered example of the ledger output.
 
 ## Canonical product plan (off-repo)
 
