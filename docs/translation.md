@@ -2,17 +2,13 @@
 
 Scriveno translates your manuscript into any language while preserving your voice. The translation pipeline handles glossary management, translation memory, cultural adaptation, quality verification, and multi-language publishing -- from setup to finished translated editions.
 
-This guide covers the full pipeline: choosing a translation engine, translating your manuscript, managing terminology, verifying quality, and publishing in multiple languages.
+This guide covers the full pipeline: how translation works, translating your manuscript, managing terminology, verifying quality, and publishing in multiple languages.
 
-## Translation Engines
+## Translation approach
 
-Scriveno uses three translation approaches, each suited to different languages and content types.
+Scriveno translates through the in-context translator agent (`agents/translator.md`), not an external translation API. The agent itself handles literary nuance, sacred-text registers, and cultural adaptation that machine-translation services miss. It applies your voice profile, maintains glossary compliance, and can do formal or dynamic equivalence translation. Every unit is translated by the translator agent in fresh context with your STYLE-GUIDE.md loaded.
 
-**DeepL** -- Primary engine for European languages. Higher quality than alternatives for English, French, German, Spanish, Italian, Portuguese, Dutch, Polish, Japanese, Chinese, and Korean. GDPR-compliant -- your content is not stored or used for training.
-
-**Google Cloud Translation** -- Broad language coverage with 130+ languages. Required for Arabic, Hebrew, Hindi, Swahili, and other languages DeepL does not cover. Best choice for RTL scripts and languages with limited DeepL support.
-
-**AI Agent (Claude/GPT)** -- The AI agent itself handles literary nuance, sacred text translation, and cultural adaptation that machine translation APIs miss. It applies your voice profile, maintains glossary compliance, and can do formal/dynamic equivalence translation. This is Scriveno's default for literary content -- every unit is translated by the translator agent with your STYLE-GUIDE.md loaded.
+DeepL and Google Cloud Translation are documented as possible future integration targets, not current behavior. Scriveno does not call either service today; if an automated machine-translation path is added later, this guide will describe how it plugs in.
 
 The translator agent works unit by unit in fresh context (just like the drafter), ensuring consistent quality and glossary compliance across the entire manuscript.
 
@@ -171,7 +167,7 @@ The TMX export produces industry-standard Translation Memory eXchange format com
 
 ## Cultural Adaptation
 
-Machine translation handles words. Cultural adaptation handles meaning. Scriveno flags culturally sensitive content that needs human attention beyond what translation APIs catch.
+Translation handles words. Cultural adaptation handles meaning. Scriveno flags culturally sensitive content that needs deliberate attention beyond a faithful unit-by-unit rendering.
 
 ```
 /scr:cultural-adaptation fr
@@ -247,8 +243,8 @@ Scriveno handles right-to-left and CJK (Chinese, Japanese, Korean) scripts throu
 
 RTL languages (Arabic, Hebrew, Persian, Urdu) receive special handling:
 
-- **Text direction** -- Export commands automatically set `--variable dir=rtl` for Pandoc and `text-dir` for Typst
-- **Template adjustments** -- The Typst book template reverses inside/outside margins for RTL binding
+- **Text direction** -- Export commands pass the Pandoc `dir` variable (`dir=rtl`); the Typst interior templates read that `dir` variable to orient text
+- **Template adjustments** -- The Typst interior templates honor RTL: the book template reverses inside/outside margins for RTL binding, and the stageplay template flips its binding margin and page-number alignment. The chapbook and picturebook templates set text direction from the `dir` variable.
 - **Font requirements** -- RTL exports need fonts with Arabic/Hebrew glyph support. Scriveno uses system-available fonts by default; specify custom fonts in `.manuscript/config.json`
 - **Punctuation** -- Quotation marks use the appropriate convention (e.g., French-style guillemets for Arabic)
 

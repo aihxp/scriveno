@@ -245,7 +245,7 @@ Show the proof-first path, runtime command shapes, demo sequence, proof artifact
 
 ### `/scr:next`
 
-**Description:** Auto-detect what to do next in your workflow and recommend the best path. The one command a writer can always use.
+**Description:** Auto-detect what to do next in your workflow and run it. The one command a writer can always use.
 
 **Usage:** `/scr:next`
 
@@ -277,7 +277,7 @@ Scriveno maps your intent to the right command and runs it.
 
 ### `/scr:help`
 
-**Description:** Show Scriveno commands grouped by inferred writer intent, filtered to what's relevant for your current work type and progress.
+**Description:** Show Scriveno commands grouped by workflow stage, filtered to what's relevant for your current work type and progress.
 
 **Usage:** `/scr:help [category or search term]`
 
@@ -350,7 +350,7 @@ Import an existing Word document and split it into chapters, scenes, and context
 
 **Description:** Spawn parallel analysis agents to understand an existing manuscript's voice, structure, characters, and themes.
 
-**Usage:** `/scr:map-manuscript`
+**Usage:** `/scr:map-manuscript [area]`
 
 **Prerequisites:** None
 
@@ -564,7 +564,7 @@ Visualize your novel's structure mapped to the hero's journey.
 
 **Description:** Generate a chronological event timeline from the outline.
 
-**Usage:** `/scr:timeline`
+**Usage:** `/scr:timeline [--story-order] [--chronological]`
 
 **Prerequisites:** OUTLINE.md must exist
 
@@ -584,7 +584,7 @@ See events in chronological order, even if your narrative is non-linear.
 
 **Description:** Track thematic threads across the work with auto-detection suggestions.
 
-**Usage:** `/scr:theme-tracker`
+**Usage:** `/scr:theme-tracker [--detect]`
 
 **Prerequisites:** THEMES.md must exist
 
@@ -780,7 +780,7 @@ Commands for creating and managing characters, relationships, and world-building
 
 **Description:** Build a complete character profile through guided interactive interview.
 
-**Usage:** `/scr:new-character`
+**Usage:** `/scr:new-character <name>`
 
 **Prerequisites:** WORK.md must exist
 
@@ -962,7 +962,7 @@ Scriveno drafts a sample passage using your voice profile. If it doesn't sound r
 
 **Description:** Perform a line-level prose quality pass with inline annotations.
 
-**Usage:** `/scr:line-edit`
+**Usage:** `/scr:line-edit [N]`
 
 **Prerequisites:** Draft must exist
 
@@ -980,7 +980,7 @@ Scriveno reads your prose line by line, flagging weak verbs, passive voice, redu
 
 **Description:** Perform a correctness pass for grammar, spelling, punctuation, and consistency.
 
-**Usage:** `/scr:copy-edit`
+**Usage:** `/scr:copy-edit [N]`
 
 **Prerequisites:** Draft must exist
 
@@ -998,7 +998,7 @@ Catch typos, grammar issues, and consistency problems (character name spellings,
 
 **Description:** Chain line-edit, copy-edit, and voice-check for comprehensive prose polish.
 
-**Usage:** `/scr:polish`
+**Usage:** `/scr:polish [N]`
 
 **Prerequisites:** Draft and STYLE-GUIDE.md must exist
 
@@ -1016,7 +1016,7 @@ Run all three quality passes in sequence. The comprehensive final polish before 
 
 **Description:** Write a scene, passage, or chapter outside the full planning workflow.
 
-**Usage:** `/scr:quick-write`
+**Usage:** `/scr:quick-write [--discuss] [--research] [--full]`
 
 **Prerequisites:** None
 
@@ -1038,7 +1038,7 @@ Commands for reviewing your manuscript from different angles -- continuity, voic
 
 **Description:** Automated continuity verification to scan for narrative contradictions across the manuscript.
 
-**Usage:** `/scr:continuity-check`
+**Usage:** `/scr:continuity-check [N]`
 
 **Prerequisites:** Draft must exist
 
@@ -1059,7 +1059,7 @@ Find contradictions: "In Chapter 3 Maria has brown eyes, but in Chapter 7 they'r
 
 **Description:** Compare drafted prose against STYLE-GUIDE.md to detect voice drift.
 
-**Usage:** `/scr:voice-check`
+**Usage:** `/scr:voice-check [N]`
 
 **Prerequisites:** Draft and STYLE-GUIDE.md must exist
 
@@ -1080,7 +1080,7 @@ Detect where your drafted prose drifts from your established voice profile.
 
 **Description:** Flag potential sensitivity issues with context, suggest alternatives, and note intentional craft.
 
-**Usage:** `/scr:sensitivity-review`
+**Usage:** `/scr:sensitivity-review [N]`
 
 **Prerequisites:** Draft must exist
 
@@ -1102,7 +1102,7 @@ Flag content that could be unintentionally harmful, with context-aware suggestio
 
 **Description:** Generate a structure-aware pacing report analyzing scene tempo and narrative flow.
 
-**Usage:** `/scr:pacing-analysis`
+**Usage:** `/scr:pacing-analysis [N]`
 
 **Prerequisites:** Draft must exist
 
@@ -1120,7 +1120,7 @@ See where your story drags or rushes. Scriveno maps scene length, tension, and t
 
 **Description:** Audit dialogue for character voice differentiation, attribution clarity, and talking-head detection.
 
-**Usage:** `/scr:dialogue-audit`
+**Usage:** `/scr:dialogue-audit [N]`
 
 **Prerequisites:** Draft must exist with dialogue
 
@@ -1141,7 +1141,7 @@ Check that each character sounds distinct, dialogue tags are clear, and scenes a
 
 **Description:** Simulate a beta reader's experience of the manuscript using a fresh-context reader persona (same model, not a second or external AI).
 
-**Usage:** `/scr:beta-reader`
+**Usage:** `/scr:beta-reader [N] [--focus <area>]`
 
 **Prerequisites:** Draft must exist
 
@@ -1163,7 +1163,7 @@ Get a simulated reader's reaction: what hooked them, where they got confused, wh
 
 **Description:** Scan drafted prose for AI-generated patterns and unintentional similarity to published works.
 
-**Usage:** `/scr:originality-check`
+**Usage:** `/scr:originality-check [N]`
 
 **Prerequisites:** Draft must exist
 
@@ -1259,7 +1259,7 @@ Get three blurb variations: punchy (Amazon listing), standard (back cover), exte
 
 **Description:** Generate plot synopsis at specified length for query and submission packages.
 
-**Usage:** `/scr:synopsis`
+**Usage:** `/scr:synopsis [--length <1p|2p|5p>]`
 
 **Prerequisites:** Complete draft must exist
 
@@ -1313,7 +1313,7 @@ Generate a full book proposal: overview, market analysis, chapter summaries, aut
 
 **Description:** Generate reading group discussion questions exploring themes, characters, and craft.
 
-**Usage:** `/scr:discussion-questions`
+**Usage:** `/scr:discussion-questions [--count <N>]`
 
 **Prerequisites:** Complete draft must exist
 
@@ -1478,7 +1478,7 @@ Build a poetry-submission DOCX for journal or contest submission using the poetr
 
 **Description:** Run full publishing pipeline unattended with quality gate (voice-check + continuity-check).
 
-**Usage:** `/scr:autopilot-publish --preset <preset>`
+**Usage:** `/scr:autopilot-publish --preset <preset> [--front-level <minimum|balanced|maximum|skip>] [--back-level <minimum|balanced|maximum|skip>]`
 
 **Prerequisites:** Complete draft must exist
 
@@ -1513,7 +1513,7 @@ Commands for generating cover art, scene illustrations, character references, ma
 - `--trim <size>` -- Preferred trim shorthand for prompt framing
 - `--kdp <trim_size>` -- Legacy alias for `--trim`
 - `--series` -- Generate series-consistent cover
-- `--prompt-only` -- Generate prompts without calling image API
+- `--prompt-only` -- Generate prompts without packaging reminders
 - `--element` -- Generate specific cover element
 
 **Example:**

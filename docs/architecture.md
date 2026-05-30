@@ -164,7 +164,8 @@ scriveno/
       scriveno-book.typst     Book interior PDF
       scriveno-epub.css       EPUB styling
       scriveno-academic.latex Academic paper formatting
-    templates/
+    proof/                 Committed proof bundles (voice-dna, runtime-parity)
+  templates/               Per-project starting content (repo root, sibling of data/)
     config.json            Per-project configuration template
     WORK.md                Work overview template
     OUTLINE.md             Structural outline template

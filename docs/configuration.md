@@ -63,16 +63,41 @@ When a writer runs `/scr:new-work`, Scriveno creates `.manuscript/config.json`. 
   "command_unit": "<unit>",
   "developer_mode": false,
   "created_at": "<ISO timestamp>",
+  "updated_at": "<ISO timestamp>",
   "autopilot": {
     "enabled": false,
-    "profile": "guided"
+    "profile": "guided",
+    "custom_checkpoints": []
+  },
+  "voice": {
+    "calibrated": false,
+    "last_calibration": null,
+    "drift_threshold": 0.3
+  },
+  "draft": {
+    "rigor": "standard",
+    "context_profile": "standard",
+    "pitfalls_enabled": true
+  },
+  "export": {
+    "default_format": "docx_manuscript",
+    "include_front_matter": true,
+    "include_back_matter": true
+  },
+  "translation": {
+    "source_language": "en",
+    "target_languages": []
+  },
+  "collaboration": {
+    "tracks_enabled": false,
+    "default_track": "canon"
   }
 }
 ```
 
 That `scriveno_version` value should track the current package release and the live `/scr:new-work` contract, not an older milestone snapshot.
 
-Every project gets those core keys. Additional blocks are added only when the work type requires them.
+Every project gets those core keys and shared blocks (`autopilot`, `voice`, `draft`, `export`, `translation`, `collaboration`). The `voice.drift_threshold` default of 0.3 is the voice-drift gate: drift is `(100 - score) / 100`, so 0.3 offers a re-draft when the voice score falls below 70 (see [Drafter Quality](drafter-quality.md) and `agents/voice-checker.md`). Additional blocks are added only when the work type requires them: a `technical` block for technical writing, top-level sacred profile keys for sacred work types, and `platform` for work types with an inferred publishing target.
 
 ### Technical writing projects
 
