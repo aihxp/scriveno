@@ -106,3 +106,33 @@ describe('Phase 48: PROGRESS.md per-unit ledger', () => {
     assert.match(read('docs/creative-context.md'), /PROGRESS\.md/);
   });
 });
+
+describe('Phase 48: engine computes the deliverable ledger', () => {
+  const engine = require('../lib/auto-invoke-engine.js');
+
+  it('exposes computeProgressLedger', () => {
+    assert.equal(typeof engine.computeProgressLedger, 'function');
+  });
+
+  it('derives buckets from the demo manuscript on disk', () => {
+    const ledger = engine.computeProgressLedger(path.join(ROOT, 'data/demo/.manuscript'));
+    assert.equal(ledger.total, 5, 'demo has 5 outlined units');
+    assert.equal(ledger.drafted, 4, 'demo has 4 drafted units');
+    assert.equal(ledger.planned, 5, 'demo has 5 planned units');
+    assert.equal(ledger.reviewed, 1, 'demo has 1 reviewed unit');
+    assert.equal(ledger.done, 1);
+    assert.equal(ledger.inProgress, 4);
+    assert.equal(ledger.untouched, 0);
+    assert.equal(ledger.percent, 20);
+    assert.equal(typeof ledger.bar, 'string');
+    assert.ok(ledger.bar.length >= 10, 'renders a progress bar');
+  });
+
+  it('returns zeros for a directory with no units', () => {
+    const ledger = engine.computeProgressLedger(path.join(ROOT, 'docs'));
+    assert.equal(ledger.total, 0);
+    assert.equal(ledger.done, 0);
+    assert.equal(ledger.untouched, 0);
+    assert.equal(ledger.percent, 0);
+  });
+});

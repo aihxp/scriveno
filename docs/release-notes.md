@@ -2,6 +2,24 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.7.0 - 2026-05-30
+
+### What changed
+
+- Added a per-unit progress ledger: `.manuscript/PROGRESS.md` shows every unit as done / in progress / untouched, with a deliverable progress bar and pipeline position, and `/scr:progress` now leads with that view and points at the ledger file.
+- `/scr:draft` and `/scr:autopilot` now narrate progress against the whole manuscript (unit N of total, percent).
+- `lib/auto-invoke-engine.js` exposes `computeProgressLedger` so the ledger numbers are deterministic across runtimes; `docs/progress-protocol.md` documents the contract.
+
+### Why it matters
+
+Writers asked for one place to see what is done, in progress, and untouched without re-deriving it each time. The ledger is that file, and because it is derived from disk it cannot silently drift from the real state of the manuscript.
+
+### Affected areas
+
+- progress, draft, autopilot, outline, manuscript-stats, and scan commands
+- the shared auto-invoke engine (computeProgressLedger)
+- the trust-layer docs and templates
+
 ## 2.6.0 - 2026-05-29
 
 ### What changed
