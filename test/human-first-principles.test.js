@@ -176,6 +176,6 @@ describe('authenticity-check diagnostic discipline', () => {
     assert.equal(cfg.scriveno_version, '2.7.1');
     assert.equal(constraints.version, '2.7.1');
     assert.match(read('CHANGELOG.md'), /## 2\.7\.1 - /);
-    assert.match(read('docs/release-notes.md'), /## 2\.6\.0 - /);
+    assert.match(read('docs/release-notes.md'), /## 2\.7\.1 - /);
   });
 });
