@@ -56,20 +56,22 @@ Follow the auto-invoke policy. In the source repository it is documented at `doc
    - `{{LAST_SCAN}}`, `{{LAST_SCAN_VERDICT}}` -- from STATE.md if recorded; otherwise `never run` and `unknown`
    Save to `.manuscript/CONTEXT.md`. This file is committed alongside STATE.md.
 
-8. **Append one line to `.manuscript/HISTORY.log`** per `docs/history-protocol.md`:
+8. **Regenerate `.manuscript/PROGRESS.md`** before staging. This is the openable per-unit progress ledger. Use the `templates/PROGRESS.md` scaffold and derive per-unit status from disk per `docs/progress-protocol.md` (plan, draft, and review files reconciled with STATE.md). Fill the unit ledger, the deliverable progress bar, the pipeline position, and the bucket counts (done / in progress / untouched). Save to `.manuscript/PROGRESS.md`; it is committed alongside STATE.md and CONTEXT.md.
+
+9. **Append one line to `.manuscript/HISTORY.log`** per `docs/history-protocol.md`:
    ```
    {ISO timestamp} | scr:save | message="{generated message}" | files={changed file count} | outcome=committed
    ```
    If HISTORY.log does not exist, create it. Do not stage it as a separate operation -- step 9 picks it up.
 
-9. **Execute the save:**
+10. **Execute the save:**
    ```
    git add .manuscript/
    git commit -m "{generated message}"
    ```
-   This commit must include the `STATE.md`, `CONTEXT.md`, and `HISTORY.log` updates from steps 6 through 8 so the worktree is clean immediately after a successful save.
+   This commit must include the `STATE.md`, `CONTEXT.md`, `PROGRESS.md`, and `HISTORY.log` updates from steps 6 through 9 so the worktree is clean immediately after a successful save.
 
-10. **Tell the writer** the result (see output section below).
+11. **Tell the writer** the result (see output section below).
 
 ## Automation Status
 
@@ -85,6 +87,7 @@ Candidate agents:
 Local operations:
 - STATE.md updated: yes/no
 - CONTEXT.md regenerated: yes/no
+- PROGRESS.md regenerated: yes/no
 - HISTORY.log appended: yes/no
 - manuscript files saved: yes/no
 Candidate local helpers:

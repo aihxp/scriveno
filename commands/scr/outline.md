@@ -22,7 +22,7 @@ You are an outline manager. Load:
 - `.manuscript/config.json` (to get `work_type`)
 - Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `work_types[type].hierarchy` for unit labels, and `file_adaptations`)
 - `.manuscript/OUTLINE.md` (the outline data -- read it fully)
-- `.manuscript/STATE.md` (to get drafted/planned/pending status per unit)
+- `.manuscript/STATE.md` (aggregate counters) plus each unit's files on disk (plans, drafts, reviews) to derive per-unit status -- see `docs/progress-protocol.md`. The persisted per-unit ledger is `.manuscript/PROGRESS.md` when present.
 
 **Work-type adaptation:** Read the hierarchy from CONSTRAINTS.json for the current work type to determine the correct unit terminology:
 - Novel: part > chapter > scene
@@ -56,7 +56,7 @@ Present the hierarchical outline with:
 2. **For each unit, show:**
    - Unit number and title
    - 1-line summary (from OUTLINE.md)
-   - Status: drafted | planned | pending (from STATE.md)
+   - Status: drafted | planned | pending (derived from disk per `docs/progress-protocol.md`, not from STATE.md aggregates)
    - Word count (if drafted, from STATE.md or draft file)
    - Arc position (if mapped in PLOT-GRAPH.md)
 

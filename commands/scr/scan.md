@@ -206,6 +206,20 @@ Do not over-claim. RECORD.md is an interpretive store, so uncertain findings sho
 
 ---
 
+### CHECK 12: PROGRESS.md ledger staleness
+
+If `.manuscript/PROGRESS.md` exists, compare its mtime against STATE.md and the newest draft. If PROGRESS.md is older than either, the saved per-unit ledger no longer reflects the work on disk. Emit:
+
+```
+WARNING .manuscript/PROGRESS.md is older than the recorded state.
+        The saved per-unit ledger may show stale unit status.
+        Fix: /scr:save to rebuild it (or /scr:scan --fix).
+```
+
+Recompute per-unit status from disk per `docs/progress-protocol.md`. If the bucket counts (done / in progress / untouched) disagree with what PROGRESS.md records, emit a DRIFT finding citing both. If PROGRESS.md does not exist, emit INFO with a one-line suggestion to run `/scr:save` once to generate the openable ledger.
+
+---
+
 ### REPORT
 
 Output a single structured report:
@@ -248,7 +262,7 @@ If `--quiet` was passed and there are zero findings, exit silently with no outpu
 
 When `--fix` is passed, after the report, group findings by auto-fixability:
 
-- **Auto-fixable now** -- finding has a deterministic fix Scriveno can apply (e.g. update STATE.md unit counts to match disk, initialize missing RECORD.md from the installed template, regenerate stale CONTEXT.md, sort orphan drafts into a `_unsorted/` review directory). For each, ask the writer once:
+- **Auto-fixable now** -- finding has a deterministic fix Scriveno can apply (e.g. update STATE.md unit counts to match disk, initialize missing RECORD.md from the installed template, regenerate stale CONTEXT.md, regenerate stale or missing PROGRESS.md from disk per `docs/progress-protocol.md`, sort orphan drafts into a `_unsorted/` review directory). For each, ask the writer once:
   > Apply [N] auto-fixes? (yes / no / show me what each does)
 - **Requires writer decision** -- finding needs a judgment call (e.g. character orphans, scaffold pending, voice drift). List with suggested next command.
 - **Manual** -- finding requires manual cleanup (e.g. malformed HISTORY.log lines).

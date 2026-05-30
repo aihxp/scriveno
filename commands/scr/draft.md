@@ -49,9 +49,9 @@ Require `.manuscript/plans/{N}-*-PLAN.md` files to exist. If none exist, also ch
 
 6. **Surface state nudges.** If the drafter emits `CHARACTER STATE NUDGE`, suggest `/scr:character-touch <name>` after drafting. If the drafter emits `SUBJECT DYNAMICS NUDGE`, suggest `/scr:subject-touch <subject>` after drafting. These nudges go to the writer, not into the draft file.
 
-7. **Update STATE.md:** mark unit as drafted, note word count, flag any voice-check issues.
+7. **Update STATE.md:** mark unit as drafted, note word count, flag any voice-check issues. Then refresh `.manuscript/PROGRESS.md` so the ledger advances (this unit moves to in progress or done) per `docs/progress-protocol.md`.
 
-8. **Tell the writer:** "Drafted {unit} {N}: X words across Y {atomic_units}. Voice consistency: Z% (the voice-checker Overall score for this unit; omit this figure if the voice-check could not run). Updated RECORD.md with what the draft established. Ready for editor review? Run `/scr:editor-review N` or `/scr:next`."
+8. **Tell the writer:** "Drafted {unit} {N} ({N} of {total}, {pct}% of the manuscript): X words across Y {atomic_units}. Voice consistency: Z% (the voice-checker Overall score for this unit; omit this figure if the voice-check could not run). Updated RECORD.md with what the draft established. Ready for editor review? Run `/scr:editor-review N` or `/scr:next`." The full per-unit ledger is in `.manuscript/PROGRESS.md`.
 
 ## Agent and Automation Status
 
@@ -67,6 +67,7 @@ Local operations:
 - draft files written: {count}
 - RECORD.md updated: yes/no
 - STATE.md updated: yes/no
+- PROGRESS.md refreshed: yes/no
 Auto-invoked:
 - /scr:editor-review N: yes/no
 Why: {autopilot.enabled true, full-auto profile, supervised pause, or writer-facing manual mode}
@@ -113,6 +114,6 @@ If the command stops because a prerequisite is missing, suggest the command that
 
 ## Tone
 
-Don't narrate each atomic unit being drafted. That's noise. Show progress concisely: "Drafted scene 1/4... 2/4... 3/4... 4/4. Voice check: passed."
+Don't narrate each atomic unit being drafted. That's noise. Show progress concisely, and anchor it to the whole manuscript so the writer sees momentum: "Drafted scene 1/4... 2/4... 3/4... 4/4. Voice check: passed. Chapter 5 of 12 done (42%)." Pull the unit-of-total figure and percent from the deliverable progress defined in `docs/progress-protocol.md`.
 
 Let the writer read the actual prose in the draft files. Your job is orchestration, not performance.

@@ -1,5 +1,5 @@
 ---
-description: Show current project state and next step. How far along, what is drafted, what is pending.
+description: Show project progress -- a unit progress bar, what is done / in progress / untouched, pipeline position, and a pointer to the per-unit ledger.
 argument-hint: ""
 ---
 
@@ -26,15 +26,19 @@ This engine is installed into Scriveno shared assets for every runtime, includin
 
 ## What to do
 
-1. Load `.manuscript/STATE.md`, `.manuscript/OUTLINE.md`, `.manuscript/RECORD.md` when present, and `.manuscript/config.json`
-2. Count total units, drafted units, submitted units, and pending units
-3. Calculate word count from existing draft files
-4. Determine the next step (what unit to discuss, plan, or draft next)
-5. Display a progress summary:
-   - "{drafted}/{total} units drafted. {submitted}/{total} submitted."
+1. Load `.manuscript/STATE.md`, `.manuscript/OUTLINE.md`, `.manuscript/config.json`, and `.manuscript/RECORD.md` when present. Read `.manuscript/PROGRESS.md` if it exists -- it is the saved ledger snapshot.
+2. Derive per-unit status from disk per `docs/progress-protocol.md`: for each outline unit, resolve its stage (untouched / discussed / planned / drafted / reviewed / submitted) and its headline bucket (done / in progress / untouched). Count units in each bucket plus the total, and calculate word count from existing draft files.
+3. Determine the pipeline position: the first incomplete stage on the writing lifecycle `seed > voice > outline > discuss > plan > draft > review > revise > publish > translate`, expressed as `Stage {index} of {total}: {Name}`.
+4. Determine the next step (what unit to discuss, plan, or draft next), using the work type's unit label from CONSTRAINTS.json (chapter, act, surah, section, and so on).
+5. Display the progress report, leading with the deliverable view:
+   - A progress bar over units, for example `████████░░ 4/5 scenes done (80%)` (block characters `U+2588` filled and `U+2591` empty; use the work type's plural unit label).
+   - "Done: {done}   In progress: {in_progress}   Untouched: {untouched}."
    - "{word_count} words so far."
+   - "Pipeline: Stage {index} of {total} ({stage_name})."
    - "{open_threads} open record threads." (only when RECORD.md exists)
    - "Next: {next_action}"
+   - "Full per-unit ledger: `.manuscript/PROGRESS.md`" -- the file the writer can open any time to see every unit's status. If it is missing or older than the newest draft, add: "(run `/scr:save` to refresh the saved ledger)".
+   When the project is small (20 units or fewer) or the writer asks, render the per-unit ledger table inline per `docs/progress-protocol.md` instead of only pointing at the file.
 6. Run the Level 1 proactive sweep:
    - If STATE.md counts disagree with draft files, suggest `/scr:scan`.
    - If reports show unresolved review items, suggest the matching review command.
@@ -55,14 +59,15 @@ Candidate agents:
 - <recommended agent route or none>
 Local operations:
 - progress counts computed: yes/no
+- per-unit ledger rendered: yes/no
 - proactive sweep: read-only
 Candidate local helpers:
-- <recommended helper or none>
+- /scr:save to refresh the saved .manuscript/PROGRESS.md when it is stale
 Manual gates:
 - <writer-owned route or none>
 Auto-invoked:
 - none
-Why: progress is read-only; it recommends next commands without mutating files
+Why: progress is read-only; it renders the ledger live and points at .manuscript/PROGRESS.md without writing it
 ```
 
 ## Response Contract

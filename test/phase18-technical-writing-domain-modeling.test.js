@@ -53,6 +53,7 @@ describe('phase 18 technical-writing scaffolding', () => {
     assert.deepEqual(constraints.file_adaptations.technical, {
       'BRIEF.md': 'DOC-BRIEF.md',
       'RECORD.md': 'RECORD.md',
+      'PROGRESS.md': 'PROGRESS.md',
       'CHARACTERS.md': 'AUDIENCE.md',
       'RELATIONSHIPS.md': 'DEPENDENCIES.md',
       'WORLD.md': 'SYSTEM.md',

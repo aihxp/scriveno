@@ -33,7 +33,7 @@ You are helping the writer pause their session gracefully. Your job is to captur
    - Outcome: `Paused session`
    Keep this pause marker in the Last actions table because `/scr:session-report` and future resume logic use it as a session boundary.
 
-6. **Regenerate `.manuscript/CONTEXT.md`** using the `templates/CONTEXT.md` scaffold and the field set described in `/scr:save` step 7, with `{{LAST_COMMAND}}` set to `/scr:pause-work`. This is the file the next session reads first; refreshing it on pause means the writer (or a fresh AI session) returns to a current view without having to call `/scr:resume-work` to bootstrap.
+6. **Regenerate `.manuscript/CONTEXT.md`** using the `templates/CONTEXT.md` scaffold and the field set described in `/scr:save` step 7, with `{{LAST_COMMAND}}` set to `/scr:pause-work`. This is the file the next session reads first; refreshing it on pause means the writer (or a fresh AI session) returns to a current view without having to call `/scr:resume-work` to bootstrap. Also regenerate `.manuscript/PROGRESS.md` (the per-unit progress ledger) per `/scr:save` step 8 and `docs/progress-protocol.md`, so the saved ledger matches where the writer is pausing.
 
 7. **Append one line to `.manuscript/HISTORY.log`** per `docs/history-protocol.md`:
    ```

@@ -293,17 +293,22 @@ Show publishing-related commands available for your work type. Without a categor
 
 ### `/scr:progress`
 
-**Description:** Show current state and next step. How far along are you, what's drafted, what's pending.
+**Description:** Show project progress: a unit progress bar, what's done / in progress / untouched, pipeline position, and a pointer to the per-unit ledger.
 
 **Usage:** `/scr:progress`
 
 **Prerequisites:** None
 
+**Output includes:**
+- A deliverable progress bar over units (done / in progress / untouched) with percent
+- Pipeline position on the writing lifecycle (e.g., "Stage 6 of 10: Drafting")
+- A pointer to `.manuscript/PROGRESS.md`, the openable per-unit ledger you can read any time
+
 **Example:**
 ```
 /scr:progress
 ```
-See "Chapter 4 of 12 drafted. 32,000 words. Next: discuss-chapter 5."
+See "████████░░ 4/12 chapters done (33%). Pipeline: Stage 6 of 10 (Drafting). Next: discuss chapter 5. Full ledger: .manuscript/PROGRESS.md."
 
 ---
 

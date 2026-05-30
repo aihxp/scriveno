@@ -6,6 +6,7 @@ It is part of the trust layer:
 - `STATE.md` -- structured snapshot (data)
 - `RECORD.md` -- compact established-content store
 - `.manuscript/CONTEXT.md` -- one-page narrative bootstrap (synthesis)
+- `.manuscript/PROGRESS.md` -- per-unit progress ledger (derived; see `docs/progress-protocol.md`)
 - `.manuscript/HISTORY.log` -- append-only audit trail
 
 ## The rule
@@ -71,7 +72,7 @@ Filesystem mtime is a cheap, durable signal that does not require parsing the fi
 - **Drafter agents** (drafter.md, voice-checker.md, etc.) -- they need the full source files for fidelity.
 - **Read-only data display commands** (`/scr:progress`, `/scr:session-report`) -- already cheap; no orientation files to skip.
 - **First-write commands** (`/scr:new-work`, `/scr:import`) -- no CONTEXT.md exists yet.
-- **The CONTEXT.md regenerators themselves** (`/scr:save`, `/scr:pause-work`, `/scr:resume-work`) -- they MUST load the raw files to rebuild CONTEXT.md correctly. They are the *writers* of CONTEXT.md, not consumers.
+- **The CONTEXT.md and PROGRESS.md regenerators themselves** (`/scr:save`, `/scr:pause-work`, `/scr:resume-work`) -- they MUST load the raw files to rebuild CONTEXT.md and the per-unit PROGRESS.md ledger correctly. They are the *writers* of those derived files, not consumers.
 - **`/scr:scan`** -- its job is to detect drift, so it must read the raw files to compare against CONTEXT.md.
 
 ## Expected savings

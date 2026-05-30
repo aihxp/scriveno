@@ -20,7 +20,8 @@ Load `.manuscript/config.json` for `command_unit`. The runnable command stays `/
 1. Load `.manuscript/config.json` for project context
 2. Check that the specified unit has been through editor review. Prefer `.manuscript/reviews/{N}-REVIEW.md`; if it is missing, accept legacy `{N}-EDITOR-NOTES.md`.
 3. Mark the unit as submitted in `STATE.md`
-4. Report: "Unit {N} submitted. {remaining} units remaining."
+4. Refresh `.manuscript/PROGRESS.md` so the ledger shows this unit as done, per `docs/progress-protocol.md`.
+5. Report: "Unit {N} submitted. {remaining} units remaining."
 
 ## Response Contract
 
