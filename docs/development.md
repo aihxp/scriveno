@@ -159,7 +159,7 @@ For release-oriented documentation surfaces, the main files are:
 - `docs/runtime-support.md`
 - `docs/route-graph.md`
 - `templates/*/README.md` when shipped profiles or templates change
-- `.planning/` milestone summaries when you are still using the GSD planning layer
+- `.planning/` milestone summaries when you are still using an external planning layer
 
 ## Before shipping
 

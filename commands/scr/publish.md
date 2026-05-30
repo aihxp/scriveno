@@ -1,6 +1,6 @@
 ---
 description: "Publishing wizard or preset-driven pipeline. Chains export commands based on destination."
-argument-hint: "[--preset <preset>] [--all] [--skip-validate]"
+argument-hint: "[--preset <preset>] [--all] [--skip-validate] [--preflight]"
 ---
 
 # /scr:publish -- Publishing Wizard
@@ -10,12 +10,13 @@ You are the publishing wizard. Your job is to turn a completed manuscript into p
 ## Usage
 
 ```
-/scr:publish [--preset <preset>] [--all] [--skip-validate]
+/scr:publish [--preset <preset>] [--all] [--skip-validate] [--preflight]
 ```
 
 - `--preset <preset>` -- Run a named preset pipeline without questions
 - `--all` -- Run every preset available for the current work type
 - `--skip-validate` -- Skip the scaffold-marker gate (not recommended)
+- `--preflight` -- Check readiness and required tools, then stop before writing deliverables
 - No arguments -- Run the interactive wizard
 
 ---
@@ -121,6 +122,48 @@ Re-run the GENERATE step from `/scr:front-matter` for elements 1, 3, 4, and 7 on
 If WORK.md is not newer than all 4 files and all 4 files exist: skip regeneration silently.
 
 Proceed to STEP 2.
+
+---
+
+### STEP 1.7: PREFLIGHT MODE
+
+If `--preflight` was passed, run a readiness check only and stop before generating front matter, back matter, exports, packages, or history entries.
+
+Preflight must include:
+
+1. The validation gate from STEP 1.5 unless `--skip-validate` was also passed.
+2. The front-matter scaffold exclusion check from STEP 1.6a.
+3. The publishing prerequisite checklist from STEP 3a.
+4. Preset availability against `CONSTRAINTS.json`.
+5. External tool checks by calling the matching export checks:
+   - `share-pdf`: `/scr:export --format pdf --check`
+   - `share-docx`: `/scr:export --format docx --check`
+   - `share-epub`: `/scr:export --format epub --check`
+   - `kdp-ebook`: `/scr:export --format epub --check`
+   - `kdp-paperback`: `/scr:export --format pdf --print-ready --check` and `/scr:export --format kdp-package --check`
+   - `ingram-paperback`: `/scr:export --format pdf --print-ready --check` and `/scr:export --format ingram-package --check`
+   - `query-submission`: `/scr:export --format query-package --check`
+   - `submission-package`: `/scr:export --format submission-package --check`
+   - `screenplay-query`: `/scr:export --format fountain --check`, `/scr:export --format fdx --check`, and `/scr:export --format query-package --check`
+   - `all-formats`: check each available base format
+
+Use this report shape:
+
+```text
+Publishing Preflight
+====================
+Preset: kdp-paperback
+
+[PASS] manuscript validation
+[WARN] front matter ........ not generated
+[PASS] pandoc
+[PASS] typst
+[SKIP] ghostscript ......... not required until ingram-package
+
+Result: ready after 1 optional item
+```
+
+If preflight finds a blocking issue, stop and suggest the command that fixes it. Do not continue into STEP 2.
 
 ---
 

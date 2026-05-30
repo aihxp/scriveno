@@ -1,6 +1,6 @@
 ---
 description: Diagnose and repair common project state issues.
-argument-hint: "[--repair]"
+argument-hint: "[--repair] [--context]"
 ---
 
 # Health
@@ -87,6 +87,39 @@ With `--repair`, fix what can be auto-fixed:
 
 After repair: re-run diagnostics and show the updated health report.
 
+## Context mode (--context)
+
+With `--context`, focus only on loaded-context health. This is a read-only guard for long projects and large unit sessions.
+
+1. Estimate the files an agent is likely to load before writing:
+   - `.manuscript/STYLE-GUIDE.md`
+   - `.manuscript/CONTEXT.md`
+   - `.manuscript/STATE.md`
+   - `.manuscript/OUTLINE.md`
+   - `.manuscript/RECORD.md`
+   - The newest plan, draft, and review files for the active unit
+2. Estimate tokens as `ceil(bytes / 4)`. This is intentionally simple and conservative.
+3. Classify the result:
+   - `ok`: under 45,000 estimated tokens
+   - `watch`: 45,000-79,999 estimated tokens
+   - `tight`: 80,000-119,999 estimated tokens
+   - `critical`: 120,000 or more estimated tokens
+4. Report the five largest loaded files so the writer can see what is making the session heavy.
+5. If the state is `watch`, suggest `/scr:health --context` again before the next large operation.
+6. If the state is `tight`, suggest `/scr:save` before drafting, review, translation, or export.
+7. If the state is `critical`, suggest `/scr:thread` or a fresh unit session before writing more prose.
+
+If the shared CLI engine is available, prefer it:
+
+```bash
+scriveno status --project "$PWD" --trigger "/scr:health --context"
+node lib/auto-invoke-engine.js --project "$PWD" --trigger "/scr:health --context"
+node "$HOME/.scriveno/lib/auto-invoke-engine.js" --project "$PWD" --trigger "/scr:health --context"
+node .scriveno/lib/auto-invoke-engine.js --project "$PWD" --trigger "/scr:health --context"
+```
+
+Return only the context-health portion of the report unless another health issue blocks the command.
+
 ## Automation Status
 
 Every response must include a compact status block:
@@ -100,6 +133,7 @@ Candidate agents:
 - none
 Local operations:
 - health checks run: {count}
+- context estimate run: {yes|no}
 - repairs applied: {count}
 Candidate local helpers:
 - /scr:scan or /scr:save when health detects repairable drift

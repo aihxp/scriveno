@@ -1,6 +1,6 @@
 ---
 description: Compile and export manuscript to publication-ready formats.
-argument-hint: "[--format <format>] [--formatted] [--print-ready] [--skip-validate]"
+argument-hint: "[--format <format>] [--formatted] [--print-ready] [--skip-validate] [--check]"
 ---
 
 # /scr:export -- Manuscript Export
@@ -11,10 +11,12 @@ Assemble the manuscript from OUTLINE.md and export to the specified format. Hand
 
 ```
 /scr:export                                  # interactive picker
-/scr:export --format <format> [--formatted] [--print-ready] [--skip-validate]
+/scr:export --format <format> [--formatted] [--print-ready] [--skip-validate] [--check]
 ```
 
 If `--format` is omitted, run the interactive picker (see STEP 0). Otherwise jump straight to STEP 1 with the requested format.
+
+If `--check` is passed, check format availability and required external tools, print a readiness report, and stop before assembling or writing export files.
 
 ---
 
@@ -135,6 +137,8 @@ Then **stop**.
 
 **Check for scaffold markers in `.manuscript/drafts/`.**
 
+If `--check` was passed, skip the scaffold-marker scan and proceed to STEP 2. Tool check mode verifies readiness of external commands only; it does not certify manuscript content.
+
 Scan all `.md` files in `.manuscript/drafts/` for:
 - Lines containing `[Fill in` (covers `[Fill in:]`, `[Fill in or delete:]`)
 - Lines containing `[Delete if not applicable:]`
@@ -217,6 +221,27 @@ Proceed to STEP 2.
 
 Check for required external tools based on the requested format.
 
+**Tool gate rules:**
+
+1. Never silently substitute one tool for another. For example, do not use WeasyPrint when Typst is missing, and do not use Calibre when Pandoc is missing.
+2. Record the tool command that was checked and, when available, the detected version.
+3. If `--check` was passed, do not create `.manuscript/output/`, do not assemble the manuscript, and do not run conversion commands. Print the report and stop after this step.
+4. If a required tool is missing, stop and show install instructions. Do not attempt a degraded export.
+
+Use this readiness report shape in `--check` mode:
+
+```text
+Export Tool Check
+=================
+Format: pdf --print-ready
+
+[PASS] pandoc .......... pandoc 3.x
+[PASS] typst ........... typst 0.x
+[SKIP] ghostscript ..... not required for this format
+
+Result: ready
+```
+
 **For markdown:** No external tools needed. Skip to Step 3.
 
 **For docx, epub, latex, query-package:** Check for Pandoc:
@@ -268,6 +293,22 @@ command -v screenplain >/dev/null 2>&1
 If not found, provide install instructions (`pip install screenplain`) and stop.
 
 **For fountain:** No external tools needed.
+
+**For kdp-package:** Check for Pandoc and Typst. If either tool is missing, stop before building the package.
+
+**For ingram-package:** Check for Pandoc, Typst, and Ghostscript (`gs`). If any required tool is missing, stop before building the package.
+
+**For query-package and submission-package:** Check for Pandoc.
+
+**Optional screenplay PDF:** Afterwriting is optional for `fountain`. If it is missing, do not fail the Fountain export; report it as optional. If `--check` is passed, show it as optional with install guidance:
+
+```bash
+command -v afterwriting >/dev/null 2>&1
+```
+
+> Optional: To generate a formatted screenplay PDF, install Afterwriting with `npm i -g afterwriting`.
+
+If `--check` was passed, stop here after printing the readiness report.
 
 ---
 

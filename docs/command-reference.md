@@ -1,6 +1,6 @@
 # Command Reference
 
-Scriveno has **113 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
+Scriveno has **115 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
 
 Commands marked with **adaptive terminology** change how Scriveno talks about your work type's `command_unit` in `.manuscript/config.json`, while keeping the runnable command id stable. Commands marked with **group adaptation** have different labels for specific work type groups (academic, sacred, etc.).
 
@@ -143,6 +143,26 @@ Review the draft of unit 3 with your editor hat on. Scriveno highlights issues, 
 /scr:submit 3
 ```
 Finalize Chapter 3 after editor review. Marks it as complete in the workflow.
+
+---
+
+### `/scr:proof-unit`
+
+**Description:** Run one manuscript unit through a proof path from voice profile to export readiness.
+
+**Usage:** `/scr:proof-unit [unit] [--demo] [--export-check]`
+
+**Prerequisites:** STYLE-GUIDE.md should exist. If it is missing, run `/scr:profile-writer` or `/scr:voice-test` first.
+
+**Flags:**
+- `--demo` -- Use the demo proof path when available
+- `--export-check` -- Run `/scr:export --check` after review to verify external tools
+
+**Example:**
+```
+/scr:proof-unit 3 --export-check
+```
+Prove one chapter through discuss, plan, draft, review, context health, and export-tool readiness without silently running a full publishing pipeline.
 
 ---
 
@@ -1336,7 +1356,7 @@ Generate 10-15 book club questions that spark real conversation about your theme
 
 **Description:** Publishing wizard or preset-driven pipeline. Chains export commands based on destination.
 
-**Usage:** `/scr:publish [--preset <preset>] [--all] [--skip-validate]`
+**Usage:** `/scr:publish [--preset <preset>] [--all] [--skip-validate] [--preflight]`
 
 **Prerequisites:** None (wraps export commands)
 
@@ -1348,6 +1368,7 @@ Generate 10-15 book club questions that spark real conversation about your theme
   - **Academic / archival:** `academic-submission`, `thesis-defense`, `all-formats`
 - `--all` -- Run all applicable presets
 - `--skip-validate` -- Skip the scaffold-marker validation gate (not recommended)
+- `--preflight` -- Check publishing readiness and external tools, then stop before writing deliverables
 - No flags -- Run the interactive wizard, which asks the writer-facing question "What are you doing?" (Share / Publish / Submit / Academic / Screenplay / Everything / Custom) and drills into the matching branch.
 
 **Available for:** All work types
@@ -1364,7 +1385,7 @@ Run the full KDP paperback publishing pipeline: prepare the interior package, ge
 
 **Description:** Compile and export manuscript to publication-ready formats.
 
-**Usage:** `/scr:export [--format <format>] [--formatted] [--print-ready] [--skip-validate]`
+**Usage:** `/scr:export [--format <format>] [--formatted] [--print-ready] [--skip-validate] [--check]`
 
 **Prerequisites:** Complete draft must exist
 
@@ -1373,6 +1394,7 @@ Run the full KDP paperback publishing pipeline: prepare the interior package, ge
 - `--formatted` -- Use designed/formatted template (vs. manuscript format)
 - `--print-ready` -- Generate the interior print PDF surface used by print-package flows
 - `--skip-validate` -- Skip the scaffold-marker validation gate (not recommended)
+- `--check` -- Verify format availability and required external tools without assembling or writing export files
 
 **Available for:** All work types (format availability varies by work type)
 
@@ -1932,12 +1954,13 @@ See all your writing projects with status, word count, and last activity.
 
 **Description:** Diagnose and repair common project state issues.
 
-**Usage:** `/scr:health [--repair]`
+**Usage:** `/scr:health [--repair] [--context]`
 
 **Prerequisites:** None
 
 **Flags:**
 - `--repair` -- Attempt to fix detected issues
+- `--context` -- Estimate loaded-context size and flag watch, tight, or critical sessions
 
 **Available for:** All work types
 
@@ -1946,6 +1969,30 @@ See all your writing projects with status, word count, and last activity.
 /scr:health --repair
 ```
 Check for missing files, broken references, and state inconsistencies, then fix what can be fixed.
+
+---
+
+### `/scr:surface`
+
+**Description:** Inspect or change the installed Scriveno command profile.
+
+**Usage:** `/scr:surface [list|status|profile <name>] [--runtime <runtime>] [--dry-run]`
+
+**Prerequisites:** Node.js >=20.0.0 and a Scriveno package or repo checkout with `bin/install.js`
+
+**Flags:**
+- `list` -- Show available profiles and command counts
+- `status` -- Show the currently installed profile and runtime surface
+- `profile <name>` -- Reinstall a named profile: core, writing, publishing, translation, specialist, or full
+- `--dry-run` -- Show the planned install changes without writing files
+
+**Available for:** All work types
+
+**Example:**
+```
+/scr:surface profile writing --dry-run
+```
+Preview a smaller drafting-focused command surface before changing installed runtime files.
 
 ---
 
