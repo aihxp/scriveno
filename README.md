@@ -40,7 +40,7 @@ Scriveno is a command system that turns your AI coding agent into a voice-preser
 The wedge comes first: Scriveno profiles the writer, loads that voice into every drafting step, and keeps each unit on fresh context so the prose stays specific to the project. From there, it expands into 113 writing commands covering the rest of the pipeline:
 
 - **Create** -- Set up a project with tailored context files. Progressive onboarding, never overwhelming.
-- **Write** -- Discuss, plan, draft, and revise one unit at a time. The drafter agent loads your Voice DNA and writes in *your* voice, not generic AI prose.
+- **Write** -- Discuss, plan, draft, and revise one unit at a time. The drafter agent loads your Voice DNA and writes in *your* voice, not generic AI prose. Run `/scr:progress` any time to open a per-unit ledger (`.manuscript/PROGRESS.md`) showing what is done, in progress, and untouched.
 - **Polish** -- Editor review, line edit, copy edit, continuity check, voice check, beta reader simulation, sensitivity review.
 - **Publish** -- Front/back matter, cover art, blurbs, query letters, KDP packages, IngramSpark packages, EPUB, PDF, Fountain, Final Draft, LaTeX.
 - **Translate** -- Deep translation with glossary management, cultural adaptation, back-translation verification, multi-language simultaneous publishing.
