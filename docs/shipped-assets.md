@@ -27,7 +27,7 @@ A contributor adding `templates/pitfalls/<work_type>.md` is automatically picked
 
 ## Context Integrity Assets Shipped Since 2.0.0
 
-These files ship in `templates/` and `docs/` and provide the trust trio for session-aware AI work:
+These files ship in `templates/` and `docs/` and provide the context-integrity set for session-aware AI work:
 
 - `templates/CONTEXT.md` -- one-page session bootstrap scaffold copied into every project. Auto-regenerated on `/scr:save`, `/scr:pause-work`, `/scr:resume-work`. Read first by `/scr:next` and `/scr:resume-work` for orientation, with stale-detection + STATE.md fallback.
 - `templates/PROGRESS.md` -- per-unit progress ledger scaffold: the openable file showing every unit as done / in progress / untouched, plus a deliverable progress bar and pipeline position. Derived from disk; auto-regenerated on `/scr:draft`, `/scr:editor-review`, `/scr:submit`, `/scr:autopilot`, `/scr:save`, `/scr:pause-work`, `/scr:resume-work`, and `/scr:scan --fix`. Rendered live by `/scr:progress`.
