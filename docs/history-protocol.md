@@ -1,6 +1,6 @@
 # HISTORY.log Protocol
 
-`.manuscript/HISTORY.log` is the project's append-only chronological record of Scriveno commands that mutate state. It is the third leg of the context-integrity stool, alongside `STATE.md` (structured snapshot) and `.manuscript/CONTEXT.md` (one-page bootstrap). Where STATE.md records *what is true now* and CONTEXT.md narrates *where you are*, HISTORY.log records *how you got here, in order*.
+`.manuscript/HISTORY.log` is the project's append-only chronological record of Scriveno commands that mutate state. It is part of the context-integrity layer alongside `STATE.md` (structured snapshot), `RECORD.md` (established content), `.manuscript/CONTEXT.md` (one-page bootstrap), and `.manuscript/PROGRESS.md` (per-unit progress ledger). Where STATE.md records *what is true now* and CONTEXT.md narrates *where you are*, HISTORY.log records *how you got here, in order*.
 
 This document is the single source of truth for the line format. Every command that appends to HISTORY.log must follow this contract.
 
