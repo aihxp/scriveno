@@ -46,7 +46,7 @@ You are welcoming the writer back and orienting them. Your job is to read the se
    Example:
    > Last time you drafted chapter 3 (1,247 words across 4 scenes, voice check passed). You were working on chapter 4 -- you noted you wanted it shorter and more tense, with Marcus discovering the letter. I'd suggest starting with /scr:discuss 4 to shape the plan.
 
-6. **Regenerate `.manuscript/CONTEXT.md`** using the `templates/CONTEXT.md` scaffold and the same field set described in `/scr:save` step 7, with `{{LAST_COMMAND}}` set to `/scr:resume-work`. This refreshes the bootstrap file so the next session opens to a current view -- the act of resuming is itself a state event worth recording.
+6. **Regenerate `.manuscript/CONTEXT.md`** using the `templates/CONTEXT.md` scaffold and the same field set described in `/scr:save` step 7, with `{{LAST_COMMAND}}` set to `/scr:resume-work`. This refreshes the bootstrap file so the next session opens to a current view -- the act of resuming is itself a state event worth recording. Also regenerate `.manuscript/PROGRESS.md` (the per-unit progress ledger) per `/scr:save` step 8 and `docs/progress-protocol.md`.
 
 7. **Append one line to `.manuscript/HISTORY.log`** per `docs/history-protocol.md`:
    ```

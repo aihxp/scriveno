@@ -63,7 +63,7 @@ Use `Automation status:` for command chains and `Sync status:` for runtime insta
 | Level | Behavior | Default | Examples |
 |-------|----------|---------|----------|
 | 1 | Read-only suggestion | Run by default | `/scr:next` route, progress sweep, review queue surfacing |
-| 2 | Safe local helper | Run when directly triggered | `CONTEXT.md` regeneration, `HISTORY.log` append, scan report, stats count |
+| 2 | Safe local helper | Run when directly triggered | `CONTEXT.md` regeneration, `PROGRESS.md` ledger regeneration, `HISTORY.log` append, scan report, stats count |
 | 3 | Scoped agent | Spawn when the command implies it or evidence is bounded | drafter, plan-checker, voice-checker, continuity-checker, translator, beta-reader |
 | 4 | Writer-owned action | Require confirmation | publishing, destructive edits, merge decisions, accepting review findings |
 
@@ -81,6 +81,7 @@ Run these read-only checks in `/scr:next`, `/scr:progress`, and closeouts for ma
 - If front matter, back matter, blurb, or cover handoff assets are missing, surface the specific publishing prerequisite before packaging.
 - If export outputs are older than source files, suggest `/scr:export` or `/scr:publish`.
 - If no save exists after recent manuscript changes, suggest `/scr:save`.
+- Surface deliverable progress (units done / in progress / untouched) and point at the per-unit ledger `.manuscript/PROGRESS.md`; if it is stale, suggest `/scr:save` to refresh it.
 
 These checks must not mutate files.
 
@@ -88,10 +89,10 @@ These checks must not mutate files.
 
 Run these only when the current command directly owns the file operation:
 
-- `/scr:save` regenerates `.manuscript/CONTEXT.md`, appends `HISTORY.log`, and commits `.manuscript/`.
+- `/scr:save` regenerates `.manuscript/CONTEXT.md` and `.manuscript/PROGRESS.md` (the per-unit ledger), appends `HISTORY.log`, and commits `.manuscript/`.
 - `/scr:scan --fix` applies deterministic state repairs after confirmation and appends `HISTORY.log`.
 - `/scr:resume-work` may regenerate `CONTEXT.md` from disk state.
-- `/scr:progress` may count drafts, submitted units, open record threads, and stale reports, but does not write.
+- `/scr:progress` may count drafts, submitted units, open record threads, and stale reports and render the per-unit ledger live, but does not write. The saved `.manuscript/PROGRESS.md` is refreshed by `/scr:save`, `/scr:draft`, `/scr:autopilot`, and `/scr:scan --fix`.
 - Runtime `/scr:sync --apply` runs the installer and verifies installed command, skill, and agent surfaces.
 
 Report these as local operations, not spawned agents.

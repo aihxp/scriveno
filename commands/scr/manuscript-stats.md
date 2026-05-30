@@ -94,17 +94,17 @@ If the user passes `--detail`, append a per-unit breakdown table after the summa
 ```
 Unit Breakdown
 --------------
-Ch 1: The Beginning        3,200 words   ~13 pages
-Ch 2: The Middle           4,100 words   ~16 pages
-Ch 3: The Climax           2,800 words   ~11 pages
-  (not yet drafted)
-Ch 4: The Resolution         --- words    --- pages
+Ch 1: The Beginning    [x] done          3,200 words   ~13 pages
+Ch 2: The Middle       [x] done          4,100 words   ~16 pages
+Ch 3: The Climax       [~] in progress   2,800 words   ~11 pages
+Ch 4: The Resolution   [ ] untouched      --- words    --- pages
 --------------
-Total                     10,100 words   ~40 pages
+Total                                   10,100 words   ~40 pages
 ```
 
 - Use the hierarchy's mid-level label (e.g., "Ch" for chapter, "Sc" for scene, "Sec" for section) from CONSTRAINTS.json.
-- For units not yet drafted, show `(not yet drafted)` with dashes for counts.
+- Show each unit's status (`[x]` done, `[~]` in progress, `[ ]` untouched) derived from disk per `docs/progress-protocol.md`. The full per-unit ledger lives in `.manuscript/PROGRESS.md`.
+- For units not yet drafted, show dashes for counts.
 - Right-align word counts and page counts for visual clarity.
 - Include a total row at the bottom.
 

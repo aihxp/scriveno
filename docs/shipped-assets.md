@@ -30,11 +30,13 @@ A contributor adding `templates/pitfalls/<work_type>.md` is automatically picked
 These files ship in `templates/` and `docs/` and provide the trust trio for session-aware AI work:
 
 - `templates/CONTEXT.md` -- one-page session bootstrap scaffold copied into every project. Auto-regenerated on `/scr:save`, `/scr:pause-work`, `/scr:resume-work`. Read first by `/scr:next` and `/scr:resume-work` for orientation, with stale-detection + STATE.md fallback.
+- `templates/PROGRESS.md` -- per-unit progress ledger scaffold: the openable file showing every unit as done / in progress / untouched, plus a deliverable progress bar and pipeline position. Derived from disk; auto-regenerated on `/scr:draft`, `/scr:editor-review`, `/scr:submit`, `/scr:autopilot`, `/scr:save`, `/scr:pause-work`, `/scr:resume-work`, and `/scr:scan --fix`. Rendered live by `/scr:progress`.
 - `templates/RECORD.md` -- compact established-content store copied into every project. It tracks what the work has established, including open threads, promises, payoffs, continuity facts, movement, and next-unit obligations. It is deliberately neutral so sacred, academic, technical, poetry, script, visual, and prose projects can all use the same filename.
 - `docs/context-protocol.md` -- canonical contract for the CONTEXT.md preference rule. The 12 high-impact commands that opt into the protocol reference this doc.
+- `docs/progress-protocol.md` -- canonical contract for the `.manuscript/PROGRESS.md` per-unit ledger: status derivation from disk, the done / in progress / untouched buckets, pipeline position, the progress bar, and the regeneration points.
 - `docs/history-protocol.md` -- canonical line-format spec for `.manuscript/HISTORY.log`, the append-only audit trail. Pipe-delimited, UTC ISO timestamps, committed to git.
 
-`STATE.md` (workflow data) + `RECORD.md` (established content) + `CONTEXT.md` (narrative bootstrap) + `HISTORY.log` (audit trail) together form the integrity layer. `/scr:scan` is the trust check that interrogates whether the recorded state still matches disk.
+`STATE.md` (workflow data) + `RECORD.md` (established content) + `CONTEXT.md` (narrative bootstrap) + `PROGRESS.md` (per-unit ledger) + `HISTORY.log` (audit trail) together form the integrity layer. `/scr:scan` is the trust check that interrogates whether the recorded state still matches disk.
 
 ## Runtime Sync Asset Shipped Today
 

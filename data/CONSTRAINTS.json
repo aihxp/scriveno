@@ -3744,6 +3744,7 @@
     "default": {
       "BRIEF.md": "BRIEF.md",
       "RECORD.md": "RECORD.md",
+      "PROGRESS.md": "PROGRESS.md",
       "CHARACTERS.md": "CHARACTERS.md",
       "RELATIONSHIPS.md": "RELATIONSHIPS.md",
       "WORLD.md": "WORLD.md",
@@ -3753,6 +3754,7 @@
     "academic": {
       "BRIEF.md": "PROPOSAL.md",
       "RECORD.md": "RECORD.md",
+      "PROGRESS.md": "PROGRESS.md",
       "CHARACTERS.md": "CONCEPTS.md",
       "WORLD.md": "CONTEXT.md",
       "PLOT-GRAPH.md": "ARGUMENT-MAP.md",
@@ -3761,6 +3763,7 @@
     "technical": {
       "BRIEF.md": "DOC-BRIEF.md",
       "RECORD.md": "RECORD.md",
+      "PROGRESS.md": "PROGRESS.md",
       "CHARACTERS.md": "AUDIENCE.md",
       "RELATIONSHIPS.md": "DEPENDENCIES.md",
       "WORLD.md": "SYSTEM.md",
@@ -3770,6 +3773,7 @@
     "sacred": {
       "BRIEF.md": "FRAMEWORK.md",
       "RECORD.md": "RECORD.md",
+      "PROGRESS.md": "PROGRESS.md",
       "CHARACTERS.md": "FIGURES.md",
       "RELATIONSHIPS.md": "LINEAGES.md",
       "WORLD.md": "COSMOLOGY.md",

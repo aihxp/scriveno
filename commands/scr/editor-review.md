@@ -168,6 +168,7 @@ Write the standard review report to `.manuscript/reviews/{N}-REVIEW.md`. If an o
 
 If all beats passed:
 - Mark act as "reviewed" in STATE.md
+- Refresh `.manuscript/PROGRESS.md` so the ledger reflects the new review status, per `docs/progress-protocol.md`
 - Apply confirmed compact updates to RECORD.md when the review established or corrected the work's durable content state
 - Suggest moving to `/scr:submit N` or `/scr:discuss {N+1}`
 

@@ -62,6 +62,7 @@ Proactive checks:
   Translation: <none | follow-up available>
   Export: <fresh | stale, suggest /scr:export>
   Save: <clean | unsaved manuscript changes, suggest /scr:save>
+  Progress: <X/Y units done -- see .manuscript/PROGRESS.md or /scr:progress>
 ```
 
 ## Routing logic

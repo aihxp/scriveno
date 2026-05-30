@@ -38,7 +38,7 @@ FOR each unit in OUTLINE.md (starting from current position):
     If writer says "skip": advance to next unit, update STATE.md
 ```
 
-When the loop completes (all units through all stages), show a completion summary: total units, total word count, voice consistency across the manuscript, open record threads or promises, and any flags or issues encountered.
+When the loop completes (all units through all stages), show a completion summary: total units, total word count, voice consistency across the manuscript, open record threads or promises, any flags or issues encountered, and a pointer to the per-unit ledger at `.manuscript/PROGRESS.md`.
 
 ## Profile rules
 
@@ -141,6 +141,7 @@ After each stage execution:
 2. Update progress counters: `units_discussed`, `units_planned`, `units_drafted`, `units_reviewed`, `units_submitted`
 3. Update `current_unit` and next step
 4. Update `total_words` running count
+5. Refresh `.manuscript/PROGRESS.md` so the openable ledger advances unit by unit during the run, per `docs/progress-protocol.md`
 
 On pause or stop:
 1. Write current position to "Session handoff" section so `--resume` can pick up exactly where you left off
@@ -168,6 +169,7 @@ Spawned agents:
 - continuity-checker: {count}
 Local operations:
 - STATE.md updated: yes/no
+- PROGRESS.md refreshed: yes/no
 - HISTORY.log updated: yes/no
 Pause:
 - status: none/guided/supervised/quality-gate/blocker
@@ -201,10 +203,12 @@ If the command stops because a prerequisite is missing, suggest the command that
 
 ## Tone
 
-**Progress updates:** Concise, one line per unit.
-- "Drafted chapter 3: 1,247 words. Voice check: passed."
+**Progress updates:** Concise, one line per unit, anchored to the whole manuscript so progress is visible during the run.
+- "Drafted chapter 3 (3 of 12, 25%): 1,247 words. Voice check: passed."
 - "Planned scenes 1-4 for chapter 5."
 - "Editor review complete for chapter 2: 3 notes."
+
+Every few units, show a one-line manuscript bar pulled from the deliverable progress in `docs/progress-protocol.md`, for example: `████░░░░░░ 5/12 chapters done (42%)`. The full per-unit ledger is `.manuscript/PROGRESS.md`.
 
 **At pause points:** Warm, non-technical.
 - "Chapter 3 is ready for your review."

@@ -56,7 +56,7 @@ Do not turn `.manuscript/CONTEXT.md` into a glossary. It is an auto-regenerated 
 | `cast` | `CHARACTERS.md`, `FIGURES.md` | Character state, voice anchors, relationships, figure continuity |
 | `world` | `WORLD.md`, `COSMOLOGY.md`, `SYSTEM.md` | Setting, constraints, environment, cosmology, operating rules |
 | `themes` | `THEMES.md`, `DOCTRINES.md`, `QUESTIONS.md` | Motifs, doctrine, argument, inquiry, recurring meaning |
-| `continuity` | `STATE.md`, `CONTEXT.md`, `HISTORY.log` | Current position, recent activity, open items, disk truth |
+| `continuity` | `STATE.md`, `CONTEXT.md`, `PROGRESS.md`, `HISTORY.log` | Current position, recent activity, per-unit progress ledger, open items, disk truth |
 | `publication` | front matter, back matter, build files | Export and publishing intent |
 | `translation` | glossary, translation memory, language config | Term consistency and cultural adaptation |
 | `art` | cover, illustration, storyboard assets | Visual continuity and image direction |
