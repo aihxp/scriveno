@@ -118,7 +118,7 @@ describe('Phase 48: engine computes the deliverable ledger', () => {
     const ledger = engine.computeProgressLedger(path.join(ROOT, 'data/demo/.manuscript'));
     assert.equal(ledger.total, 5, 'demo has 5 outlined units');
     assert.equal(ledger.drafted, 4, 'demo has 4 drafted units');
-    assert.equal(ledger.planned, 5, 'demo has 5 planned units');
+    assert.equal(ledger.planned, 1, 'demo keeps one pending plan (unit 5)');
     assert.equal(ledger.reviewed, 1, 'demo has 1 reviewed unit');
     assert.equal(ledger.done, 1);
     assert.equal(ledger.inProgress, 4);
