@@ -2,6 +2,31 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.6.0 - 2026-05-29
+
+### What changed
+
+- Fixed a Pandoc-variable mismatch so RTL, CJK, and non-Latin fonts now reach the print and PDF path; added RTL support to the picturebook and stageplay templates (all four interior templates verified with `dir=rtl`).
+- Made the voice-drift gate functional: `agents/voice-checker.md` now defines `drift = (100 - score) / 100`, so the default `voice.drift_threshold` of 0.3 means a re-draft is offered below a voice score of 70.
+- Kept `/scr:autopilot-publish` fully unattended and advisory; a severe voice failure is surfaced loudly rather than halting the run.
+- Corrected `/scr:quick-write` and `/scr:beta-reader` framing to match what they actually do.
+- Marked the translation and illustration API tables as future targets, not shipped behavior.
+- Audited and fixed documentation drift across the suite: command reference usage lines, the configuration baseline, the architecture file tree, voice-dna part numbering, the missing speech work type, and stale counts.
+- Added `lib/track-safety.js` with adversarial tests, and `argument-hint` to 17 commands.
+
+### Why it matters
+
+This release closes the gap between what Scriveno documented and what it shipped. The export fix makes RTL and non-Latin print output actually work, the voice gate is now a real computed check instead of a phantom threshold, and the documentation no longer claims integrations or behavior that the prompt system does not provide.
+
+### Affected areas
+
+- export and print templates (RTL, CJK, fonts)
+- voice-checker drift mapping and autopilot gates
+- translation and illustration honesty
+- documentation suite (command reference, configuration, architecture, voice-dna, README)
+- track-safety helper and command argument hints
+- package metadata and release-alignment tests
+
 ## 2.5.0 - 2026-05-16
 
 ### What changed

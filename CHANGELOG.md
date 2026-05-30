@@ -2,6 +2,34 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 2.6.0 - 2026-05-29
+
+Review-remediation and documentation-integrity release. Fixes a real export bug, makes the voice-drift gate functional, expands RTL support, and corrects documentation drift across the suite.
+
+**Export and RTL**
+
+- Fixed a Pandoc-variable mismatch that left RTL, CJK, and non-Latin fonts dead on the print and PDF path. The Typst templates and the build, export, and multi-publish commands now agree on the canonical `dir`, `lang`, and `mainfont` variables.
+- Added RTL support to the picturebook and stageplay interior templates; the stageplay template flips its binding margin and page number for right-to-left scripts. All four interior templates were verified by compiling with `dir=rtl`.
+- `/scr:multi-publish` now loads the book interior template for translated PDFs, and `/scr:translate` points at the real translated-export path.
+
+**Voice fidelity**
+
+- Defined the voice-drift mapping once in `agents/voice-checker.md` (`drift = (100 - score) / 100`) and wired it through `/scr:draft`, autopilot, and the docs, so the default `voice.drift_threshold` of 0.3 is computable: a re-draft is offered below a voice score of 70.
+- `/scr:autopilot-publish` stays advisory and unattended. It never blocks or stops; a severe voice failure (below 60) is surfaced loudly with a report and a re-draft recommendation rather than halting the run.
+- `/scr:quick-write` no longer claims a voice guarantee it does not enforce; it documents the fresh-context tradeoff and points voice-critical work at `/scr:draft`.
+
+**Honesty and documentation**
+
+- Marked the translation and illustration API tables as not-yet-wired in CLAUDE.md, AGENTS.md, and the translation guide. Scriveno ships an in-context translator agent and copy-paste illustration prompts, not API calls.
+- Reframed `/scr:beta-reader` from "cross-AI peer review" to honest reader-perspective review.
+- Audited every doc against the code and CONSTRAINTS.json and corrected 18 command-reference Usage lines, the configuration baseline, the architecture file-structure tree, voice-dna part numbering, the missing speech work type in README, and stale counts.
+
+**Tooling and tests**
+
+- Added `lib/track-safety.js`, the canonical slug helper for `/scr:track`, with behavioral adversarial tests that replace the previous prose-only safety test.
+- Added `argument-hint` frontmatter to 17 commands that accept arguments.
+- Aligned package metadata, lockfile, constraints metadata, generated config metadata, README badge and status copy, route graph docs, configuration docs, changelog, release notes, and release-alignment tests on `2.6.0`.
+
 ## 2.5.0 - 2026-05-16
 
 Major release focused on making the first 10 minutes executable and proving the installed runtime surface across the supported host targets.
