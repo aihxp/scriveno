@@ -138,7 +138,7 @@ This section governs the speed and flow of narrative.
 - **Between chapters** -- Cliffhangers, echoes, or clean breaks
 - **Time jumps** -- How they're signaled, how frequent, how handled
 
-### Part 7: Reference Influences
+### Part 8: Reference Influences
 
 This section captures the authors, works, and passages that anchor your voice.
 
@@ -210,7 +210,7 @@ The 10 registers are:
 | **Parabolic** | Allegorical, story-within-story | "The kingdom of heaven is like..." concrete daily-life imagery |
 | **Didactic** | Instructional, systematic, expository | Topic-by-topic structure, teacher-student dynamic, Q&A format |
 
-Each unit's plan file specifies which register to use. Your STYLE-GUIDE.md Part 8 (Sacred Voice Registers) describes how YOU handle each register -- the drafter always defers to your personalized register style over the generic descriptions.
+Each unit's plan file specifies which register to use. Your STYLE-GUIDE.md "Sacred voice registers" part (Part 8 in the shipped template) describes how YOU handle each register -- the drafter always defers to your personalized register style over the generic descriptions.
 
 If no register is specified in a plan file, the drafter defaults to narrative-historical.
 
@@ -276,7 +276,7 @@ See [docs/drafter-quality.md](drafter-quality.md) for the full system, including
 ### Too many metaphors / not enough metaphors
 
 **Symptom:** Prose is either overwritten or too bare.
-**Fix:** Adjust metaphor density in STYLE-GUIDE.md Part 4 (Figurative Language). "Sparse" means one metaphor per page at most. "Dense" means multiple per paragraph. Find your natural density by looking at your existing writing.
+**Fix:** Adjust metaphor density in STYLE-GUIDE.md Part 3 (vocabulary and figurative language). "Sparse" means one metaphor per page at most. "Dense" means multiple per paragraph. Find your natural density by looking at your existing writing.
 
 ### AI-sounding hedging
 

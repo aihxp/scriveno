@@ -19,7 +19,7 @@ templates/             Base project templates + technical/ and sacred/ variants
 templates/technical/   6 technical-writing context variants
 templates/sacred/      Sacred-specific context templates and tradition manifests
 bin/install.js         Multi-platform installer (Node.js)
-docs/                  Documentation suite (16 guides)
+docs/                  Documentation suite (25 guides)
 ```
 
 Key principle: the AI agent reads these files at runtime. There is no compilation, no bundling, no transpilation. If you can write markdown, you can contribute.
@@ -343,7 +343,7 @@ The export command (`commands/scr/export.md`) needs to know about your format. A
 
 ### Step 3: Add CONSTRAINTS.json entry (if restricted)
 
-If your export format is only available for certain work types, add an entry to the `"export_formats"` section of CONSTRAINTS.json with an `available_for` array specifying which work type groups can use it.
+If your export format is only available for certain work types, add an entry to the `"exports"` section of CONSTRAINTS.json with an `available` array specifying which work type groups can use it (or `["all"]` for universal formats).
 
 ## Testing Your Changes
 
