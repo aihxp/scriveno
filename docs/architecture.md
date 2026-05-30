@@ -175,6 +175,8 @@ scriveno/
     WRITING-RULES.md       Universal AI-tell rulebook (1.6.0+)
     THEMES.md              Thematic threads template
     STATE.md               Progress tracking template
+    CONTEXT.md             Session bootstrap scaffold (derived, auto-regenerated)
+    PROGRESS.md            Per-unit progress ledger scaffold (derived, 2.7.0+)
     BRIEF.md               Project brief template
     WORLD.md               World-building template
     pitfalls/              Per-work-type pitfall packs (1.6.0+)
