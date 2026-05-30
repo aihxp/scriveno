@@ -88,7 +88,7 @@ The writer trusts the pipeline. Autopilot runs until the entire manuscript is co
 **Pause behavior:** Run until ALL units are complete. Pause ONLY on these conditions:
 
 1. **Continuity contradiction** the agent cannot resolve (e.g., a character is in two places at once, a previously established fact is contradicted)
-2. **Voice drift** exceeding `config.voice.drift_threshold` (default 0.3). After each unit, compare the drafted prose against STYLE-GUIDE.md. If drift exceeds threshold, pause.
+2. **Voice drift** exceeding `config.voice.drift_threshold` (default 0.3). After each unit, run the voice-checker agent against STYLE-GUIDE.md to get an Overall score (0-100). Compute normalized drift as `drift = (100 - score) / 100` (see the "Normalized drift" section of `voice-checker.md`) and pause when `drift` exceeds the threshold -- at the default 0.3 that means a voice score below 70, the voice-checker's FAIL band.
 3. **Plot hole** with no clear resolution path (e.g., a setup with no payoff, a character motivation gap)
 4. **Missing critical information** that prevents drafting (character motivation gap, setting inconsistency, unresolved plot dependency)
 5. **Record drift** against `.manuscript/RECORD.md` that the agent cannot resolve safely (e.g., a promised payoff is contradicted, an open thread is closed without being recorded, or a next-unit obligation is skipped)
@@ -108,7 +108,7 @@ The writer trusts the pipeline. Autopilot runs until the entire manuscript is co
 **On completion:** Show a comprehensive summary:
 - Total units drafted
 - Total word count
-- Voice consistency score across the manuscript
+- Voice consistency: the voice-checker Overall score (0-100), averaged across the units that were voice-checked during the run
 - Open record threads, reader promises, and unresolved next-unit obligations from RECORD.md
 - Any flags or issues encountered during the run
 - List of any quality gate pauses that occurred and how they were resolved
@@ -223,7 +223,7 @@ If the command stops because a prerequisite is missing, suggest the command that
 
 - **NEVER** run without updating STATE.md -- resume depends on accurate state
 - **NEVER** show raw git output in writer mode (when `developer_mode` is `false`)
-- **NEVER** skip the voice comparison after drafting -- even if the voice-check command from Phase 4 is not yet available, use the drafter's built-in self-check (Step 4 in drafter.md)
+- **NEVER** skip the voice comparison after drafting -- run the voice-checker agent against STYLE-GUIDE.md; if the host runtime cannot spawn it, fall back to the drafter's built-in self-check (Step 4 in drafter.md)
 - **NEVER** re-draft a unit that STATE.md shows as already submitted -- submitted means the writer approved it
 - **NEVER** skip stages in the chain (discuss-plan-draft-review-submit) unless the writer explicitly says "skip"
 - **NEVER** continue past a quality gate pause in full-auto without writer input -- the whole point is that these are conditions the pipeline cannot resolve alone

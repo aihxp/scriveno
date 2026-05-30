@@ -1,5 +1,6 @@
 ---
 description: Automated continuity verification to scan for narrative contradictions across the manuscript.
+argument-hint: "[N]"
 ---
 
 # /scr:continuity-check -- Scan for Narrative Contradictions

@@ -341,7 +341,7 @@ title: "[title from config.json]"
 subtitle: "[subtitle if available]"
 author:
   - name: "[author from config.json]"
-language: "[language from config.json, default en-US]"
+lang: "[language from config.json, default en-US]"
 rights: "Copyright [year] [author]. All rights reserved."
 date: "[current year]"
 description: "[description if available]"

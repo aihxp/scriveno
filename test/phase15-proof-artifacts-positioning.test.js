@@ -87,6 +87,9 @@ describe('phase 15 proof routing', () => {
     assert.match(proofArtifacts, /data\/proof\/voice-dna\/GUIDED-SAMPLE\.md/);
     assert.match(voiceDnaGuide, /data\/proof\/voice-dna\/README\.md/);
     assert.match(voiceDnaGuide, /fixed brief/i);
-    assert.match(voiceDnaGuide, /Full list of all 113 commands/i);
+    // Derive the count from the live registry so the doc claim stays honest
+    // without pinning a magic number in the test.
+    const commandCount = Object.keys(JSON.parse(read('data/CONSTRAINTS.json')).commands).length;
+    assert.match(voiceDnaGuide, new RegExp(`Full list of all ${commandCount} commands`, 'i'));
   });
 });

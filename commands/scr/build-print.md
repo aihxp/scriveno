@@ -156,7 +156,7 @@ Apply tradition data to `.manuscript/output/metadata.yaml` (before STEP 3f write
   - `tibetan` script -> `bo`
   - `devanagari` script -> `sa` (Sanskrit)
   - `latin` script -> use the project language from config.json (default `en`)
-- Set `font-family:` to the first entry in the manifest's `font_stack`.
+- Set `mainfont:` to the first entry in the manifest's `font_stack`. (`mainfont` is the Pandoc variable the Typst book/chapbook templates read for the body font; `font-family` is not.)
 
 If `rtl: true` in the manifest, add `--metadata dir=rtl` to the Pandoc invocation in STEP 4.
 
@@ -415,7 +415,7 @@ estimated_pages = Math.round(word_count / manifest.trim_sizes[trim].wpp)
 
 Compare against `manifest.max_pages`:
 - For paperback: compare against `manifest.max_pages.paperback`
-- For hardcover: only KDP hardcover applies -- compare against `manifest.max_pages.hardcover` only if `--hardcover` flag is passed (otherwise use paperback limit)
+- For hardcover: the hardcover page limit applies to KDP only. Compare against `manifest.max_pages.hardcover` only if `--hardcover` was passed AND the platform is `kdp` AND the manifest defines `max_pages.hardcover`. For any other platform (for example `ingram`, which defines only `max_pages.paperback`), ignore `--hardcover` for the page-limit check and use `manifest.max_pages.paperback`.
 
 If `estimated_pages` exceeds the limit:
 

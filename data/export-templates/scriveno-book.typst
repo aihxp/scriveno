@@ -13,10 +13,10 @@
 #let margin-bottom = $if(margin-bottom)$$margin-bottom$$else$0.75in$endif$
 
 // Text direction: parameterized for RTL compatibility (Phase 7)
-#let text-dir = $if(text-direction)$$text-direction$$else$ltr$endif$
+#let text-dir = $if(dir)$$dir$$else$ltr$endif$
 
 // Language code for CJK detection
-#let lang-code = $if(language)$"$language$"$else$"en"$endif$
+#let lang-code = $if(lang)$"$lang$"$else$"en"$endif$
 
 // CJK detection helper
 #let is-cjk = lang-code in ("zh", "ja", "ko")

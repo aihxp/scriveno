@@ -1,5 +1,6 @@
 ---
 description: Perform a correctness pass for grammar, spelling, punctuation, and consistency.
+argument-hint: "[N]"
 ---
 
 # /scr:copy-edit -- Grammar and Correctness Pass

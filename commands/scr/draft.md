@@ -35,7 +35,7 @@ Require `.manuscript/plans/{N}-*-PLAN.md` files to exist. If none exist, also ch
 
 3. **Save drafted output** to `.manuscript/drafts/body/{N}-{A}-DRAFT.md`.
 
-4. **After all atomic units in the unit are drafted, do a voice-check pass.** Load the full drafted unit, compare against STYLE-GUIDE.md, flag any scenes that drift from the voice profile by more than the configured threshold. If drift is detected, offer to re-draft the problem scenes.
+4. **After all atomic units in the unit are drafted, run a voice-check pass.** Invoke the installed `voice-checker.md` agent in a fresh context on the drafted unit -- the same agent `/scr:voice-check` uses. It loads the unit and STYLE-GUIDE.md and returns an Overall score (0-100). Convert to normalized drift (`drift = (100 - score) / 100`; see the "Normalized drift" section of `voice-checker.md`) and, if drift exceeds `config.voice.drift_threshold` (default 0.3, i.e. a voice score below 70), flag the scenes that drove the score down and offer to re-draft them. If the host runtime cannot spawn the voice-checker, fall back to the drafter's built-in self-check (Step 4 in `drafter.md`) and say so in the status block.
 
 5. **Update RECORD.md.** After drafting, extract what the new draft establishes on page. Update `.manuscript/RECORD.md` with only durable, reader-visible changes:
    - established facts, claims, events, definitions, procedures, objects, relationships, or constraints
@@ -51,7 +51,7 @@ Require `.manuscript/plans/{N}-*-PLAN.md` files to exist. If none exist, also ch
 
 7. **Update STATE.md:** mark unit as drafted, note word count, flag any voice-check issues.
 
-8. **Tell the writer:** "Drafted {unit} {N}: X words across Y {atomic_units}. Voice consistency: Z%. Updated RECORD.md with what the draft established. Ready for editor review? Run `/scr:editor-review N` or `/scr:next`."
+8. **Tell the writer:** "Drafted {unit} {N}: X words across Y {atomic_units}. Voice consistency: Z% (the voice-checker Overall score for this unit; omit this figure if the voice-check could not run). Updated RECORD.md with what the draft established. Ready for editor review? Run `/scr:editor-review N` or `/scr:next`."
 
 ## Agent and Automation Status
 

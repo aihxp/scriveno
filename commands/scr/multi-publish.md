@@ -199,7 +199,7 @@ Determine text direction from language code:
 
 Set the appropriate direction for Pandoc and Typst output:
 - Pandoc: `--variable dir=rtl` or `--variable dir=ltr`
-- Typst: Uses `text-dir` parameter (already prepared in Phase 5 template)
+- Typst: the book interior template reads the Pandoc `dir` variable set above to orient text
 
 #### 5d. Number Formatting
 
@@ -238,7 +238,7 @@ title: "[translated title]"
 subtitle: "[translated subtitle]"
 author:
   - name: "[author name]"
-language: "[lang code]"
+lang: "[lang code]"
 dir: "[ltr or rtl]"
 rights: "Copyright [year] [author]. [Translated rights statement]."
 date: "[current year]"
@@ -274,6 +274,7 @@ pandoc .manuscript/translation/{lang}/assembled-manuscript.md \
 pandoc .manuscript/translation/{lang}/assembled-manuscript.md \
   -o .manuscript/output/translations/{lang}/manuscript-{lang}.pdf \
   --pdf-engine=typst \
+  --template=data/export-templates/scriveno-book.typst \
   --metadata-file=.manuscript/translation/{lang}/metadata.yaml \
   --toc --toc-depth=1 \
   -V dir={ltr|rtl}

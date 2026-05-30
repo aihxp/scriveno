@@ -1,5 +1,6 @@
 ---
 description: Compare drafted prose against STYLE-GUIDE.md to detect voice drift.
+argument-hint: "[N]"
 ---
 
 # /scr:voice-check -- Voice Fidelity Check

@@ -214,7 +214,7 @@ After all units are translated, show a summary:
 > - Build translation memory: `/scr:translation-memory [lang] --build`
 > - Cultural adaptation review: `/scr:cultural-adaptation [lang]`
 > - Back-translate to verify: `/scr:back-translate [lang]`
-> - Export translation: `/scr:export --format [format] --language [lang]`
+> - Export translation: `/scr:multi-publish --languages [lang] --format [format]` (the translated-export path; `/scr:export` builds the source-language manuscript only)
 
 ## Agent and Automation Status
 

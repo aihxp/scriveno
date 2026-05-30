@@ -1,5 +1,6 @@
 ---
 description: Generate a chronological event timeline from the outline.
+argument-hint: "[--story-order] [--chronological]"
 ---
 
 # /scr:timeline -- Chronological Event Timeline

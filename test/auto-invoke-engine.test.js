@@ -407,7 +407,9 @@ describe('auto-invoke engine', () => {
       assert.equal(parsed.projectRoot, project);
       assert.equal(parsed.recommendation.command, '/scr:new-work');
       assert.ok(parsed.firstPath.includes('/scr:draft 5'));
-      assert.equal(parsed.checks.commandCount, 113);
+      // Cross-check the subprocess output against the in-process engine rather
+      // than a hardcoded count, so adding/removing a command does not break this.
+      assert.equal(parsed.checks.commandCount, buildRouteGraph().commandCount);
     } finally {
       fs.rmSync(project, { recursive: true, force: true });
     }
@@ -434,7 +436,7 @@ describe('auto-invoke engine', () => {
 
       assert.equal(JSON.parse(statusOut).safeApply.appliedCount, 1);
       assert.equal(JSON.parse(syncOut).analysis.projectRoot, project);
-      assert.equal(JSON.parse(routesOut).commandCount, 113);
+      assert.equal(JSON.parse(routesOut).commandCount, buildRouteGraph().commandCount);
     } finally {
       fs.rmSync(project, { recursive: true, force: true });
     }

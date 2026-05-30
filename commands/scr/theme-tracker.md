@@ -1,5 +1,6 @@
 ---
 description: Track thematic threads across the work with auto-detection suggestions.
+argument-hint: "[--detect]"
 ---
 
 # /scr:theme-tracker -- Track Thematic Threads

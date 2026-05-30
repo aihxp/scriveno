@@ -147,6 +147,16 @@ Map the band to the existing tiers:
 - **60-74, Mixed signals (notable) / leaning AI:** Fail. Noticeable drift. Offer to re-draft problem sections.
 - **Below 60, Reads AI-generated:** Severe. Clustered dead-giveaways, uniform rhythm, or chat-artifact contamination. Do not proceed. Recommend re-drafting with an updated STYLE-GUIDE.md or running `/scr:voice-test` to recalibrate.
 
+### Normalized drift (for callers that need a 0-1 figure)
+
+Some callers -- `/scr:draft`, `/scr:autopilot`, and the `voice.drift_threshold` config knob -- need drift on a 0-1 scale rather than this 0-100 score. Convert with:
+
+```
+drift = (100 - score) / 100
+```
+
+So a score of 100 is 0.00 drift, 90 is 0.10, 70 is 0.30, 60 is 0.40. The default `drift_threshold` of 0.3 therefore means "pause or offer a re-draft when the voice score falls below 70" -- the FAIL band and worse. This is the single definition of drift; callers reference it rather than inventing their own scale.
+
 Before finalizing a low score, re-read the strongest human markers you found and ask whether the band is honestly supported. Scoring genuine careful human prose low because it is formal or clean is this check's worst failure.
 
 ## Tone

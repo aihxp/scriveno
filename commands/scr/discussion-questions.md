@@ -1,5 +1,6 @@
 ---
 description: Generate reading group discussion questions exploring themes, characters, and craft.
+argument-hint: "[--count <N>]"
 ---
 
 # /scr:discussion-questions -- Reading Group Discussion Questions

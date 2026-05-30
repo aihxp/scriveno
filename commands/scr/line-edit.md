@@ -1,5 +1,6 @@
 ---
 description: Perform a line-level prose quality pass with inline annotations.
+argument-hint: "[N]"
 ---
 
 # /scr:line-edit -- Line-Level Prose Quality Pass

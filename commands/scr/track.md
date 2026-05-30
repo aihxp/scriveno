@@ -48,6 +48,8 @@ Track metadata lives in `.manuscript/tracks.json`. Create this file on first `tr
 
 **Label-to-branch mapping (D-01):** Writer-friendly labels are stored as-is. The git branch name is derived by slugifying the label: lowercase, replace spaces with hyphens, strip special characters (keep alphanumeric and hyphens only), prefix with `track/`. Example: "Second Draft Attempt" becomes `track/second-draft-attempt`.
 
+This slugify step is the one safety boundary that keeps a writer-chosen label out of a shell command, so it is mandatory, never optional. The canonical algorithm ships as `lib/track-safety.js` (installed to `<data-dir>/lib/track-safety.js`). To derive the slug and a collision-free branch deterministically instead of applying the rules by hand, run `node <data-dir>/lib/track-safety.js "<label>"`, which prints `{"slug":"...","branch":"..."}` with collisions already resolved against a comma-separated second argument of existing branch names. A correct slug contains only `[a-z0-9-]`; if it contains anything else, do not pass it to git.
+
 **Canon branch metadata:** `canon_branch` stores the real branch name of the canon manuscript. This may be `main`, `master`, `trunk`, or any other branch name the writer uses.
 
 ## Canon Branch Resolution

@@ -1139,7 +1139,7 @@ Check that each character sounds distinct, dialogue tags are clear, and scenes a
 
 ### `/scr:beta-reader`
 
-**Description:** Simulate a beta reader's experience of the manuscript with cross-AI peer review.
+**Description:** Simulate a beta reader's experience of the manuscript using a fresh-context reader persona (same model, not a second or external AI).
 
 **Usage:** `/scr:beta-reader`
 

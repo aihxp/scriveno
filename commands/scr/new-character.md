@@ -1,5 +1,6 @@
 ---
 description: Build a complete character profile through guided interactive interview.
+argument-hint: "<name>"
 ---
 
 # /scr:new-character -- Interactive Character Creation

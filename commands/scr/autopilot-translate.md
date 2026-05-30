@@ -56,8 +56,8 @@ RTL_LANGUAGES = ["ar", "he", "ur", "fa", "yi", "ps", "sd"]
 CJK_LANGUAGES = ["zh", "ja", "ko"]
 ```
 
-- RTL languages receive `--text-direction rtl` when passed to export commands
-- CJK languages receive appropriate font and spacing flags
+- RTL languages: `/scr:multi-publish` derives text direction from the language code, so no extra flag is needed
+- CJK languages: `/scr:multi-publish` applies CJK font and spacing handling from the language code
 - All other languages default to LTR
 
 Log the detection:
@@ -123,9 +123,8 @@ Log drift annotation counts:
 
 If `--skip-publish` is NOT set:
 - Determine text direction for this language (RTL/LTR/CJK from Step 2)
-- Run `/scr:multi-publish --language {lang}` for all available export formats
-- For RTL languages, pass `--text-direction rtl` to ensure correct PDF and EPUB output
-- For CJK languages, pass `--cjk-mode` to enable CJK-specific line breaking and font handling
+- Run `/scr:multi-publish --languages {lang}` for all available export formats
+- RTL and CJK output is handled automatically: `/scr:multi-publish` sets text direction and CJK line breaking from the language code, so no extra flags are required
 
 If `--skip-publish` IS set:
 - Log: `"[fr] Phase 6/6: Multi-publish skipped (--skip-publish)."`
@@ -209,7 +208,7 @@ Next Steps:
 
 - **NEVER** skip the glossary phase -- term consistency across the manuscript depends on it
 - **NEVER** run cultural adaptation before translation is complete for that language
-- **NEVER** export RTL languages without setting `--text-direction rtl` -- the PDF and EPUB will be unreadable
+- **ALWAYS** confirm the language code is correct before export; `/scr:multi-publish` uses it to set RTL direction and CJK handling, and a wrong code yields unreadable PDF and EPUB
 - **NEVER** continue past a blocking error without logging it -- all errors must appear in the completion summary
 - **NEVER** modify the source manuscript -- translation works on copies in `.manuscript/translation/{lang}/`
 

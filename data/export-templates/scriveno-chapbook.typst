@@ -16,7 +16,7 @@
 #let margin-outside = $if(margin-outside)$$margin-outside$$else$0.625in$endif$
 
 // Text direction
-#let text-dir = $if(text-direction)$$text-direction$$else$ltr$endif$
+#let text-dir = $if(dir)$$dir$$else$ltr$endif$
 
 // Font configuration -- chapbooks default to a clean readable serif
 #let body-font = $if(mainfont)$"$mainfont$"$else$"Libertinus Serif"$endif$

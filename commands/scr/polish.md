@@ -1,5 +1,6 @@
 ---
 description: Chain line-edit, copy-edit, and voice-check for comprehensive prose polish.
+argument-hint: "[N]"
 ---
 
 # /scr:polish -- Comprehensive Prose Polish
