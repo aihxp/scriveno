@@ -90,7 +90,7 @@ Only show commands where `available` includes the current work type's group, OR 
 
 ### Surfaces for this work type
 
-When showing an active project, you may also remind the writer which context surfaces apply to their work type, derived from `surface_applicability` in CONSTRAINTS.json (resolve `by_group[<group>]`, then patch with any `work_type_overrides[<work_type>]`). Keep it to one compact line: the `required` surfaces are the spine, `optional` ones are available if useful, and `not_applicable` ones are intentionally absent (an article has no world to build, a poem has no plot to map). One line is enough; do not lecture.
+When showing an active project, always include one compact line naming which context surfaces apply to the work type, resolved from `surface_applicability` in CONSTRAINTS.json (`by_group[<group>]` patched by any `work_type_overrides[<work_type>]`): the `required` surfaces are the spine, `optional` ones are available if useful, and `not_applicable` ones are intentionally absent (an article has no world to build, a poem has no plot to map). One line, not a lecture.
 
 ## The filtered view
 

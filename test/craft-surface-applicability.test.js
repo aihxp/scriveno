@@ -98,4 +98,13 @@ describe('craft layer: surface_applicability decision tree', () => {
   it('matches documented new-work behavior: academic skips relationships', () => {
     assert.ok(sa.by_group.academic.not_applicable.includes('RELATIONSHIPS.md'));
   });
+
+  it('argument-driven types hard-skip WORLD (an article needs no world)', () => {
+    for (const wt of ['essay', 'essay_collection', 'journal_article', 'white_paper']) {
+      assert.ok(
+        sa.work_type_overrides[wt].not_applicable.includes('WORLD.md'),
+        `${wt} should mark WORLD.md not_applicable`
+      );
+    }
+  });
 });
