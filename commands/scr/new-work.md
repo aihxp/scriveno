@@ -82,7 +82,7 @@ Note: `RELATIONSHIPS.md` (where applicable) is a derived surface like `CONTEXT.m
 Write `.manuscript/config.json` by starting from `templates/config.json` and filling the project-specific values. The generated config must include the shared settings blocks that later commands read:
 ```json
 {
-  "scriveno_version": "3.1.1",
+  "scriveno_version": "3.2.0",
   "work_type": "<chosen>",
   "group": "<group>",
   "command_unit": "<unit>",

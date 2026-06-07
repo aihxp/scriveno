@@ -2,6 +2,14 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 3.2.0 - 2026-06-06
+
+### What changed
+
+- **Peoples.** Scriveno now tracks a people, the collective a character belongs to (an alien race, an ethnicity, a city's inhabitants), not just individuals. Profile one with `/scr:new-people`: its origin, values, how it speaks, what it wants and fears as a people, and who belongs to it.
+- **How peoples interact.** A new derived map shows how every people stands with every other (alliance, rivalry, oppression, kinship, war), with "no dealings" stated explicitly. View it with `/scr:relationship-map --peoples`.
+- **Characters know their people.** A character links to its people and inherits its traits, and the drafter writes that collective voice and worldview, not just the individual. The workflow routes you to define peoples from character creation, the cast list, and worldbuilding.
+
 ## 3.1.1 - 2026-06-06
 
 ### What changed
