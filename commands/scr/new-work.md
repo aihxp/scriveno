@@ -75,6 +75,8 @@ Which of the variable context surfaces (BRIEF, CHARACTERS, RELATIONSHIPS, WORLD,
 
 Then tell the writer the result in one plain line so the decision tree is visible, for example: "For a single poem, the core surfaces are BRIEF and THEMES; characters, world, plot, and relationships do not apply here." An article is never asked to build a world; a poem is never asked to map a plot.
 
+Note: `RELATIONSHIPS.md` (where applicable) is a derived surface like `CONTEXT.md` and `PROGRESS.md` (see `docs/relationships-protocol.md`). Do not scaffold it empty at new-work; it is regenerated from `CHARACTERS.md` once two or more characters exist.
+
 ## Config file
 
 Write `.manuscript/config.json` by starting from `templates/config.json` and filling the project-specific values. The generated config must include the shared settings blocks that later commands read:

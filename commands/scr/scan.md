@@ -220,6 +220,20 @@ Recompute per-unit status from disk per `docs/progress-protocol.md`. If the buck
 
 ---
 
+### CHECK 13: RELATIONSHIPS.md derived map staleness
+
+If the work type has a characters surface (per `surface_applicability`) and `.manuscript/CHARACTERS.md` defines two or more characters, the derived `.manuscript/RELATIONSHIPS.md` map should match the relationship sections of `CHARACTERS.md`. Compare RELATIONSHIPS.md mtime against CHARACTERS.md; if older, the saved map may be stale. Emit:
+
+```
+WARNING .manuscript/RELATIONSHIPS.md is older than CHARACTERS.md.
+        The saved relationship map may not reflect current character relationships.
+        Fix: /scr:save to rebuild it (or /scr:scan --fix).
+```
+
+Re-derive the pairwise map from the CHARACTERS.md relationship sections per `docs/relationships-protocol.md`. If a pairing in RELATIONSHIPS.md contradicts the character entries, or a character pair is missing from the map entirely (not even marked `none`), emit a DRIFT finding citing both. If the work type has characters and at least two are defined but RELATIONSHIPS.md does not exist, emit INFO suggesting `/scr:save` to generate the openable map. Rebuilding RELATIONSHIPS.md is auto-fixable under `--fix`. For work types without a characters surface, skip this check silently.
+
+---
+
 ### REPORT
 
 Output a single structured report:

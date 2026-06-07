@@ -139,7 +139,7 @@ Create the character profile and append to `CHARACTERS.md`:
   - [Character B]: trust posture, conflict pattern, speech shift, hidden agenda or fear
 </character_profile>
 
-Update `RELATIONSHIPS.md` with new connections.
+Regenerate `.manuscript/RELATIONSHIPS.md` from the character relationship sections per `docs/relationships-protocol.md`. It is derived from `CHARACTERS.md`, not hand-edited: every pair is accounted for (pairs with no relationship marked `none`), and pairs no one has described yet are surfaced as undefined to explore.
 Update `THEMES.md` if this character introduces or reinforces themes.
 
 Commit: `character: add {name}`

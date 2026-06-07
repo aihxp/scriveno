@@ -97,6 +97,8 @@ Update the character's entry in `.manuscript/CHARACTERS.md` (or `FIGURES.md`):
 
 Preserve the file's existing formatting and section order.
 
+If the Relationships or Relationship-specific interaction dimensions changed, regenerate `.manuscript/RELATIONSHIPS.md` from the updated character entries per `docs/relationships-protocol.md`. This is a derived rollup of the change the writer just approved at STEP 3, not a fresh edit, so it does not break the writer-in-the-loop rule below.
+
 ### STEP 5: STAMP THE UPDATE
 
 Add a one-line "Last touched" marker under the character's entry:
