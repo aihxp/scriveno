@@ -14,7 +14,7 @@ It is part of the trust layer. The sources are:
 
 - **Central conflict** -- from `WORK.md`: the primary type (character vs self / character / nature / supernatural / technology / society), the external goal and obstacle, and the internal want-versus-need.
 - **Pairwise conflict** -- from the character entries: every character pair, with clashing wants and the relationship "Conflict pattern" surfaced.
-- **Scene conflict** -- per-unit goal-versus-obstacle. Authored in the unit plans and rolled up here (added in a later phase).
+- **Scene conflict** -- per-unit goal-versus-obstacle-and-outcome, authored in each unit plan (the scene breakdown and the plan's `## Causal Anchor`) and rolled up into the `## Scene conflict` section here.
 
 ## The completeness rule
 
@@ -41,6 +41,7 @@ Rebuilt by the commands that change the conflict picture or refresh derived stat
 
 - `/scr:new-character` -- after a new character (and their wants and conflicts) is added
 - `/scr:character-touch` -- after wants/needs or the relationship "Conflict pattern" change
+- `/scr:plan` -- after a unit plan records or changes its scene conflict
 - `/scr:save` -- alongside the other derived surfaces, when conflict applies
 - `/scr:scan --fix` -- when the map is missing or stale
 

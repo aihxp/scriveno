@@ -28,12 +28,14 @@ Require `{N}-CONTEXT.md` to exist (from discuss phase). If it doesn't, offer to 
 2. **Research (if enabled).** If the work type is academic, research the literature. If it's sacred, check canonical sources and traditional commentaries. If it's historical, verify period details. For fiction, research anything the writer flagged in {N}-CONTEXT.md (e.g., "I need to know how 18th century sailing worked").
 
 3. **Build the plan.** Structure depends on work type:
-   - **Prose/Script** -- Scene-by-scene breakdown. Each scene: POV, location, time, characters present, emotional arc start/end, beat list, voice notes, continuity anchors to previous units.
+   - **Prose/Script** -- Scene-by-scene breakdown. Each scene: POV, location, time, characters present, the scene goal and the obstacle in its way (scene conflict) with the outcome (goal won, lost, or complicated), emotional arc start/end, beat list, voice notes, continuity anchors to previous units.
    - **Academic** -- Argument structure. Each subsection: claim, evidence, citations to integrate, transition to next.
    - **Sacred** -- Passage structure. For each section: voice register, register transitions, key concepts, cross-references to other passages, doctrinal framing, source traditions if historical.
    - **Poetry** -- Stanza plan, meter/form, volta placement, image schedule, sound-pattern notes.
 
    Each plan file must include a `## Craft Notes` section. Carry forward confirmed `CHOICE` items as plan constraints, turn `HUNCH` items into draftable tests, keep non-blocking `QUESTION` items visible, and list `WATCHPOINT` items the drafter and editor should preserve or check.
+
+   Each plan file must also include a `## Causal Anchor` section: one or two lines stating why this unit happens, grounded in a character want, a prior event, or a discovery from an earlier unit, not merely that it comes next in the outline. This is the Forster test ("the queen died of grief", not "the queen died"): the plan should say *because*, not *and then*. If you cannot state the cause, the unit may be a sequence of events with no plot reason -- mark a `QUESTION: Blocking` and resolve it before drafting. For the first unit, the cause is the inciting situation. (Skip for work types without a narrative sequence, such as poetry and reference docs.)
 
    When named characters drive the unit, each plan file should also include `## Character Persona Notes`. Pull from CHARACTERS.md and `{N}-CONTEXT.md`:
    - active characters and current state

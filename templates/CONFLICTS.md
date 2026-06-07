@@ -32,6 +32,12 @@ Every character pair is accounted for. A pair in conflict shows its nature and s
 
 Legend: `no conflict` no established conflict, `(latent)` implied by clashing wants but not yet on the page, `(open)` active on the page, `(resolved)` settled.
 
+## Scene conflict
+
+Per-unit scene conflict, rolled up from the unit plans (each scene's goal, the obstacle in its way, and the outcome). Units with no scene conflict captured yet are listed as pending.
+
+{{SCENE_CONFLICT}}
+
 ## Undefined pairs
 
 Pairs whose conflict status no one has established yet. Each is a prompt to decide (including deciding `no conflict`), not an error:
