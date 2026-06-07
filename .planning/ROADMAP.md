@@ -2,11 +2,12 @@
 
 ## Current Status
 
-- Active milestone: **None**
-- Latest shipped package: **v2.0.12 First-Run Proof Release** (released 2026-05-16)
+- Active milestone: **v2.9.0 Craft Layer** (in release)
+- Latest shipped package: **2.8.0**
 - Latest shipped milestone: **v2.0 Publishing Cover Packaging** (completed 2026-04-18)
-- Current repo state: **v2.0.12 shipped, first-run proof and release verification surfaces locked by regression tests**
-- Next step: define the next milestone
+- Current repo state: **`craft-layer` branch adds the auto-populated craft surfaces (derived relationship and conflict maps, plot causality and devices, worldbuilding depth, snowflake mode) gated by a work-type applicability decision tree, plus an older-project upgrade path; releasing as 2.9.0**
+- Note: releases 2.1 through 2.8 shipped without per-version milestone entries in this file; this Current Status block is the reconciled truth.
+- Next step: finish the 2.9.0 release (version bump, merge to main, npm publish)
 
 ## Milestones
 
@@ -21,6 +22,7 @@
 - [x] **v1.8 Command Surface Coherence** - Phases 36-38 (shipped 2026-04-18) - [archive](milestones/v1.8-ROADMAP.md)
 - [x] **v1.9 Workflow Contract Integrity** - Phases 39-41 (shipped 2026-04-18) - [archive](milestones/v1.9-ROADMAP.md)
 - [x] **v2.0 Publishing Cover Packaging** - Phases 42-44 (shipped 2026-04-18) - [archive](milestones/v2.0-ROADMAP.md)
+- [ ] **v2.9 Craft Layer** - applicability decision tree, derived relationship + conflict maps, plot causality + scene conflict, plot-device lifecycle, worldbuilding depth + entity propagation, snowflake mode, older-project upgrade (in release; plan at [craft-layer-PLAN.md](craft-layer-PLAN.md))
 
 ## Archive Notes
 
@@ -29,6 +31,6 @@
 - Archived phase artifacts now live under `.planning/milestones/v1.7-phases/`, `.planning/milestones/v1.8-phases/`, `.planning/milestones/v1.9-phases/`, and `.planning/milestones/v2.0-phases/`.
 - The current shipped baseline includes truthful cover asset contracts, template-driven print-cover guidance, proactive automation checks, runtime smoke checks, agent availability checks, route graph audits, first-run proof docs, release checklist coverage, and integrated regression locks.
 
-## No Active Milestone
+## Active Milestone: v2.9.0 Craft Layer
 
-v2.0.12 is shipped. The next step is to choose the next milestone and start a new planning cycle from the current proactive automation, audit-repair, first-run proof, and release-verification baseline.
+The craft layer is implemented on the `craft-layer` branch (applicability decision tree; derived relationship and conflict maps; plot causality, scene conflict, and plot-device lifecycle; worldbuilding depth and entity propagation; snowflake mode; older-project upgrade). The remaining step is the 2.9.0 release: version bump across the alignment set, merge to main, and npm publish.
