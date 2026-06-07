@@ -1,6 +1,6 @@
 # Command Reference
 
-Scriveno has **115 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
+Scriveno has **116 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
 
 Commands marked with **adaptive terminology** change how Scriveno talks about your work type's `command_unit` in `.manuscript/config.json`, while keeping the runnable command id stable. Commands marked with **group adaptation** have different labels for specific work type groups (academic, sacred, etc.).
 
@@ -11,7 +11,7 @@ This page covers writer-facing `/scr:*` commands. Package-level audit commands l
 1. [Core](#core) -- The main workflow: create, discuss, plan, draft, review, submit
 2. [Navigation](#navigation) -- Find your way: next step, help, progress, import
 3. [Session](#session) -- Save, compare, undo, pause and resume your work
-4. [Structure](#structure) -- Plot graphs, timelines, themes, outlines
+4. [Structure](#structure) -- Plot graphs, climax, timelines, themes, outlines
 5. [Structure Management](#structure-management) -- Add, insert, remove, split, merge, reorder units
 6. [Character & World](#character--world) -- Characters, relationships, world-building
 7. [Quality](#quality) -- Voice calibration, line editing, copy editing, polish
@@ -582,6 +582,24 @@ Commands for visualizing and managing your narrative structure, themes, and time
 /scr:plot-graph --type hero's-journey
 ```
 Visualize your novel's structure mapped to the hero's journey.
+
+---
+
+### `/scr:climax`
+
+**Description:** Generate and pressure-test the story's climax where conflict, crisis, character arcs, and planted payoffs converge.
+
+**Usage:** `/scr:climax [unit]`
+
+**Prerequisites:** OUTLINE.md must exist
+
+**Available for:** Prose, script, visual, interactive, sacred
+
+**Example:**
+```
+/scr:climax
+```
+Devise and pressure-test the climax (which setups fire, whose arc resolves, what it costs), then hand off to `/scr:plan` for the scene.
 
 ---
 

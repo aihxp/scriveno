@@ -2,12 +2,12 @@
 
 ## Current Status
 
-- Active milestone: **v2.9.0 Craft Layer** (in release)
-- Latest shipped package: **2.8.0**
+- Active milestone: **v3.0.0 Climax Generation** (in release)
+- Latest shipped package: **2.9.0** (Craft Layer)
 - Latest shipped milestone: **v2.0 Publishing Cover Packaging** (completed 2026-04-18)
-- Current repo state: **`craft-layer` branch adds the auto-populated craft surfaces (derived relationship and conflict maps, plot causality and devices, worldbuilding depth, snowflake mode) gated by a work-type applicability decision tree, plus an older-project upgrade path; releasing as 2.9.0**
+- Current repo state: **2.9.0 shipped the craft layer; the `climax` branch adds `/scr:climax` (climax generation that converges conflict, crisis, character arcs, and planted payoffs into earned options), releasing as the 3.0.0 major version**
 - Note: releases 2.1 through 2.8 shipped without per-version milestone entries in this file; this Current Status block is the reconciled truth.
-- Next step: finish the 2.9.0 release (version bump, merge to main, npm publish)
+- Next step: finish the 3.0.0 release (merge to main, push, npm publish)
 
 ## Milestones
 
@@ -22,7 +22,8 @@
 - [x] **v1.8 Command Surface Coherence** - Phases 36-38 (shipped 2026-04-18) - [archive](milestones/v1.8-ROADMAP.md)
 - [x] **v1.9 Workflow Contract Integrity** - Phases 39-41 (shipped 2026-04-18) - [archive](milestones/v1.9-ROADMAP.md)
 - [x] **v2.0 Publishing Cover Packaging** - Phases 42-44 (shipped 2026-04-18) - [archive](milestones/v2.0-ROADMAP.md)
-- [ ] **v2.9 Craft Layer** - applicability decision tree, derived relationship + conflict maps, plot causality + scene conflict, plot-device lifecycle, worldbuilding depth + entity propagation, snowflake mode, older-project upgrade (in release; plan at [craft-layer-PLAN.md](craft-layer-PLAN.md))
+- [x] **v2.9 Craft Layer** - applicability decision tree, derived relationship + conflict maps, plot causality + scene conflict, plot-device lifecycle, worldbuilding depth + entity propagation, snowflake mode, older-project upgrade (shipped 2026-06-06; plan at [craft-layer-PLAN.md](craft-layer-PLAN.md))
+- [ ] **v3.0 Climax Generation** - /scr:climax converges conflict, crisis, character arcs, and planted payoffs into earned climax options (in release)
 
 ## Archive Notes
 
@@ -31,6 +32,6 @@
 - Archived phase artifacts now live under `.planning/milestones/v1.7-phases/`, `.planning/milestones/v1.8-phases/`, `.planning/milestones/v1.9-phases/`, and `.planning/milestones/v2.0-phases/`.
 - The current shipped baseline includes truthful cover asset contracts, template-driven print-cover guidance, proactive automation checks, runtime smoke checks, agent availability checks, route graph audits, first-run proof docs, release checklist coverage, and integrated regression locks.
 
-## Active Milestone: v2.9.0 Craft Layer
+## Active Milestone: v3.0.0 Climax Generation
 
-The craft layer is implemented on the `craft-layer` branch (applicability decision tree; derived relationship and conflict maps; plot causality, scene conflict, and plot-device lifecycle; worldbuilding depth and entity propagation; snowflake mode; older-project upgrade). The remaining step is the 2.9.0 release: version bump across the alignment set, merge to main, and npm publish.
+The craft layer shipped in 2.9.0. The 3.0.0 major release adds `/scr:climax`, which converges the central conflict, the crisis beat, character want-versus-need, and planted-device payoffs into earned climax options. The remaining step is the 3.0.0 release: merge to main, push, and npm publish.
