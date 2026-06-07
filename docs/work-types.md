@@ -24,6 +24,10 @@ Context files rename per group. The default `CHARACTERS.md` becomes `FIGURES.md`
 
 Not every command makes sense for every work type. Poetry collections don't need `/scr:subplot-map`. Academic papers don't need `/scr:dialogue-audit`. Runbooks don't need query-package exports. Scriveno hides irrelevant commands and shows only what applies to your work type. Sacred work types get 8 exclusive commands (concordance, cross-reference, genealogy, etc.) that don't appear for other groups.
 
+### 5. Craft surfaces (the applicability decision tree)
+
+The same principle governs which context surfaces a work type carries, recorded in `surface_applicability` in CONSTRAINTS.json as `required`, `optional`, or `not_applicable` per group (with per-work-type overrides). A novel requires characters, world, plot, and themes; a poem carries only a brief and themes; an article gets characters and plot as optional and no world at all. The derived craft maps follow the same gating: `RELATIONSHIPS.md` (a complete pairwise relationship matrix) and `CONFLICTS.md` (central plus pairwise conflict, with `no conflict` recorded explicitly) are generated only where characters and conflict apply, and are renamed per group like other surfaces.
+
 ## Work Type Groups
 
 Scriveno organizes its 50 work_types into 9 groups. Each group shares command adaptations and file naming conventions.

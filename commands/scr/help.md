@@ -88,6 +88,10 @@ When useful, describe Scriveno's creative-context model in one sentence: Scriven
 
 Only show commands where `available` includes the current work type's group, OR where it's `"all"`, **and** any narrower command-level constraints still pass for the specific work type. For example, `book-proposal` is still hidden for fiction prose because `nonfiction_only` narrows the broad prose/sacred availability, and `panel-layout` is hidden for non-comic visual projects because `comic_only` narrows the visual group. Show canonical runnable command names, and use adapted labels as descriptive text only when the base command is actually available -- sacred review surfaces may show `/scr:editor-review` as scholarly review, and technical docs may show `/scr:plot-graph` as procedure map, but hidden commands stay hidden even if CONSTRAINTS.json stores an adapted label.
 
+### Surfaces for this work type
+
+When showing an active project, always include one compact line naming which context surfaces apply to the work type, resolved from `surface_applicability` in CONSTRAINTS.json (`by_group[<group>]` patched by any `work_type_overrides[<work_type>]`): the `required` surfaces are the spine, `optional` ones are available if useful, and `not_applicable` ones are intentionally absent (an article has no world to build, a poem has no plot to map). One line, not a lecture.
+
 ## The filtered view
 
 If the argument matches an intent or category name (e.g., "revise", "publish"), show that view first. If it's a free-text search, match against command names and descriptions. If the writer asks for "all", "catalog", or "everything", show the grouped stage view after the compact intent view.

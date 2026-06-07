@@ -9,11 +9,12 @@ Display the structural outline with work-type-aware unit labels, or enter edit m
 
 ## Usage
 ```
-/scr:outline [--edit]
+/scr:outline [--edit] [--snowflake]
 ```
 
 **Flags:**
 - `--edit` -- Enter edit mode to add, remove, or reorder outline entries
+- `--snowflake` -- Build the outline progressively with the snowflake method (logline -> paragraph -> character thumbnails -> plot summary -> scene list)
 - No flag: display mode (default)
 
 ## Instruction
@@ -95,6 +96,23 @@ Allow the writer to modify the outline interactively:
 
 Commit: `structure: update outline`
 </outline_edit>
+
+---
+
+### SNOWFLAKE MODE (--snowflake)
+
+<outline_snowflake>
+Guide the writer through Randy Ingermanson's snowflake method: start tiny and expand in fixed steps. Each step writes into an existing surface; nothing new is stored. Run the steps in order, confirming each before expanding.
+
+1. **One-sentence summary (logline).** Write or refine a single sentence of 15 words or fewer, with no character names, tying the big-picture situation to the protagonist's mission. This is the only hard gate: if the sentence exceeds 15 words or names a character, tighten it before continuing. Save to the `## Logline` section of `WORK.md`.
+2. **One-paragraph summary.** Expand the logline to about five sentences: the setup, three disasters, and the ending. Save as the premise in `WORK.md` and the `## High-level structure` of `OUTLINE.md`.
+3. **Character thumbnails.** One short paragraph per character: goal, obstacle, epiphany, and a one-line storyline. Write each into `CHARACTERS.md` (Want, Need, Arc).
+4. **One-page plot summary.** Expand each sentence of the paragraph into its own paragraph, each ending in a disaster except the last. Produce it via `/scr:synopsis` and keep it with the outline.
+5. **Character and plot expansion.** Grow the thumbnails toward a page each and the plot summary toward a page each, deepening `CHARACTERS.md` and `OUTLINE.md`.
+6. **Scene list.** Enumerate the scenes that deliver the plot, writing them as the `## {{UNIT_LABEL}} list` in `OUTLINE.md`, ready for `/scr:plan`.
+
+Move one step at a time and let the writer stop at any step with a usable artifact. Only the logline rule (15 words or fewer, no character names) is enforced; the rest is guidance. The mode never invents a new file; it sequences `WORK.md`, `CHARACTERS.md`, `/scr:synopsis`, and `OUTLINE.md` in snowflake order.
+</outline_snowflake>
 
 ## Edge Cases
 

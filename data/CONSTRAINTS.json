@@ -1,6 +1,6 @@
 {
   "$schema": "./constraints.schema.json",
-  "version": "2.8.0",
+  "version": "2.9.0",
   "description": "Scriveno constraint system: work types, command availability, exports, and dependencies. Every command checks this file at runtime.",
   "_notes": {
     "sacred_keys": "Sacred subcommands live at commands/scr/sacred/<name>.md and run as /scr:sacred:<name>. Their CONSTRAINTS keys use the sacred:<name> form so /scr:help can render the runnable slash-command path directly. The sacred-numbering-format entry is a separate flat command (commands/scr/sacred-numbering-format.md) that surfaces the active tradition's numbering format. It used to be named sacred-verse-numbering, which collided with sacred:verse-numbering at install time -- both flattened to scr-sacred-verse-numbering. Renamed in v1.6.x; the installer now refuses to install when two sources share a flat skill name."
@@ -3900,6 +3900,28 @@
       ],
       "default": "popular",
       "description": "Style of transliteration for non-Latin script terms"
+    }
+  },
+  "surface_applicability": {
+    "_description": "Decision tree for the variable .manuscript context surfaces (BRIEF, CHARACTERS, RELATIONSHIPS, WORLD, PLOT-GRAPH, THEMES). Canonical names map to adapted filenames via file_adaptations. Universal files (WORK, OUTLINE, RECORD, STATE, PROGRESS, STYLE-GUIDE, WRITING-RULES) are always created and are not governed here. /scr:new-work creates every surface marked required or optional and skips not_applicable; /scr:help surfaces which apply. by_group is the default per work-type group; work_type_overrides is a partial patch over the group default for a specific type (a surface named in an override moves to that tier and is removed from the others).",
+    "by_group": {
+      "prose": { "required": ["BRIEF.md", "CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md", "THEMES.md"], "optional": ["RELATIONSHIPS.md"], "not_applicable": [] },
+      "script": { "required": ["BRIEF.md", "CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md", "THEMES.md"], "optional": ["RELATIONSHIPS.md"], "not_applicable": [] },
+      "academic": { "required": ["BRIEF.md", "CHARACTERS.md", "THEMES.md"], "optional": ["WORLD.md", "PLOT-GRAPH.md"], "not_applicable": ["RELATIONSHIPS.md"] },
+      "technical": { "required": ["BRIEF.md", "CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md", "THEMES.md"], "optional": ["RELATIONSHIPS.md"], "not_applicable": [] },
+      "visual": { "required": ["BRIEF.md", "CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md", "THEMES.md"], "optional": ["RELATIONSHIPS.md"], "not_applicable": [] },
+      "poetry": { "required": ["BRIEF.md", "THEMES.md"], "optional": [], "not_applicable": ["CHARACTERS.md", "RELATIONSHIPS.md", "WORLD.md", "PLOT-GRAPH.md"] },
+      "interactive": { "required": ["BRIEF.md", "CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md", "THEMES.md"], "optional": ["RELATIONSHIPS.md"], "not_applicable": [] },
+      "speech_song": { "required": ["BRIEF.md", "THEMES.md"], "optional": [], "not_applicable": ["CHARACTERS.md", "RELATIONSHIPS.md", "WORLD.md", "PLOT-GRAPH.md"] },
+      "sacred": { "required": ["BRIEF.md", "CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md", "THEMES.md"], "optional": ["RELATIONSHIPS.md"], "not_applicable": [] }
+    },
+    "work_type_overrides": {
+      "essay": { "optional": ["CHARACTERS.md", "PLOT-GRAPH.md"], "not_applicable": ["WORLD.md"] },
+      "essay_collection": { "optional": ["CHARACTERS.md", "PLOT-GRAPH.md"], "not_applicable": ["WORLD.md"] },
+      "journal_article": { "optional": ["CHARACTERS.md", "PLOT-GRAPH.md"], "not_applicable": ["WORLD.md"] },
+      "white_paper": { "optional": ["CHARACTERS.md", "PLOT-GRAPH.md"], "not_applicable": ["WORLD.md"] },
+      "memoir": { "optional": ["WORLD.md"] },
+      "single_poem": { "required": ["BRIEF.md"], "optional": ["THEMES.md"], "not_applicable": ["CHARACTERS.md", "RELATIONSHIPS.md", "WORLD.md", "PLOT-GRAPH.md"] }
     }
   },
   "architectural_profiles": {

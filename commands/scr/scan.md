@@ -220,6 +220,39 @@ Recompute per-unit status from disk per `docs/progress-protocol.md`. If the buck
 
 ---
 
+### CHECK 13: RELATIONSHIPS.md derived map staleness
+
+If the work type has a characters surface (per `surface_applicability`) and `.manuscript/CHARACTERS.md` defines two or more characters, the derived `.manuscript/RELATIONSHIPS.md` map should match the relationship sections of `CHARACTERS.md`. Compare RELATIONSHIPS.md mtime against CHARACTERS.md; if older, the saved map may be stale. Emit:
+
+```
+WARNING .manuscript/RELATIONSHIPS.md is older than CHARACTERS.md.
+        The saved relationship map may not reflect current character relationships.
+        Fix: /scr:save to rebuild it (or /scr:scan --fix).
+```
+
+Re-derive the pairwise map from the CHARACTERS.md relationship sections per `docs/relationships-protocol.md`. If a pairing in RELATIONSHIPS.md contradicts the character entries, or a character pair is missing from the map entirely (not even marked `none`), emit a DRIFT finding citing both. If the work type has characters and at least two are defined but RELATIONSHIPS.md does not exist, emit INFO suggesting `/scr:save` to generate the openable map. Rebuilding RELATIONSHIPS.md is auto-fixable under `--fix`. For work types without a characters surface, skip this check silently.
+
+---
+
+### CHECK 14: CONFLICTS.md derived map staleness
+
+If the work has a narrative conflict (a central conflict in `WORK.md` or two or more characters) and the work type is not poetry or speech, the derived `.manuscript/CONFLICTS.md` map should match `WORK.md` and the character entries. Compare CONFLICTS.md mtime against `WORK.md` and `CHARACTERS.md`; if older, the saved map may be stale. Emit a WARNING with the fix `/scr:save` (or `/scr:scan --fix`). Re-derive the map per `docs/conflict-protocol.md`; if a pairing contradicts the source, or a character pair is missing entirely (not even marked `no conflict`), emit a DRIFT finding. If conflict applies but CONFLICTS.md does not exist, emit INFO suggesting `/scr:save`. Rebuilding it is auto-fixable under `--fix`. Where conflict does not apply, skip silently.
+
+---
+
+### CHECK 15: WORLD.md entity propagation
+
+Generalize the character-name detection in CHECK 10 to places and factions. Parse `.manuscript/WORLD.md` (or the adapted CONTEXT / SYSTEM / COSMOLOGY) for known place and faction names. Grep the drafts for capitalized place-like or group-like proper nouns (a city, region, order, house, company) that recur but are absent from WORLD.md. Emit each as INFO with the first draft it appears in, and under `--fix` propose adding a stub entry to the relevant WORLD.md section after writer confirmation:
+
+```
+INFO   "Veridia" appears in 3 drafts but is not in WORLD.md.
+       Add it to Geography (Key locations), or confirm it is a one-off mention. /scr:scan --fix can stub it.
+```
+
+Reconcile before creating: "the city", "Veridia", and "the capital" may be one place -- ask rather than create three entries. This is best-effort; false positives are expected. For work types where WORLD is not_applicable (per `surface_applicability`: poetry, speech), skip this check silently.
+
+---
+
 ### REPORT
 
 Output a single structured report:

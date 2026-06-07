@@ -51,6 +51,13 @@ authority: project
 
 {{CORE_CONFLICT}}
 
+Name the conflict precisely so every scene can inherit it:
+- **Primary type:** character vs self, character, nature, supernatural, technology, or society.
+- **External:** the tangible goal and the obstacle in the way (the inciting incident makes this concrete).
+- **Internal:** the competing inner needs (often the want-versus-need split from the character work).
+
+The external conflict usually drags the internal conflict into the open. The conflict map (`CONFLICTS.md`) tracks how this plays out per character pair and, later, per scene.
+
 ## Tone and mood
 
 {{TONE}}

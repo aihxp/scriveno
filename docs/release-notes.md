@@ -2,6 +2,18 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 2.9.0 - 2026-06-06
+
+### What changed
+
+- **The craft layer.** Scriveno now tracks story craft as first-class, auto-populated context, and only where the work type warrants it. A novel gets characters, world, plot, and themes; a poem gets a brief and themes; an article gets no world. This decision tree lives in `surface_applicability` and is surfaced by `/scr:help`.
+- **Relationships stay current automatically.** `RELATIONSHIPS.md` is now a derived, always-complete map of every character pair, rebuilt whenever a character changes. "No relationship" is recorded explicitly, and undefined pairs are surfaced to explore.
+- **A conflict map.** The new `CONFLICTS.md` shows the central conflict and every character pairing (with "no conflict" recorded), plus per-scene conflict. Crisis and Climax are now distinct beats.
+- **Plot causality and devices.** Every unit plan states why it happens ("because", not "and then"); planted devices (Chekhov's gun, red herring, MacGuffin) are tracked from setup to payoff; reviews flag deus ex machina and plot armor.
+- **Deeper worldbuilding.** Weather and season, time-of-day rules, setting-as-antagonist, and secondary-world consistency, plus automatic surfacing of new places and factions mentioned in drafts.
+- **Snowflake outlining.** `/scr:outline --snowflake` walks you from a one-line logline out to a full scene list.
+- **Upgrade older projects.** `/scr:health --repair` brings a manuscript created with an older Scriveno up to the current surfaces without touching your writing.
+
 ## 2.8.0 - 2026-05-30
 
 ### What changed

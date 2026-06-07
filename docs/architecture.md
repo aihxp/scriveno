@@ -179,6 +179,8 @@ scriveno/
     PROGRESS.md            Per-unit progress ledger scaffold (derived, 2.7.0+)
     BRIEF.md               Project brief template
     WORLD.md               World-building template
+    RELATIONSHIPS.md       Derived pairwise relationship map scaffold (derived, 2.9.0+)
+    CONFLICTS.md           Derived conflict map scaffold (derived, 2.9.0+)
     pitfalls/              Per-work-type pitfall packs (1.6.0+)
       novel.md, memoir.md, screenplay.md, runbook.md,
       research_paper.md, poetry_collection.md, comic.md,

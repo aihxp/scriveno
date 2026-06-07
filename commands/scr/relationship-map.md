@@ -16,10 +16,10 @@ Generate an ASCII relationship graph showing connections between all characters.
 
 You are generating a relationship map. Load:
 - `.manuscript/config.json` (to get `work_type`)
-- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `file_adaptations`, `commands.relationship-map.adapted`, and `feature_prerequisites`)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `file_adaptations`, `commands.relationship-map.adapted`, and `commands.relationship-map.requires`)
 - The adapted characters file (CHARACTERS.md / FIGURES.md per `file_adaptations`)
 
-**Prerequisites check** (from CONSTRAINTS.json `feature_prerequisites`):
+**Prerequisites check** (from CONSTRAINTS.json `commands.relationship-map.requires`):
 - The characters file must exist
 - At least 2 characters must be defined
 - If fewer than 2: "Relationship map requires at least 2 characters. You have {N}. Run `/scr:new-character <name>` to add more."
@@ -92,6 +92,8 @@ Determine adapted terminology:
 
   After edits, update the "Key Relationships" section in each affected character's entry in the characters file.
   If interaction dynamics changed, also update the "Relationship-Specific Interactions" section for the affected character entries.
+
+  After writing the changes back to the character entries, regenerate `.manuscript/RELATIONSHIPS.md` from those entries per `docs/relationships-protocol.md`. The map is the derived snapshot; the character entries are the source.
 
   Commit: `character: update relationship map`
 </relationship_map_edit>

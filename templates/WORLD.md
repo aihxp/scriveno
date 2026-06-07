@@ -59,4 +59,32 @@ authority: project
 **Historical conflicts still active:** {{ACTIVE_CONFLICTS}}
 
 ---
+
+## Atmosphere and time
+
+**Climate and seasons:** {{CLIMATE}} (and how the season constrains the story: travel, food, light)
+**Weather that matters:** {{WEATHER}}
+**Time of day as a rule:** {{TIME_RULES}} (what changes at dawn, dusk, or midnight: gates that close, dangers that wake)
+
+---
+
+## Setting as antagonist
+
+How the setting opposes the protagonist. A place can function as a character: the desert that drains, the city that watches, the house that resists.
+
+**What the setting resists or denies:** {{SETTING_OPPOSITION}}
+**Obstacles the place itself creates:** {{SETTING_OBSTACLES}}
+
+---
+
+## World consistency (internal rules)
+
+What is invented and must stay internally consistent, versus what is assumed from the real world. Readers grant a willing suspension of disbelief only while the world keeps its own rules.
+
+**World type:** {{WORLD_TYPE}} (real-world-grounded, alternate history, or secondary world)
+**Invented rules that must never break:** {{SPECULATIVE_RULES}} (magic costs, altered physics, social laws unique to this world)
+**Assumed real-world defaults:** {{REAL_DEFAULTS}} (what the reader may take for granted unless stated otherwise)
+**The willing-suspension contract:** {{SUSPENSION_CONTRACT}} (the one or two big asks; everything else stays consistent)
+
+---
 *Update this file as the world develops. Build progressively -- seed questions first, then refine with `/scr:build-world --area <area>`.*

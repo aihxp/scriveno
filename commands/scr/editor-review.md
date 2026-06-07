@@ -69,6 +69,13 @@ Load the act's scene plans, drafts, and RECORD.md when present. Also extract eac
   If Subject Dynamics Notes are absent, still scan for an obvious missing layer: a draft with character motion but no change in meaning, or a subject-driven unit with information but no reader movement. Recommend adding Subject Dynamics Notes in the next plan or running `/scr:subject-touch <subject>` when the draft changed the subject's state.
 </subject_dynamics_followup>
 
+<plot_device_followup>
+  Check the plot logic and any planted devices tracked in RECORD.md "Promises and payoffs".
+  For each device with `Status: planted` whose payoff window has arrived, check whether it paid off, was deliberately subverted, or was silently dropped. A planted gun that never fires is a flaw: flag it and recommend resolving or removing the setup.
+  Flag **deus ex machina**: a resolution that arrives from outside the established story logic and rescues the protagonist without their agency or any prior setup. Name the unearned save and suggest grounding it in something planted earlier.
+  Flag **plot armor**: a character surviving or succeeding only because the plot needs them to, with no plausible in-world reason. Name the consequence the scene avoided and ask whether the stakes are real.
+</plot_device_followup>
+
 ---
 
 ### STEP 2: GUIDED WALKTHROUGH

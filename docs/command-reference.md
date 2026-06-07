@@ -668,7 +668,7 @@ See how your subplots weave together and where they intersect with the main plot
 
 **Description:** Display or edit the structural outline of the work.
 
-**Usage:** `/scr:outline [--edit]`
+**Usage:** `/scr:outline [--edit] [--snowflake]`
 
 **Prerequisites:** OUTLINE.md must exist
 
@@ -676,6 +676,7 @@ See how your subplots weave together and where they intersect with the main plot
 
 **Flags:**
 - `--edit` -- Modify the outline
+- `--snowflake` -- Build the outline progressively with the snowflake method (logline -> paragraph -> character thumbnails -> plot summary -> scene list)
 
 **Example:**
 ```

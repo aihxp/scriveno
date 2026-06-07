@@ -32,11 +32,14 @@ Questions, tensions, mysteries, arguments, promises, risks, procedures, motifs, 
 
 ## Promises and payoffs
 
-Reader-facing promises the work has made and whether they have paid off.
+Reader-facing promises and planted devices, and whether they have paid off. The `Type` names the device so a setup is never silently lost; the `Status` is its lifecycle.
 
-| Promise | Setup location | Payoff location | Status |
-|---------|----------------|-----------------|--------|
-| | | | |
+Device types: `promise` (a reader expectation), `chekhovs_gun` (a planted element that must fire), `red_herring` (intentional misdirection that pays off as a deliberate dead end), `macguffin` (an object that drives pursuit), `foreshadow` (an early hint of a later beat).
+Status lifecycle: `planted` (set up, not yet resolved), then `paid_off` (resolved as intended), `subverted` (resolved against expectation, by design), or `abandoned` (dropped -- a planted gun that never fires is a flaw to flag).
+
+| Type | Promise or device | Setup location | Payoff location | Status |
+|------|-------------------|----------------|-----------------|--------|
+| | | | | |
 
 ## Continuity facts
 

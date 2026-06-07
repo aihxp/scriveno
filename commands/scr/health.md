@@ -60,6 +60,11 @@ Status: GREEN if clean, YELLOW if uncommitted changes, RED if detached HEAD.
 
 Status: GREEN if all present, YELLOW if some missing.
 
+### 7. Project version check
+Read `scriveno_version` from `.manuscript/config.json` and compare it to the `version` of the installed/shared CONSTRAINTS.json (the runtime's current version).
+
+Status: GREEN if equal; YELLOW if the project version is older than the runtime (the project predates surfaces added since then and can be upgraded); note it if newer than the runtime (unusual). When older, report: "Project created with Scriveno {project_version}; runtime is {current_version}. Run `/scr:health --repair` to add the surfaces and template sections introduced since then. No authored content is touched." Also restate which context surfaces apply to this work type per `surface_applicability` so the writer sees the current decision tree.
+
 ## Output format
 
 ```
@@ -84,6 +89,13 @@ With `--repair`, fix what can be auto-fixed:
 2. **Fix config.json missing fields** with sensible defaults (author = "Unknown", work_type from directory structure heuristics)
 3. **Report orphaned drafts** for manual review -- do NOT delete them, just list them with suggested actions
 4. **Suggest git commands** for git issues (e.g., "Run `git stash` to save uncommitted changes" or "Run `git switch <canon branch>` to fix detached HEAD"). Resolve `<canon branch>` from `.manuscript/tracks.json` `canon_branch` when available; otherwise refer to the writer's real default branch generically (`main`, `master`, `trunk`, or another branch name) instead of hard-coding `main`.
+
+5. **Upgrade an older project (version gap).** When the project version check found the project older than the runtime, migrate it to current surfaces non-destructively:
+   - **Add missing template sections** to existing authored files by comparing each against its current template and appending only the sections the file lacks. Never overwrite or reorder the writer's content. Sections added in recent versions include: `WORLD.md` ("Atmosphere and time", "Setting as antagonist", "World consistency"); `OUTLINE.md` arc positions ("Crisis" alongside "Climax"); `WORK.md` core-conflict type/external/internal guidance; `RECORD.md` "Promises and payoffs" device `Type` column and lifecycle. Skip any section whose surface is `not_applicable` for the work type per `surface_applicability`.
+   - **Generate the new derived files** that apply to the work type and are missing: `RELATIONSHIPS.md` (per `docs/relationships-protocol.md`) and `CONFLICTS.md` (per `docs/conflict-protocol.md`), the same derivation `/scr:save` and `/scr:scan --fix` perform.
+   - **Bump the project version**: set `.manuscript/config.json` `scriveno_version` to the runtime version and refresh `updated_at`.
+   - **Log it**: append `{ISO} | scr:health --repair | action=upgrade | from={old} | to={new} | outcome=ok` to `.manuscript/HISTORY.log` and add a STATE.md "Last actions" row.
+   - **Report** exactly what was added (sections, derived files) and affirm no authored content was modified, then suggest `/scr:scan` to confirm coherence.
 
 After repair: re-run diagnostics and show the updated health report.
 
