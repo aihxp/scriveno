@@ -64,3 +64,28 @@ describe('peoples layer: integration', () => {
     assert.match(read('commands/scr/build-world.md'), /scr:new-people/);
   });
 });
+
+describe('peoples layer: workflow awareness', () => {
+  it('autopilot regenerates the derived maps including people-dynamics', () => {
+    assert.match(read('commands/scr/autopilot.md'), /PEOPLE-DYNAMICS\.md/);
+  });
+
+  it('pause-work and resume-work regenerate the derived maps', () => {
+    assert.match(read('commands/scr/pause-work.md'), /PEOPLE-DYNAMICS\.md/);
+    assert.match(read('commands/scr/resume-work.md'), /PEOPLE-DYNAMICS\.md/);
+  });
+
+  it('next surfaces peoples when characters exist', () => {
+    assert.match(read('commands/scr/next.md'), /scr:new-people/);
+  });
+
+  it('new-character updates the people Members list (membership is bidirectional)', () => {
+    const n = read('commands/scr/new-character.md');
+    assert.match(n, /### Members/);
+    assert.match(n, /bidirectional/);
+  });
+
+  it('scan checks character-people membership sync (CHECK 17)', () => {
+    assert.match(read('commands/scr/scan.md'), /CHECK 17: character-people membership sync/);
+  });
+});

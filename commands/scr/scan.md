@@ -259,6 +259,12 @@ If the work type has a peoples surface (per `surface_applicability`) and `.manus
 
 ---
 
+### CHECK 17: character-people membership sync
+
+If the work type has a peoples surface and both `.manuscript/CHARACTERS.md` and `.manuscript/PEOPLES.md` exist, the two membership directions should agree: a character whose entry says `Belongs to: X` should appear in people X's `### Members` list, and every name in a people's `### Members` should carry the matching `Belongs to:` in its character entry. Emit a WARNING for each one-sided link (a character claims a people that does not list it, or a people lists a member whose entry omits the `Belongs to:`). Under `--fix`, reconcile by adding the missing side after writer confirmation. Where peoples do not apply, or one of the two files is absent, skip this check silently.
+
+---
+
 ### REPORT
 
 Output a single structured report:

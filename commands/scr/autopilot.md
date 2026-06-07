@@ -38,7 +38,7 @@ FOR each unit in OUTLINE.md (starting from current position):
     If writer says "skip": advance to next unit, update STATE.md
 ```
 
-When the loop completes (all units through all stages), show a completion summary: total units, total word count, voice consistency across the manuscript, open record threads or promises, any flags or issues encountered, and a pointer to the per-unit ledger at `.manuscript/PROGRESS.md`.
+When the loop completes (all units through all stages), show a completion summary: total units, total word count, voice consistency across the manuscript, open record threads or promises, any flags or issues encountered, and a pointer to the per-unit ledger at `.manuscript/PROGRESS.md`. Before the summary, regenerate the derived maps the run may have changed -- `.manuscript/RELATIONSHIPS.md`, `.manuscript/CONFLICTS.md`, and `.manuscript/PEOPLE-DYNAMICS.md` -- per `/scr:save` steps 8b through 8d, where each applies, so they reflect the character and relationship changes made while drafting.
 
 ## Profile rules
 

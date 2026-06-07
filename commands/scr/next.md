@@ -75,6 +75,7 @@ Walk the core chain in order and run the first incomplete step:
 
 1. **No OUTLINE.md** -> `/scr:discuss` (high-level discussion about the whole project)
 2. **No CHARACTERS.md / FIGURES.md and work type supports them** -> `/scr:new-character` loop
+   - When characters exist but no people is defined and the work type supports peoples (`PEOPLES.md` applicable per `surface_applicability`), surface `/scr:new-people` as an option; when peoples already exist, offer `/scr:relationship-map --peoples` to view how they stand.
 3. **No STYLE-GUIDE.md calibration done** -> `/scr:voice-test`
 4. **No {unit} discussed** -> `/scr:discuss N` (next pending unit)
 5. **No {unit} planned** -> `/scr:plan N`

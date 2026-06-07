@@ -141,6 +141,7 @@ Create the character profile and append to `CHARACTERS.md`:
 </character_profile>
 
 Regenerate `.manuscript/RELATIONSHIPS.md` from the character relationship sections per `docs/relationships-protocol.md`. It is derived from `CHARACTERS.md`, not hand-edited: every pair is accounted for (pairs with no relationship marked `none`), and pairs no one has described yet are surfaced as undefined to explore.
+When the character's `Belongs to:` names a people, add the character to that people's `### Members` list in `PEOPLES.md` (the reverse link, so membership is bidirectional like `/scr:new-people`), and regenerate `.manuscript/PEOPLE-DYNAMICS.md` if two or more peoples exist. If the named people is not yet defined, suggest `/scr:new-people`.
 Update `THEMES.md` if this character introduces or reinforces themes.
 
 Commit: `character: add {name}`
