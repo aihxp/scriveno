@@ -234,6 +234,12 @@ Re-derive the pairwise map from the CHARACTERS.md relationship sections per `doc
 
 ---
 
+### CHECK 14: CONFLICTS.md derived map staleness
+
+If the work has a narrative conflict (a central conflict in `WORK.md` or two or more characters) and the work type is not poetry or speech, the derived `.manuscript/CONFLICTS.md` map should match `WORK.md` and the character entries. Compare CONFLICTS.md mtime against `WORK.md` and `CHARACTERS.md`; if older, the saved map may be stale. Emit a WARNING with the fix `/scr:save` (or `/scr:scan --fix`). Re-derive the map per `docs/conflict-protocol.md`; if a pairing contradicts the source, or a character pair is missing entirely (not even marked `no conflict`), emit a DRIFT finding. If conflict applies but CONFLICTS.md does not exist, emit INFO suggesting `/scr:save`. Rebuilding it is auto-fixable under `--fix`. Where conflict does not apply, skip silently.
+
+---
+
 ### REPORT
 
 Output a single structured report:

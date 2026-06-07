@@ -25,8 +25,11 @@ authority: project
 **First turning point:** {{TURN_1}}
 **Midpoint:** {{MIDPOINT}}
 **Second turning point:** {{TURN_2}}
+**Crisis:** {{CRISIS}}
 **Climax:** {{CLIMAX}}
 **Resolution:** {{RESOLUTION}}
+
+*Crisis and climax are distinct beats: the crisis is the lowest point where the protagonist has no options (story energy highest against them, roughly three-quarters through); the climax is the moment of success that follows. Keep both.*
 
 ## Notes
 
