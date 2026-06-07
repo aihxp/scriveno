@@ -167,15 +167,15 @@ describe('authenticity-check diagnostic discipline', () => {
     assert.match(drafter, /This self-check is a write-to-the-voice judgement, not a score-then-rewrite optimization loop/);
   });
 
-  it('release metadata is aligned on 3.2.0', () => {
+  it('release metadata is aligned on 3.2.1', () => {
     const pkg = JSON.parse(read('package.json'));
     const cfg = JSON.parse(read('templates/config.json'));
     const constraints = JSON.parse(read('data/CONSTRAINTS.json'));
 
-    assert.equal(pkg.version, '3.2.0');
-    assert.equal(cfg.scriveno_version, '3.2.0');
-    assert.equal(constraints.version, '3.2.0');
-    assert.match(read('CHANGELOG.md'), /## 3\.2\.0 - /);
-    assert.match(read('docs/release-notes.md'), /## 3\.2\.0 - /);
+    assert.equal(pkg.version, '3.2.1');
+    assert.equal(cfg.scriveno_version, '3.2.1');
+    assert.equal(constraints.version, '3.2.1');
+    assert.match(read('CHANGELOG.md'), /## 3\.2\.1 - /);
+    assert.match(read('docs/release-notes.md'), /## 3\.2\.1 - /);
   });
 });

@@ -2,6 +2,13 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 3.2.1 - 2026-06-06
+
+### What changed
+
+- **Peoples are now wired into autopilot and the session flow.** Running on autopilot, pausing, or resuming refreshes the relationship, conflict, and people-dynamics maps, so they are never stale. `/scr:next` points you to define peoples when you have characters but no people, and creating a character now registers it in its people automatically (membership works both ways). A new consistency check flags any character and people that disagree about membership.
+- **No command can hide on an island.** The connectivity check now fails the build for any command nothing routes to, so the workflow stays navigable as it grows.
+
 ## 3.2.0 - 2026-06-06
 
 ### What changed

@@ -2,12 +2,12 @@
 
 ## Current Status
 
-- Active milestone: **v3.2.0 Peoples** (in release)
-- Latest shipped package: **3.1.1** (prerequisite reference fix)
+- Active milestone: **v3.2.1 patch** (in release)
+- Latest shipped package: **3.2.0** (Peoples)
 - Latest shipped milestone: **v2.0 Publishing Cover Packaging** (completed 2026-04-18)
-- Current repo state: **3.1.1 shipped; main adds the Peoples layer (collective entities via /scr:new-people, the derived PEOPLE-DYNAMICS inter-group map, and character-to-people membership), releasing as 3.2.0**
+- Current repo state: **3.2.0 shipped the Peoples layer; main completes its workflow integration (autopilot/pause/resume refresh the derived maps, /scr:next surfaces peoples, bidirectional character-people membership, scan CHECK 17) and hardens the connectivity test to auto-detect any island command, releasing as 3.2.1**
 - Note: releases 2.1 through 2.8 shipped without per-version milestone entries in this file; this Current Status block is the reconciled truth.
-- Next step: finish the 3.2.0 release (push, npm publish)
+- Next step: finish the 3.2.1 release (push, npm publish)
 
 ## Milestones
 

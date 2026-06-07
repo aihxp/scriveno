@@ -2,6 +2,13 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 3.2.1 - 2026-06-06
+
+Completes the Peoples integration and hardens the connectivity guarantee.
+
+- Connectivity: the regression test now auto-detects ANY island command (reachable via an inbound suggestion, `command_intents`, or `core_chain`, or in an explicit `selfServe` allowlist), so a new command can no longer be silently orphaned. Wired the workflow gaps this surfaced: `/scr:outline` (from `/scr:plan`) and the structure-edit family (insert/remove/reorder/split/merge-units, from `/scr:outline`).
+- Peoples awareness: `/scr:autopilot`, `/scr:pause-work`, and `/scr:resume-work` regenerate the derived maps (RELATIONSHIPS, CONFLICTS, PEOPLE-DYNAMICS), not just PROGRESS/CONTEXT; `/scr:next` surfaces `/scr:new-people` and `/scr:relationship-map --peoples`; `/scr:new-character` adds the character to its people's Members list (bidirectional membership); new scan CHECK 17 flags out-of-sync character-people membership.
+
 ## 3.2.0 - 2026-06-06
 
 Feature release: the Peoples layer. Scriveno now tracks peoples (races, factions, cultures, nations) as collective entities, the tier above individual characters.
