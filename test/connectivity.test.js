@@ -45,20 +45,41 @@ function buildInbound() {
 describe('connectivity: no orphan craft surfaces', () => {
   const inbound = buildInbound();
 
-  it('every craft command is routed to by at least one other command', () => {
-    // These craft/structure/character commands must be reachable from the
-    // workflow, not only from /scr:help. Add a craft command, route a predecessor.
-    const mustBeReachable = [
-      'climax', 'relationship-map', 'subplot-map', 'theme-tracker',
-      'plot-graph', 'character-arc', 'character-touch', 'new-character',
-      'new-people',
-    ];
-    for (const cmd of mustBeReachable) {
-      assert.ok(
-        inbound.get(cmd) && inbound.get(cmd).size > 0,
-        `/scr:${cmd} is an orphan: no other command references it. Route a predecessor to it.`
-      );
-    }
+  it('no command sits on an island (every command is reachable or explicitly self-serve)', () => {
+    // Auto-detects ANY island, so a NEW command cannot be silently orphaned. A command
+    // is reachable if another command suggests it (inbound), or it is in command_intents,
+    // or in the core workflow chain, or it is an entry point, or it is explicitly marked
+    // self-serve below. A new command that is none of these fails this test: route a
+    // predecessor to it, add it to an intent, or add it to selfServe with a reason.
+    const constraints = JSON.parse(read('data/CONSTRAINTS.json'));
+    const intent = new Set(Object.values(constraints.command_intents).flat());
+    const core = new Set(constraints.dependencies.core_chain.map((s) => s.command));
+
+    // Entry points: a writer reaches these without another command suggesting them.
+    const entryPoints = new Set([
+      'new-work', 'first-run', 'demo', 'import', 'help', 'next', 'do', 'manager', 'fast',
+      'profile-writer', 'autopilot', 'autopilot-publish', 'autopilot-translate', 'surface', 'settings',
+    ]);
+    // Self-serve: invoked deliberately (via /scr:help, by design), not workflow-routed.
+    // Adding a command here is a conscious exception; everything else must be routed to.
+    const selfServe = new Set([
+      'book-proposal',                                              // nonfiction submission, on demand
+      'chapter-header', 'panel-layout', 'storyboard',              // illustration / layout specialists
+      'dialogue-audit', 'sensitivity-review', 'originality-check', // on-demand reviews
+      'sacred-numbering-format', 'sacred:genealogy', 'sacred:verse-numbering', // sacred specialists
+      'check-notes', 'proof-unit', 'series-bible',                 // utility / proof / series
+    ]);
+
+    const reachable = (n) =>
+      (inbound.get(n) && inbound.get(n).size > 0) ||
+      intent.has(n) || core.has(n) || entryPoints.has(n) || selfServe.has(n);
+
+    const islands = Array.from(inbound.keys()).filter((n) => !reachable(n)).sort();
+    assert.deepEqual(
+      islands,
+      [],
+      `Island command(s) found (nothing routes to them, not in an intent/chain, not marked self-serve): ${islands.join(', ')}. Route a predecessor, add an intent, or add to the selfServe allowlist with a reason.`
+    );
   });
 
   it('climax is routed to by its craft predecessors', () => {

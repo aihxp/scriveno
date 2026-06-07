@@ -110,7 +110,7 @@ If the host runtime cannot spawn a native `plan-checker` agent type, load the in
 
 ## Next-step routing
 
-When the unit being planned sits at the `Climax` arc position in OUTLINE.md, suggest running `/scr:climax` first so the climax is devised before the scene is planned.
+When the unit being planned sits at the `Climax` arc position in OUTLINE.md, suggest running `/scr:climax` first so the climax is devised before the scene is planned. After the unit is planned, suggest `/scr:outline` to see how it sits in the full structure.
 
 ## Response Contract
 

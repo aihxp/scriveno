@@ -123,7 +123,7 @@ Move one step at a time and let the writer stop at any step with a usable artifa
 
 ## Next-step routing
 
-When the `Climax` arc field is empty, suggest `/scr:climax` to devise it. When the outline is empty or sparse, offer `/scr:outline --snowflake` to build it progressively. When multiple parallel threads appear, suggest `/scr:subplot-map` and `/scr:theme-tracker`.
+When the `Climax` arc field is empty, suggest `/scr:climax` to devise it. When the outline is empty or sparse, offer `/scr:outline --snowflake` to build it progressively. When multiple parallel threads appear, suggest `/scr:subplot-map` and `/scr:theme-tracker`. To restructure the manuscript, point to the structure-edit commands: `/scr:add-unit`, `/scr:insert-unit`, `/scr:remove-unit`, `/scr:reorder-units`, `/scr:split-unit`, and `/scr:merge-units`.
 
 ## Response Contract
 
