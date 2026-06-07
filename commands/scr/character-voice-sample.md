@@ -16,7 +16,7 @@ Generate a dialogue sample to preview how a character sounds before drafting sce
 
 You are generating a voice sample for a character. Load:
 - `.manuscript/config.json` (to get `work_type`)
-- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `file_adaptations`, `commands.character-voice-sample.adapted`, and `commands.character-voice-sample.requires`)
+- Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `file_adaptations`, `commands.character-voice-sample.adapted`, and `dependencies.feature_prerequisites`)
 - `STYLE-GUIDE.md` (writer's voice dimensions -- the sample must feel like this writer's prose)
 
 Determine the correct characters file from `file_adaptations`:
@@ -26,7 +26,7 @@ Determine the correct characters file from `file_adaptations`:
 
 Load the adapted characters file from `.manuscript/`.
 
-**Prerequisites check** (from CONSTRAINTS.json `commands.character-voice-sample.requires`):
+**Prerequisites check** (from CONSTRAINTS.json `dependencies.feature_prerequisites`):
 - The characters file must exist with at least one character entry
 - `STYLE-GUIDE.md` must exist
 - If either is missing: "This command requires {missing_file}. Run {generator_command} first."

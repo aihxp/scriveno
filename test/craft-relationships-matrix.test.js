@@ -55,10 +55,10 @@ describe('craft layer Phase 2: RELATIONSHIPS.md derived matrix', () => {
     assert.match(read('commands/scr/character-touch.md'), /RELATIONSHIPS\.md/);
   });
 
-  it('relationship-map no longer references a non-existent feature_prerequisites section', () => {
+  it('relationship-map references the canonical prerequisite registry', () => {
     const r = read('commands/scr/relationship-map.md');
-    assert.doesNotMatch(r, /feature_prerequisites/);
-    assert.match(r, /commands\.relationship-map\.requires/);
+    assert.match(r, /dependencies\.feature_prerequisites/);
+    assert.doesNotMatch(r, /commands\.relationship-map\.requires/);
   });
 
   it('shipped-assets inventories the new template and protocol doc', () => {
