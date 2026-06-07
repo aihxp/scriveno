@@ -2,6 +2,20 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 2.9.0 - 2026-06-06
+
+Feature release: the craft layer. Story-craft tracking becomes first-class and auto-populated, gated by a work-type applicability decision tree.
+
+- Added `surface_applicability` to CONSTRAINTS.json: a required / optional / not-applicable decision tree per work type (a poem carries only a brief and themes; an article needs no world), driving `/scr:new-work` scaffolding and surfaced by `/scr:help`.
+- `RELATIONSHIPS.md` is now a derived, always-complete pairwise matrix regenerated from `CHARACTERS.md` (no relation recorded as `none`, undefined pairs surfaced), with `docs/relationships-protocol.md`.
+- Added a derived conflict map (`CONFLICTS.md`, with `docs/conflict-protocol.md`): central conflict plus a complete pairwise matrix (`no conflict` recorded explicitly) and per-unit scene conflict; a Crisis beat distinct from Climax in OUTLINE.md; a conflict-type taxonomy in WORK.md.
+- Plot causality: every unit plan requires a `## Causal Anchor` (`because`, not `and then`); scene goal/obstacle/outcome captured per unit.
+- Plot-device lifecycle in RECORD.md (Chekhov's gun, red herring, MacGuffin: `planted` to `paid_off` / `subverted` / `abandoned`); `/scr:editor-review` flags deus ex machina and plot armor.
+- Worldbuilding depth in WORLD.md (atmosphere and time, setting-as-antagonist, world-consistency rules); `/scr:scan` CHECK 15 propagates place and faction mentions.
+- `/scr:outline --snowflake` builds the outline progressively (Ingermanson's method).
+- `/scr:health --repair` upgrades projects created with older Scriveno versions to the current surfaces, non-destructively.
+- Fixed a stale `feature_prerequisites` reference in `relationship-map.md` and `character-voice-sample.md`.
+
 ## 2.8.0 - 2026-05-30
 
 Feature release focused on command-surface control, one-unit proofing, context-health visibility, and safer release gates.
