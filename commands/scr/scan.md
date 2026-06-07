@@ -240,6 +240,19 @@ If the work has a narrative conflict (a central conflict in `WORK.md` or two or 
 
 ---
 
+### CHECK 15: WORLD.md entity propagation
+
+Generalize the character-name detection in CHECK 10 to places and factions. Parse `.manuscript/WORLD.md` (or the adapted CONTEXT / SYSTEM / COSMOLOGY) for known place and faction names. Grep the drafts for capitalized place-like or group-like proper nouns (a city, region, order, house, company) that recur but are absent from WORLD.md. Emit each as INFO with the first draft it appears in, and under `--fix` propose adding a stub entry to the relevant WORLD.md section after writer confirmation:
+
+```
+INFO   "Veridia" appears in 3 drafts but is not in WORLD.md.
+       Add it to Geography (Key locations), or confirm it is a one-off mention. /scr:scan --fix can stub it.
+```
+
+Reconcile before creating: "the city", "Veridia", and "the capital" may be one place -- ask rather than create three entries. This is best-effort; false positives are expected. For work types where WORLD is not_applicable (per `surface_applicability`: poetry, speech), skip this check silently.
+
+---
+
 ### REPORT
 
 Output a single structured report:
