@@ -34,7 +34,7 @@ You are helping the user navigate Scriveno commands. Load Scriveno's installed/s
 
 ## The "getting started" view (no project yet)
 
-Ask the user what they want to do. Don't list all 116 commands -- show them this:
+Ask the user what they want to do. Don't list all 117 commands -- show them this:
 
 ```
 Scriveno -- ready to start.

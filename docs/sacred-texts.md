@@ -292,5 +292,5 @@ Here is a quick walkthrough for starting a sacred writing project:
 ## See Also
 
 - [Getting Started](getting-started.md) -- Install Scriveno and create your first project
-- [Command Reference](command-reference.md) -- Full reference for all 116 commands, including the [Sacred Exclusive](command-reference.md#sacred-exclusive) section
+- [Command Reference](command-reference.md) -- Full reference for all 117 commands, including the [Sacred Exclusive](command-reference.md#sacred-exclusive) section
 - [README](../README.md) -- Project overview and feature list

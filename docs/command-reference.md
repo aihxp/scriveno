@@ -1,6 +1,6 @@
 # Command Reference
 
-Scriveno has **116 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
+Scriveno has **117 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
 
 Commands marked with **adaptive terminology** change how Scriveno talks about your work type's `command_unit` in `.manuscript/config.json`, while keeping the runnable command id stable. Commands marked with **group adaptation** have different labels for specific work type groups (academic, sacred, etc.).
 
@@ -819,6 +819,24 @@ Move chapter 8 to position 3, shifting other chapters accordingly.
 ## Character & World
 
 Commands for creating and managing characters, relationships, and world-building. Hidden for poetry and speech work types.
+
+### `/scr:new-people`
+
+**Description:** Build a people (race, faction, culture, nation) as a collective entity through a guided interview.
+
+**Usage:** `/scr:new-people <name>`
+
+**Prerequisites:** WORK.md must exist
+
+**Available for:** Prose, script, visual, interactive, sacred
+
+**Example:**
+```
+/scr:new-people Aurelians
+```
+Profile a people as a collective: origin, values, speech, collective want and fear, members, and how they relate to other peoples. The tier above individual characters.
+
+---
 
 ### `/scr:new-character`
 

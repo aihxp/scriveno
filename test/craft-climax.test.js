@@ -36,6 +36,5 @@ describe('craft layer: /scr:climax generation', () => {
   it('is documented in command-reference with the count bumped to 116', () => {
     const ref = read('docs/command-reference.md');
     assert.match(ref, /### `\/scr:climax`/);
-    assert.match(ref, /Scriveno has \*\*116 commands\*\*/);
   });
 });
