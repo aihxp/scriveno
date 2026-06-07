@@ -76,6 +76,7 @@ Use the adapted unit terminology throughout all output and prompts.
 
 6. **Update related files:**
    - Update `.manuscript/STATE.md` to reflect the two new units
+   - Regenerate `.manuscript/PROGRESS.md` from disk per `docs/progress-protocol.md` so the per-unit ledger reflects the new structure
    - Update PLOT-GRAPH.md (or adapted equivalent) if arc positions are affected
    - Update cross-references in OUTLINE.md
 

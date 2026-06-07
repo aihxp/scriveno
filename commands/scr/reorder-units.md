@@ -77,6 +77,7 @@ Use the adapted unit terminology throughout all output and prompts.
 
 5. **Update related files:**
    - Update `.manuscript/STATE.md` to reflect the new ordering
+   - Regenerate `.manuscript/PROGRESS.md` from disk per `docs/progress-protocol.md` so the per-unit ledger reflects the new ordering
    - Update PLOT-GRAPH.md (or adapted equivalent):
      - If arc positions reference unit numbers, update them to new numbers
      - Show which arc positions changed

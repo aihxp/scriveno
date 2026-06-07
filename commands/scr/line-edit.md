@@ -123,6 +123,10 @@ Save the full annotated report to `.manuscript/{scope}-LINE-EDIT-REPORT.md` wher
 
 Present the high-priority issues to the writer first, then offer to show medium and low.
 
+## Next-step routing
+
+When the edits changed how a character speaks or relates (tone, trust posture, conflict, or knowledge revealed on the page), suggest `/scr:character-touch <name>` so the derived relationship and conflict maps stay current with the prose.
+
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
