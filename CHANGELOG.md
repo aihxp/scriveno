@@ -2,6 +2,16 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 3.1.0 - 2026-06-06
+
+Connectivity release: the craft layer is now wired into the workflow, and a regression test keeps it that way.
+
+- Routed the orphan craft surfaces in: `/scr:plot-graph`, `/scr:outline`, `/scr:plan`, `/scr:pacing-analysis`, and `/scr:editor-review` now suggest `/scr:climax`; `/scr:new-character`, `/scr:character-touch`, and `/scr:cast-list` suggest `/scr:relationship-map`; `/scr:outline` offers `--snowflake` and suggests `/scr:subplot-map` and `/scr:theme-tracker`. Added these to `command_intents`.
+- Added `/scr:relationship-map --conflicts` as the viewer for the derived `CONFLICTS.md` (no new command).
+- Closed producer-consumer loops: `/scr:discuss` reads `SEEDS.md`; `/scr:plan` loads `CONFLICTS.md` and checks planted-device payoff windows; `/scr:draft` receives the plan's `Causal Anchor`.
+- Fixed stale-after-change regeneration: `/scr:climax` regenerates `CONFLICTS.md`; the structure-management commands regenerate `PROGRESS.md`; `/scr:import` generates the derived maps; `/scr:new-revision` refreshes `PROGRESS.md` and `CONTEXT.md`; the prose-quality passes and `/scr:continuity-check` nudge `/scr:character-touch` on relationship or conflict drift; `/scr:next` routes an older project to `/scr:health --repair`.
+- Added `test/connectivity.test.js`: builds the command suggestion graph and fails if any craft command becomes an orphan, so the workflow stays connected as it grows.
+
 ## 3.0.0 - 2026-06-06
 
 Major release capping the craft layer: climax generation.
