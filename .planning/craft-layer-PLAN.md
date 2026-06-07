@@ -1,7 +1,10 @@
 # Craft Layer Plan (working draft v0.1)
 
-Status: proposal, not yet a versioned milestone. When we pick a version this becomes
-`milestones/vX.Y-REQUIREMENTS.md` + `milestones/vX.Y-ROADMAP.md`.
+Status: ALL 7 PHASES IMPLEMENTED on branch `craft-layer` (8 commits, full `npm test` green at 1957 tests, `release:check` clean). Ready to fold into a versioned milestone (`milestones/vX.Y-REQUIREMENTS.md` + `-ROADMAP.md`) and bump the version across the release-alignment file set before merge.
+
+Phase status (all done and committed): 1 applicability tree, 2 relationships matrix, 3 conflict map + crisis beat, 4 plot causality + scene conflict, 5 plot-device lifecycle, 6 worldbuilding depth + entity propagation, 7 snowflake mode.
+
+Two implementation choices worth recording: `CONFLICTS.md` follows the `CONTEXT.md` neutral-derived-file precedent (not registered in `file_adaptations`/`surface_applicability`) to avoid the phase18 deepEqual cascade; snowflake shipped as a `--snowflake` flag on `/scr:outline` rather than a new command, to avoid the command-reference count churn.
 
 Note: `.planning/ROADMAP.md` still lists v2.0.12 as latest shipped, but `package.json`
 is at 2.8.0. That planning doc has drifted and should be reconciled separately (out of
