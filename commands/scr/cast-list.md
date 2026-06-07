@@ -82,7 +82,7 @@ Determine adapted terminology:
 
 ## Next-step routing
 
-When two or more characters exist, suggest `/scr:relationship-map` to see how they connect.
+When two or more characters exist, suggest `/scr:relationship-map` to see how they connect. When characters cluster into peoples (races, factions, nations), suggest `/scr:new-people` to profile a people, and `/scr:relationship-map --peoples` to see how peoples stand with one another.
 
 ## Response Contract
 

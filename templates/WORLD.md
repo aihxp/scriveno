@@ -23,7 +23,7 @@ authority: project
 
 ## Culture
 
-**Societies:** {{SOCIETIES}}
+**Societies:** {{SOCIETIES}} (a high-level list; profile each distinct people in `PEOPLES.md` where it applies)
 **Social structure:** {{SOCIAL_STRUCTURE}}
 **Languages:** {{LANGUAGES}}
 **Customs and traditions:** {{CUSTOMS}}

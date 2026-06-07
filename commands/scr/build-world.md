@@ -134,6 +134,10 @@ Determine adapted terminology from CONSTRAINTS.json:
 - **Technical work type:** Use "map system" terminology; questions focus on system boundaries, operating context, dependencies, and supported environments
 - **World file already comprehensive:** Acknowledge it looks thorough and ask if there's a specific aspect to explore further
 
+## Next-step routing
+
+When the world contains distinct peoples (races, ethnicities, nations, factions), suggest `/scr:new-people <name>` to profile each as a collective entity, and `/scr:relationship-map --peoples` to see how they stand with one another.
+
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.

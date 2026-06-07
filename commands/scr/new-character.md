@@ -100,6 +100,7 @@ Create the character profile and append to `CHARACTERS.md`:
   ### Identity
   - Age, appearance, first impression
   - Background summary
+  - Belongs to: [people] (their people, linked to `PEOPLES.md`; the character inherits its traits unless their entry overrides them)
 
   ### Psychology
   - **Want:** [Conscious desire]
@@ -146,7 +147,7 @@ Commit: `character: add {name}`
 
 ## Next-step routing
 
-When the cast reaches two or more characters, suggest `/scr:relationship-map` to explore the pairings and see the connections.
+When the cast reaches two or more characters, suggest `/scr:relationship-map` to explore the pairings and see the connections. When a character belongs to a people not yet defined, suggest `/scr:new-people <people>` to profile that people as a collective.
 
 ## Response Contract
 

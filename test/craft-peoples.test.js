@@ -47,3 +47,20 @@ describe('peoples layer: surface + creation', () => {
     assert.match(ref, /### `\/scr:new-people`/);
   });
 });
+
+describe('peoples layer: integration', () => {
+  it('characters link to their people and route to new-people', () => {
+    const n = read('commands/scr/new-character.md');
+    assert.match(n, /Belongs to/);
+    assert.match(n, /scr:new-people/);
+  });
+
+  it('the drafter receives the character peoples for collective voice', () => {
+    assert.match(read('commands/scr/draft.md'), /PEOPLES\.md/);
+  });
+
+  it('cast-list and build-world route to new-people', () => {
+    assert.match(read('commands/scr/cast-list.md'), /scr:new-people/);
+    assert.match(read('commands/scr/build-world.md'), /scr:new-people/);
+  });
+});

@@ -51,6 +51,7 @@ describe('connectivity: no orphan craft surfaces', () => {
     const mustBeReachable = [
       'climax', 'relationship-map', 'subplot-map', 'theme-tracker',
       'plot-graph', 'character-arc', 'character-touch', 'new-character',
+      'new-people',
     ];
     for (const cmd of mustBeReachable) {
       assert.ok(
