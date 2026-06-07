@@ -2,6 +2,13 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 3.0.0 - 2026-06-06
+
+Major release capping the craft layer: climax generation.
+
+- Added `/scr:climax`, a dedicated command that converges the craft layer to devise and pressure-test the story's climax. It loads the central conflict (`CONFLICTS.md`), the crisis beat (`OUTLINE.md`), each character's want-versus-need (`CHARACTERS.md`), and the still-planted devices (`RECORD.md`), proposes two or three climax options, and rejects any that win by deus ex machina or plot armor (a climax must be earned by setup and protagonist agency). On selection it writes the `Climax` arc position and hands off to `/scr:plan`.
+- Available for narrative work (prose, script, visual, interactive, sacred); hidden for poetry, speech, academic, and technical. The command count is now 116.
+
 ## 2.9.0 - 2026-06-06
 
 Feature release: the craft layer. Story-craft tracking becomes first-class and auto-populated, gated by a work-type applicability decision tree.

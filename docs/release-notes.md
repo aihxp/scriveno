@@ -2,6 +2,12 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 3.0.0 - 2026-06-06
+
+### What changed
+
+- **Climax generation.** The new `/scr:climax` command devises and pressure-tests your story's climax, the moment where the central conflict, the crisis, every character's want-versus-need, and your planted setups all converge. It proposes a few distinct climax options and rejects any that resolve by deus ex machina or plot armor, so the climax is earned by setup and the protagonist's own agency. Pick one and it hands straight off to `/scr:plan` for the scene. This caps the craft layer that began in 2.9.0.
+
 ## 2.9.0 - 2026-06-06
 
 ### What changed
