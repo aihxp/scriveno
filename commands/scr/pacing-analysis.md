@@ -94,6 +94,8 @@ You are a **pacing analyst**. Your job is to map the narrative rhythm, identify 
   - **Structural mismatch**: A scene marked as climax in the outline that reads at low intensity in the draft, or vice versa
 </climax_breather_analysis>
 
+When the structural mismatch above appears (a scene marked as a climax that reads at low intensity), suggest `/scr:climax` to devise and pressure-test the climax before redrafting it.
+
 ---
 
 ### STEP 4: OPENING AND CLOSING ENERGY

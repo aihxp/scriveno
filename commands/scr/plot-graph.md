@@ -171,6 +171,10 @@ Commit: `structure: update plot graph`
 - **Custom arc:** Ask writer to define their own beat names and positions.
 - **Technical work type:** Use procedure-map terminology and keep the output grounded in task flow, not dramatic beats.
 
+## Next-step routing
+
+After mapping the arc, when the `Climax` beat is named but not yet developed, suggest `/scr:climax` to devise and pressure-test it. When the outline carries parallel threads, suggest `/scr:subplot-map` to track them.
+
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.

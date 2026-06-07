@@ -18,6 +18,7 @@
       "next",
       "discuss",
       "plan",
+      "climax",
       "draft",
       "quick-write",
       "voice-test"
@@ -37,6 +38,9 @@
       "progress",
       "manuscript-stats",
       "map-manuscript",
+      "relationship-map",
+      "subplot-map",
+      "theme-tracker",
       "pause-work",
       "resume-work"
     ],

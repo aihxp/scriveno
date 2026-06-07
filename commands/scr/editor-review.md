@@ -177,7 +177,7 @@ If all beats passed:
 - Mark act as "reviewed" in STATE.md
 - Refresh `.manuscript/PROGRESS.md` so the ledger reflects the new review status, per `docs/progress-protocol.md`
 - Apply confirmed compact updates to RECORD.md when the review established or corrected the work's durable content state
-- Suggest moving to `/scr:submit N` or `/scr:discuss {N+1}`
+- Suggest moving to `/scr:submit N` or `/scr:discuss {N+1}`. If the emotional climax did not land, suggest `/scr:climax` to rework the climax beat; if a theme moved on the page, suggest `/scr:theme-tracker`
 
 If revision plans were created:
 - Present the revision scope to the writer

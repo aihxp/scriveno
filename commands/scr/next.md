@@ -29,7 +29,7 @@ This engine is installed into Scriveno shared assets for every runtime, includin
 
 4. **Read `.manuscript/RECORD.md` when present.** Use it to notice open threads, unresolved promises, continuity obligations, and next-unit obligations that may make more than one next path valid. If RECORD.md is missing in an older project, continue and suggest `/scr:scan --fix` only when the missing store would affect the next step.
 
-5. **Read `.manuscript/config.json`** to get the work type and command_unit (chapter, act, section, surah, etc.).
+5. **Read `.manuscript/config.json`** to get the work type and command_unit (chapter, act, section, surah, etc.). Also compare its `scriveno_version` against the runtime CONSTRAINTS.json `version`; when the project is older than the runtime, note it in one sentence and suggest `/scr:health --repair` to bring the project up to the current surfaces before continuing.
 
 6. **Load `command_intents` from CONSTRAINTS.json** if present. Use it to keep alternatives small and contextual:
    - draft: discuss, plan, draft, quick-write, voice-test

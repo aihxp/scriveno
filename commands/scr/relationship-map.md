@@ -9,7 +9,7 @@ Generate an ASCII relationship graph showing connections between all characters.
 
 ## Usage
 ```
-/scr:relationship-map [--edit]
+/scr:relationship-map [--edit] [--conflicts]
 ```
 
 ## Instruction
@@ -27,6 +27,14 @@ You are generating a relationship map. Load:
 Determine adapted terminology:
 - Default: "relationship map"
 - Sacred: "lineage map" (renamed via CONSTRAINTS.json); reads FIGURES.md and LINEAGES.md
+
+---
+
+### CONFLICTS MODE (--conflicts)
+
+<relationship_map_conflicts>
+  Render `.manuscript/CONFLICTS.md` (the derived conflict map) instead of the relationship graph: show the central conflict, the pairwise conflict matrix (every pair, with `no conflict` stated explicitly), and the undefined pairs left to decide. If CONFLICTS.md is missing or stale, suggest `/scr:save` to regenerate it (or `/scr:scan --fix`). This is the conflict-side companion view to the relationship map, so the derived conflict map has a reader.
+</relationship_map_conflicts>
 
 ---
 

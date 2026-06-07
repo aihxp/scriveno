@@ -108,6 +108,10 @@ Why: {all plans READY plus full-auto, supervised pause, guided approval needed, 
 
 If the host runtime cannot spawn a native `plan-checker` agent type, load the installed `agents/plan-checker.md` prompt from the active runtime and run it in an isolated fresh context. In the status block, write `Spawned agents: native unavailable; prompt-run fallback used`.
 
+## Next-step routing
+
+When the unit being planned sits at the `Climax` arc position in OUTLINE.md, suggest running `/scr:climax` first so the climax is devised before the scene is planned.
+
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
