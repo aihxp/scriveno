@@ -59,6 +59,8 @@ Create the profile and append it to `PEOPLES.md` using the `templates/PEOPLES.md
 - **Link members.** For each character the writer names, add them to this people's `### Members` list, and add a `Belongs to: {people}` line to that character's entry in `CHARACTERS.md`. A member inherits the people's traits unless their own entry overrides them.
 - **Record relations.** Fill the `### Relations with other peoples` section for the peoples this one already deals with. These are the source for the derived people-dynamics map.
 
+After the entry and its relations are written, regenerate `.manuscript/PEOPLE-DYNAMICS.md` from the people entries per `docs/people-dynamics-protocol.md` once two or more peoples exist, so the derived dynamics map stays current.
+
 Commit: `peoples: add {name}`
 
 ## Response Contract

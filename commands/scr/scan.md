@@ -253,6 +253,12 @@ Reconcile before creating: "the city", "Veridia", and "the capital" may be one p
 
 ---
 
+### CHECK 16: PEOPLE-DYNAMICS.md derived map staleness
+
+If the work type has a peoples surface (per `surface_applicability`) and `.manuscript/PEOPLES.md` defines two or more peoples, the derived `.manuscript/PEOPLE-DYNAMICS.md` map should match the "Relations with other peoples" sections of `PEOPLES.md`. Compare PEOPLE-DYNAMICS.md mtime against PEOPLES.md; if older, the saved map may be stale. Emit a WARNING with the fix `/scr:save` (or `/scr:scan --fix`). Re-derive the map per `docs/people-dynamics-protocol.md`; if a standing contradicts the source, or a people pair is missing entirely (not even marked `no dealings`), emit a DRIFT finding. If peoples apply and two or more exist but PEOPLE-DYNAMICS.md does not exist, emit INFO suggesting `/scr:save`. Rebuilding it is auto-fixable under `--fix`. Where peoples do not apply, skip this check silently.
+
+---
+
 ### REPORT
 
 Output a single structured report:

@@ -62,6 +62,8 @@ Follow the auto-invoke policy. In the source repository it is documented at `doc
 
 8c. **Regenerate `.manuscript/CONFLICTS.md`** when the work has a central conflict in `WORK.md` or two or more characters, and the work type is narrative (skip poetry and speech). This derived conflict map is rebuilt from the `WORK.md` central conflict and the character entries per `docs/conflict-protocol.md`: every character pair accounted for (pairs with no conflict marked `no conflict`). Skip silently where conflict does not apply. It is committed alongside the other derived surfaces.
 
+8d. **Regenerate `.manuscript/PEOPLE-DYNAMICS.md`** when the work type has a peoples surface (per `surface_applicability`) and `.manuscript/PEOPLES.md` defines two or more peoples. This derived people-dynamics map is rebuilt from the "Relations with other peoples" sections of `PEOPLES.md` per `docs/people-dynamics-protocol.md`: every pair accounted for (pairs with none marked `no dealings`). Skip silently where peoples do not apply. It is committed alongside the other derived surfaces.
+
 9. **Append one line to `.manuscript/HISTORY.log`** per `docs/history-protocol.md`:
    ```
    {ISO timestamp} | scr:save | message="{generated message}" | files={changed file count} | outcome=committed
@@ -94,6 +96,7 @@ Local operations:
 - PROGRESS.md regenerated: yes/no
 - RELATIONSHIPS.md regenerated: yes/no
 - CONFLICTS.md regenerated: yes/no
+- PEOPLE-DYNAMICS.md regenerated: yes/no
 - HISTORY.log appended: yes/no
 - manuscript files saved: yes/no
 Candidate local helpers:
