@@ -29,6 +29,10 @@ You are capturing a creative seed -- a fragment of an idea that the writer wants
 
 Seeds can be referenced during the discuss phase. When running `/scr:discuss`, check SEEDS.md for planted ideas that relate to the upcoming unit. Mention relevant seeds: "You planted a seed about X -- want to work it in here?"
 
+## Promoting a seed to a tracked plot device
+
+Some seeds are not just ideas but planted devices the story must honor later: a Chekhov's gun (a planted element that must fire), a red herring (intentional misdirection), a MacGuffin (an object that drives pursuit), or a piece of foreshadowing. When a seed is one of these, offer to promote it: add a row to the "Promises and payoffs" table in `.manuscript/RECORD.md` with the device `Type`, the setup location, and `Status: planted`. A promoted device is then tracked through its lifecycle (`planted` -> `paid_off` / `subverted` / `abandoned`) at `/scr:editor-review`, so a gun that never fires gets flagged rather than forgotten. Plain seeds stay in `SEEDS.md`; only setups that create a later obligation are promoted.
+
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
