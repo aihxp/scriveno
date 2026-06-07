@@ -2,6 +2,12 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 3.1.1 - 2026-06-06
+
+### What changed
+
+- Corrected an internal prerequisite reference in two command files so they point at the real registry (`dependencies.feature_prerequisites`). No behavior change for writers; it keeps the command files accurate for the AI runtime that reads them.
+
 ## 3.1.0 - 2026-06-06
 
 ### What changed

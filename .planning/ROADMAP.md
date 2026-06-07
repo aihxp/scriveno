@@ -2,12 +2,12 @@
 
 ## Current Status
 
-- Active milestone: **v3.1.0 Connectivity** (in release)
-- Latest shipped package: **3.0.0** (Climax Generation)
+- Active milestone: **v3.1.1 patch** (in release)
+- Latest shipped package: **3.1.0** (Connectivity)
 - Latest shipped milestone: **v2.0 Publishing Cover Packaging** (completed 2026-04-18)
-- Current repo state: **3.0.0 shipped /scr:climax; the `connectivity` branch wires the craft layer into the workflow (orphan surfaces routed in, producer-consumer loops closed, stale-after-change regeneration fixed) and locks it with a connectivity regression test, releasing as 3.1.0**
+- Current repo state: **3.1.0 shipped the connectivity pass; the `patch-3.1.1` branch corrects the prerequisite references in relationship-map.md and character-voice-sample.md to point at the canonical `dependencies.feature_prerequisites` registry, releasing as 3.1.1**
 - Note: releases 2.1 through 2.8 shipped without per-version milestone entries in this file; this Current Status block is the reconciled truth.
-- Next step: finish the 3.1.0 release (merge to main, push, npm publish)
+- Next step: finish the 3.1.1 patch (merge to main, push, npm publish)
 
 ## Milestones
 
