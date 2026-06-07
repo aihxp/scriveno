@@ -34,7 +34,7 @@ You are helping the user navigate Scriveno commands. Load Scriveno's installed/s
 
 ## The "getting started" view (no project yet)
 
-Ask the user what they want to do. Don't list all 115 commands -- show them this:
+Ask the user what they want to do. Don't list all 116 commands -- show them this:
 
 ```
 Scriveno -- ready to start.
@@ -74,7 +74,7 @@ Use `command_intents` to choose candidates, then apply availability and command-
 
 Group by stage:
 - **Create** -- new-work, profile-writer, series-bible
-- **Write** -- discuss, plan, draft, quick-write, plus any profile-building commands actually available for the current work type
+- **Write** -- discuss, plan, draft, climax, quick-write, plus any profile-building commands actually available for the current work type
 - **Revise** -- editor-review, subject-touch, line-edit, copy-edit, continuity-check, beta-reader, voice-check
 - **Publish** -- front-matter, back-matter, blurb, cover-art, publish, export
 - **Collaborate** -- track

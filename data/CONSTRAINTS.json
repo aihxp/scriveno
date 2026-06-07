@@ -1989,6 +1989,13 @@
         "speech_song"
       ]
     },
+    "climax": {
+      "category": "structure",
+      "available": ["prose", "script", "visual", "interactive", "sacred"],
+      "hidden": ["poetry", "speech_song", "academic", "technical"],
+      "requires": ["OUTLINE.md"],
+      "description": "Generate and pressure-test the story's climax where the central conflict, the crisis, character arcs, and planted payoffs converge"
+    },
     "plot-graph": {
       "category": "structure",
       "available": [
