@@ -2,6 +2,10 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 3.1.1 - 2026-06-06
+
+Fix: point the prerequisite references in `relationship-map.md` and `character-voice-sample.md` at `dependencies.feature_prerequisites`, the canonical registry that holds both. The 2.9.0 changelog claimed it fixed a "stale `feature_prerequisites` reference"; that section actually exists (nested under `dependencies`), and the earlier change had mis-pointed `character-voice-sample` at a non-existent `commands.character-voice-sample.requires`. Now corrected and consistent with the convention in `subplot-map.md`.
+
 ## 3.1.0 - 2026-06-06
 
 Connectivity release: the craft layer is now wired into the workflow, and a regression test keeps it that way.
