@@ -19,7 +19,7 @@ Require `{N}-CONTEXT.md` to exist (from discuss phase). If it doesn't, offer to 
 
 0. **Bootstrap (context-cost protocol).** Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it for orientation (project title, work type, current unit, recent activity, open items). The plan phase still needs the full creative inputs in step 1 (WORK.md, OUTLINE.md, RECORD.md, STYLE-GUIDE.md, characters, plot, themes, the discuss-phase context file, prior drafts) -- those are source material for the plan, not orientation. The bootstrap saves the redundant orientation reads. If CONTEXT.md is missing or stale, run step 1 unchanged. See `docs/context-protocol.md`.
 
-1. **Load Creative Context:** WORK.md, OUTLINE.md, RECORD.md, STYLE-GUIDE.md, CHARACTERS.md (or adapted), PLOT-GRAPH.md (or adapted), THEMES.md, {N}-CONTEXT.md, and any previously drafted units for continuity. If RECORD.md is missing in an older project, continue and add a non-blocking plan note to initialize it after drafting. If files include `creative_pillar` frontmatter, use it only as a routing hint. Existing projects without metadata are valid. STYLE-GUIDE.md remains sovereign for any voice decision.
+1. **Load Creative Context:** WORK.md, OUTLINE.md, RECORD.md, STYLE-GUIDE.md, CHARACTERS.md (or adapted), PLOT-GRAPH.md (or adapted), THEMES.md, CONFLICTS.md (the derived conflict map, when present), {N}-CONTEXT.md, and any previously drafted units for continuity. When planning a unit, also check the `RECORD.md` Promises and payoffs table for any planted device whose payoff location is this unit, so a Chekhov's gun fires on schedule instead of being left behind. If RECORD.md is missing in an older project, continue and add a non-blocking plan note to initialize it after drafting. If files include `creative_pillar` frontmatter, use it only as a routing hint. Existing projects without metadata are valid. STYLE-GUIDE.md remains sovereign for any voice decision.
 
    From `{N}-CONTEXT.md`, extract `CHOICE`, `HUNCH`, `QUESTION`, and `WATCHPOINT` craft notes. Blocking questions must be resolved before drafting. Non-blocking questions can travel into the plan as watchpoints.
    From RECORD.md, extract established facts, open threads, promises, payoffs, continuity facts, movement, and next-unit obligations that apply to this unit.
@@ -107,6 +107,10 @@ Why: {all plans READY plus full-auto, supervised pause, guided approval needed, 
 ```
 
 If the host runtime cannot spawn a native `plan-checker` agent type, load the installed `agents/plan-checker.md` prompt from the active runtime and run it in an isolated fresh context. In the status block, write `Spawned agents: native unavailable; prompt-run fallback used`.
+
+## Next-step routing
+
+When the unit being planned sits at the `Climax` arc position in OUTLINE.md, suggest running `/scr:climax` first so the climax is devised before the scene is planned.
 
 ## Response Contract
 

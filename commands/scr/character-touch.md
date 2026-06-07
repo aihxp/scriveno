@@ -125,6 +125,10 @@ End with a one-line suggestion:
 
 > Updated <name>. The next `/scr:draft` invocation will read the new state. Consider running `/scr:scan` if multiple characters drifted in this unit.
 
+## Next-step routing
+
+When a relationship shifted in this touch-up, suggest `/scr:relationship-map` to see the updated map.
+
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.

@@ -56,6 +56,7 @@ Reject or flag any option that wins by **deus ex machina** (a rescue from outsid
 
 When the writer chooses or refines an option:
 - Write the chosen climax into the `Climax` arc position in `OUTLINE.md`, and note how the `Crisis` turns into it.
+- Regenerate `.manuscript/CONFLICTS.md` from `WORK.md` and the character entries per `docs/conflict-protocol.md`, so the conflict map's climax reference reflects the chosen climax instead of going stale.
 - In `RECORD.md` "Promises and payoffs", mark the devices this climax fires with their expected payoff location (the climax unit).
 - Append one line to `.manuscript/HISTORY.log` per `docs/history-protocol.md`: `{ISO} | scr:climax | unit={N} | options={count} | outcome=ok`.
 - Hand off: "Run `/scr:plan {N}` to plan the climax scene, then `/scr:draft {N}`. The conflict map and the unit's causal anchor will carry this climax into the scene."

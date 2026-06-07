@@ -80,6 +80,10 @@ Determine adapted terminology:
 - **Sacred work type:** Use "figures" terminology, group by role adapted to sacred context (prophet, disciple, angel, etc.)
 - **Academic work type:** Use "concepts" terminology, group by function (thesis, antithesis, supporting argument, counterpoint)
 
+## Next-step routing
+
+When two or more characters exist, suggest `/scr:relationship-map` to see how they connect.
+
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.

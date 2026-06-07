@@ -2,6 +2,14 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 3.1.0 - 2026-06-06
+
+### What changed
+
+- **The craft layer is now wired into the workflow.** Before, commands like `/scr:climax` and `/scr:relationship-map` existed but nothing led you to them. Now mapping your arc suggests devising the climax, adding a second character suggests the relationship map, an empty outline offers the snowflake builder, and so on. The conflict map is viewable with `/scr:relationship-map --conflicts`.
+- **Nothing is left behind.** Planted seeds resurface during discussion; the conflict map is consulted while planning; editing prose that shifts a relationship prompts a character update; changing your unit structure refreshes the progress ledger; and opening a project from an older version routes you to the upgrade.
+- **A regression test keeps it connected.** A new connectivity check fails the build if any craft command ever loses its routing, so the system stays aware and smart as it grows.
+
 ## 3.0.0 - 2026-06-06
 
 ### What changed

@@ -57,6 +57,7 @@ Use the adapted unit terminology throughout all output and prompts.
 
 5. **Update related files:**
    - Update `.manuscript/STATE.md` to reflect the new unit (status: pending)
+   - Regenerate `.manuscript/PROGRESS.md` from disk per `docs/progress-protocol.md` so the per-unit ledger reflects the new structure
    - If PLOT-GRAPH.md (or adapted equivalent) exists, suggest adding the new unit to an arc position
 
 6. **Confirm to writer:**

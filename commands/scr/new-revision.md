@@ -20,7 +20,8 @@ You are starting a new revision of the manuscript.
 3. Copy current draft files as the starting point for the new revision
 4. Increment the revision number in STATE.md
 5. Reset unit statuses to "ready for review" in STATE.md
-6. Report: "Revision {N+1} started. Previous draft archived to archive/revision-{N}/. All units are ready for review."
+6. Regenerate `.manuscript/PROGRESS.md` and `.manuscript/CONTEXT.md` from disk (the unit statuses just changed) per `docs/progress-protocol.md` and `docs/context-protocol.md`.
+7. Report: "Revision {N+1} started. Previous draft archived to archive/revision-{N}/. All units are ready for review."
 
 ## Response Contract
 

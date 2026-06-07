@@ -30,6 +30,8 @@ You are importing an existing manuscript into Scriveno. The writer has content -
 
 7. **Generate the .manuscript/ directory.** Create all context files (WORK.md, BRIEF.md, OUTLINE.md, RECORD.md, STYLE-GUIDE.md, CHARACTERS.md, etc.) populated from the import. Also copy `WRITING-RULES.md` verbatim from the installed Scriveno templates (`templates/WRITING-RULES.md`) into `.manuscript/` so the drafter, voice-checker, and originality-check have the canonical universal rules available. Save the actual drafted text as `.manuscript/drafts/body/{N}-{A}-DRAFT.md` files, one per atomic unit.
 
+   Once CHARACTERS.md is populated with two or more characters, generate the derived `.manuscript/RELATIONSHIPS.md` (per `docs/relationships-protocol.md`) and `.manuscript/CONFLICTS.md` (per `docs/conflict-protocol.md`) so an imported project arrives with the same derived maps a new project gets.
+
    Populate `RECORD.md` from the imported manuscript, not from speculation. Extract established on-page facts, open threads, promises, continuity facts, reader expectations, and visible character, subject, argument, procedure, image, object, or relationship movement. Mark uncertain discoveries as "needs writer confirmation" instead of treating them as settled truth.
 
 8. **Set STATE.md** to reflect that all imported units are drafted but not yet reviewed. This lets the writer pick up with `/scr:editor-review` or `/scr:next`.

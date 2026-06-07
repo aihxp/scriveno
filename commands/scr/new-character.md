@@ -144,6 +144,10 @@ Update `THEMES.md` if this character introduces or reinforces themes.
 
 Commit: `character: add {name}`
 
+## Next-step routing
+
+When the cast reaches two or more characters, suggest `/scr:relationship-map` to explore the pairings and see the connections.
+
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.

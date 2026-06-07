@@ -127,6 +127,10 @@ Auto-invoked:
 Why: continuity-check is diagnostic only; fixes are writer-chosen handoffs
 ```
 
+## Next-step routing
+
+When the check finds that a character relationship or conflict has shifted on the page versus what the files record, suggest `/scr:character-touch <name>`, and note that `/scr:save` (or `/scr:scan --fix`) rebuilds the derived `RELATIONSHIPS.md` and `CONFLICTS.md` from the updated entries.
+
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.

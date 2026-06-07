@@ -95,6 +95,10 @@ Save the full correction report to `.manuscript/{scope}-COPY-EDIT-REPORT.md` whe
 
 Present a summary: "Found X issues: Y grammar, Z spelling, W punctuation, V consistency."
 
+## Next-step routing
+
+When the pass surfaced prose that changed how a character speaks or relates (tone, trust posture, conflict, or knowledge revealed on the page), suggest `/scr:character-touch <name>` so the derived relationship and conflict maps stay current with the prose.
+
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.

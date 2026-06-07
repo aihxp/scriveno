@@ -118,6 +118,10 @@ Merge all findings into a single report with these sections:
 
 Save to `.manuscript/{scope}-POLISH-REPORT.md`
 
+## Next-step routing
+
+When the polish passes changed how a character speaks or relates (tone, trust posture, conflict, or knowledge revealed on the page), suggest `/scr:character-touch <name>` so the derived relationship and conflict maps stay current with the prose.
+
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.

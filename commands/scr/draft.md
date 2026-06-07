@@ -29,6 +29,7 @@ Require `.manuscript/plans/{N}-*-PLAN.md` files to exist. If none exist, also ch
    - RECORD.md, when present, so the drafter can honor established facts, open threads, promises, payoffs, continuity facts, and next-unit obligations
    - The plan's `## Character Persona Notes` section, when present
    - The plan's `## Subject Dynamics Notes` section, when present
+   - The plan's `## Causal Anchor` section, when present, so the drafter knows why this unit happens (the Forster "because", not merely "and then") and writes the unit to honor its stated cause
    - CHARACTERS.md or FIGURES.md (full file by default; only filtered to "relevant figures" when `draft.context_profile` is `minimal`). Loading the full file is the default because a character introduced via `/scr:new-character` after some plans were already written will not appear in those plans, and a relevance filter would silently exclude them from the drafter's view -- breaking character continuity through the manuscript.
    - The last 200 words of the previous atomic unit (for voice/tone continuity)
    - THEMES.md or DOCTRINES.md (relevant threads only)

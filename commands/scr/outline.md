@@ -121,6 +121,10 @@ Move one step at a time and let the writer stop at any step with a usable artifa
 - **Work type without top-level units:** Skip the top level (e.g., short stories have no "parts", just sections and beats).
 - **Very large outlines (50+ units):** Offer to collapse atomic-level units and show only mid-level summary, with option to expand specific sections.
 
+## Next-step routing
+
+When the `Climax` arc field is empty, suggest `/scr:climax` to devise it. When the outline is empty or sparse, offer `/scr:outline --snowflake` to build it progressively. When multiple parallel threads appear, suggest `/scr:subplot-map` and `/scr:theme-tracker`.
+
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.

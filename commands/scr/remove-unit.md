@@ -73,6 +73,7 @@ Use the adapted unit terminology throughout all output and prompts.
 
 5. **Update related files:**
    - Update `.manuscript/STATE.md` to remove the unit and adjust progress
+   - Regenerate `.manuscript/PROGRESS.md` from disk per `docs/progress-protocol.md` so the per-unit ledger reflects the new structure
    - Update PLOT-GRAPH.md (or adapted equivalent) if arc positions reference the removed unit
    - Update any cross-references in OUTLINE.md
 
