@@ -17,6 +17,8 @@ Load `.manuscript/config.json` to get the `command_unit` (chapter, act, section,
 
 1. **Load Creative Context.** Read WORK.md, OUTLINE.md, RECORD.md, STYLE-GUIDE.md, CHARACTERS.md (or adapted equivalents), PLOT-GRAPH.md, THEMES.md, and any previously drafted units. If RECORD.md is missing in an older project, continue and note that `/scr:scan --fix` or `/scr:save` can initialize it later. If those files include `creative_pillar` frontmatter, use it as a routing hint only; older projects without metadata are equally valid. STYLE-GUIDE.md remains sovereign for voice. Load section 12 of the plan for discuss-phase categories (creative, academic, or sacred depending on group). See `docs/creative-context.md`.
 
+   Also read `.manuscript/SEEDS.md` if it exists, and surface any planted seed relevant to this unit ("You planted a seed about X, want to work it in here?"). This is the consumer for `/scr:plant-seed`, so captured ideas resurface at the right moment instead of being left behind.
+
 2. **Figure out which unit** to discuss. If the user passed a number, use it. Otherwise check STATE.md for the next pending unit.
 
 3. **Ask the right questions** based on the work type group:
