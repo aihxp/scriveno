@@ -64,6 +64,17 @@ For academic work types, load the matching files from `templates/academic/` and 
 For technical work types, load the matching files from `templates/technical/` and treat them as the first-pass document contract for audience, environment, procedures, and references.
 Always create `RECORD.md` from `templates/RECORD.md` without renaming it. It is deliberately neutral across prose, sacred, academic, technical, poetry, script, and visual work. It records what the work has established, while `STATE.md` records workflow position and `OUTLINE.md` records structure.
 
+## Surface applicability (the decision tree)
+
+Which of the variable context surfaces (BRIEF, CHARACTERS, RELATIONSHIPS, WORLD, PLOT-GRAPH, THEMES) to create is governed by the `surface_applicability` section of CONSTRAINTS.json, not by guesswork. Resolve it for the chosen work type:
+
+1. Start from `surface_applicability.by_group[<group>]`.
+2. If `surface_applicability.work_type_overrides[<work_type>]` exists, patch the group default with it: any surface it names moves to that tier (`required`, `optional`, or `not_applicable`) and is removed from the other tiers.
+3. Create every surface marked `required` or `optional`, using the adapted filename from `file_adaptations`. Skip every surface marked `not_applicable`.
+4. The parenthetical "skipped for ..." notes in the tree above are a human-readable summary of this data. `surface_applicability` is the source of truth.
+
+Then tell the writer the result in one plain line so the decision tree is visible, for example: "For a single poem, the core surfaces are BRIEF and THEMES; characters, world, plot, and relationships do not apply here." An article is never asked to build a world; a poem is never asked to map a plot.
+
 ## Config file
 
 Write `.manuscript/config.json` by starting from `templates/config.json` and filling the project-specific values. The generated config must include the shared settings blocks that later commands read:

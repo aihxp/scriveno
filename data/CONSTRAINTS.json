@@ -3902,6 +3902,28 @@
       "description": "Style of transliteration for non-Latin script terms"
     }
   },
+  "surface_applicability": {
+    "_description": "Decision tree for the variable .manuscript context surfaces (BRIEF, CHARACTERS, RELATIONSHIPS, WORLD, PLOT-GRAPH, THEMES). Canonical names map to adapted filenames via file_adaptations. Universal files (WORK, OUTLINE, RECORD, STATE, PROGRESS, STYLE-GUIDE, WRITING-RULES) are always created and are not governed here. /scr:new-work creates every surface marked required or optional and skips not_applicable; /scr:help surfaces which apply. by_group is the default per work-type group; work_type_overrides is a partial patch over the group default for a specific type (a surface named in an override moves to that tier and is removed from the others).",
+    "by_group": {
+      "prose": { "required": ["BRIEF.md", "CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md", "THEMES.md"], "optional": ["RELATIONSHIPS.md"], "not_applicable": [] },
+      "script": { "required": ["BRIEF.md", "CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md", "THEMES.md"], "optional": ["RELATIONSHIPS.md"], "not_applicable": [] },
+      "academic": { "required": ["BRIEF.md", "CHARACTERS.md", "THEMES.md"], "optional": ["WORLD.md", "PLOT-GRAPH.md"], "not_applicable": ["RELATIONSHIPS.md"] },
+      "technical": { "required": ["BRIEF.md", "CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md", "THEMES.md"], "optional": ["RELATIONSHIPS.md"], "not_applicable": [] },
+      "visual": { "required": ["BRIEF.md", "CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md", "THEMES.md"], "optional": ["RELATIONSHIPS.md"], "not_applicable": [] },
+      "poetry": { "required": ["BRIEF.md", "THEMES.md"], "optional": [], "not_applicable": ["CHARACTERS.md", "RELATIONSHIPS.md", "WORLD.md", "PLOT-GRAPH.md"] },
+      "interactive": { "required": ["BRIEF.md", "CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md", "THEMES.md"], "optional": ["RELATIONSHIPS.md"], "not_applicable": [] },
+      "speech_song": { "required": ["BRIEF.md", "THEMES.md"], "optional": [], "not_applicable": ["CHARACTERS.md", "RELATIONSHIPS.md", "WORLD.md", "PLOT-GRAPH.md"] },
+      "sacred": { "required": ["BRIEF.md", "CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md", "THEMES.md"], "optional": ["RELATIONSHIPS.md"], "not_applicable": [] }
+    },
+    "work_type_overrides": {
+      "essay": { "optional": ["CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md"] },
+      "essay_collection": { "optional": ["CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md"] },
+      "journal_article": { "optional": ["CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md"] },
+      "white_paper": { "optional": ["CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md"] },
+      "memoir": { "optional": ["WORLD.md"] },
+      "single_poem": { "required": ["BRIEF.md"], "optional": ["THEMES.md"], "not_applicable": ["CHARACTERS.md", "RELATIONSHIPS.md", "WORLD.md", "PLOT-GRAPH.md"] }
+    }
+  },
   "architectural_profiles": {
     "_description": "Phase 29 v1.7: valid values + work-type defaults for the project-spec tradition and platform keys. The runtime validator cross-checks these values against the templates/sacred/ and templates/platforms/ directory listings -- the intersection is the accepted set, so new contributor-dropped manifests are picked up at load time without editing this file.",
     "_render_variants": {
