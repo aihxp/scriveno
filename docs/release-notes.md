@@ -2,6 +2,19 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 3.2.2 - 2026-06-08
+
+### What changed
+
+- **The full workflow surface was audited.** Scriveno now checks current docs and commands for dead `/scr:*` references, and every command is guarded so it must end with a real `Next commands:` block. This is the fix for long runs that finish but leave the writer without a next step.
+- **World, places, geography, and research are easier to find.** `/scr:help`, `/scr:next`, README, Getting Started, and Starter Sets now expose a world and research path instead of leaving those tools scattered across the catalog.
+- **Publishing paths are cleaner.** Front matter and back matter stay in their own commands, export stays focused on assembly and conversion, and prepublish review is now part of the visible path before packaging.
+- **Runtime surfaces are release-checked.** The release path now verifies route graph, agent prompts, runtime sync, smoke status, npm packaging, and published-package install behavior.
+
+### Why it matters
+
+A writer can move from drafting to review, worldbuilding, research, publishing, translation, repair, or runtime sync without guessing command names or being stranded at the end of a command response.
+
 ## 3.2.1 - 2026-06-06
 
 ### What changed

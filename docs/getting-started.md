@@ -202,7 +202,8 @@ For a terminal-readable version of the same project-state reasoning, run `scrive
 Beyond the core workflow, Scriveno offers:
 
 - **Revision** -- `/scr-editor-review`, `/scr-line-edit`, `/scr-continuity-check`
-- **Publishing** -- `/scr-publish`, `/scr-export`, `/scr-cover-art`, `/scr-blurb`
+- **World and research** -- `/scr-build-world`, `/scr-new-place`, `/scr-geography-map`, `/scr-research`
+- **Publishing** -- `/scr-front-matter`, `/scr-back-matter`, `/scr-prepublish-review`, `/scr-publish`, `/scr-export`, `/scr-cover-art`, `/scr-blurb`
 - **Collaboration** -- `/scr-track` for revision tracks (`create`, `compare`, `merge`, `propose`)
 - **Versions** -- `/scr-save`, `/scr-history`, `/scr-versions`, `/scr-compare`
 - **Navigation** -- `/scr-help`, `/scr-next`, `/scr-pause-work`

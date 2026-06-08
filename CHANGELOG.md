@@ -2,6 +2,16 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 3.2.2 - 2026-06-08
+
+Workflow audit and release hardening across the full command surface.
+
+- Workflow reachability: added a workflow-reference integrity test that scans current docs and commands for non-runnable `/scr:*` references, and expanded the same guard to require every writer-facing command to keep the final `Next commands:` closeout contract with Claude `/scr-*` and Codex `$scr-*` invocation guidance.
+- Navigation repair: added a `world` intent to `command_intents`, surfaced it in `/scr:help`, `/scr:next`, Starter Sets, Getting Started, and README, and wired world/place/geography/research paths into the route graph so `/scr:research` is discoverable without being unique to geography.
+- Publishing UX repair: kept front matter and back matter in dedicated commands, surfaced them before packaging, added prepublish review to the publishing journey, and kept export positioned as assembly and conversion rather than matter drafting.
+- Runtime and model readiness: refreshed the shared workflow docs around model adaptation, subagent spawning, and runtime sync, and prepared the release path for installed-surface smoke verification.
+- Documentation drift fixes: aligned sacred work-type command counts, creative-context routing scope, starter journeys, and release metadata for `3.2.2`.
+
 ## 3.2.1 - 2026-06-06
 
 Completes the Peoples integration and hardens the connectivity guarantee.

@@ -51,6 +51,16 @@ describe('collaboration trust surfaces', () => {
   it('keeps onboarding collaboration centered on /scr-track and versions distinct', () => {
     assert.match(
       gettingStarted,
+      /\*\*World and research\*\* -- `\/scr-build-world`, `\/scr-new-place`, `\/scr-geography-map`, `\/scr-research`/,
+      'docs/getting-started.md should expose the world and research journey after the core loop'
+    );
+    assert.match(
+      gettingStarted,
+      /\*\*Publishing\*\* -- `\/scr-front-matter`, `\/scr-back-matter`, `\/scr-prepublish-review`, `\/scr-publish`, `\/scr-export`, `\/scr-cover-art`, `\/scr-blurb`/,
+      'docs/getting-started.md should keep the current publishing journey visible'
+    );
+    assert.match(
+      gettingStarted,
       /\*\*Collaboration\*\* -- `\/scr-track` for revision tracks \(`create`, `compare`, `merge`, `propose`\)/,
       'docs/getting-started.md should teach /scr-track as the collaboration entrypoint'
     );

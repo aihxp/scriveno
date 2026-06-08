@@ -1,6 +1,6 @@
 {
   "$schema": "./constraints.schema.json",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "Scriveno constraint system: work types, command availability, exports, and dependencies. Every command checks this file at runtime.",
   "_notes": {
     "sacred_keys": "Sacred subcommands live at commands/scr/sacred/<name>.md and run as /scr:sacred:<name>. Their CONSTRAINTS keys use the sacred:<name> form so /scr:help can render the runnable slash-command path directly. The sacred-numbering-format entry is a separate flat command (commands/scr/sacred-numbering-format.md) that surfaces the active tradition's numbering format. It used to be named sacred-verse-numbering, which collided with sacred:verse-numbering at install time -- both flattened to scr-sacred-verse-numbering. Renamed in v1.6.x; the installer now refuses to install when two sources share a flat skill name."
@@ -32,6 +32,17 @@
       "polish",
       "beta-reader"
     ],
+    "world": [
+      "build-world",
+      "new-character",
+      "new-people",
+      "new-place",
+      "place-touch",
+      "geography-map",
+      "relationship-map",
+      "cast-list",
+      "research"
+    ],
     "navigate": [
       "first-run",
       "next",
@@ -53,11 +64,15 @@
       "front-matter",
       "back-matter",
       "blurb",
+      "cover-art",
+      "synopsis",
+      "query-letter",
       "prepublish-review",
       "publish",
       "export",
       "build-ebook",
-      "build-print"
+      "build-print",
+      "autopilot-publish"
     ],
     "translate": [
       "translate",
@@ -65,7 +80,8 @@
       "translation-memory",
       "back-translate",
       "cultural-adaptation",
-      "multi-publish"
+      "multi-publish",
+      "autopilot-translate"
     ],
     "collaborate": [
       "track",
@@ -81,6 +97,7 @@
       "sync",
       "validate",
       "cleanup",
+      "check-notes",
       "troubleshoot",
       "undo"
     ]

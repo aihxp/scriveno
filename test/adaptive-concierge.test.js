@@ -128,7 +128,7 @@ describe('adaptive concierge command surfacing', () => {
     const intents = constraints.command_intents;
     assert.ok(intents && typeof intents === 'object', 'CONSTRAINTS.json must define command_intents');
 
-    for (const intent of ['start', 'draft', 'revise', 'navigate', 'publish', 'translate', 'collaborate', 'repair']) {
+    for (const intent of ['start', 'draft', 'revise', 'world', 'navigate', 'publish', 'translate', 'collaborate', 'repair']) {
       assert.ok(Array.isArray(intents[intent]), `command_intents.${intent} must be an array`);
       assert.ok(intents[intent].length >= 3, `command_intents.${intent} should expose useful choices`);
       for (const command of intents[intent]) {
@@ -138,6 +138,21 @@ describe('adaptive concierge command surfacing', () => {
         );
       }
     }
+  });
+
+  it('keeps newer world and publishing workflows visible from intents', () => {
+    const intents = constraints.command_intents;
+
+    for (const command of ['build-world', 'new-place', 'place-touch', 'geography-map', 'research']) {
+      assert.ok(intents.world.includes(command), `world intent should include ${command}`);
+    }
+
+    for (const command of ['cover-art', 'synopsis', 'query-letter', 'prepublish-review', 'autopilot-publish']) {
+      assert.ok(intents.publish.includes(command), `publish intent should include ${command}`);
+    }
+
+    assert.ok(intents.translate.includes('autopilot-translate'), 'translate intent should include autopilot-translate');
+    assert.ok(intents.repair.includes('check-notes'), 'repair intent should include check-notes');
   });
 
   it('keeps /scr:help focused on inferred intent before the full catalog', () => {

@@ -63,7 +63,7 @@ Do not turn `.manuscript/CONTEXT.md` into a glossary. It is an auto-regenerated 
 | `translation` | glossary, translation memory, language config | Term consistency and cultural adaptation |
 | `art` | cover, illustration, storyboard assets | Visual continuity and image direction |
 
-The v2.1 pilot only changes the core writing loop. Publication, translation, art, and sacred expansion can adopt the same protocol later.
+The pilot began in the core writing loop. Record, subject dynamics, world/place/geography, and advisory research now use the same routing discipline where their commands need it. Publication, translation, art, and sacred expansion adopt the protocol selectively through their own command contracts instead of loading every context surface by default.
 
 ## Template Metadata
 

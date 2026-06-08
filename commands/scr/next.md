@@ -34,10 +34,11 @@ This engine is installed into Scriveno shared assets for every runtime, includin
 6. **Load `command_intents` from CONSTRAINTS.json** if present. Use it to keep alternatives small and contextual:
    - draft: discuss, plan, draft, quick-write, voice-test
    - revise: editor-review, voice-check, continuity-check, line-edit, copy-edit
-   - publish: complete-draft, front-matter, back-matter, publish, export
-   - translate: translate, translation-glossary, back-translate, multi-publish
+   - world: build-world, new-character, new-place, geography-map, research
+   - publish: complete-draft, front-matter, back-matter, cover-art, prepublish-review, publish, export
+   - translate: translate, translation-glossary, back-translate, multi-publish, autopilot-translate
    - collaborate: track, editor-review, compare
-   - repair: scan, health, validate, troubleshoot, undo
+   - repair: scan, health, validate, cleanup, check-notes, troubleshoot, undo
    If the field is missing in an older install, continue with the routing logic below.
 
 7. **Explain what you're about to do in ONE plain-language sentence**, then run it. Examples:

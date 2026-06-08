@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/aihxp/scriveno/actions/workflows/ci.yml/badge.svg)](https://github.com/aihxp/scriveno/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-3.2.1-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.2.2-blue)](CHANGELOG.md)
 [![npm](https://img.shields.io/npm/v/scriveno.svg)](https://www.npmjs.com/package/scriveno)
 [![Downloads](https://img.shields.io/npm/dm/scriveno.svg)](https://www.npmjs.com/package/scriveno)
 [![Status CLI](https://img.shields.io/badge/status%20CLI-scriveno%20status-blue)](docs/runtime-support.md#shared-auto-invoke-engine)
@@ -41,6 +41,7 @@ The wedge comes first: Scriveno profiles the writer, loads that voice into every
 
 - **Create** -- Set up a project with tailored context files. Progressive onboarding, never overwhelming.
 - **Write** -- Discuss, plan, draft, and revise one unit at a time. The drafter agent loads your Voice DNA and writes in *your* voice, not generic AI prose. Run `/scr:progress` any time to open a per-unit ledger (`.manuscript/PROGRESS.md`) showing what is done, in progress, and untouched.
+- **World and research** -- Build characters, peoples, places, geography, relationship maps, and neutral research notes that stay advisory until the writer accepts them.
 - **Polish** -- Editor review, line edit, copy edit, continuity check, voice check, beta reader simulation, sensitivity review.
 - **Publish** -- Prepublish review, front/back matter, cover art, blurbs, query letters, KDP packages, IngramSpark packages, EPUB, PDF, Fountain, Final Draft, LaTeX.
 - **Translate** -- Deep translation with glossary management, cultural adaptation, back-translation verification, multi-language simultaneous publishing.
@@ -200,7 +201,7 @@ Scriveno is built on five principles:
 
 - [Proof Artifacts](docs/proof-artifacts.md) -- Canonical proof hub for the watchmaker sample flow and Voice DNA before/after bundle
 - [Quick Proof](docs/quick-proof.md) -- 10-minute proof-first route through install checks, the demo, and the next draft
-- [Starter Sets](docs/starter-sets.md) -- Small command paths for drafting, polishing, publishing, translation, sacred commentary, and repair
+- [Starter Sets](docs/starter-sets.md) -- Small command paths for drafting, world and research, polishing, publishing, translation, sacred commentary, and repair
 - [Getting Started](docs/getting-started.md) -- Install to first draft in 10 minutes
 - [Command Reference](docs/command-reference.md) -- All 122 commands with usage, flags, and examples
 - [Work Types Guide](docs/work-types.md) -- How 50 work types adapt Scriveno's vocabulary
@@ -248,11 +249,11 @@ Scriveno currently ships installer targets for these AI tooling environments:
 
 ## Status
 
-**Version:** 3.2.1
+**Version:** 3.2.2
 
-Scriveno's core command surface is stable across 122 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, plus the creative-context, record-store, neutral research layer, world/place/geography layers, prepublish editorial review, branching-next, runtime-sync, adaptive concierge, human-first writing-safeguard, authenticity-diagnostic, domain-grilling, installer-marker cleanup, cross-runtime agent metadata, bounded subagent spawning protocol, model adaptation guide, visible automation status, the shared `scriveno status --project .` auto-invoke engine, route-intelligence lanes, safe apply reporting, runtime smoke checks, agent availability checks, route graph audits, the full audit repair pass through `2.0.11`, the first-run proof surface in `2.5.0`, the executable `/scr:first-run` path, command profiles, context-health checks, and `/scr:proof-unit`. See [Quick Proof](docs/quick-proof.md) for the fastest proof path, [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory, and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
+Scriveno's core command surface is stable across 122 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, plus the creative-context, record-store, neutral research layer, world/place/geography layers, prepublish editorial review, branching-next, runtime-sync, adaptive concierge, human-first writing-safeguard, authenticity-diagnostic, domain-grilling, installer-marker cleanup, cross-runtime agent metadata, bounded subagent spawning protocol, model adaptation guide, visible automation status, the shared `scriveno status --project .` auto-invoke engine, route-intelligence lanes, safe apply reporting, runtime smoke checks, agent availability checks, route graph audits, workflow-reference guards, the full audit repair pass through `2.0.11`, the first-run proof surface in `2.5.0`, the executable `/scr:first-run` path, command profiles, context-health checks, and `/scr:proof-unit`. See [Quick Proof](docs/quick-proof.md) for the fastest proof path, [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory, and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
 
-Version `3.2.1` publishes Scriveno under the package name `scriveno`, so the current install command is `npx scriveno@latest`. The older `scriveno-cli` package name is historical and was unpublished during the rename, so npm cannot attach a deprecation notice to it while it has no active registry record. The older `scriven-cli` package remains on npm only as a deprecated legacy name that points users to `scriveno`. Do not treat either legacy package name as active unless a deliberate compatibility shim is republished. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
+Version `3.2.2` publishes Scriveno under the package name `scriveno`, so the current install command is `npx scriveno@latest`. The older `scriveno-cli` package name is historical and was unpublished during the rename, so npm cannot attach a deprecation notice to it while it has no active registry record. The older `scriven-cli` package remains on npm only as a deprecated legacy name that points users to `scriveno`. Do not treat either legacy package name as active unless a deliberate compatibility shim is republished. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
 
 Package history is tracked in [CHANGELOG.md](CHANGELOG.md), and the public-facing summary for this release is in [docs/release-notes.md](docs/release-notes.md).
 

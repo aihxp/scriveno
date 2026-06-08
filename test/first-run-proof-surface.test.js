@@ -104,6 +104,7 @@ describe('first-run proof surface', () => {
       '## First 10 Minutes',
       '## Draft A Book',
       '## Polish A Manuscript',
+      '## Build A World And Research',
       '## Publish An Ebook',
       '## Translate A Work',
       '## Build Sacred Commentary',

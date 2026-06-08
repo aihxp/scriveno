@@ -9,7 +9,7 @@ You are synchronizing Scriveno's installed agent surfaces with the current Scriv
 
 This command is for local runtime drift: Codex skills, Codex command mirrors, Claude Code command files, command-directory runtimes, skills runtimes, guided setup assets, and agent prompts that no longer match the source files in the Scriveno package or repo.
 
-This is not a package upgrade command. Do not fetch a newer Scriveno release, do not change npm dependencies, and do not modify manuscript content. If the writer wants a newer published package version, that belongs to a future `/scr:update` command.
+This is not a package upgrade command. Do not fetch a newer Scriveno release, do not change npm dependencies, and do not modify manuscript content. If the writer wants a newer published package version, suggest reinstalling from npm with `npx scriveno@latest --detected --global --writer --silent`.
 
 The auto-invoke status engine is a shared runtime asset. It is copied for every install target and can be checked with one of these paths:
 

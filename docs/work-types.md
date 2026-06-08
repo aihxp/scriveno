@@ -22,7 +22,7 @@ Context files rename per group. The default `CHARACTERS.md` becomes `FIGURES.md`
 
 ### 4. Available commands
 
-Not every command makes sense for every work type. Poetry collections don't need `/scr:subplot-map`. Academic papers don't need `/scr:dialogue-audit`. Runbooks don't need query-package exports. Scriveno hides irrelevant commands and shows only what applies to your work type. Sacred work types get 8 exclusive commands (concordance, cross-reference, genealogy, etc.) that don't appear for other groups.
+Not every command makes sense for every work type. Poetry collections don't need `/scr:subplot-map`. Academic papers don't need `/scr:dialogue-audit`. Runbooks don't need query-package exports. Scriveno hides irrelevant commands and shows only what applies to your work type. Sacred work types get 8 nested exclusive commands (concordance, cross-reference, genealogy, etc.) that don't appear for other groups, plus the flat `/scr:sacred-numbering-format` helper for active numbering display.
 
 ### 5. Craft surfaces (the applicability decision tree)
 
@@ -102,7 +102,7 @@ Sacred texts, historical chronicles, and religious literature. This is the most 
 
 **Members:** Scripture (Biblical), Scripture (Quranic), Scripture (Torah), Scripture (Vedic), Scripture (Buddhist), Scripture (Generic), Commentary / Exegesis, Devotional, Liturgical Text, Historical Chronicle, Historical Account, Mythological Collection, Religious Epic, Sermon / Homily, Homiletic Collection
 
-Sacred work types relabel selected review commands (`/scr:editor-review` becomes `scholarly-review`, `/scr:voice-check` becomes `register-check`), unlock 8 exclusive commands (`/scr:sacred:concordance`, `/scr:sacred:cross-reference`, `/scr:sacred:genealogy`, `/scr:sacred:chronology`, `/scr:sacred:annotation-layer`, `/scr:sacred:verse-numbering`, `/scr:sacred:source-tracking`, `/scr:sacred:doctrinal-check`), and support 10 voice registers in STYLE-GUIDE.md.
+Sacred work types relabel selected review commands (`/scr:editor-review` becomes `scholarly-review`, `/scr:voice-check` becomes `register-check`), unlock 8 nested exclusive commands (`/scr:sacred:concordance`, `/scr:sacred:cross-reference`, `/scr:sacred:genealogy`, `/scr:sacred:chronology`, `/scr:sacred:annotation-layer`, `/scr:sacred:verse-numbering`, `/scr:sacred:source-tracking`, `/scr:sacred:doctrinal-check`), expose `/scr:sacred-numbering-format` as the active numbering display helper, and support 10 voice registers in STYLE-GUIDE.md.
 
 Sacred projects also use a shipped tradition profile slug in the top-level `tradition` config key. The current shipped slugs are `catholic`, `orthodox`, `tewahedo`, `protestant`, `jewish`, `islamic-hafs`, `islamic-warsh`, `pali`, `tibetan`, and `sanskrit`.
 

@@ -164,6 +164,7 @@ describe('craft layer: world place, geography, and research surfaces', () => {
     const creativeContext = read('docs/creative-context.md');
     assert.match(creativeContext, /`world` \| `WORLD\.md`, `COSMOLOGY\.md`, `SYSTEM\.md`, `PLACES\.md`, `GEOGRAPHY\.md`/);
     assert.match(creativeContext, /`research` \| `RESEARCH\.md`/);
+    assert.match(creativeContext, /world\/place\/geography/);
     assert.match(creativeContext, /RESEARCH\.md is a neutral advisory surface, not a world file/);
     assert.match(creativeContext, /Confirmed places are a world sublayer/);
 

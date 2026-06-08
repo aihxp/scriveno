@@ -32,6 +32,16 @@ Each set is intentionally small. Use `/scr-next`, `/scr:next`, or `$scr-next` wh
 - `/scr:copy-edit` catches grammar, clarity, and consistency issues.
 - `/scr:polish` chains the revision passes when the manuscript is ready.
 
+## Build A World And Research
+
+- `/scr:build-world` creates or extends the world context for story environments.
+- `/scr:new-character` adds a person, figure, or cast entry when the work type supports one.
+- `/scr:new-people` tracks groups, communities, lineages, or factions when collective dynamics matter.
+- `/scr:new-place` registers a place without promoting every mention into canon.
+- `/scr:place-touch` updates an existing place as the draft clarifies it.
+- `/scr:geography-map` renders the derived geography map from world and place surfaces.
+- `/scr:research` adds sourced advisory notes without making them canon.
+
 ## Publish An Ebook
 
 - `/scr:front-matter` suggests and prepares ebook-appropriate front matter for the current work type.

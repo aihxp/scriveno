@@ -18,12 +18,13 @@ You are helping the user navigate Scriveno commands. Load Scriveno's installed/s
    - Apply explicit constraints such as `nonfiction_only` and `comic_only` before you show the command.
    - If a group has a dedicated replacement command family (for example sacred chronology and doctrinal checks), prefer that real surface over any conceptual adapted label on a hidden base command.
 
-3. **Load `command_intents` from CONSTRAINTS.json.** Treat these intents as the front door: start, draft, revise, navigate, publish, translate, collaborate, repair. If the field is missing in an older install, fall back to the stage groups below.
+3. **Load `command_intents` from CONSTRAINTS.json.** Treat these intents as the front door: start, draft, revise, world, navigate, publish, translate, collaborate, repair. If the field is missing in an older install, fall back to the stage groups below.
 
 4. **Infer the likely intent before showing commands.**
    - No `.manuscript/` directory -> start
    - `.manuscript/` exists but no drafted units -> draft
    - Drafted units exist but review is incomplete -> revise
+   - The writer asks for world, places, geography, characters, peoples, relationships, or research -> world
    - Draft is complete and export files are missing -> publish
    - Translation folders or language config exist -> translate
    - Revision-track metadata exists -> collaborate
@@ -76,6 +77,7 @@ Group by stage:
 - **Create** -- new-work, profile-writer, series-bible
 - **Write** -- discuss, plan, draft, climax, quick-write, plus any profile-building commands actually available for the current work type
 - **Revise** -- editor-review, subject-touch, line-edit, copy-edit, continuity-check, beta-reader, voice-check
+- **Character & World** -- build-world, new-character, new-people, new-place, place-touch, geography-map, relationship-map, cast-list, research
 - **Publish** -- front-matter, back-matter, blurb, cover-art, publish, export
 - **Collaborate** -- track
   Present `/scr:track` as the entrypoint for revision-track workflows, and describe its subcommands in prose: create, list, switch, compare, merge, propose.
