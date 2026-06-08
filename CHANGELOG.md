@@ -2,6 +2,17 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 3.2.4 - 2026-06-08
+
+Replayable proof, host-capture readiness, and release hardening.
+
+- Proof replay: added golden workflow fixtures for the flagship novel, technical runbook, and publishing-package paths, backed by a regression test that replays expected route decisions and next commands from saved project states.
+- Voice DNA evaluation: added a deterministic paired-sample harness with expected voice markers and forbidden generic patterns so the core authenticity promise has a repeatable regression layer.
+- Host parity: added capture-ready artifact directories and queue metadata for Claude Code, Codex, and a standard command runtime without overstating them as verified captures.
+- Installer maintainability: extracted runtime/profile metadata from the installer and added generated fallback handling for the `Next commands:` contract across installed command surfaces.
+- First journey: narrowed the recommended entry path to first-run, demo, next, draft, review, and save so new writers prove the loop before exploring the full command catalog.
+- Proof documentation: added evidence-level badges and updated the README, proof artifacts, runtime support, testing, shipped-assets, and workflow-optimization audit docs around replayability and proof status.
+
 ## 3.2.3 - 2026-06-08
 
 Hub-first workflow consolidation and release packaging.

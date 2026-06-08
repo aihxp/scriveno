@@ -2,6 +2,22 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 3.2.4 - 2026-06-08
+
+### What changed
+
+- **Proof is now replayable.** Golden workflow fixtures replay the flagship novel, technical runbook, and publishing-package paths, including expected next commands.
+- **Voice DNA has a regression harness.** A paired-sample eval now checks expected voice markers and forbidden generic patterns without pretending to be an objective prose score.
+- **Detector anxiety stays inside the authenticity workflow.** Outside AI-detector reports are context for `/scr:voice-check`, `/scr:originality-check`, `/scr:line-edit`, and `/scr:polish`, not targets for rewriting or humanizer-style laundering.
+- **Host parity has capture targets.** Claude Code, Codex, and one standard command runtime now have explicit capture-ready directories and queue metadata. They are not marked verified until real host transcripts are recorded.
+- **Installer maintainability improved.** Runtime/profile metadata moved into a small shared module, and installed commands now get a generated fallback for the `Next commands:` contract.
+- **The first journey is tighter.** The recommended starter loop is now first-run, demo, next, draft, review, and save before the wider command surface opens up.
+- **Proof claims are badged.** Major trust claims now point to evidence levels such as shipped, install-tested, artifact-proven, replay-tested, host-capture-ready, host-captured, or external-tool-dependent.
+
+### Why it matters
+
+Scriveno keeps its versatility, but the claims behind that versatility are easier to inspect and harder to regress. This release turns several previously readable proof artifacts into executable regression evidence while staying honest about host-runtime work that still needs real captures.
+
 ## 3.2.3 - 2026-06-08
 
 ### What changed
@@ -11,11 +27,10 @@ This document is the public-facing summary of what changed between package relea
 - **Interactive installs can start smaller.** The installer now asks which command profile to install, while keeping `full` as the default and leaving `/scr:surface` available for later changes.
 - **Publishing language is clearer.** `/scr:publish` is the destination wizard, `/scr:export` is one-off output, build commands are final package builders, and front/back matter plus prepublish review remain separate steps.
 - **The route graph can audit these families.** `scriveno routes` now reports command families, family hubs, and family-member edges in addition to automation lanes.
-- **Detector anxiety stays inside the authenticity workflow.** Outside AI-detector reports are now context for `/scr:voice-check`, `/scr:originality-check`, `/scr:line-edit`, and `/scr:polish`, not targets for rewriting or humanizer-style laundering.
 
 ### Why it matters
 
-Scriveno keeps the full command surface without making writers face every command at once. The product now consolidates around hubs instead of removing features, and authenticity concerns route through evidence and craft decisions instead of score-chasing.
+Scriveno keeps the full command surface without making writers face every command at once. The product now consolidates around hubs instead of removing features.
 
 ## 3.2.2 - 2026-06-08
 

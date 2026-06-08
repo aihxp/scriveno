@@ -88,32 +88,9 @@ The fastest comparison is the Voice DNA pair:
 - [data/proof/voice-dna/UNGUIDED-SAMPLE.md](../data/proof/voice-dna/UNGUIDED-SAMPLE.md)
 - [data/proof/voice-dna/GUIDED-SAMPLE.md](../data/proof/voice-dna/GUIDED-SAMPLE.md)
 
-### 5. Ask For The Next Unit
+### 5. Ask Scriveno What Comes Next
 
-The demo includes a planned but undrafted fifth unit. Use the command shape for your host:
-
-Claude Code:
-
-```text
-/scr-draft 5
-/scr-editor-review 5
-```
-
-Standard slash-command runtimes:
-
-```text
-/scr:draft 5
-/scr:editor-review 5
-```
-
-Codex:
-
-```text
-$scr-draft 5
-$scr-editor-review 5
-```
-
-### 6. Ask Scriveno What To Do Next
+The demo includes a planned but undrafted fifth unit. Ask Scriveno to read the state first:
 
 Claude Code:
 
@@ -137,6 +114,34 @@ Terminal:
 
 ```bash
 scriveno status --project .
+```
+
+### 6. Draft, Review, And Save
+
+Use the command shape for your host:
+
+Claude Code:
+
+```text
+/scr-draft 5
+/scr-editor-review 5
+/scr-save
+```
+
+Standard slash-command runtimes:
+
+```text
+/scr:draft 5
+/scr:editor-review 5
+/scr:save
+```
+
+Codex:
+
+```text
+$scr-draft 5
+$scr-editor-review 5
+$scr-save
 ```
 
 ## Example Transcript
@@ -167,6 +172,7 @@ Recommended first path:
 3. /scr:next
 4. /scr:draft 5
 5. /scr:editor-review 5
+6. /scr:save
 ```
 
 ```text
@@ -174,6 +180,12 @@ Recommended first path:
 Loaded STYLE-GUIDE.md and the plan for unit 5.
 Drafted the next atomic unit in fresh context.
 Next: /scr:editor-review 5
+```
+
+```text
+> /scr:save
+Saved the demo checkpoint after review.
+Next: /scr:next
 ```
 
 ## Runtime Expectations

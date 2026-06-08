@@ -466,6 +466,7 @@ describe('auto-invoke engine', () => {
       assert.equal(parsed.projectRoot, project);
       assert.equal(parsed.recommendation.command, '/scr:new-work');
       assert.ok(parsed.firstPath.includes('/scr:draft 5'));
+      assert.ok(parsed.firstPath.includes('/scr:save'));
       assert.equal(parsed.modelAdaptation.policy, DEFAULT_MODEL_POLICY);
       assert.ok(parsed.modelAdaptation.latest.includes('/scr:scan --deep read-only auditors'));
       // Cross-check the subprocess output against the in-process engine rather

@@ -45,12 +45,13 @@ cd scriveno-demo
 /scr:next
 /scr:draft 5
 /scr:editor-review 5
+/scr:save
 ```
 
 Translate those command shapes for the active host when needed:
 
-- Claude Code: `/scr-demo`, `/scr-next`, `/scr-draft 5`, `/scr-editor-review 5`
-- Codex: `$scr-demo`, `$scr-next`, `$scr-draft 5`, `$scr-editor-review 5`
+- Claude Code: `/scr-demo`, `/scr-next`, `/scr-draft 5`, `/scr-editor-review 5`, `/scr-save`
+- Codex: `$scr-demo`, `$scr-next`, `$scr-draft 5`, `$scr-editor-review 5`, `$scr-save`
 
 ## Output shape
 
@@ -63,6 +64,7 @@ First-run path:
 3. Inspect the proof bundle.
 4. Draft the planned fifth unit.
 5. Review the result.
+6. Save the checkpoint.
 
 Recommended now:
 - `/scr:demo`: Create the isolated watchmaker demo project.

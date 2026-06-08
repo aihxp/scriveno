@@ -173,6 +173,14 @@ scriveno routes --json
 
 Use those for release prep so you can inspect what would ship without mutating the registry.
 
+When changing proof claims, Voice DNA samples, or first-run routing, also run:
+
+```bash
+node --test test/proof-replay.test.js
+```
+
+That test replays the flagship novel, technical runbook, and publishing-package fixtures from `data/proof/replay/golden-workflows.json`, checks the Voice DNA paired samples through `lib/voice-dna-eval.js`, and verifies the host-capture queue stays honest.
+
 For the full publish path, including clearing local installs, packing, publishing, pushing, creating the GitHub release, and verifying `scriveno@latest`, use [Release Checklist](release-checklist.md).
 
 ## Practical workflow
@@ -193,6 +201,7 @@ For most changes:
 - [Contributing](contributing.md)
 - [Authenticity And AI Detectors](authenticity-and-detectors.md)
 - [Quick Proof](quick-proof.md)
+- [Proof Badges](proof-badges.md)
 - [Versatility Paths](versatility-paths.md)
 - [Release Checklist](release-checklist.md)
 - [Release Notes](release-notes.md)

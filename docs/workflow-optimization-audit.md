@@ -14,6 +14,7 @@ This audit reviews Scriveno's UX flows, user journeys, command flows, and workfl
 - 6 install surface profiles: core, writing, publishing, translation, specialist, full.
 - Runtime smoke checks pass across the installed command surfaces.
 - Workflow reference integrity checks pass for current docs and commands.
+- Proof claims now have explicit evidence levels and replay-tested fixtures for the most important flows.
 
 ## What Is Working
 
@@ -75,6 +76,36 @@ Finding: a high outside AI-detector score can create a bad workflow loop: the wr
 Impact: this is a UX and trust problem, not only a prose problem. A writer needs a calm path from "this detector flagged me" to "what should I inspect, what evidence do I preserve, and what should I edit for craft?"
 
 Change: the universal writing rules, drafter, voice-checker, `/scr:voice-check`, `/scr:originality-check`, `/scr:line-edit`, and `/scr:polish` now treat external detector scores as context only. New projects carry an `authenticity` config block, diagnostics report process evidence, and [Authenticity And AI Detectors](authenticity-and-detectors.md) documents the research stance and operating workflow.
+
+Status: implemented.
+
+### 7. Proof Depth And Replayability
+
+Finding: proof bundles were inspectable but not replayable. They showed workflow shape, but they did not yet turn the key claims into regression evidence.
+
+Impact: the strongest claims, voice preservation and next-step routing, need tests that fail when the proof surface drifts.
+
+Change: added `data/proof/replay/golden-workflows.json` for flagship novel, technical runbook, and publishing-package route decisions. Added `data/proof/voice-dna/eval-fixtures.json` plus `lib/voice-dna-eval.js` for the watchmaker paired samples. Added `test/proof-replay.test.js` to run both layers.
+
+Status: implemented.
+
+### 8. Host-Capture Queue
+
+Finding: host-runtime parity was honest but still too abstract. The protocol existed, but the next captures were not concrete targets.
+
+Impact: users need to see the order of proof work and the exact directories where host transcripts will land.
+
+Change: added `data/proof/runtime-parity/capture-status.json` and reserved queued capture folders for Claude Code, Codex, and one standard command-directory runtime. These are marked `host-capture-ready`, not `host-captured`.
+
+Status: implemented.
+
+### 9. Installer Seam Extraction And Generated Contracts
+
+Finding: the installer was becoming a maintainability bottleneck, and repeated command contracts were protective but expensive to maintain manually.
+
+Impact: future bugs are most likely to hide in installer metadata, command generation, and repeated response contracts.
+
+Change: extracted runtime and surface-profile metadata into `lib/installer-runtime-registry.js`. Added `lib/command-contracts.js` so installed command output can generate a fallback `Next commands:` contract if a source command ever misses it. The source command files still carry their standalone contract blocks.
 
 Status: implemented.
 
@@ -161,6 +192,26 @@ Why this preserves features: writers can still bring detector reports into the w
 
 Status: implemented.
 
+### 7. Make Proof Claims Badged And Replayable
+
+Problem: claims such as "voice-preserving" or "runtime-supported" can sound equally strong even when the evidence level differs.
+
+Recommendation: label major claims with evidence levels and keep the strongest claims replay-tested where possible.
+
+Why this preserves features: proof badges clarify confidence without hiding versatility.
+
+Status: implemented.
+
+### 8. Narrow The First Journey
+
+Problem: even with hubs and profiles, a new user can still see the wider surface before trusting the core path.
+
+Recommendation: keep the first path stubbornly small: first-run, demo, next, draft, review, save.
+
+Why this preserves features: all specialist paths remain available after the proof loop.
+
+Status: implemented.
+
 ## Suggested Roadmap
 
 1. Completed: keep the manifest description fix and profile-reduction starter guidance.
@@ -168,7 +219,10 @@ Status: implemented.
 3. Completed: teach `/scr:help`, `/scr:next`, and `/scr:do` to show hub-first wording for structure, art, session, sacred, submission, publishing, world, collaboration, and surface families.
 4. Completed: add an interactive install profile prompt while keeping `full` as the default.
 5. Completed: fold detector-aware authenticity into the audit flow so outside AI-detector reports become context, process evidence, and craft review rather than score-chasing.
-6. Future: generate repeated command contract blocks rather than editing them by hand.
+6. Completed: add proof badges, golden workflow replay fixtures, and the Voice DNA replay harness.
+7. Completed: queue host-runtime captures for Claude Code, Codex, and one standard command runtime without marking them verified.
+8. Completed: extract the runtime/profile registry seam and add generated installed-command contract fallback.
+9. Future: keep extracting installer seams only where behavior is stable, starting with atomic file operations and smoke-check formatting.
 
 ## Bottom Line
 

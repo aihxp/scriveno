@@ -23,8 +23,9 @@ For each runtime, create a directory under `data/proof/runtime-parity/<runtime>/
 5. Run the host-native next command.
 6. Route to draft unit 5.
 7. Run the host-native editor review command for unit 5.
-8. Record whether native agent spawning happened, prompt-run fallback happened, or no worker ran.
-9. Run `scriveno smoke --json` and include the relevant summary.
+8. Run the host-native save command.
+9. Record whether native agent spawning happened, prompt-run fallback happened, or no worker ran.
+10. Run `scriveno smoke --json` and include the relevant summary.
 
 ## Runtime Command Shapes
 
@@ -36,6 +37,7 @@ Claude Code:
 /scr-next
 /scr-draft 5
 /scr-editor-review 5
+/scr-save
 ```
 
 Standard command-directory runtimes:
@@ -46,6 +48,7 @@ Standard command-directory runtimes:
 /scr:next
 /scr:draft 5
 /scr:editor-review 5
+/scr:save
 ```
 
 Codex:
@@ -56,6 +59,7 @@ $scr-demo
 $scr-next
 $scr-draft 5
 $scr-editor-review 5
+$scr-save
 ```
 
 Generic skill hosts:
@@ -82,6 +86,7 @@ A runtime capture passes when:
 - the first-run and demo route can be invoked
 - the next command matches project state
 - draft and review route to the expected unit
+- save produces a durable checkpoint or explains why the host cannot run local save
 - the transcript reports agent status honestly
 - no command claims host behavior that did not happen
 

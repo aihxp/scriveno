@@ -7,6 +7,12 @@ const readline = require('readline');
 const crypto = require('crypto');
 const architecturalProfiles = require('../lib/architectural-profiles.js');
 const autoInvokeEngine = require('../lib/auto-invoke-engine.js');
+const commandContracts = require('../lib/command-contracts.js');
+const {
+  RUNTIMES,
+  SURFACE_PROFILES,
+  DEFAULT_SURFACE_PROFILE,
+} = require('../lib/installer-runtime-registry.js');
 
 const PKG_ROOT = path.join(__dirname, '..');
 const PKG = require('../package.json');
@@ -117,162 +123,6 @@ const RUNTIME_SUPPORT_NOTE = c(
   'Installer requires Node.js >=20.0.0. Use a current LTS for new installs.'
 );
 
-const RUNTIMES = {
-  'claude-code': {
-    label: 'Claude Code',
-    type: 'commands',
-    commands_dir_global: path.join(os.homedir(), '.claude', 'commands'),
-    commands_dir_project: '.claude/commands',
-    agents_dir_global: path.join(os.homedir(), '.claude', 'agents'),
-    agents_dir_project: '.claude/agents',
-    command_layout: 'flat-prefixed',
-    detect: () => fs.existsSync(path.join(os.homedir(), '.claude')),
-  },
-  'cursor': {
-    label: 'Cursor',
-    type: 'commands',
-    commands_dir_global: path.join(os.homedir(), '.cursor', 'commands', 'scr'),
-    commands_dir_project: '.cursor/commands/scr',
-    agents_dir_global: path.join(os.homedir(), '.cursor', 'agents'),
-    agents_dir_project: '.cursor/agents',
-    detect: () => fs.existsSync(path.join(os.homedir(), '.cursor')),
-  },
-  'gemini-cli': {
-    label: 'Gemini CLI',
-    type: 'commands',
-    commands_dir_global: path.join(os.homedir(), '.gemini', 'commands', 'scr'),
-    commands_dir_project: '.gemini/commands/scr',
-    agents_dir_global: path.join(os.homedir(), '.gemini', 'agents'),
-    agents_dir_project: '.gemini/agents',
-    detect: () => fs.existsSync(path.join(os.homedir(), '.gemini')),
-  },
-  'codex': {
-    label: 'Codex',
-    type: 'skills',
-    skills_dir_global: path.join(os.homedir(), '.codex', 'skills'),
-    skills_dir_project: '.codex/skills',
-    commands_dir_global: path.join(os.homedir(), '.codex', 'commands', 'scr'),
-    commands_dir_project: '.codex/commands/scr',
-    agents_dir_global: path.join(os.homedir(), '.codex', 'agents'),
-    agents_dir_project: '.codex/agents',
-    skill_style: 'per-command',
-    agent_metadata: 'toml',
-    detect: () => fs.existsSync(path.join(os.homedir(), '.codex')),
-  },
-  'opencode': {
-    label: 'OpenCode',
-    type: 'commands',
-    commands_dir_global: path.join(os.homedir(), '.config', 'opencode', 'commands', 'scr'),
-    commands_dir_project: '.config/opencode/commands/scr',
-    agents_dir_global: path.join(os.homedir(), '.config', 'opencode', 'agents'),
-    agents_dir_project: '.config/opencode/agents',
-    detect: () => fs.existsSync(path.join(os.homedir(), '.config', 'opencode')),
-  },
-  'copilot': {
-    label: 'GitHub Copilot',
-    type: 'commands',
-    commands_dir_global: path.join(os.homedir(), '.github', 'commands', 'scr'),
-    commands_dir_project: '.github/commands/scr',
-    agents_dir_global: path.join(os.homedir(), '.github', 'agents'),
-    agents_dir_project: '.github/agents',
-    detect: () => fs.existsSync(path.join(os.homedir(), '.github')),
-  },
-  'windsurf': {
-    label: 'Windsurf',
-    type: 'commands',
-    commands_dir_global: path.join(os.homedir(), '.windsurf', 'commands', 'scr'),
-    commands_dir_project: '.windsurf/commands/scr',
-    agents_dir_global: path.join(os.homedir(), '.windsurf', 'agents'),
-    agents_dir_project: '.windsurf/agents',
-    detect: () => fs.existsSync(path.join(os.homedir(), '.windsurf')),
-  },
-  'antigravity': {
-    label: 'Antigravity',
-    type: 'commands',
-    commands_dir_global: path.join(os.homedir(), '.gemini', 'antigravity', 'commands', 'scr'),
-    commands_dir_project: '.gemini/antigravity/commands/scr',
-    agents_dir_global: path.join(os.homedir(), '.gemini', 'antigravity', 'agents'),
-    agents_dir_project: '.gemini/antigravity/agents',
-    detect: () => fs.existsSync(path.join(os.homedir(), '.gemini', 'antigravity')),
-  },
-  'manus': {
-    label: 'Manus Desktop',
-    type: 'skills',
-    skills_dir_global: path.join(os.homedir(), '.manus', 'skills', 'scriveno'),
-    skills_dir_project: '.manus/skills/scriveno',
-    detect: () => fs.existsSync(path.join(os.homedir(), '.manus')) || fs.existsSync('/Applications/Manus.app') || fs.existsSync(path.join(os.homedir(), 'Applications', 'Manus.app')),
-  },
-  'perplexity-desktop': {
-    label: 'Perplexity Desktop',
-    type: 'guided-mcp',
-    guide_dir_global: path.join(os.homedir(), '.scriveno', 'perplexity'),
-    guide_dir_project: '.scriveno/perplexity',
-    detect: () => fs.existsSync('/Applications/Perplexity.app') || fs.existsSync(path.join(os.homedir(), 'Applications', 'Perplexity.app')),
-  },
-  'generic': {
-    label: 'Generic (SKILL.md)',
-    type: 'skills',
-    skills_dir_global: path.join(os.homedir(), '.scriveno', 'skills'),
-    skills_dir_project: '.scriveno/skills',
-    detect: () => false,
-  },
-};
-
-const SURFACE_PROFILES = {
-  core: {
-    label: 'Core',
-    description: 'Main writing loop and orientation commands.',
-    commands: [
-      'new-work',
-      'profile-writer',
-      'voice-test',
-      'discuss',
-      'plan',
-      'draft',
-      'editor-review',
-      'submit',
-      'progress',
-      'save',
-      'next',
-      'health',
-      'help',
-      'surface',
-      'proof-unit',
-    ],
-  },
-  writing: {
-    label: 'Writing',
-    description: 'Core workflow plus revision, structure, character, and quality commands.',
-    includeProfiles: ['core'],
-    categories: ['structure', 'structure_management', 'character_world', 'quality', 'review', 'session', 'navigation'],
-  },
-  publishing: {
-    label: 'Publishing',
-    description: 'Core workflow plus export, publishing, metadata, and platform packaging commands.',
-    includeProfiles: ['core'],
-    categories: ['publishing'],
-  },
-  translation: {
-    label: 'Translation',
-    description: 'Core workflow plus translation, localization, glossary, and multi-publish commands.',
-    includeProfiles: ['core'],
-    categories: ['translation'],
-  },
-  specialist: {
-    label: 'Specialist',
-    description: 'Core workflow plus sacred, illustration, collaboration, and utility surfaces.',
-    includeProfiles: ['core'],
-    categories: ['sacred_exclusive', 'illustration', 'collaboration', 'utility'],
-  },
-  full: {
-    label: 'Full',
-    description: 'Every Scriveno command.',
-    all: true,
-  },
-};
-
-const DEFAULT_SURFACE_PROFILE = 'full';
-
 function normalizeSurfaceProfile(profile) {
   const value = String(profile || DEFAULT_SURFACE_PROFILE).trim().toLowerCase();
   if (!Object.prototype.hasOwnProperty.call(SURFACE_PROFILES, value)) {
@@ -344,7 +194,9 @@ function writeProfileCommandFiles(commandsRoot, commandsDir, commandEntries, tra
     const sourcePath = path.join(commandsRoot, entry.relativePath);
     const sourceContent = fs.readFileSync(sourcePath, 'utf8');
     const targetPath = path.join(commandsDir, entry.relativePath);
-    atomicWriteFileSync(targetPath, transform ? transform(entry, sourceContent) : sourceContent);
+    const sourceWithContract = commandContracts.ensureNextCommandsContract(sourceContent);
+    const installedContent = transform ? transform(entry, sourceWithContract) : sourceWithContract;
+    atomicWriteFileSync(targetPath, installedContent);
     count++;
   }
   return count;
@@ -1334,6 +1186,7 @@ function buildFirstRunGuide({ projectRoot }) {
       '/scr:next',
       '/scr:draft 5',
       '/scr:editor-review 5',
+      '/scr:save',
     ],
     proofArtifacts: [
       'docs/quick-proof.md',
@@ -2159,7 +2012,9 @@ function installClaudeCommandRuntime(runtime, isGlobal, log, profile = DEFAULT_S
     const sourceContent = fs.readFileSync(sourcePath, 'utf8');
     const fileName = commandEntryToFlatCommandFileName(entry);
     const targetPath = path.join(commandsDir, fileName);
-    atomicWriteFileSync(targetPath, generateClaudeCommandContent(entry, sourceContent));
+    const sourceWithContract = commandContracts.ensureNextCommandsContract(sourceContent);
+    const installedContent = generateClaudeCommandContent(entry, sourceWithContract);
+    atomicWriteFileSync(targetPath, installedContent);
   }
 
   writeInstalledCommandManifest(commandsDir, 'claude-code', fileNames);
@@ -2586,6 +2441,7 @@ module.exports = {
   formatInstallDryRunReport,
   buildFilesystemMcpCommand,
   generatePerplexitySetupGuide,
+  commandContracts,
   atomicWriteFileSync,
   cleanOrphanedTempFiles,
   collectTargetDirsForSweep,

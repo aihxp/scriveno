@@ -251,6 +251,16 @@ The same rule layer also has a diagnostic side. When you ask "is this AI" or "do
 
 See [docs/drafter-quality.md](drafter-quality.md) for the full system, including model-tier recommendations. See [Authenticity And AI Detectors](authenticity-and-detectors.md) for the external-detector policy.
 
+## Evaluation Harness
+
+Scriveno now ships a small deterministic Voice DNA replay harness:
+
+- [data/proof/voice-dna/eval-fixtures.json](../data/proof/voice-dna/eval-fixtures.json) defines paired sample checks for the watchmaker proof bundle.
+- [lib/voice-dna-eval.js](../lib/voice-dna-eval.js) counts expected voice markers and forbidden generic patterns.
+- [test/proof-replay.test.js](../test/proof-replay.test.js) verifies that the guided sample passes and the unguided baseline fails for the intended reasons.
+
+This is not a fake objective prose score. It is a regression guard for Scriveno's most important claim: style guidance should move output toward the writer's specific voice rather than toward polished generic prose.
+
 ## Troubleshooting
 
 ### Voice drift
@@ -294,5 +304,6 @@ See [docs/drafter-quality.md](drafter-quality.md) for the full system, including
 - [Getting Started](getting-started.md) -- Install Scriveno and write your first draft
 - [Drafter Quality](drafter-quality.md) -- the three rule layers, the `draft` config block, and model-tier recommendations
 - [Authenticity And AI Detectors](authenticity-and-detectors.md) -- external detector scores, process evidence, and detector-aware authenticity
+- [Proof Badges](proof-badges.md) -- evidence levels for major product claims
 - [Command Reference](command-reference.md) -- Full list of all 122 commands with usage and examples
 - [Work Types Guide](work-types.md) -- How work types adapt Scriveno's vocabulary and commands

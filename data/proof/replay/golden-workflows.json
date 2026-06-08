@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "description": "Golden workflow replay fixtures for the highest-value proof paths.",
+  "fixtures": [
+    {
+      "id": "flagship-novel-next-draft",
+      "label": "Flagship novel path",
+      "evidence_level": "replay-tested",
+      "work_type": "novel",
+      "files": [
+        {
+          "path": ".manuscript/STATE.md",
+          "content": "Current unit: 1\nCurrent phase: drafting\n"
+        },
+        {
+          "path": ".manuscript/CONTEXT.md",
+          "content": "Suggested next step: draft chapter 1\n"
+        },
+        {
+          "path": ".manuscript/config.json",
+          "content": "{\"work_type\":\"novel\",\"command_unit\":\"chapter\"}\n"
+        },
+        {
+          "path": ".manuscript/plans/1-PLAN.md",
+          "content": "Plan for Chapter 1\n"
+        }
+      ],
+      "expected": {
+        "command": "/scr:draft",
+        "automation_mode": "agent-ready",
+        "plan_state": "ready-to-draft"
+      }
+    },
+    {
+      "id": "technical-runbook-review",
+      "label": "Technical runbook path",
+      "evidence_level": "replay-tested",
+      "work_type": "runbook",
+      "files": [
+        {
+          "path": ".manuscript/STATE.md",
+          "content": "Current procedure: restore service\nCurrent phase: review\n",
+          "seconds_ago": 10
+        },
+        {
+          "path": ".manuscript/CONTEXT.md",
+          "content": "Suggested next step: review procedure\n",
+          "seconds_ago": 1
+        },
+        {
+          "path": ".manuscript/config.json",
+          "content": "{\"work_type\":\"runbook\",\"command_unit\":\"procedure\"}\n"
+        },
+        {
+          "path": ".manuscript/plans/1-restore-service-PLAN.md",
+          "content": "Procedure plan with preconditions, validation, and rollback.\n"
+        },
+        {
+          "path": ".manuscript/drafts/body/1-restore-service-DRAFT.md",
+          "content": "Procedure draft with validation and rollback steps.\n",
+          "seconds_ago": 5
+        }
+      ],
+      "expected": {
+        "command": "/scr:editor-review",
+        "automation_mode": "agent-ready",
+        "review_state": "missing"
+      }
+    },
+    {
+      "id": "publishing-package-prepublish",
+      "label": "Publishing package path",
+      "evidence_level": "replay-tested",
+      "work_type": "novel",
+      "files": [
+        {
+          "path": ".manuscript/STATE.md",
+          "content": "Draft complete: true\nCurrent phase: prepublish\n",
+          "seconds_ago": 10
+        },
+        {
+          "path": ".manuscript/CONTEXT.md",
+          "content": "Suggested next step: prepublish review\n",
+          "seconds_ago": 1
+        },
+        {
+          "path": ".manuscript/config.json",
+          "content": "{\"work_type\":\"novel\",\"command_unit\":\"chapter\"}\n"
+        },
+        {
+          "path": ".manuscript/plans/1-PLAN.md",
+          "content": "Plan\n"
+        },
+        {
+          "path": ".manuscript/drafts/body/1-DRAFT.md",
+          "content": "Complete draft\n",
+          "seconds_ago": 5
+        },
+        {
+          "path": ".manuscript/reviews/1-REVIEW.md",
+          "content": "Review passed\n"
+        },
+        {
+          "path": ".manuscript/front-matter/03-title-page.md",
+          "content": "# Title\n"
+        },
+        {
+          "path": ".manuscript/back-matter/about-author.md",
+          "content": "# About the Author\n"
+        },
+        {
+          "path": ".manuscript/output/blurb.md",
+          "content": "Blurb\n"
+        },
+        {
+          "path": ".manuscript/build/ebook-cover.jpg",
+          "content": "cover\n"
+        }
+      ],
+      "expected": {
+        "command": "/scr:prepublish-review",
+        "automation_mode": "manual-gated",
+        "publishing_state": "editorial-review-needed"
+      }
+    }
+  ]
+}

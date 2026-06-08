@@ -44,11 +44,14 @@ For each host that supports local commands:
 3. Run the host-native demo command.
 4. Run the host-native next command inside scriveno-demo.
 5. Confirm the host can route to draft unit 5.
-6. Save a short transcript or screenshot under data/proof/runtime-parity/<runtime>/.
+6. Run review and save for unit 5.
+7. Save a short transcript or screenshot under data/proof/runtime-parity/<runtime>/.
 ```
 
 Use the command shape from [docs/runtime-support.md](../../../docs/runtime-support.md).
 
 ## Capture Status
+
+The first queued captures are listed in [capture-status.json](capture-status.json): Claude Code, Codex, then one standard command-directory runtime. Each target has a reserved directory with the expected command shape.
 
 No host capture folder is marked verified until its transcript or screenshot artifact is committed under `data/proof/runtime-parity/<runtime>/`. Until then, Scriveno's verified claim remains install-surface proof plus capture-ready protocol.

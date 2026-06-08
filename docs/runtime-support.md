@@ -25,6 +25,7 @@ Node is not a runtime dependency for Scriveno's markdown command system itself. 
 - **Guided setup assets**: the installer writes setup files or connector recipes for a documented runtime surface instead of copying slash-command files.
 - **Repo-documented**: the install strategy and detection behavior are described in project docs such as [Architecture](architecture.md).
 - **Host-runtime parity**: end-to-end proof that the installed command surface behaves equivalently inside the host agent. Scriveno does not currently ship this proof for any runtime in the repo.
+- **Host-capture-ready**: a target runtime has a reserved capture directory, expected command shape, and required artifacts listed in `data/proof/runtime-parity/capture-status.json`.
 
 ## Support Levels
 
@@ -81,6 +82,7 @@ Scriveno docs use `/scr:*` as the shared command id format unless a host-specifi
 
 Use [Quick Proof](quick-proof.md) for the 10-minute proof route and [Starter Sets](starter-sets.md) for goal-based command paths.
 Use [Runtime Parity Evidence](../data/proof/runtime-parity/README.md) for the committed boundary between install-surface proof and host-runtime parity proof. Use [Host Runtime Capture Protocol](../data/proof/runtime-parity/HOST-CAPTURE-PROTOCOL.md) when recording actual host transcripts or screenshots.
+Use [Proof Badges](proof-badges.md) for the evidence-level vocabulary behind these claims.
 
 ## Shared Auto-Invoke Engine
 
@@ -142,10 +144,21 @@ Scriveno does not currently prove:
 
 That distinction is intentional. Installer-path coverage and guided setup assets are valuable, but they are not the same thing as verified runtime parity.
 
+## Host Capture Queue
+
+The first host-capture targets are queued in [capture-status.json](../data/proof/runtime-parity/capture-status.json):
+
+1. Claude Code, because it is the primary reference runtime.
+2. Codex, because it uses the generated `$scr-*` skills and agent metadata path.
+3. One standard command-directory runtime, because Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, and Antigravity share the `/scr:*` command shape.
+
+Those targets are `host-capture-ready`, not `host-captured`. They become host-captured only when a real transcript or screenshot artifact is committed under the matching runtime directory.
+
 ## See Also
 
 - [Getting Started](getting-started.md) -- install flow and first-run expectations
 - [Quick Proof](quick-proof.md) -- first-run proof path and runtime command shapes
+- [Proof Badges](proof-badges.md) -- evidence levels for major claims
 - [Starter Sets](starter-sets.md) -- small command sets by writing goal
 - [Model Adaptation](model-adaptation.md) -- model-owned behavior, host-specific surfaces, and shared adaptation rules
 - [Shipped Assets](shipped-assets.md) -- trust-critical files that ship with the package

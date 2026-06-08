@@ -5,7 +5,7 @@ This bundle is the committed proof artifact for Scriveno's first 10 minutes. It 
 ## What It Proves
 
 - Scriveno has a runtime command for first-run orientation, not only a documentation page.
-- The first-run path stays small: check surfaces, create the demo, inspect proof files, draft unit 5, review unit 5.
+- The first-run path stays small: check surfaces, create the demo, inspect proof files, ask next, draft unit 5, review unit 5, save the checkpoint.
 - The command shapes are explicit for Claude Code, standard slash-command runtimes, and Codex.
 - The demo path uses shipped files in `data/demo/.manuscript/`.
 
@@ -28,6 +28,7 @@ Recommended first path:
 3. /scr:next
 4. /scr:draft 5
 5. /scr:editor-review 5
+6. /scr:save
 
 Proof artifacts:
 - docs/quick-proof.md
@@ -85,6 +86,9 @@ Drafted unit 5 in the established watchmaker voice.
 
 > /scr:editor-review 5
 Reviewed unit 5 for voice, continuity, emotional payoff, and revision needs.
+
+> /scr:save
+Saved the demo checkpoint after review.
 ```
 
 ## Related Files

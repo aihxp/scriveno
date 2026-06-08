@@ -15,6 +15,7 @@ Write a short scene set just before Petra arrives in Scene 5. Elias waits in his
 - `STYLE-GUIDE-EXCERPT.md` -- the exact voice constraints applied to the guided sample
 - `UNGUIDED-SAMPLE.md` -- a plausible generic draft for the same brief
 - `GUIDED-SAMPLE.md` -- the same brief rewritten to honor the style-guide dimensions
+- `eval-fixtures.json` -- deterministic markers and forbidden generic patterns used by the replay harness
 
 ## What Changed
 
@@ -43,3 +44,7 @@ The guided sample pushes emotion into hands, breath, sound, and objects. The ung
 5. Compare the scene at the level of sentence rhythm, metaphor system, dialogue restraint, and physical grounding.
 
 The point is not that the guided sample is more ornate. The point is that it is more *specific* to the writer the style guide describes.
+
+## Replay Harness
+
+`lib/voice-dna-eval.js` runs a small regression check over this bundle. It is not a universal prose score. It verifies that the guided watchmaker sample keeps the expected image system, physical grounding, and restraint while the unguided sample still demonstrates the generic baseline. This protects the proof artifact from quietly drifting into a weaker comparison.

@@ -121,15 +121,15 @@ describe('D-03: Multi-Runtime Installer (RUNTIME-01)', () => {
   });
 
   it('install.js has all 8 runtimes', () => {
-    const content = fs.readFileSync(installPath, 'utf8');
-    assert.ok(/claude.code|claude-code/i.test(content), 'should support Claude Code');
-    assert.ok(/cursor/i.test(content), 'should support Cursor');
-    assert.ok(/gemini/i.test(content), 'should support Gemini');
-    assert.ok(/codex/i.test(content), 'should support Codex');
-    assert.ok(/opencode/i.test(content), 'should support OpenCode');
-    assert.ok(/copilot/i.test(content), 'should support Copilot');
-    assert.ok(/windsurf/i.test(content), 'should support Windsurf');
-    assert.ok(/antigravity/i.test(content), 'should support Antigravity');
+    const { RUNTIMES } = require('../bin/install.js');
+    assert.ok(RUNTIMES['claude-code'], 'should support Claude Code');
+    assert.ok(RUNTIMES.cursor, 'should support Cursor');
+    assert.ok(RUNTIMES['gemini-cli'], 'should support Gemini');
+    assert.ok(RUNTIMES.codex, 'should support Codex');
+    assert.ok(RUNTIMES.opencode, 'should support OpenCode');
+    assert.ok(RUNTIMES.copilot, 'should support Copilot');
+    assert.ok(RUNTIMES.windsurf, 'should support Windsurf');
+    assert.ok(RUNTIMES.antigravity, 'should support Antigravity');
   });
 
   it('commands avoid repo-local CONSTRAINTS.json and Claude-only agent paths', () => {

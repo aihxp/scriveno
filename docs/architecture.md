@@ -348,6 +348,8 @@ The installer detects which AI agents are available by checking for their config
 
 ### Three installation strategies
 
+Installer metadata now has an extracted stable seam: `lib/installer-runtime-registry.js` owns runtime registry metadata and surface-profile definitions, while `bin/install.js` still owns CLI orchestration and file writes. Generated command-contract fallback lives in `lib/command-contracts.js`; installed command writers call it so a missing `Next commands:` block can be generated during install while current source commands remain self-contained.
+
 **Command-directory (type: `commands`).** Copies individual command markdown files into the agent's command directory (for Claude Code, `~/.claude/commands/scr-*.md`; for other slash-command runtimes, nested `scr/` directories are still used). Each file becomes a slash command. Also copies agent files to the agent directory. This is the native approach for agents that support file-based commands.
 
 **Skill-file (type: `skills`).** Generates a single `SKILL.md` manifest file that lists all commands in a table. For platforms that do not support file-based command directories (like Manus), the SKILL.md acts as a command index that the agent reads to discover available commands. The agent then reads individual command files from the package directory.

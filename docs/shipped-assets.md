@@ -132,7 +132,8 @@ Sacred commands read top-level sacred profile keys in new projects and preserve 
 - `CHANGELOG.md` -- package-level release history
 - `docs/release-notes.md` -- public-facing release summary
 - `docs/proof-artifacts.md` -- canonical proof hub for sample-flow and voice-preservation evidence
-- `docs/quick-proof.md` -- proof-first first-run route through install checks, demo inspection, and next-draft commands
+- `docs/proof-badges.md` -- evidence-level vocabulary for major product claims
+- `docs/quick-proof.md` -- proof-first first-run route through install checks, demo inspection, next, draft, review, and save
 - `docs/versatility-paths.md` -- curated versatility narrative that keeps voice-preserving longform writing first while showcasing technical, sacred, visual, translation, and publishing paths
 - `docs/starter-sets.md` -- small command paths for common writing goals
 - `docs/release-checklist.md` -- release validation path for source, npm, GitHub, and fresh installs
@@ -142,9 +143,13 @@ Sacred commands read top-level sacred profile keys in new projects and preserve 
 - `docs/configuration.md` -- canonical project config and package metadata reference
 - `data/proof/watchmaker-flow/README.md` -- canonical sample-flow proof bundle rooted in shipped demo files
 - `data/proof/voice-dna/README.md` -- canonical Voice DNA proof bundle
+- `data/proof/voice-dna/eval-fixtures.json` -- deterministic paired-sample checks for the Voice DNA proof bundle
+- `data/proof/replay/golden-workflows.json` -- replay fixtures for flagship, technical, and publishing route decisions
+- `data/proof/evidence-levels.json` -- proof-badge source data for major claims
 - `data/proof/first-run/README.md` -- committed transcript artifact for the executable first-run path
 - `data/proof/runtime-parity/README.md` -- runtime install-surface evidence and host-parity boundary
 - `data/proof/runtime-parity/HOST-CAPTURE-PROTOCOL.md` -- repeatable capture protocol for actual host-runtime parity evidence
+- `data/proof/runtime-parity/capture-status.json` -- queued host-capture targets and evidence status
 - `data/proof/technical-flow/README.md` -- showcase proof bundle for runbook and technical-document workflows
 - `data/proof/sacred-flow/README.md` -- showcase proof bundle for sacred commentary workflows
 - `data/proof/visual-flow/README.md` -- showcase proof bundle for comic and visual-script workflows

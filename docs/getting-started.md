@@ -2,7 +2,7 @@
 
 Go from zero to a drafted scene in under 10 minutes. This guide walks you through installation, project setup, and your first draft.
 
-Want evidence first? Start with [Quick Proof](quick-proof.md), then continue to [Proof Artifacts](proof-artifacts.md). The watchmaker sample flow and the Voice DNA before/after bundle give you the fastest way to inspect what Scriveno actually proves today. Once that flagship path is clear, [Versatility Paths](versatility-paths.md) shows how the same engine adapts to technical, sacred, visual, translation, and publishing work.
+Want evidence first? Start with [Quick Proof](quick-proof.md), then continue to [Proof Artifacts](proof-artifacts.md) and [Proof Badges](proof-badges.md). The first path is deliberately narrow: first-run, demo, next, draft, review, save. Once that flagship path is clear, [Versatility Paths](versatility-paths.md) shows how the same engine adapts to technical, sacred, visual, translation, and publishing work.
 
 ## Prerequisites
 
@@ -38,11 +38,11 @@ That status command is the same shared auto-invoke engine used by `/scr-next`, `
 
 Use `--apply-safe` when you want Scriveno to run the read-only checks and show which helpers are safe, skipped, or agent-ready. Use `sync --check` when you want the installed runtime surfaces checked too.
 
-If you want one guided proof path instead of separate checks, start with `scriveno first-run --project .`.
+If you want one guided proof path instead of separate checks, start with `scriveno first-run --project .`. Follow only the first-run path at first: demo, next, draft, review, save. Start a real project after that proof loop makes sense.
 
-## Step 2: Explore the Demo (Optional)
+## Step 2: Explore the Demo First
 
-Not sure what Scriveno does? Try the demo before starting your own project:
+Try the demo before starting your own project:
 
 Claude Code:
 
@@ -66,9 +66,33 @@ This creates a pre-built short story project -- a retired watchmaker who receive
 
 Explore at your own pace. When you're ready to start your own work, run `/scr-demo --clear` to clean up.
 
-If you want a curated reading path instead of jumping straight into the demo files, open [Quick Proof](quick-proof.md) first. It maps the install checks, runtime command shapes, watchmaker demo, and next draft into one 10-minute path.
+If you want a curated reading path instead of jumping straight into the demo files, open [Quick Proof](quick-proof.md) first. It maps the install checks, runtime command shapes, watchmaker demo, next, draft, review, and save into one 10-minute path.
 
-## Step 3: Start Your Project
+## Step 3: Ask Next, Draft, Review, And Save
+
+Inside the demo project, keep the path small:
+
+Claude Code:
+
+```
+/scr-next
+/scr-draft 5
+/scr-editor-review 5
+/scr-save
+```
+
+Codex:
+
+```
+$scr-next
+$scr-draft 5
+$scr-editor-review 5
+$scr-save
+```
+
+That route proves the central loop before you decide whether to explore profiles, publishing, research, translation, or worldbuilding.
+
+## Step 4: Start Your Project
 
 Create a new writing project:
 
@@ -103,7 +127,7 @@ From your answers, Scriveno generates your project structure:
 
 Every file adapts to your work type. Writing a screenplay? You get acts and scenes. A research paper? Sections and argument maps. A runbook? Procedures and system maps. A Quran commentary? Surahs and doctrinal frameworks. Scriveno supports 50 work types with tradition-native vocabulary.
 
-## Step 4: Calibrate Your Voice
+## Step 5: Calibrate Your Voice
 
 Before you draft anything substantial, turn the STYLE-GUIDE template into a real voice profile:
 
@@ -135,7 +159,7 @@ $scr-voice-test
 
 That calibration pass writes a short sample and lets you say what sounds right or wrong before Scriveno starts drafting real units.
 
-## Step 5: Develop Your Story
+## Step 6: Develop Your Story
 
 Before drafting, shape your ideas:
 
@@ -157,7 +181,7 @@ Your decisions get saved to a context file that the drafter will use. Think of t
 
 If you already refined your voice profile, you can also skip this step and draft with the defaults you've approved.
 
-## Step 6: Write Your First Draft
+## Step 7: Write Your First Draft
 
 Draft your first unit:
 
@@ -214,7 +238,8 @@ For small goal-based paths, use [Starter Sets](starter-sets.md). For curated sho
 If you want the trust surfaces around installation and shipping details, continue with:
 
 - [Runtime Support](runtime-support.md) -- installer targets, support levels, and verification status
-- [Quick Proof](quick-proof.md) -- proof-first first-run path through install, demo, and next draft
+- [Quick Proof](quick-proof.md) -- proof-first first-run path through install, demo, next, draft, review, and save
+- [Proof Badges](proof-badges.md) -- evidence levels for major claims
 - [Starter Sets](starter-sets.md) -- small command sets by writing goal
 - [Versatility Paths](versatility-paths.md) -- curated showcase paths for the product's range
 - [Auto-Invoke Policy](auto-invoke-policy.md) -- status engine, visible automation, and agent-spawn boundaries

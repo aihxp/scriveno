@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "levels": {
+    "shipped": "The files or commands are included in the package.",
+    "install-tested": "Automated tests verify installer output or CLI behavior.",
+    "artifact-proven": "Committed proof artifacts can be inspected in data/proof.",
+    "replay-tested": "Automated tests replay saved project states or proof fixtures.",
+    "host-capture-ready": "A capture protocol and target are defined, but no host transcript is committed.",
+    "host-captured": "A transcript or screenshot from the real host runtime is committed.",
+    "external-tool-dependent": "The workflow requires user-installed external tools."
+  },
+  "claims": [
+    {
+      "claim": "Core first-run path",
+      "level": "artifact-proven",
+      "evidence": [
+        "data/proof/first-run/README.md",
+        "docs/quick-proof.md"
+      ]
+    },
+    {
+      "claim": "Voice DNA changes draft behavior",
+      "level": "replay-tested",
+      "evidence": [
+        "data/proof/voice-dna/README.md",
+        "data/proof/voice-dna/eval-fixtures.json",
+        "lib/voice-dna-eval.js"
+      ]
+    },
+    {
+      "claim": "Route decisions for key workflows",
+      "level": "replay-tested",
+      "evidence": [
+        "data/proof/replay/golden-workflows.json",
+        "test/proof-replay.test.js"
+      ]
+    },
+    {
+      "claim": "Runtime install surfaces",
+      "level": "install-tested",
+      "evidence": [
+        "test/install.test.js",
+        "test/installer.test.js",
+        "docs/runtime-support.md"
+      ]
+    },
+    {
+      "claim": "Host-runtime parity",
+      "level": "host-capture-ready",
+      "evidence": [
+        "data/proof/runtime-parity/HOST-CAPTURE-PROTOCOL.md",
+        "data/proof/runtime-parity/capture-status.json"
+      ]
+    },
+    {
+      "claim": "Publishing export packages",
+      "level": "external-tool-dependent",
+      "evidence": [
+        "docs/publishing.md",
+        "docs/runtime-support.md",
+        "data/export-templates/"
+      ]
+    }
+  ]
+}

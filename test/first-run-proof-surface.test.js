@@ -46,6 +46,7 @@ describe('first-run proof surface', () => {
 
   it('keeps the first-run documents linked from README', () => {
     assert.match(readme, /\[Quick Proof\]\(docs\/quick-proof\.md\)/);
+    assert.match(readme, /\[Proof Badges\]\(docs\/proof-badges\.md\)/);
     assert.match(readme, /\[Starter Sets\]\(docs\/starter-sets\.md\)/);
     assert.match(readme, /\[Versatility Paths\]\(docs\/versatility-paths\.md\)/);
     assert.match(readme, /\[Release Checklist\]\(docs\/release-checklist\.md\)/);
@@ -74,7 +75,9 @@ describe('first-run proof surface', () => {
     assert.match(quickProof, /\/scr-draft 5/);
     assert.match(quickProof, /\/scr:first-run/);
     assert.match(quickProof, /\/scr:draft 5/);
+    assert.match(quickProof, /\/scr:save/);
     assert.match(quickProof, /\$scr-draft 5/);
+    assert.match(quickProof, /\$scr-save/);
     assert.match(quickProof, /scriveno first-run --project \./);
     assert.match(quickProof, /scriveno smoke --json/);
     assert.match(quickProof, /Claude Code is the primary reference runtime/);
@@ -97,6 +100,7 @@ describe('first-run proof surface', () => {
     assert.match(firstRunProof, /scriveno first-run --project \./);
     assert.match(firstRunProof, /scriveno smoke --json/);
     assert.match(firstRunProof, /\/scr:draft 5/);
+    assert.match(firstRunProof, /\/scr:save/);
     assert.match(firstRunProof, new RegExp(`"expectedCommands": ${commandIds().size}`));
     assert.match(runtimeParity, /Claude Code/);
     assert.match(runtimeParity, /Codex/);

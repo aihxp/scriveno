@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "description": "Deterministic Voice DNA proof checks for the watchmaker paired samples.",
+  "fixtures": [
+    {
+      "id": "watchmaker-guided",
+      "sample": "GUIDED-SAMPLE.md",
+      "expected_pass": true,
+      "min_markers": 8,
+      "max_forbidden": 0,
+      "required_markers": [
+        "The clock was on the table again",
+        "Gulls",
+        "Wind at the window frame",
+        "blued-steel hands",
+        "felt box",
+        "thumb's width",
+        "salt on the window",
+        "old cutlery",
+        "checking for a pulse",
+        "His hands went still"
+      ],
+      "forbidden_patterns": [
+        "feeling nervous",
+        "like a symbol",
+        "whole room felt",
+        "weight of regret",
+        "more than anything",
+        "some broken part",
+        "whether people were ready or not"
+      ],
+      "model_tier_notes": [
+        "High-capability models should preserve the image system without copying source phrasing.",
+        "Smaller models should prefer physical beats over abstract emotional labels."
+      ]
+    },
+    {
+      "id": "watchmaker-unguided",
+      "sample": "UNGUIDED-SAMPLE.md",
+      "expected_pass": false,
+      "min_markers": 8,
+      "max_forbidden": 0,
+      "required_markers": [
+        "The clock was on the table again",
+        "blued-steel hands",
+        "felt box",
+        "thumb's width",
+        "salt on the window",
+        "old cutlery",
+        "checking for a pulse",
+        "His hands went still"
+      ],
+      "forbidden_patterns": [
+        "feeling nervous",
+        "like a symbol",
+        "whole room felt",
+        "weight of regret",
+        "more than anything",
+        "some broken part",
+        "whether people were ready or not"
+      ],
+      "model_tier_notes": [
+        "This sample is expected to fail because it demonstrates the generic baseline."
+      ]
+    }
+  ]
+}

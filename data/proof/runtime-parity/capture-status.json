@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "updated": "2026-06-08",
+  "policy": "No runtime is marked host-captured until a transcript or screenshot artifact from the real host is committed.",
+  "priority_order": [
+    "claude-code",
+    "codex",
+    "standard-command-runtime"
+  ],
+  "runtimes": [
+    {
+      "runtime": "claude-code",
+      "label": "Claude Code",
+      "status": "queued",
+      "evidence_level": "host-capture-ready",
+      "command_shape": "/scr-*",
+      "capture_dir": "data/proof/runtime-parity/claude-code/",
+      "required_artifacts": [
+        "README.md",
+        "TRANSCRIPT.md"
+      ]
+    },
+    {
+      "runtime": "codex",
+      "label": "Codex",
+      "status": "queued",
+      "evidence_level": "host-capture-ready",
+      "command_shape": "$scr-*",
+      "capture_dir": "data/proof/runtime-parity/codex/",
+      "required_artifacts": [
+        "README.md",
+        "TRANSCRIPT.md"
+      ]
+    },
+    {
+      "runtime": "standard-command-runtime",
+      "label": "Standard command-directory runtime",
+      "status": "queued",
+      "evidence_level": "host-capture-ready",
+      "command_shape": "/scr:*",
+      "capture_dir": "data/proof/runtime-parity/standard-command-runtime/",
+      "required_artifacts": [
+        "README.md",
+        "TRANSCRIPT.md"
+      ]
+    }
+  ]
+}

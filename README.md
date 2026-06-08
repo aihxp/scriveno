@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/aihxp/scriveno/actions/workflows/ci.yml/badge.svg)](https://github.com/aihxp/scriveno/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-3.2.3-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-3.2.4-blue)](CHANGELOG.md)
 [![npm](https://img.shields.io/npm/v/scriveno.svg)](https://www.npmjs.com/package/scriveno)
 [![Downloads](https://img.shields.io/npm/dm/scriveno.svg)](https://www.npmjs.com/package/scriveno)
 [![Status CLI](https://img.shields.io/badge/status%20CLI-scriveno%20status-blue)](docs/runtime-support.md#shared-auto-invoke-engine)
@@ -21,7 +21,7 @@
 
 Scriveno brings spec-driven workflows to longform writing. It runs inside your AI coding agent (Claude Code, Cursor, Gemini CLI, and more) and also ships a guided Perplexity Desktop setup path for file-aware support without overstating parity.
 
-Scriveno is best understood as **AI-native longform writing software built around voice preservation**. Its core promise is narrow and high-stakes: drafted prose should sound like the writer, not like AI. The flagship path is simple: finish a long manuscript in your own voice. The range comes after that: the same engine adapts to technical, sacred, visual, translation, and publishing workflows without forcing them into a novel-shaped template. If you want evidence before features, start with the [Quick Proof](docs/quick-proof.md), then inspect the [Proof Artifacts](docs/proof-artifacts.md) and [Versatility Paths](docs/versatility-paths.md).
+Scriveno is best understood as **AI-native longform writing software built around voice preservation**. Its core promise is narrow and high-stakes: drafted prose should sound like the writer, not like AI. The first path is intentionally small: first-run, demo, next, draft, review, save. The range comes after trust is earned: the same engine adapts to technical, sacred, visual, translation, and publishing workflows without forcing them into a novel-shaped template. If you want evidence before features, start with the [Quick Proof](docs/quick-proof.md), then inspect the [Proof Artifacts](docs/proof-artifacts.md), [Proof Badges](docs/proof-badges.md), and [Versatility Paths](docs/versatility-paths.md).
 
 ```bash
 npx scriveno@latest
@@ -57,24 +57,32 @@ Everything adapts to your work type. A novel uses `/scr:draft` for chapters. A s
 # Install
 npx scriveno@latest
 
-# In Claude Code:
-/scr-first-run     # Run the guided proof path first
-/scr-new-work        # Start a fresh project
-/scr-demo            # Explore a pre-built sample first
-/scr-next            # The universal "what should I do now" command
-/scr-help            # See what's available for your work type
+# In Claude Code, use the narrow proof path first:
+/scr-first-run
+/scr-demo
+/scr-next
+/scr-draft 5
+/scr-editor-review 5
+/scr-save
+
+# Then start a real project:
+/scr-new-work
 
 # Other slash-command runtimes currently keep /scr:*:
 /scr:first-run
-/scr:new-work
+/scr:demo
 /scr:next
+/scr:draft 5
+/scr:editor-review 5
+/scr:save
 
 # In Codex, use the generated $scr-* skills:
 $scr-first-run
-$scr-new-work
 $scr-demo
 $scr-next
-$scr-help
+$scr-draft 5
+$scr-editor-review 5
+$scr-save
 ```
 
 If you only ever type `/scr-next` in Claude Code, you can complete an entire novel. It always knows what's next.
@@ -200,7 +208,8 @@ Scriveno is built on five principles:
 ## Documentation
 
 - [Proof Artifacts](docs/proof-artifacts.md) -- Canonical proof hub for the watchmaker sample flow and Voice DNA before/after bundle
-- [Quick Proof](docs/quick-proof.md) -- 10-minute proof-first route through install checks, the demo, and the next draft
+- [Proof Badges](docs/proof-badges.md) -- Evidence levels for major product claims
+- [Quick Proof](docs/quick-proof.md) -- 10-minute proof-first route through install checks, the demo, next, draft, review, and save
 - [Starter Sets](docs/starter-sets.md) -- Small command paths for drafting, world and research, polishing, publishing, translation, sacred commentary, and repair
 - [Versatility Paths](docs/versatility-paths.md) -- Curated showcase paths for technical, sacred, visual, translation, and publishing workflows
 - [Workflow Optimization Audit](docs/workflow-optimization-audit.md) -- Consolidation, redundancy, authenticity, and journey-surface findings
@@ -252,11 +261,11 @@ Scriveno currently ships installer targets for these AI tooling environments:
 
 ## Status
 
-**Version:** 3.2.3
+**Version:** 3.2.4
 
 Scriveno's core command surface is stable across 122 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, plus the creative-context, record-store, neutral research layer, world/place/geography layers, prepublish editorial review, branching-next, runtime-sync, adaptive concierge, human-first writing-safeguard, authenticity-diagnostic, domain-grilling, installer-marker cleanup, cross-runtime agent metadata, bounded subagent spawning protocol, model adaptation guide, visible automation status, the shared `scriveno status --project .` auto-invoke engine, route-intelligence lanes, safe apply reporting, runtime smoke checks, agent availability checks, route graph audits, workflow-reference guards, the full audit repair pass through `2.0.11`, the first-run proof surface in `2.5.0`, the executable `/scr:first-run` path, command profiles, context-health checks, `/scr:proof-unit`, hub-first command families, and interactive install profile selection. See [Quick Proof](docs/quick-proof.md) for the fastest proof path, [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory, and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
 
-Version `3.2.3` publishes Scriveno under the package name `scriveno`, so the current install command is `npx scriveno@latest`. The older `scriveno-cli` package name is historical and was unpublished during the rename, so npm cannot attach a deprecation notice to it while it has no active registry record. The older `scriven-cli` package remains on npm only as a deprecated legacy name that points users to `scriveno`. Do not treat either legacy package name as active unless a deliberate compatibility shim is republished. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
+Version `3.2.4` publishes Scriveno under the package name `scriveno`, so the current install command is `npx scriveno@latest`. The older `scriveno-cli` package name is historical and was unpublished during the rename, so npm cannot attach a deprecation notice to it while it has no active registry record. The older `scriven-cli` package remains on npm only as a deprecated legacy name that points users to `scriveno`. Do not treat either legacy package name as active unless a deliberate compatibility shim is republished. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
 
 Package history is tracked in [CHANGELOG.md](CHANGELOG.md), and the public-facing summary for this release is in [docs/release-notes.md](docs/release-notes.md).
 

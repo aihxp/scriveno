@@ -4,12 +4,13 @@ This document is the canonical index of Scriveno's proof layer. It points to con
 
 ## Start Here
 
-- Read **Quick Proof** if you want one 10-minute route through installation checks, demo inspection, runtime command shapes, and the next draft command.
+- Read **Quick Proof** if you want one 10-minute route through installation checks, demo inspection, runtime command shapes, next, draft, review, and save.
 - Read **First-Run Proof** if you want the committed transcript artifact for `/scr:first-run`, `scriveno first-run --project .`, runtime smoke, and the demo flow.
 - Read the **Watchmaker Sample Flow** if you want one end-to-end writing workflow from setup through drafts, review, and next step.
 - Read **Voice DNA** if you want the shortest possible proof of how style guidance changes output on the same brief.
 - Read **Creative Context** if you want to see one craft choice travel through discuss, plan, draft, and review artifacts.
 - Read **Versatility Paths** if you want curated routes for technical, sacred, visual, translation, and publishing workflows after the flagship proof path.
+- Read **Proof Badges** if you want each major claim labeled by evidence level: shipped, install-tested, artifact-proven, replay-tested, host-capture-ready, host-captured, or external-tool-dependent.
 
 **Fast path:** [Quick Proof](quick-proof.md)
 
@@ -27,6 +28,14 @@ These bundles make the range inspectable without making every path compete with 
 | Translation And Publishing Flow | Glossary, memory, back-translation, front/back matter, prepublish review, and package gating | [data/proof/translation-publishing-flow/README.md](../data/proof/translation-publishing-flow/README.md) |
 
 Each bundle includes a state snapshot, representative plan, representative draft or output artifact, and a next-command continuation. They are proof of workflow shape and evidence discipline, not a claim that every possible project in that domain has been exhaustively verified.
+
+## Replay-Tested Proofs
+
+Scriveno now has a small replay layer for the claims that should be more than inspectable prose:
+
+- [data/proof/replay/golden-workflows.json](../data/proof/replay/golden-workflows.json) replays flagship novel, technical runbook, and publishing-package states into expected route decisions.
+- [data/proof/voice-dna/eval-fixtures.json](../data/proof/voice-dna/eval-fixtures.json) checks the watchmaker guided and unguided samples against durable Voice DNA markers.
+- [test/proof-replay.test.js](../test/proof-replay.test.js) runs those replay checks through the shared auto-invoke engine and Voice DNA evaluator.
 
 ## Watchmaker Sample Flow
 
@@ -79,8 +88,9 @@ Read the bundle in order if you want to inspect sentence rhythm, metaphor select
 
 ## Related Trust Docs
 
+- [Proof Badges](proof-badges.md) -- evidence levels for major product claims
 - [Shipped Assets](shipped-assets.md) -- canonical inventory of the trust-critical files Scriveno actually bundles
-- [Quick Proof](quick-proof.md) -- 10-minute proof-first path through install checks, the demo, and the next draft
+- [Quick Proof](quick-proof.md) -- 10-minute proof-first path through install checks, the demo, next, draft, review, and save
 - [Starter Sets](starter-sets.md) -- small command sets by writing goal
 - [Versatility Paths](versatility-paths.md) -- curated showcase paths for the product's range
 - [Authenticity And AI Detectors](authenticity-and-detectors.md) -- external detector scores, process evidence, and authenticity diagnostic boundaries
