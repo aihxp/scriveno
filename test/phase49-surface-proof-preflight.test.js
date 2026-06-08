@@ -105,7 +105,9 @@ describe('phase 49 command profiles and proof path', () => {
     assert.match(read('commands/scr/surface.md'), /scriveno surface profile <name> --dry-run/);
     assert.match(read('commands/scr/export.md'), /If `--check` is passed/);
     assert.match(read('commands/scr/publish.md'), /If `--preflight` was passed/);
+    assert.match(read('commands/scr/prepublish-review.md'), /final editorial go\/no-go/i);
     assert.match(read('docs/command-reference.md'), /\/scr:proof-unit/);
     assert.match(read('docs/command-reference.md'), /\/scr:surface/);
+    assert.match(read('docs/command-reference.md'), /\/scr:prepublish-review/);
   });
 });

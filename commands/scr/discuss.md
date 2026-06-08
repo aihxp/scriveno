@@ -15,7 +15,7 @@ Load `.manuscript/config.json` to get the `command_unit` (chapter, act, section,
 
 0. **Bootstrap (context-cost protocol).** Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it for orientation (project title, work type, current unit, recent activity) and skip the corresponding STATE.md lookup in step 2. The discuss phase still needs the full creative inputs in step 1 (WORK.md, OUTLINE.md, RECORD.md, STYLE-GUIDE.md, characters, plot, themes, prior drafts) -- those are not orientation; they are source material the discussion turns on. If CONTEXT.md is missing or stale, run steps 1-2 unchanged. See `docs/context-protocol.md`.
 
-1. **Load Creative Context.** Read WORK.md, OUTLINE.md, RECORD.md, STYLE-GUIDE.md, CHARACTERS.md (or adapted equivalents), PLOT-GRAPH.md, THEMES.md, and any previously drafted units. If RECORD.md is missing in an older project, continue and note that `/scr:scan --fix` or `/scr:save` can initialize it later. If those files include `creative_pillar` frontmatter, use it as a routing hint only; older projects without metadata are equally valid. STYLE-GUIDE.md remains sovereign for voice. Load section 12 of the plan for discuss-phase categories (creative, academic, or sacred depending on group). See `docs/creative-context.md`.
+1. **Load Creative Context.** Resolve variable context surfaces through `docs/surface-resolution-protocol.md`, then read WORK.md, OUTLINE.md, RECORD.md, STYLE-GUIDE.md, the adapted cast surface, the adapted plot surface, the adapted themes surface, and any previously drafted units. If RECORD.md is missing in an older project, continue and note that `/scr:scan --fix` or `/scr:save` can initialize it later. If those files include `creative_pillar` frontmatter, use it as a routing hint only; older projects without metadata are equally valid. STYLE-GUIDE.md remains sovereign for voice. Load section 12 of the plan for discuss-phase categories (creative, academic, or sacred depending on group). See `docs/creative-context.md`.
 
    Also read `.manuscript/SEEDS.md` if it exists, and surface any planted seed relevant to this unit ("You planted a seed about X, want to work it in here?"). This is the consumer for `/scr:plant-seed`, so captured ideas resurface at the right moment instead of being left behind.
 
@@ -41,7 +41,7 @@ Load `.manuscript/config.json` to get the `command_unit` (chapter, act, section,
 
    Don't ask all of them. Pick the 3-4 most relevant for this specific unit. If the writer seems ready to move on, move on.
 
-   If the unit involves named characters, read their `Persona under pressure` and `Relationship-specific interactions` sections from CHARACTERS.md. Ask at most one persona or interaction question, for example: "Mara gets terse when afraid, but Elias makes her defensive. Does this scene let that mask hold, or crack?" If the writer answers, capture it as a `CHOICE` or `WATCHPOINT`.
+   If the unit involves named cast entries, read their `Persona under pressure` and `Relationship-specific interactions` sections from the adapted cast surface. Ask at most one persona or interaction question, for example: "Mara gets terse when afraid, but Elias makes her defensive. Does this scene let that mask hold, or crack?" If the writer answers, capture it as a `CHOICE` or `WATCHPOINT`.
 
    If the unit is driven by an idea, subject, theme, object, setting, process, doctrine, argument, reader problem, or image pattern, use subject dynamics whether or not named characters are present. Read the reader journey in BRIEF.md or DOC-BRIEF.md, the theme or doctrine threads, the argument or procedure map, and any adapted source such as QUESTIONS.md, REFERENCES.md, DOCTRINES.md, SYSTEM.md, or PROCEDURES.md.
 
@@ -49,7 +49,7 @@ Load `.manuscript/config.json` to get the `command_unit` (chapter, act, section,
 
    Use RECORD.md to ask about established content only when it matters. Good prompts connect the current unit to an existing thread, promise, continuity fact, or next-unit obligation without making the writer audit the whole project.
 
-   **Domain grilling:** Before you accept a fuzzy term, overloaded label, or claim about how the project works, check the relevant source files first. Use RECORD.md for established facts and definitions, STYLE-GUIDE.md for voice language, CHARACTERS.md or FIGURES.md for cast terms, WORLD.md or SYSTEM.md for operating rules, PLOT-GRAPH.md or PROCEDURES.md for sequence and causality, THEMES.md, QUESTIONS.md, DOCTRINES.md, or REFERENCES.md for subject language, and prior drafts for what has already appeared on the page.
+   **Domain grilling:** Before you accept a fuzzy term, overloaded label, or claim about how the project works, check the relevant source files first. Use RECORD.md for established facts and definitions, STYLE-GUIDE.md for voice language, the adapted cast surface for cast terms, the adapted world or system surface for operating rules, PLOT-GRAPH.md or PROCEDURES.md for sequence and causality, THEMES.md, QUESTIONS.md, DOCTRINES.md, or REFERENCES.md for subject language, and prior drafts for what has already appeared on the page.
 
    If the files answer the question, do not ask the writer. If the writer's wording conflicts with existing language, call out the mismatch immediately and ask which term or rule wins. If the wording is vague, propose one precise canonical term and ask for confirmation. Always ask one question at a time and include your recommended answer.
 
@@ -93,6 +93,10 @@ Load `.manuscript/config.json` to get the `command_unit` (chapter, act, section,
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

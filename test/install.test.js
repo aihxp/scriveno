@@ -610,6 +610,35 @@ describe('generateClaudeCommandContent regression (code-block aware)', () => {
       '<!-- scriveno-installed-command runtime:claude-code command:/scr-help source:help.md -->'
     ));
   });
+
+  it('rewrites fenced Next commands examples to Claude command names', () => {
+    const entry = {
+      commandRef: '/scr:history',
+      relativePath: 'history.md',
+      skillName: 'scr-history',
+      description: 'history',
+      argumentHint: '',
+    };
+    const source = [
+      TB + 'markdown',
+      'Next commands:',
+      '- `/scr:...`: One short sentence explaining what this path will do.',
+      '- `/scr:history`: Review save history.',
+      '- `/scr:export`: Build deliverables.',
+      TB,
+      '',
+      TB + 'bash',
+      'echo /scr:history',
+      TB,
+      '',
+    ].join('\n');
+    const out = generateClaudeCommandContent(entry, source);
+    assert.ok(out.includes('- `/scr-...`: One short sentence explaining what this path will do.'));
+    assert.ok(out.includes('- `/scr-history`: Review save history.'));
+    assert.ok(out.includes('- `/scr-export`: Build deliverables.'));
+    assert.ok(!out.includes('- `/scr:...`: One short sentence explaining what this path will do.'));
+    assert.ok(out.includes(TB + 'bash\necho /scr:history\n' + TB));
+  });
 });
 
 describe('installCodexRuntime rewrites command files', () => {

@@ -21,11 +21,12 @@ Display tracked themes and suggest new ones from drafted prose. Suggestions requ
 You are a thematic analyst. Load:
 - `.manuscript/config.json` (to get `work_type`)
 - Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check command adaptations and file mappings)
+- `docs/surface-resolution-protocol.md` (to resolve adapted themes and cast surfaces)
 - The appropriate themes file based on work type (from CONSTRAINTS.json `file_adaptations`):
   - Default: `.manuscript/THEMES.md`
   - Academic work types keep analogous material in `.manuscript/QUESTIONS.md`, but `/scr:theme-tracker` is hidden for academic projects
   - Sacred work types keep analogous material in `.manuscript/DOCTRINES.md`, but `/scr:theme-tracker` is hidden for sacred projects
-- `.manuscript/CHARACTERS.md` (or adapted equivalent, for character-theme connections)
+- The adapted cast surface for canonical `CHARACTERS.md`, when applicable, for cast-theme connections
 - Drafted prose from `.manuscript/drafts/body/` (for auto-detection mode)
 
 Before proceeding, verify that the current work type is actually allowed to run `theme-tracker`. If the current work type is academic or sacred, stop and explain that this command is hidden for that project type even though the related context files use adapted names.
@@ -104,6 +105,10 @@ For each theme, show:
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

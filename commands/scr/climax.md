@@ -23,9 +23,9 @@ Climax generation is for narrative work (prose, script, visual, interactive, and
 
 Load every surface the climax must satisfy:
 - `WORK.md` -- premise, central question, logline, and the core conflict (primary type, external, internal)
-- `CONFLICTS.md` if present -- the central conflict and the pairwise conflicts that must resolve or detonate here; otherwise read the conflict from `WORK.md` and the character entries
+- `CONFLICTS.md` if present -- the central conflict and the pairwise conflicts that must resolve or detonate here; otherwise read the conflict from `WORK.md` and the adapted cast entries
 - `OUTLINE.md` -- the `Crisis` and `Climax` arc positions and the surrounding beats
-- `CHARACTERS.md` (or the adapted file) -- for each major character: want (conscious), need (unconscious), lie, the truth they must learn, and their arc start, turning point, and end
+- The adapted cast surface for canonical `CHARACTERS.md` -- for each major cast entry: want (conscious), need (unconscious), lie, the truth they must learn, and their arc start, turning point, and end
 - `RECORD.md` -- "Promises and payoffs": every device still `planted` (Chekhov's guns that must fire) and open threads that need resolution
 - `THEMES.md` (or the adapted file) -- the thematic question the climax should answer
 
@@ -56,7 +56,7 @@ Reject or flag any option that wins by **deus ex machina** (a rescue from outsid
 
 When the writer chooses or refines an option:
 - Write the chosen climax into the `Climax` arc position in `OUTLINE.md`, and note how the `Crisis` turns into it.
-- Regenerate `.manuscript/CONFLICTS.md` from `WORK.md` and the character entries per `docs/conflict-protocol.md`, so the conflict map's climax reference reflects the chosen climax instead of going stale.
+- Regenerate `.manuscript/CONFLICTS.md` from `WORK.md` and the adapted cast entries per `docs/conflict-protocol.md`, so the conflict map's climax reference reflects the chosen climax instead of going stale.
 - In `RECORD.md` "Promises and payoffs", mark the devices this climax fires with their expected payoff location (the climax unit).
 - Append one line to `.manuscript/HISTORY.log` per `docs/history-protocol.md`: `{ISO} | scr:climax | unit={N} | options={count} | outcome=ok`.
 - Hand off: "Run `/scr:plan {N}` to plan the climax scene, then `/scr:draft {N}`. The conflict map and the unit's causal anchor will carry this climax into the scene."
@@ -64,6 +64,10 @@ When the writer chooses or refines an option:
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

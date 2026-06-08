@@ -33,17 +33,18 @@ If sacred work type, use "figure-ref" terminology throughout and adapt language 
 
 ### Load Character Data
 
-Determine the correct characters file from `file_adaptations`:
+Determine the adapted cast surface for canonical `CHARACTERS.md` from `docs/surface-resolution-protocol.md` and `file_adaptations`:
 - Default: `.manuscript/CHARACTERS.md`
 - Sacred: `.manuscript/FIGURES.md`
+- Technical: `.manuscript/AUDIENCE.md`
 - Academic: `.manuscript/CONCEPTS.md` (though academic is hidden, handle gracefully)
 
-Load the adapted characters file.
+Load the adapted cast surface.
 
 Find the character by name (case-insensitive match, same pattern as character-sheet.md):
 - If no exact match: check for partial matches and list them
 - If no matches at all: "No character named '{name}' found. Run `/scr:cast-list` to see all characters."
-- If characters file is empty or missing: "No characters found. Run `/scr:new-character <name>` to create your first character."
+- If the adapted cast surface is empty or missing: "No cast entries found. Run `/scr:new-character <name>` to create your first entry."
 
 ### Extract Visual Details
 
@@ -139,6 +140,10 @@ After saving, suggest:
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

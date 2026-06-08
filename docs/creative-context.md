@@ -32,7 +32,7 @@ Use it when a writer introduces a fuzzy term, a loaded term, a term that conflic
 
 The rules:
 
-1. Check the project first. If WORK.md, RECORD.md, STYLE-GUIDE.md, WORLD.md, SYSTEM.md, PROCEDURES.md, REFERENCES.md, DOCTRINES.md, QUESTIONS.md, CHARACTERS.md, FIGURES.md, or prior drafts can answer the question, read them instead of asking the writer.
+1. Check the project first. If WORK.md, RECORD.md, STYLE-GUIDE.md, RESEARCH.md, the adapted world, system, procedure, reference, doctrine, question, cast, or prior drafts can answer the question, read them instead of asking the writer.
 2. Challenge conflicts immediately. If the writer says "account" but REFERENCES.md defines "workspace" as the thing being discussed, name the mismatch and ask which term should win.
 3. Sharpen fuzzy language. Propose a precise canonical term when a phrase can mean more than one thing.
 4. Test concrete scenarios. Use one specific edge case to expose unclear boundaries, especially for procedures, doctrines, magic systems, character knowledge, source handling, and reader promises.
@@ -41,7 +41,8 @@ The rules:
    - Unit-specific choices go in `.manuscript/{N}-CONTEXT.md` as `CHOICE`, `QUESTION`, or `WATCHPOINT`.
    - Durable established facts, definitions, promises, and procedure truths go in RECORD.md.
    - Technical canonical terminology and sources of truth go in REFERENCES.md.
-   - World, doctrine, audience, system, procedure, character, or theme decisions go in their matching adapted source file.
+   - World, doctrine, audience, system, procedure, character, place, or theme decisions go in their matching adapted source file.
+   - Real-world, source-backed, or craft research notes go in RESEARCH.md first, then move into canon only if the writer accepts them through a touch command or source file edit.
 
 Do not turn `.manuscript/CONTEXT.md` into a glossary. It is an auto-regenerated bootstrap, not a decision notebook.
 
@@ -54,7 +55,8 @@ Do not turn `.manuscript/CONTEXT.md` into a glossary. It is an auto-regenerated 
 | `structure` | `OUTLINE.md`, `PLOT-GRAPH.md` | Unit order, arc shape, pacing, setup and payoff |
 | `record` | `RECORD.md` | Established content, open threads, promises, payoffs, continuity facts, movement, and next-unit obligations |
 | `cast` | `CHARACTERS.md`, `FIGURES.md` | Character state, voice anchors, relationships, figure continuity |
-| `world` | `WORLD.md`, `COSMOLOGY.md`, `SYSTEM.md` | Setting, constraints, environment, cosmology, operating rules |
+| `world` | `WORLD.md`, `COSMOLOGY.md`, `SYSTEM.md`, `PLACES.md`, `GEOGRAPHY.md` | Environment, cosmology, operating rules, confirmed places, and derived spatial continuity |
+| `research` | `RESEARCH.md` | Advisory source-backed, factual, craft, period, technical, cultural, sacred, scholarly, and comparable-work context |
 | `themes` | `THEMES.md`, `DOCTRINES.md`, `QUESTIONS.md` | Motifs, doctrine, argument, inquiry, recurring meaning |
 | `continuity` | `STATE.md`, `CONTEXT.md`, `PROGRESS.md`, `HISTORY.log` | Current position, recent activity, per-unit progress ledger, open items, disk truth |
 | `publication` | front matter, back matter, build files | Export and publishing intent |
@@ -117,7 +119,7 @@ Load craft notes from `{N}-CONTEXT.md`. Convert confirmed choices into plan cons
 
 Load RECORD.md as the compact established-content store. Plans should include `## Record Notes` when the unit touches established facts, open threads, reader promises, payoffs, continuity facts, or next-unit obligations.
 
-Run a domain model check before drafting: compare the plan's terms and assumptions against RECORD.md, REFERENCES.md, and the relevant adapted source files. If the plan uses a term differently than the project does, either revise the plan language or mark a blocking question.
+Run a domain model check before drafting: compare the plan's terms and assumptions against RECORD.md, REFERENCES.md, PLACES.md, GEOGRAPHY.md, RESEARCH.md when relevant, and the relevant adapted source files. If the plan uses a term, place, route, or factual claim differently than the project does, either revise the plan language or mark a blocking question.
 
 ### draft
 
@@ -129,9 +131,13 @@ Character persona notes are part of the same loop. Plans can include `## Charact
 
 Subject dynamics can layer onto any work type. Plans can include `## Subject Dynamics Notes` for the active idea, subject, process, place, object, doctrine, claim, evidence set, procedure, reader problem, or thematic pressure. These notes track the reader's starting state, the desired shift, the pressure or friction around the subject, and the interaction between ideas, evidence, steps, exceptions, images, objects, settings, or themes. The drafter turns those notes into movement on the page, never into visible craft labels.
 
+Confirmed places are a world sublayer, not a general notes inbox. Plans and drafts may load PLACES.md and the derived GEOGRAPHY.md when a unit depends on location, travel, access, boundaries, route logic, or setting pressure.
+
+RESEARCH.md is a neutral advisory surface, not a world file. Plans and drafts may load it for factual, craft, source, or period grounding, but it is advisory until accepted into RECORD.md, PLACES.md, the adapted cast surface, the adapted subject surface, the adapted world surface, or another owner file.
+
 For character-based work, use both sections when both layers matter. `## Character Persona Notes` answers how people behave under pressure. `## Subject Dynamics Notes` answers how meaning, theme, object significance, setting pressure, doctrine, argument, or reader understanding moves through the unit. If the two sections conflict, the plan should resolve the conflict before drafting rather than asking the drafter to guess.
 
-When a draft changes subject movement after the plan has already landed, `/scr:subject-touch` updates the relevant living subject file, such as THEMES.md, QUESTIONS.md, REFERENCES.md, DOCTRINES.md, PROCEDURES.md, ARGUMENT-MAP.md, or an adapted context file.
+When a draft changes subject movement after the plan has already landed, `/scr:subject-touch` updates the relevant living subject file, such as THEMES.md, QUESTIONS.md, REFERENCES.md, DOCTRINES.md, PROCEDURES.md, ARGUMENT-MAP.md, or an adapted context file. When a draft changes a confirmed place, `/scr:place-touch` updates PLACES.md and then the derived GEOGRAPHY.md can be regenerated.
 
 Edge cases:
 

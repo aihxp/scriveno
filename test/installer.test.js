@@ -22,7 +22,9 @@ const {
   generateCodexAgentMetadata,
   generateCodexSkill,
   generateSkillManifest,
+  buildInstallDryRun,
   buildFilesystemMcpCommand,
+  formatInstallDryRunReport,
   generatePerplexitySetupGuide,
 } = require('../bin/install.js');
 
@@ -268,6 +270,17 @@ describe('generateSkillManifest', () => {
       );
     }
   });
+
+  it('includes model adaptation guidance for generic skill hosts', () => {
+    assert.match(manifest, /## Runtime and Model Adaptation/);
+    assert.match(manifest, /Kimi-compatible hosts/);
+    assert.match(manifest, /host owns model selection/);
+    assert.match(manifest, /\.scriveno\/docs\/model-adaptation\.md/);
+    assert.match(manifest, /prompt-run fallback used/);
+    assert.match(manifest, /\/scr:research/);
+    assert.match(manifest, /\/scr:scan --deep/);
+    assert.match(manifest, /draft\.rigor: strict/);
+  });
 });
 
 describe('Codex skill helpers', () => {
@@ -301,6 +314,12 @@ describe('Codex skill helpers', () => {
     assert.match(skill, /\$scr-help/);
     assert.match(skill, /\/tmp\/\.codex\/commands\/scr\/help\.md/);
     assert.match(skill, /\/scr:sacred:concordance/);
+    assert.match(skill, /## Model and Runtime Rules/);
+    assert.match(skill, /Codex owns the underlying model/);
+    assert.match(skill, /\.scriveno\/docs\/model-adaptation\.md/);
+    assert.match(skill, /prompt-run fallback used/);
+    assert.match(skill, /\/scr:research/);
+    assert.match(skill, /\/scr:scan --deep/);
   });
 
   it('maps command entries to Claude flat command file names', () => {
@@ -347,6 +366,38 @@ Run \`/scr:help\`, then \`/scr:new-work\`, and finally \`/scr:sacred:concordance
     assert.match(installed, /`\/scr-new-work`/);
     assert.match(installed, /`\/scr-sacred-concordance`/);
     assert.doesNotMatch(installed, /\/scr:help/);
+  });
+
+  it('rewrites Claude-installed Next commands examples inside fenced markdown blocks', () => {
+    const content = [
+      'Use this format:',
+      '',
+      '```markdown',
+      'Next commands:',
+      '- `/scr:...`: One short sentence explaining what this path will do.',
+      '- `/scr:history`: Review save history.',
+      '- `/scr:export`: Build deliverables.',
+      '```',
+      '',
+      '```bash',
+      'echo /scr:history',
+      '```',
+      '',
+    ].join('\n');
+    const installed = generateClaudeCommandContent(
+      {
+        commandRef: '/scr:history',
+        relativePath: 'history.md',
+      },
+      content
+    );
+
+    assert.match(installed, /`\/scr-\.\.\.`/);
+    assert.match(installed, /`\/scr-history`/);
+    assert.match(installed, /`\/scr-export`/);
+    assert.doesNotMatch(installed, /`\/scr:\.\.\.`/);
+    assert.doesNotMatch(installed, /`\/scr:history`/);
+    assert.match(installed, /echo \/scr:history/);
   });
 });
 
@@ -603,6 +654,21 @@ describe('Skill-file install simulation', () => {
     } finally {
       fs.rmSync(tmpDir, { recursive: true });
     }
+  });
+});
+
+describe('Install dry run shared assets', () => {
+  it('counts shared docs alongside templates, data, and lib assets', () => {
+    const plan = buildInstallDryRun({
+      runtimeKeys: ['generic'],
+      isGlobal: false,
+      developerMode: false,
+      installMode: 'non-interactive',
+    });
+    const report = formatInstallDryRunReport(plan);
+
+    assert.ok(plan.sharedAssets.docs > 0, 'shared docs should be part of the install plan');
+    assert.match(report, /Shared assets: \d+ templates, \d+ data files, \d+ lib files, \d+ docs/);
   });
 });
 

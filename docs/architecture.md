@@ -213,6 +213,7 @@ scriveno/
     sacred-texts.md        Sacred work types and voice registers
     translation.md         Translation pipeline guide
     contributing.md        How to extend Scriveno (commands, agents, etc.)
+    model-adaptation.md    Runtime and model-tier adaptation contract
     configuration.md       Package, installer, constraints, and project config surfaces
     development.md         Contributor workflow for changing Scriveno itself
     testing.md             Test suite coverage and release-safety checks
@@ -223,7 +224,7 @@ scriveno/
   .manuscript/             Per-project working directory (created by commands)
 ```
 
-The `.manuscript/` directory is created when a writer runs `/scr:new-work`. It contains their project's context files (STYLE-GUIDE.md, OUTLINE.md, RECORD.md, CHARACTERS.md, etc.), plans, drafts, and state. It is not shipped with Scriveno -- it is generated per project.
+The `.manuscript/` directory is created when a writer runs `/scr:new-work`. It contains the project's context files (STYLE-GUIDE.md, OUTLINE.md, RECORD.md, adapted cast/world/theme surfaces, etc.), plans, drafts, and state. It is not shipped with Scriveno -- it is generated per project.
 
 ## Creative Context
 
@@ -307,7 +308,7 @@ For each atomic unit (scene, subsection, passage, stanza), the drafter agent get
 2. **WRITING-RULES.md** (optional, 1.6.0+) -- Universal human-first and AI-tell rulebook. The canonical list covers human-first restraint, factual integrity, register awareness, artifact cleanup, hedging, throat-clearing, balanced-both-sides constructions, generic metaphors, symmetrical rhythm, moralizing closings, AI tics in dialogue, and show-don't-tell triggers. Loaded if present; falls back to inline rules in `agents/drafter.md` when absent.
 3. **Pitfall pack** (optional, 1.6.0+) -- Type-specific traps from `templates/pitfalls/<work_type>.md` (or `.manuscript/PITFALLS.md` for project-local overrides). Refines WRITING-RULES.md with traps unique to the work type: filter words for prose, unfilmable description for screenplays, missing-precondition checks for runbooks, anachronism for sacred commentary.
 4. **.manuscript/plans/{N}-{A}-PLAN.md** -- The specific plan for this unit: what happens, emotional arc, beats to hit, voice notes, continuity anchors. Legacy root-level plans are accepted only as older project input.
-5. **CHARACTERS.md or FIGURES.md** -- Full file by default, with voice anchors, speech patterns, persona notes, relationship-specific interactions, and current state. Filtering to relevant entries is opt-in through `draft.context_profile: minimal`.
+5. **Adapted cast surface** -- Full file by default, with voice anchors, speech patterns, persona notes, relationship-specific interactions, and current state. Filtering to relevant entries is opt-in through `draft.context_profile: minimal`.
 6. **Previous unit tail** -- The last 200 words of the preceding unit, for rhythm and tone continuity.
 7. **THEMES.md excerpt** -- Only the thematic threads this unit should advance.
 8. **WORK.md excerpt** -- Premise, tone, central question (for orientation, not copying).
@@ -357,9 +358,9 @@ Codex uses a skill-native variation of this strategy. The installer generates on
 
 ### Shared status engine
 
-Scriveno also ships `lib/auto-invoke-engine.js`, exposed through `scriveno status --project .`, `scriveno status . --json`, `scriveno status --project . --apply-safe`, `scriveno sync --check`, `scriveno smoke`, `scriveno agents`, and `scriveno routes`. The installer copies this library into the shared Scriveno asset directory for global and project installs, so command surfaces can call a single status and audit engine before falling back to embedded markdown logic.
+Scriveno also ships `lib/auto-invoke-engine.js`, exposed through `scriveno status --project .`, `scriveno status . --json`, `scriveno status --project . --apply-safe`, `scriveno sync --check`, `scriveno smoke`, `scriveno agents`, and `scriveno routes`. The installer copies this library into the shared Scriveno asset directory for global and project installs, so command surfaces can call a single status and audit engine before falling back to embedded markdown logic. The shared asset directory also receives `templates/`, `data/`, and `docs/`, including [`docs/model-adaptation.md`](model-adaptation.md), so runtime-specific command surfaces can reference one model adaptation contract.
 
-The engine checks disk evidence only: project presence, required project files, STATE.md, CONTEXT.md freshness, plan files, draft files, review coverage, unresolved notes, revision-track proposals, translation work, publishing prerequisites, exports, history, and save signals. It also computes the per-unit progress ledger (done / in progress / untouched) through `computeProgressLedger`, which `/scr:progress` and `.manuscript/PROGRESS.md` build on. It recommends the next command, but it does not mutate files and does not spawn agents by itself. That boundary keeps proactive behavior portable across Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and the generic fallback.
+The engine checks disk evidence only: project presence, required project files, STATE.md, CONTEXT.md freshness, plan files, draft files, review coverage, unresolved notes, revision-track proposals, translation work, publishing prerequisites, exports, history, and save signals. It also computes the per-unit progress ledger (done / in progress / untouched) through `computeProgressLedger`, which `/scr:progress` and `.manuscript/PROGRESS.md` build on. It recommends the next command, but it does not mutate files and does not spawn agents by itself. That boundary keeps proactive behavior portable across Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and Kimi-compatible generic fallback hosts.
 
 The engine now reports three automation lanes:
 
@@ -375,8 +376,8 @@ The same engine now exposes:
 
 - **Safe apply reporting**: `status --apply-safe` runs read-only checks, identifies safe helpers, lists agent candidates, and marks write-gated actions as skipped.
 - **Sync check**: `sync --check` combines project status, safe apply, agent availability, and runtime smoke into one transcript.
-- **Agent availability**: `agents` verifies prompt fallback readiness for non-Codex runtimes and metadata readiness for Codex.
-- **Runtime smoke**: `smoke` checks installed command, skill, guide, agent, metadata, and shared-engine surfaces.
+- **Agent availability**: `agents` verifies prompt fallback readiness for non-Codex runtimes, metadata readiness for Codex, and the shared host-owned model policy.
+- **Runtime smoke**: `smoke` checks installed command, skill, guide, agent, metadata, shared-engine, and shared model-doc surfaces.
 - **Route graph audit**: `routes` derives a command graph from constraints, command intents, dependencies, and automation lanes.
 - **First-run guide**: `first-run` prints the guided proof path, runtime command shapes, proof artifacts, demo sequence, and next commands.
 
@@ -441,7 +442,7 @@ Scriveno's `package.json` has no runtime dependencies. The installer is pure Nod
 
 ### Plan is canonical
 
-The product plan is the source of truth. If a command file contradicts the plan, the command file is wrong. This ensures consistency across 117 commands and prevents drift as multiple contributors work on the system.
+The product plan is the source of truth. If a command file contradicts the plan, the command file is wrong. This ensures consistency across 122 commands and prevents drift as multiple contributors work on the system.
 
 ### Backward compatibility
 

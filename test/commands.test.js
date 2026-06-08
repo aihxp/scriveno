@@ -85,6 +85,36 @@ describe('Command file structure', () => {
         );
         assert.match(
           content,
+          /The final visible section of every writer-facing response must be the `Next commands:` block\./,
+          `"${file}" must require Next commands as the final visible section`
+        );
+        assert.match(
+          content,
+          /This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses\./,
+          `"${file}" must apply the next-command closeout to all terminal states`
+        );
+        assert.match(
+          content,
+          /Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options\./,
+          `"${file}" must forbid non-command final closeouts`
+        );
+        assert.match(
+          content,
+          /Use the invocation style for the active runtime when writing command suggestions\./,
+          `"${file}" must require runtime-specific command suggestion syntax`
+        );
+        assert.match(
+          content,
+          /Claude Code installed commands use `\/scr-\*`; Codex installed skills use `\$scr-\*`\./,
+          `"${file}" must document Claude and Codex command suggestion syntax`
+        );
+        assert.match(
+          content,
+          /Suggest only runnable Scriveno commands that exist in the installed command surface\./,
+          `"${file}" must forbid invented next commands`
+        );
+        assert.match(
+          content,
           /Next commands:\n- `\/scr:\.\.\.`: One short sentence explaining what this path will do\.\n- `\/scr:\.\.\.`: One short sentence explaining what this alternate path will do\./,
           `"${file}" must show the branching Next commands response format`
         );
@@ -97,6 +127,11 @@ describe('Command file structure', () => {
           content,
           /Next commands:\n- `\/scr:next`: Inspect the project state and choose the right next step\./,
           `"${file}" must provide the /scr:next fallback explanation`
+        );
+        assert.doesNotMatch(
+          content,
+          /\nNext Steps:\n/,
+          `"${file}" must not use a Next Steps heading that competes with Next commands`
         );
       });
     });

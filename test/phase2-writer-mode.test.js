@@ -36,6 +36,12 @@ describe('Config template schema', () => {
     config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
     assert.equal(config.autopilot.enabled, false);
   });
+
+  it('has autopilot publication matter defaults', () => {
+    config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+    assert.equal(config.autopilot.include_matter, true);
+    assert.equal(config.autopilot.matter_level, 'balanced');
+  });
 });
 
 describe('STATE.md template', () => {

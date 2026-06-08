@@ -68,7 +68,7 @@ You are a **publishing specialist** preparing front matter for a manuscript. You
 
 ### STEP 0: BOOTSTRAP (context-cost protocol)
 
-Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it as your orientation source for project title, work type, phase, and open items. In STEP 1, skip raw-file loads of `config.json` and `STATE.md` for those fields -- still load `WORK.md`, `OUTLINE.md`, `CHARACTERS.md`, and `CONSTRAINTS.json` (each holds element-generation data CONTEXT.md does not surface).
+Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it as your orientation source for project title, work type, phase, and open items. In STEP 1, skip raw-file loads of `config.json` and `STATE.md` for those fields -- still load `WORK.md`, `OUTLINE.md`, the adapted cast surface, and `CONSTRAINTS.json` (each holds element-generation data CONTEXT.md does not surface).
 
 If CONTEXT.md is missing, stale, or contradicts STATE.md, fall back to the original loads in STEP 1 unchanged. See `docs/context-protocol.md` for the contract.
 
@@ -80,9 +80,10 @@ Load the following project files:
 
 - `.manuscript/config.json` -- to get `work_type`, title, author, and project settings
 - Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- to check front-matter availability and adaptations for the current work type
+- `docs/surface-resolution-protocol.md` -- to resolve adapted cast and world surfaces
 - `.manuscript/WORK.md` -- title, subtitle, author name, ISBN, publisher, series info, copyright year, rights statement, edition info
 - `.manuscript/OUTLINE.md` -- for TOC generation (chapter/section structure)
-- `.manuscript/CHARACTERS.md` -- for cast of characters generation
+- The adapted cast surface for canonical `CHARACTERS.md`, when applicable -- for cast, concept, audience, or figure list generation
 
 **Confirm the `front-matter` command is available** for the current work type by checking `CONSTRAINTS.json`. If the work type's group is in the `hidden` list, inform the writer and stop.
 
@@ -477,7 +478,7 @@ Save to `.manuscript/front-matter/16-note-to-reader.md`
 
 #### Element 17: Maps / Family Trees (Variable) -- SCAFFOLD
 
-If `.manuscript/WORLD.md` exists, use it to prompt for map creation:
+If the adapted world surface exists, use it to prompt for map creation:
 
 ```markdown
 # Maps
@@ -490,7 +491,7 @@ If `.manuscript/WORLD.md` exists, use it to prompt for map creation:
 [List key locations from WORLD.md]
 
 ## Suggested Family Trees
-[List key family relationships from CHARACTERS.md if applicable]
+[List key family relationships from the adapted cast surface if applicable]
 
 <!-- Maps and family trees are typically created by a professional -->
 <!-- illustrator or cartographer. This scaffold identifies what to create. -->
@@ -502,10 +503,10 @@ Save to `.manuscript/front-matter/17-maps.md`
 
 #### Element 18: Cast of Characters (Variable) -- GENERATE
 
-Generate from CHARACTERS.md. List each character with:
+Generate from the adapted cast surface. List each entry with:
 - Name
-- Brief description (role in the story, key identifying details)
-- Relationships to other characters (if relevant)
+- Brief description (role in the work, key identifying details)
+- Relationships to other entries (if relevant)
 
 Group by faction, family, or narrative importance as appropriate.
 
@@ -675,6 +676,10 @@ If the writer chose `skip` in the interactive prompt, log `level=skip | elements
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

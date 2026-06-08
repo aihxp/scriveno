@@ -15,7 +15,7 @@ The text report summarizes command count, graph edges, agent-capable routes, loc
 
 As of `3.2.1`, the route graph contains:
 
-- 117 commands
+- 122 commands
 - intent-order edges from `command_intents`
 - dependency-chain edges from `dependencies.core_chain`
 - automation lanes from `getCommandAutomationPolicy()`
@@ -44,8 +44,8 @@ The engine exports priority fixtures for the flows most likely to regress:
 - translation work routes to `/scr:back-translate`
 - publishing prerequisite gaps route to the first missing packaging prerequisite
 
-These fixtures are covered by `test/auto-invoke-engine.test.js`.
+These fixtures are covered by `test/auto-invoke-engine.test.js`. `/scr:research` is an agent-ready route because it can invoke the installed researcher prompt, while default `/scr:scan` remains local-helper and `--deep` is the explicit read-only auditor fan-out mode.
 
 ## Cross-Runtime Use
 
-All runtimes use the same route graph audit. Claude Code, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, and Antigravity read command files and prompt agents. Codex reads generated `$scr-*` skills plus `.toml` agent metadata. Manus and the generic fallback read bundled skill files. Perplexity Desktop receives guided local-MCP setup. The graph stays shared even when the host's native spawning behavior differs.
+All runtimes use the same route graph audit. Claude Code, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, and Antigravity read command files and prompt agents. Codex reads generated `$scr-*` skills plus `.toml` agent metadata. Manus and the generic fallback read bundled skill files. Perplexity Desktop receives guided local-MCP setup. Kimi-style hosts use the generic skill fallback unless a dedicated adapter exists. The graph stays shared even when the host's native spawning behavior and model differ.

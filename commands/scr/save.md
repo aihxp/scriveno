@@ -9,6 +9,8 @@ You are saving the writer's current work. Your job is to create a git commit wit
 
 Follow the auto-invoke policy. In the source repository it is documented at `docs/auto-invoke-policy.md`. `/scr:save` does not spawn agents. It owns safe local helpers for `STATE.md`, `CONTEXT.md`, and `HISTORY.log`, then saves `.manuscript/`.
 
+Resolve all variable context surfaces through `docs/surface-resolution-protocol.md` before reading, writing, or regenerating adapted files.
+
 ## What to do
 
 1. **Check for `.manuscript/` directory.** If missing: "No manuscript found. Start with `/scr:new-work`."
@@ -58,11 +60,13 @@ Follow the auto-invoke policy. In the source repository it is documented at `doc
 
 8. **Regenerate `.manuscript/PROGRESS.md`** before staging. This is the openable per-unit progress ledger. Use the `templates/PROGRESS.md` scaffold and derive per-unit status from disk per `docs/progress-protocol.md` (plan, draft, and review files reconciled with STATE.md). Fill the unit ledger, the deliverable progress bar, the pipeline position, and the bucket counts (done / in progress / untouched). Save to `.manuscript/PROGRESS.md`; it is committed alongside STATE.md and CONTEXT.md.
 
-8b. **Regenerate `.manuscript/RELATIONSHIPS.md`** when the work type has a characters surface (per `surface_applicability`) and `.manuscript/CHARACTERS.md` defines two or more characters. This derived relationship map is rebuilt from the relationship sections of `CHARACTERS.md` per `docs/relationships-protocol.md`: every pairing accounted for (pairs with no relationship marked `none`, pairs no one has described yet surfaced as undefined). Skip silently for work types without characters or with fewer than two. It is committed alongside `STATE.md`, `CONTEXT.md`, and `PROGRESS.md`.
+8b. **Regenerate the adapted relationship surface for canonical `RELATIONSHIPS.md`** when the work type has a cast surface (per `surface_applicability`) and the adapted cast surface for canonical `CHARACTERS.md` defines two or more characters, concepts, or figures. This derived relationship map is rebuilt from the relationship sections of the adapted cast surface per `docs/relationships-protocol.md`: every pairing accounted for (pairs with no relationship marked `none`, pairs no one has described yet surfaced as undefined). Save it to the adapted relationship filename (`RELATIONSHIPS.md`, `DEPENDENCIES.md`, or `LINEAGES.md` as resolved from `file_adaptations`). Skip silently for work types without cast or with fewer than two entries. It is committed alongside `STATE.md`, `CONTEXT.md`, and `PROGRESS.md`.
 
-8c. **Regenerate `.manuscript/CONFLICTS.md`** when the work has a central conflict in `WORK.md` or two or more characters, and the work type is narrative (skip poetry and speech). This derived conflict map is rebuilt from the `WORK.md` central conflict and the character entries per `docs/conflict-protocol.md`: every character pair accounted for (pairs with no conflict marked `no conflict`). Skip silently where conflict does not apply. It is committed alongside the other derived surfaces.
+8c. **Regenerate `.manuscript/CONFLICTS.md`** when the work has a central conflict in `WORK.md` or two or more cast entries, and the work type is narrative (skip poetry and speech). This derived conflict map is rebuilt from the `WORK.md` central conflict and the adapted cast surface per `docs/conflict-protocol.md`: every pair accounted for (pairs with no conflict marked `no conflict`). Skip silently where conflict does not apply. It is committed alongside the other derived surfaces.
 
 8d. **Regenerate `.manuscript/PEOPLE-DYNAMICS.md`** when the work type has a peoples surface (per `surface_applicability`) and `.manuscript/PEOPLES.md` defines two or more peoples. This derived people-dynamics map is rebuilt from the "Relations with other peoples" sections of `PEOPLES.md` per `docs/people-dynamics-protocol.md`: every pair accounted for (pairs with none marked `no dealings`). Skip silently where peoples do not apply. It is committed alongside the other derived surfaces.
+
+8e. **Regenerate `.manuscript/GEOGRAPHY.md`** when `.manuscript/PLACES.md` exists and the work type has an adapted world surface (per `surface_applicability`). This derived geography map is rebuilt from `PLACES.md` plus the adapted world surface per `docs/world-layers-protocol.md`: place hierarchy, routes, distance logic, borders, and undefined spatial questions. Skip silently where the world surface does not apply or no confirmed places exist. It is committed alongside the other derived surfaces.
 
 9. **Append one line to `.manuscript/HISTORY.log`** per `docs/history-protocol.md`:
    ```
@@ -94,9 +98,10 @@ Local operations:
 - STATE.md updated: yes/no
 - CONTEXT.md regenerated: yes/no
 - PROGRESS.md regenerated: yes/no
-- RELATIONSHIPS.md regenerated: yes/no
+- RELATIONSHIPS.md / adapted relationship surface regenerated: yes/no
 - CONFLICTS.md regenerated: yes/no
 - PEOPLE-DYNAMICS.md regenerated: yes/no
+- GEOGRAPHY.md regenerated: yes/no
 - HISTORY.log appended: yes/no
 - manuscript files saved: yes/no
 Candidate local helpers:
@@ -123,6 +128,10 @@ Why: save uses deterministic local bookkeeping, not a spawned agent
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

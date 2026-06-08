@@ -95,20 +95,27 @@ Record responses for each beat.
 
 ### STEP 3: DIAGNOSE ISSUES
 
-For any issues flagged, spawn a diagnostic agent:
+For any issues flagged, follow `docs/subagent-spawning-protocol.md` and spawn focused diagnostic workers by issue group:
 
-<diagnostic_agent>
-  <role>Revision Analyst</role>
-  <task>
-    Given the writer's feedback on what's not working:
-    1. Identify the root cause (voice issue? pacing? character motivation? structure?)
-    2. Propose 2-3 specific revision approaches
-    3. Estimate scope of revision (line edit vs. scene rewrite vs. structural change)
-    4. Flag any downstream effects (changes that would ripple to other scenes)
-  </task>
-</diagnostic_agent>
+<diagnostic_workers>
+  <worker name="voice-diagnostic">
+    <task>Find whether the issue is voice, register, rhythm, or style-guide drift.</task>
+  </worker>
+  <worker name="pacing-diagnostic">
+    <task>Find whether the issue is scene rhythm, escalation, repetition, or dead space.</task>
+  </worker>
+  <worker name="continuity-diagnostic">
+    <task>Find whether the issue contradicts RECORD.md, plans, prior drafts, PLACES.md, GEOGRAPHY.md, or adapted source files.</task>
+  </worker>
+  <worker name="plot-diagnostic">
+    <task>Find whether the issue is motivation, causality, setup, payoff, or consequence.</task>
+  </worker>
+  <worker name="subject-diagnostic">
+    <task>Find whether the issue is claim movement, procedure clarity, doctrine handling, theme movement, source support, or reader-state movement.</task>
+  </worker>
+</diagnostic_workers>
 
-If the host runtime cannot spawn a dedicated diagnostic worker, run the revision diagnosis in an isolated fresh context for each flagged issue group. Report that fallback in the status block.
+Each worker returns root cause, 2-3 specific revision approaches, estimated scope, downstream effects, and confidence. Merge their findings into one review report. If native diagnostic spawning is unavailable, run the selected workers in isolated fresh contexts sequentially and report `prompt-run fallback used` in the status block.
 
 ---
 
@@ -479,6 +486,10 @@ This command uses writer-friendly terminology throughout:
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

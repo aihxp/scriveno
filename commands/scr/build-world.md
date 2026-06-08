@@ -28,6 +28,7 @@ You are building the world document. Load:
 - Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `file_adaptations` and `commands.build-world.adapted`)
 - `WORK.md` (genre, tone, setting context)
 - Existing world file from `.manuscript/` if it exists (WORLD.md / COSMOLOGY.md / CONTEXT.md per `file_adaptations`)
+- `PLACES.md` if it exists, for concrete locations already confirmed through `/scr:new-place`
 
 Determine adapted terminology from CONSTRAINTS.json:
 - Default: "build world", generates `WORLD.md`
@@ -78,11 +79,12 @@ Determine adapted terminology from CONSTRAINTS.json:
 
   Mark sections that need more detail with `<!-- needs refinement -->` comments.
 
-  Save the file to `.manuscript/WORLD.md` (or adapted name).
+  Save the file to the adapted world filename resolved through `docs/surface-resolution-protocol.md`.
 
   Commit: `world: create initial world document`
 
   After saving, suggest: "Your world document is started. Refine any section with `/scr:build-world --area <area>`."
+  If the writer named concrete locations, suggest `/scr:new-place <name>` for each place that should become a confirmed location profile. Do not append place profiles directly to the world file.
 </world_build_initial>
 
 ---
@@ -141,6 +143,10 @@ When the world contains distinct peoples (races, ethnicities, nations, factions)
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

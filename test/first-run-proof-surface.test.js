@@ -23,6 +23,18 @@ function commandIds() {
   return new Set([...flatCommands, ...sacredCommands]);
 }
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function sectionBody(markdown, heading) {
+  const start = markdown.indexOf(heading);
+  assert.notEqual(start, -1, `missing section: ${heading}`);
+  const rest = markdown.slice(start + heading.length);
+  const next = rest.search(/\n## /);
+  return next === -1 ? rest : rest.slice(0, next);
+}
+
 describe('first-run proof surface', () => {
   const readme = read('README.md');
   const quickProof = read('docs/quick-proof.md');
@@ -71,7 +83,7 @@ describe('first-run proof surface', () => {
     assert.match(firstRunProof, /scriveno first-run --project \./);
     assert.match(firstRunProof, /scriveno smoke --json/);
     assert.match(firstRunProof, /\/scr:draft 5/);
-    assert.match(firstRunProof, /"expectedCommands": 115/);
+    assert.match(firstRunProof, new RegExp(`"expectedCommands": ${commandIds().size}`));
     assert.match(runtimeParity, /Claude Code/);
     assert.match(runtimeParity, /Codex/);
     assert.match(runtimeParity, /Remaining Host-In-The-Loop Gap/);
@@ -99,8 +111,32 @@ describe('first-run proof surface', () => {
     ];
 
     for (const section of expectedSections) {
-      assert.match(starterSets, new RegExp(section.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+      assert.match(starterSets, new RegExp(escapeRegExp(section)));
     }
+  });
+
+  it('keeps publishing starter paths honest about dedicated matter commands', () => {
+    const publishingGuide = read('docs/publishing.md');
+    const publishSection = sectionBody(starterSets, '## Publish An Ebook');
+
+    assert.doesNotMatch(readme, /autopilot-publish.*generates front matter, back matter/i);
+    assert.doesNotMatch(publishingGuide, /offers to generate anything missing/i);
+
+    assert.match(publishSection, /\/scr:front-matter/);
+    assert.match(publishSection, /\/scr:back-matter/);
+    assert.match(publishSection, /\/scr:publish/);
+    assert.match(publishSection, /current work type/i);
+    assert.match(publishSection, /without drafting it/i);
+    assert.match(publishSection, /stays in dedicated commands/i);
+
+    assert.ok(
+      publishSection.indexOf('/scr:front-matter') < publishSection.indexOf('/scr:publish'),
+      'front matter should be suggested before publish packaging'
+    );
+    assert.ok(
+      publishSection.indexOf('/scr:back-matter') < publishSection.indexOf('/scr:publish'),
+      'back matter should be suggested before publish packaging'
+    );
   });
 
   it('keeps the release checklist tied to local, npm, and GitHub verification', () => {

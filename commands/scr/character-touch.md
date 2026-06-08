@@ -5,7 +5,7 @@ argument-hint: "<name> [--from <unit>]"
 
 # /scr:character-touch -- Update Character State
 
-CHARACTERS.md (and FIGURES.md for sacred works) is a living document. Voice anchors and physical descriptions stay stable; emotional position, knowledge, possessions, and relationships move as the story unfolds. Without periodic touch-ups, the file freezes at character-creation time and the drafter ends up reading a stale "current emotional state" two-thirds of the way through the manuscript.
+The adapted cast surface for canonical `CHARACTERS.md` is a living document. Voice anchors and physical descriptions stay stable; emotional position, knowledge, possessions, and relationships move as the story unfolds. Without periodic touch-ups, the file freezes at character-creation time and the drafter ends up reading a stale "current emotional state" two-thirds of the way through the manuscript.
 
 This command is the touch-up surface. Use it after `/scr:draft` (especially when the drafter emits a CHARACTER STATE NUDGE), or any time you've written prose that visibly shifts a character.
 
@@ -16,28 +16,29 @@ This command is the touch-up surface. Use it after `/scr:draft` (especially when
 /scr:character-touch <name> --from <unit>    # base the update on a specific unit's drafted prose
 ```
 
-If `<name>` is omitted, list all characters from CHARACTERS.md and ask which to update.
+If `<name>` is omitted, list all entries from the adapted cast surface and ask which to update.
 
 ## Instruction
 
 ### STEP 0: BOOTSTRAP (context-cost protocol)
 
-Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it for orientation (project title, work type, current unit, recent activity). Step 1 still needs the full CHARACTERS.md (you will be editing it). See `docs/context-protocol.md` for the contract.
+Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it for orientation (project title, work type, current unit, recent activity). Step 1 still needs the full adapted cast surface (you will be editing it). See `docs/context-protocol.md` for the contract.
 
 ### STEP 1: LOAD CONTEXT
 
 Load these project files:
 
-- `.manuscript/config.json` -- to determine work type (CHARACTERS.md vs FIGURES.md naming)
-- `.manuscript/CHARACTERS.md` (or `FIGURES.md` for sacred works) -- the file you will update
+- `.manuscript/config.json` -- to determine work type and resolve the adapted cast filename from `file_adaptations`
+- `docs/surface-resolution-protocol.md` -- to resolve adapted surfaces and skip not-applicable surfaces consistently
+- The adapted cast surface for canonical `CHARACTERS.md`, such as `.manuscript/CHARACTERS.md`, `.manuscript/CONCEPTS.md`, `.manuscript/AUDIENCE.md`, or `.manuscript/FIGURES.md` -- the file you will update
 - `.manuscript/STATE.md` -- to know which units have been drafted
 - The drafted unit file for the touch-up basis: `.manuscript/drafts/body/{N}-*-DRAFT.md` either for the unit named in `--from` or, if `--from` is omitted, the most recently modified draft file (the unit whose state shift is most likely fresh in the writer's mind)
 
 ### STEP 2: RESOLVE THE CHARACTER
 
-If the writer named a character, find their entry in CHARACTERS.md by case-insensitive name match. If no match, suggest the closest names from the file and stop.
+If the writer named a character or figure, find their entry in the adapted cast surface by case-insensitive name match. If no match, suggest the closest names from the file and stop.
 
-If the writer did not name a character, list every character from CHARACTERS.md (one per line, with their voice anchor as a hint) and ask which to update.
+If the writer did not name a character or figure, list every entry from the adapted cast surface (one per line, with its voice anchor as a hint) and ask which to update.
 
 ### STEP 3: PROPOSE A DELTA
 
@@ -55,10 +56,10 @@ Present the proposed delta to the writer in this exact format:
 Character: <name>
 Basis: <unit name from draft filename>
 
-Proposed updates to <NAME>'s entry in CHARACTERS.md:
+Proposed updates to <NAME>'s entry in the adapted cast surface:
 
   Emotional position
-    was: <current text from CHARACTERS.md>
+    was: <current text from the adapted cast surface>
     now: <proposed new text>
 
   Knowledge gained
@@ -82,7 +83,7 @@ If the writer accepts (`yes`), proceed to STEP 4. If `edit`, ask which dimension
 
 ### STEP 4: APPLY THE DELTA
 
-Update the character's entry in `.manuscript/CHARACTERS.md` (or `FIGURES.md`):
+Update the character's entry in the adapted cast surface:
 
 - **Replace** the existing "Emotional position" / "Current emotional state" line with the new value. If the entry has no such line, add it under the section the writer's character template uses for evolving state (look for "Current state", "Arc state", or just append to the end of the entry).
 - **Append** new knowledge bullets under a "Knowledge" subsection (create the subsection if absent).
@@ -97,7 +98,7 @@ Update the character's entry in `.manuscript/CHARACTERS.md` (or `FIGURES.md`):
 
 Preserve the file's existing formatting and section order.
 
-If the Relationships or Relationship-specific interaction dimensions changed, regenerate `.manuscript/RELATIONSHIPS.md` from the updated character entries per `docs/relationships-protocol.md`. This is a derived rollup of the change the writer just approved at STEP 3, not a fresh edit, so it does not break the writer-in-the-loop rule below.
+If the Relationships or Relationship-specific interaction dimensions changed, regenerate the adapted relationship surface for canonical `RELATIONSHIPS.md` from the updated cast entries per `docs/relationships-protocol.md`. This is a derived rollup of the change the writer just approved at STEP 3, not a fresh edit, so it does not break the writer-in-the-loop rule below.
 
 ### STEP 5: STAMP THE UPDATE
 
@@ -132,6 +133,10 @@ When a relationship shifted in this touch-up, suggest `/scr:relationship-map` to
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

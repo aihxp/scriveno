@@ -1,5 +1,5 @@
 ---
-description: Show Scriveno commands grouped by workflow stage, filtered to what's relevant for your current work
+description: Show Scriveno commands grouped by workflow stage, filtered to what's relevant for your current work type and progress.
 argument-hint: "[category or search term, optional]"
 ---
 
@@ -34,7 +34,7 @@ You are helping the user navigate Scriveno commands. Load Scriveno's installed/s
 
 ## The "getting started" view (no project yet)
 
-Ask the user what they want to do. Don't list all 117 commands -- show them this:
+Ask the user what they want to do. Don't list all 122 commands -- show them this:
 
 ```
 Scriveno -- ready to start.
@@ -99,6 +99,10 @@ If the argument matches an intent or category name (e.g., "revise", "publish"), 
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

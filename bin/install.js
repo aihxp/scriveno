@@ -401,6 +401,15 @@ Profile: ${normalizeSurfaceProfile(profile)}
 
 Scriveno is a spec-driven creative writing, publishing, and translation pipeline.
 
+## Runtime and Model Adaptation
+
+- This \`SKILL.md\` is the generic host surface for Manus, Kimi-compatible hosts, and any runtime without a dedicated adapter.
+- Scriveno does not choose the underlying model. The host owns model selection and native worker support.
+- Use the installed files as source of truth: \`commands/scr/\`, \`agents/\`, shared \`.scriveno/templates/RESEARCH.md\`, shared \`.scriveno/docs/model-adaptation.md\`, and shared \`.scriveno/docs/subagent-spawning-protocol.md\`.
+- If a command requests workers and native spawning is unavailable, run the named prompt from \`agents/\` in an isolated fresh context and report \`prompt-run fallback used\`.
+- Latest shared adaptations include neutral \`RESEARCH.md\` notes, \`/scr:research\` researcher fan-out, \`/scr:scan --deep\` read-only auditors, planning preflight workers, editor diagnostic workers, and autopilot lookahead workers.
+- For smaller or weaker models, keep \`STYLE-GUIDE.md\` sovereign and prefer \`draft.rigor: strict\` plus \`draft.context_profile: minimal\` when drafting.
+
 ## Available Commands
 
 | Command | Category | Description |
@@ -701,6 +710,12 @@ ${argumentsLine}
   - Example: \`/scr:help\` becomes \`$scr-help\`
   - Example: \`/scr:new-work\` becomes \`$scr-new-work\`
   - Example: \`/scr:sacred:concordance\` becomes \`$scr-sacred-concordance\`
+
+## Model and Runtime Rules
+- Codex owns the underlying model and any native agent APIs. Scriveno supplies source prompts, context limits, fallback behavior, and merge rules.
+- Use shared \`.scriveno/docs/model-adaptation.md\` and \`.scriveno/docs/subagent-spawning-protocol.md\` for worker fan-out. If native workers are unavailable, use the matching installed prompt from \`.codex/agents\` in a fresh context and report \`prompt-run fallback used\`.
+- Treat \`templates/RESEARCH.md\` and project \`RESEARCH.md\` files as advisory research context, never canon by themselves.
+- Preserve the latest shared adaptations: \`/scr:research\` researcher fan-out, \`/scr:scan --deep\` read-only auditors, planning preflight workers, editor diagnostic workers, and autopilot lookahead workers.
 </codex_skill_adapter>
 
 <objective>
@@ -836,7 +851,9 @@ function insertMarkerComment(content, comment) {
 // Splits content into an ordered sequence of prose/code segments using
 // CommonMark-ish fenced code block rules, then applies `transform` only to
 // `/scr:*` references in prose. Code segments (including the fence lines)
-// pass through byte-for-byte unchanged.
+// pass through byte-for-byte unchanged, except fenced `Next commands:` examples.
+// Those are writer-facing command suggestions, not executable shell snippets,
+// so they must use the target runtime's invocation syntax.
 //
 // Fence rules:
 //   - An opener is a line whose first non-whitespace content matches `^(?:`{3,}|~{3,})`.
@@ -848,6 +865,13 @@ function insertMarkerComment(content, comment) {
 //
 // Indented (4-space / tab) code blocks are NOT detected -- only fenced blocks.
 // This is intentional per Phase 27 CONTEXT: documentation snippets use fences.
+function isNextCommandsFenceBlock(lines) {
+  const firstContentLine = lines.find((line) => line.trim().length > 0);
+  return firstContentLine ? firstContentLine.trim() === 'Next commands:' : false;
+}
+
+const INSTALLED_COMMAND_REF_RE = /\/scr:(?:[a-z0-9:-]+|\.\.\.)/gi;
+
 function rewriteInstalledCommandRefs(content, transform) {
   if (typeof content !== 'string' || content.length === 0) return content;
 
@@ -868,31 +892,40 @@ function rewriteInstalledCommandRefs(content, transform) {
     const m = line.match(FENCE_RE);
     if (!m) {
       // prose line
-      out.push(line.replace(/\/scr:[a-z0-9:-]+/gi, (ref) => transform(ref)));
+      out.push(line.replace(INSTALLED_COMMAND_REF_RE, (ref) => transform(ref)));
       i++;
       continue;
     }
-    // Opener: emit as-is, then consume until matching closer or EOF.
+    // Opener: collect until matching closer or EOF.
     const fenceChar = m[2][0]; // '`' or '~'
     const fenceLen = m[2].length;
     out.push(line);
     i++;
+    const blockLines = [];
+    let closer = null;
     while (i < lines.length) {
       const inner = lines[i];
       const mc = inner.match(FENCE_RE);
       if (mc && mc[2][0] === fenceChar && mc[2].length >= fenceLen) {
-        // closer -- emit and exit code block
-        out.push(inner);
+        closer = inner;
         i++;
         break;
       }
-      // still inside code block -- emit verbatim
-      out.push(inner);
+      blockLines.push(inner);
       i++;
     }
-    // If we fell out of the loop with no closer (i === lines.length without
-    // seeing a matching closer), the code block implicitly extends to EOF --
-    // the trailing lines were already pushed verbatim above.
+    const shouldRewriteBlock = closer !== null && isNextCommandsFenceBlock(blockLines);
+    for (const blockLine of blockLines) {
+      out.push(shouldRewriteBlock
+        ? blockLine.replace(INSTALLED_COMMAND_REF_RE, (ref) => transform(ref))
+        : blockLine);
+    }
+    if (closer !== null) {
+      out.push(closer);
+    }
+    // If we reached EOF without a closer, the code block implicitly extends to
+    // EOF. Keep the trailing lines verbatim, including a `Next commands:` block,
+    // because an unterminated fence is treated as code for fail-safe handling.
   }
 
   return out.join('\n');
@@ -1275,7 +1308,20 @@ function buildFirstRunGuide({ projectRoot }) {
       claudeCode: ['/scr-first-run', '/scr-demo', '/scr-next'],
       standardSlash: ['/scr:first-run', '/scr:demo', '/scr:next'],
       codex: ['$scr-first-run', '$scr-demo', '$scr-next'],
+      genericSkills: ['Read SKILL.md', 'open commands/scr/first-run.md', 'run the same /scr:* instructions'],
       guided: ['Follow the generated local-MCP setup notes'],
+    },
+    modelAdaptation: {
+      policy: autoInvokeEngine.getRuntimeAgentSupport('generic').modelPolicy,
+      docs: autoInvokeEngine.getRuntimeAgentSupport('generic').adaptationDocs,
+      latest: [
+        'neutral RESEARCH.md notes',
+        '/scr:research researcher fan-out',
+        '/scr:scan --deep read-only auditors',
+        'planning preflight workers',
+        'editor diagnostic workers',
+        'autopilot lookahead workers',
+      ],
     },
     firstPath: [
       '/scr:demo',
@@ -1310,7 +1356,13 @@ function formatFirstRunGuide(guide) {
     `- Claude Code: ${guide.commandShapes.claudeCode.join(', ')}`,
     `- Standard slash-command runtimes: ${guide.commandShapes.standardSlash.join(', ')}`,
     `- Codex: ${guide.commandShapes.codex.join(', ')}`,
+    `- Generic skills: ${guide.commandShapes.genericSkills.join(', ')}`,
     `- Guided targets: ${guide.commandShapes.guided.join(', ')}`,
+    '',
+    'Model adaptation:',
+    `- Policy: ${guide.modelAdaptation.policy}`,
+    `- Docs: ${guide.modelAdaptation.docs.join(', ')}`,
+    `- Latest adaptations: ${guide.modelAdaptation.latest.join(', ')}`,
     '',
     'Recommended first path:',
     ...guide.firstPath.map((step, index) => `${index + 1}. ${step}`),
@@ -2194,12 +2246,14 @@ function writeSharedAssets(dataDir, runtimeKeys, isGlobal, developerMode, instal
   fs.mkdirSync(path.join(dataDir, 'templates'), { recursive: true });
   fs.mkdirSync(path.join(dataDir, 'data'), { recursive: true });
   fs.mkdirSync(path.join(dataDir, 'lib'), { recursive: true });
+  fs.mkdirSync(path.join(dataDir, 'docs'), { recursive: true });
   const templateResult = copyDirWithPreservation(path.join(PKG_ROOT, 'templates'), path.join(dataDir, 'templates'));
   const dataResult = copyDirWithPreservation(path.join(PKG_ROOT, 'data'), path.join(dataDir, 'data'));
   const libResult = copyDirWithPreservation(path.join(PKG_ROOT, 'lib'), path.join(dataDir, 'lib'));
+  const docsResult = copyDirWithPreservation(path.join(PKG_ROOT, 'docs'), path.join(dataDir, 'docs'));
   const sum = (r) => r.fresh + r.replaced + r.backedUp;
-  log(`  ${c('green', 'OK')} ${sum(templateResult)} templates + ${sum(dataResult)} data files + ${sum(libResult)} lib files -> ${c('dim', dataDir)}`);
-  const totalBackedUp = templateResult.backedUp + dataResult.backedUp + libResult.backedUp;
+  log(`  ${c('green', 'OK')} ${sum(templateResult)} templates + ${sum(dataResult)} data files + ${sum(libResult)} lib files + ${sum(docsResult)} docs -> ${c('dim', dataDir)}`);
+  const totalBackedUp = templateResult.backedUp + dataResult.backedUp + libResult.backedUp + docsResult.backedUp;
   if (totalBackedUp > 0) {
     log(`  ${c('yellow', 'i')} Preserved ${totalBackedUp} user-modified file(s) as .backup.<timestamp>`);
   }
@@ -2317,6 +2371,7 @@ function buildInstallDryRun({ runtimeKeys, isGlobal, developerMode, installMode,
     templates: listRelativeFiles(path.join(PKG_ROOT, 'templates')).length,
     data: listRelativeFiles(path.join(PKG_ROOT, 'data')).length,
     lib: listRelativeFiles(path.join(PKG_ROOT, 'lib')).length,
+    docs: listRelativeFiles(path.join(PKG_ROOT, 'docs')).length,
   };
 
   return {
@@ -2351,7 +2406,7 @@ function formatInstallDryRunReport(plan) {
     `Command files selected: ${plan.commandFiles}`,
     `Registered command entries selected: ${plan.registeredCommands}`,
     `Agent prompts selected: ${plan.agentPrompts}`,
-    `Shared assets: ${plan.sharedAssets.templates} templates, ${plan.sharedAssets.data} data files, ${plan.sharedAssets.lib} lib files`,
+    `Shared assets: ${plan.sharedAssets.templates} templates, ${plan.sharedAssets.data} data files, ${plan.sharedAssets.lib} lib files, ${plan.sharedAssets.docs} docs`,
     `Data directory: ${plan.dataDir}`,
     '',
     'Runtime targets:',

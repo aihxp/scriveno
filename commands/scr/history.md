@@ -57,6 +57,10 @@ You are showing the writer their save history. Your job is to format git log out
 - **Writer mode** (`developer_mode: false`): Show ONLY the markdown table. No git hashes, no branch info, no file paths. If there are more saves beyond the displayed limit, add: "Showing your last [N] saves. Use `--limit 50` to see more."
 - **Developer mode** (`developer_mode: true`): Add an extra "Hash" column to the table with the short commit hash (first 7 characters). Include the current branch name above the table.
 
+## Next-command guidance
+
+When suggesting follow-up commands after history, do not describe `/scr:export` as creating front matter, back matter, blurbs, or other drafted publication material. Export assembles and converts existing manuscript assets. If publication matter is missing or desirable, suggest `/scr:front-matter`, `/scr:back-matter`, `/scr:blurb`, or `/scr:publish` as separate choices.
+
 ## Edge cases
 
 - **No history:** "No save history yet. Save your work first with `/scr:save`."
@@ -67,6 +71,10 @@ You are showing the writer their save history. Your job is to format git log out
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

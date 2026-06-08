@@ -95,7 +95,7 @@ This section defines how characters speak and how dialogue is presented on the p
 - **Dialect/accent** -- Phonetic spelling, light suggestion, or none
 - **Interrupted speech** -- Frequency and handling (em-dashes, ellipses, trailing off)
 
-**Character voice differentiation:** Each character should sound distinct. CHARACTERS.md (or FIGURES.md for sacred work types) holds individual voice anchors for each character -- speech patterns, vocabulary, rhythms, tics.
+**Cast voice differentiation:** Each cast entry should sound distinct. The adapted cast surface holds individual voice anchors -- speech patterns, vocabulary, rhythms, tics.
 
 **Example:** A writer who favors action beats over dialogue tags with heavily subtextual dialogue:
 
@@ -293,5 +293,5 @@ See [docs/drafter-quality.md](drafter-quality.md) for the full system, including
 - [Proof Artifacts](proof-artifacts.md) -- inspect the Voice DNA before/after bundle first if you want the fastest concrete evidence
 - [Getting Started](getting-started.md) -- Install Scriveno and write your first draft
 - [Drafter Quality](drafter-quality.md) -- the three rule layers, the `draft` config block, and model-tier recommendations
-- [Command Reference](command-reference.md) -- Full list of all 117 commands with usage and examples
+- [Command Reference](command-reference.md) -- Full list of all 122 commands with usage and examples
 - [Work Types Guide](work-types.md) -- How work types adapt Scriveno's vocabulary and commands

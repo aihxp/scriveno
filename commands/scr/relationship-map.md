@@ -1,11 +1,11 @@
 ---
-description: Generate an ASCII relationship graph between characters.
+description: Generate an ASCII relationship graph between cast entries.
 argument-hint: "[--edit]"
 ---
 
-# /scr:relationship-map -- Character Relationship Graph
+# /scr:relationship-map -- Cast Relationship Graph
 
-Generate an ASCII relationship graph showing connections between all characters.
+Generate an ASCII relationship graph showing connections between all cast entries.
 
 ## Usage
 ```
@@ -17,12 +17,13 @@ Generate an ASCII relationship graph showing connections between all characters.
 You are generating a relationship map. Load:
 - `.manuscript/config.json` (to get `work_type`)
 - Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `file_adaptations`, `commands.relationship-map.adapted`, and `dependencies.feature_prerequisites`)
-- The adapted characters file (CHARACTERS.md / FIGURES.md per `file_adaptations`)
+- `docs/surface-resolution-protocol.md` for adapted surface resolution rules
+- The adapted cast surface for canonical `CHARACTERS.md` (for example `CHARACTERS.md`, `CONCEPTS.md`, `AUDIENCE.md`, or `FIGURES.md` per `file_adaptations`)
 
 **Prerequisites check** (from CONSTRAINTS.json `dependencies.feature_prerequisites`):
-- The characters file must exist
-- At least 2 characters must be defined
-- If fewer than 2: "Relationship map requires at least 2 characters. You have {N}. Run `/scr:new-character <name>` to add more."
+- The adapted cast surface must exist
+- At least 2 cast entries must be defined
+- If fewer than 2: "Relationship map requires at least 2 cast entries. You have {N}. Run `/scr:new-character <name>` to add more."
 
 Determine adapted terminology:
 - Default: "relationship map"
@@ -41,7 +42,7 @@ Determine adapted terminology:
 ### PEOPLES MODE (--peoples)
 
 <relationship_map_peoples>
-  Render `.manuscript/PEOPLE-DYNAMICS.md` (the derived people-dynamics map) instead of the character graph: show how every people stands with every other (alliance, rivalry, oppression, trade, contempt, kinship, war), with `no dealings` stated explicitly, plus the undefined pairs left to decide. If it is missing or stale, suggest `/scr:save` (or `/scr:scan --fix`). This is the collective-tier companion to the relationship map, so the derived people-dynamics map has a reader.
+  Render `.manuscript/PEOPLE-DYNAMICS.md` (the derived people-dynamics map) instead of the cast graph: show how every people stands with every other (alliance, rivalry, oppression, trade, contempt, kinship, war), with `no dealings` stated explicitly, plus the undefined pairs left to decide. If it is missing or stale, suggest `/scr:save` (or `/scr:scan --fix`). This is the collective-tier companion to the relationship map, so the derived people-dynamics map has a reader.
 </relationship_map_peoples>
 
 ---
@@ -49,7 +50,7 @@ Determine adapted terminology:
 ### DISPLAY MODE (default)
 
 <relationship_map_display>
-  Parse the "Key Relationships" and "Relationship-Specific Interactions" sections from each character entry in the characters file.
+  Parse the "Key Relationships" and "Relationship-Specific Interactions" sections from each cast entry in the adapted cast surface.
 
   Render an ASCII graph with labeled edges (D-02):
 
@@ -64,11 +65,11 @@ Determine adapted terminology:
 
   **Layout rules:**
   - Keep edge labels short (max 15 characters) -- truncate with ellipsis if needed
-  - Truncate character names longer than 12 characters
+  - Truncate cast-entry names longer than 12 characters
   - Use directional arrows for asymmetric relationships: `--[label]-->`
   - Use undirected edges for mutual relationships: `--[label]--`
-  - Handle 2-10 characters gracefully; for more than 10, group by relationship clusters
-  - Indicate character status after name: `(deceased)`, `(mentioned)`, `(absent)`
+  - Handle 2-10 cast entries gracefully; for more than 10, group by relationship clusters
+  - Indicate cast-entry status after name: `(deceased)`, `(mentioned)`, `(absent)`
   - Place protagonists centrally in the layout
 
   **Relationship types to extract:**
@@ -82,7 +83,7 @@ Determine adapted terminology:
   ```
   ----> : directional relationship
   ----- : mutual relationship
-  (deceased) : character is deceased
+  (deceased) : cast entry is deceased
   ```
 
   After the legend, list any relationships mentioned in text but not visualized (if graph became too complex).
@@ -100,16 +101,16 @@ Determine adapted terminology:
 
 <relationship_map_edit>
   Show the current relationship graph, then offer:
-  1. **Add relationship:** Between two characters (name a type and direction)
+  1. **Add relationship:** Between two cast entries (name a type and direction)
   2. **Change relationship:** Modify the label or direction of an existing edge
   3. **Remove relationship:** Delete a connection
-  4. **Add character note:** Mark a character's status (active, deceased, mentioned)
+  4. **Add cast note:** Mark a cast entry's status (active, deceased, mentioned)
   5. **Edit interaction dynamic:** Update trust posture, conflict pattern, speech shift, or hidden agenda/fear for a specific pair
 
-  After edits, update the "Key Relationships" section in each affected character's entry in the characters file.
-  If interaction dynamics changed, also update the "Relationship-Specific Interactions" section for the affected character entries.
+  After edits, update the "Key Relationships" section in each affected cast entry in the adapted cast surface.
+  If interaction dynamics changed, also update the "Relationship-Specific Interactions" section for the affected cast entries.
 
-  After writing the changes back to the character entries, regenerate `.manuscript/RELATIONSHIPS.md` from those entries per `docs/relationships-protocol.md`. The map is the derived snapshot; the character entries are the source.
+  After writing the changes back to the cast entries, regenerate the adapted relationship surface for canonical `RELATIONSHIPS.md` from those entries per `docs/relationships-protocol.md`. The map is the derived snapshot; the cast entries are the source.
 
   Commit: `character: update relationship map`
 </relationship_map_edit>
@@ -118,14 +119,18 @@ Determine adapted terminology:
 
 ### Edge Cases
 
-- **Only 2 characters:** Show a simple single-edge graph
-- **No relationships defined:** Show characters as isolated nodes and suggest defining relationships
+- **Only 2 cast entries:** Show a simple single-edge graph
+- **No relationships defined:** Show cast entries as isolated nodes and suggest defining relationships
 - **Circular relationships:** Handle gracefully (A -> B -> C -> A)
 - **Sacred work type:** Use "lineage map" terminology; relationship types include "teacher-disciple", "prophetic succession", "covenant"
 
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

@@ -65,7 +65,7 @@ Specific obligations the next planned or drafted unit should honor.
 
 ## Notes
 
-Use plain language. Keep this file short enough to load. Move detailed material into the relevant source file when it becomes permanent: CHARACTERS.md, THEMES.md, WORLD.md, QUESTIONS.md, PROCEDURES.md, DOCTRINES.md, or another adapted context file.
+Use plain language. Keep this file short enough to load. Move detailed material into the relevant adapted source file when it becomes permanent: cast, themes, world, questions, procedures, doctrines, or another context file.
 
 ---
 *This file is the living record of what the work has established. Update it after drafting, review, import, and major continuity decisions.*

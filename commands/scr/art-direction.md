@@ -17,9 +17,10 @@ Generate or refine ART-DIRECTION.md, the visual style bible that governs all ill
 You are creating the project's visual style bible. Load:
 - `.manuscript/config.json` (to get `work_type`, `genre`)
 - Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `commands.art-direction.available` and `commands.art-direction.hidden`)
+- `docs/surface-resolution-protocol.md` (to resolve adapted cast and world surfaces)
 - `.manuscript/WORK.md` (genre, premise, tone, setting context)
-- `.manuscript/CHARACTERS.md` or `.manuscript/FIGURES.md` (per `file_adaptations` for sacred work types) for character physical descriptions
-- `.manuscript/WORLD.md` or `.manuscript/COSMOLOGY.md` (per `file_adaptations`) if it exists, for setting descriptions
+- The adapted cast surface for canonical `CHARACTERS.md`, when applicable, for physical descriptions
+- The adapted world surface for canonical `WORLD.md`, when applicable, for setting descriptions
 - `.manuscript/illustrations/ART-DIRECTION.md` if it exists (for refine mode)
 
 **Check availability:**
@@ -196,7 +197,7 @@ This format ensures prompts are copy-pasteable to any AI image generation tool (
 
 ### Edge Cases
 
-- **Sacred work type:** Use FIGURES.md instead of CHARACTERS.md; use COSMOLOGY.md instead of WORLD.md. Adapt visual language for sacred art traditions (iconographic style, liturgical colors, sacred geometry)
+- **Sacred work type:** Use the adapted cast and world surfaces, such as FIGURES.md and COSMOLOGY.md. Adapt visual language for sacred art traditions (iconographic style, liturgical colors, sacred geometry)
 - **Work type hidden:** If work type group is in `commands.art-direction.hidden` (script, academic, poetry, speech_song), explain unavailability and stop
 - **No genre in config.json:** Ask the writer about visual mood directly rather than inferring from genre
 - **Existing ART-DIRECTION.md without --refine flag:** Detect existing file and enter refine mode automatically (no need to force --refine)
@@ -204,6 +205,10 @@ This format ensures prompts are copy-pasteable to any AI image generation tool (
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

@@ -65,6 +65,10 @@ Node is not a runtime dependency for Scriveno's markdown command system itself. 
 - Manus Desktop and the generic skills fallback install a manifest `SKILL.md`, mirrored command files, and agent prompts inside the skill bundle.
 - Perplexity Desktop receives setup assets for a local-MCP connector. It does not receive writable command or agent prompt directories from the installer.
 
+The spawning contract is shared, but the underlying model is not controlled by Scriveno. Codex, Claude Code, Cursor, Gemini CLI, and other hosts may run different models and expose different native worker APIs. Kimi or any other unlisted host should use the generic `SKILL.md` fallback unless Scriveno later adds a dedicated installer adapter. In every case, commands must report whether native workers spawned, prompt-run fallback was used, or no agent ran.
+
+Use [Model Adaptation](model-adaptation.md) for the codebase-level contract that maps the latest research, deep scan, planning preflight, editor diagnostic, and autopilot lookahead adaptations onto each runtime family and model tier.
+
 ## First-Run Command Shapes
 
 Scriveno docs use `/scr:*` as the shared command id format unless a host-specific example is needed. Installed command surfaces differ by runtime:
@@ -72,6 +76,7 @@ Scriveno docs use `/scr:*` as the shared command id format unless a host-specifi
 - Claude Code: `/scr-first-run`, `/scr-demo`, `/scr-new-work`, `/scr-next`
 - Standard command-directory runtimes: `/scr:first-run`, `/scr:demo`, `/scr:new-work`, `/scr:next`
 - Codex: `$scr-first-run`, `$scr-demo`, `$scr-new-work`, `$scr-next`
+- Generic skills: read `SKILL.md`, then run the matching file from `commands/scr/`
 - Guided targets: follow the generated setup instructions and connector recipe
 
 Use [Quick Proof](quick-proof.md) for the 10-minute proof route and [Starter Sets](starter-sets.md) for goal-based command paths.
@@ -85,6 +90,8 @@ Every install target receives the same read-only status engine through Scriveno'
 - project installs: `.scriveno/lib/auto-invoke-engine.js`
 - source checkouts: `lib/auto-invoke-engine.js`
 
+The same shared asset directory receives `templates/`, `data/`, `lib/`, and `docs/`, including `docs/model-adaptation.md`, `docs/subagent-spawning-protocol.md`, and `docs/drafter-quality.md`. Runtime-specific command surfaces can therefore point to one installed adaptation contract instead of duplicating model guidance in every command.
+
 The engine computes proactive state from disk evidence: missing or stale context, plan and draft coverage, unresolved review files, unresolved notes, revision proposals, translation work, publishing prerequisites, stale exports, missing history, and the recommended next command. It does not mutate manuscript files and does not spawn agents. Host commands such as `/scr:next`, `/scr:progress`, `/scr:session-report`, and `/scr:sync` should call it first when local command execution is available, then fall back to their embedded markdown logic when the host cannot run Node.
 
 The public CLI entrypoint is:
@@ -97,7 +104,7 @@ scriveno status --project . --apply-safe
 
 The JSON form is intended for CI, host adapters, and future runtime smoke tests.
 
-Status output uses the same route-intelligence shape across runtimes: `Candidate agents`, `Candidate local helpers`, and `Manual gates`. That keeps Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, and generic skill installs aligned even when their native spawning mechanisms differ.
+Status output uses the same route-intelligence shape across runtimes: `Candidate agents`, `Candidate local helpers`, and `Manual gates`. That keeps Claude Code, Codex, Cursor, Gemini CLI, OpenCode, GitHub Copilot, Windsurf, Antigravity, Manus, Perplexity Desktop, Kimi-compatible generic skill hosts, and generic skill installs aligned even when their native spawning mechanisms differ.
 
 ## Runtime Smoke and Agent Checks
 
@@ -110,9 +117,9 @@ scriveno agents --json
 scriveno routes --json
 ```
 
-`scriveno smoke` checks installed command surfaces, Codex skill directories, bundled skill manifests, agent prompt counts, Codex `.toml` metadata, guided Perplexity setup assets, and the shared engine under `~/.scriveno/lib/auto-invoke-engine.js`.
+`scriveno smoke` checks installed command surfaces, Codex skill directories, bundled skill manifests, agent prompt counts, Codex `.toml` metadata, guided Perplexity setup assets, the shared engine under `~/.scriveno/lib/auto-invoke-engine.js`, and the shared model adaptation docs under `.scriveno/docs/`.
 
-`scriveno agents` checks whether each runtime has the expected Scriveno agent prompts and reports the correct fallback: prompt-run fallback for Claude Code and standard command runtimes, metadata-ready for Codex when `.toml` files are present, guided setup for Perplexity Desktop, and bundled skill prompts for Manus or generic skill installs.
+`scriveno agents` checks whether each runtime has the expected Scriveno agent prompts and reports the correct fallback: prompt-run fallback for Claude Code and standard command runtimes, metadata-ready for Codex when `.toml` files are present, guided setup for Perplexity Desktop, and bundled skill prompts for Manus or generic skill installs. The report also includes the shared model policy: host-owned model, Scriveno-owned prompts, context boundaries, fallback behavior, and merge rules.
 
 `scriveno routes` audits the command graph and automation lanes from `data/CONSTRAINTS.json`. It is useful when adding commands because it surfaces whether a route is read-only, local-helper, agent-ready, agent-or-local, mixed, or manual-gated.
 
@@ -140,5 +147,6 @@ That distinction is intentional. Installer-path coverage and guided setup assets
 - [Getting Started](getting-started.md) -- install flow and first-run expectations
 - [Quick Proof](quick-proof.md) -- first-run proof path and runtime command shapes
 - [Starter Sets](starter-sets.md) -- small command sets by writing goal
+- [Model Adaptation](model-adaptation.md) -- model-owned behavior, host-specific surfaces, and shared adaptation rules
 - [Shipped Assets](shipped-assets.md) -- trust-critical files that ship with the package
 - [Release Notes](release-notes.md) -- latest package-level summary

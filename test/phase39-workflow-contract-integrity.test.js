@@ -46,6 +46,15 @@ describe('Phase 39: workflow contract integrity', () => {
     );
   });
 
+  it('import uses surface_applicability and adapted filenames for imported projects', () => {
+    const imported = read('commands/scr/import.md');
+    assert.match(imported, /surface_applicability/);
+    assert.match(imported, /file_adaptations/);
+    assert.match(imported, /adapted cast surface/);
+    assert.match(imported, /adapted relationship surface/);
+    assert.match(imported, /PEOPLE-DYNAMICS\.md/);
+  });
+
   it('plan and draft use .manuscript/plans/ as the canonical plan tree', () => {
     assert.match(
       read('commands/scr/plan.md'),
@@ -180,8 +189,8 @@ describe('Phase 39: workflow contract integrity', () => {
 
     assert.doesNotMatch(
       read('agents/researcher.md'),
-      /\/scr:plan-\{unit\}|\/scr:research\b/,
-      'researcher.md should not describe removed unit-suffixed or nonexistent research command aliases'
+      /\/scr:plan-\{unit\}/,
+      'researcher.md should not describe removed unit-suffixed command aliases'
     );
   });
 

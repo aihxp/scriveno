@@ -7,6 +7,10 @@ const ROOT = path.join(__dirname, '..');
 const FRONT_MATTER_PATH = path.join(ROOT, 'commands', 'scr', 'front-matter.md');
 const EXPORT_PATH = path.join(ROOT, 'commands', 'scr', 'export.md');
 const PUBLISH_PATH = path.join(ROOT, 'commands', 'scr', 'publish.md');
+const AUTOPILOT_PUBLISH_PATH = path.join(ROOT, 'commands', 'scr', 'autopilot-publish.md');
+const BUILD_EBOOK_PATH = path.join(ROOT, 'commands', 'scr', 'build-ebook.md');
+const BUILD_PRINT_PATH = path.join(ROOT, 'commands', 'scr', 'build-print.md');
+const BUILD_SMASHWORDS_PATH = path.join(ROOT, 'commands', 'scr', 'build-smashwords.md');
 
 /**
  * Read a file and return its content, or null if it doesn't exist.
@@ -222,17 +226,17 @@ describe('Phase 31: FM-03 export.md and publish.md have STEP 1.6 scaffold exclus
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// FM-04: export.md STEP 1.6 contains GENERATE auto-refresh logic
+// FM-04: export.md STEP 1.6 warns on stale generated matter without regenerating
 // ─────────────────────────────────────────────────────────────────────────────
 
-describe('Phase 31: FM-04 export.md STEP 1.6 contains GENERATE auto-refresh logic', () => {
+describe('Phase 31: FM-04 export.md STEP 1.6 keeps front-matter generation dedicated', () => {
   it('FM-04: STEP 1.6 must reference WORK.md for timestamp comparison', () => {
     const content = readFile(EXPORT_PATH);
     assert.ok(content !== null, 'commands/scr/export.md could not be read');
 
     // WORK.md must appear within the STEP 1.6 section (not just anywhere in the file)
     const step16Index = content.indexOf('STEP 1.6');
-    assert.ok(step16Index !== -1, 'FM-04: export.md must contain STEP 1.6 (auto-refresh gate)');
+    assert.ok(step16Index !== -1, 'FM-04: export.md must contain STEP 1.6 (freshness gate)');
 
     // Get text from STEP 1.6 to the ### STEP 2: heading to scope the check
     const step2Index = content.indexOf('### STEP 2:', step16Index);
@@ -242,42 +246,96 @@ describe('Phase 31: FM-04 export.md STEP 1.6 contains GENERATE auto-refresh logi
 
     assert.ok(
       step16Section.includes('WORK.md'),
-      'FM-04: STEP 1.6 section in export.md must reference "WORK.md" -- auto-refresh compares WORK.md modification timestamp against GENERATE front-matter files'
+      'FM-04: STEP 1.6 section in export.md must reference "WORK.md" -- freshness check compares WORK.md modification timestamp against generated front-matter files'
     );
   });
 
-  it('FM-04: auto-refresh targets must name all 4 GENERATE files explicitly', () => {
+  it('FM-04: freshness check targets must name all 4 generated files explicitly', () => {
     const content = readFile(EXPORT_PATH);
     assert.ok(content !== null, 'commands/scr/export.md could not be read');
     assert.ok(
       content.includes('01-half-title.md'),
-      'FM-04: export.md must explicitly name "01-half-title.md" as an auto-refresh target -- FM-04'
+      'FM-04: export.md must explicitly name "01-half-title.md" as a freshness target -- FM-04'
     );
     assert.ok(
       content.includes('03-title-page.md'),
-      'FM-04: export.md must explicitly name "03-title-page.md" as an auto-refresh target -- FM-04'
+      'FM-04: export.md must explicitly name "03-title-page.md" as a freshness target -- FM-04'
     );
     assert.ok(
       content.includes('04-copyright.md'),
-      'FM-04: export.md must explicitly name "04-copyright.md" as an auto-refresh target -- FM-04'
+      'FM-04: export.md must explicitly name "04-copyright.md" as a freshness target -- FM-04'
     );
     assert.ok(
       content.includes('07-toc.md'),
-      'FM-04: export.md must explicitly name "07-toc.md" as an auto-refresh target -- FM-04'
+      'FM-04: export.md must explicitly name "07-toc.md" as a freshness target -- FM-04'
     );
   });
 
-  it('FM-04: auto-refresh must not overwrite scaffold elements -- regeneration scoped to GENERATE elements only (Pitfall 3)', () => {
+  it('FM-04: export must not regenerate front matter during export', () => {
     const content = readFile(EXPORT_PATH);
     assert.ok(content !== null, 'commands/scr/export.md could not be read');
-    const scopedToGenerateOnly =
-      content.includes('Do NOT regenerate scaffold') ||
-      content.includes('elements 1, 3, 4') ||
-      content.includes('1, 3, 4, and 7') ||
-      content.includes('elements 1, 3, 4, and 7');
     assert.ok(
-      scopedToGenerateOnly,
-      'FM-04: export.md auto-refresh must explicitly restrict regeneration to the 4 GENERATE elements (01, 03, 04, 07) and must NOT regenerate scaffold elements (5, 6, 11, 12, 13). Expected text: "Do NOT regenerate scaffold", "elements 1, 3, 4", or "1, 3, 4, and 7" (Pitfall 3)'
+      content.includes('Export will not generate or refresh front matter'),
+      'FM-04: export.md must warn instead of regenerating front matter'
     );
+    assert.ok(
+      content.includes('It must not create, refresh, or rewrite front-matter or back-matter files'),
+      'FM-04: export.md must keep front/back matter generation in dedicated commands'
+    );
+    assert.ok(
+      !content.includes('Re-run the GENERATE step from `/scr:front-matter`'),
+      'FM-04: export.md must not call the front-matter GENERATE step'
+    );
+  });
+
+  it('FM-04: export and build commands keep matter generation in dedicated commands', () => {
+    const files = [
+      ['export.md', EXPORT_PATH],
+      ['publish.md', PUBLISH_PATH],
+      ['build-ebook.md', BUILD_EBOOK_PATH],
+      ['build-print.md', BUILD_PRINT_PATH],
+      ['build-smashwords.md', BUILD_SMASHWORDS_PATH],
+    ];
+
+    for (const [label, filePath] of files) {
+      const content = readFile(filePath);
+      assert.ok(content !== null, `${label} could not be read`);
+      assert.ok(
+        !content.includes('Re-run the GENERATE step from `/scr:front-matter`'),
+        `${label} must not call the front-matter GENERATE step`
+      );
+      assert.ok(
+        !content.includes('GENERATE auto-refresh'),
+        `${label} must not describe front-matter auto-refresh`
+      );
+    }
+  });
+
+  it('FM-04: publish pipelines do not auto-chain front or back matter', () => {
+    const files = [
+      ['publish.md', PUBLISH_PATH],
+      ['autopilot-publish.md', AUTOPILOT_PUBLISH_PATH],
+    ];
+
+    for (const [label, filePath] of files) {
+      const content = readFile(filePath);
+      assert.ok(content !== null, `${label} could not be read`);
+      assert.ok(
+        !content.includes('/scr:front-matter --level {front-level}'),
+        `${label} must not chain front-matter from preset tables`
+      );
+      assert.ok(
+        !content.includes('/scr:back-matter --level {back-level}'),
+        `${label} must not chain back-matter from preset tables`
+      );
+      assert.ok(
+        !content.includes('--front-level'),
+        `${label} must not expose front-level routing flags`
+      );
+      assert.ok(
+        !content.includes('--back-level'),
+        `${label} must not expose back-level routing flags`
+      );
+    }
   });
 });

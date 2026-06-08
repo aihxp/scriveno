@@ -102,13 +102,15 @@ If any files were added to the scaffold exclusion list, note them for the assemb
 
 If no scaffold files were found, show no note.
 
-**1.6b -- GENERATE element auto-refresh**
+**1.6b -- Existing front-matter freshness check**
 
-If `.manuscript/front-matter/` does not exist, skip auto-refresh and proceed to STEP 2.
+Build-ebook is an assembly and conversion command. It must not create, refresh, or rewrite front-matter or back-matter files. Those are writer-facing drafting surfaces owned by `/scr:front-matter` and `/scr:back-matter`.
 
-If `.manuscript/WORK.md` does not exist, skip auto-refresh and proceed to STEP 2.
+If `.manuscript/front-matter/` does not exist, skip the freshness check and proceed to STEP 2.
 
-Compare the modification timestamp of `.manuscript/WORK.md` against each of the following GENERATE front-matter files:
+If `.manuscript/WORK.md` does not exist, skip the freshness check and proceed to STEP 2.
+
+Compare the modification timestamp of `.manuscript/WORK.md` against each of the following generated front-matter files when they exist:
 - `.manuscript/front-matter/01-half-title.md`
 - `.manuscript/front-matter/03-title-page.md`
 - `.manuscript/front-matter/04-copyright.md`
@@ -118,12 +120,12 @@ To compare timestamps, use the appropriate command for the platform:
 - macOS: `stat -f %m <file>`
 - Linux: `stat -c %Y <file>`
 - Windows: `(Get-Item '<file>').LastWriteTimeUtc.Ticks`
-- If timestamp comparison is not possible, assume WORK.md is newer and regenerate.
+- If timestamp comparison is not possible, treat freshness as unknown.
 
-If WORK.md is newer than ANY of those 4 files, or if ANY of those 4 files do not exist:
-Re-run the GENERATE step from `/scr:front-matter` for elements 1, 3, 4, and 7 only (half-title, title page, copyright page, TOC) using current WORK.md metadata. Regenerate all four even if only one triggered the condition. Do NOT regenerate scaffold elements (5, 6, 11, 12, 13) or any other elements.
+If WORK.md is newer than ANY existing generated front-matter file, if ANY of those 4 files do not exist, or if freshness is unknown, show:
+> **Note:** Front matter may be stale or incomplete. Build-ebook will not generate or refresh front matter. Run `/scr:front-matter --level minimum` or `/scr:front-matter --level balanced`, then re-run build-ebook if you want updated front matter included.
 
-If WORK.md is not newer than all 4 files and all 4 files exist: skip regeneration silently.
+If WORK.md is not newer than all 4 files and all 4 files exist: continue silently.
 
 Proceed to STEP 2.
 
@@ -427,6 +429,10 @@ ls -lh .manuscript/output/ebook.epub | awk '{print $5}'
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

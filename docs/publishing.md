@@ -207,7 +207,7 @@ The publish wizard chains multiple export commands into a single workflow based 
 /scr:publish
 ```
 
-Without arguments, the wizard runs interactively. It checks your publishing readiness (complete draft, front/back matter, blurb, synopsis, cover art), offers to generate anything missing, then asks where you're publishing and runs the right pipeline.
+Without arguments, the wizard runs interactively. It checks your publishing readiness (complete draft, front/back matter, blurb, synopsis, cover art), offers to generate missing non-matter prerequisites, then asks where you're publishing and runs the right pipeline. Front matter and back matter remain dedicated writer-facing commands.
 
 ### Presets
 
@@ -238,7 +238,7 @@ Run all available presets at once:
 
 ## Autopilot Publishing
 
-For hands-off publishing, autopilot runs quality checks, generates missing prerequisites, executes the export pipeline, and produces a full report -- all without asking questions.
+For hands-off publishing, autopilot-publish runs quality checks, generates missing non-matter prerequisites, executes the export pipeline, and produces a full report without asking questions. It does not draft front matter or back matter; run `/scr:autopilot --matter balanced`, `/scr:front-matter`, or `/scr:back-matter` before packaging when you want those included.
 
 ```
 /scr:autopilot-publish --preset kdp-paperback
@@ -247,7 +247,7 @@ For hands-off publishing, autopilot runs quality checks, generates missing prere
 The autopilot pipeline:
 
 1. **Quality gate** -- Runs voice check and continuity check. Results are advisory -- the pipeline proceeds regardless, but you get a report.
-2. **Prerequisites** -- Auto-generates any missing front matter, back matter, blurb, synopsis, or query letter needed by your preset.
+2. **Prerequisites** -- Auto-generates missing non-matter prerequisites such as blurb, synopsis, or query letter when needed by your preset. Front matter and back matter stay in their dedicated commands.
 3. **Export** -- Runs the preset pipeline and reports progress.
 4. **Report** -- Shows everything that happened: quality scores, generated prerequisites, exported files, and any errors with fix instructions.
 
@@ -256,6 +256,14 @@ Autopilot requires the `--preset` flag -- there's no interactive mode. Valid pre
 ## Pre-Publish Checklist
 
 Before exporting, run these commands to make sure your manuscript is ready:
+
+**Prepublish review** -- Final editorial go/no-go before technical packaging:
+
+```
+/scr:prepublish-review
+```
+
+Use `--preset <preset>` when you already know the target destination, and `--strict` when you want major issues treated as stop conditions.
 
 **Manuscript statistics** -- Check your word count, page estimate, and draft completion:
 

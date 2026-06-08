@@ -22,6 +22,7 @@ Require `.manuscript/plans/{N}-*-PLAN.md` files to exist. If none exist, also ch
    Before invoking the drafter, scan each plan for `QUESTION: Blocking`. If any blocking question remains, pause and route back to `/scr:discuss N`. Non-blocking questions and watchpoints may proceed into drafting.
 
 2. **For each atomic unit, invoke the installed `drafter.md` agent for the current runtime in a fresh context.** Use the agent path for the writer's active Scriveno install (for example the runtime's global or project-scoped `agents/drafter.md`). Fresh context per atomic unit is critical -- it prevents voice drift, context bloat, and lets each scene be its best. The drafter receives:
+   - Variable context surfaces resolved through `docs/surface-resolution-protocol.md`
    - STYLE-GUIDE.md (always, every time -- this is the voice DNA)
    - The specific `.manuscript/plans/{N}-{A}-PLAN.md` for this atomic unit, or the matching legacy root-level plan if that is all the project has
    - The plan's `## Craft Notes` section, including any `CHOICE`, `HUNCH`, `QUESTION`, and `WATCHPOINT` items
@@ -30,10 +31,12 @@ Require `.manuscript/plans/{N}-*-PLAN.md` files to exist. If none exist, also ch
    - The plan's `## Character Persona Notes` section, when present
    - The plan's `## Subject Dynamics Notes` section, when present
    - The plan's `## Causal Anchor` section, when present, so the drafter knows why this unit happens (the Forster "because", not merely "and then") and writes the unit to honor its stated cause
-   - CHARACTERS.md or FIGURES.md (full file by default; only filtered to "relevant figures" when `draft.context_profile` is `minimal`). Loading the full file is the default because a character introduced via `/scr:new-character` after some plans were already written will not appear in those plans, and a relevance filter would silently exclude them from the drafter's view -- breaking character continuity through the manuscript.
+   - The adapted cast surface for canonical `CHARACTERS.md` (full file by default; only filtered to relevant entries when `draft.context_profile` is `minimal`). Loading the full file is the default because a cast entry introduced via `/scr:new-character` after some plans were already written will not appear in those plans, and a relevance filter would silently exclude it from the drafter's view -- breaking continuity through the manuscript.
    - The peoples in `PEOPLES.md` that the unit's characters belong to, when present, so the drafter writes each character's collective voice, bias, and worldview, not only their individual traits
+   - `PLACES.md` and `GEOGRAPHY.md` when present and relevant to the plan's location, setting pressure, travel, route, or spatial continuity
+   - `RESEARCH.md` when present and relevant, as advisory fact-safety context only. Research notes do not become project canon unless accepted into `RECORD.md`, `PLACES.md`, the adapted world surface, the adapted cast surface, the adapted subject surface, or another project file.
    - The last 200 words of the previous atomic unit (for voice/tone continuity)
-   - THEMES.md or DOCTRINES.md (relevant threads only)
+   - The adapted themes surface for canonical `THEMES.md` (relevant threads only)
 
 3. **Save drafted output** to `.manuscript/drafts/body/{N}-{A}-DRAFT.md`.
 
@@ -45,11 +48,12 @@ Require `.manuscript/plans/{N}-*-PLAN.md` files to exist. If none exist, also ch
    - promises and payoffs
    - continuity facts future units must honor
    - character, figure, subject, argument, reader, doctrine, procedure, image, object, setting, or relationship movement
+   - place, route, access, boundary, travel, or spatial movement that the draft makes reader-visible
    - next-unit obligations that follow from the new draft
 
-   Do not turn every beat into a record entry. Keep RECORD.md compact enough to load. If a change belongs in CHARACTERS.md, THEMES.md, WORLD.md, QUESTIONS.md, PROCEDURES.md, DOCTRINES.md, or another adapted source file, record the summary in RECORD.md and suggest the more specific touch command when useful.
+   Do not turn every beat into a record entry. Keep RECORD.md compact enough to load. If a change belongs in the adapted cast, themes, world, places, questions, procedures, doctrines, or another adapted source file, record the summary in RECORD.md and suggest the more specific touch command when useful.
 
-6. **Surface state nudges.** If the drafter emits `CHARACTER STATE NUDGE`, suggest `/scr:character-touch <name>` after drafting. If the drafter emits `SUBJECT DYNAMICS NUDGE`, suggest `/scr:subject-touch <subject>` after drafting. These nudges go to the writer, not into the draft file.
+6. **Surface state nudges.** If the drafter emits `CHARACTER STATE NUDGE`, suggest `/scr:character-touch <name>` after drafting. If the drafter emits `SUBJECT DYNAMICS NUDGE`, suggest `/scr:subject-touch <subject>` after drafting. If the drafter emits `PLACE STATE NUDGE`, suggest `/scr:place-touch <name>` after drafting. These nudges go to the writer, not into the draft file.
 
 7. **Update STATE.md:** mark unit as drafted, note word count, flag any voice-check issues. Then refresh `.manuscript/PROGRESS.md` so the ledger advances (this unit moves to in progress or done) per `docs/progress-protocol.md`.
 
@@ -94,6 +98,10 @@ If config has `autopilot.enabled: true`, proceed to `/scr:editor-review` automat
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

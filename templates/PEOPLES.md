@@ -36,7 +36,7 @@ authority: project
 - **Stake in the central conflict:** {{STAKE}}
 
 ### Members
-Characters who belong to this people (linked from `CHARACTERS.md`). A member inherits these traits unless their entry overrides them.
+Characters or figures who belong to this people (linked from the adapted cast surface, such as `CHARACTERS.md` or `FIGURES.md`). A member inherits these traits unless their entry overrides them.
 
 {{MEMBERS}}
 
@@ -49,4 +49,4 @@ For each other people this one deals with, the standing dynamic and where it is 
   - **Friction or bond:** {{FRICTION}}
 
 ---
-*A people is the collective tier above the cast. Keep each entry to what shapes characters and conflict on the page; deep lore belongs in WORLD.md.*
+*A people is the collective tier above the cast. Keep each entry to what shapes characters and conflict on the page; deep lore belongs in the adapted world surface, such as WORLD.md or COSMOLOGY.md.*

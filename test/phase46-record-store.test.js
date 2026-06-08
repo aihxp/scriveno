@@ -45,7 +45,9 @@ describe('Phase 46: RECORD.md store', () => {
 
   it('import initializes RECORD.md from source text without inventing truth', () => {
     const importCommand = read('commands/scr/import.md');
-    assert.match(importCommand, /WORK\.md, BRIEF\.md, OUTLINE\.md, RECORD\.md/);
+    assert.match(importCommand, /surface_applicability/);
+    assert.match(importCommand, /file_adaptations/);
+    assert.match(importCommand, /WORK\.md, BRIEF\.md or adapted equivalent, OUTLINE\.md, RECORD\.md/);
     assert.match(importCommand, /Populate `RECORD\.md` from the imported manuscript, not from speculation/);
     assert.match(importCommand, /needs writer confirmation/);
   });

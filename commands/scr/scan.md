@@ -1,13 +1,13 @@
 ---
 description: Scan the project for context drift between recorded state and what is actually on disk.
-argument-hint: "[--fix] [--quiet]"
+argument-hint: "[--fix] [--quiet] [--deep]"
 ---
 
 # /scr:scan -- Context Drift Scanner
 
 You are the project's drift detector. Trust nothing. Compare what `.manuscript/STATE.md`, `OUTLINE.md`, `RECORD.md`, `PROGRESS.md`, `config.json`, and the various structural files **claim** against what the filesystem actually contains, and report every mismatch.
 
-Follow the auto-invoke policy. In the source repository it is documented at `docs/auto-invoke-policy.md`. `/scr:scan` does not spawn agents. It may run deterministic local checks and, under `--fix` after confirmation, deterministic local repairs.
+Follow the auto-invoke policy. In the source repository it is documented at `docs/auto-invoke-policy.md`. Default `/scr:scan` does not spawn agents. It runs deterministic local checks and, under `--fix` after confirmation, deterministic local repairs. With `--deep`, it may spawn read-only audit workers after the deterministic checks finish.
 
 This is the defense against context corruption. A fresh Claude session, a writer who hand-edited files between sessions, an interrupted command, or a partial revert can all leave the project in an internally inconsistent state. STATE.md says 12 units drafted; the disk has 14. OUTLINE.md lists "Chapter 8" but no draft file exists. RECORD.md says a promise is still open but the draft paid it off. STYLE-GUIDE.md was edited yesterday but no voice-check has run since. `/scr:scan` finds those.
 
@@ -19,17 +19,20 @@ This complements `/scr:health` (which fixes structural issues like missing direc
 /scr:scan              # report-only
 /scr:scan --fix        # offer to fix the auto-fixable mismatches
 /scr:scan --quiet      # only show drift; suppress the all-clear summary
+/scr:scan --deep       # run read-only audit workers after deterministic checks
 ```
 
 ## Instruction
 
-Load `.manuscript/config.json`, `.manuscript/STATE.md`, `.manuscript/OUTLINE.md`, `.manuscript/RECORD.md`, and `.manuscript/PROGRESS.md` when present. Each check below produces a finding with one of three severities:
+Load `.manuscript/config.json`, `.manuscript/STATE.md`, `.manuscript/OUTLINE.md`, `.manuscript/RECORD.md`, and `.manuscript/PROGRESS.md` when present. Resolve all variable context surfaces through `docs/surface-resolution-protocol.md` before checking adapted files or deciding a surface is not applicable. Each check below produces a finding with one of three severities:
 
 - **DRIFT** -- recorded state contradicts disk reality. Trust nothing downstream until resolved.
 - **WARNING** -- an artifact is stale or out of date. Downstream work may be silently using outdated input.
 - **INFO** -- worth noticing but not actionable.
 
 Run every check. Do not stop on first finding. Bundle them all into one report.
+
+If `--deep` is passed, load `docs/subagent-spawning-protocol.md` and run the deep audit workers described after CHECK 18. Do not run deep workers before deterministic drift checks complete.
 
 ---
 
@@ -172,12 +175,12 @@ DRIFT   config.json declares tradition: "{value}"
 
 ---
 
-### CHECK 10: CHARACTERS.md vs. drafts
+### CHECK 10: Adapted cast surface vs. drafts
 
-Parse `.manuscript/CHARACTERS.md` (or FIGURES.md for sacred works) for character/figure names. Grep all draft files for proper-noun strings that look like character names (capitalized, two or more occurrences) but do not appear in CHARACTERS.md. Emit each unknown name as INFO with the first draft file it appears in:
+Resolve the adapted cast surface for canonical `CHARACTERS.md` from `file_adaptations`, then parse it for character, concept, audience, or figure names. Grep all draft files for proper-noun strings that look like cast names (capitalized, two or more occurrences) but do not appear in the adapted cast surface. Emit each unknown name as INFO with the first draft file it appears in:
 
 ```
-INFO   "Marcus" appears in 4 drafts but is not in CHARACTERS.md.
+INFO   "Marcus" appears in 4 drafts but is not in {adapted cast surface}.
        Either add a character entry via /scr:new-character "Marcus", or this is a one-off mention.
 ```
 
@@ -222,34 +225,35 @@ Recompute per-unit status from disk per `docs/progress-protocol.md`. If the buck
 
 ### CHECK 13: RELATIONSHIPS.md derived map staleness
 
-If the work type has a characters surface (per `surface_applicability`) and `.manuscript/CHARACTERS.md` defines two or more characters, the derived `.manuscript/RELATIONSHIPS.md` map should match the relationship sections of `CHARACTERS.md`. Compare RELATIONSHIPS.md mtime against CHARACTERS.md; if older, the saved map may be stale. Emit:
+If the work type has a cast surface (per `surface_applicability`) and the adapted cast surface for canonical `CHARACTERS.md` defines two or more characters, concepts, or figures, the derived adapted relationship surface for canonical `RELATIONSHIPS.md` should match the relationship sections of that cast surface. Resolve both filenames from `file_adaptations` before checking. Compare the adapted relationship file mtime against the adapted cast file; if older, the saved map may be stale. Emit:
 
 ```
-WARNING .manuscript/RELATIONSHIPS.md is older than CHARACTERS.md.
-        The saved relationship map may not reflect current character relationships.
+WARNING .manuscript/{adapted RELATIONSHIPS.md} is older than {adapted CHARACTERS.md}.
+        The saved relationship map may not reflect current cast relationships.
         Fix: /scr:save to rebuild it (or /scr:scan --fix).
 ```
 
-Re-derive the pairwise map from the CHARACTERS.md relationship sections per `docs/relationships-protocol.md`. If a pairing in RELATIONSHIPS.md contradicts the character entries, or a character pair is missing from the map entirely (not even marked `none`), emit a DRIFT finding citing both. If the work type has characters and at least two are defined but RELATIONSHIPS.md does not exist, emit INFO suggesting `/scr:save` to generate the openable map. Rebuilding RELATIONSHIPS.md is auto-fixable under `--fix`. For work types without a characters surface, skip this check silently.
+Re-derive the pairwise map from the adapted cast surface relationship sections per `docs/relationships-protocol.md`. If a pairing in the adapted relationship file contradicts the cast entries, or a pair is missing from the map entirely (not even marked `none`), emit a DRIFT finding citing both. If the work type has cast and at least two entries are defined but the adapted relationship file does not exist, emit INFO suggesting `/scr:save` to generate the openable map. Rebuilding the adapted relationship file is auto-fixable under `--fix`. For work types without a cast surface, skip this check silently.
 
 ---
 
 ### CHECK 14: CONFLICTS.md derived map staleness
 
-If the work has a narrative conflict (a central conflict in `WORK.md` or two or more characters) and the work type is not poetry or speech, the derived `.manuscript/CONFLICTS.md` map should match `WORK.md` and the character entries. Compare CONFLICTS.md mtime against `WORK.md` and `CHARACTERS.md`; if older, the saved map may be stale. Emit a WARNING with the fix `/scr:save` (or `/scr:scan --fix`). Re-derive the map per `docs/conflict-protocol.md`; if a pairing contradicts the source, or a character pair is missing entirely (not even marked `no conflict`), emit a DRIFT finding. If conflict applies but CONFLICTS.md does not exist, emit INFO suggesting `/scr:save`. Rebuilding it is auto-fixable under `--fix`. Where conflict does not apply, skip silently.
+If the work has a narrative conflict (a central conflict in `WORK.md` or two or more cast entries) and the work type is not poetry or speech, the derived `.manuscript/CONFLICTS.md` map should match `WORK.md` and the adapted cast surface for canonical `CHARACTERS.md`. Compare CONFLICTS.md mtime against `WORK.md` and the adapted cast file; if older, the saved map may be stale. Emit a WARNING with the fix `/scr:save` (or `/scr:scan --fix`). Re-derive the map per `docs/conflict-protocol.md`; if a pairing contradicts the source, or a cast pair is missing entirely (not even marked `no conflict`), emit a DRIFT finding. If conflict applies but CONFLICTS.md does not exist, emit INFO suggesting `/scr:save`. Rebuilding it is auto-fixable under `--fix`. Where conflict does not apply, skip silently.
 
 ---
 
-### CHECK 15: WORLD.md entity propagation
+### CHECK 15: PLACES.md candidate detection
 
-Generalize the character-name detection in CHECK 10 to places and factions. Parse `.manuscript/WORLD.md` (or the adapted CONTEXT / SYSTEM / COSMOLOGY) for known place and faction names. Grep the drafts for capitalized place-like or group-like proper nouns (a city, region, order, house, company) that recur but are absent from WORLD.md. Emit each as INFO with the first draft it appears in, and under `--fix` propose adding a stub entry to the relevant WORLD.md section after writer confirmation:
+Generalize the character-name detection in CHECK 10 to places. Parse `PLACES.md` for known place, region, route, landmark, building, and realm names. Also read the adapted world surface for context, but treat `PLACES.md` as the place registry. Grep the drafts for capitalized place-like proper nouns that recur but do not appear in `PLACES.md`. Emit each as INFO with the first draft file it appears in:
 
 ```
-INFO   "Veridia" appears in 3 drafts but is not in WORLD.md.
-       Add it to Geography (Key locations), or confirm it is a one-off mention. /scr:scan --fix can stub it.
+INFO   "New York City" appears in 3 drafts but is not in PLACES.md.
+       Add it with /scr:new-place "New York City", or ignore it as a one-off mention.
+       If this is a real place, optional research: /scr:research "New York City" --place
 ```
 
-Reconcile before creating: "the city", "Veridia", and "the capital" may be one place -- ask rather than create three entries. This is best-effort; false positives are expected. For work types where WORLD is not_applicable (per `surface_applicability`: poetry, speech), skip this check silently.
+Do not auto-append candidates and do not create an inbox. This check is detection-only. Reconcile before suggesting: "the city", "Veridia", and "the capital" may be one place, so avoid reporting three candidates when they clearly point to the same location. This is best-effort; false positives are expected. For work types where WORLD is not_applicable (per `surface_applicability`: poetry, speech), skip this check silently.
 
 ---
 
@@ -261,7 +265,35 @@ If the work type has a peoples surface (per `surface_applicability`) and `.manus
 
 ### CHECK 17: character-people membership sync
 
-If the work type has a peoples surface and both `.manuscript/CHARACTERS.md` and `.manuscript/PEOPLES.md` exist, the two membership directions should agree: a character whose entry says `Belongs to: X` should appear in people X's `### Members` list, and every name in a people's `### Members` should carry the matching `Belongs to:` in its character entry. Emit a WARNING for each one-sided link (a character claims a people that does not list it, or a people lists a member whose entry omits the `Belongs to:`). Under `--fix`, reconcile by adding the missing side after writer confirmation. Where peoples do not apply, or one of the two files is absent, skip this check silently.
+If the work type has a peoples surface and both `.manuscript/PEOPLES.md` and the adapted cast surface for canonical `CHARACTERS.md` exist (for example `.manuscript/FIGURES.md` in sacred work), the two membership directions should agree: a cast entry whose `Belongs to: X` names a people should appear in people X's `### Members` list, and every name in a people's `### Members` should carry the matching `Belongs to:` in its cast entry. Emit a WARNING for each one-sided link (an entry claims a people that does not list it, or a people lists a member whose entry omits the `Belongs to:`). Under `--fix`, reconcile by adding the missing side after writer confirmation. Where peoples do not apply, or one of the two files is absent, skip this check silently.
+
+---
+
+### CHECK 18: GEOGRAPHY.md derived map staleness
+
+If `.manuscript/PLACES.md` exists and the work type has an adapted world surface (per `surface_applicability`), the derived `.manuscript/GEOGRAPHY.md` map should match `PLACES.md` and the adapted world surface. Compare GEOGRAPHY.md mtime against PLACES.md and the adapted world surface; if older, emit:
+
+```
+WARNING .manuscript/GEOGRAPHY.md is older than PLACES.md or the adapted world surface.
+        The saved geography map may not reflect current place relationships.
+        Fix: /scr:geography-map --fix, /scr:save, or /scr:scan --fix.
+```
+
+Re-derive the map per `docs/world-layers-protocol.md`. If a route, parent-child relationship, or distance in GEOGRAPHY.md contradicts PLACES.md, emit a DRIFT finding citing both. If places exist but GEOGRAPHY.md does not, emit INFO suggesting `/scr:geography-map --fix`. Rebuilding GEOGRAPHY.md is auto-fixable under `--fix`. Where the world surface does not apply, or no confirmed places exist, skip silently.
+
+---
+
+### --deep MODE
+
+When `--deep` is passed, run read-only audit workers after CHECK 18:
+
+- continuity-auditor: compare drafts, plans, RECORD.md, and reviews for unresolved contradictions
+- place-geography-auditor: inspect PLACES.md, GEOGRAPHY.md, drafts, and plans for spatial drift
+- relationship-conflict-auditor: inspect adapted cast files, RELATIONSHIPS.md, CONFLICTS.md, and draft interactions for stale dynamics
+- research-gap-auditor: inspect plans and drafts for unsupported real-world, technical, academic, sacred, cultural, legal, medical, public-data, or source claims
+- voice-risk-auditor: inspect STYLE-GUIDE.md mtime, recent drafts, and voice-check reports for likely voice drift
+
+Deep workers are read-only. They may add WARNING or INFO findings to the scan report, but they must not apply fixes, write files, or accept research or canon. If parallel worker spawning is unavailable, run selected audits sequentially in isolated fresh contexts and report `parallel unavailable; sequential isolated analysis used`.
 
 ---
 
@@ -330,9 +362,10 @@ Every response must include a compact status block:
 Automation status:
 Trigger: /scr:scan {flags}
 Spawned agents:
-- none
+- none unless --deep is passed
+- deep auditors: {count when --deep, otherwise none}
 Candidate agents:
-- none
+- /scr:scan --deep: continuity-auditor, place-geography-auditor, relationship-conflict-auditor, research-gap-auditor, voice-risk-auditor
 Local operations:
 - drift checks run: {count}
 - auto-fixes applied: {count}
@@ -343,12 +376,16 @@ Manual gates:
 - fixes that require writer confirmation
 Auto-invoked:
 - none
-Why: scan compares disk state locally; fixes require writer confirmation
+Why: default scan compares disk state locally; --deep adds read-only auditors; fixes require writer confirmation
 ```
 
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

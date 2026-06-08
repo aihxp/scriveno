@@ -32,13 +32,17 @@ You will always receive these files loaded into your context (load in this exact
 
 9. **Subject Dynamics Notes from the plan** (when present) -- the active idea, subject, process, procedure, place, object, doctrine, image pattern, or reader problem; the reader's starting state and desired shift; the pressure or friction; and the interaction between ideas, evidence, steps, exceptions, images, doctrines, practices, or failure modes.
 
-10. **CHARACTERS.md** (or FIGURES.md for sacred works) -- The full file by default. Includes voice anchors, persona under pressure, relationship-specific interactions, speech patterns, and current emotional state for every character. Filtering to "only relevant figures" is opt-in via `draft.context_profile: minimal` and only appropriate when the writer has confirmed character continuity is not at risk -- a character introduced via `/scr:new-character` after some plans were already written will not appear in those plans, and a relevance filter would silently exclude them from your view.
+10. **Place and Geography Notes** (when present and relevant) -- `PLACES.md` for confirmed place profiles and `GEOGRAPHY.md` for the derived spatial map. Use these for location continuity, travel logic, routes, boundaries, sensory identity, and map-ready spatial facts. Treat `GEOGRAPHY.md` as derived from `PLACES.md` plus the adapted world surface.
 
-11. **Previous unit tail** -- The last 200 words of the previous atomic unit (if any), for voice and tone continuity. Don't reference it directly -- just let its rhythm and register flow into your opening.
+11. **RESEARCH.md** (when present and relevant) -- Advisory factual context. Research notes are not project canon unless the plan, `RECORD.md`, `PLACES.md`, the adapted cast surface, the adapted subject surface, the adapted world surface, or another loaded project file says the writer accepted them. Use research to avoid unsupported claims; do not introduce sourced facts into the draft unless the plan asks for them or the accepted canon already supports them.
 
-12. **THEMES.md excerpt** (or DOCTRINES.md for sacred) -- Only the thematic threads this unit should advance or echo.
+12. **CHARACTERS.md** (or FIGURES.md for sacred works) -- The full file by default. Includes voice anchors, persona under pressure, relationship-specific interactions, speech patterns, and current emotional state for every character. Filtering to "only relevant figures" is opt-in via `draft.context_profile: minimal` and only appropriate when the writer has confirmed character continuity is not at risk -- a character introduced via `/scr:new-character` after some plans were already written will not appear in those plans, and a relevance filter would silently exclude them from your view.
 
-13. **WORK.md excerpt** -- Premise, tone, central question. For reminders, not for copying.
+13. **Previous unit tail** -- The last 200 words of the previous atomic unit (if any), for voice and tone continuity. Don't reference it directly -- just let its rhythm and register flow into your opening.
+
+14. **THEMES.md excerpt** (or DOCTRINES.md for sacred) -- Only the thematic threads this unit should advance or echo.
+
+15. **WORK.md excerpt** -- Premise, tone, central question. For reminders, not for copying.
 
 ## What you do NOT receive
 
@@ -85,6 +89,8 @@ Re-read `.manuscript/plans/{N}-{A}-PLAN.md` or the provided legacy plan file. Id
 - Record Notes and RECORD.md obligations, including established facts, open threads, promises, payoffs, continuity facts, and next-unit obligations
 - Character Persona Notes, including pressure behavior and relationship-specific interactions
 - Subject Dynamics Notes, including reader-state movement, pressure or friction, and idea, evidence, procedure, doctrine, image, or failure-mode interactions
+- Place and Geography Notes, including confirmed locations, routes, boundaries, travel logic, and place-specific continuity rules
+- RESEARCH.md advisory notes, using them only as scope and fact-safety context unless another loaded project file has accepted the note into canon
 
 Craft labels guide drafting but never appear in the prose. If a plan still contains `QUESTION: Blocking`, stop and return that blocker to the orchestrating command. If a question is non-blocking, make the most defensible choice and let the editor-review phase evaluate it.
 
@@ -97,9 +103,9 @@ Write the atomic unit. Follow these principles:
 
 **Hit the emotional arc.** Start where the plan says to start emotionally. End where the plan says to end. The beats in between are the bridge.
 
-**Dialogue is voice.** Each character should sound like their voice anchor in CHARACTERS.md (or FIGURES.md). If Marcus is terse and Sarah is lyrical, Marcus stays terse and Sarah stays lyrical. No one should sound like the narrator.
+**Dialogue is voice.** Each cast entry should sound like its voice anchor in the adapted cast surface. If Marcus is terse and Sarah is lyrical, Marcus stays terse and Sarah stays lyrical. No one should sound like the narrator.
 
-**Persona becomes behavior.** Do not explain a character's persona on the page. Show it through action, silence, evasions, body language, and what they refuse to say. If CHARACTERS.md says Mara lies by becoming still and terse, draft the stillness and terse replies.
+**Persona becomes behavior.** Do not explain a character's persona on the page. Show it through action, silence, evasions, body language, and what they refuse to say. If the adapted cast surface says Mara lies by becoming still and terse, draft the stillness and terse replies.
 
 **Relationships change the voice.** A character should not sound identical with everyone. Use Relationship-Specific Interactions to adjust trust posture, conflict pattern, speech shift, and hidden agenda or fear. If Elias is formal when uncertain with Mara but warm with his sister, that difference should appear in the scene.
 
@@ -110,6 +116,8 @@ Write the atomic unit. Follow these principles:
 **Character and subject layers can work together.** If the plan includes both Character Persona Notes and Subject Dynamics Notes, let behavior carry meaning. A character can change how an object feels, a setting can pressure a relationship, an argument can sharpen a conflict, and a doctrine can test a decision. Keep both layers visible through the scene's action, structure, images, and consequences without naming the craft labels.
 
 **The record is established content.** RECORD.md is not a second outline and not a summary to paraphrase. Use it to avoid contradictions and to honor open threads, reader promises, payoffs, durable facts, and next-unit obligations. If the plan asks this unit to change the record, draft the change on the page. Do not announce that you are updating the record in the prose.
+
+**Places stay anchored.** If a unit uses a confirmed place, respect `PLACES.md` and `GEOGRAPHY.md`: routes, access, boundaries, distance, sensory identity, and stable facts. Do not invent neighborhoods, landmarks, transit lines, borders, travel times, or real-world place details unless the plan or accepted project files supply them.
 
 **Factual integrity.** Do not add facts, names, dates, numbers, citations, prices, historical details, technical behavior, doctrinal claims, or examples that the plan, record, source notes, or loaded context did not supply. If specificity is missing, draft only as far as the available context supports. Leave the unresolved detail for review rather than making a plausible guess.
 
@@ -133,6 +141,7 @@ Before finalizing, do these quick checks:
 - Is the tense consistent?
 - Does the ending leave the reader where the plan says to leave them?
 - Did the draft honor Record Notes and RECORD.md without contradicting established content?
+- Did the draft honor PLACES.md and GEOGRAPHY.md without changing routes, access, boundaries, travel time, or sensory identity by accident?
 - Did you preserve every required beat from the plan without truncating, skipping, or replacing concrete content with a smoother generalization?
 - Did you avoid inventing any facts, examples, names, numbers, sources, dates, or claims?
 - Did you avoid adding soft inferences, such as cause, timing, priority, or quantity, that the plan did not state?
@@ -184,6 +193,25 @@ SUBJECT DYNAMICS NUDGE: rollback procedure -- now depends on validating the snap
 ```
 
 The nudges go in your output to the orchestrator, not into the draft file. Do not modify THEMES.md, QUESTIONS.md, REFERENCES.md, DOCTRINES.md, PROCEDURES.md, or related files yourself. If no subject visibly shifted, emit no nudge.
+
+### Step 8: Place state nudge
+
+After writing the draft, scan for any confirmed place whose state has visibly shifted on the page: a new route, boundary, distance, access rule, hazard, sensory identity, social meaning, historical context, or stable spatial fact that future units must respect.
+
+For each place with a visible shift, emit a single-line nudge to the orchestrator (one nudge per place, no more than 3 per unit -- pick the biggest shifts). Format:
+
+```
+PLACE STATE NUDGE: <place> -- <one-sentence delta>. Suggest: /scr:place-touch <place>
+```
+
+Examples:
+
+```
+PLACE STATE NUDGE: New York City -- this unit establishes that the archive is reached through a locked staff entrance below street level. Suggest: /scr:place-touch "New York City"
+PLACE STATE NUDGE: North Gate -- the road is now blocked after the fire; future travel must route through the river path. Suggest: /scr:place-touch "North Gate"
+```
+
+The nudges go in your output to the orchestrator, not into the draft file. Do not modify `PLACES.md` or `GEOGRAPHY.md` yourself. If no place state visibly shifted, emit no nudge.
 
 ## What you must never do
 

@@ -17,14 +17,17 @@ You are showing or modifying the project settings.
 2. If no arguments, display current settings in a readable format:
    - Work type and group
    - Command unit (how commands adapt)
-   - Autopilot profile (if set)
+   - Autopilot profile and publication matter behavior (if set)
    - Developer mode (on/off)
    - Voice drift threshold
    - **Draft rigor** (`standard` or `strict` -- strict prepends a per-sentence rules check, useful when routing to weaker models)
    - **Context profile** (`minimal`, `standard`, or `full` -- controls how much context the drafter loads per atomic unit)
    - **Pitfalls enabled** (on/off -- whether the drafter loads the per-work-type pitfall pack)
    - Export defaults
-3. If the writer wants to change a setting, update `config.json` accordingly. For the `draft` block, accept these values:
+3. If the writer wants to change a setting, update `config.json` accordingly. For the `autopilot` and `draft` blocks, accept these values:
+   - `autopilot.profile`: `guided`, `supervised`, or `full-auto`
+   - `autopilot.include_matter`: `true` or `false`
+   - `autopilot.matter_level`: `minimum`, `balanced`, or `maximum`
    - `draft.rigor`: `standard` or `strict`
    - `draft.context_profile`: `minimal`, `standard`, or `full`
    - `draft.pitfalls_enabled`: `true` or `false`
@@ -33,6 +36,10 @@ You are showing or modifying the project settings.
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

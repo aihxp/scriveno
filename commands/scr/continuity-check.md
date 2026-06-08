@@ -16,15 +16,18 @@ If `N` is provided, checks only Act N against previous acts. Otherwise checks en
 
 ## Instruction
 
-Load `.manuscript/config.json` to get `work_type`. Load Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) to check command adaptations. For sacred work types, this command is called 'doctrinal-check' and should additionally verify doctrinal consistency and canonical alignment. For academic work types, this command is called 'citation-check' and should additionally verify citation consistency and reference accuracy. For technical work types, this command is called 'consistency-check' and should additionally verify terminology consistency, prerequisite order, command syntax, version references, and recovery steps. Use adapted terminology throughout all output.
+Load `.manuscript/config.json` to get `work_type`. Load Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) and `docs/surface-resolution-protocol.md` to check command adaptations and resolve adapted surfaces. For sacred work types, this command is called 'doctrinal-check' and should additionally verify doctrinal consistency and canonical alignment. For academic work types, this command is called 'citation-check' and should additionally verify citation consistency and reference accuracy. For technical work types, this command is called 'consistency-check' and should additionally verify terminology consistency, prerequisite order, command syntax, version references, and recovery steps. Use adapted terminology throughout all output.
 
 Invoke the installed `continuity-checker.md` agent for the writer's active Scriveno runtime (for example the runtime's global or project-scoped `agents/continuity-checker.md`) in a fresh context. Pass it:
 
 - The full set of drafted units (`.manuscript/drafts/body/{N}-{A}-DRAFT.md` files in scope -- all units, or only Act `N` and prior acts when scoped)
 - RECORD.md when present, as the compact store of established facts, open threads, promises, payoffs, and continuity obligations
-- CHARACTERS.md (or FIGURES.md for sacred works)
-- WORLD.md (or COSMOLOGY.md for sacred works)
-- PLOT-GRAPH.md (or THEOLOGICAL-ARC.md for sacred works)
+- The adapted cast surface for canonical `CHARACTERS.md`, when applicable
+- The adapted world surface for canonical `WORLD.md`, when applicable
+- `PLACES.md` when present, as the confirmed place registry for locations, routes, boundaries, access, sensory identity, and place-specific continuity
+- `GEOGRAPHY.md` when present, as the derived spatial map. Use it to cross-check travel logic, adjacency, distances, routes, and map-ready spatial facts against `PLACES.md`
+- `RESEARCH.md` when present and relevant, as advisory factual context only. Do not treat research notes as project canon unless another loaded project file has accepted them.
+- The adapted plot surface for canonical `PLOT-GRAPH.md`, when applicable
 - DOCTRINES.md, LINEAGES.md, and CHRONOLOGY.md when present (sacred only)
 - The previous continuity report if one exists, so the agent can verify resolved issues stayed resolved instead of re-flagging them
 
@@ -67,6 +70,7 @@ If RECORD.md contradicts the drafted text, flag the mismatch as a RECORD drift f
     - Characters move logically between locations
     - Building/space descriptions are consistent
     - Left/right, north/south orientations hold
+    - PLACES.md confirmed place facts and GEOGRAPHY.md derived routes agree with drafted travel, access, boundaries, and adjacency
   </check>
 
   <check name="information_flow">
@@ -106,6 +110,12 @@ For each issue:
 - What the established fact was and where it was established
 - Suggested fix
 
+If a place profile or derived geography map is stale or contradicted by the draft, distinguish the fix path:
+- Draft error: revise the draft.
+- Place profile needs to accept a visible draft change: suggest `/scr:place-touch <name>`.
+- Derived map is stale after a confirmed place change: suggest `/scr:geography-map --fix` or `/scr:save`.
+- Research note conflicts with canon: keep project canon authoritative and suggest `/scr:research <topic>` only when new source verification is needed.
+
 Save to `.manuscript/{act_num}-CONTINUITY-REPORT.md` or `.manuscript/FULL-CONTINUITY-REPORT.md`. For technical work types, use `CONSISTENCY-REPORT` in the writer-facing title even if the file path stays the same.
 
 ## Agent Status
@@ -129,11 +139,15 @@ Why: continuity-check is diagnostic only; fixes are writer-chosen handoffs
 
 ## Next-step routing
 
-When the check finds that a character relationship or conflict has shifted on the page versus what the files record, suggest `/scr:character-touch <name>`, and note that `/scr:save` (or `/scr:scan --fix`) rebuilds the derived `RELATIONSHIPS.md` and `CONFLICTS.md` from the updated entries.
+When the check finds that a character relationship or conflict has shifted on the page versus what the files record, suggest `/scr:character-touch <name>`, and note that `/scr:save` (or `/scr:scan --fix`) rebuilds the derived `RELATIONSHIPS.md` and `CONFLICTS.md` from the updated entries. When a place, route, boundary, access rule, or travel fact shifted on the page versus `PLACES.md`, suggest `/scr:place-touch <name>` and note that `/scr:geography-map --fix` or `/scr:save` rebuilds `GEOGRAPHY.md` after the writer accepts the change.
 
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

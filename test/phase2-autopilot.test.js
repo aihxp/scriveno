@@ -31,6 +31,8 @@ describe('Autopilot command structure', () => {
       'argument-hint should contain --profile');
     assert.ok(fm[1].includes('--resume'),
       'argument-hint should contain --resume');
+    assert.ok(fm[1].includes('--matter'),
+      'argument-hint should contain --matter');
   });
 
   it('has "# Autopilot" heading', () => {
@@ -166,5 +168,12 @@ describe('Autopilot state management', () => {
       content.includes('config.json') || content.includes('config'),
       'autopilot.md should reference config.json or config for settings'
     );
+  });
+
+  it('runs dedicated matter commands after a full manuscript run', () => {
+    content = fs.readFileSync(autopilotPath, 'utf8');
+    assert.match(content, /\/scr:front-matter --level \{resolved-matter-level\}/);
+    assert.match(content, /\/scr:back-matter --level \{resolved-matter-level\}/);
+    assert.match(content, /Do not overwrite writer-authored front or back matter silently/);
   });
 });

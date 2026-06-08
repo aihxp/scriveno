@@ -1,6 +1,6 @@
 # Command Reference
 
-Scriveno has **117 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
+Scriveno has **122 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
 
 Commands marked with **adaptive terminology** change how Scriveno talks about your work type's `command_unit` in `.manuscript/config.json`, while keeping the runnable command id stable. Commands marked with **group adaptation** have different labels for specific work type groups (academic, sacred, etc.).
 
@@ -53,7 +53,7 @@ Start a novel project. Scriveno asks your premise and whether you have existing 
 
 **Description:** Shape the next unit before planning. Discuss the approach, voice, themes, open questions.
 
-**Usage:** `/scr:discuss [unit number]`
+**Usage:** `/scr:discuss [unit number, optional]`
 
 **Prerequisites:** OUTLINE.md must exist
 
@@ -71,7 +71,7 @@ Talk through Chapter 3 before planning it -- themes to explore, character arcs t
 
 **Description:** Research and plan the next unit. Produces a structured plan file the drafter agent uses.
 
-**Usage:** `/scr:plan [unit number]`
+**Usage:** `/scr:plan [unit number, optional]`
 
 **Prerequisites:** Discussed unit context (`{N}-CONTEXT.md`)
 
@@ -89,7 +89,7 @@ Research and plan Chapter 5, producing plan files for each scene the drafter age
 
 **Description:** Draft the planned unit. Invokes the drafter agent in fresh context per atomic unit.
 
-**Usage:** `/scr:draft [unit number]`
+**Usage:** `/scr:draft [unit number, optional]`
 
 **Prerequisites:** Plan files must exist in `.manuscript/plans/` (`{N}-*-PLAN.md`). Legacy root-level plan files are still accepted for older projects.
 
@@ -130,7 +130,7 @@ Review the draft of unit 3 with your editor hat on. Scriveno highlights issues, 
 
 ### `/scr:submit`
 
-**Description:** Package and finalize unit.
+**Description:** Package and finalize a unit after editor review.
 
 **Usage:** `/scr:submit [unit number]`
 
@@ -202,7 +202,7 @@ Archive the current draft and start revision 2. All drafts are preserved in the 
 
 **Description:** Run the full drafting pipeline autonomously. Choose guided, supervised, or full-auto profiles.
 
-**Usage:** `/scr:autopilot [--profile guided|supervised|full-auto] [--from <stage>] [--to <stage>] [--unit N] [--resume]`
+**Usage:** `/scr:autopilot [--profile guided|supervised|full-auto] [--from <stage>] [--to <stage>] [--unit N] [--resume] [--matter <minimum|balanced|maximum|skip>]`
 
 **Prerequisites:** None (recommended: run `/scr:profile-writer` first)
 
@@ -211,12 +211,15 @@ Archive the current draft and start revision 2. All drafts are preserved in the 
 - `--from` / `--to` -- Limit the pipeline stages
 - `--unit N` -- Start from a specific unit
 - `--resume` -- Continue from where autopilot left off
+- `--matter` -- After a full manuscript run, generate missing front and back matter through the dedicated matter commands. Defaults to `balanced`; use `skip` to opt out.
 
 **Example:**
 ```
 /scr:autopilot --profile supervised --from plan --to draft
 ```
 Run planning and drafting for all units, pausing at milestones for your review.
+
+When autopilot completes every unit through submit, it checks publication matter and invokes `/scr:front-matter --level <level>` and `/scr:back-matter --level <level>` for missing files. It does not run this phase for partial `--from` / `--to` runs and does not silently overwrite writer-authored matter.
 
 ---
 
@@ -299,7 +302,7 @@ Scriveno maps your intent to the right command and runs it.
 
 **Description:** Show Scriveno commands grouped by workflow stage, filtered to what's relevant for your current work type and progress.
 
-**Usage:** `/scr:help [category or search term]`
+**Usage:** `/scr:help [category or search term, optional]`
 
 **Prerequisites:** None
 
@@ -313,7 +316,7 @@ Show publishing-related commands available for your work type. Without a categor
 
 ### `/scr:progress`
 
-**Description:** Show project progress: a unit progress bar, what's done / in progress / untouched, pipeline position, and a pointer to the per-unit ledger.
+**Description:** Show project progress -- a unit progress bar, what is done / in progress / untouched, pipeline position, and a pointer to the per-unit ledger.
 
 **Usage:** `/scr:progress`
 
@@ -354,7 +357,7 @@ Explore Scriveno with a pre-built watchmaker story -- 5 scenes, full context fil
 
 ### `/scr:import`
 
-**Description:** Import an existing manuscript (docx, markdown, txt, or directory) and structure it into a Scriveno `.manuscript/` directory.
+**Description:** Import an existing manuscript (docx, markdown, txt, or directory) and structure it into a Scriveno .manuscript/ directory.
 
 **Usage:** `/scr:import <file_or_directory_path> [--type <work_type>]`
 
@@ -389,7 +392,7 @@ Analyze a manuscript you imported. Scriveno reads the whole thing and extracts v
 
 ### `/scr:manuscript-stats`
 
-**Description:** Show manuscript word count, page count, unit count, and reading time -- with progress against your work type's industry-standard ranges.
+**Description:** Show manuscript word count, chapter count, estimated page count, and reading time.
 
 **Usage:** `/scr:manuscript-stats [--detail]`
 
@@ -572,7 +575,7 @@ Commands for visualizing and managing your narrative structure, themes, and time
 - `--edit` -- Modify the arc structure
 - `--type <arc_type>` -- Arc type: three-act, five-act, hero's journey, kishotenketsu, etc.
 
-**Available for:** Prose, script, visual, interactive
+**Available for:** Prose, script, technical, visual, interactive
 
 **Group adaptation:**
 - Technical label: `procedure-map`
@@ -589,7 +592,7 @@ Visualize your novel's structure mapped to the hero's journey.
 
 **Description:** Generate and pressure-test the story's climax where conflict, crisis, character arcs, and planted payoffs converge.
 
-**Usage:** `/scr:climax [unit]`
+**Usage:** `/scr:climax [unit number, optional]`
 
 **Prerequisites:** OUTLINE.md must exist
 
@@ -643,7 +646,7 @@ See where your themes appear across chapters and which ones need more developmen
 
 ### `/scr:subject-touch`
 
-**Description:** Update an evolving subject, concept, procedure, doctrine, object, image, or reader-state thread after a unit lands.
+**Description:** Update an evolving subject, idea, claim, procedure, doctrine, object, image pattern, or reader-state thread after a unit lands.
 
 **Usage:** `/scr:subject-touch <subject> [--from <unit>]`
 
@@ -690,7 +693,7 @@ See how your subplots weave together and where they intersect with the main plot
 
 **Prerequisites:** OUTLINE.md must exist
 
-**Available for:** Prose, script, academic, visual, interactive, sacred
+**Available for:** Prose, script, academic, technical, visual, interactive, sacred
 
 **Flags:**
 - `--edit` -- Modify the outline
@@ -716,7 +719,7 @@ Commands for modifying the structural units in your outline -- adding, removing,
 
 **Prerequisites:** OUTLINE.md must exist
 
-**Available for:** Prose, script, academic, visual, interactive, sacred
+**Available for:** Prose, script, academic, technical, visual, interactive, sacred
 
 **Example:**
 ```
@@ -734,7 +737,7 @@ Add a new chapter (or act, section, surah, etc.) at the end of the outline.
 
 **Prerequisites:** OUTLINE.md must exist
 
-**Available for:** Prose, script, academic, visual, interactive, sacred
+**Available for:** Prose, script, academic, technical, visual, interactive, sacred
 
 **Example:**
 ```
@@ -752,7 +755,7 @@ Insert a new chapter at position 3, shifting later chapters forward.
 
 **Prerequisites:** OUTLINE.md must exist
 
-**Available for:** Prose, script, academic, visual, interactive, sacred
+**Available for:** Prose, script, academic, technical, visual, interactive, sacred
 
 **Example:**
 ```
@@ -770,7 +773,7 @@ Remove chapter 7. Scriveno warns if it has drafted content and asks for confirma
 
 **Prerequisites:** OUTLINE.md must exist
 
-**Available for:** Prose, script, academic, visual, interactive, sacred
+**Available for:** Prose, script, academic, technical, visual, interactive, sacred
 
 **Example:**
 ```
@@ -788,7 +791,7 @@ Split Chapter 5 into two chapters at the specified point.
 
 **Prerequisites:** OUTLINE.md must exist
 
-**Available for:** Prose, script, academic, visual, interactive, sacred
+**Available for:** Prose, script, academic, technical, visual, interactive, sacred
 
 **Example:**
 ```
@@ -806,7 +809,7 @@ Merge chapters 3 and 4 into a single chapter.
 
 **Prerequisites:** OUTLINE.md must exist
 
-**Available for:** Prose, script, academic, visual, interactive, sacred
+**Available for:** Prose, script, academic, technical, visual, interactive, sacred
 
 **Example:**
 ```
@@ -846,7 +849,7 @@ Profile a people as a collective: origin, values, speech, collective want and fe
 
 **Prerequisites:** WORK.md must exist
 
-**Available for:** Prose, script, visual, interactive
+**Available for:** Prose, script, technical, visual, interactive
 
 **Example:**
 ```
@@ -864,7 +867,7 @@ Start building a character. Scriveno interviews you about appearance, personalit
 
 **Prerequisites:** CHARACTERS.md must exist
 
-**Available for:** Prose, script, visual, interactive
+**Available for:** Prose, script, technical, visual, interactive
 
 **Flags:**
 - `--edit` -- Modify the character profile
@@ -879,7 +882,7 @@ View Maria's full profile and make changes.
 
 ### `/scr:character-touch`
 
-**Description:** Update a character's evolving state (emotional position, knowledge, possessions, relationships) after a unit lands. CHARACTERS.md is a living document; this command keeps it from freezing at character-creation time.
+**Description:** Update a character's evolving state (emotional position, knowledge, possessions, relationships) after a unit lands.
 
 **Usage:** `/scr:character-touch <name> [--from <unit>]`
 
@@ -901,11 +904,11 @@ After drafting unit 12, propose updates to Marcus's emotional position, knowledg
 
 ### `/scr:relationship-map`
 
-**Description:** Generate an ASCII relationship graph between characters.
+**Description:** Generate an ASCII relationship graph between cast entries.
 
 **Usage:** `/scr:relationship-map [--edit]`
 
-**Prerequisites:** CHARACTERS.md must exist with at least 2 characters
+**Prerequisites:** Adapted cast surface must exist with at least 2 entries
 
 **Available for:** Prose, script, visual, interactive
 
@@ -944,9 +947,67 @@ Flesh out your magic system through guided world-building questions.
 
 ---
 
+### `/scr:new-place`
+
+**Description:** Create a confirmed place profile in PLACES.md through guided questions.
+
+**Usage:** `/scr:new-place <name>`
+
+**Prerequisites:** WORK.md must exist
+
+**Available for:** Prose, script, academic, technical, visual, interactive, sacred
+
+**Example:**
+```
+/scr:new-place "New York City"
+```
+Add a confirmed place profile without auto-promoting scan candidates into canon.
+
+---
+
+### `/scr:place-touch`
+
+**Description:** Update a place's evolving geography, appearances, research status, or continuity rules.
+
+**Usage:** `/scr:place-touch <name> [--from <unit>]`
+
+**Prerequisites:** Adapted world surface must exist
+
+**Available for:** Prose, script, academic, technical, visual, interactive, sacred
+
+**Example:**
+```
+/scr:place-touch "New York City" --from 4
+```
+Update a confirmed place after drafting or research, then refresh the derived geography map.
+
+---
+
+### `/scr:geography-map`
+
+**Description:** Render or regenerate the derived geography map from PLACES.md and the world surface.
+
+**Usage:** `/scr:geography-map [--fix] [--region <name>]`
+
+**Prerequisites:** Adapted world surface must exist
+
+**Available for:** Prose, script, academic, technical, visual, interactive, sacred
+
+**Flags:**
+- `--fix` -- Write the derived `.manuscript/GEOGRAPHY.md`
+- `--region <name>` -- Render one region and its neighboring places
+
+**Example:**
+```
+/scr:geography-map --region "Lower Manhattan"
+```
+View confirmed place hierarchy, routes, distances, and undefined spatial questions.
+
+---
+
 ### `/scr:cast-list`
 
-**Description:** Display the roster of all characters with roles and brief descriptions.
+**Description:** Display the roster of all cast entries with roles and brief descriptions.
 
 **Usage:** `/scr:cast-list`
 
@@ -1104,7 +1165,7 @@ Commands for reviewing your manuscript from different angles -- continuity, voic
 
 **Prerequisites:** Draft must exist
 
-**Available for:** Prose, script, visual, interactive
+**Available for:** Prose, script, technical, visual, interactive
 
 **Group adaptation:**
 - Technical label: `consistency-check`
@@ -1201,7 +1262,7 @@ Check that each character sounds distinct, dialogue tags are clear, and scenes a
 
 ### `/scr:beta-reader`
 
-**Description:** Simulate a beta reader's experience of the manuscript using a fresh-context reader persona (same model, not a second or external AI).
+**Description:** Simulate a beta reader's experience of the manuscript using a fresh-context reader persona.
 
 **Usage:** `/scr:beta-reader [N] [--focus <area>]`
 
@@ -1418,6 +1479,28 @@ Run the full KDP paperback publishing pipeline: prepare the interior package, ge
 
 ---
 
+### `/scr:prepublish-review`
+
+**Description:** Run a final editorial go/no-go review before export or publishing.
+
+**Usage:** `/scr:prepublish-review [--preset <preset>] [--strict]`
+
+**Prerequisites:** Complete draft must exist
+
+**Flags:**
+- `--preset <preset>` -- Tune the editorial gate to a publishing, submission, academic, or screenplay destination
+- `--strict` -- Treat unresolved major editorial, voice, continuity, scaffold, or missing-matter issues as a stop recommendation
+
+**Available for:** All work types
+
+**Example:**
+```
+/scr:prepublish-review --preset kdp-ebook
+```
+Run the final editor-style go/no-go pass and write `.manuscript/reviews/PREPUBLISH-REVIEW.md` before technical publish preflight.
+
+---
+
 ### `/scr:export`
 
 **Description:** Compile and export manuscript to publication-ready formats.
@@ -1446,7 +1529,7 @@ Export your manuscript as a publication-ready EPUB with proper metadata, table o
 
 ### `/scr:build-ebook`
 
-**Description:** Build EPUB with platform-aware accessibility guardrails (Pandoc + EAA compliance).
+**Description:** Build a publication-ready EPUB from the manuscript for a target platform.
 
 **Usage:** `/scr:build-ebook [--platform <platform>] [--fixed-layout] [--skip-validate]`
 
@@ -1471,7 +1554,7 @@ Build a retailer-ready EPUB with metadata, accessibility checks, and platform-aw
 
 ### `/scr:build-print`
 
-**Description:** Build print-ready PDF with trim-size guardrails, or academic `.tex` output for publisher wrapper platforms. Pair the interior with `.manuscript/build/paperback-cover.pdf` or `.manuscript/build/hardcover-cover.pdf` rather than relying on hard-coded wrap geometry.
+**Description:** Build a print-ready PDF from the manuscript for a target publishing platform.
 
 **Usage:** `/scr:build-print [--platform <platform>] [--trim <size>] [--strict] [--hardcover] [--skip-validate]`
 
@@ -1488,6 +1571,8 @@ Build a retailer-ready EPUB with metadata, accessibility checks, and platform-aw
 
 **Platform behavior:** `kdp` and `ingram` use the shipped print platform manifests for trim and page-count guardrails. Academic wrapper platforms (`ieee`, `acm`, `lncs`, `elsevier`, `apa7`) route to the matching LaTeX template output. EPUB-only platform profiles should be used with `/scr:build-ebook`.
 
+**Cover pairing:** Non-academic print packages expect a finished cover at `.manuscript/build/paperback-cover.pdf` or `.manuscript/build/hardcover-cover.pdf`. Exact wrap geometry must come from the current platform template generator, not hard-coded wrap geometry in Scriveno.
+
 **Example:**
 ```
 /scr:build-print --platform kdp --trim 6x9
@@ -1498,7 +1583,7 @@ Build a print-ready PDF with platform guardrails, or use an academic platform to
 
 ### `/scr:build-smashwords`
 
-**Description:** Build Smashwords/D2D-compliant DOCX via Pandoc reference doc.
+**Description:** Build a Smashwords/D2D-compliant DOCX from the manuscript.
 
 **Usage:** `/scr:build-smashwords [--skip-validate]`
 
@@ -1519,7 +1604,7 @@ Build a distribution-ready DOCX using the Smashwords/D2D reference document and 
 
 ### `/scr:build-poetry-submission`
 
-**Description:** Build poetry submission manuscript DOCX with one poem per page, title page, and conditional TOC.
+**Description:** Build a poetry submission manuscript DOCX with one poem per page, title page, and TOC.
 
 **Usage:** `/scr:build-poetry-submission [--skip-validate]`
 
@@ -1542,7 +1627,7 @@ Build a poetry-submission DOCX for journal or contest submission using the poetr
 
 **Description:** Run full publishing pipeline unattended with quality gate (voice-check + continuity-check).
 
-**Usage:** `/scr:autopilot-publish --preset <preset> [--front-level <minimum|balanced|maximum|skip>] [--back-level <minimum|balanced|maximum|skip>]`
+**Usage:** `/scr:autopilot-publish --preset <preset>`
 
 **Prerequisites:** Complete draft must exist
 
@@ -1555,7 +1640,7 @@ Build a poetry-submission DOCX for journal or contest submission using the poetr
 ```
 /scr:autopilot-publish --preset kdp
 ```
-Run quality checks and then generate all KDP deliverables automatically.
+Run quality checks and then generate KDP deliverables automatically. Existing front/back matter is included, but new front/back matter stays in `/scr:front-matter` and `/scr:back-matter`.
 
 ---
 
@@ -1565,7 +1650,7 @@ Commands for generating cover art, scene illustrations, character references, ma
 
 ### `/scr:cover-art`
 
-**Description:** Generate structured cover art prompts and delivery briefs for ebook, paperback, and hardcover cover assets.
+**Description:** Generate structured cover art prompts and delivery briefs for ebook, paperback, and hardcover covers.
 
 **Usage:** `/scr:cover-art [--trim <size>] [--kdp <trim_size>] [--series] [--prompt-only] [--element front|spine|back|full-wrap]`
 
@@ -1766,7 +1851,7 @@ Commands for translating your manuscript into other languages with consistency a
 
 ### `/scr:translate`
 
-**Description:** Translate manuscript to target language with glossary and translation memory support. Uses fresh-context-per-unit pattern for consistency.
+**Description:** Translate manuscript to target language with glossary and translation memory support.
 
 **Usage:** `/scr:translate <language> [--all] [--from <unit>] [--languages] [--add-language <lang>]`
 
@@ -2013,7 +2098,7 @@ Check for missing files, broken references, and state inconsistencies, then fix 
 
 **Description:** Inspect or change the installed Scriveno command profile.
 
-**Usage:** `/scr:surface [list|status|profile <name>] [--runtime <runtime>] [--dry-run]`
+**Usage:** `/scr:surface [list|status|profile <core|writing|publishing|translation|specialist|full>] [--runtime <runtime>] [--dry-run]`
 
 **Prerequisites:** Node.js >=20.0.0 and a Scriveno package or repo checkout with `bin/install.js`
 
@@ -2035,15 +2120,16 @@ Preview a smaller drafting-focused command surface before changing installed run
 
 ### `/scr:scan`
 
-**Description:** Detect drift between recorded state (STATE.md, OUTLINE.md, config.json) and what is actually on disk.
+**Description:** Scan the project for context drift between recorded state and what is actually on disk.
 
-**Usage:** `/scr:scan [--fix] [--quiet]`
+**Usage:** `/scr:scan [--fix] [--quiet] [--deep]`
 
 **Prerequisites:** None
 
 **Flags:**
 - `--fix` -- After reporting, offer to apply auto-fixable corrections (e.g. update STATE.md unit counts to match disk, regenerate stale CONTEXT.md)
 - `--quiet` -- Suppress the all-clear summary; only emit output when drift is found. Useful in scripts and pre-export gates.
+- `--deep` -- After deterministic checks, run read-only audit workers for continuity, geography, relationships, research gaps, and voice risk
 
 **Available for:** All work types
 
@@ -2051,6 +2137,7 @@ Preview a smaller drafting-focused command surface before changing installed run
 ```
 /scr:scan          # report-only context-integrity scan
 /scr:scan --fix    # report + offer to fix the auto-fixable mismatches
+/scr:scan --deep   # add read-only audit workers
 ```
 Complements `/scr:health` (structural fixer) by interrogating whether the *recorded* project state still matches reality. Run at session start, before publish, and after manually editing files outside Scriveno.
 
@@ -2058,7 +2145,7 @@ Complements `/scr:health` (structural fixer) by interrogating whether the *recor
 
 ### `/scr:sync`
 
-**Description:** Synchronize installed Scriveno runtime commands, skills, and agents with the current source tree.
+**Description:** Synchronize installed Scriveno runtime commands, skills, and agents with the current source.
 
 **Usage:** `/scr:sync [--check] [--apply] [--runtime <key>] [--detected] [--global|--project] [--writer|--developer]`
 
@@ -2105,7 +2192,7 @@ Remove scaffold markers, Alternate blocks, and duplicate H1 headings from the dr
 
 ### `/scr:validate`
 
-**Description:** Scan manuscript for unresolved scaffold markers before export.
+**Description:** Scan draft files for unresolved scaffold markers before export.
 
 **Usage:** `/scr:validate`
 
@@ -2136,6 +2223,32 @@ Check whether the manuscript is clean enough to export, and list every blocking 
 /scr:fast "change Maria's hair from brown to black in chapter 3"
 ```
 Make a targeted edit without going through the full plan-draft-review cycle.
+
+---
+
+### `/scr:research`
+
+**Description:** Add sourced advisory research notes for any topic without changing project canon.
+
+**Usage:** `/scr:research <topic> [--type <type>] [--place] [--figure] [--era <era>]`
+
+**Prerequisites:** None
+
+**Available for:** All work types
+
+**Flags:**
+- `--type <type>` -- Label the research type, such as craft, genre, historical-period, place, figure, event, technology, law, medicine, culture, sacred-source, academic-source, comparable-work, claim, terminology, or source
+- `--place` -- Treat the topic as a real or fictionalized place
+- `--figure` -- Treat the topic as a historical, sacred, or public figure
+- `--era <era>` -- Scope the research to a time period
+
+**Example:**
+```
+/scr:research "18th century sailing watches" --type historical-period --era 1760s
+```
+Add sourced notes and caveats to `.manuscript/RESEARCH.md`; nothing becomes project canon until the writer accepts it into an owner file.
+
+Research may fan out focused researcher workers by angle, then merge their source-backed findings into one advisory note.
 
 ---
 
@@ -2297,6 +2410,8 @@ Commands available only for sacred and historical work types (scripture, comment
 
 **Prerequisites:** `.manuscript/config.json` must include a valid `tradition`
 
+**Available for:** Sacred
+
 **Flags:**
 - `--example <text>` -- Format an example citation using the active tradition's numbering style
 
@@ -2317,6 +2432,8 @@ Show the active tradition's numbering format and render an example citation usin
 **Usage:** `/scr:sacred:concordance [--build] [--search <term>] [--tradition <tradition>]`
 
 **Prerequisites:** Draft must exist
+
+**Available for:** Sacred
 
 **Flags:**
 - `--build` -- Build the concordance from the text
@@ -2339,6 +2456,8 @@ Find every occurrence of "covenant" across the text with surrounding context and
 
 **Prerequisites:** Draft must exist
 
+**Available for:** Sacred
+
 **Flags:**
 - `--passage <ref>` -- Start from a specific passage
 - `--type` -- Filter by reference type: parallel, fulfillment, echo, typology
@@ -2358,6 +2477,8 @@ Find typological connections to the binding of Isaac across the text.
 **Usage:** `/scr:sacred:genealogy [--verify] [--figure <name>] [--tradition <tradition>]`
 
 **Prerequisites:** FIGURES.md must exist with at least 2 figures
+
+**Available for:** Sacred
 
 **Flags:**
 - `--verify` -- Check for genealogical contradictions
@@ -2380,6 +2501,8 @@ Build Abraham's genealogical tree and verify consistency across all mentions in 
 
 **Prerequisites:** None
 
+**Available for:** Sacred
+
 **Flags:**
 - `--calendar <system>` -- Calendar system: gregorian, hebrew, hijri, vikram_samvat, buddhist_era, regnal
 - `--verify` -- Check for chronological contradictions
@@ -2401,6 +2524,8 @@ Build a timeline using the Hebrew calendar and verify dates are consistent acros
 
 **Prerequisites:** Draft must exist
 
+**Available for:** Sacred
+
 **Flags:**
 - `--list` -- List all annotation layers
 - `--remove <tradition>` -- Remove an annotation layer
@@ -2415,11 +2540,13 @@ Add a Reformed theological annotation layer to your text alongside existing Cath
 
 ### `/scr:sacred:verse-numbering`
 
-**Description:** Manage verse/ayah/pasuk numbering systems. Handles differences between traditions (Masoretic vs. Septuagint numbering, Hafs vs. Warsh Quranic numbering, etc.).
+**Description:** Manage verse/ayah/pasuk numbering systems. Handles differences between traditions (Masoretic vs. Septuagint numbering, Hafs vs. Warsh Quranic numbering, etc.)
 
 **Usage:** `/scr:sacred:verse-numbering [--system <system>] [--convert <from>-<to>] [--verify]`
 
 **Prerequisites:** Draft must exist
+
+**Available for:** Sacred
 
 **Flags:**
 - `--system <system>` -- Numbering system: masoretic, septuagint, quranic_hafs, quranic_warsh, pali_canon
@@ -2442,6 +2569,8 @@ Show how verse numbers differ between Masoretic and Septuagint traditions.
 
 **Prerequisites:** WORK.md must exist
 
+**Available for:** Sacred
+
 **Flags:**
 - `--add <source>` -- Add a primary source
 - `--list` -- List all tracked sources
@@ -2459,9 +2588,11 @@ Track the Dead Sea Scrolls as a primary source for your critical edition.
 
 **Description:** Verify internal theological and doctrinal consistency across the text. Flag contradictions in doctrine, moral teaching, or cosmological claims.
 
-**Usage:** `/scr:sacred:doctrinal-check [unit number]`
+**Usage:** `/scr:sacred:doctrinal-check [unit number, optional]`
 
 **Prerequisites:** Draft and DOCTRINES.md must exist
+
+**Available for:** Sacred
 
 **Example:**
 ```

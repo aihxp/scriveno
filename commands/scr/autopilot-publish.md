@@ -1,11 +1,11 @@
 ---
 description: "Run full publishing pipeline unattended with quality gate (voice-check + continuity-check)."
-argument-hint: "--preset <preset> [--front-level <minimum|balanced|maximum|skip>] [--back-level <minimum|balanced|maximum|skip>]"
+argument-hint: "--preset <preset>"
 ---
 
 # /scr:autopilot-publish -- Unattended Publishing Pipeline
 
-You are running the full publishing pipeline autonomously. Your job is to run quality checks, auto-generate any missing prerequisites, execute the preset pipeline, and report results -- all without asking the writer questions.
+You are running the full publishing pipeline autonomously. Your job is to run quality checks, auto-generate any missing non-matter prerequisites, execute the preset pipeline, and report results -- all without asking the writer questions.
 
 ## Usage
 
@@ -15,7 +15,7 @@ You are running the full publishing pipeline autonomously. Your job is to run qu
 
 The `--preset` argument is **required**. There is no interactive mode in autopilot -- the writer must specify their destination upfront. Valid presets: `kdp-paperback`, `kdp-ebook`, `query-submission`, `ebook-wide`, `ingram-paperback`, `academic-submission`, `thesis-defense`, `screenplay-query`, `share-pdf`, `share-docx`, `share-epub`, `share-bundle`, `all-formats`, `submission-package`.
 
-`--front-level` and `--back-level` control how much front/back matter is generated when the preset includes those steps. Both default to **balanced** for retail and academic presets, **minimum** for share-* and all-formats, and **skip** for query-submission, screenplay-query, and submission-package (the package itself does not need book front/back matter). Pass `skip` to suppress the corresponding generation step entirely. The default is applied silently per the table below; the writer only needs to pass these flags to override.
+Autopilot-publish must not generate front matter or back matter. Those are writer-facing drafting surfaces owned by `/scr:front-matter` and `/scr:back-matter`. If existing publishable front/back matter files are present, the export steps include them. If they are missing, report them as omitted and continue. For a full draft run that should also prepare missing matter, use `/scr:autopilot --matter balanced` before autopilot-publish.
 
 ---
 
@@ -82,35 +82,33 @@ Proceeding with export. Review full reports after completion.
 
 ---
 
-### STEP 3: GENERATE PREREQUISITES
+### STEP 3: GENERATE NON-MATTER PREREQUISITES
 
-Auto-generate any missing prerequisites required by the chosen preset. Do not ask -- just generate them.
+Auto-generate any missing non-matter prerequisites required by the chosen preset. Do not ask -- just generate them. Do not generate front matter or back matter.
 
 **Prerequisites by preset:**
 
 | Preset | Needs |
 |--------|-------|
-| kdp-paperback | front-matter, back-matter |
-| kdp-ebook | front-matter, back-matter |
+| kdp-paperback | (none) |
+| kdp-ebook | (none) |
 | query-submission | blurb, synopsis, query-letter |
-| ebook-wide | front-matter, back-matter |
-| ingram-paperback | front-matter, back-matter |
+| ebook-wide | (none) |
+| ingram-paperback | (none) |
 | academic-submission | (none) |
-| thesis-defense | front-matter, back-matter |
+| thesis-defense | (none) |
 | screenplay-query | blurb, synopsis, query-letter |
 | share-pdf | (none) |
 | share-docx | (none) |
 | share-epub | (none) |
 | share-bundle | (none) |
 | all-formats | (none) |
-| submission-package | synopsis, query-letter, back-matter |
+| submission-package | synopsis, query-letter |
 
 For each prerequisite the preset needs:
 
 | Prerequisite | Check | Generate Command |
 |-------------|-------|-----------------|
-| front-matter | `.manuscript/front-matter/` has files | `/scr:front-matter --level <resolved-front-level>` (resolve by `--front-level` or the per-preset default; if `skip`, do not run) |
-| back-matter | `.manuscript/back-matter/` has files | `/scr:back-matter --level <resolved-back-level>` (resolve by `--back-level` or the per-preset default; if `skip`, do not run) |
 | blurb | `.manuscript/output/blurb.md` exists | `/scr:blurb` |
 | synopsis | Any `.manuscript/marketing/SYNOPSIS-*.md` file exists | `/scr:synopsis` |
 | query-letter | `.manuscript/marketing/QUERY-LETTER.md` exists | `/scr:query-letter` |
@@ -120,10 +118,16 @@ Show progress as each prerequisite is generated:
 ```
 Generating Prerequisites
 ========================
-Step 1/3: Generating front matter... done (7 elements)
-Step 2/3: Generating back matter... done (5 elements)
-Step 3/3: Cover art... already exists, skipping
+Step 1/2: Generating blurb... done
+Step 2/2: Generating synopsis... done
 ```
+
+Before export, record front/back matter status:
+
+- Front matter: present/missing/omitted
+- Back matter: present/missing/omitted
+
+If either is missing for a retail, print, wide, or thesis preset, include a note in the final report that the package was built without it and suggest `/scr:front-matter` or `/scr:back-matter` in `Next commands:`.
 
 ---
 
@@ -157,8 +161,11 @@ Quality Gate:
   Continuity check: 1 warning
 
 Generated Prerequisites:
-  - Front matter (7 elements)
-  - Back matter (5 elements)
+  (none)
+
+Matter:
+  - Front matter: missing, not generated by autopilot-publish
+  - Back matter: present, included by export
 
 Exported:
   - manuscript-print.pdf (interior, 6x9, ~312 pages)
@@ -171,12 +178,14 @@ Quality Reports:
 Errors:
   (none)
 
-Next Steps:
+Review Checklist:
   1. Review quality warnings in the reports above
   2. Review the interior PDF at .manuscript/output/manuscript-print.pdf
   3. Review `.manuscript/output/kdp-package/cover-specs.md` and place the finished print cover at `.manuscript/build/paperback-cover.pdf`
   4. Upload to https://kdp.amazon.com
 ```
+
+After this report and the automation status, the final visible section must be the `Next commands:` block from the Response Contract. Do not end with the review checklist alone. Include one to four runnable Scriveno commands such as `/scr:voice-check`, `/scr:continuity-check`, `/scr:export`, `/scr:publish`, or `/scr:next`, depending on what happened.
 
 If any steps failed, show them in the "Errors" section with actionable fix instructions (e.g., "Pandoc not installed -- run `brew install pandoc` and re-run").
 
@@ -192,8 +201,6 @@ Trigger: /scr:autopilot-publish --preset {preset}
 Auto-invoked commands:
 - /scr:voice-check: yes/no
 - /scr:continuity-check: yes/no
-- /scr:front-matter: yes/no
-- /scr:back-matter: yes/no
 - /scr:cover-art: yes/no
 - /scr:export: {count} run(s)
 Spawned agents:
@@ -201,6 +208,7 @@ Spawned agents:
 - continuity-checker: {count}
 Local operations:
 - prerequisite scan: yes/no
+- matter generation: none
 - quality report files written: yes/no
 - export package files written: {count}
 Quality gate:
@@ -213,6 +221,12 @@ If a quality command cannot spawn its native agent type, use the installed agent
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
+
+This requirement applies after completion, quality warnings, skipped prerequisites, and failed export steps. The final visible section of the response must be `Next commands:`. Never end autopilot-publish with only a checklist, external upload instruction, or prose-only options.
 
 Use this format:
 

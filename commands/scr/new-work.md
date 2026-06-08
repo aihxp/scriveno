@@ -34,7 +34,7 @@ Look up the chosen work type in CONSTRAINTS.json. Note:
 
 ## Generate the .manuscript/ directory
 
-Create the following structure. Use the `file_adaptations` section of CONSTRAINTS.json to pick the right filenames for the work type's group:
+Create the following structure. Use `docs/surface-resolution-protocol.md` plus the `file_adaptations` section of CONSTRAINTS.json to pick the right filenames for the work type's group:
 
 ```
 .manuscript/
@@ -48,8 +48,10 @@ Create the following structure. Use the `file_adaptations` section of CONSTRAINT
 ├── CHARACTERS.md        (-> CONCEPTS.md for academic, -> AUDIENCE.md for technical, -> FIGURES.md for sacred; skipped for poetry/speech)
 ├── RELATIONSHIPS.md     (-> DEPENDENCIES.md for technical, -> LINEAGES.md for sacred; skipped for academic/poetry/speech)
 ├── WORLD.md             (-> CONTEXT.md for academic, -> SYSTEM.md for technical, -> COSMOLOGY.md for sacred; skipped for poetry/speech)
+├── PLACES.md            (confirmed place registry when WORLD applies; skipped when WORLD is not_applicable)
 ├── PLOT-GRAPH.md        (-> ARGUMENT-MAP.md for academic, -> PROCEDURES.md for technical, -> THEOLOGICAL-ARC.md for sacred; skipped for poetry/speech)
 ├── THEMES.md            (-> QUESTIONS.md for academic, -> REFERENCES.md for technical, -> DOCTRINES.md for sacred)
+├── PEOPLES.md           (optional for narrative work; skipped for academic/technical/poetry/speech)
 ├── config.json
 ├── drafts/
 │   └── body/
@@ -63,19 +65,20 @@ For sacred work types, also create: `CONCORDANCE.md`, `CHRONOLOGY.md`, `SOURCES.
 For academic work types, load the matching files from `templates/academic/` and treat them as the first-pass argument contract for concepts, research questions, academic context, proposal framing, and argument movement.
 For technical work types, load the matching files from `templates/technical/` and treat them as the first-pass document contract for audience, environment, procedures, and references.
 Always create `RECORD.md` from `templates/RECORD.md` without renaming it. It is deliberately neutral across prose, sacred, academic, technical, poetry, script, and visual work. It records what the work has established, while `STATE.md` records workflow position and `OUTLINE.md` records structure.
+Create `PLACES.md` from `templates/PLACES.md` when the canonical `WORLD.md` surface applies to the work type. Skip it when `WORLD.md` is `not_applicable`. Do not create `GEOGRAPHY.md` at new-work; it is a derived map generated after confirmed places exist. Do not create `RESEARCH.md` at new-work; it is advisory and created only by `/scr:research`.
 
 ## Surface applicability (the decision tree)
 
-Which of the variable context surfaces (BRIEF, CHARACTERS, RELATIONSHIPS, WORLD, PLOT-GRAPH, THEMES) to create is governed by the `surface_applicability` section of CONSTRAINTS.json, not by guesswork. Resolve it for the chosen work type:
+Which of the variable context surfaces (BRIEF, CHARACTERS, RELATIONSHIPS, WORLD, PLOT-GRAPH, THEMES, PEOPLES) to create is governed by the `surface_applicability` section of CONSTRAINTS.json, not by guesswork. Resolve it for the chosen work type:
 
 1. Start from `surface_applicability.by_group[<group>]`.
 2. If `surface_applicability.work_type_overrides[<work_type>]` exists, patch the group default with it: any surface it names moves to that tier (`required`, `optional`, or `not_applicable`) and is removed from the other tiers.
 3. Create every surface marked `required` or `optional`, using the adapted filename from `file_adaptations`. Skip every surface marked `not_applicable`.
 4. The parenthetical "skipped for ..." notes in the tree above are a human-readable summary of this data. `surface_applicability` is the source of truth.
 
-Then tell the writer the result in one plain line so the decision tree is visible, for example: "For a single poem, the core surfaces are BRIEF and THEMES; characters, world, plot, and relationships do not apply here." An article is never asked to build a world; a poem is never asked to map a plot.
+Then tell the writer the result in one plain line so the decision tree is visible, for example: "For a single poem, the core surfaces are BRIEF and THEMES; characters, world, plot, relationships, and peoples do not apply here." An article is never asked to build a world or peoples; a poem is never asked to map a plot.
 
-Note: `RELATIONSHIPS.md` (where applicable) is a derived surface like `CONTEXT.md` and `PROGRESS.md` (see `docs/relationships-protocol.md`). Do not scaffold it empty at new-work; it is regenerated from `CHARACTERS.md` once two or more characters exist.
+Note: `RELATIONSHIPS.md` (where applicable) is a derived surface like `CONTEXT.md` and `PROGRESS.md` (see `docs/relationships-protocol.md`). Do not scaffold it empty at new-work; it is regenerated from the adapted cast surface once two or more characters or figures exist. `PEOPLE-DYNAMICS.md` is also derived and is not created at new-work; it is regenerated from `PEOPLES.md` once two or more peoples exist.
 
 ## Config file
 
@@ -92,6 +95,8 @@ Write `.manuscript/config.json` by starting from `templates/config.json` and fil
   "autopilot": {
     "enabled": false,
     "profile": "guided",
+    "include_matter": true,
+    "matter_level": "balanced",
     "custom_checkpoints": []
   },
   "voice": {
@@ -140,6 +145,10 @@ Keep it warm. This is the moment they decide whether to commit to the project. M
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

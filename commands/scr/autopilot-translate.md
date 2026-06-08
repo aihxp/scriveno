@@ -196,11 +196,13 @@ Overall:
 Errors:
   (none)
 
-Next Steps:
+Review Checklist:
   1. Review cultural adaptation flags (especially high-severity items)
   2. Review back-translation drift reports for each language
   3. Check exported files in .manuscript/translation/{lang}/output/
 ```
+
+After this report and the automation status, the final visible section must be the `Next commands:` block from the Response Contract. Do not end with the review checklist alone. Include one to four runnable Scriveno commands such as `/scr:cultural-adaptation`, `/scr:back-translate`, `/scr:multi-publish`, `/scr:publish`, or `/scr:next`, depending on what happened.
 
 ---
 
@@ -244,6 +246,12 @@ If the translator native agent type is unavailable, use the installed `agents/tr
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
+
+This requirement applies after completion, skipped publish phases, blocked language phases, and resume handoff responses. The final visible section of the response must be `Next commands:`. Never end autopilot-translate with only a checklist, exported-file note, or prose-only options.
 
 Use this format:
 

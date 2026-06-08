@@ -43,7 +43,7 @@ Proof artifacts:
 > scriveno smoke --json
 {
   "ok": true,
-  "expectedCommands": 115,
+  "expectedCommands": 122,
   "expectedAgents": [
     "continuity-checker",
     "drafter",

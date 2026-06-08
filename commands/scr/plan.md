@@ -19,13 +19,22 @@ Require `{N}-CONTEXT.md` to exist (from discuss phase). If it doesn't, offer to 
 
 0. **Bootstrap (context-cost protocol).** Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it for orientation (project title, work type, current unit, recent activity, open items). The plan phase still needs the full creative inputs in step 1 (WORK.md, OUTLINE.md, RECORD.md, STYLE-GUIDE.md, characters, plot, themes, the discuss-phase context file, prior drafts) -- those are source material for the plan, not orientation. The bootstrap saves the redundant orientation reads. If CONTEXT.md is missing or stale, run step 1 unchanged. See `docs/context-protocol.md`.
 
-1. **Load Creative Context:** WORK.md, OUTLINE.md, RECORD.md, STYLE-GUIDE.md, CHARACTERS.md (or adapted), PLOT-GRAPH.md (or adapted), THEMES.md, CONFLICTS.md (the derived conflict map, when present), {N}-CONTEXT.md, and any previously drafted units for continuity. When planning a unit, also check the `RECORD.md` Promises and payoffs table for any planted device whose payoff location is this unit, so a Chekhov's gun fires on schedule instead of being left behind. If RECORD.md is missing in an older project, continue and add a non-blocking plan note to initialize it after drafting. If files include `creative_pillar` frontmatter, use it only as a routing hint. Existing projects without metadata are valid. STYLE-GUIDE.md remains sovereign for any voice decision.
+1. **Load Creative Context:** Resolve variable context surfaces through `docs/surface-resolution-protocol.md`, then read WORK.md, OUTLINE.md, RECORD.md, STYLE-GUIDE.md, the adapted cast surface, the adapted plot surface, the adapted themes surface, CONFLICTS.md (the derived conflict map, when present), PLACES.md (confirmed place registry, when present), GEOGRAPHY.md (derived spatial map, when present), RESEARCH.md (advisory factual notes, when relevant), {N}-CONTEXT.md, and any previously drafted units for continuity. When planning a unit, also check the `RECORD.md` Promises and payoffs table for any planted device whose payoff location is this unit, so a Chekhov's gun fires on schedule instead of being left behind. If RECORD.md is missing in an older project, continue and add a non-blocking plan note to initialize it after drafting. If files include `creative_pillar` frontmatter, use it only as a routing hint. Existing projects without metadata are valid. STYLE-GUIDE.md remains sovereign for any voice decision.
 
    From `{N}-CONTEXT.md`, extract `CHOICE`, `HUNCH`, `QUESTION`, and `WATCHPOINT` craft notes. Blocking questions must be resolved before drafting. Non-blocking questions can travel into the plan as watchpoints.
    From RECORD.md, extract established facts, open threads, promises, payoffs, continuity facts, movement, and next-unit obligations that apply to this unit.
-   From REFERENCES.md, SYSTEM.md, PROCEDURES.md, DOCTRINES.md, QUESTIONS.md, WORLD.md, THEMES.md, CHARACTERS.md, FIGURES.md, or adapted equivalents, extract any canonical terminology, source-of-truth notes, operating rules, doctrine, world rules, subject definitions, character knowledge boundaries, or procedure constraints that apply to this unit.
+   From REFERENCES.md, SYSTEM.md, PROCEDURES.md, DOCTRINES.md, QUESTIONS.md, the adapted world surface, PLACES.md, GEOGRAPHY.md, the adapted themes surface, the adapted cast surface, or other adapted equivalents, extract any canonical terminology, source-of-truth notes, operating rules, doctrine, world rules, place constraints, route or travel rules, subject definitions, character knowledge boundaries, or procedure constraints that apply to this unit.
 
-2. **Research (if enabled).** If the work type is academic, research the literature. If it's sacred, check canonical sources and traditional commentaries. If it's historical, verify period details. For fiction, research anything the writer flagged in {N}-CONTEXT.md (e.g., "I need to know how 18th century sailing worked").
+2. **Research and preflight (if enabled).** If the work type is academic, research the literature. If it's sacred, check canonical sources and traditional commentaries. If it's historical, verify period details. For fiction, research anything the writer flagged in {N}-CONTEXT.md (e.g., "I need to know how 18th century sailing worked"). If a unit relies on a real place, historical figure, era detail, law, public data, transit, weather, or contested factual claim and RESEARCH.md does not already cover it, add a plan note suggesting `/scr:research <topic>` rather than inventing support.
+
+   When the loaded context shows bounded risk, follow `docs/subagent-spawning-protocol.md` and spawn read-only preflight workers before writing the plan:
+   - record-drift worker for promises, payoffs, established facts, and next-unit obligations
+   - research-gap worker for missing source support
+   - place-logic worker for PLACES.md and GEOGRAPHY.md constraints
+   - subject-dynamics worker for claims, procedures, doctrines, themes, objects, or reader-state movement
+   - cast-pressure worker for persona, relationship, and motivation risks
+
+   Merge preflight findings into `## Domain Model Notes`, `## Record Notes`, `## Character Persona Notes`, `## Subject Dynamics Notes`, or blocking questions. These workers are command-local and read-only; they do not update project files. If native worker spawning is unavailable, run each selected preflight in an isolated fresh context sequentially and report `prompt-run fallback used`.
 
 3. **Build the plan.** Structure depends on work type:
    - **Prose/Script** -- Scene-by-scene breakdown. Each scene: POV, location, time, characters present, the scene goal and the obstacle in its way (scene conflict) with the outcome (goal won, lost, or complicated), emotional arc start/end, beat list, voice notes, continuity anchors to previous units.
@@ -44,7 +53,7 @@ Require `{N}-CONTEXT.md` to exist (from discuss phase). If it doesn't, offer to 
    - dialogue constraints and speech shifts by relationship
    - persona or relationship watchpoints for editor-review
 
-   When the unit carries an idea, subject, theme, object, setting, process, doctrine, argument, reader problem, or image pattern, each plan file should include `## Subject Dynamics Notes`. This can stand alone for non-character work or sit beside `## Character Persona Notes` in character-based scenes. Pull from BRIEF.md, WORK.md, THEMES.md or adapted equivalents, OUTLINE.md, PLOT-GRAPH.md or adapted equivalents, and `{N}-CONTEXT.md`:
+   When the unit carries an idea, subject, theme, object, setting, process, doctrine, argument, reader problem, or image pattern, each plan file should include `## Subject Dynamics Notes`. This can stand alone for non-character work or sit beside `## Character Persona Notes` in character-based scenes. Pull from BRIEF.md, WORK.md, THEMES.md or adapted equivalents, OUTLINE.md, PLOT-GRAPH.md or adapted equivalents, PLACES.md, GEOGRAPHY.md, and `{N}-CONTEXT.md`:
    - active subject, idea, claim, procedure, place, object, doctrine, image pattern, or reader problem
    - reader state at the start and desired shift by the end
    - pressure or friction to make clear
@@ -65,16 +74,18 @@ Require `{N}-CONTEXT.md` to exist (from discuss phase). If it doesn't, offer to 
    - canonical terms the drafter must use
    - terms to avoid or distinguish
    - source files or external sources the plan is relying on
+   - confirmed place, route, boundary, access, or distance constraints from PLACES.md or GEOGRAPHY.md
+   - advisory research notes from RESEARCH.md, clearly labeled as advisory unless accepted into project canon
    - boundary scenarios that clarify what the term or rule does and does not cover
    - any durable updates needed for RECORD.md, REFERENCES.md, or an adapted source file
 
-   Before writing the plan, compare all domain-sensitive language against the loaded source files. If the plan uses a term differently than the project does, revise it or mark a `QUESTION: Blocking` item before drafting. Do not leave a contradiction for the drafter to guess through.
+   Before writing the plan, compare all domain-sensitive language against the loaded source files. If the plan uses a term, place, route, source, or factual claim differently than the project does, revise it or mark a `QUESTION: Blocking` item before drafting. Do not leave a contradiction for the drafter to guess through.
 
 4. **Save as `.manuscript/plans/{N}-{A}-PLAN.md`** where {A} is the atomic unit (scene, subsection, passage, stanza). One plan file per atomic unit. The drafter will read each one in a fresh context to stay focused.
 
    For older projects, if root-level `.manuscript/{N}-{A}-PLAN.md` files already exist, read them as legacy input, but write new and revised plans to `.manuscript/plans/`.
 
-5. **Run the plan check.** For each `{N}-{A}-PLAN.md` you just wrote, invoke the installed `plan-checker.md` agent for the writer's active Scriveno runtime (for example the runtime's global or project-scoped `agents/plan-checker.md`) in a fresh context. Pass the plan file plus WORK.md, OUTLINE.md, RECORD.md, the relevant arc file (PLOT-GRAPH.md or THEOLOGICAL-ARC.md), CHARACTERS.md (or FIGURES.md), STYLE-GUIDE.md, `{N}-CONTEXT.md`, REFERENCES.md, SYSTEM.md, PROCEDURES.md, DOCTRINES.md, QUESTIONS.md, WORLD.md, THEMES.md, or adapted equivalents when present, and any previously drafted units. The agent returns a PLAN CHECK report with status READY or NEEDS REVISION plus specific completeness, alignment, record, domain model, character, voice, pacing, and craft-note findings. Surface its recommendations to the writer before suggesting the draft step. If the agent flags NEEDS REVISION on any plan, hold the draft suggestion and offer to fix the flagged items first.
+5. **Run the plan check.** For each `{N}-{A}-PLAN.md` you just wrote, invoke the installed `plan-checker.md` agent for the writer's active Scriveno runtime (for example the runtime's global or project-scoped `agents/plan-checker.md`) in a fresh context. Pass the plan file plus WORK.md, OUTLINE.md, RECORD.md, the adapted arc surface, the adapted cast surface, STYLE-GUIDE.md, `{N}-CONTEXT.md`, REFERENCES.md, SYSTEM.md, PROCEDURES.md, DOCTRINES.md, QUESTIONS.md, the adapted world surface, PLACES.md, GEOGRAPHY.md, RESEARCH.md when relevant, the adapted themes surface, or other adapted equivalents when present, and any previously drafted units. The agent returns a PLAN CHECK report with status READY or NEEDS REVISION plus specific completeness, alignment, record, domain model, character, voice, pacing, and craft-note findings. Surface its recommendations to the writer before suggesting the draft step. If the agent flags NEEDS REVISION on any plan, hold the draft suggestion and offer to fix the flagged items first.
 
 6. **Write a short summary** for the writer: "Planned {unit} {N}: X {atomic_units}, main arc goes from Y to Z, voice notes applied from STYLE-GUIDE.md. Plan check: {READY | N items flagged}."
 
@@ -96,6 +107,7 @@ Every response must include a short status block that makes invocation visible:
 Agent status:
 Trigger: /scr:plan N
 Spawned agents:
+- preflight workers: {count, none, or prompt-run fallback used}
 - plan-checker: {count} fresh-context invocation(s)
 Local operations:
 - plan files written: {count}
@@ -115,6 +127,10 @@ When the unit being planned sits at the `Climax` arc position in OUTLINE.md, sug
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

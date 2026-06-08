@@ -26,6 +26,7 @@ describe('craft layer Phase 3: conflict map + crisis beat', () => {
     assert.ok(t.startsWith('---\n'));
     assert.match(t, /authority: derived/);
     assert.match(t, /# Conflict map/);
+    assert.match(t, /adapted cast surface/);
     assert.match(t, /## Pairwise conflict matrix/);
     assert.match(t, /no conflict/);
     assert.match(t, /docs\/conflict-protocol\.md/);
@@ -46,11 +47,14 @@ describe('craft layer Phase 3: conflict map + crisis beat', () => {
   it('save regenerates the derived conflict map', () => {
     const s = read('commands/scr/save.md');
     assert.match(s, /Regenerate `\.manuscript\/CONFLICTS\.md`/);
+    assert.match(s, /adapted cast surface/);
     assert.match(s, /CONFLICTS\.md regenerated: yes\/no/);
   });
 
   it('scan checks conflict-map staleness', () => {
-    assert.match(read('commands/scr/scan.md'), /CHECK 14: CONFLICTS\.md/);
+    const s = read('commands/scr/scan.md');
+    assert.match(s, /CHECK 14: CONFLICTS\.md/);
+    assert.match(s, /adapted cast surface/);
   });
 
   it('shipped-assets inventories the conflict template and protocol', () => {

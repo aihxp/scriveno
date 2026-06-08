@@ -34,13 +34,16 @@ Each set is intentionally small. Use `/scr-next`, `/scr:next`, or `$scr-next` wh
 
 ## Publish An Ebook
 
-- `/scr:publish` starts the publication workflow.
-- `/scr:front-matter` prepares title-page, copyright, and dedication pages.
-- `/scr:back-matter` prepares author notes, acknowledgments, and reader materials.
+- `/scr:front-matter` suggests and prepares ebook-appropriate front matter for the current work type.
+- `/scr:back-matter` suggests and prepares ebook-appropriate back matter for the current work type.
 - `/scr:blurb` drafts store-facing description copy.
 - `/scr:cover-art` prepares cover direction or cover assets.
+- `/scr:prepublish-review` runs the final editorial go/no-go before package building.
 - `/scr:build-ebook` builds the ebook package.
-- `/scr:export` writes the selected export format.
+- `/scr:publish` runs the destination workflow and reports missing optional matter without drafting it.
+- `/scr:export` writes a selected export format when you need a one-off file.
+
+Front/back matter stays in dedicated commands so a novel, thesis, sacred commentary, screenplay, or chapbook gets the right suggestions before packaging starts.
 
 ## Translate A Work
 

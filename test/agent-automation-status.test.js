@@ -20,6 +20,7 @@ describe('agent and automation status contracts', () => {
     'commands/scr/editor-review.md',
     'commands/scr/beta-reader.md',
     'commands/scr/quick-write.md',
+    'commands/scr/research.md',
   ];
 
   it('makes agent spawning visible in writing and review commands', () => {
@@ -46,6 +47,7 @@ describe('agent and automation status contracts', () => {
       'commands/scr/editor-review.md',
       'commands/scr/beta-reader.md',
       'commands/scr/quick-write.md',
+      'commands/scr/research.md',
       'commands/scr/track.md',
     ];
 
@@ -69,6 +71,28 @@ describe('agent and automation status contracts', () => {
       assert.match(content, /Auto-invoked/, `${file} should list auto-invoked commands or checks`);
       assert.match(content, /Spawned agents:/, `${file} should list spawned agents`);
       assert.match(content, /Local operations:/, `${file} should list local file operations`);
+    }
+  });
+
+  it('requires autopilot closeouts to end with runnable next commands', () => {
+    const autopilot = read('commands/scr/autopilot.md');
+    const publish = read('commands/scr/autopilot-publish.md');
+    const translate = read('commands/scr/autopilot-translate.md');
+
+    assert.match(autopilot, /completion summary is not the final closeout by itself/);
+    assert.match(autopilot, /final visible section of the response must be `Next commands:`/);
+    assert.match(autopilot, /Never end an autopilot response with prose-only choices/);
+    assert.match(autopilot, /\/scr:autopilot --resume/);
+    assert.match(autopilot, /\/scr:progress/);
+    assert.match(autopilot, /\/scr:editor-review/);
+
+    for (const [name, content] of [
+      ['autopilot-publish', publish],
+      ['autopilot-translate', translate],
+    ]) {
+      assert.match(content, /Review Checklist:/, `${name} should keep review tasks separate from command suggestions`);
+      assert.match(content, /final visible section must be the `Next commands:` block/, `${name} should require a final next-command block`);
+      assert.match(content, /Never end .* with only a checklist/, `${name} should forbid checklist-only closeouts`);
     }
   });
 
@@ -96,6 +120,8 @@ describe('agent and automation status contracts', () => {
     assert.match(content, /Candidate agents:/);
     assert.match(content, /getCommandAutomationPolicy/);
     assert.match(content, /Level 4: Manual Only/);
+    assert.match(content, /docs\/subagent-spawning-protocol\.md/);
+    assert.match(content, /Kimi-compatible generic skill hosts/);
   });
 
   it('keeps the README public surface aligned with the status CLI', () => {
@@ -160,5 +186,29 @@ describe('agent and automation status contracts', () => {
       assert.match(content, /Spawned agents:\n- none/, `${file} should report no spawned agents`);
       assert.match(content, /Local operations:/, `${file} should list local operations`);
     }
+  });
+
+  it('documents bounded subagent spawning and prompt-run fallback', () => {
+    const protocol = read('docs/subagent-spawning-protocol.md');
+    const research = read('commands/scr/research.md');
+    const scan = read('commands/scr/scan.md');
+    const plan = read('commands/scr/plan.md');
+    const review = read('commands/scr/editor-review.md');
+    const autopilot = read('commands/scr/autopilot.md');
+
+    assert.match(protocol, /The command owns the workflow/);
+    assert.match(protocol, /Codex/);
+    assert.match(protocol, /Claude Code/);
+    assert.match(protocol, /Kimi or other unlisted hosts/);
+    assert.match(protocol, /The model is host-owned/);
+    assert.match(protocol, /Do not let workers update `RECORD\.md`/);
+    assert.match(research, /Worker Fan-Out/);
+    assert.match(research, /researcher: \{count, none, or prompt-run fallback used\}/);
+    assert.match(scan, /argument-hint: "\[--fix\] \[--quiet\] \[--deep\]"/);
+    assert.match(scan, /Default `\/scr:scan` does not spawn agents/);
+    assert.match(scan, /continuity-auditor/);
+    assert.match(plan, /preflight workers/);
+    assert.match(review, /diagnostic_workers/);
+    assert.match(autopilot, /lookahead workers/);
   });
 });

@@ -14,6 +14,7 @@ describe('peoples layer: surface + creation', () => {
     assert.match(t, /Collective want/);
     assert.match(t, /Self-image vs how outsiders see them/);
     assert.match(t, /### Members/);
+    assert.match(t, /adapted cast surface/);
     assert.match(t, /### Relations with other peoples/);
   });
 
@@ -23,6 +24,8 @@ describe('peoples layer: surface + creation', () => {
     assert.match(c, /collective/i);
     assert.match(c, /Belongs to/);
     assert.match(c, /PEOPLES\.md/);
+    assert.match(c, /adapted cast surface/);
+    assert.match(c, /FIGURES\.md/);
   });
 
   it('registers new-people for narrative groups only', () => {
@@ -53,6 +56,8 @@ describe('peoples layer: integration', () => {
     const n = read('commands/scr/new-character.md');
     assert.match(n, /Belongs to/);
     assert.match(n, /scr:new-people/);
+    assert.match(n, /PEOPLES\.md` applies/);
+    assert.match(n, /not_applicable/);
   });
 
   it('the drafter receives the character peoples for collective voice', () => {
@@ -86,6 +91,9 @@ describe('peoples layer: workflow awareness', () => {
   });
 
   it('scan checks character-people membership sync (CHECK 17)', () => {
-    assert.match(read('commands/scr/scan.md'), /CHECK 17: character-people membership sync/);
+    const s = read('commands/scr/scan.md');
+    assert.match(s, /CHECK 17: character-people membership sync/);
+    assert.match(s, /adapted cast surface/);
+    assert.match(s, /FIGURES\.md/);
   });
 });

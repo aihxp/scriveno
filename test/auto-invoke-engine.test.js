@@ -8,9 +8,12 @@ const { describe, it } = require('node:test');
 const {
   AGENT_ROUTE_POLICIES,
   CATEGORY_ROUTE_POLICIES,
+  DEFAULT_MODEL_POLICY,
+  MODEL_ADAPTATION_DOCS,
   analyzeProject,
   buildRouteGraph,
   collectSafeApplyActions,
+  formatAgentAvailabilityReport,
   formatReport,
   formatRuntimeSmokeReport,
   formatSafeApplyReport,
@@ -186,9 +189,41 @@ describe('auto-invoke engine', () => {
     }
   });
 
+  it('routes publication-ready manuscripts through prepublish review before export', () => {
+    const project = mkProject('prepublish-review');
+    try {
+      const manuscript = path.join(project, '.manuscript');
+      write(path.join(manuscript, 'STATE.md'), 'Current unit: 1\nDraft complete: true\n');
+      write(path.join(manuscript, 'CONTEXT.md'), 'Suggested next step: final review\n');
+      write(path.join(manuscript, 'config.json'), '{"work_type":"novel","command_unit":"chapter"}\n');
+      write(path.join(manuscript, 'plans', '1-1-PLAN.md'), 'Plan\n');
+      write(path.join(manuscript, 'drafts', 'body', '1-1-DRAFT.md'), 'Draft text\n');
+      write(path.join(manuscript, 'reviews', '1-REVIEW.md'), 'Review passed\n');
+      write(path.join(manuscript, 'front-matter', '03-title-page.md'), '# Title\n');
+      write(path.join(manuscript, 'back-matter', 'about-author.md'), '# About the Author\n');
+      write(path.join(manuscript, 'output', 'blurb.md'), 'Blurb\n');
+      write(path.join(manuscript, 'build', 'ebook-cover.jpg'), 'cover\n');
+      write(path.join(manuscript, 'HISTORY.log'), '2026-05-16T12:00:00Z | scr:complete-draft | outcome=ok\n');
+      touchTime(path.join(manuscript, 'STATE.md'), 10);
+      touchTime(path.join(manuscript, 'drafts', 'body', '1-1-DRAFT.md'), 5);
+      touchTime(path.join(manuscript, 'CONTEXT.md'), 1);
+
+      const analysis = analyzeProject(project);
+
+      assert.equal(analysis.signals.publishing.state, 'editorial-review-needed');
+      assert.equal(analysis.signals.publishing.suggest, '/scr:prepublish-review');
+      assert.equal(analysis.recommendation.command, '/scr:prepublish-review');
+      assert.equal(analysis.automation.mode, 'manual-gated');
+      assert.ok(analysis.automation.manualGates.some((gate) => gate.command === '/scr:prepublish-review'));
+    } finally {
+      fs.rmSync(project, { recursive: true, force: true });
+    }
+  });
+
   it('exports route policies for docs and coverage checks', () => {
     assert.ok(AGENT_ROUTE_POLICIES['/scr:draft']);
     assert.ok(LOCAL_ROUTE_POLICIES['/scr:save']);
+    assert.ok(MANUAL_ROUTE_POLICIES['/scr:prepublish-review']);
     assert.ok(MANUAL_ROUTE_POLICIES['/scr:publish']);
     assert.ok(CATEGORY_ROUTE_POLICIES.publishing);
   });
@@ -275,6 +310,9 @@ describe('auto-invoke engine', () => {
         write(path.join(homeDir, '.codex', 'skills', skill, 'SKILL.md'), '# skill\n');
       }
       write(path.join(homeDir, '.scriveno', 'lib', 'auto-invoke-engine.js'), 'module.exports = {};\n');
+      for (const docPath of MODEL_ADAPTATION_DOCS) {
+        write(path.join(homeDir, '.scriveno', docPath), `# ${docPath}\n`);
+      }
 
       const availability = inspectAgentAvailability({
         homeDir,
@@ -290,8 +328,12 @@ describe('auto-invoke engine', () => {
 
       assert.equal(availability.runtimes.find((runtime) => runtime.runtime === 'claude-code').status, 'prompt-fallback-ready');
       assert.equal(availability.runtimes.find((runtime) => runtime.runtime === 'codex').status, 'metadata-ready');
+      assert.equal(availability.runtimes.find((runtime) => runtime.runtime === 'codex').modelPolicy, DEFAULT_MODEL_POLICY);
       assert.equal(smoke.ok, true);
+      assert.equal(smoke.runtimes.find((runtime) => runtime.runtime === 'codex').modelDocsReady, true);
+      assert.match(formatAgentAvailabilityReport(availability), /Model policy: host-owned model/);
       assert.match(formatRuntimeSmokeReport(smoke), /Runtime smoke status:/);
+      assert.match(formatRuntimeSmokeReport(smoke), /Model docs: 3\/3/);
     } finally {
       fs.rmSync(homeDir, { recursive: true, force: true });
     }
@@ -316,10 +358,19 @@ describe('auto-invoke engine', () => {
     ].sort());
     assert.equal(getRuntimeAgentSupport('codex').metadata, 'toml');
     assert.equal(getRuntimeAgentSupport('claude-code').surface, 'flat commands plus agent prompts');
+    assert.equal(getRuntimeAgentSupport('generic').modelPolicy, DEFAULT_MODEL_POLICY);
+    assert.deepEqual(getRuntimeAgentSupport('generic').adaptationDocs, MODEL_ADAPTATION_DOCS);
     for (const runtime of runtimes) {
       assert.ok(runtime.fallback, `${runtime.key} should document fallback behavior`);
       assert.ok(runtime.surface, `${runtime.key} should document installed surface`);
+      assert.ok(runtime.modelPolicy, `${runtime.key} should document the host-owned model policy`);
     }
+  });
+
+  it('classifies research as agent-ready while keeping default scan local', () => {
+    assert.equal(getCommandAutomationPolicy('/scr:research', { category: 'utility' }).lane, 'agent-ready');
+    assert.equal(getCommandAutomationPolicy('/scr:scan', { category: 'utility' }).lane, 'local-helper');
+    assert.equal(AGENT_ROUTE_POLICIES['/scr:research'].agents[0], 'researcher');
   });
 
   it('runs from the command line for installed command callers', () => {
@@ -403,10 +454,15 @@ describe('auto-invoke engine', () => {
 
       assert.match(textOut, /Scriveno first-run guide/);
       assert.match(textOut, /Runtime command shapes:/);
+      assert.match(textOut, /Generic skills:/);
+      assert.match(textOut, /Model adaptation:/);
+      assert.match(textOut, /docs\/model-adaptation\.md/);
       assert.match(textOut, /\/scr:demo/);
       assert.equal(parsed.projectRoot, project);
       assert.equal(parsed.recommendation.command, '/scr:new-work');
       assert.ok(parsed.firstPath.includes('/scr:draft 5'));
+      assert.equal(parsed.modelAdaptation.policy, DEFAULT_MODEL_POLICY);
+      assert.ok(parsed.modelAdaptation.latest.includes('/scr:scan --deep read-only auditors'));
       // Cross-check the subprocess output against the in-process engine rather
       // than a hardcoded count, so adding/removing a command does not break this.
       assert.equal(parsed.checks.commandCount, buildRouteGraph().commandCount);

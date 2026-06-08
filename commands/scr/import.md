@@ -7,6 +7,8 @@ argument-hint: "<file_or_directory_path> [--type <work_type>]"
 
 You are importing an existing manuscript into Scriveno. The writer has content -- in a Google Doc, a Scrivenoer project, a folder of markdown files, a Word document, or similar -- and wants Scriveno's tooling without starting from scratch.
 
+Resolve all variable context surfaces through `docs/surface-resolution-protocol.md` before creating files, skipping files, or naming adapted outputs.
+
 ## What to do
 
 1. **Locate the file or directory.** Accept: .docx, .md, .txt, .rtf, a directory of any of these.
@@ -26,11 +28,11 @@ You are importing an existing manuscript into Scriveno. The writer has content -
 
 5. **Run voice analysis.** Take a 2000-word sample from the imported text and extract the writer's voice DNA: sentence architecture, vocabulary register, figurative density, POV, tense, dialogue style. Populate STYLE-GUIDE.md with the detected values. Flag anything uncertain for the writer to confirm.
 
-6. **Detect characters.** Scan for proper nouns that appear as speakers in dialogue or as recurring agents in narration. Build a draft CHARACTERS.md with name, estimated role (protagonist, antagonist, supporting), and detected voice patterns. Flag for writer review.
+6. **Detect cast entries.** Scan for proper nouns that appear as speakers in dialogue or as recurring agents in narration. Build a draft adapted cast surface for canonical `CHARACTERS.md` (for example `CHARACTERS.md`, `CONCEPTS.md`, `AUDIENCE.md`, or `FIGURES.md` via `file_adaptations`) with name, estimated role, and detected voice or role patterns. Flag for writer review.
 
-7. **Generate the .manuscript/ directory.** Create all context files (WORK.md, BRIEF.md, OUTLINE.md, RECORD.md, STYLE-GUIDE.md, CHARACTERS.md, etc.) populated from the import. Also copy `WRITING-RULES.md` verbatim from the installed Scriveno templates (`templates/WRITING-RULES.md`) into `.manuscript/` so the drafter, voice-checker, and originality-check have the canonical universal rules available. Save the actual drafted text as `.manuscript/drafts/body/{N}-{A}-DRAFT.md` files, one per atomic unit.
+7. **Generate the .manuscript/ directory.** Create all context files marked `required` or `optional` by `surface_applicability`, using `file_adaptations` for the confirmed work type (WORK.md, BRIEF.md or adapted equivalent, OUTLINE.md, RECORD.md, STYLE-GUIDE.md, the adapted cast surface where applicable, and so on). Skip every surface marked `not_applicable`. Also copy `WRITING-RULES.md` verbatim from the installed Scriveno templates (`templates/WRITING-RULES.md`) into `.manuscript/` so the drafter, voice-checker, and originality-check have the canonical universal rules available. Save the actual drafted text as `.manuscript/drafts/body/{N}-{A}-DRAFT.md` files, one per atomic unit.
 
-   Once CHARACTERS.md is populated with two or more characters, generate the derived `.manuscript/RELATIONSHIPS.md` (per `docs/relationships-protocol.md`) and `.manuscript/CONFLICTS.md` (per `docs/conflict-protocol.md`) so an imported project arrives with the same derived maps a new project gets.
+   Once the adapted cast surface is populated with two or more entries, generate the adapted relationship surface for canonical `RELATIONSHIPS.md` (per `docs/relationships-protocol.md`) and `.manuscript/CONFLICTS.md` (per `docs/conflict-protocol.md`) where those surfaces apply, so an imported project arrives with the same derived maps a new project gets. If `PEOPLES.md` applies and imported material clearly identifies peoples or factions, create starter entries marked "needs writer confirmation"; if two or more peoples are defined, generate `.manuscript/PEOPLE-DYNAMICS.md` per `docs/people-dynamics-protocol.md`.
 
    Populate `RECORD.md` from the imported manuscript, not from speculation. Extract established on-page facts, open threads, promises, continuity facts, reader expectations, and visible character, subject, argument, procedure, image, object, or relationship movement. Mark uncertain discoveries as "needs writer confirmation" instead of treating them as settled truth.
 
@@ -43,14 +45,14 @@ You are importing an existing manuscript into Scriveno. The writer has content -
    Structure detected: X chapters, Y scenes total
    Word count: 65,432
    Voice profile: extracted from 2000-word sample (review in STYLE-GUIDE.md)
-   Characters detected: 7 (review in CHARACTERS.md)
+   Cast entries detected: 7 (review in the adapted cast file)
    Record initialized: established facts and open threads extracted into RECORD.md
 
    Some things I wasn't sure about:
    - [specific flags: uncertain chapter breaks, possible POV shifts, etc.]
 
    Next steps:
-   - Review STYLE-GUIDE.md and CHARACTERS.md -- confirm or adjust
+   - Review STYLE-GUIDE.md and the adapted cast file -- confirm or adjust
    - Run /scr:next to start working on the imported manuscript
    ```
 
@@ -72,6 +74,10 @@ You are importing an existing manuscript into Scriveno. The writer has content -
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

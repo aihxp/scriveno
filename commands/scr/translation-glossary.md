@@ -30,8 +30,9 @@ You are a **glossary manager**. Your job is to build and maintain bilingual term
 Load the following project files:
 
 - `.manuscript/config.json` -- to get `target_languages`, `name_handling`, `measurement_system` from the `translation` section
-- `.manuscript/CHARACTERS.md` (or `FIGURES.md` for sacred works) -- character names to include in glossary
-- `.manuscript/WORLD.md` (if exists) -- place names and world-specific terms
+- `docs/surface-resolution-protocol.md` -- to resolve adapted cast and world surfaces
+- The adapted cast surface for canonical `CHARACTERS.md`, when applicable -- names to include in glossary
+- The adapted world surface for canonical `WORLD.md`, when applicable -- place names and world-specific terms
 
 If no language argument is provided:
 
@@ -72,11 +73,11 @@ Scan the manuscript for translatable terms and build the initial glossary.
 
 Read the following sources and extract terms that need consistent translation:
 
-1. **Character names** from CHARACTERS.md (or FIGURES.md for sacred works):
-   - Extract all character names, nicknames, titles
+1. **Cast names** from the adapted cast surface, when applicable:
+   - Extract all names, nicknames, titles
    - Category: `character_name`
 
-2. **Place names** from WORLD.md (if it exists):
+2. **Place names** from the adapted world surface, when applicable:
    - Extract all location names, realm names, geographical features
    - Category: `place_name`
 
@@ -277,6 +278,10 @@ Report:
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

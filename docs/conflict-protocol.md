@@ -1,24 +1,24 @@
 # Conflict map protocol
 
-This is the canonical contract for `.manuscript/CONFLICTS.md`, Scriveno's derived conflict map, and for how it is computed. The goal is a single, always-complete answer to "where is the conflict, and where is there none" -- at the level of the whole work and every character pair.
+This is the canonical contract for `.manuscript/CONFLICTS.md`, Scriveno's derived conflict map, and for how it is computed. The goal is a single, always-complete answer to "where is the conflict, and where is there none" -- at the level of the whole work and every cast pair.
 
 It is part of the trust layer. The sources are:
 
 - `WORK.md` -- the authored central conflict (primary type, external goal-and-obstacle, internal want-versus-need)
-- `CHARACTERS.md` -- per-character wants and needs, and the per-pair "Conflict pattern" in the relationship sections
+- The adapted cast surface for canonical `CHARACTERS.md` -- per-entry wants and needs, and the per-pair "Conflict pattern" in the relationship sections
 - `.manuscript/CONFLICTS.md` -- the derived conflict map (the file you open to see every conflict)
 
-`WORK.md` and the character entries are the source of truth; `CONFLICTS.md` is a derived view of them. Like `CONTEXT.md`, it is a neutral derived file -- the same filename across work types -- and it is not created at `/scr:new-work`; it is generated once the work has a central conflict or two or more characters.
+`WORK.md` and the adapted cast entries are the source of truth; `CONFLICTS.md` is a derived view of them. Like `CONTEXT.md`, it is a neutral derived file -- the same filename across work types -- and it is not created at `/scr:new-work`; it is generated once the work has a central conflict or two or more cast entries.
 
 ## Levels
 
 - **Central conflict** -- from `WORK.md`: the primary type (character vs self / character / nature / supernatural / technology / society), the external goal and obstacle, and the internal want-versus-need.
-- **Pairwise conflict** -- from the character entries: every character pair, with clashing wants and the relationship "Conflict pattern" surfaced.
+- **Pairwise conflict** -- from the adapted cast entries: every cast pair, with clashing wants and the relationship "Conflict pattern" surfaced.
 - **Scene conflict** -- per-unit goal-versus-obstacle-and-outcome, authored in each unit plan (the scene breakdown and the plan's `## Causal Anchor`) and rolled up into the `## Scene conflict` section here.
 
 ## The completeness rule
 
-Every character pair appears in the map. A pair in conflict shows its nature and stakes; a pair with none shows `no conflict`. There are no blanks: "no conflict" is a recorded value, not a gap, exactly as in the relationship map. An absent pair means the derivation missed it (drift), not that the writer chose to leave it out.
+Every cast pair appears in the map. A pair in conflict shows its nature and stakes; a pair with none shows `no conflict`. There are no blanks: "no conflict" is a recorded value, not a gap, exactly as in the relationship map. An absent pair means the derivation missed it (drift), not that the writer chose to leave it out.
 
 ## Crisis and climax
 
@@ -26,9 +26,9 @@ The map names the two structural peaks of the central conflict, kept distinct be
 
 ## Derivation (source-first)
 
-1. Read the central conflict from `WORK.md` and the wants/needs and "Conflict pattern" lines from the character entries.
+1. Read the central conflict from `WORK.md` and the wants/needs and "Conflict pattern" lines from the adapted cast entries.
 2. Classify the central conflict by primary type and separate its external and internal halves.
-3. Enumerate every character pair. Fill conflicting pairs from the character entries; mark every remaining pair `no conflict` where the writer has established there is none, or surface it as undefined where no one has said yet.
+3. Enumerate every cast pair. Fill conflicting pairs from the adapted cast entries; mark every remaining pair `no conflict` where the writer has established there is none, or surface it as undefined where no one has said yet.
 4. Render the central conflict, the pairwise matrix, and the undefined pairs.
 
 ## Undefined pairs and exploration

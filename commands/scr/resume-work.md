@@ -46,7 +46,7 @@ You are welcoming the writer back and orienting them. Your job is to read the se
    Example:
    > Last time you drafted chapter 3 (1,247 words across 4 scenes, voice check passed). You were working on chapter 4 -- you noted you wanted it shorter and more tense, with Marcus discovering the letter. I'd suggest starting with /scr:discuss 4 to shape the plan.
 
-6. **Regenerate `.manuscript/CONTEXT.md`** using the `templates/CONTEXT.md` scaffold and the same field set described in `/scr:save` step 7, with `{{LAST_COMMAND}}` set to `/scr:resume-work`. This refreshes the bootstrap file so the next session opens to a current view -- the act of resuming is itself a state event worth recording. Also regenerate `.manuscript/PROGRESS.md` (the per-unit progress ledger) per `/scr:save` step 8 and `docs/progress-protocol.md`. Where the work has them, also regenerate the derived maps (`.manuscript/RELATIONSHIPS.md`, `.manuscript/CONFLICTS.md`, `.manuscript/PEOPLE-DYNAMICS.md`) per `/scr:save` steps 8b through 8d.
+6. **Regenerate `.manuscript/CONTEXT.md`** using the `templates/CONTEXT.md` scaffold and the same field set described in `/scr:save` step 7, with `{{LAST_COMMAND}}` set to `/scr:resume-work`. This refreshes the bootstrap file so the next session opens to a current view -- the act of resuming is itself a state event worth recording. Also regenerate `.manuscript/PROGRESS.md` (the per-unit progress ledger) per `/scr:save` step 8 and `docs/progress-protocol.md`. Where the work has them, also regenerate the derived maps (the adapted relationship surface for canonical `RELATIONSHIPS.md`, `.manuscript/CONFLICTS.md`, and `.manuscript/PEOPLE-DYNAMICS.md`) per `/scr:save` steps 8b through 8d.
 
 7. **Append one line to `.manuscript/HISTORY.log`** per `docs/history-protocol.md`:
    ```
@@ -72,6 +72,10 @@ You are welcoming the writer back and orienting them. Your job is to read the se
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

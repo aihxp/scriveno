@@ -17,14 +17,16 @@ Display or edit a specific character's complete profile.
 You are presenting a character's profile. Load:
 - `.manuscript/config.json` (to get `work_type`)
 - Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `file_adaptations` and `commands.character-sheet.adapted`)
+- `docs/surface-resolution-protocol.md` for adapted cast surface resolution
 - `STYLE-GUIDE.md` (voice dimension context)
 
-Determine the correct characters file from `file_adaptations`:
+Determine the adapted cast surface for canonical `CHARACTERS.md` from `file_adaptations`:
 - Default: `CHARACTERS.md`
 - Academic work types: `CONCEPTS.md`
+- Technical work types: `AUDIENCE.md`
 - Sacred work types: `FIGURES.md`
 
-Load the adapted characters file from `.manuscript/`.
+Load the adapted cast surface from `.manuscript/`.
 
 Determine adapted terminology from CONSTRAINTS.json:
 - Default: "character", "character sheet"
@@ -42,8 +44,8 @@ Determine adapted terminology from CONSTRAINTS.json:
   - Check for partial matches and list them: "Did you mean: [match1], [match2]?"
   - If no partial matches: "No character named '{name}' found. Run `/scr:cast-list` to see all characters."
 
-  If the characters file is empty or missing:
-  - "No characters found. Run `/scr:new-character <name>` to create your first character."
+  If the adapted cast surface is empty or missing:
+  - "No cast entries found. Run `/scr:new-character <name>` to create your first entry."
 
   Present the complete profile with all sections:
 
@@ -104,7 +106,7 @@ Determine adapted terminology from CONSTRAINTS.json:
   After all sections reviewed:
   - Show a summary of changes
   - Ask for confirmation
-  - Update the characters file
+  - Update the adapted cast surface
   - If voice anchor attributes changed, note that drafter agents will use the updated profile
 
   Commit: `character: update {name} profile`
@@ -116,12 +118,16 @@ Determine adapted terminology from CONSTRAINTS.json:
 
 - **Character not found:** Show partial matches or direct to cast-list
 - **Multiple partial matches:** List all matches and ask writer to specify
-- **Empty characters file:** Direct to new-character command
+- **Empty adapted cast surface:** Direct to new-character command
 - **No voice anchor data:** Warn that voice consistency may suffer and suggest running `/scr:character-voice-sample` to generate one
 
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

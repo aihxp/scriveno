@@ -1,10 +1,10 @@
 ---
-description: Display the roster of all characters with roles and brief descriptions.
+description: Display the roster of all cast entries with roles and brief descriptions.
 ---
 
-# /scr:cast-list -- Character Roster
+# /scr:cast-list -- Cast Roster
 
-Display the complete roster of all characters in the work.
+Display the complete roster of all cast entries in the work.
 
 ## Usage
 ```
@@ -13,16 +13,18 @@ Display the complete roster of all characters in the work.
 
 ## Instruction
 
-You are presenting the character roster. Load:
+You are presenting the cast roster. Load:
 - `.manuscript/config.json` (to get `work_type`)
 - Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `file_adaptations` and `commands.cast-list.adapted`)
+- `docs/surface-resolution-protocol.md` for adapted surface resolution and writer-facing terminology
 
-Determine the correct characters file from `file_adaptations`:
+Determine the adapted cast surface for canonical `CHARACTERS.md` from `file_adaptations`:
 - Default: `CHARACTERS.md`
 - Academic work types: `CONCEPTS.md`
+- Technical work types: `AUDIENCE.md`
 - Sacred work types: `FIGURES.md`
 
-Load the adapted characters file from `.manuscript/`.
+Load the adapted cast surface from `.manuscript/`.
 
 Determine adapted terminology:
 - Default: "cast list", "characters"
@@ -34,7 +36,7 @@ Determine adapted terminology:
 ### DISPLAY ROSTER
 
 <cast_list_display>
-  Parse all character entries from the characters file.
+  Parse all cast entries from the adapted cast surface.
 
   Present a formatted table grouped by role category:
 
@@ -55,7 +57,7 @@ Determine adapted terminology:
   | Name | Arc Type | Status | Summary |
   |------|----------|--------|---------|
 
-  Determine role category from each character's "Role" field:
+	  Determine role category from each cast entry's "Role" field:
   - Protagonist, main character, hero -> Protagonists
   - Antagonist, villain, opposition -> Antagonists
   - Supporting, mentor, love interest, foil, comic relief, sidekick -> Supporting Characters
@@ -63,30 +65,34 @@ Determine adapted terminology:
   - If role is ambiguous, place in Supporting Characters
 
   After the table, show summary stats:
-  - Total characters: {N}
+	  - Total cast entries: {N}
   - By status: {active} active, {deceased} deceased, {mentioned} mentioned
   - Characters missing voice anchors: {list of names without voice data}
 
-  If no characters exist:
-  - "No characters yet. Run `/scr:new-character <name>` to create your first character."
+  If no cast entries exist:
+  - "No cast entries yet. Run `/scr:new-character <name>` to create your first entry."
 </cast_list_display>
 
 ---
 
 ### Edge Cases
 
-- **Empty characters file:** Direct to new-character command
-- **Characters with incomplete profiles:** Include in roster but mark with indicator (e.g., "[incomplete]")
+- **Empty adapted cast surface:** Direct to new-character command
+- **Cast entries with incomplete profiles:** Include in roster but mark with indicator (e.g., "[incomplete]")
 - **Sacred work type:** Use "figures" terminology, group by role adapted to sacred context (prophet, disciple, angel, etc.)
 - **Academic work type:** Use "concepts" terminology, group by function (thesis, antithesis, supporting argument, counterpoint)
 
 ## Next-step routing
 
-When two or more characters exist, suggest `/scr:relationship-map` to see how they connect. When characters cluster into peoples (races, factions, nations), suggest `/scr:new-people` to profile a people, and `/scr:relationship-map --peoples` to see how peoples stand with one another.
+When two or more cast entries exist, suggest `/scr:relationship-map` to see how they connect. When cast entries cluster into peoples (races, factions, nations), suggest `/scr:new-people` to profile a people, and `/scr:relationship-map --peoples` to see how peoples stand with one another.
 
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

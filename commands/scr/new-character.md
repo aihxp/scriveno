@@ -15,10 +15,12 @@ Build a complete character profile through guided interview.
 ## Instruction
 
 You are creating a new character for the creative work. Load:
+- `docs/surface-resolution-protocol.md` for adapted surface resolution and writer-facing terminology
 - `WORK.md` (genre, tone, setting context)
-- `CHARACTERS.md` (existing characters -- to ensure distinctiveness)
-- `RELATIONSHIPS.md` (existing relationship dynamics)
-- `THEMES.md` (thematic threads this character might serve)
+- the adapted cast surface for canonical `CHARACTERS.md` (existing characters, concepts, or figures, to ensure distinctiveness)
+- the adapted relationship surface for canonical `RELATIONSHIPS.md` where that surface applies (existing relationship dynamics)
+- the adapted themes surface for canonical `THEMES.md` (thematic threads this character might serve)
+- `PEOPLES.md` only when `surface_applicability` says the peoples surface applies to this work type
 
 ---
 
@@ -89,7 +91,7 @@ Ask these questions adaptively. Skip what doesn't apply to the genre/form. Go de
 
 ### GENERATE PROFILE
 
-Create the character profile and append to `CHARACTERS.md`:
+Create the character profile and append to the adapted cast surface for canonical `CHARACTERS.md`:
 
 <character_profile>
   ## [Character Name]
@@ -100,7 +102,7 @@ Create the character profile and append to `CHARACTERS.md`:
   ### Identity
   - Age, appearance, first impression
   - Background summary
-  - Belongs to: [people] (their people, linked to `PEOPLES.md`; the character inherits its traits unless their entry overrides them)
+  - Belongs to: [people] (include only when `PEOPLES.md` applies; the character inherits its people's traits unless their entry overrides them)
 
   ### Psychology
   - **Want:** [Conscious desire]
@@ -140,19 +142,23 @@ Create the character profile and append to `CHARACTERS.md`:
   - [Character B]: trust posture, conflict pattern, speech shift, hidden agenda or fear
 </character_profile>
 
-Regenerate `.manuscript/RELATIONSHIPS.md` from the character relationship sections per `docs/relationships-protocol.md`. It is derived from `CHARACTERS.md`, not hand-edited: every pair is accounted for (pairs with no relationship marked `none`), and pairs no one has described yet are surfaced as undefined to explore.
-When the character's `Belongs to:` names a people, add the character to that people's `### Members` list in `PEOPLES.md` (the reverse link, so membership is bidirectional like `/scr:new-people`), and regenerate `.manuscript/PEOPLE-DYNAMICS.md` if two or more peoples exist. If the named people is not yet defined, suggest `/scr:new-people`.
-Update `THEMES.md` if this character introduces or reinforces themes.
+Regenerate the adapted relationship surface for canonical `RELATIONSHIPS.md` where that surface applies, per `docs/relationships-protocol.md`. It is derived from the adapted cast surface, not hand-edited: every pair is accounted for (pairs with no relationship marked `none`), and pairs no one has described yet are surfaced as undefined to explore.
+When `PEOPLES.md` applies and the character's `Belongs to:` names a people, add the character to that people's `### Members` list in `PEOPLES.md` (the reverse link, so membership is bidirectional like `/scr:new-people`), and regenerate `.manuscript/PEOPLE-DYNAMICS.md` if two or more peoples exist. If the named people is not yet defined, suggest `/scr:new-people`. If `PEOPLES.md` is not_applicable for the work type, omit `Belongs to:` and do not route to `/scr:new-people`.
+Update the adapted themes surface for canonical `THEMES.md` if this character introduces or reinforces themes.
 
 Commit: `character: add {name}`
 
 ## Next-step routing
 
-When the cast reaches two or more characters, suggest `/scr:relationship-map` to explore the pairings and see the connections. When a character belongs to a people not yet defined, suggest `/scr:new-people <people>` to profile that people as a collective.
+When the cast reaches two or more characters, suggest `/scr:relationship-map` to explore the pairings and see the connections. When `PEOPLES.md` applies and a character belongs to a people not yet defined, suggest `/scr:new-people <people>` to profile that people as a collective.
 
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

@@ -17,8 +17,9 @@ Visualize a character's emotional and growth arc aligned with story structure be
 You are visualizing a character's arc. Load:
 - `.manuscript/config.json` (to get `work_type`)
 - Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `file_adaptations` and `commands.character-arc.adapted`)
-- The adapted characters file (CHARACTERS.md / FIGURES.md / CONCEPTS.md per `file_adaptations`)
-- `PLOT-GRAPH.md` (story arc structure -- cross-reference per D-03)
+- `docs/surface-resolution-protocol.md` for adapted cast and plot surface resolution
+- The adapted cast surface for canonical `CHARACTERS.md`, per `file_adaptations`
+- The adapted plot surface for canonical `PLOT-GRAPH.md`, per `file_adaptations`
 - `OUTLINE.md` (scene/chapter mapping)
 
 Determine adapted terminology from CONSTRAINTS.json:
@@ -87,6 +88,10 @@ Determine adapted terminology from CONSTRAINTS.json:
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

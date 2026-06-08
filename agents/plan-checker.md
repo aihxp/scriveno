@@ -19,7 +19,9 @@ You review a unit plan before drafting begins. Your job is to catch problems whi
 7. **CHARACTERS.md** (or FIGURES.md) -- for character alignment
 8. **STYLE-GUIDE.md** -- for voice alignment
 9. **The discuss-phase context file** -- `.manuscript/{N}-CONTEXT.md`, when available, for CHOICE, HUNCH, QUESTION, and WATCHPOINT craft notes
-10. **Subject files when adapted** -- QUESTIONS.md, REFERENCES.md, DOCTRINES.md, SYSTEM.md, PROCEDURES.md, AUDIENCE.md, or other non-character equivalents when the work type uses them
+10. **PLACES.md and GEOGRAPHY.md** when present -- for confirmed place profiles, spatial hierarchy, routes, boundaries, access, distance logic, and map-ready spatial facts
+11. **RESEARCH.md** when present and relevant -- advisory factual notes. Treat as context only unless another loaded project file has accepted a note into canon.
+12. **Subject files when adapted** -- QUESTIONS.md, REFERENCES.md, DOCTRINES.md, SYSTEM.md, PROCEDURES.md, AUDIENCE.md, or other non-character equivalents when the work type uses them
 
 ## What you check
 
@@ -39,6 +41,7 @@ Does the plan have everything the drafter needs?
 - **Domain model notes** -- canonical terminology, source-of-truth decisions, boundary scenarios, and durable update targets from domain grilling
 - **Character persona notes** -- pressure behavior, relationship-specific interactions, dialogue constraints, and state shifts for the characters in the unit
 - **Subject dynamics notes** -- reader-state movement, pressure or friction, and the interaction between ideas, evidence, steps, exceptions, images, doctrines, practices, or failure modes for subject-driven units
+- **Place and geography notes** -- confirmed place constraints, route logic, access rules, boundaries, travel time, and factual-grounding questions when the unit depends on place continuity
 
 If any of these are missing or vague, flag them. The drafter will guess if you don't catch it now, and the guesses may be wrong.
 
@@ -69,10 +72,12 @@ Do not require RECORD.md for older projects that lack it. If it is missing, note
 
 Check domain-sensitive language before drafting:
 
-- Canonical terminology from REFERENCES.md, RECORD.md, WORLD.md, SYSTEM.md, PROCEDURES.md, DOCTRINES.md, QUESTIONS.md, THEMES.md, CHARACTERS.md, FIGURES.md, or adapted source files should be used consistently.
+- Canonical terminology from REFERENCES.md, RECORD.md, PLACES.md, GEOGRAPHY.md, the adapted world, system, procedure, doctrine, question, theme, cast, or other source files should be used consistently.
 - If the plan uses an overloaded term, the plan should distinguish meanings or choose one canonical term.
 - If a term conflicts with established project language, flag it as NEEDS REVISION unless the plan explicitly records an intentional rename or source-file update.
 - Source-of-truth claims should name the source file, external source, or drafted passage they rely on.
+- Real-world, source-backed, craft, historical, technical, cultural, sacred, academic, or comparable-work claims from RESEARCH.md should be labeled advisory unless accepted into RECORD.md, PLACES.md, the adapted world surface, the adapted cast surface, the adapted subject surface, or another project file.
+- Place-sensitive plans should match PLACES.md and GEOGRAPHY.md for location names, containment, routes, distance, access, boundaries, and stable sensory facts.
 - Boundary scenarios should make procedures, doctrines, world rules, technical behavior, character knowledge, or reader promises concrete enough for the drafter to execute.
 - Durable updates should be routed to RECORD.md, REFERENCES.md, or the adapted source file that owns the decision. Unit-only choices can stay in the plan.
 
@@ -115,6 +120,18 @@ For any unit with Subject Dynamics Notes, whether or not characters are present,
 If Character Persona Notes are also present, check that the two layers reinforce each other or have an intentional tension. Flag any duplicated note, contradiction, vague subject movement, static movement, unsafe technical guidance, unsupported academic claim, or subject shift disconnected from the reader journey in BRIEF.md or DOC-BRIEF.md.
 
 Also flag a missing subject layer when the plan has obvious reader movement but no `## Subject Dynamics Notes`. Use this test: does the unit change what the reader understands, feels, fears, believes, can do, can verify, or notices? If yes, the plan should either include subject dynamics or explain why the movement is already handled elsewhere.
+
+### Place integrity
+
+For any unit that uses confirmed places, travel, access, routes, borders, real locations, historical settings, maps, or setting pressure, the plan should:
+- Name the relevant place entries from PLACES.md when they exist.
+- Respect GEOGRAPHY.md for route logic, adjacency, distance, and hierarchy.
+- Distinguish confirmed spatial facts from undefined questions.
+- Use RESEARCH.md only as advisory grounding unless the note has been accepted into project canon.
+- Suggest `/scr:new-place <name>` when the unit clearly needs a place profile that does not exist yet.
+- Suggest `/scr:research <topic>` when the unit depends on a real place or historical fact that has no source-backed note.
+
+Flag any plan that asks the drafter to invent travel time, landmarks, neighborhoods, legal facts, historical facts, public data, or real-world geography without source support.
 
 ### Voice alignment
 
@@ -182,6 +199,11 @@ DOMAIN MODEL
 OK Uses canonical term "workspace" from REFERENCES.md
 WARNING Plan says "account" where REFERENCES.md distinguishes user account from workspace
 MISSING Boundary scenario for retry vs. rollback procedure
+
+PLACE / GEOGRAPHY
+OK Uses PLACES.md entry for the archive district
+WARNING Plan relies on a ten-minute harbor route, but GEOGRAPHY.md leaves that route undefined
+MISSING Research note for real-world transit detail
 
 PACING
 OK Beat structure earns the climax

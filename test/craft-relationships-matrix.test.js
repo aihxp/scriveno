@@ -36,23 +36,30 @@ describe('craft layer Phase 2: RELATIONSHIPS.md derived matrix', () => {
 
   it('save regenerates the derived map', () => {
     const s = read('commands/scr/save.md');
-    assert.match(s, /Regenerate `\.manuscript\/RELATIONSHIPS\.md`/);
-    assert.match(s, /RELATIONSHIPS\.md regenerated: yes\/no/);
+    assert.match(s, /Regenerate the adapted relationship surface/);
+    assert.match(s, /canonical `RELATIONSHIPS\.md`/);
+    assert.match(s, /RELATIONSHIPS\.md \/ adapted relationship surface regenerated: yes\/no/);
   });
 
   it('scan checks derived-map staleness', () => {
-    assert.match(read('commands/scr/scan.md'), /CHECK 13: RELATIONSHIPS\.md/);
+    const s = read('commands/scr/scan.md');
+    assert.match(s, /CHECK 13: RELATIONSHIPS\.md/);
+    assert.match(s, /adapted relationship surface/);
+    assert.match(s, /file_adaptations/);
   });
 
   it('new-character regenerates the derived map instead of hand-updating it', () => {
     const n = read('commands/scr/new-character.md');
-    assert.match(n, /Regenerate `\.manuscript\/RELATIONSHIPS\.md`/);
+    assert.match(n, /Regenerate the adapted relationship surface/);
+    assert.match(n, /canonical `RELATIONSHIPS\.md`/);
     assert.match(n, /docs\/relationships-protocol\.md/);
     assert.doesNotMatch(n, /Update `RELATIONSHIPS\.md` with new connections/);
   });
 
   it('character-touch regenerates the derived map after a relationship change', () => {
-    assert.match(read('commands/scr/character-touch.md'), /RELATIONSHIPS\.md/);
+    const c = read('commands/scr/character-touch.md');
+    assert.match(c, /adapted relationship surface/);
+    assert.match(c, /canonical `RELATIONSHIPS\.md`/);
   });
 
   it('relationship-map references the canonical prerequisite registry', () => {

@@ -36,6 +36,8 @@ Scriveno agent prompts live in `agents/*.md`. Each host runtime exposes them dif
 
 When a host supports native fresh-context spawning, use the native agent or subagent mechanism. When it does not, load the installed agent prompt from the active runtime and run it in an isolated fresh context. When the action is only a file operation, report `Agent: none`.
 
+The spawning contract is portable, but the model is host-owned. Codex, Claude Code, Cursor, Gemini CLI, Kimi-compatible generic skill hosts, and other runtimes may use different underlying models or worker APIs. Scriveno only requires the same prompt contract, bounded context, fallback behavior, merge rules, and visible status reporting. See `docs/subagent-spawning-protocol.md`.
+
 Every automatic path must make the distinction visible.
 
 ```text
@@ -78,7 +80,8 @@ Run these read-only checks in `/scr:next`, `/scr:progress`, and closeouts for ma
 - If editor notes or track proposals exist, suggest `/scr:editor-review --notes`, `/scr:editor-review --respond`, or `/scr:track`.
 - If note files contain unresolved items, suggest `/scr:check-notes`.
 - If translation folders exist or config lists target languages, suggest translation follow-ups.
-- If front matter, back matter, blurb, or cover handoff assets are missing, surface the specific publishing prerequisite before packaging.
+- If front matter, back matter, blurb, or cover handoff assets are missing, surface the specific publishing prerequisite before packaging. Front matter and back matter should route to `/scr:front-matter` and `/scr:back-matter`, not be described as export work.
+- If publishing prerequisites look present but `.manuscript/reviews/PREPUBLISH-REVIEW.md` is missing, suggest `/scr:prepublish-review` before technical packaging.
 - If export outputs are older than source files, suggest `/scr:export` or `/scr:publish`.
 - If no save exists after recent manuscript changes, suggest `/scr:save`.
 - Surface deliverable progress (units done / in progress / untouched) and point at the per-unit ledger `.manuscript/PROGRESS.md`; if it is stale, suggest `/scr:save` to refresh it.
@@ -103,12 +106,14 @@ Spawn or prompt-run fallback is appropriate when the command already implies a s
 
 - `/scr:plan` invokes `plan-checker` per plan.
 - `/scr:draft` invokes `drafter` per atomic unit and a voice diagnostic pass when a draft was produced.
+- `/scr:research` invokes `researcher`, with fan-out by topic angle when the question spans multiple domains.
 - `/scr:voice-check` invokes `voice-checker`.
 - `/scr:continuity-check` invokes `continuity-checker`.
 - `/scr:translate` invokes `translator` per unit.
 - `/scr:beta-reader` invokes a beta reader persona.
 - `/scr:map-manuscript` invokes analysis workers, or isolated sequential analysis if parallel workers are unavailable.
 - `/scr:editor-review` invokes revision diagnostics only for flagged issue groups.
+- `/scr:scan --deep` may invoke read-only audit workers after deterministic scan checks. Default `/scr:scan` remains local and deterministic.
 
 Do not pretend command-local analysis workers are installed agent files unless they actually are.
 

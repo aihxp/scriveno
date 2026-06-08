@@ -17,10 +17,11 @@ Generate a detailed, structured illustration prompt for a specific scene, pullin
 You are generating a scene-specific illustration prompt. Load:
 - `.manuscript/config.json` (to get `work_type`, `genre`, trim size if set)
 - Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `commands.illustrate-scene.available` and prerequisites)
+- `docs/surface-resolution-protocol.md` (to resolve adapted cast surfaces)
 - `.manuscript/illustrations/ART-DIRECTION.md` (visual style bible -- **required**)
 - `.manuscript/OUTLINE.md` (to resolve `<scene-ref>` to a file path)
 - The drafted scene file for `<scene-ref>`
-- `.manuscript/CHARACTERS.md` or `.manuscript/FIGURES.md` (per `file_adaptations` for sacred work types)
+- The adapted cast surface for canonical `CHARACTERS.md`, when applicable, per `file_adaptations`
 
 **Check availability:**
 
@@ -52,7 +53,7 @@ Then **stop**.
   Read the drafted scene file and extract:
 
   **Characters present:**
-  Cross-reference with CHARACTERS.md (or FIGURES.md for sacred work types) to pull:
+  Cross-reference with the adapted cast surface to pull:
   - Physical appearance (height, build, hair, eyes, distinguishing features)
   - Clothing/style from ART-DIRECTION.md per-character visual specs
   - Expression and posture appropriate to the scene's emotional beat
@@ -179,8 +180,8 @@ After saving, tell the writer:
 
 ### Edge Cases
 
-- **Sacred work type:** Use FIGURES.md instead of CHARACTERS.md. Adapt visual language for sacred art traditions (iconographic conventions, liturgical colors, sacred geometry motifs)
-- **Character not in CHARACTERS.md:** Include what can be inferred from the scene text and note: "Character '{name}' has no entry in CHARACTERS.md. Add one with `/scr:new-character {name}` for richer visual descriptions."
+- **Adapted cast surface:** Resolve the cast filename from `file_adaptations` before reading visual details. Sacred work uses FIGURES.md and sacred visual language (iconographic conventions, liturgical colors, sacred geometry motifs).
+- **Cast entry missing:** Include what can be inferred from the scene text and note: "No cast entry found for '{name}' in {adapted cast surface}. Add one with `/scr:new-character {name}` for richer visual descriptions."
 - **No ART-DIRECTION.md:** Hard stop -- prerequisite per CONSTRAINTS.json
 - **Scene not drafted:** Hard stop -- prerequisite per CONSTRAINTS.json
 - **Multiple illustratable moments:** Pick the single strongest, note alternatives: "Other illustratable moments in this scene: [list]. Re-run with `--moment 2` to target a different beat."
@@ -190,6 +191,10 @@ After saving, tell the writer:
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

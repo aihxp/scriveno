@@ -1,17 +1,17 @@
 ---
 description: Run the full drafting pipeline autonomously. Choose guided, supervised, or full-auto profiles.
-argument-hint: "[--profile guided|supervised|full-auto] [--from <stage>] [--to <stage>] [--unit N] [--resume]"
+argument-hint: "[--profile guided|supervised|full-auto] [--from <stage>] [--to <stage>] [--unit N] [--resume] [--matter <minimum|balanced|maximum|skip>]"
 ---
 
 # Autopilot
 
-You are running the Scriveno pipeline autonomously. Your job is to execute the discuss-plan-draft-review-submit chain for each unit in OUTLINE.md, pausing only when the active profile requires it.
+You are running the Scriveno pipeline autonomously. Your job is to execute the discuss-plan-draft-review-submit chain for each unit in OUTLINE.md, pausing only when the active profile requires it. When a full manuscript run reaches completion, autopilot also prepares publication matter by invoking the dedicated `/scr:front-matter` and `/scr:back-matter` commands unless the writer opts out.
 
 ## What to do
 
 0. **Bootstrap (context-cost protocol).** Read `.manuscript/CONTEXT.md` first if it exists. If its `Updated` timestamp is newer than `.manuscript/STATE.md` and newer than the newest file in `.manuscript/drafts/body/`, use it for orientation (project title, work type, phase, current unit, recent activity, open items, and record highlights when present) and skip the corresponding raw-file loads in steps 1-3 below; you still need to read `OUTLINE.md` for unit ordering, `RECORD.md` for established-content obligations when present, and `config.json` for the `autopilot` settings block specifically. If CONTEXT.md is missing, stale, or contradicts STATE.md, run steps 1-3 unchanged. See `docs/context-protocol.md` for the contract.
 
-1. **Read `.manuscript/config.json`** for autopilot settings: `profile` (guided, supervised, or full-auto), `enabled`, and `custom_checkpoints` array.
+1. **Read `.manuscript/config.json`** for autopilot settings: `profile` (guided, supervised, or full-auto), `enabled`, `custom_checkpoints` array, and optional matter settings (`include_matter`, `matter_level`).
 
 2. **Read `.manuscript/STATE.md`** for current position: current unit, current stage, progress counters, and last actions.
 
@@ -23,7 +23,14 @@ You are running the Scriveno pipeline autonomously. Your job is to execute the d
 
 6. **If `--profile` flag is set:** Override the config.json profile with the provided value. Valid values: `guided`, `supervised`, `full-auto`.
 
-7. **Enter the main loop** (see below).
+7. **Resolve publication matter behavior.** Autopilot should prepare front and back matter only after every unit reaches submit, never during a partial `--from` / `--to` run. Resolve the level in this order:
+   - If `--matter skip` is set, skip the publication matter phase.
+   - If `--matter minimum`, `--matter balanced`, or `--matter maximum` is set, use that level.
+   - If `.manuscript/config.json` has `autopilot.include_matter: false`, skip the phase.
+   - If `.manuscript/config.json` has `autopilot.matter_level`, use that level.
+   - Otherwise use `balanced`.
+
+8. **Enter the main loop** (see below).
 
 ## Main loop
 
@@ -34,11 +41,23 @@ FOR each unit in OUTLINE.md (starting from current position):
     Update STATE.md with: timestamp, command name, unit, outcome
     Check pause conditions (see Profile rules below)
     If paused: show review prompt, wait for writer input
-    If writer says "stop": exit loop, save state to STATE.md
+    If writer says "stop": exit loop, save state to STATE.md, then end with a literal `Next commands:` block
     If writer says "skip": advance to next unit, update STATE.md
 ```
 
-When the loop completes (all units through all stages), show a completion summary: total units, total word count, voice consistency across the manuscript, open record threads or promises, any flags or issues encountered, and a pointer to the per-unit ledger at `.manuscript/PROGRESS.md`. Before the summary, regenerate the derived maps the run may have changed -- `.manuscript/RELATIONSHIPS.md`, `.manuscript/CONFLICTS.md`, and `.manuscript/PEOPLE-DYNAMICS.md` -- per `/scr:save` steps 8b through 8d, where each applies, so they reflect the character and relationship changes made while drafting.
+In supervised and full-auto profiles, follow `docs/subagent-spawning-protocol.md` and run read-only lookahead workers for the next 1-3 units when disk evidence suggests risk. Lookahead workers may inspect for missing research, record drift, place/geography contradictions, subject-dynamics gaps, or likely quality gates. They do not draft ahead, update STATE.md, write plans, or accept canon. Merge their findings into the current pause report or next plan constraints.
+
+When the loop completes (all units through all stages), run the completion steps in this order:
+
+1. Regenerate the derived maps the run may have changed: the adapted relationship surface for canonical `RELATIONSHIPS.md`, `.manuscript/CONFLICTS.md`, and `.manuscript/PEOPLE-DYNAMICS.md` per `/scr:save` steps 8b through 8d, where each applies, so they reflect the cast and relationship changes made while drafting.
+2. Run the publication matter phase unless it was skipped. Check whether `.manuscript/front-matter/` and `.manuscript/back-matter/` already contain publishable `.md` files. If either side is missing, run its dedicated command with the resolved level:
+   - Missing front matter: `/scr:front-matter --level {resolved-matter-level}`
+   - Missing back matter: `/scr:back-matter --level {resolved-matter-level}`
+3. Do not overwrite writer-authored front or back matter silently. If files already exist but appear stale against `.manuscript/WORK.md` or the newest body draft, report that they may need a refresh and suggest the dedicated matter command in `Next commands:` rather than rewriting them.
+4. If the current work type hides either matter command in `CONSTRAINTS.json`, skip that side and report it as not applicable.
+5. Show a completion summary: total units, total word count, voice consistency across the manuscript, publication matter status, open record threads or promises, any flags or issues encountered, and a pointer to the per-unit ledger at `.manuscript/PROGRESS.md`.
+
+The completion summary is not the final closeout by itself. After the summary and automation status, the response must end with the literal `Next commands:` block from the Response Contract. Do not replace it with prose-only options such as "where to go from here" or "just point me at one." For a completed draft, prefer concrete commands such as `/scr:progress`, `/scr:prepublish-review`, `/scr:save`, `/scr:export`, `/scr:publish`, or `/scr:next`, depending on the actual state. If publication matter was skipped or stale, include `/scr:front-matter --level balanced` or `/scr:back-matter --level balanced` as appropriate.
 
 ## Profile rules
 
@@ -109,9 +128,11 @@ The writer trusts the pipeline. Autopilot runs until the entire manuscript is co
 - Total units drafted
 - Total word count
 - Voice consistency: the voice-checker Overall score (0-100), averaged across the units that were voice-checked during the run
+- Publication matter status: front matter generated/present/skipped/stale, back matter generated/present/skipped/stale, and resolved matter level
 - Open record threads, reader promises, and unresolved next-unit obligations from RECORD.md
 - Any flags or issues encountered during the run
 - List of any quality gate pauses that occurred and how they were resolved
+- A final `Next commands:` block with one to four runnable Scriveno commands and practical explanations
 
 ## Resume logic
 
@@ -147,6 +168,7 @@ On pause or stop:
 1. Write current position to "Session handoff" section so `--resume` can pick up exactly where you left off
 2. Include what was just completed and what the next action would be
 3. Record the writer's notes if they provide any
+4. End the writer-facing response with a `Next commands:` block, usually including `/scr:autopilot --resume` when resuming is the right path
 
 ## Automation Status
 
@@ -162,7 +184,10 @@ Auto-invoked commands:
 - /scr:draft N: yes/no
 - /scr:editor-review N: yes/no
 - /scr:submit N: yes/no
+- /scr:front-matter --level {level}: yes/no/not-applicable
+- /scr:back-matter --level {level}: yes/no/not-applicable
 Spawned agents:
+- lookahead workers: {count, none, or prompt-run fallback used}
 - plan-checker: {count}
 - drafter: {count}
 - voice-checker: {count}
@@ -171,6 +196,7 @@ Local operations:
 - STATE.md updated: yes/no
 - PROGRESS.md refreshed: yes/no
 - HISTORY.log updated: yes/no
+- publication matter scan: yes/no
 Pause:
 - status: none/guided/supervised/quality-gate/blocker
 - reason: {one sentence}
@@ -181,6 +207,12 @@ If a command in the chain runs local file operations only, say so under `Local o
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
+
+This requirement applies after completion, pause, stop, quality-gate, and blocked-prerequisite responses. The final visible section of the response must be `Next commands:`. Never end an autopilot response with prose-only choices, a "just point me" line, or a numbered list that does not contain runnable Scriveno commands.
 
 Use this format:
 

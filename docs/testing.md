@@ -112,6 +112,21 @@ Use these when changing milestone-specific capabilities:
 - `test/phase8-collaboration-platform-sacred.test.js`
 - `test/phase18-technical-writing-domain-modeling.test.js`
 
+### Workflow smoke matrix
+
+Use these when changing context surfaces, work-type adaptation, `/scr:new-work`, `/scr:health --repair`, `/scr:save`, or `/scr:scan`:
+
+| Scenario | Representative work type | Expected surface behavior | Primary tests |
+|----------|--------------------------|---------------------------|---------------|
+| Prose narrative | `novel` | Scaffold BRIEF, CHARACTERS, WORLD, PLOT-GRAPH, THEMES, PEOPLES, and PLACES; regenerate RELATIONSHIPS, CONFLICTS, PEOPLE-DYNAMICS, and GEOGRAPHY later; create neutral RESEARCH only by command | `test/surface-resolution-workflows.test.js`, `test/craft-surface-applicability.test.js`, `test/craft-world-layers.test.js` |
+| Sacred commentary | `commentary` | Use FRAMEWORK, FIGURES, COSMOLOGY, THEOLOGICAL-ARC, DOCTRINES, PEOPLES, and PLACES; regenerate LINEAGES and sacred-aware derived maps | `test/surface-resolution-workflows.test.js`, `test/phase8-collaboration-platform-sacred.test.js`, `test/craft-world-layers.test.js` |
+| Technical documentation | `runbook` | Use DOC-BRIEF, AUDIENCE, SYSTEM, PROCEDURES, REFERENCES, and PLACES; skip PEOPLES; regenerate DEPENDENCIES and GEOGRAPHY when enough source entries exist | `test/surface-resolution-workflows.test.js`, `test/phase18-technical-writing-domain-modeling.test.js`, `test/craft-world-layers.test.js` |
+| Academic argument | `research_paper` | Use PROPOSAL, CONCEPTS, CONTEXT, ARGUMENT-MAP, QUESTIONS, and PLACES; skip RELATIONSHIPS and PEOPLES; keep RESEARCH as a neutral advisory surface | `test/surface-resolution-workflows.test.js`, `test/phase35-academic-latex-wrappers.test.js`, `test/craft-world-layers.test.js` |
+| Short lyric work | `single_poem` | Scaffold BRIEF and THEMES only; skip cast, relationship, world, plot, and peoples surfaces | `test/surface-resolution-workflows.test.js`, `test/craft-surface-applicability.test.js` |
+| Speech or song | `speech` | Scaffold BRIEF and THEMES only; skip narrative and collective-world surfaces | `test/surface-resolution-workflows.test.js`, `test/craft-surface-applicability.test.js` |
+
+The shared resolver lives in `test/helpers/surface-resolution.js`. Use it instead of reimplementing the `surface_applicability` merge algorithm in individual tests.
+
 ## When to add tests
 
 Add or extend tests when a change affects:

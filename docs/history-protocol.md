@@ -36,7 +36,7 @@ One line per command invocation. UTF-8 text. No trailing whitespace. LF line end
 2026-05-10T17:18:02Z | scr:draft | unit=13 | files=13-A-DRAFT.md,13-B-DRAFT.md | outcome=ok
 2026-05-10T17:22:45Z | scr:plan | unit=14 | outcome=ok
 2026-05-10T17:30:11Z | scr:export | format=epub | level=- | outcome=ok
-2026-05-10T17:32:08Z | scr:publish | preset=ebook-wide | front-level=balanced | back-level=balanced | outcome=ok
+2026-05-10T17:32:08Z | scr:publish | preset=ebook-wide | matter=front:present,back:present | outcome=ok
 2026-05-10T17:35:54Z | scr:front-matter | level=balanced | elements=4 | outcome=ok
 2026-05-10T17:40:02Z | scr:scan --fix | files=STATE.md,CONTEXT.md | outcome=fixed-2
 2026-05-10T17:45:16Z | scr:export | format=pdf | outcome=failed:typst-not-installed

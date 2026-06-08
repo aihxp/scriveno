@@ -98,13 +98,15 @@ If any files were added to the scaffold exclusion list, note them for the assemb
 
 If no scaffold files were found, show no note.
 
-**1.6b -- GENERATE element auto-refresh**
+**1.6b -- Existing front-matter freshness check**
 
-If `.manuscript/front-matter/` does not exist, skip auto-refresh and proceed to STEP 2.
+Publish is a routing and packaging command. It must not create, refresh, or rewrite front-matter or back-matter files. Those are writer-facing drafting surfaces owned by `/scr:front-matter` and `/scr:back-matter`.
 
-If `.manuscript/WORK.md` does not exist, skip auto-refresh and proceed to STEP 2.
+If `.manuscript/front-matter/` does not exist, skip the freshness check and proceed to STEP 2.
 
-Compare the modification timestamp of `.manuscript/WORK.md` against each of the following GENERATE front-matter files:
+If `.manuscript/WORK.md` does not exist, skip the freshness check and proceed to STEP 2.
+
+Compare the modification timestamp of `.manuscript/WORK.md` against each of the following generated front-matter files when they exist:
 - `.manuscript/front-matter/01-half-title.md`
 - `.manuscript/front-matter/03-title-page.md`
 - `.manuscript/front-matter/04-copyright.md`
@@ -114,12 +116,12 @@ To compare timestamps, use the appropriate command for the platform:
 - macOS: `stat -f %m <file>`
 - Linux: `stat -c %Y <file>`
 - Windows: `(Get-Item '<file>').LastWriteTimeUtc.Ticks`
-- If timestamp comparison is not possible, assume WORK.md is newer and regenerate.
+- If timestamp comparison is not possible, treat freshness as unknown.
 
-If WORK.md is newer than ANY of those 4 files, or if ANY of those 4 files do not exist:
-Re-run the GENERATE step from `/scr:front-matter` for elements 1, 3, 4, and 7 only (half-title, title page, copyright page, TOC) using current WORK.md metadata. Regenerate all four even if only one triggered the condition. Do NOT regenerate scaffold elements (5, 6, 11, 12, 13) or any other elements.
+If WORK.md is newer than ANY existing generated front-matter file, if ANY of those 4 files do not exist, or if freshness is unknown, show:
+> **Note:** Front matter may be stale or incomplete. Publish will not generate or refresh front matter. Run `/scr:front-matter --level minimum` or `/scr:front-matter --level balanced`, then re-run publish if you want updated front matter included.
 
-If WORK.md is not newer than all 4 files and all 4 files exist: skip regeneration silently.
+If WORK.md is not newer than all 4 files and all 4 files exist: continue silently.
 
 Proceed to STEP 2.
 
@@ -127,7 +129,7 @@ Proceed to STEP 2.
 
 ### STEP 1.7: PREFLIGHT MODE
 
-If `--preflight` was passed, run a readiness check only and stop before generating front matter, back matter, exports, packages, or history entries.
+If `--preflight` was passed, run a readiness check only and stop before writing exports, packages, or history entries.
 
 Preflight must include:
 
@@ -187,13 +189,13 @@ Check each publishing prerequisite and show a readiness checklist:
 Publishing Readiness Checklist
 ==============================
 [x] Complete draft (all units drafted)
-[ ] Front matter -- run /scr:front-matter
+[ ] Front matter -- optional; run /scr:front-matter separately if wanted
 [x] Back matter
 [ ] Blurb -- run /scr:blurb
 [ ] Synopsis -- run /scr:synopsis
 [x] Cover art
 
-Missing 3 prerequisites. Generate them now? (yes/no)
+Missing 3 items. Generate non-matter prerequisites now? (yes/no)
 ```
 
 **How to check each prerequisite:**
@@ -216,6 +218,11 @@ Missing 3 prerequisites. Generate them now? (yes/no)
 > Your draft is not complete. Missing units: [list]. Run `/scr:next` to continue drafting, or proceed anyway with incomplete manuscript.
 
 **Non-critical prerequisites:** If the writer says "yes" to generating missing items, run each missing command in order before proceeding.
+
+**Front/back matter boundary:** Do not generate front matter or back matter from `/scr:publish`. If either is missing, report it as optional missing publication matter and continue unless the writer explicitly says they want to stop and run the dedicated command first. Suggested commands:
+
+- `/scr:front-matter --level balanced`
+- `/scr:back-matter --level balanced`
 
 #### 3b. Choose Destination
 
@@ -271,33 +278,13 @@ If only one academic preset is appropriate, run it; otherwise ask which.
 
 Map the final answer to a preset and proceed to STEP 3c.
 
-#### 3c. Choose Front + Back Matter Level
+#### 3c. Matter Readiness Note
 
-If the chosen preset includes front-matter or back-matter generation steps (any preset whose pipeline calls `/scr:front-matter` or `/scr:back-matter` -- see STEP 4), and the corresponding directories are empty, ask the writer once **per matter type that the preset will generate**:
+Before STEP 4, check whether `.manuscript/front-matter/` and `.manuscript/back-matter/` contain publishable files. If either is missing and the preset is a retail, wide, print, or thesis-style route, show a short note:
 
-> Front matter: how much should I generate?
->
-> 1. **skip** -- I do not want any front matter
-> 2. **minimum** -- title page, copyright, TOC (legal floor)
-> 3. **balanced** -- minimum + half-title, dedication, epigraph, acknowledgments (recommended for retail)
-> 4. **maximum** -- every applicable element
+> Front/back matter is optional but usually expected for this destination. `/scr:publish` will not draft it. Continue now to build the package without it, or stop and run `/scr:front-matter` / `/scr:back-matter` first.
 
-> Back matter: how much should I generate?
->
-> 1. **skip** -- I do not want any back matter
-> 2. **minimum** -- about-the-author (legal floor)
-> 3. **balanced** -- minimum + colophon, permissions when applicable
-> 4. **maximum** -- every applicable element
-
-**Defaults to suggest if the writer just hits enter:**
-- Share-* and all-formats presets: **minimum** for both (these are not retail builds)
-- kdp-ebook, kdp-paperback, ebook-wide, ingram-paperback: **balanced** for both
-- academic-submission, thesis-defense: **balanced** front, **balanced** back (academic adaptation will pull bibliography in automatically)
-- query-submission, screenplay-query, submission-package: skip both (the package itself does not need book front/back matter)
-
-If the writer answers **skip** for either, the preset will skip that step entirely (do not run the corresponding `/scr:front-matter` / `/scr:back-matter` call). If `.manuscript/front-matter/` or `.manuscript/back-matter/` already has files, do not ask -- treat them as already chosen and skip the prompt.
-
-Pass the chosen level to the underlying calls in STEP 4 as `--level <value>`.
+If the writer chooses to stop, end with the Response Contract and suggest the dedicated matter command(s). If the writer chooses to continue, proceed to STEP 4 and list omitted matter in STEP 5.
 
 ---
 
@@ -309,10 +296,8 @@ Show progress for each step:
 ```
 Publishing: kdp-paperback
 ==========================
-Step 1/4: Checking front matter... already exists, skipping
-Step 2/4: Generating back matter...
-Step 3/4: Exporting print-ready PDF...
-Step 4/4: Building KDP package...
+Step 1/2: Exporting print-ready PDF...
+Step 2/2: Building KDP package...
 ```
 
 #### Locked Presets (D-08)
@@ -320,17 +305,13 @@ Step 4/4: Building KDP package...
 **kdp-paperback** -- Amazon KDP print-on-demand
 | Step | Command | Condition |
 |------|---------|-----------|
-| 1 | `/scr:front-matter --level {front-level}` | If `.manuscript/front-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
-| 2 | `/scr:back-matter --level {back-level}` | If `.manuscript/back-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
-| 3 | `/scr:export --format pdf --print-ready` | Always (produces interior PDF) |
-| 4 | `/scr:export --format kdp-package` | Always (produces KDP upload package) |
+| 1 | `/scr:export --format pdf --print-ready` | Always (produces interior PDF, including existing publishable matter) |
+| 2 | `/scr:export --format kdp-package` | Always (produces KDP upload package) |
 
 **kdp-ebook** -- Amazon Kindle ebook
 | Step | Command | Condition |
 |------|---------|-----------|
-| 1 | `/scr:front-matter --level {front-level}` | If `.manuscript/front-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
-| 2 | `/scr:back-matter --level {back-level}` | If `.manuscript/back-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
-| 3 | `/scr:export --format epub` | Always |
+| 1 | `/scr:export --format epub` | Always (includes existing publishable matter) |
 
 **query-submission** -- Traditional publishing query
 | Step | Command | Condition |
@@ -343,20 +324,16 @@ Step 4/4: Building KDP package...
 **ebook-wide** -- All major ebook stores
 | Step | Command | Condition |
 |------|---------|-----------|
-| 1 | `/scr:front-matter --level {front-level}` | If `.manuscript/front-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
-| 2 | `/scr:back-matter --level {back-level}` | If `.manuscript/back-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
-| 3 | `/scr:export --format epub` | Always |
-| 4 | `/scr:export --format pdf` | Always (manuscript PDF for stores that accept it) |
+| 1 | `/scr:export --format epub` | Always (includes existing publishable matter) |
+| 2 | `/scr:export --format pdf` | Always (manuscript PDF for stores that accept it) |
 
 #### Additional Presets
 
 **ingram-paperback** -- IngramSpark bookstore distribution
 | Step | Command | Condition |
 |------|---------|-----------|
-| 1 | `/scr:front-matter --level {front-level}` | If `.manuscript/front-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
-| 2 | `/scr:back-matter --level {back-level}` | If `.manuscript/back-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
-| 3 | `/scr:export --format pdf --print-ready` | Always |
-| 4 | `/scr:export --format ingram-package` | Always |
+| 1 | `/scr:export --format pdf --print-ready` | Always (includes existing publishable matter) |
+| 2 | `/scr:export --format ingram-package` | Always |
 
 **academic-submission** -- Journal or academic press
 | Step | Command | Condition |
@@ -367,10 +344,8 @@ Step 4/4: Building KDP package...
 **thesis-defense** -- Thesis or dissertation
 | Step | Command | Condition |
 |------|---------|-----------|
-| 1 | `/scr:front-matter --level {front-level}` | If `.manuscript/front-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
-| 2 | `/scr:back-matter --level {back-level}` | If `.manuscript/back-matter/` is empty AND the writer did not pick **skip** in STEP 3c |
-| 3 | Ask the writer which supported academic platform best matches the institution requirement: `ieee`, `acm`, `lncs`, `elsevier`, or `apa7` | If not already specified |
-| 4 | `/scr:build-print --platform <selected academic platform>` | Always |
+| 1 | Ask the writer which supported academic platform best matches the institution requirement: `ieee`, `acm`, `lncs`, `elsevier`, or `apa7` | If not already specified |
+| 2 | `/scr:build-print --platform <selected academic platform>` | Always |
 
 **screenplay-query** -- Screenplay agent/manager submission
 | Step | Command | Condition |
@@ -430,22 +405,21 @@ Publishing Complete
 Preset: kdp-paperback
 
 Generated:
-  - Front matter (7 elements)
-  - Back matter (5 elements)
   - manuscript-print.pdf (interior, 6x9, ~312 pages)
   - kdp-package/ (cover specs, metadata, upload checklist)
 
 Skipped:
-  - Front matter (already existed)
+  - Front matter (not generated by publish)
+  - Back matter (already existed and included by export)
 
-Next Steps:
+Review Checklist:
   1. Review the interior PDF at .manuscript/output/manuscript-print.pdf
   2. Review `.manuscript/output/kdp-package/cover-specs.md` and place the finished print cover at `.manuscript/build/paperback-cover.pdf`
   3. Upload the interior PDF and the final cover file to https://kdp.amazon.com
   4. Set pricing, categories, and keywords on KDP
 ```
 
-Adapt the "Next Steps" section to the preset:
+Adapt the "Review Checklist" section to the preset:
 
 - **kdp-paperback/kdp-ebook:** KDP upload instructions
 - **ingram-paperback:** IngramSpark upload instructions
@@ -463,16 +437,20 @@ Adapt the "Next Steps" section to the preset:
 After the preset pipeline completes, append one line to `.manuscript/HISTORY.log` per `docs/history-protocol.md`:
 
 ```
-{ISO timestamp} | scr:publish | preset={resolved preset} | front-level={resolved or "skip" or "-"} | back-level={resolved or "skip" or "-"} | outcome={ok|partial:<count-failed>|failed:<short-reason>}
+{ISO timestamp} | scr:publish | preset={resolved preset} | matter=front:{present|missing|not-applicable},back:{present|missing|not-applicable} | outcome={ok|partial:<count-failed>|failed:<short-reason>}
 ```
 
-Use `front-level=-` and `back-level=-` for presets that do not run front-matter / back-matter generation (share-*, all-formats, query-submission, screenplay-query, submission-package). The chained `/scr:export`, `/scr:front-matter`, `/scr:back-matter` calls log their own lines per their command specs -- this `scr:publish` line records the wrapper invocation so the log shows both the high-level intent and the granular steps. Create HISTORY.log if it does not exist.
+Use `not-applicable` for presets that do not normally include book front/back matter (share-*, all-formats, query-submission, screenplay-query, submission-package). `/scr:publish` does not run `/scr:front-matter` or `/scr:back-matter`; those commands write their own history lines when the writer runs them directly. Create HISTORY.log if it does not exist.
 
 ---
 
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

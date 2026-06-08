@@ -2,13 +2,15 @@ const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('fs');
 const path = require('path');
+const {
+  SURFACE_TIERS,
+  VARIABLE_SURFACES,
+  loadConstraints,
+  resolveSurfaceSet,
+} = require('./helpers/surface-resolution.js');
 
 const ROOT = path.join(__dirname, '..');
-const constraints = JSON.parse(
-  fs.readFileSync(path.join(ROOT, 'data', 'CONSTRAINTS.json'), 'utf8')
-);
-
-const TIERS = ['required', 'optional', 'not_applicable'];
+const constraints = loadConstraints(ROOT);
 
 describe('craft layer: surface_applicability decision tree', () => {
   const sa = constraints.surface_applicability;
@@ -31,7 +33,7 @@ describe('craft layer: surface_applicability decision tree', () => {
 
   it('every group entry has required/optional/not_applicable arrays', () => {
     for (const [g, entry] of Object.entries(sa.by_group)) {
-      for (const tier of TIERS) {
+      for (const tier of SURFACE_TIERS) {
         assert.ok(Array.isArray(entry[tier]), `group ${g} missing ${tier} array`);
       }
     }
@@ -51,10 +53,10 @@ describe('craft layer: surface_applicability decision tree', () => {
   it('only references canonical surfaces (keys of file_adaptations.default)', () => {
     const refs = [];
     for (const entry of Object.values(sa.by_group)) {
-      for (const t of TIERS) refs.push(...entry[t]);
+      for (const t of SURFACE_TIERS) refs.push(...entry[t]);
     }
     for (const ov of Object.values(sa.work_type_overrides)) {
-      for (const t of TIERS) if (ov[t]) refs.push(...ov[t]);
+      for (const t of SURFACE_TIERS) if (ov[t]) refs.push(...ov[t]);
     }
     for (const s of refs) {
       assert.ok(
@@ -68,7 +70,7 @@ describe('craft layer: surface_applicability decision tree', () => {
     for (const [wt, ov] of Object.entries(sa.work_type_overrides)) {
       assert.ok(workTypes.includes(wt), `override "${wt}" is not a real work_type`);
       const all = [];
-      for (const t of TIERS) if (ov[t]) all.push(...ov[t]);
+      for (const t of SURFACE_TIERS) if (ov[t]) all.push(...ov[t]);
       assert.equal(
         all.length,
         new Set(all).size,
@@ -79,14 +81,14 @@ describe('craft layer: surface_applicability decision tree', () => {
 
   it('BRIEF and THEMES stay core (never not_applicable at group level)', () => {
     for (const [g, entry] of Object.entries(sa.by_group)) {
-      assert.ok(!entry.not_applicable.includes('BRIEF'), `BRIEF should not be not_applicable for ${g}`);
-      assert.ok(!entry.not_applicable.includes('THEMES'), `THEMES should not be not_applicable for ${g}`);
+      assert.ok(!entry.not_applicable.includes('BRIEF.md'), `BRIEF.md should not be not_applicable for ${g}`);
+      assert.ok(!entry.not_applicable.includes('THEMES.md'), `THEMES.md should not be not_applicable for ${g}`);
     }
   });
 
   it('matches documented new-work behavior: poetry and speech skip characters/world/plot', () => {
     for (const g of ['poetry', 'speech_song']) {
-      for (const s of ['CHARACTERS.md', 'WORLD.md', 'PLOT-GRAPH.md']) {
+      for (const s of ['CHARACTERS.md', 'WORLD.md', 'PLOT-GRAPH.md', 'PEOPLES.md']) {
         assert.ok(
           sa.by_group[g].not_applicable.includes(s),
           `${g} should mark ${s} not_applicable`
@@ -97,6 +99,14 @@ describe('craft layer: surface_applicability decision tree', () => {
 
   it('matches documented new-work behavior: academic skips relationships', () => {
     assert.ok(sa.by_group.academic.not_applicable.includes('RELATIONSHIPS.md'));
+    assert.ok(sa.by_group.academic.not_applicable.includes('PEOPLES.md'));
+  });
+
+  it('new-work documents PEOPLES as a surface governed by the decision tree', () => {
+    const newWork = fs.readFileSync(path.join(ROOT, 'commands', 'scr', 'new-work.md'), 'utf8');
+    assert.match(newWork, /PEOPLES\.md/);
+    assert.match(newWork, /BRIEF, CHARACTERS, RELATIONSHIPS, WORLD, PLOT-GRAPH, THEMES, PEOPLES/);
+    assert.match(newWork, /PEOPLE-DYNAMICS\.md/);
   });
 
   it('argument-driven types hard-skip WORLD (an article needs no world)', () => {
@@ -104,6 +114,36 @@ describe('craft layer: surface_applicability decision tree', () => {
       assert.ok(
         sa.work_type_overrides[wt].not_applicable.includes('WORLD.md'),
         `${wt} should mark WORLD.md not_applicable`
+      );
+    }
+  });
+
+  it('argument-driven prose types hard-skip PEOPLES', () => {
+    for (const wt of ['essay', 'essay_collection']) {
+      assert.ok(
+        sa.work_type_overrides[wt].not_applicable.includes('PEOPLES.md'),
+        `${wt} should mark PEOPLES.md not_applicable`
+      );
+    }
+  });
+
+  it('CONSTRAINTS describes PEOPLES as a governed surface', () => {
+    assert.match(sa._description, /PEOPLES/);
+  });
+
+  it('shared resolver can resolve every work type without orphaning canonical surfaces', () => {
+    for (const wt of workTypes) {
+      const resolved = resolveSurfaceSet(constraints, wt);
+      const resolvedCanonicals = [
+        ...resolved.tiers.required,
+        ...resolved.tiers.optional,
+        ...resolved.tiers.not_applicable,
+      ].sort();
+
+      assert.deepEqual(
+        resolvedCanonicals,
+        [...VARIABLE_SURFACES].sort(),
+        `${wt} should place every variable surface into exactly one tier`
       );
     }
   });

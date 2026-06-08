@@ -18,7 +18,7 @@ For narrative work (prose, script, visual, interactive, and sacred narrative). I
 
 ## Instruction
 
-Load `WORK.md` (genre, tone, central conflict), `CHARACTERS.md` (existing cast, to link members), `PEOPLES.md` (existing peoples, for distinctiveness and relations), and `WORLD.md` (the culture and societies this people lives in). Determine the adapted filename and terminology from `file_adaptations` and the work type.
+Load `docs/surface-resolution-protocol.md`, `WORK.md` (genre, tone, central conflict), the adapted cast surface for canonical `CHARACTERS.md` (for example `FIGURES.md` in sacred work), `PEOPLES.md` (existing peoples, for distinctiveness and relations), and the adapted world surface for canonical `WORLD.md` (the culture and societies this people lives in). Determine the adapted filenames and terminology from `file_adaptations` and the work type before reading or writing any surface.
 
 ### INTERVIEW PROCESS
 
@@ -56,7 +56,7 @@ Ask adaptively. Skip what does not apply; go deeper where the writer has energy.
 
 Create the profile and append it to `PEOPLES.md` using the `templates/PEOPLES.md` shape: Kind and Scale, Origin, Shared values and culture (including speech markers), Social position, the collective arc (want, fear, self-image vs outsiders, stake in the central conflict), Members, and Relations with other peoples.
 
-- **Link members.** For each character the writer names, add them to this people's `### Members` list, and add a `Belongs to: {people}` line to that character's entry in `CHARACTERS.md`. A member inherits the people's traits unless their own entry overrides them.
+- **Link members.** For each character or figure the writer names, add them to this people's `### Members` list, and add a `Belongs to: {people}` line to that entry in the adapted cast surface for canonical `CHARACTERS.md` (for sacred work, `FIGURES.md`). A member inherits the people's traits unless their own entry overrides them.
 - **Record relations.** Fill the `### Relations with other peoples` section for the peoples this one already deals with. These are the source for the derived people-dynamics map.
 
 After the entry and its relations are written, regenerate `.manuscript/PEOPLE-DYNAMICS.md` from the people entries per `docs/people-dynamics-protocol.md` once two or more peoples exist, so the derived dynamics map stays current.
@@ -66,6 +66,10 @@ Commit: `peoples: add {name}`
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

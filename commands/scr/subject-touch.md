@@ -30,11 +30,9 @@ Load these project files:
 
 - `.manuscript/config.json` -- to determine work type and file adaptations
 - Scriveno's installed/shared `CONSTRAINTS.json` -- to map adapted subject files
-- `.manuscript/WORK.md` and `.manuscript/BRIEF.md` or adapted equivalent -- reader promise and reader journey
-- The adapted subject files that exist:
-  - `.manuscript/THEMES.md` or `.manuscript/QUESTIONS.md`, `.manuscript/REFERENCES.md`, or `.manuscript/DOCTRINES.md`
-  - `.manuscript/PLOT-GRAPH.md`, `.manuscript/ARGUMENT-MAP.md`, `.manuscript/PROCEDURES.md`, or `.manuscript/THEOLOGICAL-ARC.md`
-  - `.manuscript/WORLD.md`, `.manuscript/CONTEXT.md`, `.manuscript/SYSTEM.md`, or `.manuscript/COSMOLOGY.md` when the subject is a place, system, setting pressure, or operating context
+- `docs/surface-resolution-protocol.md` -- to resolve adapted source files
+- `.manuscript/WORK.md` and the adapted brief surface -- reader promise and reader journey
+- The adapted subject files that exist, including the adapted themes, plot, and world surfaces when those surfaces apply
 - `.manuscript/STATE.md` -- to know which units have been drafted
 - The drafted unit file for the touch-up basis: `.manuscript/drafts/body/{N}-*-DRAFT.md` either for the unit named in `--from` or, if `--from` is omitted, the most recently modified draft file
 
@@ -143,6 +141,10 @@ End with a one-line suggestion:
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

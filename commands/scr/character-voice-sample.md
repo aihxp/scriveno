@@ -17,17 +17,19 @@ Generate a dialogue sample to preview how a character sounds before drafting sce
 You are generating a voice sample for a character. Load:
 - `.manuscript/config.json` (to get `work_type`)
 - Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) (to check `file_adaptations`, `commands.character-voice-sample.adapted`, and `dependencies.feature_prerequisites`)
+- `docs/surface-resolution-protocol.md` for adapted cast surface resolution
 - `STYLE-GUIDE.md` (writer's voice dimensions -- the sample must feel like this writer's prose)
 
-Determine the correct characters file from `file_adaptations`:
+Determine the adapted cast surface for canonical `CHARACTERS.md` from `file_adaptations`:
 - Default: `CHARACTERS.md`
 - Academic work types: `CONCEPTS.md`
+- Technical work types: `AUDIENCE.md`
 - Sacred work types: `FIGURES.md`
 
-Load the adapted characters file from `.manuscript/`.
+Load the adapted cast surface from `.manuscript/`.
 
 **Prerequisites check** (from CONSTRAINTS.json `dependencies.feature_prerequisites`):
-- The characters file must exist with at least one character entry
+- The adapted cast surface must exist with at least one entry
 - `STYLE-GUIDE.md` must exist
 - If either is missing: "This command requires {missing_file}. Run {generator_command} first."
 
@@ -73,7 +75,7 @@ Determine adapted terminology:
 
   After presenting the sample, ask:
   - "Does this sound like {name}? You can:"
-  - **Approve** -- save this as the voice anchor in the characters file
+  - **Approve** -- save this as the voice anchor in the adapted cast surface
   - **Adjust** -- tell me what to change (too formal, needs more humor, wrong tic, etc.)
   - **Regenerate** -- try a completely fresh sample
 </voice_sample_generation>
@@ -90,6 +92,10 @@ Determine adapted terminology:
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

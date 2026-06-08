@@ -18,8 +18,11 @@ describe('craft layer: older-project upgrade path', () => {
     const h = read('commands/scr/health.md');
     assert.match(h, /Upgrade an older project/i);
     assert.match(h, /non-destructive/i);
-    assert.match(h, /RELATIONSHIPS\.md/);
+    assert.match(h, /Add missing non-derived context surfaces/);
+    assert.match(h, /PEOPLES\.md/);
+    assert.match(h, /adapted relationship surface/);
     assert.match(h, /CONFLICTS\.md/);
+    assert.match(h, /PEOPLE-DYNAMICS\.md/);
     assert.match(h, /Bump the project version/i);
     assert.match(h, /No authored content was modified/i);
   });

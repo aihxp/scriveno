@@ -44,8 +44,9 @@ Load the following project files:
 
 - `.manuscript/config.json` -- to get `work_type`, title, author, language, trim size, page count, and project settings
 - Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- to check `commands.cover-art.available` and `commands.cover-art.hidden`
+- `docs/surface-resolution-protocol.md` -- to resolve adapted cast surfaces
 - `.manuscript/WORK.md` -- premise, tone, themes, setting
-- `.manuscript/CHARACTERS.md` or `.manuscript/FIGURES.md` -- for character imagery on the cover
+- The adapted cast surface for canonical `CHARACTERS.md`, when applicable -- for cast imagery on the cover
 - `.manuscript/illustrations/ART-DIRECTION.md` -- if it exists, for visual style consistency
 
 **Check availability:**
@@ -357,6 +358,10 @@ If the writer wants final designer deliverables rather than prompts, remind them
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

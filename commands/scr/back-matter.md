@@ -73,8 +73,9 @@ Load the following project files:
 
 - `.manuscript/config.json` -- to get `work_type`, title, author, and project settings
 - Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- to check back-matter availability and adaptations for the current work type
+- `docs/surface-resolution-protocol.md` -- to resolve adapted cast and subject surfaces
 - `.manuscript/WORK.md` -- title, author, publisher, and publication details
-- `.manuscript/CHARACTERS.md` -- for glossary extraction (character names, terms)
+- The adapted cast surface for canonical `CHARACTERS.md`, when applicable -- for glossary extraction (names, roles, concepts, terms)
 - Drafted prose from `.manuscript/drafts/` (especially `.manuscript/drafts/body/`) -- for content extraction (glossary terms, endnotes, themes)
 
 **Confirm the `back-matter` command is available** for the current work type by checking `CONSTRAINTS.json`. If the work type's group is in the `hidden` list, inform the writer and stop.
@@ -213,7 +214,7 @@ Save to `.manuscript/back-matter/appendix.md`
 
 #### Element 4: Glossary -- GENERATE
 
-Extract terms, names, and concepts from the manuscript and CHARACTERS.md. Generate definitions organized alphabetically.
+Extract terms, names, and concepts from the manuscript and the adapted cast surface. Generate definitions organized alphabetically.
 
 Categories to extract:
 - **Character names**: Brief identification (role, key traits)
@@ -609,6 +610,10 @@ If the writer chose `skip` in the interactive prompt, log `level=skip | elements
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 

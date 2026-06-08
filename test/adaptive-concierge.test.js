@@ -46,8 +46,8 @@ function scenarioRecommendation(state) {
   if (state.completeDraft) {
     return {
       intent: 'publish',
-      recommended: 'publish',
-      alternatives: ['export', 'beta-reader', 'front-matter']
+      recommended: 'prepublish-review',
+      alternatives: ['publish', 'export', 'front-matter']
     };
   }
 
@@ -102,7 +102,7 @@ const SCENARIOS = [
   {
     name: 'complete draft ready for publishing choices',
     state: { hasProject: true, plannedUnits: 8, draftedUnits: 8, reviewedUnits: 8, completeDraft: true },
-    expected: { intent: 'publish', recommended: 'publish' }
+    expected: { intent: 'publish', recommended: 'prepublish-review' }
   },
   {
     name: 'state drift or missing required context',

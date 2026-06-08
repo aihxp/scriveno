@@ -138,11 +138,13 @@ For each unit in OUTLINE.md (or from `--from` position):
 
 **5a. Gather context for this unit:**
 
+Resolve variable context surfaces through `docs/surface-resolution-protocol.md` before extracting adapted cast or themes excerpts.
+
 1. **Source text:** Read `.manuscript/drafts/body/{unit}-DRAFT.md` (or the appropriate draft path from OUTLINE.md)
 2. **STYLE-GUIDE.md:** Read `.manuscript/STYLE-GUIDE.md`
 3. **GLOSSARY-{lang}.md:** Read `.manuscript/translation/GLOSSARY-{lang}.md` (if it exists)
 4. **Translation memory excerpt:** From `translation-memory.json`, extract segments that match content in this unit (if TM exists). Look for source sentences that appear in this unit's text. Include the top 20 most relevant matches.
-5. **CHARACTERS.md excerpt:** Read `.manuscript/CHARACTERS.md` (or FIGURES.md for sacred works) and extract only the characters who appear in this unit's source text. Match character names against the source text to determine relevance.
+5. **Adapted cast excerpt:** Read the adapted cast surface for canonical `CHARACTERS.md`, when applicable, and extract only the entries that appear in this unit's source text. Match names against the source text to determine relevance.
 6. **Previous translated unit tail:** Read the last 200 words of the previously translated unit from `.manuscript/translation/{lang}/drafts/` (if any prior unit exists)
 7. **Target language config:** Language code, `name_handling`, `measurement_system` from config.json
 
@@ -242,6 +244,10 @@ Plain `/scr:translate` does not auto-run translation memory, cultural adaptation
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
+
+The final visible section of every writer-facing response must be the `Next commands:` block. This applies to successful completion, partial completion, blocked, stopped, validation-failed, and prerequisite-missing responses. Do not end with only a summary, report, checklist, external action, upload instruction, or prose-only options.
+
+Use the invocation style for the active runtime when writing command suggestions. Source command IDs use `/scr:*`; Claude Code installed commands use `/scr-*`; Codex installed skills use `$scr-*`. Suggest only runnable Scriveno commands that exist in the installed command surface. Do not invent adjacent workflow names.
 
 Use this format:
 
