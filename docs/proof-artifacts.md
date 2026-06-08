@@ -83,6 +83,7 @@ Read the bundle in order if you want to inspect sentence rhythm, metaphor select
 - [Quick Proof](quick-proof.md) -- 10-minute proof-first path through install checks, the demo, and the next draft
 - [Starter Sets](starter-sets.md) -- small command sets by writing goal
 - [Versatility Paths](versatility-paths.md) -- curated showcase paths for the product's range
+- [Authenticity And AI Detectors](authenticity-and-detectors.md) -- external detector scores, process evidence, and authenticity diagnostic boundaries
 - [data/proof/first-run/README.md](../data/proof/first-run/README.md) -- committed first-run transcript artifact
 - [data/proof/runtime-parity/README.md](../data/proof/runtime-parity/README.md) -- runtime surface evidence and host-parity boundary
 - [data/proof/runtime-parity/HOST-CAPTURE-PROTOCOL.md](../data/proof/runtime-parity/HOST-CAPTURE-PROTOCOL.md) -- repeatable protocol for capturing real host-runtime parity evidence

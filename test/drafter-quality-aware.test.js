@@ -4,6 +4,7 @@
 //   - templates/pitfalls/<work_type>.md (per-work-type pitfall packs)
 //   - lib/architectural-profiles.js: listPitfallPacks(), getPitfallPackPath()
 //   - templates/config.json: draft block (rigor, context_profile, pitfalls_enabled)
+//   - templates/config.json: authenticity block (detector context and process evidence)
 
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
@@ -188,6 +189,26 @@ describe('templates/config.json declares the draft block with documented default
 
   it('pitfalls_enabled defaults to true so packs activate out of the box', () => {
     assert.equal(config.draft.pitfalls_enabled, true);
+  });
+});
+
+describe('templates/config.json declares the authenticity block with conservative defaults', () => {
+  const config = JSON.parse(fs.readFileSync(CONFIG_TEMPLATE_PATH, 'utf8'));
+
+  it('has an authenticity block', () => {
+    assert.ok(config.authenticity && typeof config.authenticity === 'object');
+  });
+
+  it('treats external detector scores as context only', () => {
+    assert.equal(config.authenticity.external_detector_scores, 'context_only');
+  });
+
+  it('preserves process evidence by default', () => {
+    assert.equal(config.authenticity.preserve_process_evidence, true);
+  });
+
+  it('never optimizes prose for detector scores', () => {
+    assert.equal(config.authenticity.detector_optimization, 'never');
   });
 });
 

@@ -41,6 +41,7 @@ For more detail, use [Versatility Paths](versatility-paths.md).
 - `/scr:profile-writer` calibrates the voice profile against your actual prose.
 - `/scr:continuity-check` finds contradictions and timeline drift.
 - `/scr:voice-check` compares drafts against Voice DNA.
+- If an outside detector flagged the prose, bring the detector name, score, date, scope, and highlighted spans into `/scr:voice-check` or `/scr:originality-check`; Scriveno treats that report as context only.
 - `/scr:line-edit` improves sentence-level flow.
 - `/scr:copy-edit` catches grammar, clarity, and consistency issues.
 - `/scr:polish` chains the revision passes when the manuscript is ready.

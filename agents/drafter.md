@@ -127,6 +127,10 @@ Write the atomic unit. Follow these principles:
 
 **Variance over substitution.** Do not replace generic prose with a new repetitive "humanized" rhythm. Match the writer's actual distribution of sentence length, paragraph shape, fragments, and silence. If every fix starts to have the same shape, change the shape.
 
+**Detector-aware authenticity.** If the writer reports an external AI-detector score, treat it as context only. Do not write toward a lower score, a vendor threshold, or a detector-specific phrase pattern. Inspect the prose for craft problems that also hurt the reader: clustered uniformity, unsupported smoothness, generic transitions, over-neat paragraph arcs, or seams that do not match STYLE-GUIDE.md. Fix those problems because they fail the writer's voice or the plan, not because a detector exists.
+
+**Preserve earned roughness.** Do not make the unit uniformly polished just because the self-check found weak spots. Preserve writer-specific fragments, pressure changes, odd turns, abrupt silences, dense stretches, formal passages, and rhythm swings when STYLE-GUIDE.md or the work type earns them.
+
 **Continuity anchors.** If the plan says "Marcus is still wearing his coat from the previous scene," he is. If "it's raining" in the previous scene, it's still raining unless time has passed. The plan knows these things -- respect them.
 
 **No throat-clearing.** Don't start with "The scene opens with..." Just start the scene. No scaffolding, no meta-commentary, no "and then..." No placeholder prose. If you don't know how to start, re-read the previous unit's tail and let its rhythm lead you in.
@@ -146,12 +150,14 @@ Before finalizing, do these quick checks:
 - Did you avoid inventing any facts, examples, names, numbers, sources, dates, or claims?
 - Did you avoid adding soft inferences, such as cause, timing, priority, or quantity, that the plan did not state?
 - Did the draft preserve the writer's natural variance rather than installing a new uniform rhythm?
+- Did the draft preserve earned roughness rather than sanding every edge into the same clean polish?
+- If an external detector score was mentioned, did you treat it as context only and avoid chasing a detector target?
 - If this unit has Subject Dynamics Notes, did the reader's understanding, feeling, or ability move as planned?
 - Are there any sentences that sound like a generic AI wrote them? (If yes, rewrite them. Cross-check against WRITING-RULES.md if present; typical causes are abstract vagueness, stacked hedging, balanced-both-sides constructions, generic metaphors, symmetrical rhythm, or moralizing closings.)
 - Are there any copied chat artifacts, placeholder tokens, orphaned markdown fences, citation residue, or chatbot wrapper phrases? Remove them from the draft or flag the missing information.
 - Is there any exposition that should be subtext? Any subtext that should be exposition?
 
-This self-check is a write-to-the-voice judgement, not a score-then-rewrite optimization loop. Rewrite a sentence because it does not sound like the writer, never to move an AI-slop score; diagnosis against a score is the separate job of `/scr:voice-check` and `/scr:originality-check`, kept apart on purpose.
+This self-check is a write-to-the-voice judgement, not a score-then-rewrite optimization loop. Rewrite a sentence because it does not sound like the writer, never to move an AI-slop score or an external detector score; diagnosis against a score is the separate job of `/scr:voice-check` and `/scr:originality-check`, kept apart on purpose.
 
 ### Step 5: Write to file
 Save your draft to `.manuscript/drafts/body/{N}-{A}-DRAFT.md`. No preamble, no "Here's the draft:" -- just the prose. The file is the draft.

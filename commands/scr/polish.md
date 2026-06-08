@@ -23,10 +23,11 @@ You are a comprehensive prose editor running a three-pass pipeline. Load:
 - `.manuscript/WRITING-RULES.md` if present (otherwise `templates/WRITING-RULES.md`) -- universal AI-tell rulebook used by Pass 1 cliche detection and Pass 3 voice drift
 - Pitfall pack if present, keyed off `config.json`'s `work_type`. Resolution order: `.manuscript/PITFALLS.md`, else `templates/pitfalls/<work_type>.md`. Used by Pass 1 to flag type-specific cliches.
 - Drafted prose from `.manuscript/drafts/body/`
+- Any external AI-detector score or highlighted report the writer supplies. Record it as context only. It must not set polish pressure, create a target score, or override STYLE-GUIDE.md.
 
 **Execute ALL three passes regardless of findings in each. Do not stop after Pass 1 to ask if you should continue. Accumulate all findings across all three passes.**
 
-Before the passes, choose polish pressure: light, mixed, or full. Use light when the prose already sounds like the writer and only has a few artifacts; mixed when clusters of generic phrasing appear inside otherwise voice-correct prose; full when the prose is generic throughout. Report this pressure and name what you deliberately left alone.
+Before the passes, choose polish pressure: light, mixed, or full. Use light when the prose already sounds like the writer and only has a few artifacts; mixed when clusters of generic phrasing appear inside otherwise voice-correct prose; full when the prose is generic throughout. External detector scores are context only and do not justify heavier pressure unless the prose itself shows clustered uniformity, unsupported smoothness, generic transitions, over-neat paragraph arcs, or unearned seams. Report this pressure and name what you deliberately left alone.
 
 ---
 
@@ -112,9 +113,11 @@ Merge all findings into a single report with these sections:
 3. **Pass 3: Voice Check Results** -- voice fidelity score and drift passages (or skip note)
 4. **Deliberately Left Alone** -- authentic writer or register markers that looked like possible tells but should stay
 5. **Meaning Check** -- unsupported additions, soft-inference drift, truncation, or artifact leakage
-6. **Overall Assessment** -- brief summary of prose quality across all three dimensions
-7. **Priority Ranking** -- what to fix first, ordered by impact on reader experience
-8. **Quick Wins vs. Structural Issues** -- separate easy fixes (typos, missing commas) from deeper revisions (voice drift, rhythm problems)
+6. **External Detector Context** -- if supplied, detector name, score, scope, date, highlighted spans, and whether those spans overlap with actual findings. State that the detector did not set this report's score or pressure.
+7. **Process Evidence** -- visible authorship-process artifacts checked or available: STYLE-GUIDE.md, plans, drafts, review reports, HISTORY.log, saves, and accepted revisions.
+8. **Overall Assessment** -- brief summary of prose quality across all three dimensions
+9. **Priority Ranking** -- what to fix first, ordered by impact on reader experience
+10. **Quick Wins vs. Structural Issues** -- separate easy fixes (typos, missing commas) from deeper revisions (voice drift, rhythm problems)
 
 Save to `.manuscript/{scope}-POLISH-REPORT.md`
 

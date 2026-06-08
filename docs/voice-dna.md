@@ -236,7 +236,7 @@ This is the same principle behind recording each instrument separately in a stud
 Starting in `1.6.0`, Scriveno loads three rule layers in this order on every drafter invocation:
 
 1. **STYLE-GUIDE.md** (sovereign): your Voice DNA. Always loaded; nothing overrides it.
-2. **WRITING-RULES.md** (universal, optional): human-first restraint, variance over substitution, factual integrity, soft-inference discipline, register awareness, sourced stance, artifact cleanup, and canonical AI-tell don'ts. It tells the drafter to avoid hedging, throat-clearing, balanced-both-sides constructions, generic metaphors, symmetrical rhythm, moralizing closings, AI tics in dialogue, invented support, truncated beats, copied chat residue, over-polishing human texture, and replacing one machine signature with a new humanizer signature. Loaded if the file is present in `.manuscript/` or the installed templates.
+2. **WRITING-RULES.md** (universal, optional): human-first restraint, variance over substitution, factual integrity, soft-inference discipline, register awareness, detector-aware authenticity, sourced stance, artifact cleanup, and canonical AI-tell don'ts. It tells the drafter to avoid hedging, throat-clearing, balanced-both-sides constructions, generic metaphors, symmetrical rhythm, moralizing closings, AI tics in dialogue, invented support, truncated beats, copied chat residue, over-polishing human texture, and replacing one machine signature with a new humanizer signature. Loaded if the file is present in `.manuscript/` or the installed templates.
 3. **Pitfall pack** (type-specific, optional): traps unique to your `work_type`. Filter words for prose, unfilmable description for screenplays, missing-precondition checks for runbooks, anachronism for sacred commentary, and so on. Loaded from `.manuscript/PITFALLS.md` if you've authored a project-local override, otherwise from the installed `templates/pitfalls/<work_type>.md`.
 
 Conflict resolution is top-down: STYLE-GUIDE.md beats WRITING-RULES.md beats the pitfall pack. If your voice in STYLE-GUIDE.md says you hedge, fragment, moralize, use formal register, or keep period diction deliberately, that voice wins. The rule layers are scaffolding, not constraints.
@@ -247,9 +247,9 @@ Three knobs in `.manuscript/config.json` tune the system:
 - `draft.context_profile`: `minimal`, `standard`, or `full` (controls how much context the drafter loads per unit; `minimal` saves tokens on weaker models)
 - `draft.pitfalls_enabled`: `true` (default) or `false` (skip the pitfall pack when the writer's voice deliberately leans into a trap)
 
-The same rule layer also has a diagnostic side. When you ask "is this AI" or "does this still sound like me," `/scr:voice-check` and `/scr:originality-check` read the rules from the other side: they report an authenticity band (Reads human / Mixed signals / Reads AI-generated) first, then a 0-100 score, then flagged spans with reasons, and they never rewrite. They match scrutiny to evidence (low density biases hard toward a high score, because over-flagging genuine human prose is the worst error here), credit strong false positives as score-raising human markers, and always name what they deliberately did not flag. Fixing flagged prose is a separate step (`/scr:line-edit`, `/scr:polish`, or a re-draft) you choose, after which the check re-runs as a fresh read. Diagnosis and rewriting stay apart on purpose, with you between them.
+The same rule layer also has a diagnostic side. When you ask "is this AI" or "does this still sound like me," `/scr:voice-check` and `/scr:originality-check` read the rules from the other side: they report an authenticity band (Reads human / Mixed signals / Reads AI-generated) first, then a 0-100 score, then flagged spans with reasons, and they never rewrite. They match scrutiny to evidence (low density biases hard toward a high score, because over-flagging genuine human prose is the worst error here), credit strong false positives as score-raising human markers, and always name what they deliberately did not flag. If you bring an outside detector report, they record it as context only and include process evidence such as plans, drafts, reviews, HISTORY.log, saves, and accepted revisions. Fixing flagged prose is a separate step (`/scr:line-edit`, `/scr:polish`, or a re-draft) you choose, after which the check re-runs as a fresh read. Diagnosis and rewriting stay apart on purpose, with you between them.
 
-See [docs/drafter-quality.md](drafter-quality.md) for the full system, including model-tier recommendations.
+See [docs/drafter-quality.md](drafter-quality.md) for the full system, including model-tier recommendations. See [Authenticity And AI Detectors](authenticity-and-detectors.md) for the external-detector policy.
 
 ## Troubleshooting
 
@@ -286,12 +286,13 @@ See [docs/drafter-quality.md](drafter-quality.md) for the full system, including
 ### Is this draft AI, or does it still sound like me?
 
 **Symptom:** You want an honest read of how authentically a draft reads as your own work, or which spans sound machine-written.
-**Fix:** Run `/scr:voice-check` (with STYLE-GUIDE.md present it measures deviation from your voice) or `/scr:originality-check`. You get a band, a 0-100 score, flagged spans with reasons, and a "Reads as human" section naming what was deliberately not flagged. These commands diagnose only; they never rewrite and never carry a target score into a fix. If you want flagged prose improved, run `/scr:line-edit` or `/scr:polish`, then re-run the check as a fresh re-verify. This is an honest read, not a detector-beating tool, and it names no detector.
+**Fix:** Run `/scr:voice-check` (with STYLE-GUIDE.md present it measures deviation from your voice) or `/scr:originality-check`. You get a band, a 0-100 score, flagged spans with reasons, and a "Reads as human" section naming what was deliberately not flagged. If you have an outside detector report, include the detector name, score, date, scope, and highlighted spans so Scriveno can triage without obeying the score. These commands diagnose only; they never rewrite and never carry a target score into a fix. If you want flagged prose improved, run `/scr:line-edit` or `/scr:polish`, then re-run the check as a fresh re-verify. This is an honest read, not a detector-beating tool, and it names no detector.
 
 ## See Also
 
 - [Proof Artifacts](proof-artifacts.md) -- inspect the Voice DNA before/after bundle first if you want the fastest concrete evidence
 - [Getting Started](getting-started.md) -- Install Scriveno and write your first draft
 - [Drafter Quality](drafter-quality.md) -- the three rule layers, the `draft` config block, and model-tier recommendations
+- [Authenticity And AI Detectors](authenticity-and-detectors.md) -- external detector scores, process evidence, and detector-aware authenticity
 - [Command Reference](command-reference.md) -- Full list of all 122 commands with usage and examples
 - [Work Types Guide](work-types.md) -- How work types adapt Scriveno's vocabulary and commands

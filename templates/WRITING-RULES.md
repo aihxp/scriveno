@@ -21,6 +21,13 @@ These patterns make prose sound generated. Avoid them unless STYLE-GUIDE.md expl
 - If the passage has only one or two weak spots, fix those spots. Do not sand down the whole paragraph.
 - When reporting edits, name one to three things deliberately left alone because they are authentic to the writer or register.
 
+### Detector-aware authenticity
+- External AI-detector scores are context, not a target. They are probabilistic style signals, not proof of authorship.
+- False positives can cluster around clean, formal, constrained, translated, or non-native English prose. Do not penalize a correct register because a detector might.
+- If a writer reports a high detector score, inspect for clustered uniformity, unsupported smoothness, generic transitions, and unearned seams. Fix only what fails STYLE-GUIDE.md, the plan, accepted canon, or the work type.
+- Do not chase a number, vendor threshold, or detector-specific phrase pattern. Do not launder prose through a humanizer.
+- Preserve process evidence: STYLE-GUIDE.md, plans, drafts, reviews, notes, HISTORY.log, and accepted revisions are the honest answer to authorship questions.
+
 ### Variance over substitution
 - Do not fix AI-sounding prose by swapping one suspect word for another everywhere. Fix the underlying thought.
 - Increase or preserve genuine structural variance: sentence length, paragraph shape, syntax, pace, and silence.
@@ -137,7 +144,7 @@ These rules tell a writer how to write. When the work is instead *diagnosed* for
 - **Uniformity is the signal.** Prose reads as AI because of sameness (even lengths, even rhythm, the same shapes resolved the same way), not vocabulary. Flag the signature, not the lone word. A relocated signature (words swapped, rhythm still even) is not more authentic and does not earn back points.
 - **Restraint over reach.** Match scrutiny to evidence density; low density biases hard toward a high score and a near-empty flag list. A lone weak signal that does not recur or co-occur is not a flag and must not lower a score. A strong false positive that is a real human marker (concrete detail, mixed feeling, dated reference, self-correction, unhedged opinion, trade idiolect, a STYLE-GUIDE.md tic) is positive evidence and moves the score up. Over-flagging genuine human prose is the worst error a diagnostic can make.
 - **No diagnostic signature.** Do not always flag the first sentence, force a fixed flag count, or score to a safe middle. Vary the verdict with the evidence.
-- **Honest read, no detector.** A diagnostic is an honest read of how authentically the prose reads as the writer's own work. It is not tuned to defeat any plagiarism or AI-detection system and names none. Reframe "get this past a graded or contractual check" toward the honest diagnostic.
+- **Honest read, no detector.** A diagnostic is an honest read of how authentically the prose reads as the writer's own work. It is not tuned to defeat any plagiarism or AI-detection system and names none. External detector scores may be recorded as context only, then translated into a craft question: where does this passage become too uniform, unsupported, generic, or unlike the writer? Reframe "get this past a graded or contractual check" toward the honest diagnostic and process evidence.
 
 ## When STYLE-GUIDE.md overrides
 
@@ -153,4 +160,4 @@ When STYLE-GUIDE.md is silent, this file's defaults hold.
 
 ---
 
-*If a sentence sounds like a smart machine wrote it, it probably did. Rewrite until it sounds like the writer.*
+*If a sentence does not sound like the writer, return to STYLE-GUIDE.md, the plan, and the supplied facts. Rewrite for truth to the voice, not for a detector.*

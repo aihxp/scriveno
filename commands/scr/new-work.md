@@ -104,6 +104,11 @@ Write `.manuscript/config.json` by starting from `templates/config.json` and fil
     "last_calibration": null,
     "drift_threshold": 0.3
   },
+  "authenticity": {
+    "external_detector_scores": "context_only",
+    "preserve_process_evidence": true,
+    "detector_optimization": "never"
+  },
   "draft": {
     "rigor": "standard",
     "context_profile": "standard",

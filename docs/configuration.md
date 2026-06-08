@@ -76,6 +76,11 @@ When a writer runs `/scr:new-work`, Scriveno creates `.manuscript/config.json`. 
     "last_calibration": null,
     "drift_threshold": 0.3
   },
+  "authenticity": {
+    "external_detector_scores": "context_only",
+    "preserve_process_evidence": true,
+    "detector_optimization": "never"
+  },
   "draft": {
     "rigor": "standard",
     "context_profile": "standard",
@@ -99,7 +104,7 @@ When a writer runs `/scr:new-work`, Scriveno creates `.manuscript/config.json`. 
 
 That `scriveno_version` value should track the current package release and the live `/scr:new-work` contract, not an older milestone snapshot.
 
-Every project gets those core keys and shared blocks (`autopilot`, `voice`, `draft`, `export`, `translation`, `collaboration`). The `autopilot.include_matter` and `autopilot.matter_level` settings control whether a full `/scr:autopilot` run prepares missing front and back matter through the dedicated matter commands after every unit is submitted. They do not make `/scr:export` or `/scr:autopilot-publish` draft matter. The `voice.drift_threshold` default of 0.3 is the voice-drift gate: drift is `(100 - score) / 100`, so 0.3 offers a re-draft when the voice score falls below 70 (see [Drafter Quality](drafter-quality.md) and `agents/voice-checker.md`). Additional blocks are added only when the work type requires them: a `technical` block for technical writing, top-level sacred profile keys for sacred work types, and `platform` for work types with an inferred publishing target.
+Every project gets those core keys and shared blocks (`autopilot`, `voice`, `authenticity`, `draft`, `export`, `translation`, `collaboration`). The `autopilot.include_matter` and `autopilot.matter_level` settings control whether a full `/scr:autopilot` run prepares missing front and back matter through the dedicated matter commands after every unit is submitted. They do not make `/scr:export` or `/scr:autopilot-publish` draft matter. The `voice.drift_threshold` default of 0.3 is the voice-drift gate: drift is `(100 - score) / 100`, so 0.3 offers a re-draft when the voice score falls below 70 (see [Drafter Quality](drafter-quality.md) and `agents/voice-checker.md`). The `authenticity` block makes detector policy explicit: outside detector scores are context only, process evidence stays preserved, and Scriveno never optimizes prose to hit a detector target. Additional blocks are added only when the work type requires them: a `technical` block for technical writing, top-level sacred profile keys for sacred work types, and `platform` for work types with an inferred publishing target.
 
 ### Technical writing projects
 
@@ -179,6 +184,24 @@ Starting in `1.6.0`, projects can include an optional `draft` block to tune how 
 - `draft.pitfalls_enabled`: `true` (default) or `false`. When `false`, skip loading the per-work-type pitfall pack from `templates/pitfalls/<work_type>.md`. WRITING-RULES.md still loads. Use when the writer's voice deliberately leans into a trap (parody, pastiche, period voice).
 
 `/scr:settings` exposes all three knobs in its display and change flow. See [Drafter Quality](drafter-quality.md) for the full system, including model-tier recommendations and the override hierarchy (STYLE-GUIDE.md beats WRITING-RULES.md beats the pitfall pack).
+
+### Authenticity and detector policy
+
+Current projects include an `authenticity` block:
+
+```json
+"authenticity": {
+  "external_detector_scores": "context_only",
+  "preserve_process_evidence": true,
+  "detector_optimization": "never"
+}
+```
+
+- `authenticity.external_detector_scores`: fixed at `context_only`. A writer may bring a detector score or highlighted report into `/scr:voice-check`, `/scr:originality-check`, `/scr:line-edit`, or `/scr:polish`, but it is triage context, not a target.
+- `authenticity.preserve_process_evidence`: `true` by default. Scriveno treats STYLE-GUIDE.md, plans, drafts, review reports, HISTORY.log, saves, and accepted revisions as the honest response to authorship questions.
+- `authenticity.detector_optimization`: fixed at `never`. Scriveno may repair prose that is too uniform, unsupported, generic, or off-voice, but it does not launder text to satisfy an external detector.
+
+See [Authenticity And AI Detectors](authenticity-and-detectors.md) for the research stance and operational workflow.
 
 ## Developer mode
 

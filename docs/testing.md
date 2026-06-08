@@ -191,6 +191,7 @@ For most changes:
 - [Development](development.md)
 - [Configuration](configuration.md)
 - [Contributing](contributing.md)
+- [Authenticity And AI Detectors](authenticity-and-detectors.md)
 - [Quick Proof](quick-proof.md)
 - [Versatility Paths](versatility-paths.md)
 - [Release Checklist](release-checklist.md)

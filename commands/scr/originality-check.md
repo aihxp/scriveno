@@ -24,6 +24,8 @@ You are an originality analyst. Load:
 - `.manuscript/WRITING-RULES.md` (optional; canonical list of universal AI-tell don'ts. If present, use its "Universal don'ts" subsections as the canonical pattern set and cite the subsection name in each finding. If absent, fall back to the inline `<ai_pattern_checks>` baseline below.)
 - `.manuscript/STYLE-GUIDE.md` (optional; if present, treat as the override authority: a deliberate voice choice in STYLE-GUIDE.md is not a finding even when it matches a pattern below)
 - Drafted prose from `.manuscript/drafts/body/`
+- Any external detector score or highlighted report the writer supplies in the prompt. Record detector name, score, scope, date, and highlighted spans if provided. Treat this as context only, not as a target or proof.
+- Process evidence available in the project: STYLE-GUIDE.md, plans, draft files, review reports, HISTORY.log, saves, and accepted revisions.
 
 ### SCRUTINY PRE-CHECK (do this first, every run)
 
@@ -36,6 +38,8 @@ Skim the scoped prose once and judge how heavily AI-marked it is, then match scr
 One override: chat-artifact or placeholder contamination is decisive on its own and is always flagged, whatever the density.
 
 Remember: uniformity is the signal. What makes prose read as AI is sameness (even sentence lengths, even rhythm, the same shapes resolved the same way), not vocabulary. Flag the signature, not the lone word. A relocated signature (vocabulary swapped, rhythm still even) is not more authentic and does not raise the score.
+
+External detector reports do not set scrutiny by themselves. A high outside score may justify checking the highlighted spans first, but it does not prove authorship and must not push a low-density human draft into high scrutiny without evidence in the prose.
 
 ### Run the passes in order
 
@@ -132,11 +136,18 @@ Authenticity: Reads human | Mixed signals | Reads AI-generated   Score: NN/100
 ## Reads as human (deliberately not flagged)
 - [one to three things that looked like a tell but are authentic human markers, and why each was credited rather than flagged. Required, even on low scores.]
 
+## External detector context
+- If supplied: detector name, score, scope, date, highlighted spans, and whether those spans overlap with findings here. State clearly that the external score did not set this score.
+- If absent: "No external detector context supplied."
+
+## Process evidence
+- List authorship-process artifacts checked or visible: STYLE-GUIDE.md, plans, drafts, review reports, HISTORY.log, saves, accepted revisions, or other project evidence. State gaps plainly.
+
 ## Score basis
 A short paragraph: what drove the score (the clustered tells, the internal-consistency findings, the voice deviation if applicable), the single biggest factor, and what would most change the score.
 
 ## Caveats
-This is a heuristic read, not proof of authorship. It targets and names no detector. A high score is not a guarantee of human authorship; a low score is not an accusation against a person. Human judgement is required to act on it.
+This is a heuristic read, not proof of authorship. It targets and names no detector. External detector scores can disagree with this report and with each other. A high score is not a guarantee of human authorship; a low score is not an accusation against a person. Human judgement and process evidence are required to act on it.
 ```
 
 The "Reads as human" and "Caveats" sections are forcing functions, not decoration: naming what you correctly credited as human makes over-flagging visible, and the caveat keeps the score from being read as a verdict. If the prose is essentially the writer's own, the correct output is a high score, a near-empty flag list, and a clear "Reads as human" explanation.

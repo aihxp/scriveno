@@ -20,14 +20,18 @@ You are showing or modifying the project settings.
    - Autopilot profile and publication matter behavior (if set)
    - Developer mode (on/off)
    - Voice drift threshold
+   - **Authenticity policy** (`external_detector_scores`, `preserve_process_evidence`, `detector_optimization`)
    - **Draft rigor** (`standard` or `strict` -- strict prepends a per-sentence rules check, useful when routing to weaker models)
    - **Context profile** (`minimal`, `standard`, or `full` -- controls how much context the drafter loads per atomic unit)
    - **Pitfalls enabled** (on/off -- whether the drafter loads the per-work-type pitfall pack)
    - Export defaults
-3. If the writer wants to change a setting, update `config.json` accordingly. For the `autopilot` and `draft` blocks, accept these values:
+3. If the writer wants to change a setting, update `config.json` accordingly. For the `autopilot`, `authenticity`, and `draft` blocks, accept these values:
    - `autopilot.profile`: `guided`, `supervised`, or `full-auto`
    - `autopilot.include_matter`: `true` or `false`
    - `autopilot.matter_level`: `minimum`, `balanced`, or `maximum`
+   - `authenticity.external_detector_scores`: `context_only`
+   - `authenticity.preserve_process_evidence`: `true` or `false`
+   - `authenticity.detector_optimization`: `never`
    - `draft.rigor`: `standard` or `strict`
    - `draft.context_profile`: `minimal`, `standard`, or `full`
    - `draft.pitfalls_enabled`: `true` or `false`

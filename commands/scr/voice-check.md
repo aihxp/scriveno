@@ -34,6 +34,8 @@ You are orchestrating a **voice fidelity check**. Your job is to feed the right 
 4. Load drafted prose from `.manuscript/drafts/body/`
    - If `N` is provided, load only unit `N`
    - If omitted, load all drafted units
+5. If the writer supplied an external AI-detector score or highlighted report, record detector name, score, scope, date, and highlighted spans if provided. Treat it as context only, not as a target, proof, or scoring input.
+6. Check available process evidence: STYLE-GUIDE.md, scoped plan files, draft files, review reports, HISTORY.log, saves, and accepted revisions. This is evidence of process, not a detector bypass.
 
 **Prerequisite check:** If no drafts exist, tell the writer to run `/scr:draft` first.
 
@@ -45,6 +47,8 @@ Spawn the voice-checker agent (`agents/voice-checker.md`) with:
 - The full `STYLE-GUIDE.md` content
 - The scoped drafted prose (unit `N` or all units)
 - If available, previously approved units as reference anchors for comparison
+- If supplied, external detector context as triage-only evidence
+- The visible process evidence list for the scoped unit or manuscript
 
 If the host runtime cannot spawn a native `voice-checker` agent type, load the installed `agents/voice-checker.md` prompt from the active runtime and run it in an isolated fresh context. Record that fallback in the status block.
 
@@ -92,7 +96,9 @@ Group issues by the agent's check categories:
 The report must also carry two required sections, even on a high or low score:
 
 - **Reads as human (deliberately not flagged)**: one to three markers that looked like possible tells but are authentic to STYLE-GUIDE.md, the work type, or the writer's register, and why each was credited. Naming what was correctly credited as human makes over-flagging visible.
-- **Caveat**: this is a heuristic read, not proof of authorship; it names no detector; a high score is not a guarantee and a low score is not an accusation; the writer's judgement is required to act on it.
+- **External detector context**: if supplied, detector name, score, scope, date, highlighted spans, and overlap with this report's findings. State that the external score did not set the Scriveno score.
+- **Process evidence**: the visible authorship-process artifacts checked or available, plus gaps. Include STYLE-GUIDE.md, plans, drafts, review reports, HISTORY.log, saves, and accepted revisions where present.
+- **Caveat**: this is a heuristic read, not proof of authorship; it names no detector; external detector scores can disagree with this report and with each other; a high score is not a guarantee and a low score is not an accusation; the writer's judgement and process evidence are required to act on it.
 
 ---
 

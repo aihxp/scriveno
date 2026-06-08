@@ -17,6 +17,7 @@ Ships as `templates/WRITING-RULES.md` and lands in every new project's `.manuscr
 - Factual integrity and content preservation
 - Soft-inference discipline for cause, timing, priority, quantity, and motive
 - Register-aware restraint for academic, technical, legal, sacred, journalistic, quoted, and period material
+- Detector-aware authenticity: external detector scores are context only, process evidence is preserved, and detector optimization is never the target
 - Stance discipline: edge or opinion only reacts to supplied material
 - Hedging and qualifiers
 - Throat-clearing and scaffolding
@@ -38,9 +39,13 @@ The drafter, voice-checker, and originality-check all reference this as the cano
 
 The human-first additions are especially important for revision. They tell Scriveno to look for clusters before flagging AI-like prose, preserve mixed feelings and uneven rhythm, keep every required beat, avoid making unsupported details more specific just because the sentence would sound smoother, and avoid installing a new "humanized" signature.
 
+The detector-aware authenticity additions are a pressure valve for real publishing anxiety. If a writer brings a detector report, Scriveno records the detector name, score, date, scope, and highlighted spans when supplied, then inspects the prose itself for clustered uniformity, unsupported smoothness, generic transitions, over-neat paragraph arcs, and off-voice seams. It does not optimize for a vendor threshold. It also reports process evidence, because STYLE-GUIDE.md, plans, drafts, review reports, HISTORY.log, saves, and accepted revisions are better authorship evidence than a single detector score.
+
 Editing commands should also report restraint. A good line-edit or polish pass can say what it deliberately left alone: a formal register, an earned list, a rough sentence that carries voice, or a loaded hedge that changes the claim if removed.
 
 The diagnostic layer is the evaluative counterpart and is deliberately separate from rewriting. `/scr:voice-check` and `/scr:originality-check` (and the voice-checker agent behind them) diagnose: they report an authenticity band (Reads human / Mixed signals / Reads AI-generated) first, then a 0-100 score, then flagged spans with reasons, and they never hand back a rewritten span. They run a scrutiny pre-check that matches scrutiny to evidence density (low density biases hard toward a high score, because over-flagging genuine human prose is the worst error a diagnostic can make), a false-positive audit with veto power that turns strong false positives into score-raising human markers, and an internal-consistency check for unearned register or sophistication seams. Every report carries a required "Reads as human (deliberately not flagged)" section and a caveat that the score is a heuristic read, not proof. The loop is diagnose, decide, transform (`/scr:line-edit`, `/scr:polish`, re-draft), re-verify; keeping diagnosis and rewriting in separate steps with the writer between them is what prevents a score-then-rewrite gaming loop, so the drafter self-check stays a write-to-the-voice judgement rather than a score chase, and no diagnostic carries a target score into a rewrite.
+
+See [Authenticity And AI Detectors](authenticity-and-detectors.md) for the research stance and recommended workflow when an outside detector flags a manuscript.
 
 ## Pitfall packs
 
@@ -94,6 +99,20 @@ Controls how much context the drafter loads per atomic unit. Saves tokens on eve
 
 When `false`, skip loading the pitfall pack. WRITING-RULES.md still loads. Use when the writer's voice deliberately leans into a pitfall (parody, pastiche, period voice, satire) and the pack is more interference than help.
 
+## The `authenticity` block in config.json
+
+Current projects also carry an explicit detector policy:
+
+```json
+"authenticity": {
+  "external_detector_scores": "context_only",
+  "preserve_process_evidence": true,
+  "detector_optimization": "never"
+}
+```
+
+These values are intentionally conservative. Scriveno may use an external report to decide where to look first, but STYLE-GUIDE.md, WRITING-RULES.md, the plan, accepted canon, and the prose itself decide what is actually wrong. Rewrites are justified by craft, voice, continuity, or content integrity, never by a detector number.
+
 ## Model tier recommendations
 
 Rough guidance for matching settings to model class. The writer's experience with the model is the final arbiter; treat these as starting points, not laws.
@@ -125,3 +144,4 @@ All three layers are optional. Projects predating this feature keep working with
 - [`agents/drafter.md`](../agents/drafter.md): the drafter agent's contract
 - [`agents/voice-checker.md`](../agents/voice-checker.md): the voice-drift gate
 - [`commands/scr/originality-check.md`](../commands/scr/originality-check.md): AI-pattern detection
+- [`docs/authenticity-and-detectors.md`](authenticity-and-detectors.md): external-detector policy and process-evidence workflow

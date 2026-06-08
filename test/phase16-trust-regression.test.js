@@ -75,6 +75,7 @@ describe('trust-critical shipped assets', () => {
       'README.md',
       'docs/proof-artifacts.md',
       'docs/versatility-paths.md',
+      'docs/authenticity-and-detectors.md',
       'docs/runtime-support.md',
       'data/proof/watchmaker-flow/README.md',
       'data/proof/runtime-parity/HOST-CAPTURE-PROTOCOL.md',

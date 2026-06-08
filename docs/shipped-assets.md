@@ -4,7 +4,7 @@ Scriveno's launch surface should point to what is actually bundled in this repo 
 
 ## Drafter Quality Assets Shipped Today
 
-These files ship in `templates/` and provide layered rule scaffolding loaded by the drafter, voice-checker, and originality-check after `STYLE-GUIDE.md`. See [docs/drafter-quality.md](drafter-quality.md) for the full system.
+These files ship in `templates/` and provide layered rule scaffolding loaded by the drafter, voice-checker, and originality-check after `STYLE-GUIDE.md`. See [docs/drafter-quality.md](drafter-quality.md) for the full system and [docs/authenticity-and-detectors.md](authenticity-and-detectors.md) for the external-detector policy.
 
 - `templates/WRITING-RULES.md` (universal human-first and AI-tell rulebook; loaded after `STYLE-GUIDE.md`)
 
@@ -19,9 +19,9 @@ Per-work-type pitfall packs in `templates/pitfalls/`:
 - `pitfalls/comic.md` (visual: script-versus-art boundary, panel rhythm, caption voice)
 - `pitfalls/commentary.md` (sacred: register drift, anachronism, source-handling, doctrinal precision)
 
-Conflict resolution is top-down: `STYLE-GUIDE.md` beats `WRITING-RULES.md` beats the pitfall pack. The writer's voice is sovereign; the rule layers are scaffolding for human-first restraint, variance over substitution, factual integrity, sourced stance, register awareness, artifact cleanup, and type-specific polish.
+Conflict resolution is top-down: `STYLE-GUIDE.md` beats `WRITING-RULES.md` beats the pitfall pack. The writer's voice is sovereign; the rule layers are scaffolding for human-first restraint, variance over substitution, factual integrity, sourced stance, register awareness, detector-aware authenticity, artifact cleanup, and type-specific polish.
 
-`WRITING-RULES.md` also ships the "Diagnostic discipline (honest read)" section that governs the evaluative side of the rules. The diagnostic surface is `/scr:voice-check`, `/scr:originality-check`, and the `voice-checker` agent: they report an authenticity band then a 0-100 score then flagged spans, match scrutiny to evidence density, credit strong false positives as score-raising human markers, and never rewrite. Diagnosis and rewriting (`/scr:line-edit`, `/scr:polish`, re-draft) stay separate steps with the writer between them, which is what stops a score-then-rewrite gaming loop.
+`WRITING-RULES.md` also ships the "Diagnostic discipline (honest read)" section that governs the evaluative side of the rules. The diagnostic surface is `/scr:voice-check`, `/scr:originality-check`, and the `voice-checker` agent: they report an authenticity band then a 0-100 score then flagged spans, match scrutiny to evidence density, credit strong false positives as score-raising human markers, report external detector scores as context only, include process evidence, and never rewrite. Diagnosis and rewriting (`/scr:line-edit`, `/scr:polish`, re-draft) stay separate steps with the writer between them, which is what stops a score-then-rewrite gaming loop.
 
 A contributor adding `templates/pitfalls/<work_type>.md` is automatically picked up by `lib/architectural-profiles.js#listPitfallPacks` with no edits to library code or `CONSTRAINTS.json`.
 
@@ -153,6 +153,7 @@ Sacred commands read top-level sacred profile keys in new projects and preserve 
 - `docs/publishing.md` -- user-facing explanation of export formats and publishing packages
 - `docs/contributing.md` -- contributor-facing guidance for extending export support
 - `docs/drafter-quality.md`: canonical reference for the drafter's three rule layers and the `draft` config block
+- `docs/authenticity-and-detectors.md`: canonical reference for external-detector context, process evidence, and detector-optimization boundaries
 - `templates/WRITING-RULES.md`: canonical universal AI-tell rulebook loaded by drafter, voice-checker, and originality-check
 - `templates/pitfalls/<work_type>.md`: per-work-type pitfall packs that refine `WRITING-RULES.md` for a given work type
 - `AGENTS.md` -- project instructions that shape planning and implementation claims
