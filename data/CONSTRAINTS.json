@@ -1,6 +1,6 @@
 {
   "$schema": "./constraints.schema.json",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "description": "Scriveno constraint system: work types, command availability, exports, and dependencies. Every command checks this file at runtime.",
   "_notes": {
     "sacred_keys": "Sacred subcommands live at commands/scr/sacred/<name>.md and run as /scr:sacred:<name>. Their CONSTRAINTS keys use the sacred:<name> form so /scr:help can render the runnable slash-command path directly. The sacred-numbering-format entry is a separate flat command (commands/scr/sacred-numbering-format.md) that surfaces the active tradition's numbering format. It used to be named sacred-verse-numbering, which collided with sacred:verse-numbering at install time -- both flattened to scr-sacred-verse-numbering. Renamed in v1.6.x; the installer now refuses to install when two sources share a flat skill name."
@@ -101,6 +101,149 @@
       "troubleshoot",
       "undo"
     ]
+  },
+  "command_families": {
+    "structure": {
+      "label": "Structure",
+      "hub": "outline",
+      "description": "Use /scr:outline as the hub for outline shape, then use specialist commands for adding, inserting, removing, splitting, merging, and reordering units.",
+      "commands": [
+        "outline",
+        "add-unit",
+        "insert-unit",
+        "remove-unit",
+        "split-unit",
+        "merge-units",
+        "reorder-units",
+        "plot-graph",
+        "timeline",
+        "subplot-map",
+        "theme-tracker"
+      ]
+    },
+    "art": {
+      "label": "Art",
+      "hub": "art-direction",
+      "description": "Use /scr:art-direction as the visual hub, then branch to cover, scene, character, map, storyboard, panel, and spread prompts.",
+      "commands": [
+        "art-direction",
+        "cover-art",
+        "illustrate-scene",
+        "character-ref",
+        "map-illustration",
+        "chapter-header",
+        "storyboard",
+        "panel-layout",
+        "spread-layout"
+      ]
+    },
+    "session": {
+      "label": "Session",
+      "hub": "save",
+      "description": "Use /scr:save as the session checkpoint hub, with history, versions, compare, pause, resume, progress, and reports as nearby state tools.",
+      "commands": [
+        "save",
+        "history",
+        "versions",
+        "compare",
+        "session-report",
+        "pause-work",
+        "resume-work",
+        "progress",
+        "undo"
+      ]
+    },
+    "sacred": {
+      "label": "Sacred",
+      "hub": "sacred:source-tracking",
+      "description": "Use /scr:sacred:source-tracking as the citation and tradition hub, then branch to concordance, cross-reference, genealogy, chronology, annotation, verse numbering, numbering format, and doctrinal checks.",
+      "commands": [
+        "sacred:source-tracking",
+        "sacred:concordance",
+        "sacred:cross-reference",
+        "sacred:genealogy",
+        "sacred:chronology",
+        "sacred:annotation-layer",
+        "sacred:verse-numbering",
+        "sacred-numbering-format",
+        "sacred:doctrinal-check"
+      ]
+    },
+    "submission": {
+      "label": "Submission",
+      "hub": "publish",
+      "description": "Use /scr:publish as the destination wizard, then branch to synopsis, query letter, book proposal, discussion questions, prepublish review, and submission packaging.",
+      "commands": [
+        "publish",
+        "synopsis",
+        "query-letter",
+        "book-proposal",
+        "discussion-questions",
+        "prepublish-review",
+        "submit",
+        "export"
+      ]
+    },
+    "publishing": {
+      "label": "Publishing",
+      "hub": "publish",
+      "description": "Use /scr:publish for sequencing, /scr:export for one-off output, and the build commands for final platform packages.",
+      "commands": [
+        "publish",
+        "export",
+        "front-matter",
+        "back-matter",
+        "blurb",
+        "cover-art",
+        "prepublish-review",
+        "build-ebook",
+        "build-print",
+        "build-smashwords",
+        "build-poetry-submission",
+        "autopilot-publish"
+      ]
+    },
+    "world": {
+      "label": "World",
+      "hub": "build-world",
+      "description": "Use /scr:build-world as the world hub, then branch to characters, peoples, places, geography, relationships, cast lists, and research.",
+      "commands": [
+        "build-world",
+        "new-character",
+        "new-people",
+        "new-place",
+        "place-touch",
+        "geography-map",
+        "relationship-map",
+        "cast-list",
+        "research"
+      ]
+    },
+    "collaboration": {
+      "label": "Collaboration",
+      "hub": "track",
+      "description": "Use /scr:track as the collaboration hub for alternate versions, proposals, comparisons, merges, and save history.",
+      "commands": [
+        "track",
+        "editor-review",
+        "compare",
+        "history",
+        "versions",
+        "save"
+      ]
+    },
+    "surface": {
+      "label": "Command Surface",
+      "hub": "surface",
+      "description": "Use /scr:surface to inspect, shrink, preview, or restore the visible installed command profile without deleting project data.",
+      "commands": [
+        "surface",
+        "help",
+        "next",
+        "first-run",
+        "settings"
+      ]
+    }
   },
   "work_type_groups": {
     "prose": {

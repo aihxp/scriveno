@@ -41,12 +41,24 @@ This engine is installed into Scriveno shared assets for every runtime, includin
    - repair: scan, health, validate, cleanup, check-notes, troubleshoot, undo
    If the field is missing in an older install, continue with the routing logic below.
 
-7. **Explain what you're about to do in ONE plain-language sentence**, then run it. Examples:
+7. **Load `command_families` from CONSTRAINTS.json** if present. Use hub-first families for specialist requests without expanding the primary menu:
+   - structure -> `/scr:outline`
+   - art -> `/scr:art-direction`
+   - session -> `/scr:save`
+   - sacred -> `/scr:sacred:source-tracking`
+   - submission -> `/scr:publish`
+   - publishing -> `/scr:publish`
+   - world -> `/scr:build-world`
+   - collaboration -> `/scr:track`
+   - surface -> `/scr:surface`
+   If the field is missing in an older install, keep using `command_intents` and the route logic below.
+
+8. **Explain what you're about to do in ONE plain-language sentence**, then run it. Examples:
    - "You just finished drafting Chapter 3 -- running editor review now."
    - "Chapter 4 has a plan but no draft yet -- drafting it."
    - "You haven't discussed the next chapter -- shaping Chapter 5."
 
-8. **Run the proactive sweep before choosing the final route.** This is read-only unless autopilot mode has already taken over:
+9. **Run the proactive sweep before choosing the final route.** This is read-only unless autopilot mode has already taken over:
    - Check whether `CONTEXT.md` is missing, stale, or older than STATE.md or the newest draft.
    - Check whether `HISTORY.log` is missing or the last command failed.
    - Check whether voice, continuity, editor-review, beta-reader, or translation reports contain unresolved items.
@@ -118,6 +130,19 @@ Use progressive surfacing rules:
 - Failed command, state mismatch, or missing required context -> surface repair commands first.
 - Translation config or existing translation work -> surface translation commands, but still offer review/export alternatives when relevant.
 - Revision-track metadata or collaboration request -> surface `/scr:track` and keep save-history commands separate.
+- Specialist request -> route to the matching `command_families` hub first, then offer the narrow leaf commands that fit the current work type.
+
+Use this hub-first map for specialist requests:
+
+- Structure: recommend `/scr:outline` before add, insert, remove, split, merge, or reorder commands.
+- Art: recommend `/scr:art-direction` before cover, scene, character, map, storyboard, panel, or spread prompts.
+- Session: recommend `/scr:save` before history, versions, compare, pause, resume, or session report.
+- Sacred: recommend `/scr:sacred:source-tracking` before concordance, cross-reference, genealogy, chronology, annotation, verse numbering, numbering format, or doctrinal checks.
+- Submission: recommend `/scr:publish` before synopsis, query letter, book proposal, discussion questions, prepublish review, or submission export.
+- Publishing: recommend `/scr:publish` for sequencing, `/scr:export` for one-off output, and build commands only for final channel packages.
+- World: recommend `/scr:build-world` before places, geography, characters, peoples, relationships, or research.
+- Collaboration: recommend `/scr:track` before compare, merge, proposal, history, versions, or save-history paths.
+- Command surface: recommend `/scr:surface status` before profile changes, and use `/scr:surface profile writing --dry-run` when the installed surface feels too large.
 
 ## Edge cases
 

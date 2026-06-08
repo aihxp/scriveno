@@ -2,6 +2,17 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 3.2.3 - 2026-06-08
+
+Hub-first workflow consolidation and release packaging.
+
+- Command families: added `command_families` to the runtime constraints so specialist surfaces stay discoverable through hubs without bloating the main intent spine.
+- Route graph: `scriveno routes` now reports 9 command families, family hubs, node family membership, and family-member edges alongside automation lanes.
+- Front doors: `/scr:help`, `/scr:next`, and `/scr:do` now route specialist requests through hubs such as `/scr:outline`, `/scr:art-direction`, `/scr:save`, `/scr:sacred:source-tracking`, `/scr:publish`, `/scr:build-world`, `/scr:track`, and `/scr:surface`.
+- Install UX: interactive installs now ask which command profile to install while keeping `full` as the default and preserving scripted install behavior.
+- Publishing clarity: `/scr:publish`, `/scr:export`, and build commands now state their boundaries, with front matter, back matter, and prepublish review kept as distinct publishing steps.
+- Release docs: updated README, Starter Sets, command reference, publishing docs, route graph docs, architecture, auto-invoke policy, and the workflow optimization audit.
+
 ## 3.2.2 - 2026-06-08
 
 Workflow audit and release hardening across the full command surface.

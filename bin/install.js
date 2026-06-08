@@ -681,7 +681,7 @@ function collectCanonicalCommandInventory(commandsRoot, constraintsPath = path.j
     return {
       ...entry,
       category: metadata.category || 'uncategorized',
-      description: metadata.description || entry.description || key.replace(/-/g, ' '),
+      description: entry.description || metadata.description || key.replace(/-/g, ' '),
     };
   });
 }
@@ -1078,6 +1078,7 @@ function parseArgs(argv) {
     auditJson: false,
     syncCheck: false,
     installProfile: DEFAULT_SURFACE_PROFILE,
+    installProfileExplicit: false,
     installDryRun: false,
     installJson: false,
     surfaceAction: 'status',
@@ -1207,10 +1208,12 @@ function parseArgs(argv) {
         if (!value) throw new Error('--profile requires a value');
         options.surfaceProfile = normalizeSurfaceProfile(value);
         options.installProfile = options.surfaceProfile;
+        options.installProfileExplicit = true;
         i++;
       } else if (arg.startsWith('--profile=')) {
         options.surfaceProfile = normalizeSurfaceProfile(arg.slice('--profile='.length));
         options.installProfile = options.surfaceProfile;
+        options.installProfileExplicit = true;
       } else if (arg.startsWith('-')) {
         throw new Error(`Unknown surface argument "${arg}"`);
       } else if (!actionSet) {
@@ -1269,9 +1272,11 @@ function parseArgs(argv) {
       const value = argv[i + 1];
       if (!value) throw new Error('--profile requires a value');
       options.installProfile = normalizeSurfaceProfile(value);
+      options.installProfileExplicit = true;
       i++;
     } else if (arg.startsWith('--profile=')) {
       options.installProfile = normalizeSurfaceProfile(arg.slice('--profile='.length));
+      options.installProfileExplicit = true;
     } else {
       throw new Error(`Unknown argument "${arg}"`);
     }
@@ -1565,6 +1570,7 @@ function resolveInstallRequest(parsed, detectedRuntimeKeys, { isTTY }) {
       silent: parsed.silent,
       installMode: 'non-interactive',
       profile: parsed.installProfile,
+      profileExplicit: parsed.installProfileExplicit,
       dryRun: parsed.installDryRun,
       json: parsed.installJson,
     };
@@ -1576,6 +1582,7 @@ function resolveInstallRequest(parsed, detectedRuntimeKeys, { isTTY }) {
     developerMode: parsed.developerMode,
     hasModifierOverrides,
     profile: parsed.installProfile,
+    profileExplicit: parsed.installProfileExplicit,
     dryRun: parsed.installDryRun,
     json: parsed.installJson,
   };
@@ -2082,6 +2089,31 @@ async function main() {
     const modeChoice = await ask(rl, `\n${c('dim', 'Choice [1]: ')}`);
     developerMode = (modeChoice || '1').trim() === '2';
   }
+
+  let profile = installRequest.profile;
+  if (installRequest.profileExplicit) {
+    console.log('\n' + c('bold', 'Command profile:'));
+    console.log(`  ${c('green', 'OK')} Preset via CLI flag: ${profile}`);
+  } else {
+    const profiles = listSurfaceProfiles();
+    const defaultProfileIndex = profiles.findIndex((entry) => entry.profile === DEFAULT_SURFACE_PROFILE);
+    const defaultChoice = defaultProfileIndex >= 0 ? defaultProfileIndex + 1 : profiles.length;
+    console.log('\n' + c('bold', 'Command profile:'));
+    for (const [index, entry] of profiles.entries()) {
+      const note = entry.profile === 'writing' ? ' (good for active drafting)' : '';
+      console.log(`  ${c('cyan', `${index + 1}.`)} ${entry.profile} -- ${entry.commandCount} commands, ${entry.description}${note}`);
+    }
+    console.log(c('dim', '  You can change this later with /scr:surface without deleting project data.'));
+    const profileChoice = await ask(rl, `\n${c('dim', `Choice [${defaultChoice}]: `)}`);
+    const parsedProfileChoice = Number.parseInt((profileChoice || String(defaultChoice)).trim(), 10);
+    const validProfileChoice = Number.isInteger(parsedProfileChoice)
+      && parsedProfileChoice >= 1
+      && parsedProfileChoice <= profiles.length;
+    if ((profileChoice || '').trim() && !validProfileChoice) {
+      console.log(c('yellow', `Invalid choice "${profileChoice.trim()}". Defaulting to ${defaultChoice} (${DEFAULT_SURFACE_PROFILE}).`));
+    }
+    profile = profiles[validProfileChoice ? parsedProfileChoice - 1 : defaultChoice - 1].profile;
+  }
   rl.close();
 
   runInstall({
@@ -2091,7 +2123,7 @@ async function main() {
     silent: false,
     detectedRuntimeKeys,
     installMode: 'interactive',
-    profile: installRequest.profile,
+    profile,
     dryRun: installRequest.dryRun,
     json: installRequest.json,
   });

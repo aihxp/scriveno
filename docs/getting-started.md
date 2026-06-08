@@ -207,6 +207,7 @@ Beyond the core workflow, Scriveno offers:
 - **Collaboration** -- `/scr-track` for revision tracks (`create`, `compare`, `merge`, `propose`)
 - **Versions** -- `/scr-save`, `/scr-history`, `/scr-versions`, `/scr-compare`
 - **Navigation** -- `/scr-help`, `/scr-next`, `/scr-pause-work`
+- **Surface tuning** -- `/scr-surface profile writing --dry-run` previews fewer visible commands without removing features
 
 For small goal-based paths, use [Starter Sets](starter-sets.md). For the full command list, see [Command Reference](command-reference.md).
 

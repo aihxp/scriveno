@@ -7,6 +7,8 @@ argument-hint: "[--platform <platform>] [--fixed-layout] [--skip-validate]"
 
 Assemble the manuscript and produce an accessible EPUB for the selected publishing platform. Includes validate gate, scaffold-exclusion, accessibility (EAA-compliant lang tags, alt text, semantic nav), and platform-aware Pandoc invocation.
 
+Publishing boundary: `/scr:build-ebook` is a final EPUB package builder for a specific platform. Use `/scr:publish` for destination sequencing and `/scr:export --format epub` for a one-off standalone EPUB.
+
 ## Usage
 
 ```

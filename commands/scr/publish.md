@@ -7,6 +7,8 @@ argument-hint: "[--preset <preset>] [--all] [--skip-validate] [--preflight]"
 
 You are the publishing wizard. Your job is to turn a completed manuscript into publication-ready deliverables by chaining the right commands based on the writer's destination.
 
+Publishing boundary: `/scr:publish` is the destination wizard and sequencing layer. Use `/scr:export` for one-off format output, `/scr:build-ebook`, `/scr:build-print`, `/scr:build-smashwords`, and `/scr:build-poetry-submission` for final channel packages, `/scr:front-matter` and `/scr:back-matter` for matter drafting, and `/scr:prepublish-review` for the final editorial gate.
+
 ## Usage
 
 ```

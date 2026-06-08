@@ -253,6 +253,11 @@ describe('auto-invoke engine', () => {
 
     assert.equal(graph.commandCount, commandNames.size);
     assert.ok(graph.edgeCount > 0);
+    assert.ok(graph.familyCount >= 5);
+    assert.equal(graph.commandFamilies.structure.hub, 'outline');
+    assert.ok(graph.commandFamilies.publishing.commands.includes('build-ebook'));
+    assert.ok(graph.nodes.some((node) => node.name === 'add-unit' && node.families.includes('structure')));
+    assert.ok(graph.edges.some((edge) => edge.type === 'family-member' && edge.from === '/scr:outline' && edge.to === '/scr:add-unit'));
     assert.ok(graph.lanes['agent-ready'] > 0);
     assert.ok(graph.lanes['local-helper'] > 0);
     assert.ok(graph.lanes['manual-gated'] > 0);

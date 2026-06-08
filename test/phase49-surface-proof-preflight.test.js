@@ -34,9 +34,11 @@ describe('phase 49 command profiles and proof path', () => {
     const resolved = install.resolveInstallRequest(parsed, ['codex'], { isTTY: true });
 
     assert.equal(parsed.installProfile, 'core');
+    assert.equal(parsed.installProfileExplicit, true);
     assert.equal(parsed.installDryRun, true);
     assert.equal(parsed.installJson, true);
     assert.equal(resolved.profile, 'core');
+    assert.equal(resolved.profileExplicit, true);
     assert.equal(resolved.dryRun, true);
     assert.equal(resolved.json, true);
   });

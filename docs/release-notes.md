@@ -2,6 +2,20 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 3.2.3 - 2026-06-08
+
+### What changed
+
+- **Scriveno now has hub-first command families.** Specialist tools are still available directly, but structure, art, session, sacred, submission, publishing, world, collaboration, and command-surface workflows now have clear hubs.
+- **Help, next, and natural-language routing are less catalog-like.** `/scr:help`, `/scr:next`, and `/scr:do` can route a broad request to the right hub before surfacing narrow commands.
+- **Interactive installs can start smaller.** The installer now asks which command profile to install, while keeping `full` as the default and leaving `/scr:surface` available for later changes.
+- **Publishing language is clearer.** `/scr:publish` is the destination wizard, `/scr:export` is one-off output, build commands are final package builders, and front/back matter plus prepublish review remain separate steps.
+- **The route graph can audit these families.** `scriveno routes` now reports command families, family hubs, and family-member edges in addition to automation lanes.
+
+### Why it matters
+
+Scriveno keeps the full command surface without making writers face every command at once. The product now consolidates around hubs instead of removing features.
+
 ## 3.2.2 - 2026-06-08
 
 ### What changed

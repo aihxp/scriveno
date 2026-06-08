@@ -372,13 +372,15 @@ Every command registry category has an automation lane through `getCommandAutoma
 
 This turns disconnected side features into visible routes. A plan without a draft recommends `/scr:draft` and lists the drafter route as a candidate agent path. Drafts without reviews recommend `/scr:editor-review` before export. Notes route to `/scr:check-notes`. Revision proposals route to `/scr:editor-review --proposal` or `/scr:track`. Publishing gaps route to `/scr:front-matter`, `/scr:back-matter`, `/scr:blurb`, `/scr:cover-art`, or `/scr:publish` depending on disk evidence.
 
+The route graph uses two discovery layers. `command_intents` stays the primary lifecycle spine for start, draft, revise, world, navigate, publish, translate, collaborate, and repair. `command_families` adds hub-first specialist paths for structure (`/scr:outline`), art (`/scr:art-direction`), session (`/scr:save`), sacred (`/scr:sacred:source-tracking`), submission and publishing (`/scr:publish`), world (`/scr:build-world`), collaboration (`/scr:track`), and command-surface tuning (`/scr:surface`). This preserves every direct command while keeping default help and next-step routing compact.
+
 The same engine now exposes:
 
 - **Safe apply reporting**: `status --apply-safe` runs read-only checks, identifies safe helpers, lists agent candidates, and marks write-gated actions as skipped.
 - **Sync check**: `sync --check` combines project status, safe apply, agent availability, and runtime smoke into one transcript.
 - **Agent availability**: `agents` verifies prompt fallback readiness for non-Codex runtimes, metadata readiness for Codex, and the shared host-owned model policy.
 - **Runtime smoke**: `smoke` checks installed command, skill, guide, agent, metadata, shared-engine, and shared model-doc surfaces.
-- **Route graph audit**: `routes` derives a command graph from constraints, command intents, dependencies, and automation lanes.
+- **Route graph audit**: `routes` derives a command graph from constraints, command intents, command families, dependencies, and automation lanes.
 - **First-run guide**: `first-run` prints the guided proof path, runtime command shapes, proof artifacts, demo sequence, and next commands.
 
 ### Installation modes

@@ -7,6 +7,8 @@ argument-hint: "[--skip-validate]"
 
 Assemble the manuscript and produce a submission-ready DOCX: one poem per page, 12pt Times New Roman or Garamond, title page (title + author + contact info), and auto-generated table of contents. Follows conventions from leading literary journals and the Academy of American Poets contest guidelines.
 
+Publishing boundary: `/scr:build-poetry-submission` is a final poetry submission package builder. Use `/scr:publish` for destination sequencing and `/scr:export` for one-off output.
+
 ## Usage
 
 ```

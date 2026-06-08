@@ -7,6 +7,8 @@ argument-hint: "[--platform <platform>] [--trim <size>] [--strict] [--hardcover]
 
 Assemble the manuscript and produce a print-ready PDF for the selected publishing platform. Includes validate gate, scaffold-exclusion, trim size validation, page-count guardrail (warning by default, hard block with --strict), and platform-aware Pandoc + Typst invocation.
 
+Publishing boundary: `/scr:build-print` is a final print package builder for a specific platform. Use `/scr:publish` for destination sequencing and `/scr:export --format pdf --print-ready` for a one-off print-ready interior.
+
 ## Usage
 
 ```

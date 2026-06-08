@@ -1501,6 +1501,16 @@ Run the final editor-style go/no-go pass and write `.manuscript/reviews/PREPUBLI
 
 ---
 
+Publishing boundary:
+
+- `/scr:publish`: destination wizard and sequencing.
+- `/scr:export`: one-off format output.
+- `/scr:build-ebook`, `/scr:build-print`, `/scr:build-smashwords`, and `/scr:build-poetry-submission`: final package builders for a specific channel or format.
+- `/scr:front-matter` and `/scr:back-matter`: content creation before packaging.
+- `/scr:prepublish-review`: final editorial gate.
+
+---
+
 ### `/scr:export`
 
 **Description:** Compile and export manuscript to publication-ready formats.

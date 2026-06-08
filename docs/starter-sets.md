@@ -55,6 +55,18 @@ Each set is intentionally small. Use `/scr-next`, `/scr:next`, or `$scr-next` wh
 
 Front/back matter stays in dedicated commands so a novel, thesis, sacred commentary, screenplay, or chapbook gets the right suggestions before packaging starts.
 
+## Find The Right Hub
+
+- `/scr:next` is the universal route when project state should choose.
+- `/scr:outline` is the structure hub for outline shape and unit operations.
+- `/scr:art-direction` is the visual hub for covers, scene art, character references, maps, storyboards, panels, and spreads.
+- `/scr:save` is the session hub for checkpoints, history, versions, compare, pause, resume, and session reports.
+- `/scr:sacred:source-tracking` is the sacred hub for tradition-aware source and reference workflows.
+- `/scr:publish` is the destination hub for submission, publishing, export sequencing, and final package choices.
+- `/scr:build-world` is the world hub for places, geography, characters, peoples, relationships, and research.
+- `/scr:track` is the collaboration hub for alternate versions, proposals, comparisons, and merges.
+- `/scr:surface` is the command-surface hub for smaller or larger installed profiles.
+
 ## Translate A Work
 
 - `/scr:translation-glossary` defines recurring terms, names, and voice rules.
@@ -82,6 +94,15 @@ Front/back matter stays in dedicated commands so a novel, thesis, sacred comment
 - `/scr:check-notes` surfaces open notes and unresolved reminders.
 - `/scr:resume-work` restores the paused thread or project state.
 - `/scr:next` chooses the next safe command.
+
+## Reduce The Visible Command Surface
+
+- `/scr:surface status` shows the profile currently installed.
+- `/scr:surface list` shows smaller profiles for drafting, publishing, translation, specialist work, and the full catalog.
+- `/scr:surface profile writing --dry-run` previews a drafting-focused surface without changing files.
+- `/scr:surface profile full --dry-run` previews restoring every command when exploration matters more than focus.
+
+Smaller profiles do not remove project data or delete features. They only change which Scriveno-owned command files are installed for the selected runtime.
 
 ## Command Shape By Runtime
 

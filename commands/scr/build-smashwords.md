@@ -7,6 +7,8 @@ argument-hint: "[--skip-validate]"
 
 Assemble the manuscript and produce a Smashwords Style Guide-compliant DOCX for submission to Draft2Digital (D2D) or direct Smashwords upload. Uses `scriveno-smashwords.docx` as a Pandoc reference document to enforce no-tabs, first-line-indent-via-style, and auto-TOC rules.
 
+Publishing boundary: `/scr:build-smashwords` is a final Smashwords or D2D DOCX package builder. Use `/scr:publish` for destination sequencing and `/scr:export` for one-off output.
+
 ## Usage
 
 ```

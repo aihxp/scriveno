@@ -201,7 +201,15 @@ Output: `.manuscript/output/submission-package/` containing `manuscript.docx` (f
 
 ## Publish Wizard
 
-The publish wizard chains multiple export commands into a single workflow based on your publishing destination.
+The publish wizard chains multiple export and build commands into a single workflow based on your publishing destination.
+
+Publishing boundary:
+
+- `/scr:publish`: destination wizard and sequencing.
+- `/scr:export`: one-off format output.
+- `/scr:build-ebook`, `/scr:build-print`, `/scr:build-smashwords`, and `/scr:build-poetry-submission`: final package builders for a specific channel or format.
+- `/scr:front-matter` and `/scr:back-matter`: content creation before packaging.
+- `/scr:prepublish-review`: final editorial gate.
 
 ```
 /scr:publish

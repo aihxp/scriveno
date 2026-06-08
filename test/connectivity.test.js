@@ -48,11 +48,13 @@ describe('connectivity: no orphan craft surfaces', () => {
   it('no command sits on an island (every command is reachable or explicitly self-serve)', () => {
     // Auto-detects ANY island, so a NEW command cannot be silently orphaned. A command
     // is reachable if another command suggests it (inbound), or it is in command_intents,
-    // or in the core workflow chain, or it is an entry point, or it is explicitly marked
-    // self-serve below. A new command that is none of these fails this test: route a
-    // predecessor to it, add it to an intent, or add it to selfServe with a reason.
+    // or it is in a command_families hub group, or in the core workflow chain, or it is
+    // an entry point, or it is explicitly marked self-serve below. A new command that is
+    // none of these fails this test: route a predecessor to it, add it to an intent or
+    // family, or add it to selfServe with a reason.
     const constraints = JSON.parse(read('data/CONSTRAINTS.json'));
     const intent = new Set(Object.values(constraints.command_intents).flat());
+    const family = new Set(Object.values(constraints.command_families || {}).flatMap((spec) => spec.commands || []));
     const core = new Set(constraints.dependencies.core_chain.map((s) => s.command));
 
     // Entry points: a writer reaches these without another command suggesting them.
@@ -72,13 +74,13 @@ describe('connectivity: no orphan craft surfaces', () => {
 
     const reachable = (n) =>
       (inbound.get(n) && inbound.get(n).size > 0) ||
-      intent.has(n) || core.has(n) || entryPoints.has(n) || selfServe.has(n);
+      intent.has(n) || family.has(n) || core.has(n) || entryPoints.has(n) || selfServe.has(n);
 
     const islands = Array.from(inbound.keys()).filter((n) => !reachable(n)).sort();
     assert.deepEqual(
       islands,
       [],
-      `Island command(s) found (nothing routes to them, not in an intent/chain, not marked self-serve): ${islands.join(', ')}. Route a predecessor, add an intent, or add to the selfServe allowlist with a reason.`
+      `Island command(s) found (nothing routes to them, not in an intent/family/chain, not marked self-serve): ${islands.join(', ')}. Route a predecessor, add an intent or family, or add to the selfServe allowlist with a reason.`
     );
   });
 

@@ -9,18 +9,38 @@ scriveno routes
 scriveno routes --json
 ```
 
-The text report summarizes command count, graph edges, agent-capable routes, local-helper routes, manual-gated routes, read-only routes, and lane counts. The JSON report includes nodes and edges for host adapters, CI checks, and future visualizations.
+The text report summarizes command count, graph edges, command families, agent-capable routes, local-helper routes, manual-gated routes, read-only routes, and lane counts. The JSON report includes nodes, edges, family membership, and family hubs for host adapters, CI checks, and future visualizations.
 
 ## Current Shape
 
-As of `3.2.2`, the route graph contains:
+As of `3.2.3`, the route graph contains:
 
 - 122 commands
-- 75 edges
+- 144 edges
+- 9 command families
 - intent-order edges from `command_intents`
+- family-member edges from `command_families`
 - dependency-chain edges from `dependencies.core_chain`
 - automation lanes from `getCommandAutomationPolicy()`
 - route priority fixtures for high-value state transitions
+
+## Command Families
+
+`command_intents` remains the main lifecycle spine. `command_families` is the secondary discovery layer for specialist workflows that should stay available without bloating the default help view.
+
+Current family hubs:
+
+- Structure: `/scr:outline`
+- Art: `/scr:art-direction`
+- Session: `/scr:save`
+- Sacred: `/scr:sacred:source-tracking`
+- Submission: `/scr:publish`
+- Publishing: `/scr:publish`
+- World: `/scr:build-world`
+- Collaboration: `/scr:track`
+- Command Surface: `/scr:surface`
+
+Each family edge points from the hub to a real command. The route graph includes `nodes[].families`, `commandFamilies`, and `family-member` edges so command discovery can stay hub-first while direct specialist commands remain runnable.
 
 ## Automation Lanes
 

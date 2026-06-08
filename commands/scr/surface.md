@@ -13,6 +13,8 @@ Follow the auto-invoke policy. In the source repository it is documented at `doc
 
 Use this command when the writer wants fewer commands, a publishing-only install, a translation-focused install, or a check of what profile is currently installed.
 
+Interactive installs also ask for a command profile. The default remains `full`, and the writer can use this command later to preview or change the profile without deleting project data.
+
 Available profiles:
 
 - `core`: Main writing loop and orientation commands.

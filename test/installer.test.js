@@ -30,6 +30,10 @@ const {
 
 const ROOT = path.join(__dirname, '..');
 
+function escapeRegex(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 describe('Installer copyDir', () => {
   it('copies files to temp directory', () => {
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'scriveno-test-'));
@@ -243,6 +247,21 @@ describe('generateSkillManifest', () => {
       manifest.includes('/scr:sacred:concordance'),
       'manifest should include /scr:sacred:concordance'
     );
+  });
+
+  it('uses command frontmatter descriptions as the generated manifest copy', () => {
+    const entries = collectCommandEntries(path.join(ROOT, 'commands', 'scr'));
+
+    for (const entry of entries) {
+      const row = new RegExp(
+        `\\| ${escapeRegex(entry.commandRef)} \\| [^|]+ \\| ${escapeRegex(entry.description)} \\|`
+      );
+      assert.match(
+        manifest,
+        row,
+        `${entry.commandRef} manifest description should match command frontmatter`
+      );
+    }
   });
 
   it('does not publish phantom top-level sacred commands', () => {
@@ -499,6 +518,8 @@ describe('resolveInstallRequest', () => {
     assert.equal(resolved.action, 'interactive');
     assert.equal(resolved.isGlobal, false);
     assert.equal(resolved.developerMode, true);
+    assert.equal(resolved.profile, 'full');
+    assert.equal(resolved.profileExplicit, false);
   });
 
   it('rejects silent installs without an explicit runtime directive', () => {
@@ -516,6 +537,7 @@ describe('resolveInstallRequest', () => {
     assert.equal(resolved.isGlobal, false);
     assert.equal(resolved.developerMode, true);
     assert.equal(resolved.silent, true);
+    assert.equal(resolved.profileExplicit, false);
   });
 });
 

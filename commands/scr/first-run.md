@@ -32,7 +32,8 @@ If the CLI is unavailable, follow the same steps manually from this command file
    - `data/proof/runtime-parity/README.md`
    - `data/proof/watchmaker-flow/README.md`
    - `data/proof/voice-dna/README.md`
-5. **Keep the first action small.** Do not list the full command catalog. Offer one recommended command and at most three alternatives.
+5. **If the installed surface feels large, offer a non-destructive surface preview.** Suggest `/scr:surface profile writing --dry-run` as an optional way to preview fewer visible commands without removing features or project data.
+6. **Keep the first action small.** Do not list the full command catalog. Offer one recommended command and at most three alternatives.
 
 ## Recommended first-run path
 
@@ -75,6 +76,7 @@ Next commands:
 - `/scr:demo`: Create the isolated demo project.
 - `/scr:next`: Let Scriveno inspect the current project state.
 - `/scr:new-work`: Start a real project instead of using the demo.
+- `/scr:surface profile writing --dry-run`: Preview a smaller drafting-focused command surface.
 ```
 
 ## Agent and automation status
@@ -95,8 +97,10 @@ Local operations:
 Candidate local helpers:
 - scriveno smoke --json
 - scriveno routes --json
+- scriveno surface status
 Manual gates:
 - writer chooses whether to create the demo or start a real project
+- writer confirmation before changing the installed command profile
 Auto-invoked:
 - none
 Why: first-run orients and recommends; it does not mutate files until the writer picks a follow-up command

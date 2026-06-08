@@ -22,7 +22,7 @@ scriveno routes --json
 
 `--apply-safe` runs the read-only status sweep, reports safe local helpers that are ready, lists agent candidates, and marks writer-owned or write-gated helpers as skipped instead of mutating files. It is intentionally conservative: `/scr:save`, `/scr:scan`, `/scr:sync --apply`, publish packaging, export overwrites, track merges, and undo remain explicit actions.
 
-`sync --check` combines four reports: project status, safe apply, agent availability, and runtime smoke. `smoke` checks installed commands, skills, prompts, Codex metadata, and the shared engine path. `agents` checks prompt fallback readiness and Codex metadata readiness. `routes` builds a route graph from `data/CONSTRAINTS.json` and the automation policy so disconnected command flows are visible in one audit.
+`sync --check` combines four reports: project status, safe apply, agent availability, and runtime smoke. `smoke` checks installed commands, skills, prompts, Codex metadata, and the shared engine path. `agents` checks prompt fallback readiness and Codex metadata readiness. `routes` builds a route graph from `data/CONSTRAINTS.json`, `command_intents`, `command_families`, dependencies, and the automation policy so disconnected command flows are visible in one audit.
 
 ## Cross-Platform Agent Rules
 
@@ -84,6 +84,7 @@ Run these read-only checks in `/scr:next`, `/scr:progress`, and closeouts for ma
 - If publishing prerequisites look present but `.manuscript/reviews/PREPUBLISH-REVIEW.md` is missing, suggest `/scr:prepublish-review` before technical packaging.
 - If export outputs are older than source files, suggest `/scr:export` or `/scr:publish`.
 - If no save exists after recent manuscript changes, suggest `/scr:save`.
+- If the writer asks for a specialist surface, route to the matching `command_families` hub first: `/scr:outline`, `/scr:art-direction`, `/scr:save`, `/scr:sacred:source-tracking`, `/scr:publish`, `/scr:build-world`, `/scr:track`, or `/scr:surface`.
 - Surface deliverable progress (units done / in progress / untouched) and point at the per-unit ledger `.manuscript/PROGRESS.md`; if it is stale, suggest `/scr:save` to refresh it.
 
 These checks must not mutate files.

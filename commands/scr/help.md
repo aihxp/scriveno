@@ -18,9 +18,11 @@ You are helping the user navigate Scriveno commands. Load Scriveno's installed/s
    - Apply explicit constraints such as `nonfiction_only` and `comic_only` before you show the command.
    - If a group has a dedicated replacement command family (for example sacred chronology and doctrinal checks), prefer that real surface over any conceptual adapted label on a hidden base command.
 
-3. **Load `command_intents` from CONSTRAINTS.json.** Treat these intents as the front door: start, draft, revise, world, navigate, publish, translate, collaborate, repair. If the field is missing in an older install, fall back to the stage groups below.
+3. **Load `command_intents` from CONSTRAINTS.json.** Treat these intents as the main front door: start, draft, revise, world, navigate, publish, translate, collaborate, repair. If the field is missing in an older install, fall back to the stage groups below.
 
-4. **Infer the likely intent before showing commands.**
+4. **Load `command_families` from CONSTRAINTS.json.** Treat these as secondary hub groups for specialist workflows: structure, art, session, sacred, submission, publishing, world, collaboration, and surface. They do not replace `command_intents`; they help you show one hub first and keep specialist leaves nearby.
+
+5. **Infer the likely intent before showing commands.**
    - No `.manuscript/` directory -> start
    - `.manuscript/` exists but no drafted units -> draft
    - Drafted units exist but review is incomplete -> revise
@@ -31,7 +33,7 @@ You are helping the user navigate Scriveno commands. Load Scriveno's installed/s
    - State drift, failed command, missing required file, or validation concern -> repair
    - Otherwise -> navigate
 
-5. **If the user passed an argument**, treat it as an intent, category filter, or search term. Otherwise show the inferred intent first, then compact alternatives.
+6. **If the user passed an argument**, treat it as an intent, command family, category filter, or search term. Otherwise show the inferred intent first, then compact alternatives.
 
 ## The "getting started" view (no project yet)
 
@@ -72,6 +74,32 @@ Other useful areas:
 Keep the primary list to 3-6 commands. Put additional commands under "More for this intent" only when the user asked for detail, used `/scr:help all`, or passed a specific intent/category. This is the thin front door: the full command surface remains available, but the default view should never feel like a catalog dump.
 
 Use `command_intents` to choose candidates, then apply availability and command-level constraints. For example, `publish` intent can include `build-print`, but a fresh project should not show publishing as the likely next area; `translate` can include `translate`, but it should not appear as a primary path until drafted work exists or translation configuration exists; `repair` should move to the top when scan/health conditions are present.
+
+### Hub-first families
+
+When the writer asks for a specialist area, show the family hub first, then 2-5 leaves. Use `command_families` as the source of truth:
+
+- Structure: `/scr:outline` first, then `/scr:add-unit`, `/scr:insert-unit`, `/scr:remove-unit`, `/scr:split-unit`, `/scr:merge-units`, or `/scr:reorder-units`.
+- Art: `/scr:art-direction` first, then `/scr:cover-art`, `/scr:illustrate-scene`, `/scr:character-ref`, `/scr:map-illustration`, `/scr:storyboard`, `/scr:panel-layout`, or `/scr:spread-layout`.
+- Session: `/scr:save` first, then `/scr:history`, `/scr:versions`, `/scr:compare`, `/scr:pause-work`, `/scr:resume-work`, or `/scr:session-report`.
+- Sacred: `/scr:sacred:source-tracking` first, then the dedicated sacred commands that apply to the active tradition and work type.
+- Submission: `/scr:publish` first, then `/scr:synopsis`, `/scr:query-letter`, `/scr:book-proposal`, `/scr:discussion-questions`, `/scr:prepublish-review`, or `/scr:export --format submission-package`.
+- Publishing: `/scr:publish` first, `/scr:export` for one-off output, and `/scr:build-ebook`, `/scr:build-print`, `/scr:build-smashwords`, or `/scr:build-poetry-submission` for final packages.
+- World: `/scr:build-world` first, then `/scr:new-place`, `/scr:place-touch`, `/scr:geography-map`, `/scr:new-character`, `/scr:new-people`, `/scr:relationship-map`, or `/scr:research`.
+- Collaboration: `/scr:track` first, then its subcommands plus `/scr:editor-review`, `/scr:compare`, `/scr:history`, `/scr:versions`, and `/scr:save`.
+- Command surface: `/scr:surface` first, especially `/scr:surface status` and `/scr:surface profile writing --dry-run`.
+
+Keep this compact. Do not display every leaf unless the writer asks for "all", "catalog", "everything", or a family-specific deep list.
+
+### Publishing mental model
+
+Use this wording wherever publishing choices appear:
+
+- `/scr:publish`: destination wizard and sequencing.
+- `/scr:export`: one-off format output.
+- `/scr:build-ebook`, `/scr:build-print`, `/scr:build-smashwords`, and `/scr:build-poetry-submission`: final package builders for a specific channel or format.
+- `/scr:front-matter` and `/scr:back-matter`: content creation before packaging.
+- `/scr:prepublish-review`: final editorial gate.
 
 Group by stage:
 - **Create** -- new-work, profile-writer, series-bible

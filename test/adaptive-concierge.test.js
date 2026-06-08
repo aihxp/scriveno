@@ -140,6 +140,27 @@ describe('adaptive concierge command surfacing', () => {
     }
   });
 
+  it('defines secondary command families with real hubs and commands', () => {
+    const families = constraints.command_families;
+    assert.ok(families && typeof families === 'object', 'CONSTRAINTS.json must define command_families');
+
+    for (const familyName of ['structure', 'art', 'session', 'sacred', 'submission', 'publishing', 'world', 'collaboration', 'surface']) {
+      const family = families[familyName];
+      assert.ok(family, `command_families.${familyName} must exist`);
+      assert.ok(family.hub, `command_families.${familyName} must define a hub`);
+      assert.ok(constraints.commands[family.hub], `command_families.${familyName}.hub references unknown command "${family.hub}"`);
+      assert.ok(Array.isArray(family.commands), `command_families.${familyName}.commands must be an array`);
+      assert.ok(family.commands.includes(family.hub), `command_families.${familyName} should include its hub`);
+      assert.ok(family.commands.length >= 3, `command_families.${familyName} should expose useful choices`);
+      for (const command of family.commands) {
+        assert.ok(
+          constraints.commands[command],
+          `command_families.${familyName} references unknown command "${command}"`
+        );
+      }
+    }
+  });
+
   it('keeps newer world and publishing workflows visible from intents', () => {
     const intents = constraints.command_intents;
 
@@ -159,7 +180,9 @@ describe('adaptive concierge command surfacing', () => {
     const help = read('commands/scr/help.md');
 
     assert.match(help, /Load `command_intents` from CONSTRAINTS\.json/);
+    assert.match(help, /Load `command_families` from CONSTRAINTS\.json/);
     assert.match(help, /Infer the likely intent before showing commands/);
+    assert.match(help, /Hub-first families/);
     assert.match(help, /Likely next area: Draft/);
     assert.match(help, /Keep the primary list to 3-6 commands/);
     assert.match(help, /the default view should never feel like a catalog dump/);
@@ -184,13 +207,24 @@ describe('adaptive concierge command surfacing', () => {
     const next = read('commands/scr/next.md');
 
     assert.match(next, /Load `command_intents` from CONSTRAINTS\.json/);
+    assert.match(next, /Load `command_families` from CONSTRAINTS\.json/);
     assert.match(next, /Act like an adaptive concierge, not a catalog/);
+    assert.match(next, /Use hub-first families for specialist requests/);
     assert.match(next, /State the recommended command in one sentence/);
     assert.match(next, /Offer 2-3 alternatives from the matching intent or a closely related intent/);
     assert.match(next, /No drafted work -> keep publish and translate out of the primary choices/);
     assert.match(next, /Drafted work but no review -> recommend revise commands before publish commands/);
     assert.match(next, /Failed command, state mismatch, or missing required context -> surface repair commands first/);
     assert.match(next, /Revision-track metadata or collaboration request -> surface `\/scr:track` and keep save-history commands separate/);
+  });
+
+  it('makes /scr:do route specialist language through command families', () => {
+    const doCommand = read('commands/scr/do.md');
+
+    assert.match(doCommand, /Load `command_intents` and `command_families` from CONSTRAINTS\.json/);
+    assert.match(doCommand, /Hub-first routing/);
+    assert.match(doCommand, /Structure, outline, rearrange, split, merge, add, insert, remove -> `\/scr:outline`/);
+    assert.match(doCommand, /Too many commands, smaller install, command profile -> `\/scr:surface`/);
   });
 
   it('models representative project states with compact recommendation fixtures', () => {

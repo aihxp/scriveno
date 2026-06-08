@@ -7,6 +7,8 @@ argument-hint: "[--format <format>] [--formatted] [--print-ready] [--skip-valida
 
 Assemble the manuscript from OUTLINE.md and export to the specified format. Handles manuscript assembly, metadata generation, external tool detection, and format-specific Pandoc/Typst invocation.
 
+Publishing boundary: `/scr:export` is for one-off output. Use `/scr:publish` when the writer wants destination sequencing, and use `/scr:build-ebook`, `/scr:build-print`, `/scr:build-smashwords`, or `/scr:build-poetry-submission` when the target is a final channel package.
+
 ## Usage
 
 ```
