@@ -11,10 +11,11 @@ This document is the public-facing summary of what changed between package relea
 - **Interactive installs can start smaller.** The installer now asks which command profile to install, while keeping `full` as the default and leaving `/scr:surface` available for later changes.
 - **Publishing language is clearer.** `/scr:publish` is the destination wizard, `/scr:export` is one-off output, build commands are final package builders, and front/back matter plus prepublish review remain separate steps.
 - **The route graph can audit these families.** `scriveno routes` now reports command families, family hubs, and family-member edges in addition to automation lanes.
+- **Detector anxiety stays inside the authenticity workflow.** Outside AI-detector reports are now context for `/scr:voice-check`, `/scr:originality-check`, `/scr:line-edit`, and `/scr:polish`, not targets for rewriting or humanizer-style laundering.
 
 ### Why it matters
 
-Scriveno keeps the full command surface without making writers face every command at once. The product now consolidates around hubs instead of removing features.
+Scriveno keeps the full command surface without making writers face every command at once. The product now consolidates around hubs instead of removing features, and authenticity concerns route through evidence and craft decisions instead of score-chasing.
 
 ## 3.2.2 - 2026-06-08
 

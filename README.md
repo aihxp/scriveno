@@ -203,7 +203,7 @@ Scriveno is built on five principles:
 - [Quick Proof](docs/quick-proof.md) -- 10-minute proof-first route through install checks, the demo, and the next draft
 - [Starter Sets](docs/starter-sets.md) -- Small command paths for drafting, world and research, polishing, publishing, translation, sacred commentary, and repair
 - [Versatility Paths](docs/versatility-paths.md) -- Curated showcase paths for technical, sacred, visual, translation, and publishing workflows
-- [Workflow Optimization Audit](docs/workflow-optimization-audit.md) -- Consolidation and redundancy findings for the command and journey surface
+- [Workflow Optimization Audit](docs/workflow-optimization-audit.md) -- Consolidation, redundancy, authenticity, and journey-surface findings
 - [Getting Started](docs/getting-started.md) -- Install to first draft in 10 minutes
 - [Command Reference](docs/command-reference.md) -- All 122 commands with usage, flags, and examples
 - [Work Types Guide](docs/work-types.md) -- How 50 work types adapt Scriveno's vocabulary

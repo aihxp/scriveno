@@ -130,6 +130,19 @@ describe('human-first prose principles', () => {
     assert.match(doc, /process evidence/i);
     assert.match(doc, /Do not ask Scriveno to "beat" a detector/);
   });
+
+  it('workflow optimization audit includes the detector-aware authenticity follow-up', () => {
+    const audit = read('docs/workflow-optimization-audit.md');
+    const releaseNotes = read('docs/release-notes.md');
+    const readme = read('README.md');
+
+    assert.match(audit, /### 6\. Detector-Aware Authenticity Flow/);
+    assert.match(audit, /outside AI-detector reports become context, process evidence, and craft review/);
+    assert.match(audit, /\[Authenticity And AI Detectors\]\(authenticity-and-detectors\.md\)/);
+    assert.match(audit, /without turning Scriveno into a detector-gaming tool/);
+    assert.match(releaseNotes, /Detector anxiety stays inside the authenticity workflow/);
+    assert.match(readme, /Consolidation, redundancy, authenticity, and journey-surface findings/);
+  });
 });
 
 describe('authenticity-check diagnostic discipline', () => {

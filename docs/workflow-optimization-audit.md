@@ -22,6 +22,7 @@ This audit reviews Scriveno's UX flows, user journeys, command flows, and workfl
 - Surface profiles already support feature-preserving command reduction. A writer can install a smaller visible surface without changing manuscript data.
 - The final `Next commands:` contract is now consistent across every writer-facing command.
 - Route graph and runtime smoke checks are executable, not only documented.
+- Voice and authenticity workflows now treat outside AI-detector reports as triage context, not as a rewrite target.
 
 ## Improvements Applied
 
@@ -64,6 +65,16 @@ Status: implemented.
 Finding: publishing commands were powerful but easy to misread as overlapping.
 
 Change: `/scr:publish`, `/scr:export`, `/scr:build-ebook`, `/scr:build-print`, `/scr:build-smashwords`, and `/scr:build-poetry-submission` now state the boundary near the top of the command. `/scr:help` and `/scr:next` carry the same mental model.
+
+Status: implemented.
+
+### 6. Detector-Aware Authenticity Flow
+
+Finding: a high outside AI-detector score can create a bad workflow loop: the writer asks for authenticity help, the system overreacts, and prose gets pushed toward detector gaming or a mechanical humanizer signature instead of the writer's voice.
+
+Impact: this is a UX and trust problem, not only a prose problem. A writer needs a calm path from "this detector flagged me" to "what should I inspect, what evidence do I preserve, and what should I edit for craft?"
+
+Change: the universal writing rules, drafter, voice-checker, `/scr:voice-check`, `/scr:originality-check`, `/scr:line-edit`, and `/scr:polish` now treat external detector scores as context only. New projects carry an `authenticity` config block, diagnostics report process evidence, and [Authenticity And AI Detectors](authenticity-and-detectors.md) documents the research stance and operating workflow.
 
 Status: implemented.
 
@@ -140,14 +151,25 @@ Recommendation: do not remove it from command files until the installer has a sa
 
 Future optimization: generate or inject the shared contract during install, then test the installed output rather than hand-maintaining the block in every source command.
 
+### 6. Keep Authenticity Help Away From Detector Gaming
+
+Problem: authenticity concerns can arrive through outside detector reports, but Scriveno should not become a detector-optimization tool. Chasing a vendor score would weaken the Voice DNA promise and can make prose less human by installing a new regular pattern.
+
+Recommendation: keep `/scr:voice-check` and `/scr:originality-check` diagnose-only, keep `/scr:line-edit` and `/scr:polish` as separate writer-chosen transforms, and preserve process evidence such as STYLE-GUIDE.md, plans, drafts, reviews, HISTORY.log, saves, and accepted revisions.
+
+Why this preserves features: writers can still bring detector reports into the workflow, but those reports decide where to look first, not what the prose must become.
+
+Status: implemented.
+
 ## Suggested Roadmap
 
 1. Completed: keep the manifest description fix and profile-reduction starter guidance.
 2. Completed: add secondary `command_families` metadata and expose it in route graph output without changing primary intent routing.
 3. Completed: teach `/scr:help`, `/scr:next`, and `/scr:do` to show hub-first wording for structure, art, session, sacred, submission, publishing, world, collaboration, and surface families.
 4. Completed: add an interactive install profile prompt while keeping `full` as the default.
-5. Future: generate repeated command contract blocks rather than editing them by hand.
+5. Completed: fold detector-aware authenticity into the audit flow so outside AI-detector reports become context, process evidence, and craft review rather than score-chasing.
+6. Future: generate repeated command contract blocks rather than editing them by hand.
 
 ## Bottom Line
 
-Scriveno does not need fewer features. It needs fewer visible decisions at once. The best consolidation path is hub-and-leaf: keep the full command set, strengthen the hubs, and let profiles and journeys decide how much of the surface is visible.
+Scriveno does not need fewer features. It needs fewer visible decisions at once. The best consolidation path is hub-and-leaf: keep the full command set, strengthen the hubs, and let profiles and journeys decide how much of the surface is visible. The same principle applies to authenticity: keep the writer on a calm path from concern to evidence to craft decision, without turning Scriveno into a detector-gaming tool.
