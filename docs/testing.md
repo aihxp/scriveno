@@ -192,5 +192,6 @@ For most changes:
 - [Configuration](configuration.md)
 - [Contributing](contributing.md)
 - [Quick Proof](quick-proof.md)
+- [Versatility Paths](versatility-paths.md)
 - [Release Checklist](release-checklist.md)
 - [Release Notes](release-notes.md)

@@ -34,6 +34,8 @@ That gap is now narrower: install surfaces, metadata, command counts, agent prom
 
 ## Suggested Host Parity Script
 
+Use [HOST-CAPTURE-PROTOCOL.md](HOST-CAPTURE-PROTOCOL.md) as the canonical capture protocol. The short version:
+
 For each host that supports local commands:
 
 ```text
@@ -46,3 +48,7 @@ For each host that supports local commands:
 ```
 
 Use the command shape from [docs/runtime-support.md](../../../docs/runtime-support.md).
+
+## Capture Status
+
+No host capture folder is marked verified until its transcript or screenshot artifact is committed under `data/proof/runtime-parity/<runtime>/`. Until then, Scriveno's verified claim remains install-surface proof plus capture-ready protocol.

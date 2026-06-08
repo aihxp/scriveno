@@ -9,8 +9,24 @@ This document is the canonical index of Scriveno's proof layer. It points to con
 - Read the **Watchmaker Sample Flow** if you want one end-to-end writing workflow from setup through drafts, review, and next step.
 - Read **Voice DNA** if you want the shortest possible proof of how style guidance changes output on the same brief.
 - Read **Creative Context** if you want to see one craft choice travel through discuss, plan, draft, and review artifacts.
+- Read **Versatility Paths** if you want curated routes for technical, sacred, visual, translation, and publishing workflows after the flagship proof path.
 
 **Fast path:** [Quick Proof](quick-proof.md)
+
+**Showcase path:** [Versatility Paths](versatility-paths.md)
+
+## Showcase Proof Bundles
+
+These bundles make the range inspectable without making every path compete with the first-run proof.
+
+| Bundle | What it proves | Canonical artifact |
+|--------|----------------|--------------------|
+| Technical Flow | Reader-state movement, procedures, validation, rollback, and source boundaries for runbooks | [data/proof/technical-flow/README.md](../data/proof/technical-flow/README.md) |
+| Sacred Commentary Flow | Tradition-native surfaces, source care, sacred register, and doctrinal review before publishing | [data/proof/sacred-flow/README.md](../data/proof/sacred-flow/README.md) |
+| Visual Flow | Comic-native page rhythm, panel layout, art handoff, and visual review before asset production | [data/proof/visual-flow/README.md](../data/proof/visual-flow/README.md) |
+| Translation And Publishing Flow | Glossary, memory, back-translation, front/back matter, prepublish review, and package gating | [data/proof/translation-publishing-flow/README.md](../data/proof/translation-publishing-flow/README.md) |
+
+Each bundle includes a state snapshot, representative plan, representative draft or output artifact, and a next-command continuation. They are proof of workflow shape and evidence discipline, not a claim that every possible project in that domain has been exhaustively verified.
 
 ## Watchmaker Sample Flow
 
@@ -66,8 +82,10 @@ Read the bundle in order if you want to inspect sentence rhythm, metaphor select
 - [Shipped Assets](shipped-assets.md) -- canonical inventory of the trust-critical files Scriveno actually bundles
 - [Quick Proof](quick-proof.md) -- 10-minute proof-first path through install checks, the demo, and the next draft
 - [Starter Sets](starter-sets.md) -- small command sets by writing goal
+- [Versatility Paths](versatility-paths.md) -- curated showcase paths for the product's range
 - [data/proof/first-run/README.md](../data/proof/first-run/README.md) -- committed first-run transcript artifact
 - [data/proof/runtime-parity/README.md](../data/proof/runtime-parity/README.md) -- runtime surface evidence and host-parity boundary
+- [data/proof/runtime-parity/HOST-CAPTURE-PROTOCOL.md](../data/proof/runtime-parity/HOST-CAPTURE-PROTOCOL.md) -- repeatable protocol for capturing real host-runtime parity evidence
 - [Runtime Support](runtime-support.md) -- canonical runtime matrix and installer-baseline framing
 - [Auto-Invoke Policy](auto-invoke-policy.md) -- proactive status, safe apply, local-helper, and agent-spawn boundaries
 - [Route Graph Audit](route-graph.md) -- generated route graph, automation lanes, and priority fixtures

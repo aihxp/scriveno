@@ -39,6 +39,7 @@ describe('first-run proof surface', () => {
   const readme = read('README.md');
   const quickProof = read('docs/quick-proof.md');
   const starterSets = read('docs/starter-sets.md');
+  const versatilityPaths = read('docs/versatility-paths.md');
   const releaseChecklist = read('docs/release-checklist.md');
   const firstRunProof = read('data/proof/first-run/README.md');
   const runtimeParity = read('data/proof/runtime-parity/README.md');
@@ -46,6 +47,7 @@ describe('first-run proof surface', () => {
   it('keeps the first-run documents linked from README', () => {
     assert.match(readme, /\[Quick Proof\]\(docs\/quick-proof\.md\)/);
     assert.match(readme, /\[Starter Sets\]\(docs\/starter-sets\.md\)/);
+    assert.match(readme, /\[Versatility Paths\]\(docs\/versatility-paths\.md\)/);
     assert.match(readme, /\[Release Checklist\]\(docs\/release-checklist\.md\)/);
   });
 
@@ -77,6 +79,18 @@ describe('first-run proof surface', () => {
     assert.match(quickProof, /scriveno smoke --json/);
     assert.match(quickProof, /Claude Code is the primary reference runtime/);
     assert.match(quickProof, /host-runtime parity proof/);
+    assert.match(quickProof, /\[Versatility Paths\]\(versatility-paths\.md\)/);
+  });
+
+  it('keeps versatility framed as curated showcase paths, not feature reduction', () => {
+    assert.match(versatilityPaths, /^# Versatility Paths$/m);
+    assert.match(versatilityPaths, /flagship path is still simple/i);
+    assert.match(versatilityPaths, /technical, sacred, visual, translation, and publishing/i);
+    assert.match(versatilityPaths, /Do not lead with every work type at once/i);
+    assert.match(versatilityPaths, /Do not hide the range\. Curate it\./i);
+
+    assert.match(starterSets, /## Showcase The Versatility/);
+    assert.match(starterSets, /\[Versatility Paths\]\(versatility-paths\.md\)/);
   });
 
   it('keeps first-run proof and runtime parity evidence concrete', () => {

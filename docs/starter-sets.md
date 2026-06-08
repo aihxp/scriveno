@@ -4,6 +4,8 @@ Scriveno has a large command surface because it covers many kinds of writing. St
 
 Each set is intentionally small. Use `/scr-next`, `/scr:next`, or `$scr-next` whenever you are unsure which command should come next.
 
+The flagship starter path is still longform voice preservation: set up the work, profile the writer, draft one unit, review it, then ask next. The other sets show range without making every feature compete for attention at first run. See [Versatility Paths](versatility-paths.md) when you want a curated showcase across technical, sacred, visual, translation, and publishing workflows.
+
 ## First 10 Minutes
 
 - `/scr:first-run` runs the guided proof path and shows runtime-specific command shapes.
@@ -21,6 +23,17 @@ Each set is intentionally small. Use `/scr-next`, `/scr:next`, or `$scr-next` wh
 - `/scr:draft` drafts the planned unit in fresh context.
 - `/scr:editor-review` reviews the draft for revision.
 - `/scr:next` chooses the safest next move from project state.
+
+## Showcase The Versatility
+
+Use these when the goal is to demonstrate range after the flagship writing path is clear.
+
+- **Technical guide or runbook:** `/scr:new-work`, then choose `runbook` or `technical guide`; use `/scr:discuss`, `/scr:plan`, `/scr:draft`, and `/scr:editor-review` to move the reader from confusion to usable action.
+- **Sacred commentary:** `/scr:new-work`, then choose `commentary`; use `/scr:sacred:source-tracking`, `/scr:sacred:concordance`, `/scr:plan`, `/scr:draft`, and `/scr:sacred:doctrinal-check` to keep source care and register discipline visible.
+- **Screenplay or comic:** `/scr:new-work`, then choose `screenplay` or `comic`; use `/scr:plan`, `/scr:draft`, `/scr:dialogue-audit`, `/scr:art-direction`, `/scr:panel-layout`, or `/scr:storyboard` depending on the format.
+- **Translation and publishing:** start from an existing draft, then use `/scr:translation-glossary`, `/scr:translate`, `/scr:back-translate`, `/scr:front-matter`, `/scr:prepublish-review`, `/scr:publish`, and `/scr:build-ebook`.
+
+For more detail, use [Versatility Paths](versatility-paths.md).
 
 ## Polish A Manuscript
 

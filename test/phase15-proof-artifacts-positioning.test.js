@@ -72,15 +72,18 @@ describe('phase 15 proof routing', () => {
 
   it('keeps proof-first routing visible from launch and onboarding surfaces', () => {
     assert.match(readme, /\[Proof Artifacts\]\(docs\/proof-artifacts\.md\)/);
+    assert.match(readme, /\[Versatility Paths\]\(docs\/versatility-paths\.md\)/);
     assert.match(readme, /voice preservation/i);
     assert.match(readme, /AI-native longform/i);
     assert.match(gettingStarted, /Want evidence first\?/);
     assert.match(gettingStarted, /\[Proof Artifacts\]\(proof-artifacts\.md\)/);
+    assert.match(gettingStarted, /\[Versatility Paths\]\(versatility-paths\.md\)/);
   });
 
   it('keeps the proof hub wired to the canonical proof artifacts', () => {
     assert.match(proofArtifacts, /^# Proof Artifacts$/m);
     assert.match(proofArtifacts, /data\/proof\/watchmaker-flow\/README\.md/);
+    assert.match(proofArtifacts, /\[Versatility Paths\]\(versatility-paths\.md\)/);
     assert.match(proofArtifacts, /## Voice DNA/);
     assert.match(proofArtifacts, /data\/proof\/voice-dna\/README\.md/);
     assert.match(proofArtifacts, /data\/proof\/voice-dna\/STYLE-GUIDE-EXCERPT\.md/);

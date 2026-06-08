@@ -133,6 +133,7 @@ Sacred commands read top-level sacred profile keys in new projects and preserve 
 - `docs/release-notes.md` -- public-facing release summary
 - `docs/proof-artifacts.md` -- canonical proof hub for sample-flow and voice-preservation evidence
 - `docs/quick-proof.md` -- proof-first first-run route through install checks, demo inspection, and next-draft commands
+- `docs/versatility-paths.md` -- curated versatility narrative that keeps voice-preserving longform writing first while showcasing technical, sacred, visual, translation, and publishing paths
 - `docs/starter-sets.md` -- small command paths for common writing goals
 - `docs/release-checklist.md` -- release validation path for source, npm, GitHub, and fresh installs
 - `docs/runtime-support.md` -- canonical runtime matrix, Node baseline, and support-confidence framing
@@ -143,6 +144,11 @@ Sacred commands read top-level sacred profile keys in new projects and preserve 
 - `data/proof/voice-dna/README.md` -- canonical Voice DNA proof bundle
 - `data/proof/first-run/README.md` -- committed transcript artifact for the executable first-run path
 - `data/proof/runtime-parity/README.md` -- runtime install-surface evidence and host-parity boundary
+- `data/proof/runtime-parity/HOST-CAPTURE-PROTOCOL.md` -- repeatable capture protocol for actual host-runtime parity evidence
+- `data/proof/technical-flow/README.md` -- showcase proof bundle for runbook and technical-document workflows
+- `data/proof/sacred-flow/README.md` -- showcase proof bundle for sacred commentary workflows
+- `data/proof/visual-flow/README.md` -- showcase proof bundle for comic and visual-script workflows
+- `data/proof/translation-publishing-flow/README.md` -- showcase proof bundle for translation, review, and publishing workflows
 - `commands/scr/export.md` -- source of truth for export command behavior
 - `docs/publishing.md` -- user-facing explanation of export formats and publishing packages
 - `docs/contributing.md` -- contributor-facing guidance for extending export support

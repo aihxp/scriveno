@@ -21,7 +21,7 @@
 
 Scriveno brings spec-driven workflows to longform writing. It runs inside your AI coding agent (Claude Code, Cursor, Gemini CLI, and more) and also ships a guided Perplexity Desktop setup path for file-aware support without overstating parity.
 
-Scriveno is best understood as **AI-native longform writing software built around voice preservation**. Its core promise is narrow and high-stakes: drafted prose should sound like the writer, not like AI. If you want evidence before features, start with the [Quick Proof](docs/quick-proof.md), then inspect the [Proof Artifacts](docs/proof-artifacts.md).
+Scriveno is best understood as **AI-native longform writing software built around voice preservation**. Its core promise is narrow and high-stakes: drafted prose should sound like the writer, not like AI. The flagship path is simple: finish a long manuscript in your own voice. The range comes after that: the same engine adapts to technical, sacred, visual, translation, and publishing workflows without forcing them into a novel-shaped template. If you want evidence before features, start with the [Quick Proof](docs/quick-proof.md), then inspect the [Proof Artifacts](docs/proof-artifacts.md) and [Versatility Paths](docs/versatility-paths.md).
 
 ```bash
 npx scriveno@latest
@@ -35,7 +35,7 @@ scriveno sync --check
 
 ## What is this
 
-Scriveno is a command system that turns your AI coding agent into a voice-preserving writing studio. It supports 50 work types -- novels, screenplays, research papers, technical guides, runbooks, scripture commentaries, comics, memoirs -- each with its own adaptive vocabulary and toolset.
+Scriveno is a command system that turns your AI coding agent into a voice-preserving writing studio. Lead with one path: a writer can start a manuscript, calibrate voice, draft unit by unit, review, save, and publish without learning the full catalog. Then show the versatility: Scriveno supports 50 work types -- novels, screenplays, research papers, technical guides, runbooks, scripture commentaries, comics, memoirs -- each with its own adaptive vocabulary and toolset.
 
 The wedge comes first: Scriveno profiles the writer, loads that voice into every drafting step, and keeps each unit on fresh context so the prose stays specific to the project. From there, it expands into 122 writing commands covering the rest of the pipeline:
 
@@ -79,7 +79,7 @@ $scr-help
 
 If you only ever type `/scr-next` in Claude Code, you can complete an entire novel. It always knows what's next.
 
-If you want the shortest proof-first route, read [Quick Proof](docs/quick-proof.md) before exploring the rest of the docs. If you want a small command path for your goal, use [Starter Sets](docs/starter-sets.md).
+If you want the shortest proof-first route, read [Quick Proof](docs/quick-proof.md) before exploring the rest of the docs. If you want a small command path for your goal, use [Starter Sets](docs/starter-sets.md). If you want to showcase the range without overwhelming a new writer, use [Versatility Paths](docs/versatility-paths.md).
 
 ---
 
@@ -202,6 +202,7 @@ Scriveno is built on five principles:
 - [Proof Artifacts](docs/proof-artifacts.md) -- Canonical proof hub for the watchmaker sample flow and Voice DNA before/after bundle
 - [Quick Proof](docs/quick-proof.md) -- 10-minute proof-first route through install checks, the demo, and the next draft
 - [Starter Sets](docs/starter-sets.md) -- Small command paths for drafting, world and research, polishing, publishing, translation, sacred commentary, and repair
+- [Versatility Paths](docs/versatility-paths.md) -- Curated showcase paths for technical, sacred, visual, translation, and publishing workflows
 - [Workflow Optimization Audit](docs/workflow-optimization-audit.md) -- Consolidation and redundancy findings for the command and journey surface
 - [Getting Started](docs/getting-started.md) -- Install to first draft in 10 minutes
 - [Command Reference](docs/command-reference.md) -- All 122 commands with usage, flags, and examples

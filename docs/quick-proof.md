@@ -2,12 +2,15 @@
 
 This is the shortest proof-first path through Scriveno. It is meant for a fresh user who wants to see real shipped artifacts, a demo manuscript, runtime expectations, and the first practical commands before reading the full manual. If your runtime supports Scriveno commands, the executable version of this page is `/scr:first-run`.
 
+This path is intentionally narrow. It proves the flagship promise first: a longform writing workflow that preserves voice and keeps the next step obvious. After that, use [Versatility Paths](versatility-paths.md) to show how the same engine adapts to technical, sacred, visual, translation, and publishing workflows.
+
 ## What This Proves
 
 - Scriveno ships inspectable proof bundles, not only feature claims.
 - Scriveno ships `/scr:first-run` and `scriveno first-run --project .` as guided first-run surfaces.
 - The watchmaker demo includes real manuscript state, drafts, review notes, and a planned next unit.
 - Voice DNA changes output on the same brief, with guided and unguided samples side by side.
+- The flagship path stays simple before the wider command surface appears.
 - Runtime behavior is explicit: Claude Code is the primary reference runtime, Codex uses generated `$scr-*` skills, standard slash-command targets use `/scr:*`, and guided targets document their local setup path.
 - The public CLI can audit installed surfaces with `scriveno smoke --json`.
 
@@ -188,6 +191,7 @@ No runtime claim here should be read as host-runtime parity proof. The repo prov
 ## Where To Go Next
 
 - [Starter Sets](starter-sets.md) for small command paths by writing goal
+- [Versatility Paths](versatility-paths.md) for curated non-flagship showcase paths
 - [data/proof/first-run/README.md](../data/proof/first-run/README.md) for committed first-run transcripts
 - [data/proof/runtime-parity/README.md](../data/proof/runtime-parity/README.md) for runtime parity evidence
 - [Getting Started](getting-started.md) for the complete first-project walkthrough

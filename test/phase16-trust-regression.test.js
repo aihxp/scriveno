@@ -74,8 +74,14 @@ describe('trust-critical shipped assets', () => {
     const trustCriticalFiles = [
       'README.md',
       'docs/proof-artifacts.md',
+      'docs/versatility-paths.md',
       'docs/runtime-support.md',
       'data/proof/watchmaker-flow/README.md',
+      'data/proof/runtime-parity/HOST-CAPTURE-PROTOCOL.md',
+      'data/proof/technical-flow/README.md',
+      'data/proof/sacred-flow/README.md',
+      'data/proof/visual-flow/README.md',
+      'data/proof/translation-publishing-flow/README.md',
       'commands/scr/export.md',
       'docs/publishing.md',
       'docs/contributing.md',
@@ -129,6 +135,12 @@ describe('canonical proof hub integrity', () => {
       'data/proof/voice-dna/STYLE-GUIDE-EXCERPT.md',
       'data/proof/voice-dna/UNGUIDED-SAMPLE.md',
       'data/proof/voice-dna/GUIDED-SAMPLE.md',
+      'data/proof/runtime-parity/README.md',
+      'data/proof/runtime-parity/HOST-CAPTURE-PROTOCOL.md',
+      'data/proof/technical-flow/README.md',
+      'data/proof/sacred-flow/README.md',
+      'data/proof/visual-flow/README.md',
+      'data/proof/translation-publishing-flow/README.md',
     ];
 
     for (const relativePath of canonicalArtifacts) {

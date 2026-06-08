@@ -2,7 +2,7 @@
 
 Go from zero to a drafted scene in under 10 minutes. This guide walks you through installation, project setup, and your first draft.
 
-Want evidence first? Start with [Quick Proof](quick-proof.md), then continue to [Proof Artifacts](proof-artifacts.md). The watchmaker sample flow and the Voice DNA before/after bundle give you the fastest way to inspect what Scriveno actually proves today.
+Want evidence first? Start with [Quick Proof](quick-proof.md), then continue to [Proof Artifacts](proof-artifacts.md). The watchmaker sample flow and the Voice DNA before/after bundle give you the fastest way to inspect what Scriveno actually proves today. Once that flagship path is clear, [Versatility Paths](versatility-paths.md) shows how the same engine adapts to technical, sacred, visual, translation, and publishing work.
 
 ## Prerequisites
 
@@ -209,13 +209,14 @@ Beyond the core workflow, Scriveno offers:
 - **Navigation** -- `/scr-help`, `/scr-next`, `/scr-pause-work`
 - **Surface tuning** -- `/scr-surface profile writing --dry-run` previews fewer visible commands without removing features
 
-For small goal-based paths, use [Starter Sets](starter-sets.md). For the full command list, see [Command Reference](command-reference.md).
+For small goal-based paths, use [Starter Sets](starter-sets.md). For curated showcase paths across non-flagship work types, use [Versatility Paths](versatility-paths.md). For the full command list, see [Command Reference](command-reference.md).
 
 If you want the trust surfaces around installation and shipping details, continue with:
 
 - [Runtime Support](runtime-support.md) -- installer targets, support levels, and verification status
 - [Quick Proof](quick-proof.md) -- proof-first first-run path through install, demo, and next draft
 - [Starter Sets](starter-sets.md) -- small command sets by writing goal
+- [Versatility Paths](versatility-paths.md) -- curated showcase paths for the product's range
 - [Auto-Invoke Policy](auto-invoke-policy.md) -- status engine, visible automation, and agent-spawn boundaries
 - [Route Graph Audit](route-graph.md) -- generated route graph, automation lanes, and priority fixtures
 - [Shipped Assets](shipped-assets.md) -- what the npm package actually includes on the trust-critical surface
