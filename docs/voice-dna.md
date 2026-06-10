@@ -10,7 +10,7 @@ Voice DNA is your writing fingerprint captured in a single file: `STYLE-GUIDE.md
 
 If you want a concrete proof artifact before reading the full theory, start with `data/proof/voice-dna/README.md`. That bundle compares one fixed brief before and after style-guide guidance is applied.
 
-When the drafter agent writes a scene, chapter, or passage, it loads STYLE-GUIDE.md first -- before the outline, before the characters, before anything else. Every sentence it writes gets checked against your voice profile. Does this sentence match the writer's typical sentence length? Does this metaphor density match their style? Is this dialogue tag pattern consistent with how they write?
+When the drafter agent writes a scene, chapter, procedure, section, stanza, commentary, or passage, it loads STYLE-GUIDE.md first -- before the outline, before the characters, before anything else. Every sentence it writes gets checked against your voice profile. Does this sentence match the writer's typical sentence length? Does this metaphor, evidence, or image density match their style? Does its dialogue, instruction tone, line rhythm, citation stance, or tradition register match how they write?
 
 STYLE-GUIDE.md profiles your voice across 15+ dimensions organized into 9 parts. The next section walks through each one.
 
@@ -163,7 +163,7 @@ Your STYLE-GUIDE.md starts as a template during project setup, then gets filled 
 
 ### Path 1: Interview (recommended)
 
-Run `/scr:profile-writer --questionnaire` (or simply `/scr:profile-writer`) and Scriveno interviews you about your writing preferences. It asks about your sentence style, dialogue preferences, figurative language density, and other dimensions, then writes those decisions into STYLE-GUIDE.md.
+Run `/scr:profile-writer --questionnaire` (or simply `/scr:profile-writer`) and Scriveno interviews you about your writing preferences. It asks about sentence style, dialogue or interaction preferences, evidence stance, instruction tone, line rhythm, figurative language density, and other dimensions, then writes those decisions into STYLE-GUIDE.md.
 
 ### Path 2: Writing sample
 
@@ -179,7 +179,7 @@ Before drafting your first unit, run:
 /scr:voice-test
 ```
 
-This command drafts a short sample scene using your current STYLE-GUIDE.md profile. You read the sample and tell Scriveno what sounds right and what sounds off. "The dialogue is too formal." "The sentences are too long." "I would never use that word." Scriveno adjusts your profile based on your feedback.
+This command drafts a short work-type-aware sample using your current STYLE-GUIDE.md profile. You read the sample and tell Scriveno what sounds right and what sounds off. "The dialogue is too formal." "The instructions are too casual." "The sentences are too long." "I would never use that word." Scriveno adjusts your profile based on your feedback.
 
 Think of voice-test as a sound check before a concert. You're making sure the drafter will sound like you before it writes 80,000 words.
 
@@ -189,7 +189,7 @@ After your first draft units are complete, you can also run:
 /scr:voice-check
 ```
 
-This compares drafted prose against your STYLE-GUIDE.md and flags anything that drifted -- sentences that are too long relative to your profile, metaphor density that crept up, dialogue tags that shifted style. For sacred work types, the same `/scr:voice-check` command shifts into a register-check role and verifies voice register consistency.
+This compares drafted prose, scripts, procedures, verse, or commentary against your STYLE-GUIDE.md and flags anything that drifted -- sentences that are too long relative to your profile, metaphor density that crept up, dialogue tags that shifted style, instruction tone that got vague, evidence stance that changed, or line rhythm that flattened. For sacred work types, the same `/scr:voice-check` command shifts into a register-check role and verifies voice register consistency.
 
 ## Sacred Voice Registers
 
@@ -220,7 +220,7 @@ For full details on sacred work types, exclusive commands, and tradition-specifi
 
 Scriveno uses a **fresh-context-per-unit** architecture. Here's how it works:
 
-1. Each atomic unit (scene, passage, verse, beat) gets its own fresh drafter agent invocation
+1. Each atomic unit (scene, passage, verse, beat, procedure, section, stanza, or commentary unit) gets its own fresh drafter agent invocation
 2. The drafter loads STYLE-GUIDE.md first -- before anything else
 3. The drafter then loads two optional rule layers (see "Three rule layers" below) that scaffold weaker models against AI tells without overriding the writer's voice
 4. The drafter also receives the last 200 words of the previous unit for continuity
@@ -305,5 +305,5 @@ This is not a fake objective prose score. It is a regression guard for Scriveno'
 - [Drafter Quality](drafter-quality.md) -- the three rule layers, the `draft` config block, and model-tier recommendations
 - [Authenticity And AI Detectors](authenticity-and-detectors.md) -- external detector scores, process evidence, and detector-aware authenticity
 - [Proof Badges](proof-badges.md) -- evidence levels for major product claims
-- [Command Reference](command-reference.md) -- Full list of all 122 commands with usage and examples
+- [Command Reference](command-reference.md) -- Full list of all 123 commands with usage and examples
 - [Work Types Guide](work-types.md) -- How work types adapt Scriveno's vocabulary and commands

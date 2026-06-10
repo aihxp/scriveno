@@ -94,6 +94,8 @@ Keep editable source files under `.manuscript/build/source/`.
 
 For paperback and hardcover, treat exact wrap width, spine width, and guide lines as **template-driven** values from the current IngramSpark Cover Template Generator (or the current target-platform equivalent), not static math baked into Scriveno docs.
 
+**No image-generation tool?** `/scr:cover-art` does not require one. Besides generating prompts for an external AI image tool or a human designer, it can build the cover directly as original SVG or HTML/CSS art and convert it to the canonical deliverables with local CLI tools (`rsvg-convert`, Inkscape, ImageMagick, or headless Chrome). The editable vector source lives in `.manuscript/build/source/`. Agent-built covers count as AI-generated imagery on platforms with AI-content disclosure rules; `/scr:compliance-check` maps that disclosure per platform.
+
 After export, consider validating with EPUBCheck if you have Java installed -- most retailers run their own validation and will reject non-compliant files.
 
 ### Screenplay Formats
@@ -273,6 +275,14 @@ Before exporting, run these commands to make sure your manuscript is ready:
 
 Use `--preset <preset>` when you already know the target destination, and `--strict` when you want major issues treated as stop conditions.
 
+**Platform compliance** -- Policy, copyright, and AI-disclosure gate for retail destinations:
+
+```
+/scr:compliance-check --platform kdp-ebook
+```
+
+Fetches the current official platform policies (KDP content and metadata guidelines, IngramSpark file requirements, and other retailers as targeted), inventories quoted material, cover and font licensing, and public-domain posture, and writes `.manuscript/reviews/PLATFORM-COMPLIANCE.md` with per-platform verdicts plus the exact upload-screen answers (AI-disclosure boxes, series fields, safe keywords). Policies change without notice, so the command verifies live pages instead of trusting remembered rules.
+
 **Manuscript statistics** -- Check your word count, page estimate, and draft completion:
 
 ```
@@ -299,11 +309,11 @@ Scriveno ships with templates that control the look of your exported files. You 
 
 | Template | Location | Controls |
 |----------|----------|----------|
-| `scriveno-book.typst` | `data/export-templates/` | Book interior PDF layout: trim size, margins, headers, page numbers |
-| `scriveno-epub.css` | `data/export-templates/` | EPUB ebook styling and KDP compatibility |
-| `scriveno-academic.latex` | `data/export-templates/` | Academic paper and thesis formatting |
+| `scriveno-book.typst` | active shared data directory, `export-templates/` | Book interior PDF layout: trim size, margins, headers, page numbers |
+| `scriveno-epub.css` | active shared data directory, `export-templates/` | EPUB ebook styling and KDP compatibility |
+| `scriveno-academic.latex` | active shared data directory, `export-templates/` | Academic paper and thesis formatting |
 
-To customize a template, edit the file in `data/export-templates/`. Changes apply to all future exports. The Typst template supports variable overrides for trim size and margins through the export command's flags.
+Export commands resolve templates from `.scriveno/data/export-templates/` for project installs, `$HOME/.scriveno/data/export-templates/` for global installs, then the repository `data/export-templates/` during development. To customize a template, edit the active installed copy for the runtime scope you are using. The Typst template supports variable overrides for trim size and margins through the export command's flags.
 
 ## See Also
 

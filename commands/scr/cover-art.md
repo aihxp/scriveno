@@ -36,6 +36,14 @@ Keep editable source files for future revisions under `.manuscript/build/source/
 
 You are a **cover art prompt specialist**. You generate structured, detailed prompts for cover art that can be copy-pasted into an AI image tool or handed directly to a human designer.
 
+There are three delivery paths, and the writer does not need an image-generation model for the third:
+
+1. **AI image tool** -- the writer pastes the prompt into an external image generator
+2. **Human designer** -- the prompt doubles as a design brief
+3. **Agent-built vector cover** -- when no image-generation capability exists in this session and the writer has no external image tool, you design the cover yourself as original SVG or HTML/CSS art and convert it to the required JPG/PNG/PDF deliverables with local CLI tools (see STEP 6.5)
+
+Never stop at "paste this prompt into an image tool" if the writer has no image tool. The vector path is a first-class deliverable, not a degraded fallback: typographic, geometric, and symbolic covers are a respected tradition in literary fiction, nonfiction, poetry, and sacred work.
+
 ---
 
 ### STEP 1: LOAD CONTEXT
@@ -312,6 +320,47 @@ Use:
 
 ---
 
+### STEP 6.5: NO IMAGE TOOL? BUILD THE COVER AS VECTOR ART
+
+Use this path when any of these is true:
+
+- The session has no image-generation capability and the writer has no external AI image service
+- The writer asks Scriveno to produce the cover file directly
+- The design calls for a typographic, geometric, or symbolic cover that vector art renders better than a diffusion model
+
+**Design the art yourself.** Apply the same structure as the prompts in STEP 6 (genre conventions, palette, composition, mood), but write it as original SVG at the exact deliverable geometry (for ebook: a `1600 x 2560` viewBox). HTML/CSS rendered at fixed pixel size is an acceptable alternative when the design depends on CSS layout or web-font features.
+
+**Fonts:** use only fonts with licenses that permit commercial use and embedding (SIL OFL faces such as the Google Fonts catalog are safe). Record the font name and license in the delivery note. Before rasterizing, confirm the font is installed locally or convert the text to outlined paths so the renderer cannot silently substitute it.
+
+**Save the editable source first:**
+
+- `.manuscript/build/source/ebook-cover.svg` (or `.html`)
+
+**Convert to the delivery spec.** Detect which converter is installed and use the first available:
+
+| Tool | Check | SVG to raster |
+|------|-------|---------------|
+| librsvg | `command -v rsvg-convert` | `rsvg-convert -w 1600 -h 2560 source/ebook-cover.svg -o ebook-cover.png` |
+| Inkscape | `command -v inkscape` | `inkscape source/ebook-cover.svg -w 1600 -h 2560 -o ebook-cover.png` |
+| ImageMagick | `command -v magick` | `magick -density 300 source/ebook-cover.svg -resize 1600x2560 ebook-cover.png` |
+| Headless Chrome (HTML/CSS covers) | `command -v google-chrome \|\| command -v chromium` | `chrome --headless --screenshot=ebook-cover.png --window-size=1600,2560 source/ebook-cover.html` |
+
+Then produce the canonical JPG with ImageMagick (or `sips` on macOS):
+
+```bash
+magick ebook-cover.png -colorspace sRGB -quality 92 .manuscript/build/ebook-cover.jpg
+```
+
+**Verify before declaring done:** check the output is exactly `1600 x 2560`, RGB, and under the platform's file-size limit (`magick identify` or `sips -g pixelWidth -g pixelHeight`). Report the actual numbers.
+
+**Print covers:** the same SVG source can export to PDF (`rsvg-convert -f pdf` or Inkscape), but final paperback/hardcover files still require the template-driven geometry from STEP 3 and PDF/X-1a CMYK conversion via Ghostscript. Treat the vector path as production-ready for ebook covers and as a strong draft for print covers pending the platform template.
+
+**If no converter is installed:** still write the SVG/HTML source to `.manuscript/build/source/`, then tell the writer the single tool to install (prefer `rsvg-convert` via `brew install librsvg`, or ImageMagick which is already a Scriveno prerequisite) and the exact command to run.
+
+**Disclosure note:** an agent-built cover is AI-generated imagery for platforms that require AI-content disclosure. Record this in the delivery note and point the writer at `/scr:compliance-check` before upload.
+
+---
+
 ### STEP 7: WRITE OUTPUT FILES
 
 Create the prompt directory if needed:
@@ -346,8 +395,10 @@ Tell the writer:
 
 1. Which prompt files were written under `.manuscript/illustrations/cover/`
 2. Which final asset files should exist under `.manuscript/build/`
-3. Whether exact print geometry is still pending the template generator
-4. If `--series` was used, whether ART-DIRECTION.md constraints were applied
+3. Which delivery path applies: AI image tool, human designer, or agent-built vector cover (STEP 6.5)
+4. Whether exact print geometry is still pending the template generator
+5. If `--series` was used, whether ART-DIRECTION.md constraints were applied
+6. If the vector path produced final files, the verified dimensions, color space, and file size, plus the AI-disclosure note
 
 If the writer wants final designer deliverables rather than prompts, remind them:
 

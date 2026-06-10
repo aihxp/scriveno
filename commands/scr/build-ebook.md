@@ -18,7 +18,7 @@ Publishing boundary: `/scr:build-ebook` is a final EPUB package builder for a sp
 **Platform values:** `kdp | ingram | apple | bn | d2d | kobo | google | smashwords` (default: kdp)
 
 **Flags:**
-  `--fixed-layout`    Produce a fixed-layout EPUB (for picture books and illustrated books). Uses `data/export-templates/scriveno-fixed-layout-epub.css` and generates an OPF stub. Work type `picture_book` auto-enables this flag.
+  `--fixed-layout`    Produce a fixed-layout EPUB (for picture books and illustrated books). Uses the resolved `scriveno-fixed-layout-epub.css` export template and generates an OPF stub. Work type `picture_book` auto-enables this flag.
 
 ## Instruction
 
@@ -32,6 +32,16 @@ Load the following project files:
 
 - `.manuscript/config.json` -- to get `work_type`, title, author, language, and project settings
 - Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- to check `exports` section for format availability by work type group
+
+Resolve shared asset directories before checking templates:
+
+- `SHARED_DATA_DIR`: first existing directory from `.scriveno/data`, `$HOME/.scriveno/data`, then `data` when running from the Scriveno source repository
+- `SHARED_TEMPLATE_DIR`: first existing directory from `.scriveno/templates`, `$HOME/.scriveno/templates`, then `templates` when running from the Scriveno source repository
+- `EXPORT_TEMPLATE_DIR`: `${SHARED_DATA_DIR}/export-templates`
+- `PLATFORM_TEMPLATE_DIR`: `${SHARED_TEMPLATE_DIR}/platforms`
+- `SACRED_TEMPLATE_DIR`: `${SHARED_TEMPLATE_DIR}/sacred`
+
+Use these resolved variables in every file check and shell command. Do not tell an installed-project user to restore repo-relative paths such as `data/export-templates/...` or `templates/platforms/...`; those paths only exist while developing inside the Scriveno repository. If a resolved asset is missing, report the resolved path that failed and suggest reinstalling Scriveno for the active runtime.
 
 **Check format availability:**
 
@@ -147,7 +157,7 @@ If the value is not in this list:
 
 Then **stop**.
 
-If present and valid, load `templates/sacred/{tradition}/manifest.yaml`.
+If present and valid, load `${SACRED_TEMPLATE_DIR}/{tradition}/manifest.yaml`.
 
 Apply tradition data to `.manuscript/output/metadata.yaml` (before STEP 3f writes the file):
 - Set `lang:` to the tradition's primary language tag:
@@ -192,11 +202,11 @@ Then **stop**.
 
 **Load manifest for selected platform:**
 
-Load `templates/platforms/{platform}/manifest.yaml`.
+Load `${PLATFORM_TEMPLATE_DIR}/{platform}/manifest.yaml`.
 
 If the manifest is missing:
-> **Platform manifest missing: `templates/platforms/{platform}/manifest.yaml`.**
-> Re-install Scriveno or restore the platform profile before building.
+> **Platform manifest missing: `{resolved manifest path}`.**
+> Reinstall Scriveno for the active runtime or restore the platform profile before building.
 
 Then **stop**.
 
@@ -239,25 +249,25 @@ Then **stop** -- do not attempt the build without the required tool.
 
 Check for the EPUB stylesheet:
 
-If `data/export-templates/scriveno-epub.css` does not exist:
+If `${EXPORT_TEMPLATE_DIR}/scriveno-epub.css` does not exist:
 
-> **EPUB stylesheet is missing at `data/export-templates/scriveno-epub.css`.**
+> **EPUB stylesheet is missing at `{resolved stylesheet path}`.**
 > This file is required for properly styled EPUB output.
-> Re-install Scriveno or restore the file from the repository.
+> Reinstall Scriveno for the active runtime or restore the shared asset.
 
 Then **stop** -- do not attempt the build without the stylesheet.
 
 If `--fixed-layout` was passed (or auto-enabled):
 
-If `data/export-templates/scriveno-fixed-layout-epub.css` does not exist:
-> **Fixed-layout EPUB stylesheet is missing at `data/export-templates/scriveno-fixed-layout-epub.css`.**
-> Re-install Scriveno or restore the file from the repository.
+If `${EXPORT_TEMPLATE_DIR}/scriveno-fixed-layout-epub.css` does not exist:
+> **Fixed-layout EPUB stylesheet is missing at `{resolved stylesheet path}`.**
+> Reinstall Scriveno for the active runtime or restore the shared asset.
 
 Then **stop**.
 
-If `data/export-templates/scriveno-fixed-layout.opf` does not exist:
-> **Fixed-layout OPF stub is missing at `data/export-templates/scriveno-fixed-layout.opf`.**
-> Re-install Scriveno or restore the file from the repository.
+If `${EXPORT_TEMPLATE_DIR}/scriveno-fixed-layout.opf` does not exist:
+> **Fixed-layout OPF stub is missing at `{resolved OPF path}`.**
+> Reinstall Scriveno for the active runtime or restore the shared asset.
 
 Then **stop**.
 
@@ -326,8 +336,7 @@ Read `.manuscript/config.json` and `.manuscript/WORK.md` (if it exists) to gener
 ---
 title: "[title from config.json]"
 subtitle: "[subtitle if available]"
-author:
-  - name: "[author from config.json]"
+author: "[author from config.json]"
 lang: "[language from config.json, default en-US]"
 publisher-platform: "[selected platform label]"
 epub-variant: "[epub_variant from platform manifest]"
@@ -338,6 +347,8 @@ description: "[description if available]"
 ```
 
 Write to `.manuscript/output/metadata.yaml`.
+
+Use a scalar or list-of-strings `author` value for shared Pandoc metadata. Do not use the Typst-only map shape `author: [{name: ...}]`; it can produce broken EPUB metadata. The shipped Typst templates accept scalar authors and the older map shape for backward compatibility.
 
 ---
 
@@ -356,7 +367,7 @@ Before invoking Pandoc, verify:
 
 First, copy the OPF stub for reference:
 ```bash
-cp data/export-templates/scriveno-fixed-layout.opf .manuscript/output/fixed-layout.opf
+cp "$EXPORT_TEMPLATE_DIR/scriveno-fixed-layout.opf" .manuscript/output/fixed-layout.opf
 ```
 
 Invoke Pandoc with the fixed-layout stylesheet:
@@ -365,7 +376,7 @@ pandoc .manuscript/output/assembled-manuscript.md \
   -o .manuscript/output/ebook-fixed-layout.epub \
   --metadata-file=.manuscript/output/metadata.yaml \
   --epub-cover-image=.manuscript/build/ebook-cover.jpg \
-  --css=data/export-templates/scriveno-fixed-layout-epub.css \
+  --css="$EXPORT_TEMPLATE_DIR/scriveno-fixed-layout-epub.css" \
   --toc \
   --toc-depth=2 \
   --split-level=0
@@ -385,7 +396,7 @@ pandoc .manuscript/output/assembled-manuscript.md \
   -o .manuscript/output/ebook.epub \
   --metadata-file=.manuscript/output/metadata.yaml \
   --epub-cover-image=.manuscript/build/ebook-cover.jpg \
-  --css=data/export-templates/scriveno-epub.css \
+  --css="$EXPORT_TEMPLATE_DIR/scriveno-epub.css" \
   --toc \
   --toc-depth=2 \
   --split-level=1

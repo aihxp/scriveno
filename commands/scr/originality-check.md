@@ -154,11 +154,13 @@ The "Reads as human" and "Caveats" sections are forcing functions, not decoratio
 
 Surface concerns, don't block. All findings are advisory. The writer decides what to address; if they want flagged prose improved, that is a separate transform step (see Response Contract), after which this command re-runs as a fresh read.
 
-Save to `.manuscript/{scope}-ORIGINALITY-REPORT.md`
+Save to `.manuscript/reviews/{scope}-ORIGINALITY-REPORT.md`. Create `.manuscript/reviews/` if it does not exist. Treat legacy root-level `.manuscript/{scope}-ORIGINALITY-REPORT.md` files as readable prior evidence, but write new reports under `reviews/` so `/scr:prepublish-review` and `/scr:compliance-check` can find them.
 
 ## Response Contract
 
 When spans were flagged, the suggested path is the diagnose -> decide -> transform -> re-verify loop: this scan diagnosed, the writer decides what to act on, `/scr:line-edit` or `/scr:polish` does the rewriting, and re-running `/scr:originality-check` is a fresh re-verify. Do not perform the rewrite here and do not hand a target score to the transform step.
+
+When the scan comes back clean and the work is headed to a retail platform, suggest `/scr:compliance-check` as a next step: this report is the evidence trail for the platform duty that AI-assisted content must not infringe existing works.
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.
 

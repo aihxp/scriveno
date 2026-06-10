@@ -29,7 +29,7 @@ created: 2026-04-17
 
 - **After every task commit:** Run `node --test test/phase30-export-cleanup-validation-gate.test.js`
 - **After every plan wave:** Run `npm test`
-- **Before `/gsd-verify-work`:** Full suite must be green
+- **Before `final verification`:** Full suite must be green
 - **Max feedback latency:** 30 seconds
 
 ---

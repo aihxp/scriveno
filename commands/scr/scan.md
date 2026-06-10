@@ -32,7 +32,7 @@ Load `.manuscript/config.json`, `.manuscript/STATE.md`, `.manuscript/OUTLINE.md`
 
 Run every check. Do not stop on first finding. Bundle them all into one report.
 
-If `--deep` is passed, load `docs/subagent-spawning-protocol.md` and run the deep audit workers described after CHECK 18. Do not run deep workers before deterministic drift checks complete.
+If `--deep` is passed, load `docs/subagent-spawning-protocol.md` and run the deep audit workers described after CHECK 19. Do not run deep workers before deterministic drift checks complete.
 
 ---
 
@@ -283,9 +283,25 @@ Re-derive the map per `docs/world-layers-protocol.md`. If a route, parent-child 
 
 ---
 
+### CHECK 19: merge conflict markers
+
+Scan every text file under `.manuscript/` for unresolved merge conflict markers. A line starting with `<<<<<<<`, `=======`, or `>>>>>>>` is a DRIFT finding because it means a failed merge, revert, or manual conflict resolution leaked into project files.
+
+Report each match as:
+
+```
+DRIFT   Merge conflict marker in .manuscript/drafts/body/4-choice-DRAFT.md:88
+        Downstream commands must not read or save this as manuscript prose.
+        Fix: resolve the conflict manually, then run /scr:validate and /scr:scan again.
+```
+
+Do not auto-fix conflict markers. They require a writer or developer decision.
+
+---
+
 ### --deep MODE
 
-When `--deep` is passed, run read-only audit workers after CHECK 18:
+When `--deep` is passed, run read-only audit workers after CHECK 19:
 
 - continuity-auditor: compare drafts, plans, RECORD.md, and reviews for unresolved contradictions
 - place-geography-auditor: inspect PLACES.md, GEOGRAPHY.md, drafts, and plans for spatial drift

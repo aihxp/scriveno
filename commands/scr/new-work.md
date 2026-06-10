@@ -136,13 +136,15 @@ For technical work types, also keep the `technical` block and fill it with audie
 
 ## Voice DNA calibration
 
-After files are generated, tell the writer: "I've set up your project. Now let me calibrate your voice -- this makes every drafted scene sound like *you*, not generic AI prose." Then offer to run `/scr:voice-test`. Don't force it -- let them skip if they want.
+After files are generated, tell the writer: "I've set up your project. Now let's build your voice profile -- this makes every drafted unit sound like *you*, not generic AI prose." Then offer `/scr:profile-writer` as the next step. Do not send a new project straight to `/scr:voice-test`; that command only tests a populated STYLE-GUIDE.md and must not invent a voice from placeholders.
+
+If the writer already has a sample of their own work ready, offer `/scr:profile-writer --analyze <file>`. After profile-writer populates STYLE-GUIDE.md, the next voice step is `/scr:voice-test`.
 
 ## End state
 
 Tell the writer:
 1. What was created (file count, directory path)
-2. What's next -- usually `/scr:voice-test` or `/scr:discuss 1`, framed with the project's unit terminology
+2. What's next -- usually `/scr:profile-writer` first, then `/scr:voice-test` after the voice profile exists, or `/scr:discuss 1` if they intentionally want to shape the work before profiling
 3. That they can always run `/scr:next` if unsure
 
 Keep it warm. This is the moment they decide whether to commit to the project. Make them feel like they've started something real.

@@ -193,6 +193,8 @@ All visual prompts generated or referenced by this style bible follow the struct
 
 This format ensures prompts are copy-pasteable to any AI image generation tool (GPT Image, Stable Diffusion, Midjourney, etc.).
 
+The same structure doubles as the build brief for the agent-built vector path: when no image-generation tool is available, `/scr:cover-art` and `/scr:illustrate-scene` can render the design directly as original SVG or HTML/CSS and convert it to JPG/PNG with local CLI tools. When defining the art style, note whether it is vector-friendly (line art, flat color, geometric, typographic, iconographic) so that path stays open.
+
 ---
 
 ### Edge Cases

@@ -11,7 +11,17 @@ You are managing the demo sandbox -- a pre-built sample project that lets the wr
 
 ### If called without arguments
 
-Create a new demo project in `./scriveno-demo/.manuscript/` with a pre-built short story (~5 scenes, genre-neutral literary fiction) that showcases all the key features:
+Create a new demo project in `./scriveno-demo/.manuscript/` by copying the shipped watchmaker demo. Do not regenerate the demo prose from scratch.
+
+Resolve the source demo directory in this order:
+
+1. `.scriveno/data/demo/.manuscript/` in the current project
+2. `$HOME/.scriveno/data/demo/.manuscript/`
+3. `data/demo/.manuscript/` when running from the Scriveno source repository
+
+If no source exists, stop and tell the writer the demo assets are missing, then suggest reinstalling Scriveno with their runtime target. If `./scriveno-demo/` already exists, ask before replacing it because the writer may have edited the demo.
+
+Copy the source tree to `./scriveno-demo/.manuscript/`. Preserve the existing file contents exactly. After copying, verify these required files exist:
 
 - **WORK.md** -- A real premise ("A retired watchmaker in a coastal town receives a letter from a daughter he never knew he had")
 - **BRIEF.md** -- Filled in with real creative decisions
@@ -24,6 +34,8 @@ Create a new demo project in `./scriveno-demo/.manuscript/` with a pre-built sho
 - **4 drafted scenes** in `.manuscript/drafts/body/1-*-DRAFT.md` through `.manuscript/drafts/body/4-*-DRAFT.md`
 - **1 planned-but-not-drafted scene** at `.manuscript/plans/5-*-PLAN.md` so the writer can try `/scr:draft 5` and see the drafter in action
 - **Editor review** at `.manuscript/reviews/2-*-REVIEW.md` so the writer can try reviewing and revising
+
+If verification fails, stop with the missing file list and do not claim the demo was created.
 
 After generating, tell the writer:
 ```

@@ -246,7 +246,7 @@ describe('Phase 32: BUILD-03 --platform flag and required argument-hints', () =>
     const content = readFile(BUILD_EBOOK_PATH);
     assert.ok(content !== null, 'commands/scr/build-ebook.md could not be read');
     assert.ok(content.includes('### STEP 1.8: VALIDATE PLATFORM'), 'build-ebook.md must validate platform selection -- BUILD-03');
-    assert.ok(content.includes('Load `templates/platforms/{platform}/manifest.yaml`'), 'build-ebook.md must load the platform manifest -- BUILD-03');
+    assert.ok(content.includes('Load `${PLATFORM_TEMPLATE_DIR}/{platform}/manifest.yaml`'), 'build-ebook.md must load the resolved platform manifest -- BUILD-03');
     assert.ok(content.includes('formats_accepted'), 'build-ebook.md must check accepted formats -- BUILD-03');
     assert.ok(content.includes('epub_variant'), 'build-ebook.md must read epub_variant from the platform manifest -- BUILD-03');
   });

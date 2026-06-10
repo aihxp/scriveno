@@ -61,4 +61,4 @@ No gaps found. Phase 38 turned the v1.8 command-surface decisions into test-back
 ---
 
 _Verified: 2026-04-18T03:30:00Z_
-_Verifier: Codex (gsd-verifier)_
+_Verifier: Codex (verification reviewer)_

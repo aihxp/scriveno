@@ -178,5 +178,5 @@ Or add a clarifying note in the existing check:
 ---
 
 _Reviewed: 2026-04-17T16:18:54Z_
-_Reviewer: Claude (gsd-code-reviewer)_
+_Reviewer: Claude (code reviewer)_
 _Depth: standard_

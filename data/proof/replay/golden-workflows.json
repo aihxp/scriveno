@@ -18,7 +18,11 @@
         },
         {
           "path": ".manuscript/config.json",
-          "content": "{\"work_type\":\"novel\",\"command_unit\":\"chapter\"}\n"
+          "content": "{\"work_type\":\"novel\",\"command_unit\":\"chapter\",\"voice\":{\"calibrated\":true}}\n"
+        },
+        {
+          "path": ".manuscript/STYLE-GUIDE.md",
+          "content": "# Style Guide\nVoice baseline: precise, intimate, concrete, and restrained.\nSentence rhythm: mostly compact sentences with a few longer reflective turns.\nDiction: plain language, specific verbs, no generic filler.\nImagery: sensory details grounded in the current scene.\nPoint of view: close interior attention without explaining too much.\nDialogue: clipped when tense, warmer when trust is present.\nPacing: prioritize momentum and clear transitions.\nRevision bias: cut abstraction before cutting emotional truth.\n"
         },
         {
           "path": ".manuscript/plans/1-PLAN.md",
@@ -26,7 +30,7 @@
         }
       ],
       "expected": {
-        "command": "/scr:draft",
+        "command": "/scr:draft 1",
         "automation_mode": "agent-ready",
         "plan_state": "ready-to-draft"
       }
@@ -49,7 +53,11 @@
         },
         {
           "path": ".manuscript/config.json",
-          "content": "{\"work_type\":\"runbook\",\"command_unit\":\"procedure\"}\n"
+          "content": "{\"work_type\":\"runbook\",\"command_unit\":\"procedure\",\"voice\":{\"calibrated\":true}}\n"
+        },
+        {
+          "path": ".manuscript/STYLE-GUIDE.md",
+          "content": "# Style Guide\nVoice baseline: precise, calm, procedural, and accountable.\nSentence rhythm: short action lines with verification after each risk point.\nDiction: concrete operator language, no hand-waving.\nImagery: none unless it clarifies observable system state.\nPoint of view: second-person operational guidance with clear ownership.\nDialogue: absent unless recording an escalation handoff.\nPacing: precondition, action, validation, rollback.\nRevision bias: remove ambiguity before adding explanation.\n"
         },
         {
           "path": ".manuscript/plans/1-restore-service-PLAN.md",
@@ -62,7 +70,7 @@
         }
       ],
       "expected": {
-        "command": "/scr:editor-review",
+        "command": "/scr:editor-review 1",
         "automation_mode": "agent-ready",
         "review_state": "missing"
       }
@@ -85,7 +93,11 @@
         },
         {
           "path": ".manuscript/config.json",
-          "content": "{\"work_type\":\"novel\",\"command_unit\":\"chapter\"}\n"
+          "content": "{\"work_type\":\"novel\",\"command_unit\":\"chapter\",\"voice\":{\"calibrated\":true}}\n"
+        },
+        {
+          "path": ".manuscript/STYLE-GUIDE.md",
+          "content": "# Style Guide\nVoice baseline: precise, intimate, concrete, and restrained.\nSentence rhythm: mostly compact sentences with a few longer reflective turns.\nDiction: plain language, specific verbs, no generic filler.\nImagery: sensory details grounded in the current scene.\nPoint of view: close interior attention without explaining too much.\nDialogue: clipped when tense, warmer when trust is present.\nPacing: prioritize momentum and clear transitions.\nRevision bias: cut abstraction before cutting emotional truth.\n"
         },
         {
           "path": ".manuscript/plans/1-PLAN.md",

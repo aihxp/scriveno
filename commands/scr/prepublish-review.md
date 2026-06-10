@@ -41,7 +41,7 @@ Load:
 - `.manuscript/RECORD.md` if it exists
 - Drafted prose from `.manuscript/drafts/body/`
 - Review reports from `.manuscript/reviews/`
-- Voice, continuity, beta-reader, originality, sensitivity, line-edit, copy-edit, and polish reports when present
+- Voice, continuity, beta-reader, originality, sensitivity, line-edit, copy-edit, and polish reports when present, including legacy root-level originality or sensitivity reports from older projects
 - `.manuscript/front-matter/` and `.manuscript/back-matter/` inventories
 - `.manuscript/output/`, `.manuscript/build/`, and `.manuscript/marketing/` inventories for blurb, synopsis, query letter, cover assets, and prior exports
 
@@ -68,7 +68,7 @@ Review the whole manuscript at manuscript scale, not as isolated units:
 3. **Voice fidelity**: Compare the manuscript against STYLE-GUIDE.md. If STYLE-GUIDE.md is missing, warn that voice confidence is lower and suggest `/scr:profile-writer`.
 4. **Continuity and record**: Check contradictions against RECORD.md, prior reviews, PLACES.md, GEOGRAPHY.md, character or adapted cast surfaces, and relevant world/subject surfaces.
 5. **Line and copy readiness**: Look for repeated prose tics, typo clusters, punctuation problems, inconsistent names, and unresolved copy-edit findings.
-6. **Publication matter**: Inventory front matter, back matter, blurb, synopsis, query letter, cover handoff assets, and prior export files. Report missing matter as a publishing-readiness issue, not as work this command will generate.
+6. **Publication matter**: Inventory front matter, back matter, blurb, synopsis, query letter, cover handoff assets, and prior export files. Report missing matter as a publishing-readiness issue, not as work this command will generate. For retail destinations, also check whether `.manuscript/reviews/PLATFORM-COMPLIANCE.md` exists and is current; if not, report the platform-policy gate as unchecked and route it to `/scr:compliance-check` rather than running policy checks here.
 7. **Open reports**: Scan prior review and diagnostic reports for unresolved high-severity items.
 
 When issues are bounded by type, follow `docs/subagent-spawning-protocol.md` and spawn focused diagnostic workers only for the issue groups that need them:

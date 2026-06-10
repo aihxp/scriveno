@@ -139,4 +139,4 @@ The ROADMAP SC-2 and SC-3 wording was written before the 33-CONTEXT.md decisions
 ---
 
 _Verified: 2026-04-17T14:00:00Z_
-_Verifier: Claude (gsd-verifier)_
+_Verifier: Claude (verification reviewer)_

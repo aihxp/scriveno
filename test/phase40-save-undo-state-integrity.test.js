@@ -66,7 +66,7 @@ describe('Phase 40: save / undo state integrity', () => {
 
     assert.match(
       undo,
-      /git revert \{target hash\} --no-commit[\s\S]*?Update STATE\.md[\s\S]*?git add \.manuscript\/[\s\S]*?git commit -m "Undid save: \{writer-friendly description\}"/,
+      /git revert \{target hash\} --no-commit[\s\S]*?Update STATE\.md[\s\S]*?git add \.manuscript\/[\s\S]*?git commit -m "Undid save \{target hash\}: \{writer-friendly description\}"/,
       'undo.md should create one final undo commit that includes the revert and the state update'
     );
   });

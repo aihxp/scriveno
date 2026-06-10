@@ -56,7 +56,7 @@ Scriveno is a spec-driven writing, publishing, and translation pipeline that run
 | **IngramSpark** | PDF/X-1a (CMYK, bleeds, full-wrap cover) | Pandoc + Typst for interior; cover requires separate full-wrap PDF. CMYK conversion via ImageMagick or Ghostscript. | MEDIUM |
 | **Submission/Query** | DOCX (standard manuscript format) | Pandoc with manuscript reference doc | HIGH |
 ## Illustration Generation (AI Image APIs)
-**Shipped today:** Scriveno does not call an image API. The illustration commands (`commands/scr/cover-art.md`, `commands/scr/illustrate-scene.md`) generate copy-paste prompts that the writer pastes into an external image tool. The engines below are recommended targets for a future automated path, not current behavior.
+**Shipped today:** Scriveno does not call an image API. The illustration commands (`commands/scr/cover-art.md`, `commands/scr/illustrate-scene.md`) generate copy-paste prompts that the writer pastes into an external image tool. When no image-generation tool is available, the same commands can build the art directly as original SVG or HTML/CSS and convert it to JPG/PNG/PDF with local CLI tools (`rsvg-convert`, Inkscape, ImageMagick, headless Chrome); agent-built art counts as AI-generated imagery for platform disclosure (`/scr:compliance-check`). The engines below are recommended targets for a future automated path, not current behavior.
 
 | Technology | Purpose | Why | Confidence |
 |------------|---------|-----|------------|

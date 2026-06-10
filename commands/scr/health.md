@@ -65,6 +65,11 @@ Read `scriveno_version` from `.manuscript/config.json` and compare it to the `ve
 
 Status: GREEN if equal; YELLOW if the project version is older than the runtime (the project predates surfaces added since then and can be upgraded); note it if newer than the runtime (unusual). When older, report: "Project created with Scriveno {project_version}; runtime is {current_version}. Run `/scr:health --repair` to add the surfaces and template sections introduced since then. No authored content is touched." Also restate which context surfaces apply to this work type per `surface_applicability` so the writer sees the current decision tree.
 
+### 8. Merge conflict marker check
+Scan text files under `.manuscript/` for lines starting with `<<<<<<<`, `=======`, or `>>>>>>>`.
+
+Status: RED if any marker is found. Report each file and line number, and say: "Resolve these before saving, exporting, or publishing. Run `/scr:validate` and `/scr:scan` again after cleanup." Do not auto-repair conflict markers in health mode.
+
 ## Output format
 
 ```
@@ -77,6 +82,7 @@ Project Health Report
 [YELLOW] Orphaned drafts ........... 2 found (chapter-99.md, notes-old.md)
 [GREEN]  Git state ................. Clean, on branch main
 [GREEN]  Constraints integrity ..... All commands resolved
+[GREEN]  Conflict markers .......... None found
 
 Overall: HEALTHY (2 warnings)
 ```

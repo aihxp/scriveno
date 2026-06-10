@@ -144,5 +144,5 @@ These are actually identical - no inconsistency here. However, examining the act
 ---
 
 _Reviewed: 2026-04-17_
-_Reviewer: Claude (gsd-code-reviewer)_
+_Reviewer: Claude (code reviewer)_
 _Depth: standard_

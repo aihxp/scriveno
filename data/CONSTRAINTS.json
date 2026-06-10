@@ -12,7 +12,8 @@
       "demo",
       "import",
       "profile-writer",
-      "manager"
+      "manager",
+      "series-bible"
     ],
     "draft": [
       "next",
@@ -21,7 +22,10 @@
       "climax",
       "draft",
       "quick-write",
-      "voice-test"
+      "voice-test",
+      "autopilot",
+      "fast",
+      "plant-seed"
     ],
     "revise": [
       "editor-review",
@@ -30,7 +34,12 @@
       "line-edit",
       "copy-edit",
       "polish",
-      "beta-reader"
+      "beta-reader",
+      "dialogue-audit",
+      "pacing-analysis",
+      "originality-check",
+      "sensitivity-review",
+      "proof-unit"
     ],
     "world": [
       "build-world",
@@ -41,7 +50,13 @@
       "geography-map",
       "relationship-map",
       "cast-list",
-      "research"
+      "research",
+      "character-arc",
+      "character-sheet",
+      "character-touch",
+      "character-voice-sample",
+      "subject-touch",
+      "series-bible"
     ],
     "navigate": [
       "first-run",
@@ -57,7 +72,13 @@
       "subplot-map",
       "theme-tracker",
       "pause-work",
-      "resume-work"
+      "resume-work",
+      "do",
+      "fast",
+      "add-note",
+      "new-revision",
+      "proof-unit",
+      "thread"
     ],
     "publish": [
       "complete-draft",
@@ -68,6 +89,7 @@
       "synopsis",
       "query-letter",
       "prepublish-review",
+      "compliance-check",
       "publish",
       "export",
       "build-ebook",
@@ -89,7 +111,9 @@
       "compare",
       "history",
       "versions",
-      "save"
+      "save",
+      "new-revision",
+      "thread"
     ],
     "repair": [
       "scan",
@@ -150,7 +174,11 @@
         "pause-work",
         "resume-work",
         "progress",
-        "undo"
+        "undo",
+        "add-note",
+        "new-revision",
+        "plant-seed",
+        "thread"
       ]
     },
     "sacred": {
@@ -196,6 +224,7 @@
         "blurb",
         "cover-art",
         "prepublish-review",
+        "compliance-check",
         "build-ebook",
         "build-print",
         "build-smashwords",
@@ -216,7 +245,13 @@
         "geography-map",
         "relationship-map",
         "cast-list",
-        "research"
+        "research",
+        "character-arc",
+        "character-sheet",
+        "character-touch",
+        "character-voice-sample",
+        "subject-touch",
+        "series-bible"
       ]
     },
     "collaboration": {
@@ -242,6 +277,39 @@
         "next",
         "first-run",
         "settings"
+      ]
+    },
+    "review": {
+      "label": "Review",
+      "hub": "editor-review",
+      "description": "Use /scr:editor-review as the review hub, then branch to voice, continuity, sensitivity, originality, pacing, dialogue, proof, and polish checks.",
+      "commands": [
+        "editor-review",
+        "voice-check",
+        "continuity-check",
+        "sensitivity-review",
+        "originality-check",
+        "pacing-analysis",
+        "dialogue-audit",
+        "line-edit",
+        "copy-edit",
+        "polish",
+        "beta-reader",
+        "proof-unit"
+      ]
+    },
+    "automation": {
+      "label": "Automation",
+      "hub": "do",
+      "description": "Use /scr:do for natural-language routing, then branch to fast edits, autopilot, proof, or next-step automation.",
+      "commands": [
+        "do",
+        "fast",
+        "autopilot",
+        "autopilot-publish",
+        "autopilot-translate",
+        "proof-unit",
+        "next"
       ]
     }
   },
@@ -1977,12 +2045,23 @@
       "available": [
         "all"
       ],
-      "description": "Voice calibration before first draft"
+      "description": "Voice calibration before first draft using a work-type-aware sample"
     },
     "new-people": {
       "category": "character_world",
-      "available": ["prose", "script", "visual", "interactive", "sacred"],
-      "hidden": ["academic", "technical", "poetry", "speech_song"],
+      "available": [
+        "prose",
+        "script",
+        "visual",
+        "interactive",
+        "sacred"
+      ],
+      "hidden": [
+        "academic",
+        "technical",
+        "poetry",
+        "speech_song"
+      ],
       "description": "Build a people (race, faction, culture, nation) as a collective entity, the tier above individual characters"
     },
     "new-character": {
@@ -2009,7 +2088,8 @@
       ],
       "requires": [
         "WORK.md"
-      ]
+      ],
+      "description": "Build a complete character profile through guided interactive interview."
     },
     "character-sheet": {
       "category": "character_world",
@@ -2033,7 +2113,8 @@
       ],
       "requires": [
         "CHARACTERS.md"
-      ]
+      ],
+      "description": "Display or edit a specific character's full profile."
     },
     "character-touch": {
       "category": "character_world",
@@ -2057,7 +2138,8 @@
       "requires": [
         "CHARACTERS.md",
         "draft_exists"
-      ]
+      ],
+      "description": "Update a character's evolving state (emotional position, knowledge, possessions, relationships) after a unit lands."
     },
     "relationship-map": {
       "category": "character_world",
@@ -2082,7 +2164,8 @@
         {
           "min_characters": 2
         }
-      ]
+      ],
+      "description": "Generate an ASCII relationship graph between cast entries."
     },
     "build-world": {
       "category": "character_world",
@@ -2105,7 +2188,8 @@
         "academic",
         "poetry",
         "speech_song"
-      ]
+      ],
+      "description": "Generate or refine the world document through progressive questioning."
     },
     "new-place": {
       "category": "character_world",
@@ -2184,7 +2268,8 @@
         "academic",
         "poetry",
         "speech_song"
-      ]
+      ],
+      "description": "Display the roster of all cast entries with roles and brief descriptions."
     },
     "character-arc": {
       "category": "character_world",
@@ -2203,7 +2288,8 @@
         "academic",
         "poetry",
         "speech_song"
-      ]
+      ],
+      "description": "Visualize a character's emotional and growth arc across the story."
     },
     "character-voice-sample": {
       "category": "character_world",
@@ -2222,13 +2308,27 @@
         "academic",
         "poetry",
         "speech_song"
-      ]
+      ],
+      "description": "Generate a dialogue sample to preview a character's voice before drafting."
     },
     "climax": {
       "category": "structure",
-      "available": ["prose", "script", "visual", "interactive", "sacred"],
-      "hidden": ["poetry", "speech_song", "academic", "technical"],
-      "requires": ["OUTLINE.md"],
+      "available": [
+        "prose",
+        "script",
+        "visual",
+        "interactive",
+        "sacred"
+      ],
+      "hidden": [
+        "poetry",
+        "speech_song",
+        "academic",
+        "technical"
+      ],
+      "requires": [
+        "OUTLINE.md"
+      ],
       "description": "Generate and pressure-test the story's climax where the central conflict, the crisis, character arcs, and planted payoffs converge"
     },
     "plot-graph": {
@@ -2257,7 +2357,8 @@
       ],
       "requires": [
         "OUTLINE.md"
-      ]
+      ],
+      "description": "Visualize and manage the narrative arc structure of the story."
     },
     "timeline": {
       "category": "structure",
@@ -2276,7 +2377,8 @@
       "hidden": [
         "poetry",
         "speech_song"
-      ]
+      ],
+      "description": "Generate a chronological event timeline from the outline."
     },
     "theme-tracker": {
       "category": "structure",
@@ -2297,7 +2399,8 @@
       },
       "hidden": [
         "speech_song"
-      ]
+      ],
+      "description": "Track thematic threads across the work with auto-detection suggestions."
     },
     "subject-touch": {
       "category": "structure",
@@ -2338,7 +2441,8 @@
         "visual",
         "poetry",
         "speech_song"
-      ]
+      ],
+      "description": "Visualize subplot threads and their intersections across the work."
     },
     "outline": {
       "category": "structure",
@@ -2358,7 +2462,8 @@
       ],
       "requires": [
         "OUTLINE.md"
-      ]
+      ],
+      "description": "Display or edit the structural outline of the work."
     },
     "add-unit": {
       "category": "structure_management",
@@ -2378,7 +2483,8 @@
       ],
       "requires": [
         "OUTLINE.md"
-      ]
+      ],
+      "description": "Add a new unit to the end of the outline."
     },
     "insert-unit": {
       "category": "structure_management",
@@ -2398,7 +2504,8 @@
       ],
       "requires": [
         "OUTLINE.md"
-      ]
+      ],
+      "description": "Insert a new unit at a specific position in the outline."
     },
     "remove-unit": {
       "category": "structure_management",
@@ -2418,7 +2525,8 @@
       ],
       "requires": [
         "OUTLINE.md"
-      ]
+      ],
+      "description": "Remove a unit from the outline with draft safety checks."
     },
     "split-unit": {
       "category": "structure_management",
@@ -2438,7 +2546,8 @@
       ],
       "requires": [
         "OUTLINE.md"
-      ]
+      ],
+      "description": "Split one unit into two at a specified point."
     },
     "merge-units": {
       "category": "structure_management",
@@ -2458,7 +2567,8 @@
       ],
       "requires": [
         "OUTLINE.md"
-      ]
+      ],
+      "description": "Merge two adjacent units into one."
     },
     "reorder-units": {
       "category": "structure_management",
@@ -2478,7 +2588,8 @@
       ],
       "requires": [
         "OUTLINE.md"
-      ]
+      ],
+      "description": "Reorder units in the outline by moving a unit to a new position."
     },
     "continuity-check": {
       "category": "review",
@@ -2506,7 +2617,8 @@
       ],
       "requires": [
         "draft_exists"
-      ]
+      ],
+      "description": "Automated continuity verification to scan for narrative contradictions across the manuscript."
     },
     "voice-check": {
       "category": "review",
@@ -2521,7 +2633,8 @@
       "requires": [
         "draft_exists",
         "STYLE-GUIDE.md"
-      ]
+      ],
+      "description": "Compare drafted prose against STYLE-GUIDE.md to detect voice drift."
     },
     "sensitivity-review": {
       "category": "review",
@@ -2538,7 +2651,8 @@
       },
       "requires": [
         "draft_exists"
-      ]
+      ],
+      "description": "Flag potential sensitivity issues with context, suggest alternatives, and note intentional craft."
     },
     "pacing-analysis": {
       "category": "review",
@@ -2556,7 +2670,8 @@
       ],
       "requires": [
         "draft_exists"
-      ]
+      ],
+      "description": "Generate a structure-aware pacing report analyzing scene tempo and narrative flow."
     },
     "dialogue-audit": {
       "category": "review",
@@ -2578,7 +2693,8 @@
       ],
       "requires": [
         "draft_exists"
-      ]
+      ],
+      "description": "Audit dialogue for character voice differentiation, attribution clarity, and talking-head detection."
     },
     "beta-reader": {
       "category": "review",
@@ -2608,7 +2724,8 @@
       ],
       "requires": [
         "draft_exists"
-      ]
+      ],
+      "description": "Scan drafted prose for AI-generated patterns and unintentional similarity to published works."
     },
     "line-edit": {
       "category": "quality",
@@ -2617,7 +2734,8 @@
       ],
       "requires": [
         "draft_exists"
-      ]
+      ],
+      "description": "Perform a line-level prose quality pass with inline annotations."
     },
     "copy-edit": {
       "category": "quality",
@@ -2626,7 +2744,8 @@
       ],
       "requires": [
         "draft_exists"
-      ]
+      ],
+      "description": "Perform a correctness pass for grammar, spelling, punctuation, and consistency."
     },
     "polish": {
       "category": "quality",
@@ -2636,13 +2755,15 @@
       "requires": [
         "draft_exists",
         "STYLE-GUIDE.md"
-      ]
+      ],
+      "description": "Chain line-edit, copy-edit, and voice-check for comprehensive prose polish."
     },
     "quick-write": {
       "category": "quality",
       "available": [
         "all"
-      ]
+      ],
+      "description": "Write a scene, passage, or chapter outside the full planning workflow."
     },
     "cover-art": {
       "category": "illustration",
@@ -2660,7 +2781,8 @@
       ],
       "requires": [
         "WORK.md"
-      ]
+      ],
+      "description": "Generate structured cover art prompts and delivery briefs for ebook, paperback, and hardcover covers."
     },
     "illustrate-scene": {
       "category": "illustration",
@@ -2679,7 +2801,8 @@
       "requires": [
         "ART-DIRECTION.md",
         "draft_exists"
-      ]
+      ],
+      "description": "Generate a scene-specific illustration prompt with character visuals, setting, and mood."
     },
     "character-ref": {
       "category": "illustration",
@@ -2698,7 +2821,8 @@
         "academic",
         "poetry",
         "speech_song"
-      ]
+      ],
+      "description": "Generate a character visual reference sheet prompt for illustration consistency."
     },
     "art-direction": {
       "category": "illustration",
@@ -2713,7 +2837,8 @@
         "academic",
         "poetry",
         "speech_song"
-      ]
+      ],
+      "description": "Generate or refine the visual style bible for illustrations and cover art."
     },
     "chapter-header": {
       "category": "illustration",
@@ -2728,7 +2853,8 @@
         "poetry",
         "interactive",
         "speech_song"
-      ]
+      ],
+      "description": "Generate decorative chapter header/ornament design prompts."
     },
     "map-illustration": {
       "category": "illustration",
@@ -2746,7 +2872,8 @@
       ],
       "requires": [
         "WORLD.md"
-      ]
+      ],
+      "description": "Generate world or regional map illustration prompts from WORLD.md geographic content."
     },
     "spread-layout": {
       "category": "illustration",
@@ -2761,7 +2888,8 @@
         "interactive",
         "speech_song",
         "sacred"
-      ]
+      ],
+      "description": "Generate children's book page spread layouts with text and illustration zones."
     },
     "panel-layout": {
       "category": "illustration",
@@ -2777,7 +2905,8 @@
         "interactive",
         "speech_song",
         "sacred"
-      ]
+      ],
+      "description": "Generate comic panel layouts with composition notes and balloon placement."
     },
     "storyboard": {
       "category": "illustration",
@@ -2792,7 +2921,8 @@
         "interactive",
         "speech_song",
         "sacred"
-      ]
+      ],
+      "description": "Generate storyboard frames for script and visual work types with camera direction."
     },
     "front-matter": {
       "category": "publishing",
@@ -2818,7 +2948,8 @@
       ],
       "requires": [
         "complete-draft"
-      ]
+      ],
+      "description": "Generate publication-ready front matter elements in Chicago Manual of Style order."
     },
     "back-matter": {
       "category": "publishing",
@@ -2844,7 +2975,8 @@
       ],
       "requires": [
         "complete-draft"
-      ]
+      ],
+      "description": "Generate publication-ready back matter elements."
     },
     "blurb": {
       "category": "publishing",
@@ -2862,7 +2994,8 @@
       ],
       "requires": [
         "complete-draft"
-      ]
+      ],
+      "description": "Generate marketing blurb in three variations for back cover and retailer listings."
     },
     "synopsis": {
       "category": "publishing",
@@ -2880,7 +3013,8 @@
       ],
       "requires": [
         "complete-draft"
-      ]
+      ],
+      "description": "Generate plot synopsis at specified length for query and submission packages."
     },
     "query-letter": {
       "category": "publishing",
@@ -2899,7 +3033,8 @@
       "requires": [
         "blurb",
         "synopsis"
-      ]
+      ],
+      "description": "Generate agent query letter adapted to genre conventions."
     },
     "book-proposal": {
       "category": "publishing",
@@ -2918,7 +3053,8 @@
       ],
       "requires": [
         "synopsis"
-      ]
+      ],
+      "description": "Generate nonfiction book proposal for agent or publisher submission."
     },
     "discussion-questions": {
       "category": "publishing",
@@ -2940,7 +3076,8 @@
       ],
       "requires": [
         "complete-draft"
-      ]
+      ],
+      "description": "Generate reading group discussion questions exploring themes, characters, and craft."
     },
     "prepublish-review": {
       "category": "publishing",
@@ -2952,12 +3089,22 @@
         "complete-draft"
       ]
     },
+    "compliance-check": {
+      "category": "publishing",
+      "available": [
+        "all"
+      ],
+      "description": "Check platform policies, copyright diligence, and AI-disclosure duties before upload",
+      "requires": [
+        "complete-draft"
+      ]
+    },
     "publish": {
       "category": "publishing",
       "available": [
         "all"
       ],
-      "description": "Publishing wizard or preset-driven pipeline (wraps export commands)"
+      "description": "Publishing wizard or preset-driven pipeline. Chains export commands based on destination and enforces final compliance gates for retail, print, and distributor packages."
     },
     "export": {
       "category": "publishing",
@@ -3109,7 +3256,8 @@
       ],
       "requires": [
         "draft_exists"
-      ]
+      ],
+      "description": "Build or search a concordance of key terms, names, and phrases across the sacred text. Essential for cross-referencing and intertextual study."
     },
     "sacred:cross-reference": {
       "category": "sacred_exclusive",
@@ -3127,7 +3275,8 @@
       ],
       "requires": [
         "draft_exists"
-      ]
+      ],
+      "description": "Map connections between passages -- parallel accounts, prophetic fulfillments, intertextual echoes, typological links."
     },
     "sacred:genealogy": {
       "category": "sacred_exclusive",
@@ -3148,7 +3297,8 @@
         {
           "min_figures": 2
         }
-      ]
+      ],
+      "description": "Build and verify genealogical trees and lineages for figures in the text. Catches contradictions across chapters."
     },
     "sacred:chronology": {
       "category": "sacred_exclusive",
@@ -3163,7 +3313,8 @@
         "poetry",
         "interactive",
         "speech_song"
-      ]
+      ],
+      "description": "Timeline management with era-appropriate dating systems. Handles overlapping calendars and disputed dates."
     },
     "sacred:annotation-layer": {
       "category": "sacred_exclusive",
@@ -3181,7 +3332,8 @@
       ],
       "requires": [
         "draft_exists"
-      ]
+      ],
+      "description": "Add or manage a commentary/exegetical layer alongside the primary sacred text. Support multiple annotation traditions simultaneously."
     },
     "sacred:verse-numbering": {
       "category": "sacred_exclusive",
@@ -3199,7 +3351,8 @@
       ],
       "requires": [
         "draft_exists"
-      ]
+      ],
+      "description": "Manage verse/ayah/pasuk numbering systems. Handles differences between traditions (Masoretic vs. Septuagint numbering, Hafs vs. Warsh Quranic numbering, etc.)"
     },
     "sacred-numbering-format": {
       "category": "sacred_exclusive",
@@ -3217,7 +3370,8 @@
       ],
       "requires": [
         "config.tradition"
-      ]
+      ],
+      "description": "Show verse numbering format for the active sacred tradition."
     },
     "sacred:source-tracking": {
       "category": "sacred_exclusive",
@@ -3232,7 +3386,8 @@
         "poetry",
         "interactive",
         "speech_song"
-      ]
+      ],
+      "description": "Track primary sources, oral traditions, manuscript variants, and source attributions. For historical and critical editions."
     },
     "sacred:doctrinal-check": {
       "category": "sacred_exclusive",
@@ -3251,7 +3406,8 @@
       "requires": [
         "draft_exists",
         "DOCTRINES.md"
-      ]
+      ],
+      "description": "Verify internal theological and doctrinal consistency across the text. Flag contradictions in doctrine, moral teaching, or cosmological claims."
     },
     "manager": {
       "category": "utility",
@@ -3365,61 +3521,71 @@
       "category": "utility",
       "available": [
         "all"
-      ]
+      ],
+      "description": "View or modify project settings."
     },
     "profile-writer": {
       "category": "utility",
       "available": [
         "all"
-      ]
+      ],
+      "description": "Build or refine the writer's Voice DNA profile through questionnaire, sample analysis, or reference authors."
     },
     "save": {
       "category": "session",
       "available": [
         "all"
-      ]
+      ],
+      "description": "Save your current work. Auto-generates a descriptive save message from context."
     },
     "history": {
       "category": "session",
       "available": [
         "all"
-      ]
+      ],
+      "description": "See the timeline of your saves. Shows when you saved and what you were working on."
     },
     "compare": {
       "category": "session",
       "available": [
         "all"
-      ]
+      ],
+      "description": "Compare your current work with a previous save. Shows changes in plain prose, not code diff."
     },
     "versions": {
       "category": "session",
       "available": [
         "all"
-      ]
+      ],
+      "description": "List your draft versions with readable labels."
     },
     "undo": {
       "category": "session",
       "available": [
         "all"
-      ]
+      ],
+      "description": "Undo your last save and go back to the previous version."
     },
     "pause-work": {
       "category": "session",
       "available": [
         "all"
-      ]
+      ],
+      "description": "Pause your work session. Captures where you are and what you were thinking so you can pick up later."
     },
     "resume-work": {
       "category": "session",
       "available": [
         "all"
-      ]
+      ],
+      "description": "Pick up where you left off. Reads your last session and tells you what's next."
     },
     "session-report": {
       "category": "session",
       "available": [
         "all"
-      ]
+      ],
+      "description": "See what you accomplished this session. Shows units drafted, words written, and time spent."
     },
     "track": {
       "category": "collaboration",
@@ -3451,31 +3617,36 @@
       "category": "navigation",
       "available": [
         "all"
-      ]
+      ],
+      "description": "Show manuscript word count, chapter count, estimated page count, and reading time."
     },
     "complete-draft": {
       "category": "core",
       "available": [
         "all"
-      ]
+      ],
+      "description": "Mark the entire manuscript draft as complete."
     },
     "new-revision": {
       "category": "core",
       "available": [
         "all"
-      ]
+      ],
+      "description": "Start a new revision of the manuscript. Archives the current draft and begins a fresh pass."
     },
     "autopilot": {
       "category": "core",
       "available": [
         "all"
-      ]
+      ],
+      "description": "Run the full drafting pipeline autonomously. Choose guided, supervised, or full-auto profiles."
     },
     "series-bible": {
       "category": "core",
       "available": [
         "all"
-      ]
+      ],
+      "description": "Create, view, or check the series bible -- a persistent cross-book knowledge base for multi-volume works (novel series, TV seasons, comic runs, sequel trilogies, multi-book commentaries)."
     }
   },
   "exports": {
@@ -3823,6 +3994,9 @@
       "prepublish-review": [
         "complete-draft"
       ],
+      "compliance-check": [
+        "complete-draft"
+      ],
       "export": [
         "complete-draft"
       ],
@@ -4168,23 +4342,193 @@
   "surface_applicability": {
     "_description": "Decision tree for the variable .manuscript context surfaces (BRIEF, CHARACTERS, RELATIONSHIPS, WORLD, PLOT-GRAPH, THEMES, PEOPLES). Canonical names map to adapted filenames via file_adaptations. Universal files (WORK, OUTLINE, RECORD, STATE, PROGRESS, STYLE-GUIDE, WRITING-RULES) are always created and are not governed here. /scr:new-work creates every surface marked required or optional and skips not_applicable; /scr:help surfaces which apply. by_group is the default per work-type group; work_type_overrides is a partial patch over the group default for a specific type (a surface named in an override moves to that tier and is removed from the others).",
     "by_group": {
-      "prose": { "required": ["BRIEF.md", "CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md", "THEMES.md"], "optional": ["RELATIONSHIPS.md", "PEOPLES.md"], "not_applicable": [] },
-      "script": { "required": ["BRIEF.md", "CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md", "THEMES.md"], "optional": ["RELATIONSHIPS.md", "PEOPLES.md"], "not_applicable": [] },
-      "academic": { "required": ["BRIEF.md", "CHARACTERS.md", "THEMES.md"], "optional": ["WORLD.md", "PLOT-GRAPH.md"], "not_applicable": ["RELATIONSHIPS.md", "PEOPLES.md"] },
-      "technical": { "required": ["BRIEF.md", "CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md", "THEMES.md"], "optional": ["RELATIONSHIPS.md"], "not_applicable": ["PEOPLES.md"] },
-      "visual": { "required": ["BRIEF.md", "CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md", "THEMES.md"], "optional": ["RELATIONSHIPS.md", "PEOPLES.md"], "not_applicable": [] },
-      "poetry": { "required": ["BRIEF.md", "THEMES.md"], "optional": [], "not_applicable": ["CHARACTERS.md", "RELATIONSHIPS.md", "WORLD.md", "PLOT-GRAPH.md", "PEOPLES.md"] },
-      "interactive": { "required": ["BRIEF.md", "CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md", "THEMES.md"], "optional": ["RELATIONSHIPS.md", "PEOPLES.md"], "not_applicable": [] },
-      "speech_song": { "required": ["BRIEF.md", "THEMES.md"], "optional": [], "not_applicable": ["CHARACTERS.md", "RELATIONSHIPS.md", "WORLD.md", "PLOT-GRAPH.md", "PEOPLES.md"] },
-      "sacred": { "required": ["BRIEF.md", "CHARACTERS.md", "WORLD.md", "PLOT-GRAPH.md", "THEMES.md"], "optional": ["RELATIONSHIPS.md", "PEOPLES.md"], "not_applicable": [] }
+      "prose": {
+        "required": [
+          "BRIEF.md",
+          "CHARACTERS.md",
+          "WORLD.md",
+          "PLOT-GRAPH.md",
+          "THEMES.md"
+        ],
+        "optional": [
+          "RELATIONSHIPS.md",
+          "PEOPLES.md"
+        ],
+        "not_applicable": []
+      },
+      "script": {
+        "required": [
+          "BRIEF.md",
+          "CHARACTERS.md",
+          "WORLD.md",
+          "PLOT-GRAPH.md",
+          "THEMES.md"
+        ],
+        "optional": [
+          "RELATIONSHIPS.md",
+          "PEOPLES.md"
+        ],
+        "not_applicable": []
+      },
+      "academic": {
+        "required": [
+          "BRIEF.md",
+          "CHARACTERS.md",
+          "THEMES.md"
+        ],
+        "optional": [
+          "WORLD.md",
+          "PLOT-GRAPH.md"
+        ],
+        "not_applicable": [
+          "RELATIONSHIPS.md",
+          "PEOPLES.md"
+        ]
+      },
+      "technical": {
+        "required": [
+          "BRIEF.md",
+          "CHARACTERS.md",
+          "WORLD.md",
+          "PLOT-GRAPH.md",
+          "THEMES.md"
+        ],
+        "optional": [
+          "RELATIONSHIPS.md"
+        ],
+        "not_applicable": [
+          "PEOPLES.md"
+        ]
+      },
+      "visual": {
+        "required": [
+          "BRIEF.md",
+          "CHARACTERS.md",
+          "WORLD.md",
+          "PLOT-GRAPH.md",
+          "THEMES.md"
+        ],
+        "optional": [
+          "RELATIONSHIPS.md",
+          "PEOPLES.md"
+        ],
+        "not_applicable": []
+      },
+      "poetry": {
+        "required": [
+          "BRIEF.md",
+          "THEMES.md"
+        ],
+        "optional": [],
+        "not_applicable": [
+          "CHARACTERS.md",
+          "RELATIONSHIPS.md",
+          "WORLD.md",
+          "PLOT-GRAPH.md",
+          "PEOPLES.md"
+        ]
+      },
+      "interactive": {
+        "required": [
+          "BRIEF.md",
+          "CHARACTERS.md",
+          "WORLD.md",
+          "PLOT-GRAPH.md",
+          "THEMES.md"
+        ],
+        "optional": [
+          "RELATIONSHIPS.md",
+          "PEOPLES.md"
+        ],
+        "not_applicable": []
+      },
+      "speech_song": {
+        "required": [
+          "BRIEF.md",
+          "THEMES.md"
+        ],
+        "optional": [],
+        "not_applicable": [
+          "CHARACTERS.md",
+          "RELATIONSHIPS.md",
+          "WORLD.md",
+          "PLOT-GRAPH.md",
+          "PEOPLES.md"
+        ]
+      },
+      "sacred": {
+        "required": [
+          "BRIEF.md",
+          "CHARACTERS.md",
+          "WORLD.md",
+          "PLOT-GRAPH.md",
+          "THEMES.md"
+        ],
+        "optional": [
+          "RELATIONSHIPS.md",
+          "PEOPLES.md"
+        ],
+        "not_applicable": []
+      }
     },
     "work_type_overrides": {
-      "essay": { "optional": ["CHARACTERS.md", "PLOT-GRAPH.md"], "not_applicable": ["WORLD.md", "PEOPLES.md"] },
-      "essay_collection": { "optional": ["CHARACTERS.md", "PLOT-GRAPH.md"], "not_applicable": ["WORLD.md", "PEOPLES.md"] },
-      "journal_article": { "optional": ["CHARACTERS.md", "PLOT-GRAPH.md"], "not_applicable": ["WORLD.md"] },
-      "white_paper": { "optional": ["CHARACTERS.md", "PLOT-GRAPH.md"], "not_applicable": ["WORLD.md"] },
-      "memoir": { "optional": ["WORLD.md"] },
-      "single_poem": { "required": ["BRIEF.md"], "optional": ["THEMES.md"], "not_applicable": ["CHARACTERS.md", "RELATIONSHIPS.md", "WORLD.md", "PLOT-GRAPH.md"] }
+      "essay": {
+        "optional": [
+          "CHARACTERS.md",
+          "PLOT-GRAPH.md"
+        ],
+        "not_applicable": [
+          "WORLD.md",
+          "PEOPLES.md"
+        ]
+      },
+      "essay_collection": {
+        "optional": [
+          "CHARACTERS.md",
+          "PLOT-GRAPH.md"
+        ],
+        "not_applicable": [
+          "WORLD.md",
+          "PEOPLES.md"
+        ]
+      },
+      "journal_article": {
+        "optional": [
+          "CHARACTERS.md",
+          "PLOT-GRAPH.md"
+        ],
+        "not_applicable": [
+          "WORLD.md"
+        ]
+      },
+      "white_paper": {
+        "optional": [
+          "CHARACTERS.md",
+          "PLOT-GRAPH.md"
+        ],
+        "not_applicable": [
+          "WORLD.md"
+        ]
+      },
+      "memoir": {
+        "optional": [
+          "WORLD.md"
+        ]
+      },
+      "single_poem": {
+        "required": [
+          "BRIEF.md"
+        ],
+        "optional": [
+          "THEMES.md"
+        ],
+        "not_applicable": [
+          "CHARACTERS.md",
+          "RELATIONSHIPS.md",
+          "WORLD.md",
+          "PLOT-GRAPH.md"
+        ]
+      }
     }
   },
   "architectural_profiles": {

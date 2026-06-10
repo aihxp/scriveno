@@ -1,5 +1,5 @@
 ---
-description: "Publishing wizard or preset-driven pipeline. Chains export commands based on destination."
+description: "Publishing wizard or preset-driven pipeline. Chains export commands based on destination and enforces final compliance gates for retail, print, and distributor packages."
 argument-hint: "[--preset <preset>] [--all] [--skip-validate] [--preflight]"
 ---
 
@@ -7,7 +7,7 @@ argument-hint: "[--preset <preset>] [--all] [--skip-validate] [--preflight]"
 
 You are the publishing wizard. Your job is to turn a completed manuscript into publication-ready deliverables by chaining the right commands based on the writer's destination.
 
-Publishing boundary: `/scr:publish` is the destination wizard and sequencing layer. Use `/scr:export` for one-off format output, `/scr:build-ebook`, `/scr:build-print`, `/scr:build-smashwords`, and `/scr:build-poetry-submission` for final channel packages, `/scr:front-matter` and `/scr:back-matter` for matter drafting, and `/scr:prepublish-review` for the final editorial gate.
+Publishing boundary: `/scr:publish` is the destination wizard and sequencing layer. Use `/scr:export` for one-off format output, `/scr:build-ebook`, `/scr:build-print`, `/scr:build-smashwords`, and `/scr:build-poetry-submission` for final channel packages, `/scr:front-matter` and `/scr:back-matter` for matter drafting, `/scr:prepublish-review` for the final editorial gate, and `/scr:compliance-check` for the platform-policy and copyright gate.
 
 ## Usage
 
@@ -139,7 +139,8 @@ Preflight must include:
 2. The front-matter scaffold exclusion check from STEP 1.6a.
 3. The publishing prerequisite checklist from STEP 3a.
 4. Preset availability against `CONSTRAINTS.json`.
-5. External tool checks by calling the matching export checks:
+5. A policy-gate check: if `.manuscript/reviews/PLATFORM-COMPLIANCE.md` does not exist or predates the newest draft, report `[WARN] platform compliance ..... not checked` and suggest `/scr:compliance-check` for the chosen destination (platform policies, copyright diligence, AI-disclosure answers).
+6. External tool checks by calling the matching export checks:
    - `share-pdf`: `/scr:export --format pdf --check`
    - `share-docx`: `/scr:export --format docx --check`
    - `share-epub`: `/scr:export --format epub --check`
@@ -207,9 +208,10 @@ Missing 3 items. Generate non-matter prerequisites now? (yes/no)
 | Complete draft | All units in OUTLINE.md have corresponding draft files in `.manuscript/drafts/body/` | `/scr:draft` (draft remaining units) |
 | Front matter | `.manuscript/front-matter/` directory has files | `/scr:front-matter` |
 | Back matter | `.manuscript/back-matter/` directory has files | `/scr:back-matter` |
-| Blurb | `.manuscript/output/blurb.md` exists | `/scr:blurb` |
+| Blurb | `.manuscript/marketing/BLURB.md` exists; legacy `.manuscript/output/blurb.md` is accepted for older projects | `/scr:blurb` |
 | Synopsis | Any `.manuscript/marketing/SYNOPSIS-*.md` file exists | `/scr:synopsis` |
 | Cover art | `.manuscript/build/ebook-cover.jpg` or `.png`, plus `.manuscript/build/paperback-cover.pdf` for print presets | `/scr:cover-art` |
+| Platform compliance | `.manuscript/reviews/PLATFORM-COMPLIANCE.md` exists and is newer than the newest draft for retail, wide, print, and distributor presets | `/scr:compliance-check` |
 
 **Canonical cover build surface:** Scriveno's cover handoff contract lives under `.manuscript/build/`:
 - Ebook front cover: `.manuscript/build/ebook-cover.jpg` (or `.png`)
@@ -225,6 +227,8 @@ Missing 3 items. Generate non-matter prerequisites now? (yes/no)
 
 - `/scr:front-matter --level balanced`
 - `/scr:back-matter --level balanced`
+
+**Compliance boundary:** For retail, wide ebook, print, and distributor destinations, do not proceed to upload checklists or packaging without a current `.manuscript/reviews/PLATFORM-COMPLIANCE.md`. If the report is missing or older than the newest draft, stop and run or suggest `/scr:compliance-check --platform <target>`. This is not optional for KDP, IngramSpark, or wide ebook paths because AI-disclosure and rights answers are part of the publishing act.
 
 #### 3b. Choose Destination
 
@@ -288,11 +292,25 @@ Before STEP 4, check whether `.manuscript/front-matter/` and `.manuscript/back-m
 
 If the writer chooses to stop, end with the Response Contract and suggest the dedicated matter command(s). If the writer chooses to continue, proceed to STEP 4 and list omitted matter in STEP 5.
 
+#### 3d. Compliance Gate
+
+Before STEP 4, run the compliance readiness check for any preset that uploads or prepares files for a platform:
+
+- `kdp-ebook` -> `/scr:compliance-check --platform kdp-ebook`
+- `kdp-paperback` -> `/scr:compliance-check --platform kdp-print`
+- `ingram-paperback` -> `/scr:compliance-check --platform ingramspark`
+- `ebook-wide` -> `/scr:compliance-check --platform all`
+- `academic-submission` and `thesis-defense` -> `/scr:compliance-check --platform all` when the package will be submitted outside the writer's institution
+
+If `.manuscript/reviews/PLATFORM-COMPLIANCE.md` is missing or older than the newest draft, run the matching compliance command before packaging. If live policy lookup is unavailable, the compliance command may write an `UNVERIFIED` report, but `/scr:publish` must still surface that status before it produces upload instructions.
+
 ---
 
 ### STEP 4: PRESET PIPELINES (per D-08)
 
 Run the selected preset pipeline. For each step: check if the output already exists, skip if so (tell the writer), run if missing.
+
+Before the preset's export steps, enforce STEP 3d for every platform preset. If the compliance report returns `STOP`, do not run export or package commands. If it returns `CLEAR WITH ACTIONS`, continue only after listing the required upload-screen answers in the progress summary.
 
 Show progress for each step:
 ```

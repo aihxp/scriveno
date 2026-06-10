@@ -1,6 +1,6 @@
 ---
 description: Undo your last save and go back to the previous version.
-argument-hint: "[--force]"
+argument-hint: "[--force] [--deeper]"
 ---
 
 # Undo
@@ -24,11 +24,38 @@ You are reverting the writer's work to the last save point. Your job is to do th
    - If `--force` flag was NOT provided: "You have unsaved changes since your last save. If you undo now, you will lose those changes too. Save first with `/scr:save`, or use `--force` to proceed."
    - If `--force` flag was provided: continue (but still show the confirmation prompt in step 5).
 
-5. **Identify the exact manuscript checkpoint to undo.** Run:
+5. **Identify the exact manuscript checkpoint to undo.**
+
+   First check whether the most recent commit touching `.manuscript/` is an undo commit:
+   ```
+   git log -1 --format="%H|%s" -- .manuscript/
+   ```
+
+   If the subject starts with `Undid save`, the writer has two safe choices:
+   - Restore the undone save by reverting the undo commit.
+   - Go one save deeper by undoing the next older save checkpoint that has not already been undone.
+
+   Ask which one they mean unless `--deeper` was passed. If the writer chooses restore, set `{target hash}` to the undo commit hash and describe it as "the previous undo". If `--deeper` was passed, continue to the save-checkpoint selection below.
+
+   To go one save deeper, gather save checkpoints:
+   ```
+   git log --format="%H|%s" --grep="^(Saved|Initial save)" --extended-regexp .manuscript/
+   ```
+
+   For a normal single-step undo when the latest manuscript commit is not an undo commit, capture the explicit newest save checkpoint with:
    ```
    git log -1 --format="%H|%s" --grep="^(Saved|Initial save)" --extended-regexp .manuscript/
    ```
-   Use the returned hash as `{target hash}` and the message as `{target message}`. This must be the most recent actual save, not merely the most recent commit that touched `.manuscript/`.
+
+   Also gather already-undone save hashes from undo commit subjects:
+   ```
+   git log --format="%s" --grep="^Undid save [0-9a-f]" --extended-regexp .manuscript/
+   ```
+
+   Select the newest save checkpoint whose hash does not appear in an `Undid save {hash}: ...` subject. Use that hash as `{target hash}` and its message as `{target message}`. This must be the most recent actual save that has not already been undone, not merely the most recent commit that touched `.manuscript/`.
+   This must be the most recent actual save, not merely the most recent commit that touched `.manuscript/`.
+
+   If every save checkpoint except the initial save has already been undone, say "Nothing deeper to undo. You're already at the earliest saved manuscript state." and stop.
 
 6. **Show the confirmation prompt:**
 
@@ -46,13 +73,14 @@ You are reverting the writer's work to the last save point. Your job is to do th
 
 7. **If the writer says "yes":**
    - Run: `git revert {target hash} --no-commit` so the revert is applied but not committed yet
+   - If the revert exits with a conflict, or if any `.manuscript/` file now contains a line starting with `<<<<<<<`, `=======`, or `>>>>>>>`, do not commit. Run `git revert --abort` when available, report that the undo was blocked by a merge conflict, and list the conflicted files. If abort is not available, leave the worktree uncommitted and tell the writer to ask for developer-mode help before saving.
    - Update STATE.md to reflect the reverted position:
      - Add a row to "Last actions" table: timestamp, "undo", unit, "Reverted: {description}"
      - Update current unit / stage if the undo changes the workflow position
    - Stage the reverted manuscript plus the updated state and create one final undo commit:
      ```
      git add .manuscript/
-     git commit -m "Undid save: {writer-friendly description}"
+     git commit -m "Undid save {target hash}: {writer-friendly description}"
      ```
      This final commit must include both the reverted manuscript files and the `STATE.md` update so the worktree is clean after undo succeeds.
    - Tell the writer the result (see output section below)
@@ -75,8 +103,9 @@ You are reverting the writer's work to the last save point. Your job is to do th
 ## Edge cases
 
 - **Only one save:** "Nothing to undo. This is your first save."
-- **Writer wants to undo multiple saves:** "This command undoes one save at a time. Run `/scr:undo` again to go back further, or use `/scr:compare` to see what changed at each save."
-- **Undo after an undo:** This is fine -- `git revert` creates a new commit, so undoing an undo restores the original. Mention: "This will undo your previous undo, restoring the changes."
+- **Writer wants to undo multiple saves:** "This command undoes one save at a time. Run `/scr:undo --deeper` to go back one more save, or use `/scr:compare` to see what changed at each save."
+- **Undo after an undo:** This is fine. If the most recent manuscript commit is an undo commit, ask whether they want to restore that undone save or go one save deeper. Restoring means reverting the undo commit. Going deeper means selecting the newest save hash that is not already named in an `Undid save {hash}: ...` commit.
+- **Revert conflict:** Never commit conflict markers. Abort the revert when possible, list conflicted files, and suggest `/scr:compare` or developer-mode help. A failed undo should leave the manuscript unchanged or clearly uncommitted, never silently marked as saved.
 
 ## Response Contract
 

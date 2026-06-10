@@ -55,5 +55,5 @@ status: all_fixed
 ---
 
 _Fixed: 2026-04-17T22:30:00Z_
-_Fixer: Claude (gsd-code-fixer)_
+_Fixer: Claude (code fixer)_
 _Iteration: 1_

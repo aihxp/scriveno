@@ -10,9 +10,9 @@ Node is required for:
 
 - running `npx scriveno@latest`
 - executing `bin/install.js`
-- running `scriveno status --project .`
-- running `scriveno status --project . --apply-safe`
-- running `scriveno sync --check`, `scriveno smoke`, `scriveno agents`, and `scriveno routes`
+- running `npx scriveno@latest status --project .`
+- running `npx scriveno@latest status --project . --apply-safe`
+- running `npx scriveno@latest sync --check`, `npx scriveno@latest smoke`, `npx scriveno@latest agents`, and `npx scriveno@latest routes`
 - executing the shared auto-invoke status engine at `lib/auto-invoke-engine.js`
 - running the repo's JavaScript test suite
 
@@ -93,16 +93,19 @@ Every install target receives the same read-only status engine through Scriveno'
 - source checkouts: `lib/auto-invoke-engine.js`
 
 The same shared asset directory receives `templates/`, `data/`, `lib/`, and `docs/`, including `docs/model-adaptation.md`, `docs/subagent-spawning-protocol.md`, and `docs/drafter-quality.md`. Runtime-specific command surfaces can therefore point to one installed adaptation contract instead of duplicating model guidance in every command.
+The runtime smoke check verifies the shared model adaptation docs under `.scriveno/docs/` for the active install scope.
 
 The engine computes proactive state from disk evidence: missing or stale context, plan and draft coverage, unresolved review files, unresolved notes, revision proposals, translation work, publishing prerequisites, stale exports, missing history, and the recommended next command. It does not mutate manuscript files and does not spawn agents. Host commands such as `/scr:next`, `/scr:progress`, `/scr:session-report`, and `/scr:sync` should call it first when local command execution is available, then fall back to their embedded markdown logic when the host cannot run Node.
 
 The public CLI entrypoint is:
 
 ```bash
-scriveno status --project .
-scriveno status . --json
-scriveno status --project . --apply-safe
+npx scriveno@latest status --project .
+npx scriveno@latest status . --json
+npx scriveno@latest status --project . --apply-safe
 ```
+
+After `npm i -g scriveno`, you may use the shorter `scriveno status --project .` form. If you only ran `npx scriveno@latest`, keep using `npx scriveno@latest <command>` for terminal checks.
 
 The JSON form is intended for CI, host adapters, and future runtime smoke tests.
 
@@ -113,17 +116,17 @@ Status output uses the same route-intelligence shape across runtimes: `Candidate
 The package now exposes cross-runtime checks through the public CLI:
 
 ```bash
-scriveno sync --check
-scriveno smoke --json
-scriveno agents --json
-scriveno routes --json
+npx scriveno@latest sync --check
+npx scriveno@latest smoke --json
+npx scriveno@latest agents --json
+npx scriveno@latest routes --json
 ```
 
-`scriveno smoke` checks installed command surfaces, Codex skill directories, bundled skill manifests, agent prompt counts, Codex `.toml` metadata, guided Perplexity setup assets, the shared engine under `~/.scriveno/lib/auto-invoke-engine.js`, and the shared model adaptation docs under `.scriveno/docs/`.
+`npx scriveno@latest smoke` checks the runtimes recorded in the active installer settings (`.scriveno/settings.json` for project installs or `~/.scriveno/settings.json` for global installs). It checks installed command surfaces, Codex skill directories, bundled skill manifests, agent prompt counts, Codex `.toml` metadata, guided Perplexity setup assets, the active shared engine path, and the shared model adaptation docs. It does not grade every supported runtime unless those runtimes were actually installed or explicitly requested by test options.
 
-`scriveno agents` checks whether each runtime has the expected Scriveno agent prompts and reports the correct fallback: prompt-run fallback for Claude Code and standard command runtimes, metadata-ready for Codex when `.toml` files are present, guided setup for Perplexity Desktop, and bundled skill prompts for Manus or generic skill installs. The report also includes the shared model policy: host-owned model, Scriveno-owned prompts, context boundaries, fallback behavior, and merge rules.
+`npx scriveno@latest agents` checks whether each installed runtime has the expected Scriveno agent prompts and reports the correct fallback: prompt-run fallback for Claude Code and standard command runtimes, metadata-ready for Codex when `.toml` files are present, guided setup for Perplexity Desktop, and bundled skill prompts for Manus or generic skill installs. The report also includes the shared model policy: host-owned model, Scriveno-owned prompts, context boundaries, fallback behavior, and merge rules.
 
-`scriveno routes` audits the command graph and automation lanes from `data/CONSTRAINTS.json`. It is useful when adding commands because it surfaces whether a route is read-only, local-helper, agent-ready, agent-or-local, mixed, or manual-gated.
+`npx scriveno@latest routes` audits the command graph and automation lanes from `data/CONSTRAINTS.json`. It is useful when adding commands because it surfaces whether a route is read-only, local-helper, agent-ready, agent-or-local, mixed, or manual-gated.
 
 ## What Scriveno Proves Today
 

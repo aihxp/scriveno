@@ -57,7 +57,7 @@
 
 - Unified installer and generic manifest generation on one canonical file-backed command inventory, eliminating phantom top-level sacred command rows
 - Repaired sacred-exclusive command references so source commands and docs use the real `/scr:sacred:*` installed surface
-- Finished the Claude flat `/scr-*` contract across runtime-facing docs and examples, following the GSD-style naming direction requested by the user
+- Finished the Claude flat `/scr-*` contract across runtime-facing docs and examples, following the runtime-native naming direction requested by the user
 - Reframed adapted command names as descriptive vocabulary instead of silently advertising wrappers the runtime does not install
 - Added regression coverage for nested sacred command discovery and dead-reference drift across commands, docs, and installer output
 
@@ -96,7 +96,7 @@
 
 ## v1.6 Installer Hardening (Shipped: 2026-04-16)
 
-**Delivered:** Correctness pass on the Scriveno installer based on cross-referencing GSD releases v1.33-v1.36. Fixed frontmatter parsing fragility, non-atomic writes, destructive reinstall behavior, incomplete command-ref rewriting, and lack of settings validation - all while preserving the zero-dependency architecture.
+**Delivered:** Correctness pass on the Scriveno installer based on cross-referencing prior installer-hardening releases. Fixed frontmatter parsing fragility, non-atomic writes, destructive reinstall behavior, incomplete command-ref rewriting, and lack of settings validation - all while preserving the zero-dependency architecture.
 
 **Phases completed:** 23-28 (6 plans total)
 

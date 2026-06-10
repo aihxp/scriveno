@@ -144,7 +144,7 @@ End with:
 - Overall assessment: Is this manuscript handling sensitive content thoughtfully?
 - If the ratio skews heavily toward "likely intentional craft," affirm that the writer appears to be making deliberate choices and this review found few genuine concerns
 
-Save to `.manuscript/{scope}-SENSITIVITY-REVIEW.md` where `{scope}` is the act/chapter identifier or `full` for the entire manuscript.
+Save to `.manuscript/reviews/{scope}-SENSITIVITY-REVIEW.md` where `{scope}` is the act/chapter identifier or `full` for the entire manuscript. Create `.manuscript/reviews/` if it does not exist. Treat legacy root-level `.manuscript/{scope}-SENSITIVITY-REVIEW.md` files as readable prior evidence, but write new reports under `reviews/` so `/scr:prepublish-review` and `/scr:compliance-check` can find them.
 
 ## Response Contract
 

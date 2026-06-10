@@ -106,6 +106,16 @@ Load the following project files:
 - `.manuscript/config.json` -- to get `work_type`, title, author, language, and project settings
 - Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- to check `exports` section for format availability by work type group
 
+Resolve shared asset directories before checking templates:
+
+- `SHARED_DATA_DIR`: first existing directory from `.scriveno/data`, `$HOME/.scriveno/data`, then `data` when running from the Scriveno source repository
+- `SHARED_TEMPLATE_DIR`: first existing directory from `.scriveno/templates`, `$HOME/.scriveno/templates`, then `templates` when running from the Scriveno source repository
+- `EXPORT_TEMPLATE_DIR`: `${SHARED_DATA_DIR}/export-templates`
+- `PLATFORM_TEMPLATE_DIR`: `${SHARED_TEMPLATE_DIR}/platforms`
+- `SACRED_TEMPLATE_DIR`: `${SHARED_TEMPLATE_DIR}/sacred`
+
+Use these resolved variables in every file check and shell command. Do not tell an installed-project user to restore repo-relative paths such as `data/export-templates/...`; those paths only exist while developing inside the Scriveno repository. If a resolved asset is missing, report the resolved path that failed and suggest reinstalling Scriveno for the active runtime.
+
 **Check format availability:**
 
 Look up the requested format in `CONSTRAINTS.json` under the `exports` section. Map the format flag to the constraint key:
@@ -384,8 +394,7 @@ Read `.manuscript/config.json` and `.manuscript/WORK.md` (if it exists) to gener
 ---
 title: "[title from config.json]"
 subtitle: "[subtitle if available]"
-author:
-  - name: "[author from config.json]"
+author: "[author from config.json]"
 lang: "[language from config.json, default en-US]"
 rights: "Copyright [year] [author]. All rights reserved."
 date: "[current year]"
@@ -394,6 +403,8 @@ description: "[description if available]"
 ```
 
 Write to `.manuscript/output/metadata.yaml`.
+
+Use a scalar or list-of-strings `author` value for shared Pandoc metadata. Do not use the Typst-only map shape `author: [{name: ...}]`; it can produce broken EPUB metadata. The shipped Typst templates accept scalar authors and the older map shape for backward compatibility.
 
 ---
 
@@ -470,7 +481,7 @@ Read trim size from `.manuscript/config.json` if set, otherwise use defaults (6i
 pandoc .manuscript/output/assembled-manuscript.md \
   -o .manuscript/output/manuscript-print.pdf \
   --pdf-engine=typst \
-  --template=data/export-templates/scriveno-book.typst \
+  --template="$EXPORT_TEMPLATE_DIR/scriveno-book.typst" \
   --metadata-file=.manuscript/output/metadata.yaml \
   --toc \
   --toc-depth=2 \
@@ -495,7 +506,7 @@ pandoc .manuscript/output/assembled-manuscript.md \
   -o .manuscript/output/manuscript.epub \
   --metadata-file=.manuscript/output/metadata.yaml \
   --epub-cover-image=.manuscript/build/ebook-cover.jpg \
-  --css=data/export-templates/scriveno-epub.css \
+  --css="$EXPORT_TEMPLATE_DIR/scriveno-epub.css" \
   --toc \
   --toc-depth=2 \
   --split-level=1
@@ -617,7 +628,7 @@ If `.manuscript/bibliography.bib` exists, include bibliography flags. If it does
 ```bash
 pandoc .manuscript/output/assembled-manuscript.md \
   -o .manuscript/output/manuscript.tex \
-  --template=data/export-templates/scriveno-academic.latex \
+  --template="$EXPORT_TEMPLATE_DIR/scriveno-academic.latex" \
   --metadata-file=.manuscript/output/metadata.yaml \
   --toc \
   --bibliography=.manuscript/bibliography.bib \
@@ -629,7 +640,7 @@ pandoc .manuscript/output/assembled-manuscript.md \
 ```bash
 pandoc .manuscript/output/assembled-manuscript.md \
   -o .manuscript/output/manuscript.tex \
-  --template=data/export-templates/scriveno-academic.latex \
+  --template="$EXPORT_TEMPLATE_DIR/scriveno-academic.latex" \
   --metadata-file=.manuscript/output/metadata.yaml \
   --toc
 ```

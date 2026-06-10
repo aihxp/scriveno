@@ -39,6 +39,16 @@ Load the following project files:
 - `.manuscript/config.json` -- to get `work_type`, title, author, language, and project settings
 - Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- to check `exports` section for format availability by work type group
 
+Resolve shared asset directories before checking templates:
+
+- `SHARED_DATA_DIR`: first existing directory from `.scriveno/data`, `$HOME/.scriveno/data`, then `data` when running from the Scriveno source repository
+- `SHARED_TEMPLATE_DIR`: first existing directory from `.scriveno/templates`, `$HOME/.scriveno/templates`, then `templates` when running from the Scriveno source repository
+- `EXPORT_TEMPLATE_DIR`: `${SHARED_DATA_DIR}/export-templates`
+- `PLATFORM_TEMPLATE_DIR`: `${SHARED_TEMPLATE_DIR}/platforms`
+- `SACRED_TEMPLATE_DIR`: `${SHARED_TEMPLATE_DIR}/sacred`
+
+Use these resolved variables in every file check and shell command. Do not tell an installed-project user to restore repo-relative paths such as `data/export-templates/...` or `templates/platforms/...`; those paths only exist while developing inside the Scriveno repository. If a resolved asset is missing, report the resolved path that failed and suggest reinstalling Scriveno for the active runtime.
+
 **Check format availability:**
 
 Look up `build_print` in `CONSTRAINTS.json` under the `exports` section. Find the current work type's group in `CONSTRAINTS.json` under `work_type_groups`. Check if the group is in the `build_print.available` list.
@@ -150,7 +160,7 @@ If the value is not in this list:
 
 Then **stop**.
 
-If present and valid, load `templates/sacred/{tradition}/manifest.yaml`.
+If present and valid, load `${SACRED_TEMPLATE_DIR}/{tradition}/manifest.yaml`.
 
 Apply tradition data to `.manuscript/output/metadata.yaml` (before STEP 3f writes the file):
 - Set `lang:` to the tradition's primary language tag:
@@ -181,17 +191,17 @@ Map the platform to its LaTeX wrapper template:
 
 | Platform | LATEX_TEMPLATE |
 |----------|----------------|
-| `ieee` | `data/export-templates/scriveno-ieee.latex` |
-| `acm` | `data/export-templates/scriveno-acm.latex` |
-| `lncs` | `data/export-templates/scriveno-lncs.latex` |
-| `elsevier` | `data/export-templates/scriveno-elsevier.latex` |
-| `apa7` | `data/export-templates/scriveno-apa7.latex` |
+| `ieee` | `${EXPORT_TEMPLATE_DIR}/scriveno-ieee.latex` |
+| `acm` | `${EXPORT_TEMPLATE_DIR}/scriveno-acm.latex` |
+| `lncs` | `${EXPORT_TEMPLATE_DIR}/scriveno-lncs.latex` |
+| `elsevier` | `${EXPORT_TEMPLATE_DIR}/scriveno-elsevier.latex` |
+| `apa7` | `${EXPORT_TEMPLATE_DIR}/scriveno-apa7.latex` |
 
 Set `LATEX_TEMPLATE` to the resolved path.
 
 If the template file does not exist at that path:
-> **Build template missing: `data/export-templates/scriveno-{platform}.latex` not found.**
-> Re-install Scriveno or restore the file from the repository.
+> **Build template missing: `{resolved template path}` not found.**
+> Reinstall Scriveno for the active runtime or restore the shared asset.
 
 Then **stop**.
 
@@ -203,17 +213,17 @@ Map `work_type` to the appropriate Typst template:
 
 | work_type | Template |
 |-----------|----------|
-| `stage_play` | `data/export-templates/scriveno-stageplay.typst` |
-| `picture_book` | `data/export-templates/scriveno-picturebook.typst` |
-| `poetry_collection` | `data/export-templates/scriveno-chapbook.typst` |
-| `single_poem` | `data/export-templates/scriveno-chapbook.typst` |
-| All other work types | `data/export-templates/scriveno-book.typst` |
+| `stage_play` | `${EXPORT_TEMPLATE_DIR}/scriveno-stageplay.typst` |
+| `picture_book` | `${EXPORT_TEMPLATE_DIR}/scriveno-picturebook.typst` |
+| `poetry_collection` | `${EXPORT_TEMPLATE_DIR}/scriveno-chapbook.typst` |
+| `single_poem` | `${EXPORT_TEMPLATE_DIR}/scriveno-chapbook.typst` |
+| All other work types | `${EXPORT_TEMPLATE_DIR}/scriveno-book.typst` |
 
 Set the resolved template path as `TYPST_TEMPLATE` for use in STEP 4.
 
 If the resolved template file does not exist at the path:
 > **Build template missing: `{TYPST_TEMPLATE}` not found.**
-> Re-install Scriveno or restore the file from the repository.
+> Reinstall Scriveno for the active runtime or restore the shared asset.
 
 Then **stop**.
 
@@ -389,7 +399,7 @@ Proceed directly to STEP 3.
 
 **Load manifest for selected platform:**
 
-Load `templates/platforms/{platform}/manifest.yaml`.
+Load `${PLATFORM_TEMPLATE_DIR}/{platform}/manifest.yaml`.
 
 **Resolve the trim size:**
 
@@ -481,6 +491,8 @@ Write assembled content to `.manuscript/output/assembled-manuscript.md`.
 
 Read `.manuscript/config.json` and `.manuscript/WORK.md` (if it exists) to generate Pandoc metadata. Write to `.manuscript/output/metadata.yaml`.
 
+Use a scalar or list-of-strings `author` value for shared Pandoc metadata, for example `author: "[author from config.json]"`. Do not use the Typst-only map shape `author: [{name: ...}]`; it can produce broken EPUB metadata when the same metadata file is reused. The shipped Typst templates accept scalar authors and the older map shape for backward compatibility.
+
 ---
 
 ### STEP 4: BUILD PDF
@@ -490,7 +502,7 @@ Read `.manuscript/config.json` and `.manuscript/WORK.md` (if it exists) to gener
 ```bash
 pandoc .manuscript/output/assembled-manuscript.md \
   -o .manuscript/output/paper-{platform}.tex \
-  --template=data/export-templates/scriveno-{platform}.latex \
+  --template="$EXPORT_TEMPLATE_DIR/scriveno-{platform}.latex" \
   --metadata-file=.manuscript/output/metadata.yaml
 ```
 

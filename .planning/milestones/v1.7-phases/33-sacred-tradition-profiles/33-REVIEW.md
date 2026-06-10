@@ -165,5 +165,5 @@ Slug-to-group: catholic/orthodox/tewahedo/protestant -> christian | jewish -> je
 ---
 
 _Reviewed: 2026-04-17_
-_Reviewer: Claude (gsd-code-reviewer)_
+_Reviewer: Claude (code reviewer)_
 _Depth: standard_

@@ -82,6 +82,26 @@ Proceeding with export. Review full reports after completion.
 
 ---
 
+### STEP 2.5: COMPLIANCE GATE
+
+Run the platform-policy and rights gate before generating prerequisites or export files for any platform-facing preset.
+
+Map presets to compliance targets:
+
+| Preset | Compliance command |
+|--------|--------------------|
+| kdp-paperback | `/scr:compliance-check --platform kdp-print` |
+| kdp-ebook | `/scr:compliance-check --platform kdp-ebook` |
+| ebook-wide | `/scr:compliance-check --platform all` |
+| ingram-paperback | `/scr:compliance-check --platform ingramspark` |
+| all-formats | `/scr:compliance-check --platform all` when output is intended for upload |
+| share-pdf, share-docx, share-epub, share-bundle | Skip unless a platform is recorded in config.json |
+| query-submission, submission-package, academic-submission, thesis-defense, screenplay-query | Skip unless a platform or public distribution target is recorded in config.json |
+
+If `.manuscript/reviews/PLATFORM-COMPLIANCE.md` is missing or older than the newest draft, run the mapped compliance command. If the report verdict is `STOP`, stop autopilot-publish before export and list the blockers. If the report is `CLEAR WITH ACTIONS` or `UNVERIFIED`, continue only after including the required AI-disclosure, rights, and metadata actions in the final report.
+
+---
+
 ### STEP 3: GENERATE NON-MATTER PREREQUISITES
 
 Auto-generate any missing non-matter prerequisites required by the chosen preset. Do not ask -- just generate them. Do not generate front matter or back matter.
@@ -109,7 +129,7 @@ For each prerequisite the preset needs:
 
 | Prerequisite | Check | Generate Command |
 |-------------|-------|-----------------|
-| blurb | `.manuscript/output/blurb.md` exists | `/scr:blurb` |
+| blurb | `.manuscript/marketing/BLURB.md` exists; legacy `.manuscript/output/blurb.md` is accepted | `/scr:blurb` |
 | synopsis | Any `.manuscript/marketing/SYNOPSIS-*.md` file exists | `/scr:synopsis` |
 | query-letter | `.manuscript/marketing/QUERY-LETTER.md` exists | `/scr:query-letter` |
 
@@ -160,6 +180,10 @@ Quality Gate:
   Voice check:      3 warnings (score: 82/100 PASS)
   Continuity check: 1 warning
 
+Compliance:
+  Platform compliance: CLEAR WITH ACTIONS
+  Report: .manuscript/reviews/PLATFORM-COMPLIANCE.md
+
 Generated Prerequisites:
   (none)
 
@@ -201,6 +225,7 @@ Trigger: /scr:autopilot-publish --preset {preset}
 Auto-invoked commands:
 - /scr:voice-check: yes/no
 - /scr:continuity-check: yes/no
+- /scr:compliance-check: yes/no
 - /scr:cover-art: yes/no
 - /scr:export: {count} run(s)
 Spawned agents:

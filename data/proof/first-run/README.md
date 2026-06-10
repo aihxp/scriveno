@@ -12,7 +12,7 @@ This bundle is the committed proof artifact for Scriveno's first 10 minutes. It 
 ## Transcript: First-Run Guide
 
 ```text
-> scriveno first-run --project .
+> npx scriveno@latest first-run --project .
 Scriveno first-run guide
 Project: .
 Current recommendation: /scr:new-work
@@ -41,10 +41,10 @@ Proof artifacts:
 ## Transcript: Runtime Smoke
 
 ```text
-> scriveno smoke --json
+> npx scriveno@latest smoke --json
 {
   "ok": true,
-  "expectedCommands": 122,
+  "expectedCommands": 123,
   "expectedAgents": [
     "continuity-checker",
     "drafter",
@@ -54,20 +54,12 @@ Proof artifacts:
     "voice-checker"
   ],
   "runtimes": [
-    { "runtime": "claude-code", "ok": true },
-    { "runtime": "codex", "ok": true },
-    { "runtime": "cursor", "ok": true },
-    { "runtime": "gemini-cli", "ok": true },
-    { "runtime": "opencode", "ok": true },
-    { "runtime": "copilot", "ok": true },
-    { "runtime": "windsurf", "ok": true },
-    { "runtime": "antigravity", "ok": true },
-    { "runtime": "manus", "ok": true },
-    { "runtime": "perplexity-desktop", "ok": true },
-    { "runtime": "generic", "ok": true }
+    { "runtime": "claude-code", "ok": true }
   ]
 }
 ```
+
+Smoke scopes itself to the runtimes recorded by the active installer settings. A single-runtime install should show that runtime, not every supported host.
 
 ## Transcript: Demo Flow
 

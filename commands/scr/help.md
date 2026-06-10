@@ -20,7 +20,7 @@ You are helping the user navigate Scriveno commands. Load Scriveno's installed/s
 
 3. **Load `command_intents` from CONSTRAINTS.json.** Treat these intents as the main front door: start, draft, revise, world, navigate, publish, translate, collaborate, repair. If the field is missing in an older install, fall back to the stage groups below.
 
-4. **Load `command_families` from CONSTRAINTS.json.** Treat these as secondary hub groups for specialist workflows: structure, art, session, sacred, submission, publishing, world, collaboration, and surface. They do not replace `command_intents`; they help you show one hub first and keep specialist leaves nearby.
+4. **Load `command_families` from CONSTRAINTS.json.** Treat these as secondary hub groups for specialist workflows: structure, art, review, automation, session, sacred, submission, publishing, world, collaboration, and surface. They do not replace `command_intents`; they help you show one hub first and keep specialist leaves nearby.
 
 5. **Infer the likely intent before showing commands.**
    - No `.manuscript/` directory -> start
@@ -37,7 +37,7 @@ You are helping the user navigate Scriveno commands. Load Scriveno's installed/s
 
 ## The "getting started" view (no project yet)
 
-Ask the user what they want to do. Don't list all 122 commands -- show them this:
+Ask the user what they want to do. Don't list all 123 commands -- show them this:
 
 ```
 Scriveno -- ready to start.
@@ -81,6 +81,8 @@ When the writer asks for a specialist area, show the family hub first, then 2-5 
 
 - Structure: `/scr:outline` first, then `/scr:add-unit`, `/scr:insert-unit`, `/scr:remove-unit`, `/scr:split-unit`, `/scr:merge-units`, or `/scr:reorder-units`.
 - Art: `/scr:art-direction` first, then `/scr:cover-art`, `/scr:illustrate-scene`, `/scr:character-ref`, `/scr:map-illustration`, `/scr:storyboard`, `/scr:panel-layout`, or `/scr:spread-layout`.
+- Review: `/scr:editor-review` first, then `/scr:voice-check`, `/scr:continuity-check`, `/scr:originality-check`, `/scr:sensitivity-review`, `/scr:pacing-analysis`, `/scr:dialogue-audit`, or `/scr:proof-unit`.
+- Automation: `/scr:do` first for natural-language routing, then `/scr:fast`, `/scr:autopilot`, `/scr:proof-unit`, or `/scr:next` when the writer asks for automatic help.
 - Session: `/scr:save` first, then `/scr:history`, `/scr:versions`, `/scr:compare`, `/scr:pause-work`, `/scr:resume-work`, or `/scr:session-report`.
 - Sacred: `/scr:sacred:source-tracking` first, then the dedicated sacred commands that apply to the active tradition and work type.
 - Submission: `/scr:publish` first, then `/scr:synopsis`, `/scr:query-letter`, `/scr:book-proposal`, `/scr:discussion-questions`, `/scr:prepublish-review`, or `/scr:export --format submission-package`.
@@ -100,17 +102,18 @@ Use this wording wherever publishing choices appear:
 - `/scr:build-ebook`, `/scr:build-print`, `/scr:build-smashwords`, and `/scr:build-poetry-submission`: final package builders for a specific channel or format.
 - `/scr:front-matter` and `/scr:back-matter`: content creation before packaging.
 - `/scr:prepublish-review`: final editorial gate.
+- `/scr:compliance-check`: platform-policy, copyright, and AI-disclosure gate.
 
 Group by stage:
 - **Create** -- new-work, profile-writer, series-bible
-- **Write** -- discuss, plan, draft, climax, quick-write, plus any profile-building commands actually available for the current work type
-- **Revise** -- editor-review, subject-touch, line-edit, copy-edit, continuity-check, beta-reader, voice-check
+- **Write** -- discuss, plan, draft, climax, quick-write, autopilot, plant-seed, plus any profile-building commands actually available for the current work type
+- **Revise** -- editor-review, subject-touch, line-edit, copy-edit, continuity-check, beta-reader, voice-check, originality-check, sensitivity-review, pacing-analysis, dialogue-audit, proof-unit
 - **Character & World** -- build-world, new-character, new-people, new-place, place-touch, geography-map, relationship-map, cast-list, research
 - **Publish** -- front-matter, back-matter, blurb, cover-art, publish, export
 - **Collaborate** -- track
   Present `/scr:track` as the entrypoint for revision-track workflows, and describe its subcommands in prose: create, list, switch, compare, merge, propose.
 - **Versions** -- save, history, versions, compare, undo
-- **Navigate** -- next, progress, pause-work, resume-work
+- **Navigate** -- next, do, fast, progress, add-note, pause-work, resume-work, thread
 
 Revision tracks are a writer-facing workflow, not a developer-only one. Always surface `/scr:track` when it is otherwise available for the current project, and explain that comparison and merge actions live under its subcommands. Do not invent top-level commands like `/scr:merge` for collaboration, and do not confuse `/scr:compare` (save-to-save history comparison) with `/scr:track compare` (revision-track comparison). `developer_mode` only changes whether you expose extra technical detail such as hashes, branch names, or raw git output -- it does not hide the collaboration workflow itself.
 

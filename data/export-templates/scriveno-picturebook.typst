@@ -29,7 +29,7 @@
 
 // Metadata
 #let book-title  = $if(title)$"$title$"$else$"Untitled"$endif$
-#let book-author = $if(author)$"$for(author)$$it.name$$sep$, $endfor$"$else$""$endif$
+#let book-author = $if(author)$"$for(author)$$if(author.name)$$author.name$$else$$author$$endif$$sep$, $endfor$"$else$""$endif$
 
 #set document(
   title: book-title,

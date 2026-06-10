@@ -26,10 +26,12 @@ Scriveno is best understood as **AI-native longform writing software built aroun
 ```bash
 npx scriveno@latest
 
-# Optional project status check
-scriveno status --project .
-scriveno sync --check
+# Optional zero-install project status checks
+npx scriveno@latest status --project .
+npx scriveno@latest sync --check
 ```
+
+The bare `scriveno ...` CLI exists after a global npm install or while developing from a local checkout. If you only ran `npx scriveno@latest`, keep using `npx scriveno@latest <command>` for terminal checks.
 
 ---
 
@@ -37,7 +39,7 @@ scriveno sync --check
 
 Scriveno is a command system that turns your AI coding agent into a voice-preserving writing studio. Lead with one path: a writer can start a manuscript, calibrate voice, draft unit by unit, review, save, and publish without learning the full catalog. Then show the versatility: Scriveno supports 50 work types -- novels, screenplays, research papers, technical guides, runbooks, scripture commentaries, comics, memoirs -- each with its own adaptive vocabulary and toolset.
 
-The wedge comes first: Scriveno profiles the writer, loads that voice into every drafting step, and keeps each unit on fresh context so the prose stays specific to the project. From there, it expands into 122 writing commands covering the rest of the pipeline:
+The wedge comes first: Scriveno profiles the writer, loads that voice into every drafting step, and keeps each unit on fresh context so the prose stays specific to the project. From there, it expands into 123 writing commands covering the rest of the pipeline:
 
 - **Create** -- Set up a project with tailored context files. Progressive onboarding, never overwhelming.
 - **Write** -- Discuss, plan, draft, and revise one unit at a time. The drafter agent loads your Voice DNA and writes in *your* voice, not generic AI prose. Run `/scr:progress` any time to open a per-unit ledger (`.manuscript/PROGRESS.md`) showing what is done, in progress, and untouched.
@@ -96,14 +98,16 @@ If you want the shortest proof-first route, read [Quick Proof](docs/quick-proof.
 Scriveno ships a shared read-only status engine for every installer target. The public CLI is:
 
 ```bash
-scriveno status --project .
-scriveno status . --json
-scriveno status --project . --apply-safe
-scriveno sync --check
-scriveno smoke --json
-scriveno agents --json
-scriveno routes --json
+npx scriveno@latest status --project .
+npx scriveno@latest status . --json
+npx scriveno@latest status --project . --apply-safe
+npx scriveno@latest sync --check
+npx scriveno@latest smoke --json
+npx scriveno@latest agents --json
+npx scriveno@latest routes --json
 ```
+
+After `npm i -g scriveno`, you may use the shorter `scriveno status --project .` form.
 
 It inspects disk evidence such as `.manuscript/`, `STATE.md`, `CONTEXT.md`, plan files, drafts, review coverage, notes, revision proposals, translation work, publishing prerequisites, exports, and history, then recommends the safest next command. The engine does not mutate files and does not spawn agents by itself. Command surfaces such as `/scr-next`, `/scr:next`, `/scr:progress`, `/scr:session-report`, and `/scr:sync` call it when local command execution is available, then fall back to embedded markdown logic when a host cannot run Node. See [Auto-Invoke Policy](docs/auto-invoke-policy.md), [Runtime Support](docs/runtime-support.md#shared-auto-invoke-engine), and [Model Adaptation](docs/model-adaptation.md).
 
@@ -214,7 +218,7 @@ Scriveno is built on five principles:
 - [Versatility Paths](docs/versatility-paths.md) -- Curated showcase paths for technical, sacred, visual, translation, and publishing workflows
 - [Workflow Optimization Audit](docs/workflow-optimization-audit.md) -- Consolidation, redundancy, authenticity, and journey-surface findings
 - [Getting Started](docs/getting-started.md) -- Install to first draft in 10 minutes
-- [Command Reference](docs/command-reference.md) -- All 122 commands with usage, flags, and examples
+- [Command Reference](docs/command-reference.md) -- All 123 commands with usage, flags, and examples
 - [Work Types Guide](docs/work-types.md) -- How 50 work types adapt Scriveno's vocabulary
 - [Voice DNA Guide](docs/voice-dna.md) -- The 15+ dimension voice profiling system
 - [Authenticity And AI Detectors](docs/authenticity-and-detectors.md) -- How Scriveno handles outside detector scores, process evidence, and authenticity diagnostics
@@ -253,7 +257,7 @@ Scriveno currently ships installer targets for these AI tooling environments:
 - **Perplexity Desktop** (guided local-MCP setup)
 - **Generic (SKILL.md)** fallback
 
-**Installer baseline:** `Node.js >=20.0.0` for `npx scriveno@latest`, `bin/install.js`, `scriveno status --project .`, and the proactive audit commands. For new installs, use a currently supported LTS such as Node.js 24; Node.js 20 is now a compatibility floor, not the recommended fresh-install target.
+**Installer baseline:** `Node.js >=20.0.0` for `npx scriveno@latest`, `bin/install.js`, `npx scriveno@latest status --project .`, and the proactive audit commands. For new installs, use a currently supported LTS such as Node.js 24; Node.js 20 is now a compatibility floor, not the recommended fresh-install target.
 
 **Support note:** Claude Code is the primary reference runtime and now installs a flat `/scr-*` command surface. The environments listed above are installer targets, not a claim that every host runtime has verified parity today. Codex currently installs a skill-native `$scr-*` surface with `.toml` agent metadata, Perplexity Desktop is a guided local-MCP target rather than a writable command runtime, and Kimi-compatible or other unlisted hosts should use the generic `SKILL.md` fallback until Scriveno ships a dedicated adapter. See the [runtime compatibility matrix](docs/runtime-support.md) and [model adaptation guide](docs/model-adaptation.md) for install type, support level, verification status, and model-owned spawning boundaries.
 
@@ -263,7 +267,7 @@ Scriveno currently ships installer targets for these AI tooling environments:
 
 **Version:** 3.2.4
 
-Scriveno's core command surface is stable across 122 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, plus the creative-context, record-store, neutral research layer, world/place/geography layers, prepublish editorial review, branching-next, runtime-sync, adaptive concierge, human-first writing-safeguard, authenticity-diagnostic, domain-grilling, installer-marker cleanup, cross-runtime agent metadata, bounded subagent spawning protocol, model adaptation guide, visible automation status, the shared `scriveno status --project .` auto-invoke engine, route-intelligence lanes, safe apply reporting, runtime smoke checks, agent availability checks, route graph audits, workflow-reference guards, the full audit repair pass through `2.0.11`, the first-run proof surface in `2.5.0`, the executable `/scr:first-run` path, command profiles, context-health checks, `/scr:proof-unit`, hub-first command families, and interactive install profile selection. See [Quick Proof](docs/quick-proof.md) for the fastest proof path, [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory, and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
+Scriveno's core command surface is stable across 123 commands, 50 work types, and 11 installer targets. The current repo baseline includes shipped planning milestones through `v2.0 Publishing Cover Packaging`, plus the creative-context, record-store, neutral research layer, world/place/geography layers, prepublish editorial review, branching-next, runtime-sync, adaptive concierge, human-first writing-safeguard, authenticity-diagnostic, domain-grilling, installer-marker cleanup, cross-runtime agent metadata, bounded subagent spawning protocol, model adaptation guide, visible automation status, the shared `npx scriveno@latest status --project .` auto-invoke engine, route-intelligence lanes, safe apply reporting, runtime smoke checks, agent availability checks, route graph audits, workflow-reference guards, the full audit repair pass through `2.0.11`, the first-run proof surface in `2.5.0`, the executable `/scr:first-run` path, command profiles, context-health checks, `/scr:proof-unit`, hub-first command families, and interactive install profile selection. See [Quick Proof](docs/quick-proof.md) for the fastest proof path, [Shipped Assets](docs/shipped-assets.md) for the canonical asset inventory, and [Runtime Support](docs/runtime-support.md) for the runtime compatibility matrix.
 
 Version `3.2.4` publishes Scriveno under the package name `scriveno`, so the current install command is `npx scriveno@latest`. The older `scriveno-cli` package name is historical and was unpublished during the rename, so npm cannot attach a deprecation notice to it while it has no active registry record. The older `scriven-cli` package remains on npm only as a deprecated legacy name that points users to `scriveno`. Do not treat either legacy package name as active unless a deliberate compatibility shim is republished. See [CHANGELOG](CHANGELOG.md) for the full list and [docs/release-notes.md](docs/release-notes.md) for the public-facing summary.
 

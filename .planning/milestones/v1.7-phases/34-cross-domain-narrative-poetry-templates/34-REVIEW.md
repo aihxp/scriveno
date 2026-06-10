@@ -153,5 +153,5 @@ it('scriveno-smashwords.docx exists - TPL-04', () => {
 ---
 
 _Reviewed: 2026-04-17T22:15:53Z_
-_Reviewer: Claude (gsd-code-reviewer)_
+_Reviewer: Claude (code reviewer)_
 _Depth: standard_

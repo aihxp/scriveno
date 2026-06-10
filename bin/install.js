@@ -1154,12 +1154,36 @@ function runStatus({ projectRoot, trigger, json, applySafe }) {
   return safeApply ? { analysis, safeApply } : analysis;
 }
 
+function readInstallSettingsForProject(projectRoot) {
+  const projectSettings = readJsonIfExists(path.join(path.resolve(projectRoot || process.cwd()), '.scriveno', 'settings.json'));
+  if (projectSettings) return migrateSettings(projectSettings);
+  const globalSettings = readJsonIfExists(path.join(os.homedir(), '.scriveno', 'settings.json'));
+  return globalSettings ? migrateSettings(globalSettings) : null;
+}
+
+function commandRefToRuntimeInvocation(commandRef, runtimeKey) {
+  if (runtimeKey === 'claude-code') return commandRefToClaudeInvocation(commandRef);
+  if (runtimeKey === 'codex') return commandRefToCodexInvocation(commandRef);
+  return commandRef;
+}
+
+function commandStepToRuntimeInvocation(step, runtimeKey) {
+  const match = String(step).match(/^(\/scr:[a-z0-9:-]+)(.*)$/i);
+  if (!match) return step;
+  return `${commandRefToRuntimeInvocation(match[1], runtimeKey)}${match[2]}`;
+}
+
 function buildFirstRunGuide({ projectRoot }) {
   const analysis = autoInvokeEngine.analyzeProject(projectRoot);
-  const smoke = autoInvokeEngine.inspectRuntimeSmoke();
+  const smoke = autoInvokeEngine.inspectRuntimeSmoke({ projectRoot });
   const routes = autoInvokeEngine.buildRouteGraph();
+  const settings = readInstallSettingsForProject(projectRoot);
+  const activeRuntime = Array.isArray(settings?.runtimes) && settings.runtimes.length > 0
+    ? settings.runtimes[0]
+    : settings?.runtime || 'standard';
   return {
     projectRoot,
+    activeRuntime,
     recommendation: analysis.recommendation,
     commandShapes: {
       claudeCode: ['/scr-first-run', '/scr-demo', '/scr-next'],
@@ -1205,10 +1229,16 @@ function buildFirstRunGuide({ projectRoot }) {
 }
 
 function formatFirstRunGuide(guide) {
+  const firstPath = guide.firstPath.map((step) => commandStepToRuntimeInvocation(step, guide.activeRuntime));
+  const recommendation = commandStepToRuntimeInvocation(guide.recommendation.command, guide.activeRuntime);
+  const nextDemo = commandRefToRuntimeInvocation('/scr:demo', guide.activeRuntime);
+  const nextNext = commandRefToRuntimeInvocation('/scr:next', guide.activeRuntime);
+  const nextNewWork = commandRefToRuntimeInvocation('/scr:new-work', guide.activeRuntime);
   return [
     'Scriveno first-run guide',
     `Project: ${guide.projectRoot}`,
-    `Current recommendation: ${guide.recommendation.command}`,
+    `Current recommendation: ${recommendation}`,
+    `Active command shape: ${guide.activeRuntime}`,
     '',
     'Runtime command shapes:',
     `- Claude Code: ${guide.commandShapes.claudeCode.join(', ')}`,
@@ -1223,7 +1253,7 @@ function formatFirstRunGuide(guide) {
     `- Latest adaptations: ${guide.modelAdaptation.latest.join(', ')}`,
     '',
     'Recommended first path:',
-    ...guide.firstPath.map((step, index) => `${index + 1}. ${step}`),
+    ...firstPath.map((step, index) => `${index + 1}. ${step}`),
     '',
     'Proof artifacts:',
     ...guide.proofArtifacts.map((artifact) => `- ${artifact}`),
@@ -1234,9 +1264,9 @@ function formatFirstRunGuide(guide) {
     `- expected agents: ${guide.checks.expectedAgents.join(', ')}`,
     '',
     'Next commands:',
-    '- /scr:demo: Create the isolated watchmaker demo project.',
-    '- /scr:next: Let Scriveno inspect the current project state.',
-    '- /scr:new-work: Start a real project instead of using the demo.',
+    `- ${nextDemo}: Create the isolated watchmaker demo project.`,
+    `- ${nextNext}: Let Scriveno inspect the current project state.`,
+    `- ${nextNewWork}: Start a real project instead of using the demo.`,
   ].join('\n');
 }
 
@@ -1253,8 +1283,8 @@ function runFirstRun({ projectRoot, json }) {
 function runSyncCheck({ projectRoot, json }) {
   const analysis = autoInvokeEngine.analyzeProject(projectRoot);
   const safeApply = autoInvokeEngine.collectSafeApplyActions(projectRoot, { analysis, trigger: 'scriveno sync --check' });
-  const agents = autoInvokeEngine.inspectAgentAvailability();
-  const smoke = autoInvokeEngine.inspectRuntimeSmoke();
+  const agents = autoInvokeEngine.inspectAgentAvailability({ projectRoot });
+  const smoke = autoInvokeEngine.inspectRuntimeSmoke({ projectRoot });
   const result = { analysis, safeApply, agents, smoke };
   if (json) {
     console.log(JSON.stringify(result, null, 2));
@@ -1272,8 +1302,8 @@ function runSyncCheck({ projectRoot, json }) {
   return result;
 }
 
-function runRuntimeSmoke({ json }) {
-  const result = autoInvokeEngine.inspectRuntimeSmoke();
+function runRuntimeSmoke({ projectRoot, json }) {
+  const result = autoInvokeEngine.inspectRuntimeSmoke({ projectRoot });
   if (json) {
     console.log(JSON.stringify(result, null, 2));
   } else {
@@ -1282,8 +1312,8 @@ function runRuntimeSmoke({ json }) {
   return result;
 }
 
-function runAgentAvailability({ json }) {
-  const result = autoInvokeEngine.inspectAgentAvailability();
+function runAgentAvailability({ projectRoot, json }) {
+  const result = autoInvokeEngine.inspectAgentAvailability({ projectRoot });
   if (json) {
     console.log(JSON.stringify(result, null, 2));
   } else {
@@ -1856,12 +1886,12 @@ async function main() {
   }
 
   if (parsed.command === 'smoke') {
-    runRuntimeSmoke({ json: parsed.auditJson });
+    runRuntimeSmoke({ projectRoot: parsed.statusProjectRoot, json: parsed.auditJson });
     return;
   }
 
   if (parsed.command === 'agents') {
-    runAgentAvailability({ json: parsed.auditJson });
+    runAgentAvailability({ projectRoot: parsed.statusProjectRoot, json: parsed.auditJson });
     return;
   }
 

@@ -59,7 +59,7 @@
 | v1.3 | 4 | Trust-first: narrowed claims to provable surfaces |
 | v1.4 | 3 | Research-first: technical writing domain modeled before implementation |
 | v1.5 | 3 | Silent installs, Codex skill-native surface |
-| v1.6 | 6 | Installer hardening driven by cross-referencing GSD releases |
+| v1.6 | 6 | Installer hardening driven by cross-referencing prior installer-hardening releases |
 | v1.7 | 7 | Architecture-first sequencing; autonomous multi-phase execution |
 
 ### Cumulative Quality

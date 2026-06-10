@@ -176,6 +176,8 @@ After saving, tell the writer:
 >
 > To regenerate with a different style: `/scr:illustrate-scene {ref} --style watercolor`
 
+**No image tool available?** If the session has no image-generation capability and the writer has no external image service, do not stop at the prompt. For styles that vector art renders well (line art, woodcut, flat-color, geometric, iconographic, silhouette, map-adjacent), offer to build the illustration directly as original SVG following the same prompt structure, then convert it to PNG/JPG with a local CLI tool (`rsvg-convert`, Inkscape, or ImageMagick), as described in the vector path of `/scr:cover-art`. Save the editable SVG source alongside the rendered file. Note in the delivery message that agent-built art counts as AI-generated imagery for platforms with AI-content disclosure rules.
+
 ---
 
 ### Edge Cases

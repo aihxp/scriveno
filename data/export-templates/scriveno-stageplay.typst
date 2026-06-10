@@ -26,7 +26,7 @@
 
 // Metadata
 #let play-title  = $if(title)$"$title$"$else$"Untitled"$endif$
-#let play-author = $if(author)$"$for(author)$$it.name$$sep$, $endfor$"$else$""$endif$
+#let play-author = $if(author)$"$for(author)$$if(author.name)$$author.name$$else$$author$$endif$$sep$, $endfor$"$else$""$endif$
 
 #set document(
   title: play-title,

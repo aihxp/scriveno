@@ -29,7 +29,7 @@ created: 2026-04-17
 
 - **After every task commit:** Run `node --test test/phase35-academic-latex-wrappers.test.js`
 - **After every plan wave:** Run `node --test test/`
-- **Before `/gsd-verify-work`:** Full suite must be green
+- **Before `final verification`:** Full suite must be green
 - **Max feedback latency:** 10 seconds
 
 ---

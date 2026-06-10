@@ -38,6 +38,30 @@ function write(filePath, content) {
   fs.writeFileSync(filePath, content);
 }
 
+const STYLE_GUIDE_BODY = [
+  '# Style Guide',
+  'Voice baseline: precise, intimate, concrete, and restrained.',
+  'Sentence rhythm: mostly compact sentences with a few longer reflective turns.',
+  'Diction: plain language, specific verbs, no generic filler.',
+  'Imagery: sensory details grounded in the current scene.',
+  'Point of view: close interior attention without explaining too much.',
+  'Dialogue: clipped when tense, warmer when trust is present.',
+  'Pacing: prioritize momentum and clear transitions.',
+  'Revision bias: cut abstraction before cutting emotional truth.',
+].join('\n');
+
+function writeVoiceProfile(manuscriptDir, options = {}) {
+  write(path.join(manuscriptDir, 'STYLE-GUIDE.md'), STYLE_GUIDE_BODY);
+  if (options.calibrated !== false) {
+    const configPath = path.join(manuscriptDir, 'config.json');
+    const config = fs.existsSync(configPath)
+      ? JSON.parse(fs.readFileSync(configPath, 'utf8'))
+      : {};
+    config.voice = { ...(config.voice || {}), calibrated: true };
+    write(configPath, `${JSON.stringify(config, null, 2)}\n`);
+  }
+}
+
 function touchTime(filePath, secondsAgo) {
   const when = new Date(Date.now() - secondsAgo * 1000);
   fs.utimesSync(filePath, when, when);
@@ -100,6 +124,7 @@ describe('auto-invoke engine', () => {
       write(path.join(manuscript, 'STATE.md'), 'Current unit: 1\n');
       write(path.join(manuscript, 'CONTEXT.md'), 'Suggested next step: plan\n');
       write(path.join(manuscript, 'config.json'), '{"work_type":"essay","command_unit":"section"}\n');
+      writeVoiceProfile(manuscript);
 
       const analysis = analyzeProject(project);
 
@@ -118,16 +143,79 @@ describe('auto-invoke engine', () => {
       write(path.join(manuscript, 'CONTEXT.md'), 'Suggested next step: draft\n');
       write(path.join(manuscript, 'config.json'), '{"work_type":"novel","command_unit":"chapter"}\n');
       write(path.join(manuscript, 'plans', '1-1-PLAN.md'), 'Plan\n');
+      writeVoiceProfile(manuscript);
 
       const analysis = analyzeProject(project);
       const report = formatReport(analysis, { trigger: '/scr:next' });
 
       assert.equal(analysis.signals.plan.state, 'ready-to-draft');
-      assert.equal(analysis.recommendation.command, '/scr:draft');
+      assert.equal(analysis.recommendation.command, '/scr:draft 1');
       assert.equal(analysis.automation.mode, 'agent-ready');
       assert.deepEqual(analysis.automation.spawnCandidates[0].agents, ['drafter', 'voice-checker']);
       assert.match(report, /Candidate agents:/);
-      assert.match(report, /\/scr:draft: drafter, voice-checker/);
+      assert.match(report, /\/scr:draft 1: drafter, voice-checker/);
+    } finally {
+      fs.rmSync(project, { recursive: true, force: true });
+    }
+  });
+
+  it('keeps planned work behind profile-writer when STYLE-GUIDE.md is still a template', () => {
+    const project = mkProject('template-style');
+    try {
+      const manuscript = path.join(project, '.manuscript');
+      write(path.join(manuscript, 'STATE.md'), 'Current unit: 1\n');
+      write(path.join(manuscript, 'CONTEXT.md'), 'Suggested next step: draft\n');
+      write(path.join(manuscript, 'config.json'), '{"work_type":"novel","command_unit":"chapter"}\n');
+      write(path.join(manuscript, 'plans', '1-1-PLAN.md'), 'Plan\n');
+      write(path.join(manuscript, 'STYLE-GUIDE.md'), '# Style Guide\nTODO: describe your writing voice\n');
+
+      const analysis = analyzeProject(project);
+
+      assert.equal(analysis.signals.styleGuide.state, 'template');
+      assert.equal(analysis.signals.plan.state, 'ready-to-draft');
+      assert.equal(analysis.recommendation.command, '/scr:profile-writer');
+    } finally {
+      fs.rmSync(project, { recursive: true, force: true });
+    }
+  });
+
+  it('routes a populated but uncalibrated profile through voice-test before drafting', () => {
+    const project = mkProject('uncalibrated-style');
+    try {
+      const manuscript = path.join(project, '.manuscript');
+      write(path.join(manuscript, 'STATE.md'), 'Current unit: 1\n');
+      write(path.join(manuscript, 'CONTEXT.md'), 'Suggested next step: draft\n');
+      write(path.join(manuscript, 'config.json'), '{"work_type":"novel","command_unit":"chapter"}\n');
+      write(path.join(manuscript, 'plans', '1-1-PLAN.md'), 'Plan\n');
+      writeVoiceProfile(manuscript, { calibrated: false });
+
+      const analysis = analyzeProject(project);
+
+      assert.equal(analysis.signals.styleGuide.state, 'profiled-unverified');
+      assert.equal(analysis.signals.plan.state, 'ready-to-draft');
+      assert.equal(analysis.recommendation.command, '/scr:voice-test');
+    } finally {
+      fs.rmSync(project, { recursive: true, force: true });
+    }
+  });
+
+  it('routes planned gaps before unresolved review notes', () => {
+    const project = mkProject('plan-before-review');
+    try {
+      const manuscript = path.join(project, '.manuscript');
+      write(path.join(manuscript, 'STATE.md'), 'Current unit: 5\n');
+      write(path.join(manuscript, 'CONTEXT.md'), 'Suggested next step: demo\n');
+      write(path.join(manuscript, 'config.json'), '{"work_type":"novel","command_unit":"chapter"}\n');
+      write(path.join(manuscript, 'plans', '5-PLAN.md'), 'Plan\n');
+      write(path.join(manuscript, 'reviews', '4-REVIEW.md'), 'TODO: tighten previous unit\n');
+      writeVoiceProfile(manuscript);
+
+      const analysis = analyzeProject(project);
+
+      assert.equal(analysis.signals.plan.state, 'ready-to-draft');
+      assert.equal(analysis.signals.reviews.count, 1);
+      assert.equal(analysis.recommendation.command, '/scr:draft 5');
+      assert.match(analysis.recommendation.reason, /Unit 5/);
     } finally {
       fs.rmSync(project, { recursive: true, force: true });
     }
@@ -142,6 +230,7 @@ describe('auto-invoke engine', () => {
       write(path.join(manuscript, 'config.json'), '{"work_type":"novel","command_unit":"chapter"}\n');
       write(path.join(manuscript, 'plans', '1-1-PLAN.md'), 'Plan\n');
       write(path.join(manuscript, 'drafts', 'body', '1-1-DRAFT.md'), 'Draft text\n');
+      writeVoiceProfile(manuscript);
       touchTime(path.join(manuscript, 'STATE.md'), 10);
       touchTime(path.join(manuscript, 'drafts', 'body', '1-1-DRAFT.md'), 5);
       touchTime(path.join(manuscript, 'CONTEXT.md'), 1);
@@ -149,9 +238,9 @@ describe('auto-invoke engine', () => {
       const analysis = analyzeProject(project);
 
       assert.equal(analysis.signals.reviewCoverage.state, 'missing');
-      assert.equal(analysis.recommendation.command, '/scr:editor-review');
+      assert.equal(analysis.recommendation.command, '/scr:editor-review 1');
       assert.equal(analysis.automation.mode, 'agent-ready');
-      assert.equal(analysis.automation.spawnCandidates[0].command, '/scr:editor-review');
+      assert.equal(analysis.automation.spawnCandidates[0].command, '/scr:editor-review 1');
       assert.ok(analysis.automation.manualGates.some((gate) => gate.command === '/scr:publish'));
     } finally {
       fs.rmSync(project, { recursive: true, force: true });
@@ -172,6 +261,7 @@ describe('auto-invoke engine', () => {
       write(path.join(manuscript, 'tracks.json'), JSON.stringify({ tracks: [{ label: 'Alt ending', status: 'active' }] }, null, 2));
       write(path.join(manuscript, 'proposals', 'alt-ending-proposal.md'), 'Proposal\n');
       write(path.join(manuscript, 'HISTORY.log'), '2026-05-16T12:00:00Z | scr:draft | outcome=ok\n');
+      writeVoiceProfile(manuscript);
       touchTime(path.join(manuscript, 'STATE.md'), 10);
       touchTime(path.join(manuscript, 'drafts', 'body', '1-1-DRAFT.md'), 5);
       touchTime(path.join(manuscript, 'CONTEXT.md'), 1);
@@ -204,6 +294,7 @@ describe('auto-invoke engine', () => {
       write(path.join(manuscript, 'output', 'blurb.md'), 'Blurb\n');
       write(path.join(manuscript, 'build', 'ebook-cover.jpg'), 'cover\n');
       write(path.join(manuscript, 'HISTORY.log'), '2026-05-16T12:00:00Z | scr:complete-draft | outcome=ok\n');
+      writeVoiceProfile(manuscript);
       touchTime(path.join(manuscript, 'STATE.md'), 10);
       touchTime(path.join(manuscript, 'drafts', 'body', '1-1-DRAFT.md'), 5);
       touchTime(path.join(manuscript, 'CONTEXT.md'), 1);
@@ -215,6 +306,36 @@ describe('auto-invoke engine', () => {
       assert.equal(analysis.recommendation.command, '/scr:prepublish-review');
       assert.equal(analysis.automation.mode, 'manual-gated');
       assert.ok(analysis.automation.manualGates.some((gate) => gate.command === '/scr:prepublish-review'));
+    } finally {
+      fs.rmSync(project, { recursive: true, force: true });
+    }
+  });
+
+  it('routes prepublish-approved manuscripts to compliance before publish', () => {
+    const project = mkProject('compliance-review');
+    try {
+      const manuscript = path.join(project, '.manuscript');
+      write(path.join(manuscript, 'STATE.md'), 'Current unit: 1\nDraft complete: true\n');
+      write(path.join(manuscript, 'CONTEXT.md'), 'Suggested next step: publish\n');
+      write(path.join(manuscript, 'config.json'), '{"work_type":"novel","command_unit":"chapter"}\n');
+      write(path.join(manuscript, 'plans', '1-1-PLAN.md'), 'Plan\n');
+      write(path.join(manuscript, 'drafts', 'body', '1-1-DRAFT.md'), 'Draft text\n');
+      write(path.join(manuscript, 'reviews', '1-REVIEW.md'), 'Review passed\n');
+      write(path.join(manuscript, 'reviews', 'PREPUBLISH-REVIEW.md'), 'GO\n');
+      write(path.join(manuscript, 'front-matter', '03-title-page.md'), '# Title\n');
+      write(path.join(manuscript, 'back-matter', 'about-author.md'), '# About the Author\n');
+      write(path.join(manuscript, 'marketing', 'BLURB.md'), 'Blurb\n');
+      write(path.join(manuscript, 'build', 'ebook-cover.jpg'), 'cover\n');
+      writeVoiceProfile(manuscript);
+      touchTime(path.join(manuscript, 'STATE.md'), 10);
+      touchTime(path.join(manuscript, 'drafts', 'body', '1-1-DRAFT.md'), 5);
+      touchTime(path.join(manuscript, 'CONTEXT.md'), 1);
+
+      const analysis = analyzeProject(project);
+
+      assert.equal(analysis.signals.publishing.state, 'compliance-needed');
+      assert.equal(analysis.signals.publishing.suggest, '/scr:compliance-check');
+      assert.equal(analysis.recommendation.command, '/scr:compliance-check');
     } finally {
       fs.rmSync(project, { recursive: true, force: true });
     }
@@ -277,6 +398,7 @@ describe('auto-invoke engine', () => {
       write(path.join(manuscript, 'config.json'), '{"work_type":"novel","command_unit":"chapter"}\n');
       write(path.join(manuscript, 'drafts', 'body', '1-DRAFT.md'), 'Draft text\n');
       write(path.join(manuscript, 'notes', 'todo.md'), 'TODO: resolve this\n');
+      writeVoiceProfile(manuscript);
       touchTime(path.join(manuscript, 'STATE.md'), 10);
       touchTime(path.join(manuscript, 'drafts', 'body', '1-DRAFT.md'), 5);
       touchTime(path.join(manuscript, 'CONTEXT.md'), 1);
@@ -288,7 +410,7 @@ describe('auto-invoke engine', () => {
       assert.ok(result.safeToRunCount >= 1);
       assert.ok(result.agentCandidateCount >= 1);
       assert.ok(result.actions.some((action) => action.command === '/scr:check-notes' && action.status === 'ready'));
-      assert.ok(result.actions.some((action) => action.command === '/scr:editor-review' && action.status === 'agent-candidate'));
+      assert.ok(result.actions.some((action) => action.command === '/scr:editor-review 1' && action.status === 'agent-candidate'));
       assert.match(report, /Safe apply status:/);
       assert.match(report, /read-only/);
     } finally {
@@ -341,6 +463,50 @@ describe('auto-invoke engine', () => {
       assert.match(formatRuntimeSmokeReport(smoke), /Model docs: 3\/3/);
     } finally {
       fs.rmSync(homeDir, { recursive: true, force: true });
+    }
+  });
+
+  it('scopes runtime smoke to installed project runtimes', () => {
+    const project = mkProject('runtime-project');
+    try {
+      const agentNames = ['drafter', 'voice-checker'];
+      write(path.join(project, '.scriveno', 'settings.json'), JSON.stringify({
+        runtimes: ['codex'],
+        scope: 'project',
+      }, null, 2));
+      for (const name of agentNames) {
+        write(path.join(project, '.codex', 'agents', `${name}.md`), `# ${name}\n`);
+        write(path.join(project, '.codex', 'agents', `${name}.toml`), `name = "${name}"\n`);
+      }
+      for (const command of ['next.md', 'sync.md']) {
+        write(path.join(project, '.codex', 'commands', 'scr', command), '# command\n');
+      }
+      for (const skill of ['scr-next', 'scr-sync']) {
+        write(path.join(project, '.codex', 'skills', skill, 'SKILL.md'), '# skill\n');
+      }
+      write(path.join(project, '.scriveno', 'lib', 'auto-invoke-engine.js'), 'module.exports = {};\n');
+      for (const docPath of MODEL_ADAPTATION_DOCS) {
+        write(path.join(project, '.scriveno', docPath), `# ${docPath}\n`);
+      }
+
+      const smoke = inspectRuntimeSmoke({
+        projectRoot: project,
+        agentNames,
+        expectedCommands: 2,
+      });
+      const availability = inspectAgentAvailability({
+        projectRoot: project,
+        agentNames,
+      });
+
+      assert.equal(smoke.runtimes.length, 1);
+      assert.equal(smoke.runtimes[0].runtime, 'codex');
+      assert.equal(smoke.runtimes[0].scope, 'project');
+      assert.equal(smoke.ok, true);
+      assert.equal(availability.runtimes.length, 1);
+      assert.equal(availability.runtimes[0].status, 'metadata-ready');
+    } finally {
+      fs.rmSync(project, { recursive: true, force: true });
     }
   });
 

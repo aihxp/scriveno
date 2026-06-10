@@ -13,11 +13,11 @@ Load `.manuscript/config.json` for `command_unit`. The runnable command stays `/
 
 ## Prerequisites
 
-Require `.manuscript/plans/{N}-*-PLAN.md` files to exist. If none exist, also check legacy root-level `.manuscript/{N}-*-PLAN.md` files before offering `/scr:plan N`. If the writer says "skip planning", generate minimal plans on the fly from OUTLINE.md + STYLE-GUIDE.md and save them in `.manuscript/plans/`.
+Require `.manuscript/plans/{N}-*-PLAN.md` files to exist. If none exist, also check legacy root-level `.manuscript/{N}-*-PLAN.md` files before offering `/scr:plan N`. If the writer omitted the unit number, infer the earliest planned unit without a draft from `.manuscript/PROGRESS.md` or from the plan and draft filenames, then state the inferred unit before drafting. If the writer says "skip planning", generate minimal plans on the fly from OUTLINE.md + STYLE-GUIDE.md and save them in `.manuscript/plans/`.
 
 ## What to do
 
-1. **Find all plan files for the unit.** Prefer `.manuscript/plans/{N}-*-PLAN.md` -- one per atomic unit (scene, subsection, passage). If no files exist there, fall back to legacy `.manuscript/{N}-*-PLAN.md`.
+1. **Resolve the unit and find all plan files.** If `{unit}` was provided, use it. If it was omitted, select the lowest-numbered planned unit that has no matching draft and continue as if the writer had typed `/scr:draft N`. Prefer `.manuscript/plans/{N}-*-PLAN.md` -- one per atomic unit (scene, subsection, passage). If no files exist there, fall back to legacy `.manuscript/{N}-*-PLAN.md`.
 
    Before invoking the drafter, scan each plan for `QUESTION: Blocking`. If any blocking question remains, pause and route back to `/scr:discuss N`. Non-blocking questions and watchpoints may proceed into drafting.
 

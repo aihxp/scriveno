@@ -131,4 +131,27 @@ describe('Command surface coherence', () => {
       'docs/command-reference.md intro count must match the live command inventory'
     );
   });
+
+  it('registry gives every runnable command discoverability metadata', () => {
+    const intentMembers = new Set(
+      Object.values(constraints.command_intents || {})
+        .flatMap((intent) => Array.isArray(intent) ? intent : intent.commands || [])
+    );
+    const familyMembers = new Set(
+      Object.values(constraints.command_families || {})
+        .flatMap((family) => family.commands || [])
+    );
+
+    for (const entry of commandEntries) {
+      const name = entry.commandRef.replace('/scr:', '');
+      const command = constraints.commands[name];
+
+      assert.ok(command, `${name} should exist in data/CONSTRAINTS.json`);
+      assert.ok(command.description, `${name} should have a registry description`);
+      assert.ok(
+        intentMembers.has(name) || familyMembers.has(name),
+        `${name} should belong to at least one intent or command family`
+      );
+    }
+  });
 });

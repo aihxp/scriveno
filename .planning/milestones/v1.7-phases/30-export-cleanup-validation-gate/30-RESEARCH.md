@@ -505,7 +505,7 @@ The following existing test files assert structural invariants on command files.
 ### Sampling Rate
 - **Per task commit:** `node --test test/phase30-export-cleanup-validation-gate.test.js`
 - **Per wave merge:** `npm test`
-- **Phase gate:** Full suite green before `/gsd-verify-work`
+- **Phase gate:** Full suite green before `final verification`
 
 ### Wave 0 Gaps
 - [ ] `test/phase30-export-cleanup-validation-gate.test.js` - covers CLEAN-01, CLEAN-02, VALID-01, VALID-02, VALID-03

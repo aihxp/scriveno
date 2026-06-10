@@ -47,6 +47,11 @@ Scan all `.md` files in `.manuscript/drafts/` recursively. For each file, check 
 **Duplicate H1 headings:**
 - Files with more than one line matching `^# ` (single hash + space, top-level heading)
 
+**Merge conflict markers:**
+- Lines starting with `<<<<<<<`
+- Lines starting with `=======`
+- Lines starting with `>>>>>>>`
+
 **IMPORTANT:** `{{VAR}}` tokens are NOT scaffold markers. Do not flag them. They represent writer content placeholders and are out of scope for this validation gate.
 
 For each match, record it as:
@@ -73,6 +78,7 @@ VALIDATION FAILED -- unresolved scaffold markers found:
 .manuscript/drafts/body/1-opening-image-DRAFT.md:3: [Fill in or delete:]
 .manuscript/drafts/body/1-opening-image-DRAFT.md:47: Alternate 1:
 .manuscript/drafts/body/3-reversal-DRAFT.md:12: [Fill in:]
+.manuscript/drafts/body/4-choice-DRAFT.md:88: <<<<<<< HEAD
 
 Found 3 scaffold markers in 2 file(s).
 Run `/scr:cleanup --apply` to remove scaffold markers automatically,
@@ -107,6 +113,7 @@ This confirms the manuscript is clean and ready to proceed to `/scr:export` or `
 | Bracket marker | `[Delete if not applicable:]` | Yes |
 | Alternate block | `Alternate 1:` or `Alternate 2:` | Yes |
 | Duplicate H1 | >1 line matching `^# ` in one file | Yes |
+| Merge conflict marker | Line starts with `<<<<<<<`, `=======`, or `>>>>>>>` | Yes |
 | `{{VAR}}` token | Any `{{...}}` pattern | **No -- not scaffold** |
 
 ## Response Contract

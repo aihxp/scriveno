@@ -1,6 +1,6 @@
 # Historical Validation Notes - Phases 01 to 08
 
-This report is a historical reconstruction, not a true `/gsd-validate-phase` output.
+This report is a historical reconstruction, not a formal phase validation output.
 
 Phases `01` through `08` do not have local phase directories with retained PLAN/SUMMARY artifacts in this workspace, so their Nyquist status cannot be recreated faithfully. What we *can* do is map the current test suite back to the shipped phase goals and record how much evidence still exists.
 
@@ -76,7 +76,7 @@ Current evidence still covers collaboration tracks, multi-runtime installer expa
 ## What We Cannot Claim
 
 - We cannot produce authentic per-task Nyquist maps for phases `01` through `08`.
-- We cannot truthfully mark those phases as fully `/gsd-validate-phase`-validated from this workspace.
+- We cannot truthfully mark those phases as fully validated by formal phase validation from this workspace.
 - We can only say the current repo still carries substantial automated evidence for those shipped phase outcomes.
 
 ## Practical Conclusion

@@ -446,7 +446,7 @@ Scriveno's `package.json` has no runtime dependencies. The installer is pure Nod
 
 ### Plan is canonical
 
-The product plan is the source of truth. If a command file contradicts the plan, the command file is wrong. This ensures consistency across 122 commands and prevents drift as multiple contributors work on the system.
+The product plan is the source of truth. If a command file contradicts the plan, the command file is wrong. This ensures consistency across 123 commands and prevents drift as multiple contributors work on the system.
 
 ### Backward compatibility
 

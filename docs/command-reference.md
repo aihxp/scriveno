@@ -1,6 +1,6 @@
 # Command Reference
 
-Scriveno has **122 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
+Scriveno has **123 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
 
 Commands marked with **adaptive terminology** change how Scriveno talks about your work type's `command_unit` in `.manuscript/config.json`, while keeping the runnable command id stable. Commands marked with **group adaptation** have different labels for specific work type groups (academic, sacred, etc.).
 
@@ -152,7 +152,7 @@ Finalize Chapter 3 after editor review. Marks it as complete in the workflow.
 
 **Usage:** `/scr:proof-unit [unit] [--demo] [--export-check]`
 
-**Prerequisites:** STYLE-GUIDE.md should exist. If it is missing, run `/scr:profile-writer` or `/scr:voice-test` first.
+**Prerequisites:** STYLE-GUIDE.md should be populated. If it is missing or still a template, run `/scr:profile-writer` first, then `/scr:voice-test`.
 
 **Flags:**
 - `--demo` -- Use the demo proof path when available
@@ -496,18 +496,19 @@ Use `--all` when you want the complete save-version list without the default 10-
 
 **Description:** Undo your last save and go back to the previous version.
 
-**Usage:** `/scr:undo [--force]`
+**Usage:** `/scr:undo [--force] [--deeper]`
 
 **Prerequisites:** None
 
 **Flags:**
 - `--force` -- Skip the unsaved-changes warning, but still require confirmation before undoing
+- `--deeper` -- Skip an existing undo checkpoint and target the previous saved version instead
 
 **Example:**
 ```
 /scr:undo
 ```
-Go back to the previous save. Scriveno shows what will be reverted and still asks for confirmation, even with `--force`.
+Go back to the previous save. Scriveno shows what will be reverted, refuses to commit conflict markers, and still asks for confirmation, even with `--force`.
 
 ---
 
@@ -517,7 +518,7 @@ Go back to the previous save. Scriveno shows what will be reverted and still ask
 
 **Usage:** `/scr:pause-work`
 
-**Prerequisites:** None
+**Prerequisites:** Populated `STYLE-GUIDE.md`. If the style guide is missing or still has placeholders, Scriveno routes you to `/scr:profile-writer` instead of generating a test passage.
 
 **Example:**
 ```
@@ -1065,7 +1066,7 @@ Commands for calibrating voice and polishing prose.
 
 ### `/scr:voice-test`
 
-**Description:** Voice calibration gate. Generates a 300-word passage in the writer's proposed voice and asks "does this sound like you?" before any real drafting begins.
+**Description:** Voice calibration gate. Generates a work-type-aware sample in the writer's proposed voice and asks "does this sound like you?" before any real drafting begins.
 
 **Usage:** `/scr:voice-test`
 
@@ -1077,7 +1078,7 @@ Commands for calibrating voice and polishing prose.
 ```
 /scr:voice-test
 ```
-Scriveno drafts a sample passage using your voice profile. If it doesn't sound right, you refine together until it does.
+Scriveno drafts a work-type-aware sample using your voice profile. If it doesn't sound right, you refine together until it does.
 
 ---
 
@@ -1088,6 +1089,8 @@ Scriveno drafts a sample passage using your voice profile. If it doesn't sound r
 **Usage:** `/scr:line-edit [N]`
 
 **Prerequisites:** Draft must exist
+
+**Output:** Writes `.manuscript/reviews/{scope}-SENSITIVITY-REVIEW.md`. Older root-level reports are still read for backward compatibility.
 
 **Available for:** All work types
 
@@ -1106,6 +1109,8 @@ Scriveno reads your prose line by line, flagging weak verbs, passive voice, redu
 **Usage:** `/scr:copy-edit [N]`
 
 **Prerequisites:** Draft must exist
+
+**Output:** Writes `.manuscript/reviews/{scope}-ORIGINALITY-REPORT.md`. Older root-level reports are still read for backward compatibility.
 
 **Available for:** All work types
 
@@ -1452,11 +1457,11 @@ Generate 10-15 book club questions that spark real conversation about your theme
 
 ### `/scr:publish`
 
-**Description:** Publishing wizard or preset-driven pipeline. Chains export commands based on destination.
+**Description:** Publishing wizard or preset-driven pipeline. Chains export commands based on destination and enforces final compliance gates for retail, print, and distributor packages.
 
 **Usage:** `/scr:publish [--preset <preset>] [--all] [--skip-validate] [--preflight]`
 
-**Prerequisites:** None (wraps export commands)
+**Prerequisites:** Complete draft, current `/scr:prepublish-review`, and current `.manuscript/reviews/PLATFORM-COMPLIANCE.md` for retail, print, wide, or distributor presets.
 
 **Flags:**
 - `--preset <preset>` -- Run a named preset without questions. Presets group into four families:
@@ -1468,6 +1473,8 @@ Generate 10-15 book club questions that spark real conversation about your theme
 - `--skip-validate` -- Skip the scaffold-marker validation gate (not recommended)
 - `--preflight` -- Check publishing readiness and external tools, then stop before writing deliverables
 - No flags -- Run the interactive wizard, which asks the writer-facing question "What are you doing?" (Share / Publish / Submit / Academic / Screenplay / Everything / Custom) and drills into the matching branch.
+
+**Compliance gate:** When a preset targets a publishing platform, `/scr:publish` runs or requires `/scr:compliance-check --platform <target>` before export packaging proceeds.
 
 **Available for:** All work types
 
@@ -1501,6 +1508,28 @@ Run the final editor-style go/no-go pass and write `.manuscript/reviews/PREPUBLI
 
 ---
 
+### `/scr:compliance-check`
+
+**Description:** Check the manuscript, metadata, and cover assets against platform publishing policies (KDP, IngramSpark, and other retailers), copyright diligence, and AI-disclosure duties.
+
+**Usage:** `/scr:compliance-check [--platform <platform>] [--strict]`
+
+**Prerequisites:** Complete draft must exist
+
+**Flags:**
+- `--platform <platform>` -- Check one destination only: `kdp-ebook`, `kdp-print`, `ingramspark`, `apple-books`, `kobo`, `google-play`, `draft2digital`, `smashwords`, or `all`
+- `--strict` -- Treat unresolved publish-time action items as a stop recommendation
+
+**Available for:** All work types
+
+**Example:**
+```
+/scr:compliance-check --platform kdp-ebook
+```
+Fetch the current official platform policies, map them against the project (copyright inventory, public-domain rules, AI disclosure, metadata traps), and write `.manuscript/reviews/PLATFORM-COMPLIANCE.md` with per-platform verdicts and the exact upload-screen answers.
+
+---
+
 Publishing boundary:
 
 - `/scr:publish`: destination wizard and sequencing.
@@ -1508,6 +1537,7 @@ Publishing boundary:
 - `/scr:build-ebook`, `/scr:build-print`, `/scr:build-smashwords`, and `/scr:build-poetry-submission`: final package builders for a specific channel or format.
 - `/scr:front-matter` and `/scr:back-matter`: content creation before packaging.
 - `/scr:prepublish-review`: final editorial gate.
+- `/scr:compliance-check`: platform-policy, copyright, and AI-disclosure gate.
 
 ---
 

@@ -78,8 +78,8 @@ describe('first-run proof surface', () => {
     assert.match(quickProof, /\/scr:save/);
     assert.match(quickProof, /\$scr-draft 5/);
     assert.match(quickProof, /\$scr-save/);
-    assert.match(quickProof, /scriveno first-run --project \./);
-    assert.match(quickProof, /scriveno smoke --json/);
+    assert.match(quickProof, /npx scriveno@latest first-run --project \./);
+    assert.match(quickProof, /npx scriveno@latest smoke --json/);
     assert.match(quickProof, /Claude Code is the primary reference runtime/);
     assert.match(quickProof, /host-runtime parity proof/);
     assert.match(quickProof, /\[Versatility Paths\]\(versatility-paths\.md\)/);
@@ -97,8 +97,8 @@ describe('first-run proof surface', () => {
   });
 
   it('keeps first-run proof and runtime parity evidence concrete', () => {
-    assert.match(firstRunProof, /scriveno first-run --project \./);
-    assert.match(firstRunProof, /scriveno smoke --json/);
+    assert.match(firstRunProof, /npx scriveno@latest first-run --project \./);
+    assert.match(firstRunProof, /npx scriveno@latest smoke --json/);
     assert.match(firstRunProof, /\/scr:draft 5/);
     assert.match(firstRunProof, /\/scr:save/);
     assert.match(firstRunProof, new RegExp(`"expectedCommands": ${commandIds().size}`));

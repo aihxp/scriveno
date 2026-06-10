@@ -44,6 +44,8 @@ This engine is installed into Scriveno shared assets for every runtime, includin
 7. **Load `command_families` from CONSTRAINTS.json** if present. Use hub-first families for specialist requests without expanding the primary menu:
    - structure -> `/scr:outline`
    - art -> `/scr:art-direction`
+   - review -> `/scr:editor-review`
+   - automation -> `/scr:do`
    - session -> `/scr:save`
    - sacred -> `/scr:sacred:source-tracking`
    - submission -> `/scr:publish`
@@ -89,7 +91,9 @@ Walk the core chain in order and run the first incomplete step:
 1. **No OUTLINE.md** -> `/scr:discuss` (high-level discussion about the whole project)
 2. **No CHARACTERS.md / FIGURES.md and work type supports them** -> `/scr:new-character` loop
    - When characters exist but no people is defined and the work type supports peoples (`PEOPLES.md` applicable per `surface_applicability`), surface `/scr:new-people` as an option; when peoples already exist, offer `/scr:relationship-map --peoples` to view how they stand.
-3. **No STYLE-GUIDE.md calibration done** -> `/scr:voice-test`
+3. **No usable STYLE-GUIDE.md profile** -> `/scr:profile-writer`
+   - Treat STYLE-GUIDE.md as unusable when it is missing, mostly template text, or still contains placeholders such as `{{...}}`, `[Fill in...]`, `TODO`, `TBD`, or generic prompt copy.
+   - If STYLE-GUIDE.md is populated but `.manuscript/config.json` has `voice.calibrated: false`, route to `/scr:voice-test`.
 4. **No {unit} discussed** -> `/scr:discuss N` (next pending unit)
 5. **No {unit} planned** -> `/scr:plan N`
 6. **No {unit} drafted** -> `/scr:draft N`
@@ -136,6 +140,8 @@ Use this hub-first map for specialist requests:
 
 - Structure: recommend `/scr:outline` before add, insert, remove, split, merge, or reorder commands.
 - Art: recommend `/scr:art-direction` before cover, scene, character, map, storyboard, panel, or spread prompts.
+- Review: recommend `/scr:editor-review` before voice, continuity, originality, sensitivity, pacing, dialogue, proof, line-edit, copy-edit, or polish checks unless the writer names the narrower check directly.
+- Automation: recommend `/scr:do` for natural-language routing before fast edits, autopilot, proof, or next-step automation unless the writer names the narrower command directly.
 - Session: recommend `/scr:save` before history, versions, compare, pause, resume, or session report.
 - Sacred: recommend `/scr:sacred:source-tracking` before concordance, cross-reference, genealogy, chronology, annotation, verse numbering, numbering format, or doctrinal checks.
 - Submission: recommend `/scr:publish` before synopsis, query letter, book proposal, discussion questions, prepublish review, or submission export.

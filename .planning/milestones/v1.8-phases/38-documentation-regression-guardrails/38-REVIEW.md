@@ -65,5 +65,5 @@ Reviewed the current Phase 38 command-surface docs, command specs, installer hel
 ---
 
 _Reviewed: 2026-04-18T05:02:00Z_
-_Reviewer: Codex (`$gsd-code-review`)_
+_Reviewer: Codex (code reviewer)_
 _Depth: standard_

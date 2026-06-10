@@ -64,5 +64,5 @@ status: all_fixed
 ---
 
 _Fixed: 2026-04-18T04:32:00Z_
-_Fixer: Codex (gsd-code-review-fix)_
+_Fixer: Codex (code review fixer)_
 _Iteration: 1_

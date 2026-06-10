@@ -526,7 +526,7 @@ describe('Phase 35: TPL-07 scriveno-ieee.latex exists with IEEEtran class', () =
 ### Sampling Rate
 - **Per task commit:** `node --test test/phase35-academic-latex-wrappers.test.js`
 - **Per wave merge:** `npm test`
-- **Phase gate:** `npm test` green (all suites, including phase 34 regression) before `/gsd-verify-work`
+- **Phase gate:** `npm test` green (all suites, including phase 34 regression) before `final verification`
 
 ### Wave 0 Gaps
 - [ ] `test/phase35-academic-latex-wrappers.test.js` - covers all TPL-07 assertions above (Plan 35-01)

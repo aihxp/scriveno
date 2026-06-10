@@ -58,4 +58,4 @@ No gaps found. Phase 37 made the Claude naming contract explicit and replaced mi
 ---
 
 _Verified: 2026-04-18T03:25:00Z_
-_Verifier: Codex (gsd-verifier)_
+_Verifier: Codex (verification reviewer)_

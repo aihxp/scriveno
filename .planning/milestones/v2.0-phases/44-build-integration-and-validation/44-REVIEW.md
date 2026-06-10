@@ -65,5 +65,5 @@ I reviewed the phase 44 build/export/publish command surface, the trust-facing d
 ---
 
 _Reviewed: 2026-04-18T07:14:19Z_
-_Reviewer: Claude (gsd-code-reviewer)_
+_Reviewer: Claude (code reviewer)_
 _Depth: standard_

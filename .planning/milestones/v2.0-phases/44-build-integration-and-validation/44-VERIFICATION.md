@@ -64,4 +64,4 @@ No active gaps found in the Phase 44 scope. The milestone now has cover-contract
 ---
 
 _Verified: 2026-04-18T06:59:31Z_  
-_Verifier: Codex (gsd-verifier)_
+_Verifier: Codex (verification reviewer)_

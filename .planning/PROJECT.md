@@ -53,6 +53,11 @@ Scriveno is a spec-driven writing, publishing, and translation pipeline that run
 - [x] Installed command files use correct invocation syntax per runtime with code-block preservation - v1.6 Phase 27
 - [x] All v1.6 hardening behaviors locked by 88 regression tests with requirement-to-test traceability - v1.6 Phase 28
 
+### Validated (post-3.2.4 command-surface delta)
+
+- [x] `/scr:compliance-check` platform-policy, copyright, and AI-disclosure gate (category `publishing`, available all work types, requires complete draft; live official-policy verification over remembered policy; report at `.manuscript/reviews/PLATFORM-COMPLIANCE.md`; routed from publish preflight, prepublish-review, originality-check, and help) - post-3.2.4
+- [x] No-image-tool vector art path for `/scr:cover-art` and `/scr:illustrate-scene`: agent-built original SVG/HTML art converted to canonical deliverables via local CLI tools (rsvg-convert, Inkscape, ImageMagick, headless Chrome), with editable source under `.manuscript/build/source/` and AI-disclosure note routed to `/scr:compliance-check` - post-3.2.4
+
 ### Validated (v1.8)
 
 - [x] Sacred-exclusive command references now use canonical installed names across source commands, docs, and manifests - v1.8 Phases 36-38 (CMD-01, CMD-03)
@@ -218,7 +223,7 @@ The most visible gaps were in the export stack and launch proof layer. Phase 13 
 | Markdown-only architecture (no compiled code) | Maximum portability across AI agents; no build step needed | [x] Good |
 | CONSTRAINTS.json as single source for command availability | One file controls all work type adaptations; easy to extend | [x] Good |
 | Ship npm + polish in parallel | Get npx working early for feedback while improving experience | [x] Good |
-| GSD-derived phase decomposition | Product plan has 10 phases but GSD regrouped into 8 for standard granularity | [x] Good |
+| Standard phase decomposition | Product plan has 10 phases, then planning regrouped them into 8 for standard granularity | [x] Good |
 | Generic SKILL.md installer for platforms without command directories | Manus and future platforms can use Scriveno without needing a proprietary command system | [x] Good |
 | Trust beats breadth on the launch surface | Narrow, provable claims create more confidence than ambitious but weakly evidenced breadth | [x] Good |
 | Guided runtime targets can be first-class when their setup model is explicit | Some host surfaces are real but do not expose writable command registries; guided setup is better than fake parity | [x] Good |
@@ -226,7 +231,7 @@ The most visible gaps were in the export stack and launch proof layer. Phase 13 
 | Codex should be treated as a skill-native runtime, not a slash-command clone | Match the host's real discovery surface while keeping installed command markdown as the behavior source of truth | [x] Good |
 | Silent installs must clean only Scriveno-owned runtime outputs | Reliability gains are not worth risking user-managed host files | [x] Good |
 | Runtime command names must only advertise installable surfaces | A guide that points at dead command names erodes trust faster than a missing feature | [x] Good |
-| Claude Code should follow a flat `/scr-*` surface, mirroring GSD's runtime-native style | Flat slash commands are easier to discover and match the upstream host conventions Scriveno now claims to support | [x] Good |
+| Claude Code should follow a flat `/scr-*` surface | Flat slash commands are easier to discover and match the upstream host conventions Scriveno now claims to support | [x] Good |
 | Cover deliverables should live under `.manuscript/build/` as project assets | Writers need one canonical delivery surface that is separate from prompts, bundled templates, and staging output | [x] Good |
 | Print-cover geometry must stay template-driven | Platform cover templates are the authoritative source for wrap width and spine measurements; static formulas would erode trust | [x] Good |
 
