@@ -125,7 +125,7 @@ describe('phase 18 command and export fit', () => {
       .map(([name]) => name)
       .sort();
 
-    assert.deepEqual(allowed, ['docx_formatted', 'docx_manuscript', 'pdf_manuscript']);
+    assert.deepEqual(allowed, ['docx_formatted', 'docx_manuscript', 'pdf_manuscript', 'pdf_review']);
 
     for (const disallowed of ['kdp_package', 'ingram_package', 'query_package', 'submission_package', 'epub', 'mobi', 'latex']) {
       assert.ok(

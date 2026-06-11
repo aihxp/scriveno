@@ -1,6 +1,6 @@
 ---
-description: Compile and export manuscript to publication-ready formats.
-argument-hint: "[--format <format>] [--formatted] [--print-ready] [--skip-validate] [--check]"
+description: Compile and export manuscript to publication-ready and review formats.
+argument-hint: "[--format <format>] [--formatted] [--review] [--print-ready] [--skip-validate] [--check]"
 ---
 
 # /scr:export -- Manuscript Export
@@ -13,7 +13,7 @@ Publishing boundary: `/scr:export` is for one-off output. Use `/scr:publish` whe
 
 ```
 /scr:export                                  # interactive picker
-/scr:export --format <format> [--formatted] [--print-ready] [--skip-validate] [--check]
+/scr:export --format <format> [--formatted] [--review] [--print-ready] [--skip-validate] [--check]
 ```
 
 If `--format` is omitted, run the interactive picker (see STEP 0). Otherwise jump straight to STEP 1 with the requested format.
@@ -34,24 +34,25 @@ Show the writer this prompt and wait for an answer:
 > 1. **markdown** -- one `.md` file (no external tools required)
 > 2. **docx** -- manuscript Word document (requires Pandoc)
 > 3. **pdf** -- manuscript PDF (requires Pandoc + Typst)
-> 4. **epub** -- standalone EPUB (requires Pandoc)
-> 5. **latex** -- LaTeX source (academic / sacred only)
-> 6. **fountain** -- screenplay text (script work types only)
-> 7. **fdx** -- Final Draft XML (script work types only, requires Screenplain)
+> 4. **pdf --review** -- printable review copy PDF for sharing before publication (requires Pandoc + Typst)
+> 5. **epub** -- standalone EPUB (requires Pandoc)
+> 6. **latex** -- LaTeX source (academic / sacred only)
+> 7. **fountain** -- screenplay text (script work types only)
+> 8. **fdx** -- Final Draft XML (script work types only, requires Screenplain)
 >
 > **Print / store packaging**
-> 8. **pdf --print-ready** -- print interior PDF with trim size and margins
-> 9. **docx --formatted** -- designed DOCX for review copies
-> 10. **kdp-package** -- Amazon KDP print upload bundle
-> 11. **ingram-package** -- IngramSpark CMYK PDF/X-1a bundle
+> 9. **pdf --print-ready** -- print interior PDF with trim size and margins
+> 10. **docx --formatted** -- designed DOCX for review copies
+> 11. **kdp-package** -- Amazon KDP print upload bundle
+> 12. **ingram-package** -- IngramSpark CMYK PDF/X-1a bundle
 >
 > **Submission packages**
-> 12. **query-package** -- agent query bundle (query letter + synopsis + sample)
-> 13. **submission-package** -- full submission bundle (DOCX + synopsis + cover letter + bio)
+> 13. **query-package** -- agent query bundle (query letter + synopsis + sample)
+> 14. **submission-package** -- full submission bundle (DOCX + synopsis + cover letter + bio)
 >
 > Pick a number, or type the format name. Type `publish` if you want a guided multi-format pipeline instead -- that lives in `/scr:publish`.
 
-Map the answer to the corresponding `--format` value (and `--formatted` / `--print-ready` modifiers where applicable), then proceed to STEP 1 as if the writer had passed it on the command line.
+Map the answer to the corresponding `--format` value (and `--formatted` / `--review` / `--print-ready` modifiers where applicable), then proceed to STEP 1 as if the writer had passed it on the command line.
 
 If the writer answers `publish`, do not run the export; tell them to run `/scr:publish` and stop.
 
@@ -65,6 +66,7 @@ If the writer answers `publish`, do not run the export; tell them to run `/scr:p
 | DOCX (manuscript) | `--format docx` | `.manuscript/output/manuscript.docx` | Pandoc |
 | DOCX (formatted) | `--format docx --formatted` | `.manuscript/output/manuscript-formatted.docx` | Pandoc |
 | PDF (manuscript) | `--format pdf` | `.manuscript/output/manuscript.pdf` | Pandoc, Typst |
+| PDF (review copy) | `--format pdf --review` | `.manuscript/output/manuscript-review.pdf` | Pandoc, Typst |
 | PDF (print-ready) | `--format pdf --print-ready` | `.manuscript/output/manuscript-print.pdf` | Pandoc, Typst |
 | EPUB | `--format epub` | `.manuscript/output/manuscript.epub` | Pandoc |
 
@@ -126,6 +128,7 @@ Look up the requested format in `CONSTRAINTS.json` under the `exports` section. 
 | `docx` | `docx_manuscript` |
 | `docx --formatted` | `docx_formatted` |
 | `pdf` | `pdf_manuscript` |
+| `pdf --review` | `pdf_review` |
 | `pdf --print-ready` | `pdf_print_ready` |
 | `epub` | `epub` |
 | `fountain` | `fountain` |
@@ -247,7 +250,7 @@ Use this readiness report shape in `--check` mode:
 ```text
 Export Tool Check
 =================
-Format: pdf --print-ready
+Format: pdf --review
 
 [PASS] pandoc .......... pandoc 3.x
 [PASS] typst ........... typst 0.x
@@ -278,7 +281,7 @@ If Pandoc is not found:
 
 Then **stop** -- do not attempt export without the required tool.
 
-**For pdf (both manuscript and print-ready):** Also check for Typst:
+**For pdf (manuscript, review, and print-ready):** Also check for Typst:
 
 ```bash
 command -v typst >/dev/null 2>&1
@@ -468,6 +471,34 @@ pandoc .manuscript/output/assembled-manuscript.md \
   --toc \
   --toc-depth=1
 ```
+
+---
+
+#### FORMAT: pdf --review (EXP-04R)
+
+Printable review-copy PDF for writers, beta readers, editors, and early readers before publication.
+
+This is **not** an ebook export and **not** a print-ready interior for KDP, IngramSpark, hardcover, or paperback submission. Do not use `scriveno-epub.css`, do not embed cover files, and do not use the `scriveno-book.typst` trim/gutter template. The output should be easy to print on ordinary letter or A4 paper and easy to share as a prepublication reading copy.
+
+Read `review_paper_size` from `.manuscript/config.json` if set, otherwise default to `letter`. Accept `letter` and `a4`. If a different value is present, warn and fall back to `letter`.
+
+```bash
+pandoc .manuscript/output/assembled-manuscript.md \
+  -o .manuscript/output/manuscript-review.pdf \
+  --pdf-engine=typst \
+  --metadata-file=.manuscript/output/metadata.yaml \
+  --toc \
+  --toc-depth=2 \
+  -V papersize=letter \
+  -V margin=0.8in \
+  -V linkcolor=black
+```
+
+If `review_paper_size` is `a4`, use `-V papersize=a4` instead.
+
+Show this note after successful export:
+
+> **Review PDF:** This file is for printing and sharing before publication. It is not a final paperback, hardcover, ebook, KDP, or IngramSpark submission file. For final print interiors, run `/scr:export --format pdf --print-ready` or `/scr:build-print`.
 
 ---
 
@@ -939,6 +970,7 @@ After export completes, report:
      ```
      If Java is available: "Consider validating your EPUB with EPUBCheck: `java -jar epubcheck.jar .manuscript/output/manuscript.epub`"
    - For DOCX: note that styling comes from the reference document
+   - For PDF --review: confirm that the file is for printing and sharing before publication, not a final ebook, paperback, hardcover, KDP, or IngramSpark submission file
    - For PDF --print-ready: confirm the trim size and margins used
 
 **Example output:**

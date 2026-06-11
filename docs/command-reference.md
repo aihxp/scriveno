@@ -1543,15 +1543,16 @@ Publishing boundary:
 
 ### `/scr:export`
 
-**Description:** Compile and export manuscript to publication-ready formats.
+**Description:** Compile and export manuscript to publication-ready and review formats.
 
-**Usage:** `/scr:export [--format <format>] [--formatted] [--print-ready] [--skip-validate] [--check]`
+**Usage:** `/scr:export [--format <format>] [--formatted] [--review] [--print-ready] [--skip-validate] [--check]`
 
 **Prerequisites:** Complete draft must exist
 
 **Flags:**
-- `--format` -- Target format: markdown, docx, pdf, epub, fountain, fdx, latex, kdp-package, ingram-package, submission-package, query-package. If omitted, the command shows an interactive picker grouped into Single file / Print and store packaging / Submission packages and respects per-work-type availability.
+- `--format` -- Target format: markdown, docx, pdf, epub, fountain, fdx, latex, kdp-package, ingram-package, submission-package, query-package. Use `--review` with PDF for a printable prepublication copy. If omitted, the command shows an interactive picker grouped into Single file / Print and store packaging / Submission packages and respects per-work-type availability.
 - `--formatted` -- Use designed/formatted template (vs. manuscript format)
+- `--review` -- Generate a printable prepublication PDF for sharing with beta readers, editors, or collaborators
 - `--print-ready` -- Generate the interior print PDF surface used by print-package flows
 - `--skip-validate` -- Skip the scaffold-marker validation gate (not recommended)
 - `--check` -- Verify format availability and required external tools without assembling or writing export files
@@ -1560,10 +1561,11 @@ Publishing boundary:
 
 **Example:**
 ```
+/scr:export --format pdf --review
 /scr:export --format epub
 /scr:export                       # interactive picker, then runs the chosen format
 ```
-Export your manuscript as a publication-ready EPUB with proper metadata, table of contents, and styling. With no flags, the command asks which format to produce instead of failing on the missing argument.
+Export your manuscript as a publication-ready EPUB or a printable prepublication review PDF. With no flags, the command asks which format to produce instead of failing on the missing argument.
 
 ---
 

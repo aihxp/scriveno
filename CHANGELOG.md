@@ -2,6 +2,16 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 3.3.0 - 2026-06-11
+
+Review PDF export and publishing share flow.
+
+- Added `/scr:export --format pdf --review`, a printable prepublication PDF meant for beta readers, editors, collaborators, and paper read-throughs before publishing.
+- Kept review PDFs separate from ebook styling, paperback trim, hardcover assumptions, KDP packages, and IngramSpark packages, with ordinary letter output by default and optional A4 via `review_paper_size`.
+- Moved the review PDF option ahead of EPUB in the interactive export picker so writers see the print-and-share path before ebook export.
+- Updated `/scr:publish` share presets so `share-pdf` and `share-bundle` use the review PDF path instead of the generic manuscript PDF.
+- Refreshed the export constraints, command reference, publishing guide, README count, and regression tests around the new review-copy surface.
+
 ## 3.2.4 - 2026-06-08
 
 Replayable proof, host-capture readiness, and release hardening.

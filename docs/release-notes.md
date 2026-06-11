@@ -2,6 +2,20 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 3.3.0 - 2026-06-11
+
+### What changed
+
+- **Review PDF export.** `/scr:export --format pdf --review` now creates `.manuscript/output/manuscript-review.pdf`, a printable prepublication copy for beta readers, editors, collaborators, and paper read-throughs.
+- **The option appears before EPUB.** The interactive export picker now shows `pdf --review` before EPUB so writers find the print-and-share path before ebook export.
+- **Review stays separate from publication formatting.** The review PDF does not use ebook styling, paperback trim, hardcover assumptions, KDP package formatting, or IngramSpark package formatting.
+- **Share presets use the review path.** `/scr:publish` routes `share-pdf` and the PDF portion of `share-bundle` through the new review PDF export.
+- **Docs and constraints are aligned.** The publishing guide, command reference, README count, export constraints, and tests now describe and guard the new format.
+
+### Why it matters
+
+Writers often need a readable PDF for printing and sharing before they are ready for store packaging. Scriveno now names that moment directly instead of forcing writers to choose between generic PDF export, ebook export, or print-ready book interiors.
+
 ## 3.2.4 - 2026-06-08
 
 ### What changed

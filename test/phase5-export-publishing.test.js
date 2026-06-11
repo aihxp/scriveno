@@ -144,6 +144,33 @@ describe('EXP-04: export pdf (D-01)', () => {
   });
 });
 
+// -- EXP-04R: export pdf --review ----------------------------------
+
+describe('EXP-04R: export pdf --review', () => {
+  const filePath = path.join(commandsDir, 'export.md');
+
+  it('contains review PDF section', () => {
+    const content = fs.readFileSync(filePath, 'utf8');
+    assert.match(content, /FORMAT: pdf --review/, 'should contain review PDF section');
+  });
+
+  it('offers review PDF before EPUB in the interactive picker', () => {
+    const content = fs.readFileSync(filePath, 'utf8');
+    assert.ok(
+      content.indexOf('**pdf --review**') > -1 && content.indexOf('**pdf --review**') < content.indexOf('**epub**'),
+      'interactive picker should offer review PDF before EPUB'
+    );
+  });
+
+  it('keeps review PDF separate from ebook and print-ready formatting', () => {
+    const content = fs.readFileSync(filePath, 'utf8');
+    assert.match(content, /not.*ebook export/i, 'should reject ebook framing');
+    assert.match(content, /not.*print-ready interior/i, 'should reject print-ready framing');
+    assert.match(content, /manuscript-review\.pdf/, 'should write manuscript-review.pdf');
+    assert.match(content, /`scriveno-book\.typst` trim\/gutter template/, 'should avoid the book trim template');
+  });
+});
+
 // ── EXP-05: export pdf --print-ready ──────────────────────────────
 
 describe('EXP-05: export pdf --print-ready', () => {
@@ -365,6 +392,13 @@ describe('EXP-15: publish presets (D-08)', () => {
   it('contains ebook-wide preset', () => {
     const content = fs.readFileSync(filePath, 'utf8');
     assert.match(content, /ebook-wide/, 'should contain ebook-wide preset');
+  });
+
+  it('routes share-pdf through the review PDF export', () => {
+    const content = fs.readFileSync(filePath, 'utf8');
+    assert.match(content, /share-pdf`: `\/scr:export --format pdf --review --check`/);
+    assert.match(content, /`\/scr:export --format pdf --review`/);
+    assert.match(content, /review PDF \+ DOCX \+ EPUB/);
   });
 });
 

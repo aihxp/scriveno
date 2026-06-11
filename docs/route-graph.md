@@ -13,7 +13,7 @@ The text report summarizes command count, graph edges, command families, agent-c
 
 ## Current Shape
 
-As of `3.2.4`, the route graph contains:
+As of `3.3.0`, the route graph contains:
 
 - 122 commands
 - 144 edges

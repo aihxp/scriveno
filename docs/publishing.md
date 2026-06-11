@@ -2,7 +2,7 @@
 
 Scriveno takes your manuscript from drafted prose to publication-ready files. Whether you're uploading to Amazon KDP, submitting to IngramSpark, or querying agents, the export pipeline handles format conversion, metadata generation, and platform-specific packaging.
 
-This guide covers all 13 export formats, platform-specific packages, the publish wizard, and autopilot publishing.
+This guide covers all 14 export formats, platform-specific packages, the publish wizard, and autopilot publishing.
 
 ## Prerequisites
 
@@ -59,6 +59,14 @@ Output: `.manuscript/output/manuscript-formatted.docx`. The shipped command path
 ```
 
 Output: `.manuscript/output/manuscript.pdf`. Requires Pandoc and Typst.
+
+**PDF (Review Copy)** -- Printable prepublication PDF for beta readers, editors, collaborators, or your own paper read-through. This does not use ebook styling, paperback trim, hardcover case-wrap assumptions, KDP package formatting, or IngramSpark package formatting.
+
+```
+/scr:export --format pdf --review
+```
+
+Output: `.manuscript/output/manuscript-review.pdf`. Requires Pandoc and Typst. Defaults to letter paper for ordinary printing and can use `review_paper_size: "a4"` in `.manuscript/config.json`. Use this when you want to print or share before publishing.
 
 **PDF (Print-Ready)** -- Book interior PDF with proper trim sizes, margins, gutters, and page numbers. Ready for print-on-demand services.
 

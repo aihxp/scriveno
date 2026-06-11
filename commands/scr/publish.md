@@ -141,9 +141,10 @@ Preflight must include:
 4. Preset availability against `CONSTRAINTS.json`.
 5. A policy-gate check: if `.manuscript/reviews/PLATFORM-COMPLIANCE.md` does not exist or predates the newest draft, report `[WARN] platform compliance ..... not checked` and suggest `/scr:compliance-check` for the chosen destination (platform policies, copyright diligence, AI-disclosure answers).
 6. External tool checks by calling the matching export checks:
-   - `share-pdf`: `/scr:export --format pdf --check`
+   - `share-pdf`: `/scr:export --format pdf --review --check`
    - `share-docx`: `/scr:export --format docx --check`
    - `share-epub`: `/scr:export --format epub --check`
+   - `share-bundle`: `/scr:export --format pdf --review --check`, `/scr:export --format docx --check`, and `/scr:export --format epub --check`
    - `kdp-ebook`: `/scr:export --format epub --check`
    - `kdp-paperback`: `/scr:export --format pdf --print-ready --check` and `/scr:export --format kdp-package --check`
    - `ingram-paperback`: `/scr:export --format pdf --print-ready --check` and `/scr:export --format ingram-package --check`
@@ -249,10 +250,10 @@ Then, based on the top-level answer:
 **Share branch** -- ask:
 > Which file?
 >
-> 1. **share-pdf** -- manuscript PDF (single file, no print formatting)
+> 1. **share-pdf** -- review PDF (single file, printable and shareable before publication)
 > 2. **share-docx** -- manuscript DOCX (single file, opens in Word/Pages/Docs)
 > 3. **share-epub** -- standalone EPUB (single file, no store packaging)
-> 4. **share-bundle** -- PDF + DOCX + EPUB together
+> 4. **share-bundle** -- review PDF + DOCX + EPUB together
 
 **Publish branch** -- ask:
 > Where?
@@ -381,10 +382,10 @@ Step 2/2: Building KDP package...
 
 These presets produce single deliverables without retailer-specific packaging. They are appropriate for sharing manuscripts with beta readers, collaborators, or agents who asked for "the manuscript" rather than a store package.
 
-**share-pdf** -- single-file PDF, no print formatting
+**share-pdf** -- single-file review PDF, no retailer packaging or print-ready trim formatting
 | Step | Command | Condition |
 |------|---------|-----------|
-| 1 | `/scr:export --format pdf` | Always |
+| 1 | `/scr:export --format pdf --review` | Always |
 
 **share-docx** -- single-file DOCX
 | Step | Command | Condition |
@@ -396,10 +397,10 @@ These presets produce single deliverables without retailer-specific packaging. T
 |------|---------|-----------|
 | 1 | `/scr:export --format epub` | Always |
 
-**share-bundle** -- PDF + DOCX + EPUB together for handing someone "everything readable"
+**share-bundle** -- review PDF + DOCX + EPUB together for handing someone "everything readable"
 | Step | Command | Condition |
 |------|---------|-----------|
-| 1 | `/scr:export --format pdf` | Always |
+| 1 | `/scr:export --format pdf --review` | Always |
 | 2 | `/scr:export --format docx` | Always |
 | 3 | `/scr:export --format epub` | Always |
 
@@ -409,7 +410,8 @@ These presets produce single deliverables without retailer-specific packaging. T
 | 1 | `/scr:export --format markdown` | Always |
 | 2 | `/scr:export --format docx` | Always |
 | 3 | `/scr:export --format pdf` | Always |
-| 4 | `/scr:export --format epub` | Always |
+| 4 | `/scr:export --format pdf --review` | Always |
+| 5 | `/scr:export --format epub` | Always |
 
 If a base format is not available for the current work type group (per `CONSTRAINTS.json` `exports`), skip that step silently and continue. Report skipped formats in STEP 5.
 
