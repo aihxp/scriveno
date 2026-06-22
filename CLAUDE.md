@@ -10,7 +10,7 @@ Scriveno is a spec-driven writing, publishing, and translation pipeline that run
 
 - **Architecture**: Must remain a pure skill/command system -- no compiled code, no runtime dependencies beyond Node.js for the installer
 - **Voice fidelity**: Every feature must preserve the Voice DNA pipeline -- fresh context per atomic unit, STYLE-GUIDE.md loaded first
-- **Backward compatibility**: Existing 115 commands and templates must continue working as new features are added
+- **Backward compatibility**: Existing commands and templates must continue working as new features are added
 - **Plan authority**: If a command file contradicts the product plan, fix the command -- plan is canonical (section 15 for command specs)
 - **Progressive disclosure**: Onboarding asks 3 questions max; depth is optional and additive
 - **Runtime credibility**: `>=20.0.0` is the installer compatibility floor. For new installs, prefer a currently supported LTS such as Node.js 24. `docs/runtime-support.md` is the canonical runtime matrix, and installer targets are not interchangeable proof of host-runtime parity.
