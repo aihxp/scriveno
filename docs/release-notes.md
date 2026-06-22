@@ -2,6 +2,18 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 3.5.0 - 2026-06-22
+
+### What changed
+
+- **One command for a whole unit.** `/scr:cycle N` takes a single unit through discuss, plan, draft, editor-review, line-edit, submit, and save, pausing after each prose stage for approve/revise/stop. `--silent` runs it straight through; `--from <stage>` resumes mid-cycle. It is the single-unit, guided-by-default counterpart to `/scr:autopilot`, and the only pipeline command that ends with a save.
+- **Opt-in autosave.** A new `autosave` setting (off by default) auto-runs the deterministic `/scr:save` after each unit, or after each stage, across `/scr:cycle`, `/scr:autopilot`, and the draft, editor-review, line-edit, and submit steps. Turn it on with `/scr:settings`.
+- **Retired a dead stub.** The unused `git.auto_commit` config field is gone; autosave replaces it.
+
+### Why it matters
+
+Writers who work unit by unit can now run the whole loop with one command and have each unit banked automatically, without learning the individual steps or enabling full autopilot.
+
 ## 3.4.0 - 2026-06-22
 
 ### What changed

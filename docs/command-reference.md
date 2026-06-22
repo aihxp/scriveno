@@ -1,6 +1,6 @@
 # Command Reference
 
-Scriveno has **124 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
+Scriveno has **125 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
 
 Commands marked with **adaptive terminology** change how Scriveno talks about your work type's `command_unit` in `.manuscript/config.json`, while keeping the runnable command id stable. Commands marked with **group adaptation** have different labels for specific work type groups (academic, sacred, etc.).
 
@@ -220,6 +220,28 @@ Archive the current draft and start revision 2. All drafts are preserved in the 
 Run planning and drafting for all units, pausing at milestones for your review.
 
 When autopilot completes every unit through submit, it checks publication matter and invokes `/scr:front-matter --level <level>` and `/scr:back-matter --level <level>` for missing files. It does not run this phase for partial `--from` / `--to` runs and does not silently overwrite writer-authored matter.
+
+---
+
+### `/scr:cycle`
+
+**Description:** Run one unit through the full pipeline -- discuss, plan, draft, editor-review, line-edit, submit, save. Guided by default.
+
+**Usage:** `/scr:cycle [N] [--silent] [--from <stage>]`
+
+**Prerequisites:** None (the unit must exist in your outline; the cycle runs each stage that is not yet done)
+
+**Flags:**
+- `--silent` -- Run all stages without pausing; the cycle still ends with a save.
+- `--from <stage>` -- Resume the cycle at a named stage (`discuss`, `plan`, `draft`, `editor-review`, `line-edit`, `submit`, `save`).
+
+**Example:**
+```
+/scr:cycle 2
+/scr:cycle 2 --silent
+/scr:cycle 2 --from draft
+```
+Take one unit all the way through discuss, plan, draft, editor-review, line-edit, submit, and save, pausing after each prose stage for approve/revise/stop. The single-unit, guided-by-default counterpart to `/scr:autopilot`, and the only pipeline command that ends with a save. Honors the `autosave` setting for extra checkpoints.
 
 ---
 

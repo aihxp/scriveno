@@ -2,6 +2,15 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 3.5.0 - 2026-06-22
+
+Per-unit cycle command and opt-in autosave.
+
+- Added `/scr:cycle N`: runs one unit through the full pipeline (discuss, plan, draft, editor-review, line-edit, submit, save), guided by default with `--silent` and `--from <stage>`. The single-unit counterpart to `/scr:autopilot`, and the only pipeline command that ends with a save. Command count 124 -> 125.
+- Added an `autosave` config block (`enabled`, `after`: `unit` or `stage`), off by default and toggled via `/scr:settings`. When on, `/scr:cycle`, `/scr:autopilot`, `/scr:draft`, `/scr:editor-review`, `/scr:line-edit`, and `/scr:submit` auto-invoke the deterministic `/scr:save` at the chosen checkpoint. Portable across runtimes; the one opt-in exception to the manual-save gate.
+- Retired the dead `git.auto_commit` config stub, folding its meaning into `autosave`.
+- Refreshed the command reference, README count, configuration and auto-invoke-policy docs, and added regression coverage.
+
 ## 3.4.0 - 2026-06-22
 
 Transition craft: seam diagnostics, series recap, scene-break conventions, and the bridge command.

@@ -76,6 +76,7 @@ Local operations:
 - PROGRESS.md refreshed: yes/no
 Auto-invoked:
 - /scr:editor-review N: yes/no
+- /scr:save: yes/no (autosave after: stage)
 Why: {autopilot.enabled true, full-auto profile, supervised pause, or writer-facing manual mode}
 ```
 
@@ -94,6 +95,8 @@ If the run failed (drafter agent returned an error, voice-check blocked, etc.), 
 ## Autopilot behavior
 
 If config has `autopilot.enabled: true`, proceed to `/scr:editor-review` automatically after drafting. In supervised profile, pause here for the writer to read. In full-auto, keep going.
+
+If `config.autosave.enabled` is `true` and `config.autosave.after` is `"stage"`, run `/scr:save` after the draft is written and RECORD.md/STATE.md are updated, to bank a checkpoint. With `after: "unit"` or autosave off, do not auto-save here. `/scr:save` is the deterministic local-helper, not an agent; see `docs/auto-invoke-policy.md`.
 
 ## Response Contract
 

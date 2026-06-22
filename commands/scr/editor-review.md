@@ -456,11 +456,15 @@ Local operations:
 - editor notes written: yes/no
 - writer responses written: yes/no
 Auto-invoked:
-- none
-Why: editor-review surfaces decisions and recommended handoffs; it does not revise prose without writer choice
+- /scr:save: yes/no (only when config.autosave.enabled and after: stage)
+Why: editor-review surfaces decisions and recommended handoffs; it does not revise prose without writer choice. The one auto-invoked action is the deterministic /scr:save, and only when autosave is opted in (see docs/auto-invoke-policy.md)
 ```
 
 If there were no flagged issues in standard review mode, report `revision-diagnostic: none`. In collaboration modes, report `revision-diagnostic: none` unless diagnosis was explicitly requested.
+
+## Autosave
+
+If `config.autosave.enabled` is `true` and `config.autosave.after` is `"stage"`, run `/scr:save` after the review report is written, to bank a checkpoint. Otherwise do not auto-save; the writer saves explicitly. `/scr:save` is the deterministic local-helper, not an agent (see `docs/auto-invoke-policy.md`).
 
 ---
 

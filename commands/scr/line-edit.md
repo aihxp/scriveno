@@ -131,6 +131,10 @@ Present the high-priority issues to the writer first, then offer to show medium 
 
 When the edits changed how a character speaks or relates (tone, trust posture, conflict, or knowledge revealed on the page), suggest `/scr:character-touch <name>` so the derived relationship and conflict maps stay current with the prose.
 
+## Autosave
+
+If `config.autosave.enabled` is `true` and `config.autosave.after` is `"stage"`, run `/scr:save` after writing the line-edit report to bank a checkpoint. Otherwise do not auto-save; the writer saves explicitly. `/scr:save` is the deterministic local-helper, not an agent (see `docs/auto-invoke-policy.md`).
+
 ## Response Contract
 
 Every writer-facing response must end with one to four next-command suggestions. Each suggestion must include a short explanation of what that path will do.

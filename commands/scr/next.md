@@ -158,6 +158,7 @@ Use this hub-first map for specialist requests:
 - **Blocking craft question** -- If a context or plan file contains `QUESTION: Blocking`, route to `/scr:discuss N` before drafting.
 - **Non-blocking craft question or watchpoint** -- If only `QUESTION: Non-blocking`, `HUNCH`, or `WATCHPOINT` items remain, allow the next draft or review step and mention the watchpoint in one sentence.
 - **Autopilot mode** -- If config has `autopilot.enabled: true`, run multiple steps in sequence without asking, pausing only per the profile's rules (guided, supervised, full-auto).
+- **Whole-unit run** -- If the writer wants to take a single unit all the way through in one move (discuss, plan, draft, editor-review, line-edit, submit, save), offer `/scr:cycle N`. It is the single-unit, guided-by-default counterpart to autopilot and ends with a save.
 
 ## Agent and Automation Status
 

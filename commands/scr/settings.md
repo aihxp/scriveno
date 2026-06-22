@@ -18,6 +18,7 @@ You are showing or modifying the project settings.
    - Work type and group
    - Command unit (how commands adapt)
    - Autopilot profile and publication matter behavior (if set)
+   - **Autosave** (`autosave.enabled`, `autosave.after`: off when disabled, otherwise save after each `unit` or each `stage`)
    - Developer mode (on/off)
    - Voice drift threshold
    - **Authenticity policy** (`external_detector_scores`, `preserve_process_evidence`, `detector_optimization`)
@@ -29,6 +30,8 @@ You are showing or modifying the project settings.
    - `autopilot.profile`: `guided`, `supervised`, or `full-auto`
    - `autopilot.include_matter`: `true` or `false`
    - `autopilot.matter_level`: `minimum`, `balanced`, or `maximum`
+   - `autosave.enabled`: `true` or `false`
+   - `autosave.after`: `unit` or `stage`
    - `authenticity.external_detector_scores`: `context_only`
    - `authenticity.preserve_process_evidence`: `true` or `false`
    - `authenticity.detector_optimization`: `never`

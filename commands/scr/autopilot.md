@@ -170,6 +170,16 @@ On pause or stop:
 3. Record the writer's notes if they provide any
 4. End the writer-facing response with a `Next commands:` block, usually including `/scr:autopilot --resume` when resuming is the right path
 
+## Autosave
+
+Honor `config.autosave`. The default is `enabled: false`, which preserves the current behavior: autopilot updates `STATE.md` and `PROGRESS.md` after each action but does not commit; the writer saves explicitly.
+
+When `autosave.enabled` is `true`:
+- `after: "unit"` -- run `/scr:save` once after each unit reaches submit, banking a git checkpoint per unit.
+- `after: "stage"` -- run `/scr:save` after each prose-touching stage (draft, editor-review, and line-edit when present) and after submit.
+
+`/scr:save` is the same deterministic local-helper used manually (regenerate CONTEXT.md and PROGRESS.md, append HISTORY.log, commit `.manuscript/`); it spawns no agent. Report whether it ran on each pass in the Automation Status block. This is the opt-in exception to the manual-save gate documented in `docs/auto-invoke-policy.md`.
+
 ## Automation Status
 
 Every progress update and final response must include a compact status trail. This is how the writer can tell whether Scriveno auto-chained commands, spawned agents, or only updated local files.
@@ -184,6 +194,7 @@ Auto-invoked commands:
 - /scr:draft N: yes/no
 - /scr:editor-review N: yes/no
 - /scr:submit N: yes/no
+- /scr:save: yes/no (autosave checkpoint)
 - /scr:front-matter --level {level}: yes/no/not-applicable
 - /scr:back-matter --level {level}: yes/no/not-applicable
 Spawned agents:

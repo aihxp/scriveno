@@ -21,7 +21,8 @@ Load `.manuscript/config.json` for `command_unit`. The runnable command stays `/
 2. Check that the specified unit has been through editor review. Prefer `.manuscript/reviews/{N}-REVIEW.md`; if it is missing, accept legacy `{N}-EDITOR-NOTES.md`.
 3. Mark the unit as submitted in `STATE.md`
 4. Refresh `.manuscript/PROGRESS.md` so the ledger shows this unit as done, per `docs/progress-protocol.md`.
-5. Report: "Unit {N} submitted. {remaining} units remaining."
+5. **Autosave.** If `config.autosave.enabled` is `true` (either `after: "unit"` or `after: "stage"`), run `/scr:save` to bank a git checkpoint now that the unit is locked. If autosave is off, do not auto-save; the writer saves explicitly. `/scr:save` is the deterministic local-helper, not an agent (see `docs/auto-invoke-policy.md`).
+6. Report: "Unit {N} submitted. {remaining} units remaining."
 
 ## Response Contract
 

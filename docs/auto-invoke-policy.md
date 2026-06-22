@@ -101,6 +101,8 @@ Run these only when the current command directly owns the file operation:
 
 Report these as local operations, not spawned agents.
 
+**Autosave (opt-in).** `/scr:save` normally stays behind a manual gate. When `config.autosave.enabled` is `true`, the pipeline commands `/scr:cycle`, `/scr:autopilot`, `/scr:draft`, `/scr:editor-review`, `/scr:line-edit`, and `/scr:submit` auto-invoke `/scr:save` at the configured checkpoint (`after: "unit"` or `after: "stage"`). This is the one writer-approved exception to the manual-save gate: it is off by default, opt-in through `/scr:settings`, and uses the same deterministic local-helper save (no agent, no model choice). `/scr:cycle` additionally always runs a terminal save as its defined final stage.
+
 ## Level 3: Auto-Spawn Scoped Agents
 
 Spawn or prompt-run fallback is appropriate when the command already implies a specialist role:

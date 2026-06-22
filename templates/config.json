@@ -1,5 +1,5 @@
 {
-  "scriveno_version": "3.4.0",
+  "scriveno_version": "3.5.0",
   "work_type": "",
   "group": "",
   "command_unit": "",
@@ -62,8 +62,11 @@
     "cover_enabled": false,
     "interior_enabled": false
   },
+  "autosave": {
+    "enabled": false,
+    "after": "unit"
+  },
   "git": {
-    "auto_commit": true,
     "commit_message_style": "descriptive",
     "branching_strategy": "none"
   }

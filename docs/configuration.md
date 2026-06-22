@@ -57,7 +57,7 @@ When a writer runs `/scr:new-work`, Scriveno creates `.manuscript/config.json`. 
 
 ```json
 {
-  "scriveno_version": "3.4.0",
+  "scriveno_version": "3.5.0",
   "work_type": "<chosen>",
   "group": "<group>",
   "command_unit": "<unit>",
@@ -104,7 +104,7 @@ When a writer runs `/scr:new-work`, Scriveno creates `.manuscript/config.json`. 
 
 That `scriveno_version` value should track the current package release and the live `/scr:new-work` contract, not an older milestone snapshot.
 
-Every project gets those core keys and shared blocks (`autopilot`, `voice`, `authenticity`, `draft`, `export`, `translation`, `collaboration`). The `autopilot.include_matter` and `autopilot.matter_level` settings control whether a full `/scr:autopilot` run prepares missing front and back matter through the dedicated matter commands after every unit is submitted. They do not make `/scr:export` or `/scr:autopilot-publish` draft matter. The `voice.drift_threshold` default of 0.3 is the voice-drift gate: drift is `(100 - score) / 100`, so 0.3 offers a re-draft when the voice score falls below 70 (see [Drafter Quality](drafter-quality.md) and `agents/voice-checker.md`). The `authenticity` block makes detector policy explicit: outside detector scores are context only, process evidence stays preserved, and Scriveno never optimizes prose to hit a detector target. Additional blocks are added only when the work type requires them: a `technical` block for technical writing, top-level sacred profile keys for sacred work types, and `platform` for work types with an inferred publishing target.
+Every project gets those core keys and shared blocks (`autopilot`, `voice`, `authenticity`, `draft`, `export`, `translation`, `collaboration`, `autosave`). The `autosave` block (`enabled`, `after`) is off by default; when enabled, the pipeline auto-runs the deterministic `/scr:save` after each `unit` or each `stage` (see `/scr:cycle`, `/scr:autopilot`, and the autosave note in [Auto-Invoke Policy](auto-invoke-policy.md)). It replaces the retired `git.auto_commit` stub. The `autopilot.include_matter` and `autopilot.matter_level` settings control whether a full `/scr:autopilot` run prepares missing front and back matter through the dedicated matter commands after every unit is submitted. They do not make `/scr:export` or `/scr:autopilot-publish` draft matter. The `voice.drift_threshold` default of 0.3 is the voice-drift gate: drift is `(100 - score) / 100`, so 0.3 offers a re-draft when the voice score falls below 70 (see [Drafter Quality](drafter-quality.md) and `agents/voice-checker.md`). The `authenticity` block makes detector policy explicit: outside detector scores are context only, process evidence stays preserved, and Scriveno never optimizes prose to hit a detector target. Additional blocks are added only when the work type requires them: a `technical` block for technical writing, top-level sacred profile keys for sacred work types, and `platform` for work types with an inferred publishing target.
 
 ### Technical writing projects
 
