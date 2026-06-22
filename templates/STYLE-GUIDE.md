@@ -89,6 +89,8 @@ Each character should sound distinct. See CHARACTERS.md for individual voice anc
 - **Between scenes:** {{SCENE_TRANSITIONS}} (hard cuts, soft fades, hooks)
 - **Between chapters:** {{CHAPTER_TRANSITIONS}} (cliffhangers, echoes, clean breaks)
 - **Time jumps:** {{TIME_JUMPS}} (signaling, frequency, handling)
+- **Scene break marker:** {{SCENE_BREAK_MARKER}} (the visual divider between scenes inside a chapter: centered asterisks `* * *`, a blank line, an ornament or dingbat, or `#`)
+- **Time-jump marker:** {{TIME_JUMP_MARKER}} (how a jump in time is signaled on the page: a dateline, a labeled break, extra white space, or none)
 
 ## Part 7 -- Reference influences
 

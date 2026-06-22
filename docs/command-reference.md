@@ -1,6 +1,6 @@
 # Command Reference
 
-Scriveno has **123 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
+Scriveno has **124 commands** organized into **14 categories**. Commands adapt automatically to your work type -- for example, `/scr:draft` talks about drafting a surah for Quranic commentary, an act for screenplays, and a section for research papers.
 
 Commands marked with **adaptive terminology** change how Scriveno talks about your work type's `command_unit` in `.manuscript/config.json`, while keeping the runnable command id stable. Commands marked with **group adaptation** have different labels for specific work type groups (academic, sacred, etc.).
 
@@ -1230,17 +1230,43 @@ Flag content that could be unintentionally harmful, with context-aware suggestio
 
 **Description:** Generate a structure-aware pacing report analyzing scene tempo and narrative flow.
 
-**Usage:** `/scr:pacing-analysis [N]`
+**Usage:** `/scr:pacing-analysis [N] [--seams]`
 
 **Prerequisites:** Draft must exist
 
 **Available for:** Prose, script, academic, visual, interactive, sacred
 
+**Flags:**
+- `--seams` -- Focus the report on the joints between units: how each unit's closing energy hands off to the next unit's opening, momentum patterns across the whole arc, and the specific boundaries where the seam is abrupt or flat.
+
 **Example:**
 ```
 /scr:pacing-analysis
+/scr:pacing-analysis --seams
 ```
-See where your story drags or rushes. Scriveno maps scene length, tension, and tempo across the full manuscript.
+See where your story drags or rushes. Scriveno maps scene length, tension, and tempo across the full manuscript, and `--seams` maps the transitions between chapters so you can spot flat or jarring boundaries and repeated closing devices.
+
+---
+
+### `/scr:bridge`
+
+**Description:** Diagnose a weak seam between two units and offer transition fixes in the writer's voice.
+
+**Usage:** `/scr:bridge [<boundary>] [--apply <option>]`
+
+**Prerequisites:** Draft must exist for both units at the boundary
+
+**Available for:** Prose, script, academic, visual, interactive, sacred
+
+**Flags:**
+- `--apply <option>` -- Apply a chosen fix without re-prompting: `hard-cut`, `time-marker`, `bridge`, or `upstream`.
+
+**Example:**
+```
+/scr:bridge 8-9
+/scr:bridge 9 --apply hard-cut
+```
+Find why the seam between two chapters does not knit together, then choose the fix your voice profile prefers. Bridge prose is generated only when you ask for it; the default is often a clean cut.
 
 ---
 
@@ -1319,7 +1345,7 @@ Commands for preparing your manuscript for publication -- front/back matter, mar
 
 **Flags:**
 - `--level <value>` -- How much to generate. `minimum` = title page, copyright, TOC. `balanced` = minimum + half-title, dedication, epigraph, acknowledgments. `maximum` = every applicable element (legacy "all 19" behavior). If omitted (and `--element` is also omitted), the command prompts: skip / minimum / balanced / maximum.
-- `--element <name>` -- Generate only the named element. Bypasses the level filter.
+- `--element <name>` -- Generate only the named element. Bypasses the level filter. Series works also accept `--element recap` to generate a "Previously in [Series]" recap page from the series bible and the prior book's record.
 
 **Available for:** Prose, script, academic, visual, sacred
 

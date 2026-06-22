@@ -2,6 +2,17 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 3.4.0 - 2026-06-22
+
+Transition craft: seam diagnostics, series recap, scene-break conventions, and the bridge command.
+
+- Added `/scr:bridge`: diagnoses a weak seam between two units and offers transition fixes (hard cut, time-marker, short bridge, or upstream fix) in the writer's voice. Diagnose-first; bridge prose is generated only on request. Command count 123 -> 124.
+- Added `--seams` to `/scr:pacing-analysis`: maps the joints between units (closing-into-opening energy, seam types, device monotony, weak-side runs, momentum flatlines) across the whole arc, not just per chapter.
+- Added a per-unit seam follow-up to `/scr:editor-review` so weak boundaries surface during editorial review and route to `/scr:bridge` and `/scr:pacing-analysis --seams`.
+- Added a series recap front-matter element: `/scr:front-matter --element recap` drafts a "Previously in [Series]" page from the series bible and the prior book's record, in the writer's voice.
+- Added scene-break and time-jump marker fields to the Voice DNA style guide (`SCENE_BREAK_MARKER`, `TIME_JUMP_MARKER`) and a `/scr:profile-writer` question to populate them.
+- Refreshed the command reference, README count, and constraints around the new transition surface.
+
 ## 3.3.0 - 2026-06-11
 
 Review PDF export and publishing share flow.

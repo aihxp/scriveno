@@ -108,7 +108,7 @@ Resolve the level filter that controls which elements are eligible to be generat
 |-------|-------------------|
 | `minimum` | 3 (title page), 4 (copyright), 7 (TOC) |
 | `balanced` | minimum + 1 (half-title), 5 (dedication), 6 (epigraph), 13 (acknowledgments) |
-| `maximum` | All 19 standard elements + every applicable adaptation element (academic, sacred-tradition specific) |
+| `maximum` | All 19 standard elements + every applicable adaptation element (academic, sacred-tradition specific, and the series recap for series works) |
 
 **Adaptation interaction:**
 - The Academic and Sacred adaptations modify or add elements. They run regardless of level. Their additions are eligible only at `maximum`, except for the **tradition approval block** (STEP 3.5) which is required-when-applicable and runs at every level including `minimum`. The adaptations do not lift `minimum` or `balanced` to `maximum` -- they only adjust per-element behavior for the elements that the chosen level already includes.
@@ -153,6 +153,8 @@ This separation preserves voice fidelity for elements the reader experiences as 
 ### STEP 3: GENERATE ELEMENTS
 
 Process each element in Chicago Manual of Style order, but only if it is in the eligible set resolved in STEP 1.5. If `--element` was specified, skip the level filter and generate only that element. Skip any element not in the eligible set silently (it goes into the STEP 4 skipped-elements report instead).
+
+Beyond the standard 19, sacred works add tradition-specific elements (see **Sacred/Historical Front Matter**) and series works add a **recap** element (see **Series Front Matter**). These are generated via `--element <name>`, or at `--level maximum` where applicable.
 
 #### Element 1: Half-Title (Recto) -- GENERATE
 
@@ -582,6 +584,48 @@ When the work type group is `sacred`, the `--element` flag accepts these additio
 | All others | scriptural-dedication, theological-preface |
 
 When `--all` is used for sacred works, include these tradition-specific elements in addition to the standard 19 front matter elements. Save each to `.manuscript/front-matter/20-{element-name}.md` (numbering continues from the standard elements).
+
+---
+
+## Series Front Matter
+
+For a book that is part of a series (a sequel, a later volume, a new season or run), the `--element` flag accepts one additional element beyond the standard 19:
+
+| Element | Flag Name | Availability | Type |
+|---------|-----------|--------------|------|
+| Series recap | `recap` | Series works only (a `series` reference in `config.json`, or series info in WORK.md) | GENERATE DRAFT |
+
+A **series recap** is a "Previously in [Series]" page that reminds a returning reader where things stand before the new book opens.
+
+**When it runs:** generated on demand with `/scr:front-matter --element recap`, and included automatically at `--level maximum` for series works. It is not in `minimum` or `balanced`, and it is skipped entirely (with a reason in the STEP 4 report) when the work is not part of a series.
+
+**How to generate it:**
+
+1. Confirm series membership: read `series` from `.manuscript/config.json` and series info from `WORK.md`. If neither is present, skip and report "Not part of a series" in the skipped-elements list.
+2. Load the series knowledge base when available: the series bible at `~/.scriveno/series/{series}/SERIES-BIBLE.md` (canonical character states with their "since Book N" markers, locked world rules, the cross-book timeline, and unresolved threads with their expected resolution book). If a prior book's project is reachable, also read its `RECORD.md` for open threads, promises not yet paid off, and the ending state.
+3. **Load STYLE-GUIDE.md for voice.** The recap is reader-facing prose and must sound like the writer, not like a wiki summary.
+4. Draft a concise "Previously in [Series]" recap, typically 300-800 words, covering only what a returning reader needs to follow the new book: where the central characters stand now, the unresolved threads this book will pick up, and any world or relationship state that changed in earlier volumes. Do not recount every event; prefer the through-lines this book pays off.
+5. Write it as a generated draft the writer approves, mirroring the acknowledgments pattern:
+
+```markdown
+---
+scaffold: true
+element: recap
+---
+
+# Previously in [Series]
+
+<!-- DRAFT -- generated from your series bible and the prior book's record. -->
+<!-- Trim it, rewrite it, make it sound like you. Remove `scaffold: true` to include it in export. -->
+
+[Generated recap draft in the writer's voice per STYLE-GUIDE.md]
+```
+
+Because it carries `scaffold: true`, the recap is held out of export assembly until the writer reviews it and removes the marker, the same gate that protects the dedication, epigraph, and acknowledgments scaffolds.
+
+Save to `.manuscript/front-matter/19a-series-recap.md` so it sorts after the standard front matter, immediately before the body. The writer can renumber it earlier (for example right after the title page) if they prefer the recap up front.
+
+If no series bible exists yet, generate the recap from WORK.md series info and the current project's RECORD.md alone, and note that running `/scr:series-bible --init` (then `--import` for each prior book) will make future recaps richer.
 
 ---
 

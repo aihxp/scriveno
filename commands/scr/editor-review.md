@@ -76,6 +76,13 @@ Load the act's scene plans, drafts, and RECORD.md when present. Also extract eac
   Flag **plot armor**: a character surviving or succeeding only because the plot needs them to, with no plausible in-world reason. Name the consequence the scene avoided and ask whether the stakes are real.
 </plot_device_followup>
 
+<seam_followup>
+  Check the joint between this unit and its neighbors, not just the unit in isolation.
+  - Does this unit's opening connect to the previous unit's ending (a clean handoff, a deliberate hard cut the open orients, or a jarring leap the reader cannot follow)?
+  - Does this unit's ending hand off to the next with intent (a hook, a question, an image, or a settled beat the outline calls for), or does it simply stop?
+  - If the seam reads abrupt or flat, name the boundary and, using the writer's `SCENE_TRANSITIONS` / `CHAPTER_TRANSITIONS` preferences in STYLE-GUIDE.md, offer the options the writer prefers: a hard cut, a time-marked break, or a short bridge. Run `/scr:bridge <boundary>` to diagnose and repair that one seam. For a manuscript-wide momentum read across many boundaries, point to `/scr:pacing-analysis --seams`.
+</seam_followup>
+
 ---
 
 ### STEP 2: GUIDED WALKTHROUGH
@@ -173,6 +180,14 @@ Write the standard review report to `.manuscript/reviews/{N}-REVIEW.md`. If an o
     record the missing layer and recommend adding it before the next draft or
     running `/scr:subject-touch <subject>` if the draft already changed a
     tracked subject.
+  </section>
+  <section name="seam_follow_up">
+    Record whether the unit's opening connected to the prior unit's ending and
+    whether its ending handed off to the next with intent. Name any seam that
+    read as abrupt or flat and the fix the writer chose (hard cut, time-marked
+    break, or a short bridge). Flag a manuscript-wide pattern (a run of weak
+    openings or closings, or one closing device repeated across many units) and
+    recommend `/scr:pacing-analysis --seams`.
   </section>
 </editor_notes>
 

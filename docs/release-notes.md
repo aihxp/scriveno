@@ -2,6 +2,20 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 3.4.0 - 2026-06-22
+
+### What changed
+
+- **Seam repair command.** `/scr:bridge <boundary>` diagnoses why a transition between two units does not knit together and offers the fix your voice profile prefers. It generates connective prose only when you choose the bridge option; the default is often a clean cut.
+- **Pacing across boundaries.** `/scr:pacing-analysis --seams` maps the joints between chapters, not just each chapter on its own: where closing energy hands off to the next opening, repeated closing devices, and stretches where momentum goes flat.
+- **Editorial seam check.** `/scr:editor-review` now checks whether each unit's opening connects to the prior unit's ending and whether its ending hands off with intent.
+- **Series recap.** `/scr:front-matter --element recap` drafts a "Previously in [Series]" page from your series bible and the prior book's record, in your voice, held out of export until you approve it.
+- **Scene-break conventions in Voice DNA.** Your style guide now records how you mark a scene break or a time jump, and `/scr:profile-writer` asks for it.
+
+### Why it matters
+
+Most "it dragged here" and "wait, how did we get here" reactions live at the joints between units, not inside them. Scriveno now finds those seams, checks them in review, and repairs them without padding the prose, and it can remind returning series readers where things stand.
+
 ## 3.3.0 - 2026-06-11
 
 ### What changed

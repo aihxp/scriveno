@@ -1,6 +1,6 @@
 ---
 description: Generate a structure-aware pacing report analyzing scene tempo and narrative flow.
-argument-hint: "[N]"
+argument-hint: "[N] [--seams]"
 ---
 
 # /scr:pacing-analysis -- Structure-Aware Pacing Report
@@ -10,9 +10,12 @@ Generate a pacing report that analyzes scene tempo, narrative flow, and structur
 ## Usage
 ```
 /scr:pacing-analysis [N]
+/scr:pacing-analysis [N] --seams
 ```
 
 Where `N` is the scope (act, chapter, or section number depending on work type). Omit `N` to analyze the entire manuscript.
+
+Add `--seams` to focus the report on the joints between units: how each unit's closing energy hands off to the next unit's opening, momentum patterns across the whole arc, and the specific boundaries where the seam is abrupt or flat.
 
 ## Instruction
 
@@ -26,6 +29,7 @@ You are a **pacing analyst**. Your job is to map the narrative rhythm, identify 
 2. Load `CONSTRAINTS.json` -- this command is **hidden** from poetry and speech_song work types. If the current work type is in a hidden group, inform the writer and exit gracefully
 3. Load `OUTLINE.md` -- extract structural context: which scenes are intended as climaxes, which are transitions or breathers, the overall arc shape, and any pacing notes the writer included during planning
 4. Load the drafted prose for scope `N` (or full manuscript if `N` is omitted)
+5. If `--seams` is set, treat STEP 6 (Seam and Cross-Unit Momentum) as the primary analysis and keep STEPS 1-5 brief; otherwise run every step and include STEP 6 as a section of the full report
 
 ---
 
@@ -129,6 +133,41 @@ When the structural mismatch above appears (a scene marked as a climax that read
 
 ---
 
+### STEP 6: SEAM AND CROSS-UNIT MOMENTUM
+
+<seam_analysis>
+  STEPS 1-5 judge each unit on its own. This step judges the joints between units -- where most "it dragged" and "I couldn't put it down" reactions actually live.
+
+  Walk every consecutive boundary (end of unit *i* into start of unit *i+1*). For each boundary, pair the **closing propulsion** of unit *i* with the **opening hook** of unit *i+1* (reuse the Strong / Adequate / Weak ratings from STEP 4) and classify the seam:
+  - **Clean handoff**: a settled close into a purposeful open. Fine when the outline marks a beat or act break here.
+  - **Hook-into-hook**: a propulsive close into a grabbing open. High momentum; watch for exhaustion if every seam is this.
+  - **Hard cut**: a deliberate, abrupt jump (POV, place, time) that the open immediately orients. Strong when controlled.
+  - **Soft fade**: a quiet close into a quiet open. Two in a row is a momentum risk.
+  - **Abrupt / whiplash**: a jump the next open does not orient the reader into -- the reader is lost rather than propelled. Flag with the boundary.
+  - **Flat seam**: both sides weak (a unit that closes without pull into a unit that opens on exposition or backstory). The likeliest place a reader stops.
+
+  Then look across all the seams for patterns:
+  - **Device monotony**: the same closing device repeated across many consecutive boundaries (for example five chapters in a row that end on a cliffhanger, or all on a quiet image). Even strong devices flatten when they become the only gear.
+  - **Weak-side runs**: three or more consecutive weak closings, or weak openings -- a pattern problem, not a one-off.
+  - **Momentum flatline**: a stretch where successive seams are all soft or flat, usually overlapping the saggy middle from STEP 5.
+  - **Build toward structure**: cross-reference OUTLINE.md -- does seam energy generally rise toward marked climaxes and ease after them, or stay level throughout?
+</seam_analysis>
+
+<seam_output>
+  Present a **Transition and Momentum Map**: one row per boundary showing the close rating, the open rating, and the seam type.
+  ```
+  Ch 1 -> Ch 2   close: Strong    open: Weak       [FLAT SEAM]
+  Ch 2 -> Ch 3   close: Strong    open: Strong     [hook-into-hook]
+  Ch 3 -> Ch 4   close: Adequate  open: Adequate   [clean handoff]
+  Ch 4 -> Ch 5   close: Weak      open: Weak       [FLAT SEAM]
+  ```
+  List every flat or abrupt seam as a finding tied to its specific boundary, then note any device-monotony or weak-side-run pattern.
+
+  For each weak seam, recommend a fix in the writer's own transition vocabulary: load the **Transitions** section of STYLE-GUIDE.md (`SCENE_TRANSITIONS`, `CHAPTER_TRANSITIONS`, `SCENE_BREAK_MARKER`, `TIME_JUMP_MARKER`) and frame the options the way the writer prefers, whether a hard cut, a time-marked break, or a short bridging passage. Diagnose the seam; do not rewrite the prose here. To repair a specific boundary, point the writer to `/scr:bridge <boundary>`, which diagnoses that one seam and applies only the fix the writer chooses.
+</seam_output>
+
+---
+
 ### OUTPUT
 
 Present findings in this order:
@@ -146,6 +185,8 @@ Present findings in this order:
    - Low: Fine-tuning suggestions
 
 4. **Recommendations**: Prioritized list of specific changes, from most impactful to least
+
+Always include the **Transition and Momentum Map** from STEP 6. When `--seams` is set, lead with that map and the seam findings and keep the STEP 1-5 sections to a short summary.
 
 Save to `.manuscript/{scope}-PACING-REPORT.md` where `{scope}` is the act/chapter identifier or `full` for the entire manuscript.
 

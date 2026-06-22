@@ -30,6 +30,7 @@ Before asking, load `.manuscript/config.json` when present. Adapt vocabulary to 
 - Slow burn or fast-paced?
 - Do you like white space on the page or dense paragraphs, steps, stanzas, panels, or sections?
 - Where should a typical unit end: cliffhanger, completed step, open question, proof point, prayerful turn, image beat, clean handoff, or quiet moment?
+- How do you mark a break between scenes or a jump in time: centered asterisks, a blank line, an ornament, a dateline, or something else? (This sets the scene-break and time-jump markers in your style guide.)
 
 **Batch 4: Work-type fit**
 - What would feel wrong for this kind of project: too novelistic, too academic, too salesy, too clinical, too casual, too ornate, too certain, too vague?
