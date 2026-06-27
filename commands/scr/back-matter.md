@@ -78,6 +78,8 @@ Load the following project files:
 - The adapted cast surface for canonical `CHARACTERS.md`, when applicable -- for glossary extraction (names, roles, concepts, terms)
 - Drafted prose from `.manuscript/drafts/` (especially `.manuscript/drafts/body/`) -- for content extraction (glossary terms, endnotes, themes)
 
+**Resolve book identity (config first, WORK.md fallback).** When an element needs the book title, author, or series (the "About the Author" bio, the colophon, any "Also by" listing, and the glossary/index headers), prefer the identity keys in `.manuscript/config.json` (`title`, `author`, and the series linkage `series` slug + `book_number`), and fall back to `.manuscript/WORK.md` only when a config key is absent or empty, per the reader fallback contract in `docs/naming-conventions.md` sections 2-3 (config `title`, else the first H1 in WORK.md; config `author`, else the WORK.md author field, else leave blank and do not invent one).
+
 **Confirm the `back-matter` command is available** for the current work type by checking `CONSTRAINTS.json`. If the work type's group is in the `hidden` list, inform the writer and stop.
 
 Check for adapted behavior:

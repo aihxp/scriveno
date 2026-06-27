@@ -30,8 +30,16 @@ You are a **manuscript build specialist** for EPUB output.
 
 Load the following project files:
 
-- `.manuscript/config.json` -- to get `work_type`, title, author, language, and project settings
+- `.manuscript/config.json` -- to get `work_type`, title, author, language, `slug`, and project settings
 - Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- to check `exports` section for format availability by work type group
+
+**Resolve book identity (fallback contract):** when you need `title`, `author`, or `language`, prefer the `.manuscript/config.json` key and fall back to today's source per `docs/naming-conventions.md` section 2:
+
+- `title`: config `title`, else the first H1 in `.manuscript/WORK.md`.
+- `author`: config `author`, else the WORK.md author field, else leave blank and do not invent one.
+- `language`: config `translation.source_language`, else `en`.
+
+Carry the resolved `slug` (config `slug` if present and non-empty) forward for the slugged-copy step in STEP 4.
 
 Resolve shared asset directories before checking templates:
 
@@ -370,10 +378,10 @@ First, copy the OPF stub for reference:
 cp "$EXPORT_TEMPLATE_DIR/scriveno-fixed-layout.opf" .manuscript/output/fixed-layout.opf
 ```
 
-Invoke Pandoc with the fixed-layout stylesheet:
+Invoke Pandoc with the fixed-layout stylesheet. The `{platform}` token is the platform slug resolved in STEP 1.8 (one of `kdp`, `ingram`, `apple`, `bn`, `d2d`, `kobo`, `google`, `smashwords`). Platform-encoding the canonical output mirrors `/scr:build-print`'s `print-{platform}.pdf` so per-platform EPUBs no longer collide:
 ```bash
 pandoc .manuscript/output/assembled-manuscript.md \
-  -o .manuscript/output/ebook-fixed-layout.epub \
+  -o .manuscript/output/ebook-fixed-layout-{platform}.epub \
   --metadata-file=.manuscript/output/metadata.yaml \
   --epub-cover-image=.manuscript/build/ebook-cover.jpg \
   --css="$EXPORT_TEMPLATE_DIR/scriveno-fixed-layout-epub.css" \
@@ -384,16 +392,22 @@ pandoc .manuscript/output/assembled-manuscript.md \
 
 Note: `--split-level=0` keeps facing pages together as single spine items.
 
+**Slugged copy (additive):** when `.manuscript/config.json` has a non-empty `slug`, also write a self-describing copy alongside the canonical file per `docs/naming-conventions.md` sections 4-5. The canonical `ebook-fixed-layout-{platform}.epub` remains the stable contract; the slugged copy is the collision-safe artifact a writer collects for upload:
+```bash
+cp .manuscript/output/ebook-fixed-layout-{platform}.epub .manuscript/output/{slug}-fixed-layout-{platform}.epub
+```
+If `slug` is absent or empty, skip this copy.
+
 After build, show:
 > **Note:** Fixed-layout EPUB generated. Merge the OPF metadata from `.manuscript/output/fixed-layout.opf` into the EPUB's `package.opf` before submitting to Apple Books.
 
 Then proceed to STEP 5 (skip the standard Pandoc invocation below).
 
-**If `--fixed-layout` is NOT enabled:** use the standard Pandoc invocation:
+**If `--fixed-layout` is NOT enabled:** use the standard Pandoc invocation. The `{platform}` token is the platform slug resolved in STEP 1.8 (one of `kdp`, `ingram`, `apple`, `bn`, `d2d`, `kobo`, `google`, `smashwords`). Platform-encoding the canonical output mirrors `/scr:build-print`'s `print-{platform}.pdf` so per-platform EPUBs no longer collide:
 
 ```bash
 pandoc .manuscript/output/assembled-manuscript.md \
-  -o .manuscript/output/ebook.epub \
+  -o .manuscript/output/ebook-{platform}.epub \
   --metadata-file=.manuscript/output/metadata.yaml \
   --epub-cover-image=.manuscript/build/ebook-cover.jpg \
   --css="$EXPORT_TEMPLATE_DIR/scriveno-epub.css" \
@@ -401,6 +415,12 @@ pandoc .manuscript/output/assembled-manuscript.md \
   --toc-depth=2 \
   --split-level=1
 ```
+
+**Slugged copy (additive):** when `.manuscript/config.json` has a non-empty `slug`, also write a self-describing copy alongside the canonical file per `docs/naming-conventions.md` sections 4-5. The canonical `ebook-{platform}.epub` remains the stable contract; the slugged copy is the collision-safe artifact a writer collects for upload:
+```bash
+cp .manuscript/output/ebook-{platform}.epub .manuscript/output/{slug}-{platform}.epub
+```
+If `slug` is absent or empty, skip this copy.
 
 If `.manuscript/build/ebook-cover.jpg` does not exist, check `.manuscript/build/ebook-cover.png`. If neither exists, omit the `--epub-cover-image` flag and note:
 > **Note:** No ebook cover found at `.manuscript/build/ebook-cover.jpg` or `.png`. EPUB will be generated without a cover. To add a cover, place your front-cover-only RGB file at `.manuscript/build/ebook-cover.jpg` (or `.png`) and re-run this build command.
@@ -417,26 +437,36 @@ If `--fixed-layout` is active:
 
 Show:
 ```
-OK EPUB built -> .manuscript/output/ebook-fixed-layout.epub ({file_size})
+OK EPUB built -> .manuscript/output/ebook-fixed-layout-{platform}.epub ({file_size})
 Platform: {selected platform label}
+```
+
+When a non-empty `slug` produced a slugged copy, add a line reporting it:
+```
+Slugged copy -> .manuscript/output/{slug}-fixed-layout-{platform}.epub
 ```
 
 Get file size with:
 ```bash
-ls -lh .manuscript/output/ebook-fixed-layout.epub | awk '{print $5}'
+ls -lh .manuscript/output/ebook-fixed-layout-{platform}.epub | awk '{print $5}'
 ```
 
 Otherwise:
 
 Show:
 ```
-OK EPUB built -> .manuscript/output/ebook.epub ({file_size})
+OK EPUB built -> .manuscript/output/ebook-{platform}.epub ({file_size})
 Platform: {selected platform label}
+```
+
+When a non-empty `slug` produced a slugged copy, add a line reporting it:
+```
+Slugged copy -> .manuscript/output/{slug}-{platform}.epub
 ```
 
 Get file size with:
 ```bash
-ls -lh .manuscript/output/ebook.epub | awk '{print $5}'
+ls -lh .manuscript/output/ebook-{platform}.epub | awk '{print $5}'
 ```
 
 ## Response Contract

@@ -168,7 +168,9 @@ Save to `.manuscript/front-matter/01-half-title.md`
 
 #### Element 2: Series Title / Also By (Verso) -- GENERATE
 
-If the work is part of a series (check WORK.md for series info):
+Resolve identity per the fallback contract in `docs/naming-conventions.md` sections 2-3: prefer `.manuscript/config.json` (`title`, `subtitle`, `author` for the "Also by" line; `series` slug plus `book_number` for series membership), and fall back to WORK.md only when a config key is absent or empty.
+
+If the work is part of a series (config `series` slug plus `book_number`, else series info in WORK.md):
 - List the series name and other titles in the series
 - Or list "Also by [Author]" with other works
 
@@ -601,8 +603,8 @@ A **series recap** is a "Previously in [Series]" page that reminds a returning r
 
 **How to generate it:**
 
-1. Confirm series membership: read `series` from `.manuscript/config.json` and series info from `WORK.md`. If neither is present, skip and report "Not part of a series" in the skipped-elements list.
-2. Load the series knowledge base when available: the series bible at `~/.scriveno/series/{series}/SERIES-BIBLE.md` (canonical character states with their "since Book N" markers, locked world rules, the cross-book timeline, and unresolved threads with their expected resolution book). If a prior book's project is reachable, also read its `RECORD.md` for open threads, promises not yet paid off, and the ending state.
+1. Confirm series membership: prefer `.manuscript/config.json` identity per the fallback contract in `docs/naming-conventions.md` sections 2-3 (the `series` slug plus `book_number`, and `title`/`author` for the recap heading and attribution), and fall back to series info in `WORK.md` only when a config key is absent or empty. If neither is present, skip and report "Not part of a series" in the skipped-elements list.
+2. Load the series knowledge base when available: the series bible at `~/.scriveno/series/{series_slug}/SERIES-BIBLE.md`, where `{series_slug}` is the config `series` slug. Resolve the store with the same migration shim the other consumers use (`docs/naming-conventions.md` section 3): check the slugged path first, then a legacy `~/.scriveno/series/{raw name}/` path for stores that predate slugged directories. The bible holds canonical character states with their "since Book N" markers, locked world rules, the cross-book timeline, and unresolved threads with their expected resolution book. If a prior book's project is reachable, also read its `RECORD.md` for open threads, promises not yet paid off, and the ending state.
 3. **Load STYLE-GUIDE.md for voice.** The recap is reader-facing prose and must sound like the writer, not like a wiki summary.
 4. Draft a concise "Previously in [Series]" recap, typically 300-800 words, covering only what a returning reader needs to follow the new book: where the central characters stand now, the unresolved threads this book will pick up, and any world or relationship state that changed in earlier volumes. Do not recount every event; prefer the through-lines this book pays off.
 5. Write it as a generated draft the writer approves, mirroring the acknowledgments pattern:

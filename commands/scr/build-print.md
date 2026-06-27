@@ -491,6 +491,14 @@ Write assembled content to `.manuscript/output/assembled-manuscript.md`.
 
 Read `.manuscript/config.json` and `.manuscript/WORK.md` (if it exists) to generate Pandoc metadata. Write to `.manuscript/output/metadata.yaml`.
 
+**Resolve book identity (fallback contract, `docs/naming-conventions.md` section 2):** prefer the config key, and fall back to today's source only when it is absent or empty:
+
+- `title`: config `title`, else the first H1 in `.manuscript/WORK.md`.
+- `author`: config `author`, else the WORK.md author field, else leave blank and do not invent one.
+- `language`: config `translation.source_language`, else `en`. (Language has a single home in the `translation` block; it is not a top-level key.)
+
+Use the resolved values when writing `metadata.yaml`.
+
 Use a scalar or list-of-strings `author` value for shared Pandoc metadata, for example `author: "[author from config.json]"`. Do not use the Typst-only map shape `author: [{name: ...}]`; it can produce broken EPUB metadata when the same metadata file is reused. The shipped Typst templates accept scalar authors and the older map shape for backward compatibility.
 
 ---
@@ -540,6 +548,15 @@ pandoc .manuscript/output/assembled-manuscript.md \
   -V margin-bottom=0.75in
 ```
 
+**Slugged copy (additive, `docs/naming-conventions.md` sections 4-5):** the canonical print interior stays `print-{platform}.pdf` exactly as today, and remains the stable contract other commands and tests rely on. Additionally, only when `.manuscript/config.json` has a non-empty `slug`, also write a self-describing slugged copy alongside the canonical interior with `cp` (never replace the canonical literal). Compose the slugged name with the slug helper so it follows the deliverable grammar `{slug}[-{platform}].pdf`, where `<data-dir>` resolves to `.scriveno/lib`, `$HOME/.scriveno/lib`, or `lib/` in the source repo:
+
+```bash
+SLUGGED_NAME=$(node "<data-dir>/lib/slug.js" --name slug={slug} platform={platform} ext=pdf)
+cp .manuscript/output/print-{platform}.pdf ".manuscript/output/${SLUGGED_NAME}"
+```
+
+When the project has no `slug`, write only the canonical literal and skip the copy. Report both paths in STEP 5.
+
 **For IngramSpark (`--platform ingram`):** After Pandoc generates the PDF, note to the writer that a PDF/X-1a conversion via Ghostscript may be required for final IngramSpark submission. Provide the command pattern but do not auto-run it (the conversion is destructive and the writer should verify the intermediate PDF first):
 
 ```bash
@@ -550,6 +567,13 @@ gs -dPDFX -dBATCH -dNOPAUSE \
   -sDEVICE=pdfwrite \
   -sOutputFile=.manuscript/output/print-ingram-cmyk.pdf \
   .manuscript/output/print-ingram.pdf
+```
+
+The canonical CMYK output stays `print-ingram-cmyk.pdf`. When `.manuscript/config.json` has a non-empty `slug`, the writer may also keep a slugged copy alongside it (`docs/naming-conventions.md` sections 4-5), composed with the slug helper so it follows the deliverable grammar `{slug}-ingram-cmyk.pdf`:
+
+```bash
+# Optional slugged copy after the CMYK conversion above (only when config slug is non-empty):
+cp .manuscript/output/print-ingram-cmyk.pdf ".manuscript/output/$(node "<data-dir>/lib/slug.js" --name slug={slug} platform=ingram ext=pdf | sed 's/\.pdf$/-cmyk.pdf/')"
 ```
 
 ---
@@ -568,6 +592,14 @@ Get file size with:
 ```bash
 ls -lh .manuscript/output/print-{platform}.pdf | awk '{print $5}'
 ```
+
+**Report both paths when a slugged copy was written (`docs/naming-conventions.md` sections 4-5).** When `.manuscript/config.json` has a non-empty `slug`, also show the slugged copy so the writer knows which file is which:
+
+```
+OK Slugged copy -> .manuscript/output/{slug}-{platform}.pdf
+```
+
+The canonical `print-{platform}.pdf` remains the stable default; the slugged copy is the self-describing artifact a writer collects for upload. When the project has no `slug`, report only the canonical path.
 
 Then report the canonical cover file that pairs with this interior:
 

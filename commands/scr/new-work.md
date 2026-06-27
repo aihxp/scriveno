@@ -85,10 +85,16 @@ Note: `RELATIONSHIPS.md` (where applicable) is a derived surface like `CONTEXT.m
 Write `.manuscript/config.json` by starting from `templates/config.json` and filling the project-specific values. The generated config must include the shared settings blocks that later commands read:
 ```json
 {
-  "scriveno_version": "3.5.0",
+  "scriveno_version": "3.6.0",
   "work_type": "<chosen>",
   "group": "<group>",
   "command_unit": "<unit>",
+  "title": "<work title, the same value used for the WORK.md H1>",
+  "subtitle": "<subtitle if the writer gave one, else empty string>",
+  "author": "<author name if known from the writer or voice profile, else empty string>",
+  "slug": "<sanitized slug of the title>",
+  "series": null,
+  "book_number": null,
   "developer_mode": false,
   "created_at": "<ISO timestamp>",
   "updated_at": "<ISO timestamp>",
@@ -129,6 +135,15 @@ Write `.manuscript/config.json` by starting from `templates/config.json` and fil
   }
 }
 ```
+
+**Book identity (`title`, `subtitle`, `author`, `slug`, `series`, `book_number`).** These give the book a stable machine-readable identity that export, cover, front-matter, and series commands read. Set `title` to the same value you use for the WORK.md H1. Derive `slug` deterministically from the title with the shipped helper rather than guessing the kebab-case form:
+
+```bash
+node "<data-dir>/lib/slug.js" "<title>"
+# -> {"slug":"the-long-war"}
+```
+
+(`<data-dir>` resolves to the same `.scriveno/lib` or `$HOME/.scriveno/lib` location the installer wrote, or `lib/` when running from the Scriveno source repo.) Write that `slug` once and treat it as stable; if the writer later renames the work, change `title` but leave `slug` alone unless they explicitly ask to rename it. Leave `author` empty rather than inventing a name. Leave `series` and `book_number` null at new-work; `/scr:series-bible --init` sets them when the writer links this book into a series. See `docs/naming-conventions.md` for the full identity and naming contract.
 
 For sacred work types, also add top-level sacred profile keys: `tradition`, `verse_numbering_system`, `calendar_system`, `translation_philosophy`, `canonical_alignment`, `annotation_traditions`, `doctrinal_framework`, `preserve_source_terms`, and `transliteration_style`. Use the work type's `config_defaults` and `architectural_profiles.defaults_by_work_type.tradition` as starting values. Do not nest these under a `sacred` object in new projects.
 For work types with an inferred publishing platform in `architectural_profiles.defaults_by_work_type.platform`, add top-level `platform` (usually `kdp`) so build commands can default to the intended target.

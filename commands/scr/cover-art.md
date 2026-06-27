@@ -50,12 +50,21 @@ Never stop at "paste this prompt into an image tool" if the writer has no image 
 
 Load the following project files:
 
-- `.manuscript/config.json` -- to get `work_type`, title, author, language, trim size, page count, and project settings
+- `.manuscript/config.json` -- to get `work_type`, title, author, language, slug, series, trim size, page count, and project settings
 - Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- to check `commands.cover-art.available` and `commands.cover-art.hidden`
 - `docs/surface-resolution-protocol.md` -- to resolve adapted cast surfaces
 - `.manuscript/WORK.md` -- premise, tone, themes, setting
 - The adapted cast surface for canonical `CHARACTERS.md`, when applicable -- for cast imagery on the cover
 - `.manuscript/illustrations/ART-DIRECTION.md` -- if it exists, for visual style consistency
+
+**Resolve book identity (fallback contract).** Per `docs/naming-conventions.md` section 2, prefer the `config.json` key and fall back to today's source when it is absent:
+
+- `title`: config `title`, else the first H1 in `.manuscript/WORK.md`.
+- `author`: config `author`, else the WORK.md author field, else leave blank and do not invent one.
+- `language`: config `translation.source_language`, else `en`.
+- `slug`: config `slug` (when non-empty), else `sanitizeSlug(resolved title)` via `lib/slug.js`.
+
+**Series-tier art direction (read the series store first).** When `--series` is set and `config.json` has a non-empty `series` slug, load the series-tier art direction at `~/.scriveno/series/{series_slug}/ART-DIRECTION.md` FIRST, resolving `{series_slug}` from config `series` (already a slug per `docs/naming-conventions.md` section 3). If only a legacy raw-name directory exists (`~/.scriveno/series/{raw name}/`), use it and note that migration to the slugged path is available via `/scr:series-bible`. The series-tier file is what keeps Book 2 visually consistent with Book 1. FALL BACK to the project-local `.manuscript/illustrations/ART-DIRECTION.md` when the series file does not exist. If neither exists, follow the "run `/scr:art-direction` first" guidance in STEP 5.
 
 **Check availability:**
 
@@ -105,6 +114,11 @@ Treat `.manuscript/build/` as the canonical delivery surface for finished cover 
 **Source files**
 - Directory: `.manuscript/build/source/`
 - Keep editable source files here so future trim-size or barcode revisions do not require rebuilding the artwork from scratch
+
+**Per-language and per-edition cover slots (additive).** The three canonical top-level files above remain the primary-edition default. Translated or reissued editions get their own slots, per `docs/naming-conventions.md` section 6:
+
+- Translated editions: `.manuscript/build/{lang}/ebook-cover.jpg` (and the matching `paperback-cover.pdf` / `hardcover-cover.pdf` under `.manuscript/build/{lang}/`), where `{lang}` is the non-primary language tag.
+- Reissued or alternate editions: `.manuscript/build/editions/{edition}/...` with the same filenames under the edition directory.
 
 If the writer only has concept prompts and no final designer assets yet, still generate the prompt files now and remind them that the final files belong in `.manuscript/build/`.
 
@@ -157,12 +171,16 @@ If genre is not clearly one of the above, derive the visual direction from WORK.
 
 **If `--series` flag is provided:**
 
-Load `.manuscript/illustrations/ART-DIRECTION.md`. If it does not exist:
+**Read the series store first.** When `config.json` has a non-empty `series` slug, load the series-tier art direction at `~/.scriveno/series/{series_slug}/ART-DIRECTION.md` FIRST, resolving `{series_slug}` from config `series` (already a slug per `docs/naming-conventions.md` section 3). If only a legacy raw-name directory exists (`~/.scriveno/series/{raw name}/`), use it and note that migration to the slugged path is available via `/scr:series-bible`. The series-tier file is the source of truth that keeps Book 2 visually consistent with Book 1.
+
+FALL BACK to the project-local `.manuscript/illustrations/ART-DIRECTION.md` when the series-tier file does not exist (or when `config.json` has no `series` slug).
+
+If neither the series-tier file nor `.manuscript/illustrations/ART-DIRECTION.md` exists:
 
 > **ART-DIRECTION.md not found.** Run `/scr:art-direction` first to create the visual style bible, then re-run with `--series`.
 > Proceeding without series consistency constraints.
 
-If ART-DIRECTION.md exists, extract and enforce:
+If a series-tier or project-local ART-DIRECTION.md exists, extract and enforce:
 - **Color palette:** same primary/secondary/accent colors across the series
 - **Typography style:** consistent font family, weight, and placement
 - **Layout structure:** same general composition template
@@ -370,6 +388,12 @@ mkdir -p .manuscript/illustrations/cover
 mkdir -p .manuscript/build/source
 ```
 
+**Per-language directory.** When producing a cover for a non-primary language (a translated edition), also create the language slot before writing its files, per `docs/naming-conventions.md` section 6:
+
+```bash
+mkdir -p .manuscript/build/{lang}
+```
+
 Write prompt files under `.manuscript/illustrations/cover/`:
 
 - `--element front` -> `.manuscript/illustrations/cover/front-cover-prompt.md`
@@ -378,12 +402,22 @@ Write prompt files under `.manuscript/illustrations/cover/`:
 - `--element full-wrap` -> `.manuscript/illustrations/cover/full-wrap-prompt.md`
 - no `--element` -> write all of the above plus `.manuscript/illustrations/cover/cover-prompts-combined.md`
 
-Always include a short delivery note reminding the writer/designer where the final packaged files belong:
+Always include a short delivery note reminding the writer/designer where the final packaged files belong. These three canonical files are the default and the source of truth (a contract test enforces these exact literal paths, so they always remain the primary output):
 
 - `.manuscript/build/ebook-cover.jpg`
 - `.manuscript/build/paperback-cover.pdf`
 - `.manuscript/build/hardcover-cover.pdf`
 - `.manuscript/build/source/`
+
+**Slugged cover copies (additive).** When `config.json` has a non-empty `slug`, also write slugged copies alongside the canonical files, and report both, per `docs/naming-conventions.md` sections 4-6. Keep the canonical literals as the source of truth; the slugged copy is the self-describing, collision-safe artifact a multi-book writer collects for upload:
+
+- `.manuscript/build/{slug}-ebook-cover.jpg`
+- `.manuscript/build/{slug}-paperback-cover.pdf`
+- `.manuscript/build/{slug}-hardcover-cover.pdf`
+
+When `config.json` has no `slug`, write only the canonical literals (nothing changes for an identity-less project).
+
+**Per-language and per-edition slots (additive).** The three canonical top-level files remain the primary-edition default. A translated edition's covers go under `.manuscript/build/{lang}/` (for example `.manuscript/build/{lang}/ebook-cover.jpg`) and a reissued or alternate edition's covers go under `.manuscript/build/editions/{edition}/...`, per `docs/naming-conventions.md` section 6. Create `.manuscript/build/{lang}` first (see the mkdir above) when producing a non-primary-language cover.
 
 Commit message if the writer asks for one later: `cover-art: generate cover prompts`
 
@@ -394,11 +428,12 @@ Commit message if the writer asks for one later: `cover-art: generate cover prom
 Tell the writer:
 
 1. Which prompt files were written under `.manuscript/illustrations/cover/`
-2. Which final asset files should exist under `.manuscript/build/`
+2. Which final asset files should exist under `.manuscript/build/` (the three canonical files), and, when a `slug` exists, the slugged copies written alongside them
 3. Which delivery path applies: AI image tool, human designer, or agent-built vector cover (STEP 6.5)
 4. Whether exact print geometry is still pending the template generator
-5. If `--series` was used, whether ART-DIRECTION.md constraints were applied
+5. If `--series` was used, whether series-tier or project-local ART-DIRECTION.md constraints were applied (and which one)
 6. If the vector path produced final files, the verified dimensions, color space, and file size, plus the AI-disclosure note
+7. For a translated or reissued edition, the per-language (`.manuscript/build/{lang}/`) or per-edition (`.manuscript/build/editions/{edition}/`) slot the files were written to
 
 If the writer wants final designer deliverables rather than prompts, remind them:
 

@@ -2,6 +2,20 @@
 
 All notable package-level changes to `scriveno` are documented here.
 
+## 3.6.0 - 2026-06-26
+
+Multi-book identity, slug-based naming, and a first-class series store.
+
+- Added `docs/naming-conventions.md` as the canonical contract for book identity, the slug algorithm, the series store, and the deliverable filename grammar `{slug}[-{lang}][-{platform}][-v{n}].{ext}`. Every export, cover, and series command now cites it instead of hardcoding its own scheme.
+- Added `lib/slug.js`: a dependency-free, generic slug helper (`sanitizeSlug`, `buildDeliverableName`, plus a CLI) that re-exports the injection-safe algorithm previously scoped to `/scr:track`. The series directory and book identity now derive from it, closing a path-traversal and collision hazard.
+- Added optional book identity to `config.json` (`title`, `subtitle`, `author`, `slug`, `series`, `book_number`), written by `/scr:new-work` and `/scr:import`, with a documented WORK.md fallback so existing projects keep working unchanged.
+- Export and cover commands now keep their canonical literal output as the default and additionally write a self-describing `{slug}-...` copy when a book identity exists, so a multi-book writer's deliverables no longer collide on shared upload folders.
+- `/scr:build-ebook` now platform-encodes its EPUB output (`ebook-{platform}.epub`) to match `/scr:build-print`'s `print-{platform}.pdf`, so per-platform store builds no longer overwrite one another.
+- `/scr:series-bible` now stores the series under a sanitized `~/.scriveno/series/{series_slug}/` path with a legacy-path migration shim, a derived `books.json` index (`slug`, `book_number`, `title`, `path`), and optional series-tier shared surfaces (`STYLE-GUIDE.md`, `ART-DIRECTION.md`, `GLOSSARY.md`, `covers/`).
+- Series-tier consistency now propagates with project-local fallback: the drafter loads the series voice baseline, `/scr:cover-art --series` reads the series art direction, and the translator reads the series glossary.
+- `/scr:manager --switch` is now honest about Scriveno operating on the current working directory: it prints the exact `cd` to run instead of implying a persistent switch it never had.
+- Added per-language and per-edition cover slots (`build/{lang}/...`, `build/editions/{edition}/...`) and orphaned illustration/header-prompt hygiene to `/scr:reorder-units`.
+
 ## 3.5.0 - 2026-06-22
 
 Per-unit cycle command and opt-in autosave.

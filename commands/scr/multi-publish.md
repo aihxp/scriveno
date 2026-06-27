@@ -37,6 +37,14 @@ If CONTEXT.md is missing, stale, or contradicts STATE.md, fall back to the origi
 ### STEP 1: LOAD CONTEXT
 
 1. Load `.manuscript/config.json` for `target_languages`, `source_language`, `work_type`, title, author
+
+**Resolve book identity (fallback contract, `docs/naming-conventions.md` section 2):** prefer the config key, and fall back to today's source when it is absent or empty.
+- `title`: config `title`, else the first H1 in `.manuscript/WORK.md`.
+- `author`: config `author`, else the WORK.md author field, else leave blank and warn (never invent one).
+- `language`: `translation.source_language` (the primary/source language), else `en`. Each target language code comes from `target_languages` as before.
+- `slug`: config `slug`, else `sanitizeSlug(resolved title)` computed via `lib/slug.js`.
+
+This identity resolution is additive: it does not change which translations are exported or how `target_languages` is read.
 2. Load Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- check prerequisites: `multi-publish` requires `translate` and `kdp-package`
 3. Load `.manuscript/OUTLINE.md` for document structure
 4. Check which translations exist by scanning `.manuscript/translation/` for language subdirectories with drafts
@@ -251,6 +259,8 @@ Write to `.manuscript/translation/{lang}/metadata.yaml`.
 
 #### 6c. Chain to Export
 
+**Resolve the per-language cover (`docs/naming-conventions.md` section 6):** when a translated edition's EPUB embeds a cover, read the per-language cover at `.manuscript/build/{lang}/ebook-cover.jpg` first, and fall back to the primary-edition cover at `.manuscript/build/ebook-cover.jpg` when no per-language cover exists. Pass the resolved path as the EPUB cover image. This fallback is additive: an edition with no per-language cover keeps using the canonical top-level cover exactly as today.
+
 Invoke the export pipeline with language-specific parameters:
 
 - **Output directory:** `.manuscript/output/translations/{lang}/`
@@ -280,7 +290,24 @@ pandoc .manuscript/translation/{lang}/assembled-manuscript.md \
   -V dir={ltr|rtl}
 ```
 
-#### 6d. Package (if applicable)
+#### 6d. Slugged per-language deliverable copy (`docs/naming-conventions.md` section 4)
+
+Keep `manuscript-{lang}.{ext}` as the canonical default per-language filename. It stays the stable contract other commands and tests rely on, and an identity-less project (no `slug`) gets exactly this and nothing else, unchanged.
+
+**Additionally, when `.manuscript/config.json` has a non-empty `slug`,** also produce a slugged copy named per the deliverable grammar `{slug}-{lang}.{ext}` in the same language output directory, alongside the canonical file. Compose the name deterministically with `lib/slug.js` rather than concatenating by hand:
+
+```bash
+# <data-dir> resolves to .scriveno/lib, $HOME/.scriveno/lib, or lib/ in the source repo.
+node "<data-dir>/lib/slug.js" --name slug={slug} lang={lang} ext={ext}
+# -> {slug}-{lang}.{ext}, e.g. the-long-war-fr.epub
+
+cp ".manuscript/output/translations/{lang}/manuscript-{lang}.{ext}" \
+   ".manuscript/output/translations/{lang}/{slug}-{lang}.{ext}"
+```
+
+Report both the canonical and the slugged path in STEP 7 so the writer knows which file is which. The slugged copy never replaces the canonical literal; it is the self-describing, collision-safe artifact a multi-book writer collects for upload.
+
+#### 6e. Package (if applicable)
 
 If the format is `kdp-package` or `ingram-package`, create a language-specific package:
 
@@ -303,6 +330,8 @@ Multi-Language Export Complete
 | French (fr) | epub | .manuscript/output/translations/fr/manuscript-fr.epub | Done |
 | French (fr) | pdf | .manuscript/output/translations/fr/manuscript-fr.pdf | Done |
 | German (de) | epub | .manuscript/output/translations/de/manuscript-de.epub | Done |
+
+When a `slug` is configured, also list the slugged copy beside each canonical per-language path (for example `.manuscript/output/translations/fr/the-long-war-fr.epub` alongside `manuscript-fr.epub`), so the writer sees both. Identity-less projects show only the canonical path.
 
 Languages exported: [count]
 Formats per language: [count]

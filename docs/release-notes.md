@@ -2,6 +2,20 @@
 
 This document is the public-facing summary of what changed between package releases. For package history, see the root [CHANGELOG](../CHANGELOG.md).
 
+## 3.6.0 - 2026-06-26
+
+### What changed
+
+- **Your books now have a real identity.** Each project records its `title`, `author`, and a stable `slug` in `config.json`, so export, cover, and series tooling stop guessing. Existing projects keep working; the identity is filled in for new and imported works.
+- **Deliverables that never collide.** Exports and covers still write their familiar default filenames, and now also write a self-describing `{slug}-...` copy when your book has an identity. Collect three books' files in one upload folder and they no longer overwrite each other. Per-platform EPUB builds are now named per platform, so a KDP build and an Apple build no longer clobber one another.
+- **Series are first-class.** The series bible lives in a safely named per-series store with a real book index, and a series can now carry a shared voice profile, art direction, and glossary that each book inherits (and can override). That is what keeps Book 5 sounding, and looking, like Book 1.
+- **Honest project switching.** `/scr:manager --switch` now tells you the exact `cd` to run, instead of pretending to switch a project Scriveno was still reading from your current folder.
+- **Translation and reissue covers.** Translated and alternate editions get their own cover slots, falling back to your primary cover when none is set.
+
+### Why it matters
+
+Writers working on a series or multiple books were fighting identical filenames, a fragile series directory, and visual and voice consistency they had to maintain by hand. This release gives every book a durable identity, makes the series the place shared decisions live, and guarantees that what you ship is named for the book it belongs to.
+
 ## 3.5.0 - 2026-06-22
 
 ### What changed

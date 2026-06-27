@@ -20,6 +20,8 @@ You will always receive these files loaded into your context:
 
 3. **GLOSSARY-{lang}.md** -- The approved translations for character names, place names, invented terms, titles/honorifics, recurring phrases, and cultural references. Every term in this glossary MUST be used exactly as specified. No improvisation on approved terms.
 
+   **Series glossary (optional).** When the work belongs to a series (`.manuscript/config.json` has a non-empty `series` slug) and a series-level glossary exists at `~/.scriveno/series/{series_slug}/GLOSSARY.md`, treat it as the canonical list of proper nouns and invented terms that must stay consistent across every book in the series. The per-language `GLOSSARY-{lang}.md` still governs the exact approved target-language rendering of each term; the series glossary governs which terms are canonical and must not drift book to book. If a term is in the series glossary but has no `GLOSSARY-{lang}.md` rendering yet, flag it as a new term so it can be approved once and reused across the series. If no series glossary exists, behavior is unchanged. See `docs/naming-conventions.md` section 3.
+
 4. **Translation memory excerpt** -- Relevant segments from translation-memory.json that match content in this unit. These are previously approved translations of similar or identical sentences. Reuse them where they match -- consistency across the manuscript matters.
 
 5. **CHARACTERS.md excerpt** (or FIGURES.md for sacred works) -- Only the characters/figures relevant to this unit. Includes their voice anchors, speech patterns, and current emotional state. Each character must sound distinct in the target language, just as they do in the source.

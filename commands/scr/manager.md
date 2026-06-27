@@ -34,8 +34,16 @@ If no `.manuscript/` folders found: "No Scriveno projects found in this director
 
 Switch working context to the named project. Accepts the project name or the number from the list.
 
-1. Locate the project directory by matching the name or number
-2. Confirm: "Switched to [Project Name]. Run `/scr:progress` to see where you left off."
+Scriveno always operates on the project in the current working directory: the engine reads `./.manuscript` from wherever the agent is invoked. There is no stored active-project pointer. Switching projects therefore means changing directory into the one that contains the target `.manuscript/` folder. A confirmation message alone does not change the active project; the writer must run the `cd` command themselves.
+
+1. Locate the project directory by matching the name or number. The target is the directory that contains that project's `.manuscript/` folder.
+2. Print the exact shell command the writer must run to actually switch, using the resolved absolute or relative path to that directory:
+
+   ```
+   cd <path-to-the-target-project-directory>
+   ```
+
+3. State plainly that Scriveno acts on the project in the current directory, so the switch takes effect only after the writer runs that `cd` command. Then they can run `/scr:progress` to see where they left off. Do not claim the switch persists on its own or that Scriveno stores an active-project pointer (see book identity and resolution rules in `docs/naming-conventions.md` section 2).
 
 ### --status
 

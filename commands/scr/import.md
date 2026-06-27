@@ -32,6 +32,15 @@ Resolve all variable context surfaces through `docs/surface-resolution-protocol.
 
 7. **Generate the .manuscript/ directory.** Create all context files marked `required` or `optional` by `surface_applicability`, using `file_adaptations` for the confirmed work type (WORK.md, BRIEF.md or adapted equivalent, OUTLINE.md, RECORD.md, STYLE-GUIDE.md, the adapted cast surface where applicable, and so on). Skip every surface marked `not_applicable`. Create `config.json` from the installed `templates/config.json` so the shared `authenticity` policy, draft settings, voice settings, export defaults, and collaboration defaults are present. Also copy `WRITING-RULES.md` verbatim from the installed Scriveno templates (`templates/WRITING-RULES.md`) into `.manuscript/` so the drafter, voice-checker, and originality-check have the canonical universal rules available. Save the actual drafted text as `.manuscript/drafts/body/{N}-{A}-DRAFT.md` files, one per atomic unit.
 
+   **Populate book identity on the resulting `config.json`** the same way `/scr:new-work` does, so an imported project arrives with a machine-readable identity (`docs/naming-conventions.md` section 2 is the identity contract). On the `config.json` produced above, without disturbing any other keys:
+   - `title`: the imported work's title (its WORK.md H1).
+   - `slug`: derive from that title with the slug helper, `node "<data-dir>/lib/slug.js" "<title>"` -> `{"slug":"..."}` (`<data-dir>` resolves to `.scriveno/lib`, `$HOME/.scriveno/lib`, or `lib/` in the source repo). Do not invent a second slugifier.
+   - `author`: set it if the imported material clearly discloses an author, else leave it empty (never invent one).
+   - `subtitle`: leave empty unless the source clearly carries one.
+   - `series` and `book_number`: leave `null`.
+
+   **If importing into an EXISTING project** whose `config.json` already carries a non-empty `title` or `slug`, do not overwrite them. Only fill identity fields that are currently blank, and leave a stable existing `slug` in place (section 2 treats `slug` as written-once).
+
    Once the adapted cast surface is populated with two or more entries, generate the adapted relationship surface for canonical `RELATIONSHIPS.md` (per `docs/relationships-protocol.md`) and `.manuscript/CONFLICTS.md` (per `docs/conflict-protocol.md`) where those surfaces apply, so an imported project arrives with the same derived maps a new project gets. If `PEOPLES.md` applies and imported material clearly identifies peoples or factions, create starter entries marked "needs writer confirmation"; if two or more peoples are defined, generate `.manuscript/PEOPLE-DYNAMICS.md` per `docs/people-dynamics-protocol.md`.
 
    Populate `RECORD.md` from the imported manuscript, not from speculation. Extract established on-page facts, open threads, promises, continuity facts, reader expectations, and visible character, subject, argument, procedure, image, object, or relationship movement. Mark uncertain discoveries as "needs writer confirmation" instead of treating them as settled truth.

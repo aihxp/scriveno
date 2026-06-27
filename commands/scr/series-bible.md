@@ -5,15 +5,55 @@ argument-hint: "[--init] [--import <work_path>] [--check] [--timeline] [--charac
 
 # Series bible
 
-You are managing the series bible -- a global knowledge base that spans multiple books in a series. Unlike project-local files, the series bible lives at `~/.scriveno/series/{series_name}/SERIES-BIBLE.md` so it's shared across all books in the series.
+You are managing the series bible -- a global knowledge base that spans multiple books in a series. Unlike project-local files, the series bible lives at `~/.scriveno/series/{series_slug}/SERIES-BIBLE.md` so it's shared across all books in the series.
+
+## Series slug and store path
+
+The series directory component is always a sanitized slug, never the raw writer-typed name (see `docs/naming-conventions.md` section 3). Derive `series_slug` deterministically with the slug helper before touching the filesystem:
+
+```
+node "<data-dir>/lib/slug.js" "<series name>"
+-> {"slug":"..."}
+```
+
+`<data-dir>` resolves to `.scriveno/lib` or `$HOME/.scriveno/lib`, or `lib/` in the source repo. Use `series_slug` everywhere the store path appears: the canonical store is `~/.scriveno/series/{series_slug}/`, and the bible itself is `~/.scriveno/series/{series_slug}/SERIES-BIBLE.md`. A writer-typed name is never interpolated into a path directly; routing it through `lib/slug.js` guarantees the directory component contains only `[a-z0-9-]` and can carry no path separator or traversal sequence.
+
+### Resolving an existing series store (migration shim)
+
+Earlier versions stored the series directory under the raw, unsanitized name. When resolving an existing store, check in order (see `docs/naming-conventions.md` section 3):
+
+1. `~/.scriveno/series/{series_slug}/` (current, slugged path).
+2. `~/.scriveno/series/{raw name}/` (legacy, pre-slug path).
+
+If only the legacy path exists, tell the writer the store predates slugged paths and OFFER to migrate. On confirmation (never destroy data, always confirm before moving):
+
+- Rename the legacy directory to `~/.scriveno/series/{series_slug}/`.
+- Rewrite the `"series"` key in each linked project's `config.json` from the raw name to `series_slug`.
+
+If the writer declines, keep reading from the legacy path for this run and leave it in place.
+
+### Derived books index (`books.json`)
+
+`~/.scriveno/series/{series_slug}/books.json` is a derived index of member books. Each entry is `{ "slug", "book_number", "title", "path" }`. It is regenerated from the linked projects, never hand-authored, consistent with the rest of Scriveno's trust layer. Update it on `--init` (seed the first book) and `--import` (add or refresh the imported book). Use it as the source for the books-in-series listing in the no-argument, `--characters`, and `--timeline` modes.
+
+### Series-tier shared surfaces
+
+Beyond `SERIES-BIBLE.md` and `books.json`, the series store MAY hold OPTIONAL shared surfaces that individual books read with project-local fallback (see `docs/naming-conventions.md` section 3):
+
+- `STYLE-GUIDE.md` -- series Voice DNA, read by the drafter (falls back to the project-local `STYLE-GUIDE.md`).
+- `ART-DIRECTION.md` -- series visual style bible, read by `/scr:cover-art --series` (falls back to project-local `.manuscript/illustrations/ART-DIRECTION.md`).
+- `GLOSSARY.md` -- canonical proper nouns and invented terms, read by the translator (falls back to project-local glossary).
+- `covers/` -- per-book cover gallery for visual consistency and box-set work.
+
+These are optional: a book that has no series-tier surface uses its project-local file unchanged.
 
 ## Modes
 
 ### No arguments
 
-Show the current series bible if one exists. If multiple series exist, ask which. Display:
+Resolve the series store (slugged path first, then legacy per the migration shim above). Show the current series bible if one exists. If multiple series exist, ask which. Display:
 - Series name and premise
-- Books in the series (and their order)
+- Books in the series (and their order), sourced from `books.json` (each entry's `book_number`, `title`, and `slug`)
 - Canonical character states (alive, dead, married, transformed, with book-of-change noted)
 - Locked world rules
 - Active unresolved threads
@@ -29,22 +69,40 @@ Initialize a new series bible from the current project. Prompt for:
 - Projected length (trilogy, duology, open-ended, 7 books, etc.)
 - Genre consistency expectations
 
+Derive `series_slug` from the series name with the slug helper (see `docs/naming-conventions.md` section 3) before writing anything.
+
 Then import from the current project's context files:
 - Copy CHARACTERS.md -> series canonical character states
 - Copy WORLD.md -> series world rules (marked as locked)
 - Extract themes and motifs from THEMES.md
-- Record the current book as Book 1 in the series
+- Record the current book as Book 1 in the series (prose tracking)
 
-Save to `~/.scriveno/series/{name}/SERIES-BIBLE.md` and add a reference in the current project's config.json: `"series": "{name}"`.
+Save to `~/.scriveno/series/{series_slug}/SERIES-BIBLE.md`.
+
+Write the structured linkage in the current project's `config.json`:
+- Set `"series"` to the **slug** (`series_slug`), not the raw name.
+- Set `"book_number"` to `1` for this first book.
+
+Seed the derived books index `~/.scriveno/series/{series_slug}/books.json` with the first book's entry `{ "slug", "book_number", "title", "path" }`. Resolve `slug` and `title` from the project's config identity (config first, documented fallback per `docs/naming-conventions.md` section 2); `path` is the project's `.manuscript/` location; `book_number` is `1`. `books.json` is derived and regenerable, never hand-authored.
+
+OFFER to seed the series-tier shared surfaces so later books inherit them (see `docs/naming-conventions.md` section 3). On confirmation:
+- Seed `~/.scriveno/series/{series_slug}/STYLE-GUIDE.md` from the current project's `STYLE-GUIDE.md`.
+- Seed `~/.scriveno/series/{series_slug}/ART-DIRECTION.md` from `.manuscript/illustrations/ART-DIRECTION.md` when that file is present.
+
+The "Book 1" prose tracking remains; `book_number` and `books.json` are additive structured data alongside it.
 
 ### --import <work_path>
 
-Import another Scriveno project into the existing series bible. Merge:
+Resolve the existing series store (slugged path first, then legacy per the migration shim above). Import another Scriveno project at `<work_path>` into the existing series bible. Merge:
 - Characters not yet in the bible -> add as "appeared in Book N"
 - Existing character updates -> add state changes (e.g., "Sarah married Marcus in Book 3")
 - New world rules -> add unless they contradict existing rules (flag conflicts)
 - Timeline events -> add to cross-book timeline
 - Unresolved threads -> add to active threads
+
+Set the imported book's `"book_number"` in its own `config.json` to its position in the series (the next free slot, consistent with the "Book N" prose tracking), and set its `"series"` key to `series_slug`.
+
+Add or refresh the imported book's entry in `~/.scriveno/series/{series_slug}/books.json` as `{ "slug", "book_number", "title", "path" }`, resolving `slug` and `title` from the imported project's config identity (config first, documented fallback per `docs/naming-conventions.md` section 2) and `path` from `<work_path>`. `books.json` is derived and regenerable, never hand-authored.
 
 Show the writer a summary of what was merged and flag any conflicts for resolution.
 
@@ -61,13 +119,13 @@ Produce a report with specific locations in the current project (file:line) and 
 
 ### --timeline
 
-Show the cross-book timeline. Each event tagged with book and position. Useful for spotting gaps ("nothing happens for 15 years between Book 2 and Book 3") or compression problems ("three major events in the same week").
+Show the cross-book timeline. Each event tagged with book and position, with the set of books and their order sourced from `books.json`. Useful for spotting gaps ("nothing happens for 15 years between Book 2 and Book 3") or compression problems ("three major events in the same week").
 
 Can be viewed as a text timeline or as a visual diagram (generated via a frontend module if the runtime supports it).
 
 ### --characters
 
-Show all characters across all books in the series with their current canonical state:
+Show all characters across all books in the series with their current canonical state. Use `books.json` for the roster of member books and their order when attributing appearances:
 
 ```
 MARCUS VALE

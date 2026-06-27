@@ -108,6 +108,8 @@ Load the following project files:
 - `.manuscript/config.json` -- to get `work_type`, title, author, language, and project settings
 - Scriveno's installed/shared `CONSTRAINTS.json` (global `~/.scriveno/data/CONSTRAINTS.json` or project `.scriveno/data/CONSTRAINTS.json`) -- to check `exports` section for format availability by work type group
 
+**Resolve book identity (fallback contract).** Read `title`, `author`, and `language` robustly rather than assuming they live in `config.json`. Prefer the config key; when it is absent or empty, fall back to today's source: `title` falls back to the first H1 in `.manuscript/WORK.md`; `author` falls back to the WORK.md author field, else leave it blank and never invent one; `language` comes from `translation.source_language`, else `en`. Also read `slug` from config (used later in STEP 4.9). See `docs/naming-conventions.md` section 2 for the canonical identity and fallback contract.
+
 Resolve shared asset directories before checking templates:
 
 - `SHARED_DATA_DIR`: first existing directory from `.scriveno/data`, `$HOME/.scriveno/data`, then `data` when running from the Scriveno source repository
@@ -406,6 +408,8 @@ description: "[description if available]"
 ```
 
 Write to `.manuscript/output/metadata.yaml`.
+
+When filling these fields, resolve `title`, `author`, and `language` per the fallback contract rather than reading them only from `config.json`: prefer the config key, then fall back to the first H1 in `.manuscript/WORK.md` for title, the WORK.md author field (else blank, never invented) for author, and `translation.source_language` (else `en`) for language. See `docs/naming-conventions.md` section 2.
 
 Use a scalar or list-of-strings `author` value for shared Pandoc metadata. Do not use the Typst-only map shape `author: [{name: ...}]`; it can produce broken EPUB metadata. The shipped Typst templates accept scalar authors and the older map shape for backward compatibility.
 
@@ -952,9 +956,44 @@ Output: `.manuscript/output/submission-package/` containing `manuscript.docx`, `
 
 ---
 
+### STEP 4.9: SLUGGED DELIVERABLE COPY (additive, single-file formats only)
+
+This step is additive and backward-compatible. The canonical literal file written in STEP 4 stays exactly as it is today and remains the stable contract other commands and tests rely on. See `docs/naming-conventions.md` sections 4 (deliverable filename grammar) and 5 (canonical-literal default).
+
+After a single-file format's canonical file has been written, check the resolved `slug` from STEP 1.
+
+If `config.json` has no `slug`, or the `slug` is empty, skip this step silently. The canonical file is the only output, exactly as today.
+
+If `config.json` has a non-empty `slug`, also write a slugged copy in `.manuscript/output/` by copying the canonical file to the same name with the leading stem changed from `manuscript` or `screenplay` to the slug, preserving any qualifier and the extension:
+
+| Canonical file | Slugged copy |
+|----------------|--------------|
+| `manuscript.md` | `{slug}.md` |
+| `manuscript.docx` | `{slug}.docx` |
+| `manuscript-formatted.docx` | `{slug}-formatted.docx` |
+| `manuscript.pdf` | `{slug}.pdf` |
+| `manuscript-review.pdf` | `{slug}-review.pdf` |
+| `manuscript-print.pdf` | `{slug}-print.pdf` |
+| `manuscript.epub` | `{slug}.epub` |
+| `manuscript.tex` | `{slug}.tex` |
+| `screenplay.fountain` | `{slug}.fountain` |
+| `screenplay.fdx` | `{slug}.fdx` |
+
+Copy the canonical file to the slugged name, for example:
+
+```bash
+cp .manuscript/output/manuscript.epub ".manuscript/output/${slug}.epub"
+```
+
+This step applies only to single-file formats. It does not run for the package formats (`kdp-package`, `ingram-package`, `query-package`, `submission-package`), and it never renames or alters package-internal filenames such as `interior.pdf` or `manuscript-cmyk.pdf`. Both the canonical file and the slugged copy are kept; report both paths in STEP 5.
+
+---
+
 ### STEP 5: REPORT
 
 After export completes, report:
+
+When a non-empty `slug` exists and STEP 4.9 wrote a slugged copy of a single-file format, list both the canonical path and the slugged path so the writer knows which file is which (the canonical name is the stable contract; the slugged copy is the self-describing artifact to collect for upload). When no slug exists, report only the canonical path as today. See `docs/naming-conventions.md` section 5.
 
 1. **Output file path** and file size
 2. **Assembly summary:**

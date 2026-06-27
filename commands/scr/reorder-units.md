@@ -83,7 +83,24 @@ Use the adapted unit terminology throughout all output and prompts.
      - Show which arc positions changed
    - Update any cross-references in OUTLINE.md
 
-6. **Show result:**
+6. **Orphaned-prompt hygiene** (after renumber/rename):
+   - Scan `.manuscript/illustrations/` for prompt files keyed to a unit reference, specifically files matching `{scene-ref}-illustration-prompt.md` and `chapter-{ref}-header-prompt.md`.
+   - For any such file whose embedded unit reference no longer matches a current unit after the reorder, the file is **orphaned**: its reference points at a number or scene that the renumber moved or invalidated.
+   - **If any orphaned prompt files are found:**
+     - WARN the writer. List each orphaned prompt file and the unit reference it carried:
+
+       **These illustration/header prompts no longer match a current unit:**
+
+       | Prompt file | Referenced | Now |
+       |-------------|------------|-----|
+       | `chapter-03-header-prompt.md` | chapter 3 | chapter 3 is now "Rising Tension" (was "The Chase") |
+       | `the-chase-illustration-prompt.md` | The Chase (was 3) | The Chase is now chapter 5 |
+
+     - OFFER, per file, to either rename it to the new reference (so it tracks the renumbered unit) or leave it as-is. Apply the writer's choice file by file.
+     - Do NOT auto-delete any prompt file. Renaming is the only mutation, and only with the writer's confirmation.
+   - This keeps illustration and chapter-header prompts from silently mismatching renumbered units. When renaming, slugify any title-derived reference component with `lib/slug.js` per `docs/naming-conventions.md` section 1; do not hand-roll the reference token.
+
+7. **Show result:**
    - Display the full updated outline in new order
    - Highlight the moved unit and any affected arc positions
    - If PLOT-GRAPH.md was updated, show the arc position changes
@@ -98,6 +115,7 @@ Commit: `structure: reorder {unit_type} {old_position} to position {new_position
 - **No OUTLINE.md:** Prompt to run `/scr:plan` first.
 - **Many draft files to rename:** Use temporary file names during rename to avoid naming collisions.
 - **Unit referenced in subplot-map or timeline:** Warn that cross-references in other files may also need updating.
+- **Orphaned illustration/header prompts:** A prompt file in `.manuscript/illustrations/` keyed to a renumbered or moved unit no longer matches. Warn and list it, offer to rename it to the new reference or leave it, and never auto-delete (step 6).
 
 ## Response Contract
 
